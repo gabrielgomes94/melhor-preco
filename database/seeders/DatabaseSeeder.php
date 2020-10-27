@@ -17,8 +17,9 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $user = new User();
         $user->email = 'admin@admin.com';
-        $user->password = '123qwe';
+        $user->password = bcrypt('asimov123');
         $user->name = 'Admin';
+        $user->markEmailAsVerified();
         $user->save();
     }
 }
