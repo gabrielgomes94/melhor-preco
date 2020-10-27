@@ -30,11 +30,13 @@
     <body class="antialiased">
         <div class="container">
             <div class="row mt-4">
-                <div class="col-sm">
-
-                </div>
-                <div class="col-sm">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
                     <h1>Upload de imagens</h1>
+                        @isset($errorMsg)
+                            <p class="text-danger">{{$errorMsg}}</p>
+                        @endif
+
                     <form class="m-2" method="post" action="/file-upload" enctype="multipart/form-data">
                         @csrf
                         <p id="resultq"></p>
@@ -55,19 +57,21 @@
 
                         <div class="form-group">
                             <label for="marca">Descrição principal</label>
-                            <input type="textarea" class="form-control input-main-description" id="name" placeholder="Descrição principal do produto" name="descricao_principal">
+                            <textarea class="form-control input-main-description" id="name" placeholder="Descrição principal do produto" name="descricaoCurta" rows="20"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="imagens">Escolha as imagens</label>
-                            <input id="image" type="file" name="imagens[]" multiple>
+                            <input id="image" class="input-file" type="file" name="imagens[]" multiple>
                         </div>
-                        <button type="submit" class="btn btn-dark d-block w-75 mx-auto">Upload</button>
+
+                        <div class="preview-image" class="d-inline">
+
+                        </div>
+                        <button type="submit" class="btn btn-dark d-block w-75 mx-auto">Enviar</button>
                     </form>
                 </div>
-                <div class="col-sm">
-
-                </div>
+                <div class="col-sm-2"></div>
             </div>
         </div>
     </body>
@@ -91,10 +95,32 @@
             if (response) {
                 inputName.value = data['descricao']
                 inputBrand.value = data['marca']
-                inputDescription.value = data['descricao']
+                inputDescription.textContent = data['descricaoCurta']
             }
         }
 
         getapi(api_url);
+    });
+
+    let inputFile = document.querySelector('.input-file');
+    inputFile.addEventListener('change', function () {
+        var mime_types = [ 'image/jpeg', 'image/png' ];
+        var files = Array.from(this.files)
+
+        files.forEach(function(file, index) {
+            if(mime_types.indexOf(file.type) == -1) {
+                alert('Error : Incorrect file type');
+                return;
+            }
+
+            _PREVIEW_URL = URL.createObjectURL(file);
+            var div = document.querySelector('.preview-image');
+            var img = document.createElement("img");
+
+            img.setAttribute('src', _PREVIEW_URL);
+            img.setAttribute('width', 180);
+            img.style.margin = '12px'
+            div.append(img);
+        })
     });
 </script>
