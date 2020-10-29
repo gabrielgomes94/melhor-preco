@@ -14,18 +14,17 @@ use App\Http\Controllers\ImageUploaderController;
 |
 */
 
-Route::get('/', function () {
-    return view('upload-images');
-})->middleware('auth');
+Route::middleware('auth')->group(function() {
+    Route::post('/file-upload', [ImageUploaderController::class, 'upload']);
 
-Route::get('/sucesso', function () {
-    return view('feedback');
+    Route::get('/', function () {
+        return view('upload-images');
+    });
+
+    Route::get('/sucesso', function () {
+        return view('feedback');
+    });
 });
-
-// [UserController::class, 'index']
-Route::post('/file-upload', [ImageUploaderController::class, 'upload'])->middleware('auth');
-
-
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
