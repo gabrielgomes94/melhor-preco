@@ -34,11 +34,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="marca">Descrição principal</label>
-                                <textarea class="form-control input-main-description" id="name" placeholder="Descrição principal do produto" name="descricaoCurta" rows="20"></textarea>
-                            </div>
-
-                            <div class="form-group">
                                 <label for="imagens">Escolha as imagens</label>
                                 <input id="image" class="input-file" type="file" name="imagens[]" multiple>
                             </div>

@@ -21,7 +21,6 @@ class ProductService
         $product = $xml->addChild('produto');
         $product->addChild('codigo', $data['codigo']);
         $product->addChild('descricao', $data['descricao']);
-        $product->addChild('descricaoCurta', $data['descricaoCurta']);
         $images = $product->addChild('imagens');
 
         foreach($urls as $url)  {
