@@ -23,7 +23,7 @@ class Client
 
         $this->options = [
             'query' => [
-                'apikey' => 'd76ec48af93595cd2ce877f93289e4e3c0166705e07ae0206787853a145fd120a75a8c25',
+                'apikey' => env('BLING_API_KEY'),
                 'imagem' => 'S',
             ],
         ];
@@ -42,7 +42,7 @@ class Client
     {
         $options = [
             'query' => [
-                'apikey' => 'd76ec48af93595cd2ce877f93289e4e3c0166705e07ae0206787853a145fd120a75a8c25',
+                'apikey' => env('BLING_API_KEY'),
                 'xml' => $xml,
                 'imagem' => 'S',
             ],
