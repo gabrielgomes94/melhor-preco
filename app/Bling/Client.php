@@ -40,18 +40,10 @@ class Client
 
     public function post(string $sku, string $xml)
     {
-        $options = [
-            'query' => [
-                'apikey' => env('BLING_API_KEY'),
-                'xml' => $xml,
-                'imagem' => 'S',
-            ],
-            'headers' => [
-                'Content-Type' => 'text/xml',
-            ],
-        ];
+        $this->options['query']['xml'] = $xml;
+        $this->options['headers']['Content-Type'] = 'text/xml';
 
-        $response = $this->guzzleClient->request('POST', "{$sku}/json", $options);
+        $response = $this->guzzleClient->request('POST', "{$sku}/json", $this->options);
         $data = json_decode((string) $response->getBody(), true);
 
         return $data;
