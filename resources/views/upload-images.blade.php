@@ -84,7 +84,8 @@
     let inputDescription = document.querySelector('.input-main-description');
 
     input.addEventListener('change', function () {
-        const api_url = "https://barrigudinha.com/api/product/" + this.value;
+        const base = window.location.href
+        const api_url = base + "api/product/" + this.value;
 
         // Defining async function
         async function getapi(url) {
