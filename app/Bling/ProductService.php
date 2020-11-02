@@ -24,12 +24,10 @@ class ProductService
         $product->addChild('descricaoCurta', $data['descricaoCurta']);
         $images = $product->addChild('imagens');
 
-
         foreach($urls as $url)  {
             $images->addChild('url', $url);
         }
 
-//        dd($xml->asXML());
         $data = $this->blingClient->post($data['codigo'], $xml->asXML());
         return $data;
     }
