@@ -50,8 +50,8 @@
             paramName: "file",
             maxFilesize: 256,
             addRemoveLinks: true,
-            uploadMultiple: true,
             dictRemoveFile: 'excluir',
+            uploadMultiple: true,
             autoProcessQueue: false,
             parallelUploads: 256,
             init: function(){
