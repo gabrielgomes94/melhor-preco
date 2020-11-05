@@ -47,12 +47,13 @@
     document.addEventListener("DOMContentLoaded", function() {
         // access Dropzone here
         Dropzone.options.dropzone = {
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
+            paramName: "file",
+            maxFilesize: 256,
             addRemoveLinks: true,
             uploadMultiple: true,
             dictRemoveFile: 'excluir',
             autoProcessQueue: false,
+            parallelUploads: 256,
             init: function(){
                 var submitButton = document.querySelector("#submit-all");
                 myDropzone = this;
@@ -60,16 +61,6 @@
                 submitButton.addEventListener('click', function(){
                     myDropzone.processQueue();
                 });
-                //
-                // this.on("complete", function(){
-                //     if(this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0)
-                //     {
-                //         var _this = this;
-                //         _this.removeAllFiles();
-                //     }
-                //     // load_images();
-                // });
-
             }
         };
     });
