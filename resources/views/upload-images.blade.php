@@ -10,11 +10,9 @@
                 <div class="row mt-4">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
-                        <h1>Upload de imagens</h1>
                             @isset($errorMsg)
                                 <p class="text-danger">{{$errorMsg}}</p>
                             @endif
-
 
                         <div class="form-group ">
                             <label for="codigo">Código SKU</label>
@@ -31,10 +29,11 @@
                             <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="marca" readonly form="dropzone">
                         </div>
 
-                        <form class="m-2 dropzone" id="dropzone" method="post" action="/file-upload" enctype="multipart/form-data">
-                            @csrf
-                        </form>
-
+                        <div class="form-group">
+                            <form class="dropzone" id="dropzone" method="post" action="/file-upload" enctype="multipart/form-data">
+                                @csrf
+                            </form>
+                        </div>
 
                         <button type="button" id="submit-all" form="dropzone" class="btn btn-dark d-block w-75 mx-auto">Enviar</button>
                     </div>
@@ -50,6 +49,7 @@
             paramName: "file",
             maxFilesize: 256,
             addRemoveLinks: true,
+            dictDefaultMessage: "Clique aqui ou arraste as imagens",
             dictRemoveFile: 'excluir',
             uploadMultiple: true,
             autoProcessQueue: false,
