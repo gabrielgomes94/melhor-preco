@@ -15,41 +15,66 @@
                                 <p class="text-danger">{{$errorMsg}}</p>
                             @endif
 
-                        <form class="m-2" method="post" action="/file-upload" enctype="multipart/form-data">
+
+                        <div class="form-group ">
+                            <label for="codigo">Código SKU</label>
+                            <input type="text" class="form-control input-sku" id="name" placeholder="Código SKU" name="codigo" form="dropzone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descricao">Nome</label>
+                            <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="descricao" readonly form="dropzone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marca">Marca</label>
+                            <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="marca" readonly form="dropzone">
+                        </div>
+
+                        <form class="m-2 dropzone" id="dropzone" method="post" action="/file-upload" enctype="multipart/form-data">
                             @csrf
-                            <p id="resultq"></p>
-                            <div class="form-group ">
-                                <label for="codigo">Código SKU</label>
-                                <input type="text" class="form-control input-sku" id="name" placeholder="Código SKU" name="codigo">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="descricao">Nome</label>
-                                <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="descricao" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="marca">Marca</label>
-                                <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="marca" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="imagens">Escolha as imagens</label>
-                                <input id="image" class="input-file" type="file" name="imagens[]" multiple>
-                            </div>
-
-                            <div class="preview-image" class="d-inline">
-
-                            </div>
-                            <button type="submit" class="btn btn-dark d-block w-75 mx-auto">Enviar</button>
                         </form>
+
+
+                        <button type="button" id="submit-all" form="dropzone" class="btn btn-dark d-block w-75 mx-auto">Enviar</button>
                     </div>
                     <div class="col-sm-2"></div>
                 </div>
             </div>
     </x-app-layout>
 
-<script>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        // access Dropzone here
+        Dropzone.options.dropzone = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            addRemoveLinks: true,
+            uploadMultiple: true,
+            dictRemoveFile: 'excluir',
+            autoProcessQueue: false,
+            init: function(){
+                var submitButton = document.querySelector("#submit-all");
+                myDropzone = this;
+
+                submitButton.addEventListener('click', function(){
+                    myDropzone.processQueue();
+                });
+                //
+                // this.on("complete", function(){
+                //     if(this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0)
+                //     {
+                //         var _this = this;
+                //         _this.removeAllFiles();
+                //     }
+                //     // load_images();
+                // });
+
+            }
+        };
+    });
+
+
     let input = document.querySelector('.input-sku');
     let inputName = document.querySelector('.input-name');
     let inputBrand = document.querySelector('.input-brand');
@@ -68,34 +93,37 @@
             if (response) {
                 inputName.value = data['descricao']
                 inputBrand.value = data['marca']
-                inputDescription.textContent = data['descricaoCurta']
+                // inputDescription.textContent = data['descricaoCurta']
             }
         }
 
         getapi(api_url);
     });
 
-    let inputFile = document.querySelector('.input-file');
-    inputFile.addEventListener('change', function () {
-        var mime_types = [ 'image/jpeg', 'image/png' ];
-        var files = Array.from(this.files)
+    // let inputFile = document.querySelector('.input-file');
+    // inputFile.addEventListener('change', function () {
+    //     var mime_types = [ 'image/jpeg', 'image/png' ];
+    //     var files = Array.from(this.files)
+    //
+    //     files.forEach(function(file, index) {
+    //         if(mime_types.indexOf(file.type) == -1) {
+    //             alert('Error : Incorrect file type');
+    //             return;
+    //         }
+    //
+    //         var previewURL = URL.createObjectURL(file);
+    //         var div = document.querySelector('.preview-image');
+    //         var img = document.createElement("img");
+    //
+    //         img.setAttribute('src', previewURL);
+    //         img.setAttribute('width', 180);
+    //         img.style.margin = '12px'
+    //         div.append(img);
+    //     })
+    // });
 
-        files.forEach(function(file, index) {
-            if(mime_types.indexOf(file.type) == -1) {
-                alert('Error : Incorrect file type');
-                return;
-            }
 
-            var previewURL = URL.createObjectURL(file);
-            var div = document.querySelector('.preview-image');
-            var img = document.createElement("img");
 
-            img.setAttribute('src', previewURL);
-            img.setAttribute('width', 180);
-            img.style.margin = '12px'
-            div.append(img);
-        })
-    });
 
 </script>
 </body>
