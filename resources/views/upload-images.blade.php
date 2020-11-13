@@ -14,24 +14,29 @@
                                 <p class="text-danger">{{$errorMsg}}</p>
                             @endif
 
-                        <div class="form-group ">
-                            <label for="codigo">Código SKU</label>
-                            <input type="text" class="form-control input-sku" id="name" placeholder="Código SKU" name="codigo" form="dropzone">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="descricao">Nome</label>
-                            <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="descricao" readonly form="dropzone">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="marca">Marca</label>
-                            <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="marca" readonly form="dropzone">
-                        </div>
-
                         <div class="form-group">
                             <form class="dropzone" id="dropzone" method="post" action="/file-upload" enctype="multipart/form-data">
                                 @csrf
+
+                                <div class="form-group ">
+                                    <label for="codigo">Código SKU</label>
+                                    <input type="text" class="form-control input-sku" id="name" placeholder="Código SKU" name="codigo" form="dropzone">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="descricao">Nome</label>
+                                    <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="descricao" readonly form="dropzone">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="marca">Marca</label>
+                                    <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="marca" form="dropzone">
+                                </div>
+
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                    <input type="submit" value="Upload" />
+                                </div>
                             </form>
                         </div>
 
@@ -43,6 +48,10 @@
     </x-app-layout>
 
 <script type="text/javascript">
+    let input = document.querySelector('.input-sku');
+    let inputName = document.querySelector('.input-name');
+    let inputBrand = document.querySelector('.input-brand');
+
     document.addEventListener("DOMContentLoaded", function() {
         // access Dropzone here
         Dropzone.options.dropzone = {
@@ -66,9 +75,7 @@
     });
 
 
-    let input = document.querySelector('.input-sku');
-    let inputName = document.querySelector('.input-name');
-    let inputBrand = document.querySelector('.input-brand');
+
     let inputDescription = document.querySelector('.input-main-description');
 
     input.addEventListener('change', function () {

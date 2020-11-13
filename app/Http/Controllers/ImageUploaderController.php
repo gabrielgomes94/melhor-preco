@@ -21,11 +21,11 @@ class ImageUploaderController extends BaseController
 
     public function upload(Request $request)
     {
-        if (!$request->hasFile('imagens')) {
+        if (!$request->hasFile('file')) {
             return view('upload-images', ['errorMsg' => 'Erro: selecione as imagens antes de enviar']);
         }
 
-        $files = $request->file()['imagens'];
+        $files = $request->file()['file'];
 
         $sku = $request->input('codigo');
         $name = $this->getName($sku, $request->input('descricao'));
