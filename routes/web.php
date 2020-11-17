@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/sucesso', function () {
         return view('feedback');
-    });
+    })->name('sucesso');
 });
 
 
