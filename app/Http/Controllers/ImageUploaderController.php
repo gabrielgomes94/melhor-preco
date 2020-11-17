@@ -1,9 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\UploadedFile;
+use App\Http\Requests\ImageUploaderRequest;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Bling\ProductService;
 
@@ -19,7 +18,7 @@ class ImageUploaderController extends BaseController
         $this->productService = $productService;
     }
 
-    public function upload(Request $request)
+    public function upload(ImageUploaderRequest $request)
     {
         if (!$request->hasFile('file')) {
             return view('upload-images', ['errorMsg' => 'Erro: selecione as imagens antes de enviar']);
@@ -34,7 +33,8 @@ class ImageUploaderController extends BaseController
         $urls = $this->storeImages($files, $path);
         $this->productService->uploadImages($request->all(), $urls);
 
-        return response()->redirectTo('/sucesso');
+        return redirect()->route('sucesso');
+
     }
 
     private function getName($sku, $name)
@@ -51,8 +51,6 @@ class ImageUploaderController extends BaseController
 
             $urls[] = Storage::url(urlencode($url));
         }
-
-//        dd($urls);
 
         return $urls;
     }
