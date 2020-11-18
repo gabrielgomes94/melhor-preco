@@ -13,7 +13,6 @@ class ImageUploaderRequest extends FormRequest
      */
     public function authorize()
     {
-        dd($this);
         return true;
     }
 
