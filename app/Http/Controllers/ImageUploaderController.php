@@ -21,20 +21,18 @@ class ImageUploaderController extends BaseController
     public function upload(ImageUploaderRequest $request)
     {
         if (!$request->hasFile('file')) {
-            return view('upload-images', ['errorMsg' => 'Erro: selecione as imagens antes de enviar']);
+            return view('upload-images', [
+                'errorMsg' => 'Erro: selecione as imagens antes de enviar',
+            ]);
         }
 
         $files = $request->file()['file'];
 
-        $sku = $request->input('codigo');
-        $name = $this->getName($sku, $request->input('descricao'));
-        $path = "{$request->input('marca')}/{$name}";
-
+        $path = $this->getPath($request);
         $urls = $this->storeImages($files, $path);
         $this->productService->uploadImages($request->all(), $urls);
 
         return redirect()->route('sucesso');
-
     }
 
     private function getName($sku, $name)
@@ -53,5 +51,14 @@ class ImageUploaderController extends BaseController
         }
 
         return $urls;
+    }
+
+    private function getPath($request)
+    {
+        $sku = $request->input('codigo');
+        $name = $this->getName($sku, $request->input('descricao'));
+        $path = "{$request->input('marca')}/{$name}";
+
+        return $path;
     }
 }

@@ -124,10 +124,6 @@
             div.append(img);
         })
     });
-
-
-
-
 </script>
 </body>
 
