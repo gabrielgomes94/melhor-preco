@@ -1,21 +1,31 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Bling\Data\Product;
+use App\Bling\Services\ImageStorage;
+use App\Bling\Services\ProductUpdater;
 use App\Http\Requests\ImageUploaderRequest;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
 use App\Bling\ProductService;
+use function Symfony\Component\String\s;
 
 class ImageUploaderController extends BaseController
 {
     /**
-     * @var ProductService
+     * @var ProductUpdater
      */
     private $productService;
 
-    public function __construct(ProductService $productService)
+    /**
+     * @var ImageStorage
+     */
+    private $imageService;
+
+    public function __construct(ProductUpdater $productService, ImageStorage $imageService)
     {
         $this->productService = $productService;
+        $this->imageService = $imageService;
     }
 
     public function upload(ImageUploaderRequest $request)
@@ -26,39 +36,26 @@ class ImageUploaderController extends BaseController
             ]);
         }
 
-        $files = $request->file()['file'];
+        $data = $this->transformData($request);
+        $product = new Product($data);
 
-        $path = $this->getPath($request);
-        $urls = $this->storeImages($files, $path);
-        $this->productService->uploadImages($request->all(), $urls);
+        $files = $request->file()['file'];
+        $urls = $this->imageService->store($product, $files);
+
+        $product->addImages($urls);
+
+        $this->productService->update($product);
 
         return redirect()->route('sucesso');
     }
 
-    private function getName($sku, $name)
+    private function transformData(ImageUploaderRequest $request): array
     {
-        $nameSanitized = preg_replace('/\//', '',  $name);
-        return $sku . " - " . $nameSanitized;
-    }
-
-    private function storeImages(array $files, $path)
-    {
-        $urls = [];
-        foreach ($files as $file) {
-            $url = Storage::putFileAs($path, $file, $file->getClientOriginalName(), 'public');
-
-            $urls[] = Storage::url(urlencode($url));
-        }
-
-        return $urls;
-    }
-
-    private function getPath($request)
-    {
-        $sku = $request->input('codigo');
-        $name = $this->getName($sku, $request->input('descricao'));
-        $path = "{$request->input('marca')}/{$name}";
-
-        return $path;
+        return [
+            'code' => $request->input('codigo'),
+            'name' => $request->input('descricao'),
+            'brand' => $request->input('marca'),
+            'images' => [],
+        ];
     }
 }
