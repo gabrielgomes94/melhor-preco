@@ -21,6 +21,12 @@ class ProductController extends BaseController
     {
         $data = $this->blingClient->get($sku);
 
+        if (array_key_exists('erros', $data)) {
+            $error = $data['erros'];
+
+            return response()->json(compact('error'));
+        }
+
         $data = $data['retorno'];
         if (array_key_exists('erros', $data)) {
             $error = '404 not found';
@@ -29,7 +35,7 @@ class ProductController extends BaseController
         }
 
         $data = $data['produtos'][0]['produto'];
-        
+
         $data = [
             'codigo' => $data['codigo'],
             'descricao' => $data['descricao'],

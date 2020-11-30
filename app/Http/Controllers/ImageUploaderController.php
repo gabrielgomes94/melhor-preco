@@ -6,9 +6,6 @@ use App\Bling\Services\ImageStorage;
 use App\Bling\Services\ProductUpdater;
 use App\Http\Requests\ImageUploaderRequest;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Storage;
-use App\Bling\ProductService;
-use function Symfony\Component\String\s;
 
 class ImageUploaderController extends BaseController
 {
