@@ -2,6 +2,7 @@
 namespace App\Bling;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Client
 {
@@ -18,7 +19,7 @@ class Client
     public function __construct()
     {
         $this->guzzleClient = new GuzzleClient([
-            'base_uri' => 'https://bling.com.br/Api/v2/produto/'
+            'base_uri' => 'https://bling.com.br/Api/v2/produto/',
         ]);
 
         $this->options = [
@@ -29,11 +30,20 @@ class Client
         ];
     }
 
-    public function get(string $sku)
+    public function get(string $sku): array
     {
-        $response = $this->guzzleClient->request('GET', "{$sku}/json", $this->options);
-
-        $data = json_decode((string) $response->getBody(), true);
+        try {
+            $response = $this->guzzleClient->request('GET', "{$sku}/json", $this->options);
+            $data = json_decode((string) $response->getBody(), true);
+        } catch(GuzzleException $exception) {
+            $data = [
+                'erros' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
+            ];
+        } catch(\Exception $exception) {
+            $data = [
+                'erros' => 'Aconteceu algum erro bizarro. Contate o suporte.',
+            ];
+        }
 
         return $data;
     }
