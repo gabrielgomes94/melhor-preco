@@ -5,7 +5,9 @@ use App\Bling\Data\Product;
 use App\Bling\Services\ImageStorage;
 use App\Bling\Services\ProductUpdater;
 use App\Http\Requests\ImageUploaderRequest;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Validation\ValidationException;
 
 class ImageUploaderController extends BaseController
 {
@@ -27,12 +29,6 @@ class ImageUploaderController extends BaseController
 
     public function upload(ImageUploaderRequest $request)
     {
-        if (!$request->hasFile('file')) {
-            return view('upload-images', [
-                'errorMsg' => 'Erro: selecione as imagens antes de enviar',
-            ]);
-        }
-
         $data = $this->transformData($request);
         $product = new Product($data);
 

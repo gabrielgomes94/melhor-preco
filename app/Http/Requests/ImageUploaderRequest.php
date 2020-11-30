@@ -1,34 +1,35 @@
 <?php
-
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImageUploaderRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
             'codigo' => 'required',
             'descricao' => 'required',
             'marca' => 'required',
-//            'file' => 'required|file|image',
-            //
+            'file' => 'array|required',
+            'file.*' => 'image'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'codigo.required' => 'Código SKU deve estar presente',
+            'descricao.required' => 'Nome deve estar presente',
+            'marca.required' => 'Marca deve estar presente',
+            'file.required' => 'Imagens devem estar presentes',
+            'file.*.image' => 'O arquivo deve ser uma imagem. Formatos suportados: jpeg, png, bmp, gif, svg, webp',
         ];
     }
 }
