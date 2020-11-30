@@ -10,9 +10,21 @@
                 <div class="row mt-4">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
-                            @isset($errorMsg)
-                                <p class="text-danger">{{$errorMsg}}</p>
+                        <div class="error-container">
+                            <div id="error-box" class="">
+
+                                <p id="error-box-message" class="text-danger"></p>
+                            </div>
+
+                            @isset($errors)
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <p class="text-danger">{{$error}}</p>
+                                    @endforeach
+                                </div>
                             @endif
+                        </div>
+
 
                         <div class="form-group">
                             <form id="dropzone" method="post" action="/file-upload" enctype="multipart/form-data">
@@ -51,37 +63,7 @@
     let input = document.querySelector('.input-sku');
     let inputName = document.querySelector('.input-name');
     let inputBrand = document.querySelector('.input-brand');
-
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     // access Dropzone here
-    //     Dropzone.options.dropzone = {
-    //         paramName: "file",
-    //         maxFilesize: 256,
-    //         addRemoveLinks: true,
-    //         dictDefaultMessage: "Clique aqui ou arraste as imagens",
-    //         dictRemoveFile: 'excluir',
-    //         uploadMultiple: true,
-    //         autoProcessQueue: false,
-    //         parallelUploads: 256,
-    //         init: function(){
-    //             var submitButton = document.querySelector("#submit-all");
-    //             myDropzone = this;
-    //
-    //             submitButton.addEventListener('click', function(){
-    //                 myDropzone.processQueue();
-    //             });
-    //         },
-    //         success: function(file) {
-    //             window.location.href = "/sucesso";
-    //         },
-    //         error: function(file) {
-    //         }
-    //     };
-    // });
-
-
-
-    let inputDescription = document.querySelector('.input-main-description');
+    let errorBox = document.querySelector('#error-box')
 
     input.addEventListener('change', function () {
         const base = window.location.href
@@ -93,10 +75,17 @@
 
             var data = await response.json();
 
+            if (data['error']) {
+                errorBox.innerHTML = data['error'];
+                errorBox.classList.add("alert")
+                errorBox.classList.add("alert-danger")
+
+                return
+            }
+
             if (response) {
                 inputName.value = data['descricao']
                 inputBrand.value = data['marca']
-                // inputDescription.textContent = data['descricaoCurta']
             }
         }
 
@@ -105,14 +94,14 @@
 
     let inputFile = document.querySelector('.input-file');
     inputFile.addEventListener('change', function () {
-        var mime_types = [ 'image/jpeg', 'image/png' ];
+        // var mime_types = [ 'image/jpeg', 'image/png' ];
         var files = Array.from(this.files)
 
         files.forEach(function(file, index) {
-            if(mime_types.indexOf(file.type) == -1) {
-                alert('Error : Incorrect file type');
-                return;
-            }
+            // if(mime_types.indexOf(file.type) == -1) {
+            //     alert('Error : Incorrect file type');
+            //     return;
+            // }
 
             var previewURL = URL.createObjectURL(file);
             var div = document.querySelector('.preview-image');
@@ -126,4 +115,3 @@
     });
 </script>
 </body>
-
