@@ -1,19 +1,31 @@
 <?php
 namespace App\Bling\Services;
 
+use App\Bling\Client;
 use App\Bling\Data\Product;
+use SimpleXMLElement;
 
 class ProductUpdater
 {
+    /**
+     * @var Client
+     */
+    private $blingClient;
+
+    public function __contruct(Client $blingClient)
+    {
+        $this->blingClient = $blingClient;
+    }
+
     public function update(Product $product)
     {
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml/>');
 
-        $product = $xml->addChild('produto');
-        $product->addChild('codigo', $product->getCode());
-        $product->addChild('descricao', $product->getName());
-        $product->addChild('marca', $product->getBrand());
-        $images = $product->addChild('imagens');
+        $productXML = $xml->addChild('produto');
+        $productXML->addChild('codigo', $product->getCode());
+        $productXML->addChild('descricao', $product->getName());
+        $productXML->addChild('marca', $product->getBrand());
+        $images = $productXML->addChild('imagens');
 
         foreach($product->getImages() as $imageUrl)  {
             $images->addChild('url', $imageUrl);
@@ -23,6 +35,4 @@ class ProductUpdater
 
         return $data;
     }
-
-
 }
