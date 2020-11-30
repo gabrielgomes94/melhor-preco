@@ -28,6 +28,7 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+      - mysqldata:/var/lib/mysql/
     networks:
     - barrigudinha
   nginx:
@@ -44,3 +45,6 @@ services:
 networks:
   barrigudinha:
     driver: bridge
+volumes:
+  mysqldata:
+    driver: local
