@@ -12,7 +12,7 @@ class ProductUpdater
      */
     private $blingClient;
 
-    public function __contruct(Client $blingClient)
+    public function __construct(Client $blingClient)
     {
         $this->blingClient = $blingClient;
     }
