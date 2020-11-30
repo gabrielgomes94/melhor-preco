@@ -12,7 +12,6 @@
                     <div class="col-sm-8">
                         <div class="error-container">
                             <div id="error-box" class="">
-
                                 <p id="error-box-message" class="text-danger"></p>
                             </div>
 
@@ -67,16 +66,16 @@
 
     input.addEventListener('change', function () {
         const base = window.location.href
-        const api_url = base + "api/product/" + this.value;
+        const api_url = base + "api/product/" + this.value
 
         // Defining async function
         async function getapi(url) {
-            const response = await fetch(url);
+            const response = await fetch(url)
 
-            var data = await response.json();
+            var data = await response.json()
 
-            if (data['error']) {
-                errorBox.innerHTML = data['error'];
+            if (data['errors']) {
+                errorBox.innerHTML = data['errors']
                 errorBox.classList.add("alert")
                 errorBox.classList.add("alert-danger")
 
@@ -94,14 +93,9 @@
 
     let inputFile = document.querySelector('.input-file');
     inputFile.addEventListener('change', function () {
-        // var mime_types = [ 'image/jpeg', 'image/png' ];
         var files = Array.from(this.files)
 
         files.forEach(function(file, index) {
-            // if(mime_types.indexOf(file.type) == -1) {
-            //     alert('Error : Incorrect file type');
-            //     return;
-            // }
 
             var previewURL = URL.createObjectURL(file);
             var div = document.querySelector('.preview-image');

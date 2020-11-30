@@ -37,11 +37,11 @@ class Client
             $data = json_decode((string) $response->getBody(), true);
         } catch(GuzzleException $exception) {
             $data = [
-                'erros' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
+                'errors' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
             ];
         } catch(\Exception $exception) {
             $data = [
-                'erros' => 'Aconteceu algum erro bizarro. Contate o suporte.',
+                'errors' => 'Aconteceu algum erro bizarro. Contate o suporte.',
             ];
         }
 
