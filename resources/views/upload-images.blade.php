@@ -15,7 +15,7 @@
                                 <p id="error-box-message" class="text-danger"></p>
                             </div>
 
-                            @isset($errors)
+                            @if ($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error)
                                         <p class="text-danger">{{$error}}</p>
@@ -99,12 +99,14 @@
 
             var previewURL = URL.createObjectURL(file);
             var div = document.querySelector('.preview-image');
+            var imageContainter = document.createElement('div');
             var img = document.createElement("img");
 
             img.setAttribute('src', previewURL);
             img.setAttribute('width', 180);
             img.style.margin = '12px'
-            div.append(img);
+            div.append(imageContainter);
+            imageContainter.append(img);
         })
     });
 </script>
