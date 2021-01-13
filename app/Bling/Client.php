@@ -1,6 +1,7 @@
 <?php
 namespace App\Bling;
 
+use App\Bling\Response\ProductResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -46,6 +47,28 @@ class Client
         }
 
         return $data;
+    }
+
+    public function getWithStock(string $sku)
+    {
+        $this->options['query']['estoque'] = 'S';
+
+        try {
+            $response = $this->guzzleClient->request('GET', "{$sku}/json", $this->options);
+            $data = json_decode((string) $response->getBody(), true);
+
+            $productResponse = new ProductResponse($response);
+        } catch(GuzzleException $exception) {
+            $data = [
+                'errors' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
+            ];
+        } catch(\Exception $exception) {
+            $data = [
+                'errors' => 'Aconteceu algum erro bizarro. Contate o suporte.',
+            ];
+        }
+
+//        return $data;
     }
 
     public function post(string $sku, string $xml)

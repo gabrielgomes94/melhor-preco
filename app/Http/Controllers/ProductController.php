@@ -17,7 +17,7 @@ class ProductController extends BaseController
         $this->blingClient = $blingClient;
     }
 
-    public function get(Request $request, $sku)
+    public function getWithImage(Request $request, $sku)
     {
         $data = $this->blingClient->get($sku);
 
@@ -45,4 +45,12 @@ class ProductController extends BaseController
 
         return response()->json($data);
     }
+
+    public function getWithStock(Request $request, $sku)
+    {
+        $data = $this->blingClient->getWithStock($sku);
+
+        return response()->json($data);
+    }
+
 }
