@@ -68,4 +68,15 @@ class Product
             $this->images[] = $url;
         }
     }
+
+    public function toArray(): array
+    {
+        return [
+            'code' => $this->code,
+            'name' => $this->name,
+            'brand' => $this->brand,
+            'images' => $this->images,
+            'stock' => $this->stock,
+        ];
+    }
 }
