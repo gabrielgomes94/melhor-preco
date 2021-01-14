@@ -1,6 +1,7 @@
 <?php
 namespace App\Bling;
 
+use App\Bling\Response\Factory;
 use App\Bling\Response\ProductResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
@@ -17,8 +18,12 @@ class Client
      */
     private $options;
 
-    public function __construct()
+    private $responseFactory;
+
+    public function __construct(Factory $responseFactory)
     {
+        $this->responseFactory = $responseFactory;
+
         $this->guzzleClient = new GuzzleClient([
             'base_uri' => 'https://bling.com.br/Api/v2/produto/',
         ]);
