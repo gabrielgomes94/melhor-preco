@@ -23,6 +23,11 @@ class Product
      */
     private $images;
 
+    /**
+     * @var ?int
+     */
+    private $stock;
+
     public function __construct(array $data)
     {
         $this->fill($data);
@@ -33,7 +38,8 @@ class Product
         $this->code = $data['code'];
         $this->name = $data['name'];
         $this->brand = $data['brand'];
-        $this->images = $data['images'];
+        $this->images = $data['images'] ?? [];
+        $this->stock = $data['stock'] ?? null;
     }
 
     public function getCode(): string
@@ -61,5 +67,16 @@ class Product
         foreach($urls as $url) {
             $this->images[] = $url;
         }
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'code' => $this->code,
+            'name' => $this->name,
+            'brand' => $this->brand,
+            'images' => $this->images,
+            'stock' => $this->stock,
+        ];
     }
 }
