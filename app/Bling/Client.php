@@ -60,9 +60,9 @@ class Client
 
         try {
             $response = $this->guzzleClient->request('GET', "{$sku}/json", $this->options);
-            $data = json_decode((string) $response->getBody(), true);
 
-            $productResponse = new ProductResponse($response);
+            $productResponse = $this->responseFactory->make($response);
+            $data = $productResponse->toArray();
         } catch(GuzzleException $exception) {
             $data = [
                 'errors' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
@@ -73,7 +73,7 @@ class Client
             ];
         }
 
-//        return $data;
+        return $data;
     }
 
     public function post(string $sku, string $xml)
