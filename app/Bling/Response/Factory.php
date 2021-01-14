@@ -19,14 +19,14 @@ class Factory
 
     public function make(ResponseInterface $response): ProductResponse
     {
-        $data = json_decode((string) $response->getBody(), true);
-
-
+        $data = $this->decode($response);
         $responseData = $this->transformer->transform($data);
 
+        return new ProductResponse($responseData);
+    }
 
-        $productResponse = new ProductResponse($responseData);
-
-        return $productResponse;
+    private function decode(ResponseInterface $response)
+    {
+        return json_decode((string) $response->getBody(), true);
     }
 }
