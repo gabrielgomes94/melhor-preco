@@ -18,6 +18,9 @@ class Client
      */
     private $options;
 
+    /**
+     * @var Factory
+     */
     private $responseFactory;
 
     public function __construct(Factory $responseFactory)
@@ -62,18 +65,21 @@ class Client
             $response = $this->guzzleClient->request('GET', "{$sku}/json", $this->options);
 
             $productResponse = $this->responseFactory->make($response);
-            $data = $productResponse->toArray();
         } catch(GuzzleException $exception) {
             $data = [
                 'errors' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
             ];
+
+            $productResponse = $this->responseFactory->makeWithError($data);
         } catch(\Exception $exception) {
             $data = [
                 'errors' => 'Aconteceu algum erro bizarro. Contate o suporte.',
             ];
+
+            $productResponse = $this->responseFactory->makeWithError($data);
         }
 
-        return $data;
+        return $productResponse;
     }
 
     public function post(string $sku, string $xml)
