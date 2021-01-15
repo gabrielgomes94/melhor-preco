@@ -1,12 +1,12 @@
 <?php
 namespace App\Bling\Response;
 
-use App\Bling\Data\Product;
+use App\Barrigudinha\Product\Product;
 
 class ProductResponse
 {
     /**
-     * @var string[]
+     * @var ?array
      */
     private $errors = [];
 
@@ -16,9 +16,15 @@ class ProductResponse
     private $products = [];
 
 
-    public function __construct(array $data)
+    public function __construct(?array $data, ?array $error = null)
     {
-        $this->fill($data);
+        if (!empty($data)) {
+            $this->fill($data);
+        }
+
+        if (!empty($error)) {
+            $this->errors = $error;
+        }
     }
 
     private function fill(array $data): void
@@ -36,9 +42,22 @@ class ProductResponse
         foreach($this->products as $product) {
             $products[] = $product->toArray();
         }
-        return [
-            'errors' => $this->errors,
-            'products' => $products,
-        ];
+
+        return $products;
+    }
+
+    public function errors(): ?array
+    {
+        return $this->errors;
+    }
+
+    public function hasErrors(): bool
+    {
+        return !empty($this->errors);
+    }
+
+    public function hasData(): bool
+    {
+        return !empty($this->products);
     }
 }
