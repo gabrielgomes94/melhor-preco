@@ -1,12 +1,12 @@
 <?php
-namespace App\Bling\Data;
+namespace App\Barrigudinha\Product;
 
 class Product
 {
     /**
      * @var string
      */
-    private $code;
+    private $sku;
 
     /**
      * @var string
@@ -35,16 +35,16 @@ class Product
 
     private function fill(array $data): void
     {
-        $this->code = $data['code'];
+        $this->sku = $data['sku'];
         $this->name = $data['name'];
         $this->brand = $data['brand'];
         $this->images = $data['images'] ?? [];
         $this->stock = $data['stock'] ?? null;
     }
 
-    public function getCode(): string
+    public function getSku(): string
     {
-        return $this->code;
+        return $this->sku;
     }
 
     public function getName(): string
@@ -72,7 +72,7 @@ class Product
     public function toArray(): array
     {
         return [
-            'code' => $this->code,
+            'sku' => $this->sku,
             'name' => $this->name,
             'brand' => $this->brand,
             'images' => $this->images,
