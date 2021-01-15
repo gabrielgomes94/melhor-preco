@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageUploaderController;
 
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/sucesso', function () {
         return view('feedback');
     })->name('sucesso');
+
+    Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock']);
 });
 
 

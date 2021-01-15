@@ -52,5 +52,4 @@ class ProductController extends BaseController
 
         return response()->json($data);
     }
-
 }
