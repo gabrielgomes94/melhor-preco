@@ -25,6 +25,11 @@ class Factory
         return new ProductResponse($responseData);
     }
 
+    public function makeWithError(array $message): ProductResponse
+    {
+        return new ProductResponse(null, $message);
+    }
+
     private function decode(ResponseInterface $response)
     {
         return json_decode((string) $response->getBody(), true);
