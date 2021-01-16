@@ -1,6 +1,7 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Transformers\ProductTransformer;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Bling\Product\Client;

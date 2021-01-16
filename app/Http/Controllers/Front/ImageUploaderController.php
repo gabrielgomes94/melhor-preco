@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Front;
 
 use App\Barrigudinha\Product\Product;
 use App\Bling\Product\Services\ImageStorage;
@@ -45,7 +45,7 @@ class ImageUploaderController extends BaseController
     private function transformData(ImageUploaderRequest $request): array
     {
         return [
-            'code' => $request->input('codigo'),
+            'sku' => $request->input('codigo'),
             'name' => $request->input('descricao'),
             'brand' => $request->input('marca'),
             'images' => [],

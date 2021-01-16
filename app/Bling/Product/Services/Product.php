@@ -25,7 +25,9 @@ class Product
             return $response;
         }
 
-        $response = $this->blingClient->get($sku);
+        // To Do: Fix this
+//        $response = $this->blingClient->get($sku);
+        $response = $this->blingClient->getWithStock($sku);
 
         return $response;
     }

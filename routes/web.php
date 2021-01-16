@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Front\ImageUploaderController;
 use App\Http\Controllers\Front\ProductController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ImageUploaderController;
 
 /*
 |--------------------------------------------------------------------------

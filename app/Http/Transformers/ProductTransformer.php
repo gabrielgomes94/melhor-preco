@@ -3,7 +3,7 @@ namespace App\Http\Transformers;
 
 use App\Bling\Product\Response\ProductResponse;
 
-class ProducTransformer
+class ProductTransformer
 {
     public function transform(ProductResponse $response): array
     {
