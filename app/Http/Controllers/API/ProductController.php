@@ -13,9 +13,15 @@ class ProductController extends BaseController
      */
     private $blingClient;
 
-    public function __construct(Client $blingClient)
+    /**
+     * @var ProductTransformer
+     */
+    private $transformer;
+
+    public function __construct(Client $blingClient, ProductTransformer $transformer)
     {
         $this->blingClient = $blingClient;
+        $this->transformer = $transformer;
     }
 
     public function getWithImage(Request $request, $sku)
@@ -49,7 +55,8 @@ class ProductController extends BaseController
 
     public function getWithStock(Request $request, $sku)
     {
-        $data = $this->blingClient->getWithStock($sku);
+        $response = $this->blingClient->getWithStock($sku);
+        $data = $this->transformer->transform($response);
 
         return response()->json($data);
     }
