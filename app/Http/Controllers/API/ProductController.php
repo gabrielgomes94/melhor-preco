@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Bling\Client;
+use App\Bling\Product\Client;
 
 class ProductController extends BaseController
 {

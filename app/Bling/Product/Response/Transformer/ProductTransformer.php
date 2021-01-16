@@ -1,5 +1,5 @@
 <?php
-namespace App\Bling\Response\Transformer;
+namespace App\Bling\Product\Response\Transformer;
 
 class ProductTransformer
 {

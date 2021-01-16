@@ -1,5 +1,5 @@
 <?php
-namespace App\Bling\Response;
+namespace App\Bling\Product\Response;
 
 use App\Barrigudinha\Product\Product;
 

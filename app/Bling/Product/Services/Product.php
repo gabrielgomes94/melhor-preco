@@ -1,9 +1,9 @@
 <?php
-namespace App\Bling\Services;
+namespace App\Bling\Product\Services;
 
-use App\Bling\Client;
-use App\Bling\Response\ProductResponse;
-use App\Bling\Response\Transformer\ProductTransformer;
+use App\Bling\Product\Client;
+use App\Bling\Product\Response\ProductResponse;
+use App\Bling\Product\Response\Transformer\ProductTransformer;
 
 class Product
 {

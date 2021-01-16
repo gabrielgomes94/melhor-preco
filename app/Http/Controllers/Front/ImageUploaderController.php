@@ -1,9 +1,9 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Bling\Data\Product;
-use App\Bling\Services\ImageStorage;
-use App\Bling\Services\ProductUpdater;
+use App\Barrigudinha\Product\Product;
+use App\Bling\Product\Services\ImageStorage;
+use App\Bling\Product\Services\ProductUpdater;
 use App\Http\Requests\ImageUploaderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;

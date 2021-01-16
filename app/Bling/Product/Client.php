@@ -1,8 +1,8 @@
 <?php
-namespace App\Bling;
+namespace App\Bling\Product;
 
-use App\Bling\Response\Factory;
-use App\Bling\Response\ProductResponse;
+use App\Bling\Product\Response\Factory;
+use App\Bling\Product\Response\ProductResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -57,7 +57,7 @@ class Client
         return $data;
     }
 
-    public function getWithStock(string $sku)
+    public function getWithStock(string $sku): ProductResponse
     {
         $this->options['query']['estoque'] = 'S';
 

@@ -1,8 +1,8 @@
 <?php
 namespace App\Bling\Services;
 
-use App\Bling\Client;
-use App\Bling\Data\Product;
+use App\Bling\Product\Client;
+use App\Barrigudinha\Product\Product;
 use SimpleXMLElement;
 
 class ProductUpdater

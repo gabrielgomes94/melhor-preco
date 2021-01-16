@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Front;
 
-use App\Bling\Client;
+use App\Bling\Product\Client;
 use App\Http\Controllers\Transformers\Product as ProductTransformer;
-use App\Bling\Services\Product as ProductService;
+use App\Bling\Product\Services\Product as ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 

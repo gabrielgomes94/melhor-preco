@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Bling\Response;
+namespace App\Bling\Product\Response;
 
-use App\Bling\Response\Transformer\ProductTransformer;
+use App\Bling\Product\Response\Transformer\ProductTransformer;
 use Psr\Http\Message\ResponseInterface;
 
 class Factory

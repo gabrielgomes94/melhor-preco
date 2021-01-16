@@ -1,15 +1,10 @@
 <?php
-namespace App\Http\Controllers\Transformers;
+namespace App\Http\Transformers;
 
-use App\Bling\Response\ProductResponse;
+use App\Bling\Product\Response\ProductResponse;
 
-class Product
+class ProducTransformer
 {
-    public function __construct()
-    {
-
-    }
-
     public function transform(ProductResponse $response): array
     {
         $data = [];
