@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\View\Components\Layout;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -26,5 +28,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Blade::component('layout', Layout::class);
     }
 }
