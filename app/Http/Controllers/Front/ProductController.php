@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Bling\Product\Client;
+use App\Bling\Product\Services\GenerateQRCode;
 use App\Http\Transformers\ProductTransformer;
 use App\Bling\Product\Services\Product as ProductService;
 use Illuminate\Http\Request;
@@ -45,5 +46,20 @@ class ProductController extends BaseController
         $errors = $data['errors'] ?? '';
 
         return view('products/get_with_stock', ['errors' => $errors]);
+    }
+
+    public function createQrCode(Request $request)
+    {
+        return view('products/generate_qr_code');
+    }
+
+    public function generateQrCode(Request $request)
+    {
+        dd(asset('css/app.css'));
+        $qrCodeService = new GenerateQRCode();
+        $products = $request->input('products');
+        $qrCodes = $qrCodeService->generate($products);
+
+        return view('products/qr_codes/list', ['products' => $qrCodes]);
     }
 }

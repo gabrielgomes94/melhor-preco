@@ -26,7 +26,11 @@ Route::middleware('auth')->group(function() {
         return view('feedback');
     })->name('sucesso');
 
-    Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock']);
+    Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock'])->name('product.show');
+
+    Route::get('/product/qr_codes', [ProductController::class, 'createQrCode']);
+
+    Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 });
 
 
