@@ -15,9 +15,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link href="{{ asset('css/styles.css') }}" media="all" rel="stylesheet" type="text/css" />
-
-
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
@@ -32,11 +29,7 @@
     <div class="min-h-screen bg-gray-100">
 
         <!-- Page Heading -->
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header }}
-            </div>
-        </header>
+
 
         <div class="wrapper">
             <!-- Sidebar -->
@@ -47,6 +40,11 @@
 
             <!-- Page Content -->
             <main>
+                <header class="header header-page ">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        <h2>{{ $header }}</h2>
+                    </div>
+                </header>
                 {{ $slot }}
             </main>
         </div>
