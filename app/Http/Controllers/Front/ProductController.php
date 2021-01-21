@@ -55,7 +55,6 @@ class ProductController extends BaseController
 
     public function generateQrCode(Request $request)
     {
-        dd(asset('css/app.css'));
         $qrCodeService = new GenerateQRCode();
         $products = $request->input('products');
         $qrCodes = $qrCodeService->generate($products);

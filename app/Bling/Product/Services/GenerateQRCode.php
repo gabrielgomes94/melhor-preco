@@ -26,18 +26,4 @@ class GenerateQRCode
 
         return $qrCodes;
     }
-
-//    public function generate(array $product)
-//    {
-//        $qrCodes = [];
-//
-//        for($i = 0; $i < $product['stock']; $i++) {
-//            $productLink = route('product.show', ['sku' => $product['sku']]);
-//            $qrCodes[]['qrCode'] = QrCode::generate($productLink);
-//            $qrCodes[]['stock'] = $product['stock'];
-//            $qrCodes[]['sku'] = $product['sku'];
-//        }
-//
-//        return $qrCodes;
-//    }
 }
