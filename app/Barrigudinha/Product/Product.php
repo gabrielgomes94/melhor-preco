@@ -33,6 +33,11 @@ class Product
         $this->fill($data);
     }
 
+    public function __get($attribute)
+    {
+        return $this->{$attribute};
+    }
+
     private function fill(array $data): void
     {
         $this->sku = $data['sku'];
