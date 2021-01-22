@@ -20,7 +20,11 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/', function () {
         return view('upload-images');
-    });
+    })->name('home');
+
+    Route::get('/product/upload_images', function () {
+            return view('upload-images');
+        })->name('product.upload_images');
 
     Route::get('/sucesso', function () {
         return view('feedback');
@@ -28,7 +32,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock'])->name('product.show');
 
-    Route::get('/product/qr_codes', [ProductController::class, 'createQrCode']);
+    Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
 
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 });
