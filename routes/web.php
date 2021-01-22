@@ -19,11 +19,11 @@ Route::middleware('auth')->group(function() {
     Route::post('/file-upload', [ImageUploaderController::class, 'upload']);
 
     Route::get('/', function () {
-        return view('upload-images');
+        return view('products/images/upload-images');
     })->name('home');
 
     Route::get('/product/upload_images', function () {
-            return view('upload-images');
+            return view('products/images/upload-images');
         })->name('product.upload_images');
 
     Route::get('/sucesso', function () {
