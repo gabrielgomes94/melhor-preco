@@ -1,5 +1,5 @@
 <body class="antialiased">
-    <x-app-layout>
+    <x-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Upload de Imagens') }}
@@ -56,7 +56,7 @@
                     <div class="col-sm-2"></div>
                 </div>
             </div>
-    </x-app-layout>
+    </x-layout>
 
 <script type="text/javascript">
     let input = document.querySelector('.input-sku');
