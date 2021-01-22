@@ -68,7 +68,8 @@
                             </tbody>
                         </table>
 
-                        <button type="submit" cl?
+                        <button type="submit" class="btn btn-primary" id="button-add-product">Submit</button>
+                    </form>
                 </div>
                 <div class="col-sm-2"></div>
             </div>
