@@ -93,6 +93,8 @@
 
         // Defining async function
         async function getapi(url) {
+            inputName.value = ''
+            inputStockAmount.value = ''
             const response = await fetch(url)
 
             var data = await response.json()
