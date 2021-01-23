@@ -65,8 +65,7 @@
     let errorBox = document.querySelector('#error-box')
 
     input.addEventListener('change', function () {
-        const base = window.location.href
-        const api_url = base + "api/product/" + this.value
+        const api_url = window.location.origin + '/api/product/' + this.value
 
         // Defining async function
         async function getapi(url) {
