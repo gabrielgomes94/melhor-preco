@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\ImageUploaderController;
 use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\Products\ProductImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +23,19 @@ Route::middleware('auth')->group(function() {
         return view('products/images/upload-images');
     })->name('home');
 
-    Route::get('/product/upload_images', function () {
-            return view('products/images/upload-images');
-        })->name('product.upload_images');
 
-    Route::get('/sucesso', function () {
-        return view('feedback');
-    })->name('sucesso');
+    Route::prefix('product')->group(function() {
+        Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
+            ->name('product.upload_images');
+
+//        Route::get('/sucesso', function () {
+//            return view('products.images.feedback');
+//        })->name('sucesso');
+    });
+
+
+
+
 
     Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock'])->name('product.show');
 
