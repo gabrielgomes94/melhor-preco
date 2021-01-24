@@ -39,6 +39,11 @@ let uploadImageAPI = function() {
 }
 
 let filePreview = function () {
+    var baseurl = window.location.origin+window.location.pathname;
+    if (baseurl !== 'http://barrigudinha.test:8000/product/upload_images') {
+        return;
+    }
+
     let inputFile = document.querySelector('.input-file');
 
     inputFile.addEventListener('change', function () {

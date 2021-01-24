@@ -22,6 +22,12 @@
                                     @endforeach
                                 </div>
                             @endif
+
+                            @isset($data['message'])
+                                <div class="alert alert-primary">
+                                    <p class="text-primary">Upload feito com sucesso. </p>
+                                </div>
+                            @endisset
                         </div>
 
 
