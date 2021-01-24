@@ -26,22 +26,22 @@
 
 
                         <div class="form-group">
-                            <form id="dropzone" method="post" action="/file-upload" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('product.images.upload') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group ">
                                     <label for="codigo">Código SKU</label>
-                                    <input type="text" class="form-control input-sku" id="name" placeholder="Código SKU" name="codigo" form="dropzone">
+                                    <input type="text" class="form-control input-sku" id="name" placeholder="Código SKU" name="sku">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="descricao">Nome</label>
-                                    <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="descricao" readonly form="dropzone">
+                                    <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="description" readonly>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="marca">Marca</label>
-                                    <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="marca" form="dropzone">
+                                    <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="brand">
                                 </div>
 
                                 <div class="form-group">

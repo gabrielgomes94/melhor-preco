@@ -13,9 +13,9 @@ class ImageUploaderRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo' => 'required',
-            'descricao' => 'required',
-            'marca' => 'required',
+            'sku' => 'required',
+            'description' => 'required',
+            'brand' => 'required',
             'file' => 'array|required',
             'file.*' => 'image'
         ];
@@ -24,9 +24,9 @@ class ImageUploaderRequest extends FormRequest
     public function messages()
     {
         return [
-            'codigo.required' => 'Código SKU deve estar presente',
-            'descricao.required' => 'Nome deve estar presente',
-            'marca.required' => 'Marca deve estar presente',
+            'sku.required' => 'Código SKU deve estar presente',
+            'description.required' => 'Nome deve estar presente',
+            'brand.required' => 'Marca deve estar presente',
             'file.required' => 'Imagens devem estar presentes',
             'file.*.image' => 'O arquivo deve ser uma imagem. Formatos suportados: jpeg, png, bmp, gif, svg, webp',
         ];
