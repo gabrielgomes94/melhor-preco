@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function() {
-    Route::post('/file-upload', [ImageUploaderController::class, 'upload']);
+
 
     Route::get('/', function () {
         return view('products/images/upload-images');
@@ -26,16 +26,11 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('product')->group(function() {
         Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
-            ->name('product.upload_images');
+            ->name('product.images.upload_form');
 
-//        Route::get('/sucesso', function () {
-//            return view('products.images.feedback');
-//        })->name('sucesso');
+        Route::post('/file-upload', [ProductImageController::class, 'upload'])
+            ->name('product.images.upload');
     });
-
-
-
-
 
     Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock'])->name('product.show');
 
