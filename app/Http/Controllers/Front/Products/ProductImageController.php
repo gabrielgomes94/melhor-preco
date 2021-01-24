@@ -38,12 +38,7 @@ class ProductImageController extends BaseController
 
         $this->productService->update($product);
 
-        return redirect()->route('product.images.upload_form',
-            [
-                'data' => [
-                    'message' => 'Upload feito com sucesso.'
-                ]
-            ]);
+        return redirect()->route('product.images.upload_form');
     }
 
     public function uploadImage(Request $request)
