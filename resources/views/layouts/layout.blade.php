@@ -42,7 +42,7 @@
             <main>
                 <header class="header header-page ">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <h2>{{ $header }}</h2>
+                        <h2>{{ $header ?? ''}}</h2>
                     </div>
                 </header>
                 {{ $slot }}
