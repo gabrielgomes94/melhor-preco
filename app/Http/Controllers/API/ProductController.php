@@ -24,6 +24,32 @@ class ProductController extends BaseController
         $this->transformer = $transformer;
     }
 
+    public function get(Request $request, $sku)
+    {
+        $data = $this->blingClient->get($sku);
+        $data = $data['retorno'];
+
+        if (array_key_exists('erros', $data)) {
+            $errors = ['errors' =>  $data['erros']];
+
+            return $errors;
+        }
+
+        $data = $data['produtos'][0]['produto'];
+
+        $product = [
+            'product' => [
+                'sku' => $data['codigo'],
+                'name' => $data['descricao'],
+                'brand' => $data['marca'],
+                'images' => $data['imagem'] ?? [],
+                'stock' => $data['estoqueAtual'] ?? null,
+            ]
+        ];
+
+        return response()->json($product);
+    }
+
     public function getWithImage(Request $request, $sku)
     {
         $data = $this->blingClient->get($sku);

@@ -18,16 +18,12 @@ class Product
         $this->blingClient = $blingClient;
     }
 
-    public function get($sku, $filter = ''): ProductResponse
+    public function get($sku): ProductResponse
     {
-        if ('stock' == $filter) {
-            $response = $this->blingClient->getWithStock($sku);
-            return $response;
-        }
 
         // To Do: Fix this
 //        $response = $this->blingClient->get($sku);
-        $response = $this->blingClient->getWithStock($sku);
+        $response = $this->blingClient->get($sku);
 
         return $response;
     }

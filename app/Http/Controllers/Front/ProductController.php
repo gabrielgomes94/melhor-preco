@@ -32,9 +32,9 @@ class ProductController extends BaseController
         $this->transformer = $transformer;
     }
 
-    public function getWithStock(Request $request, $sku)
+    public function get(Request $request, $sku)
     {
-        $response = $this->productService->get($sku, 'stock');
+        $response = $this->productService->get($sku);
         $data = $this->transformer->transform($response);
 
         if (!empty($data['products'])) {

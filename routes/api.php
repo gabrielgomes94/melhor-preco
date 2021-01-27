@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/product/{sku}', [ProductController::class, 'getWithImage']);
+Route::get('/product/{sku}', [ProductController::class, 'get']);
 Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock']);
 Route::post('/product/{sku}', [ProductController::class, 'post']);

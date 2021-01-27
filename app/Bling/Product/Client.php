@@ -35,6 +35,7 @@ class Client
             'query' => [
                 'apikey' => env('BLING_API_KEY'),
                 'imagem' => 'S',
+                'estoque' => 'S'
             ],
         ];
     }
