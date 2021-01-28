@@ -20311,9 +20311,13 @@ generateQRCodeForm();
 /*!*****************************************!*\
   !*** ./resources/js/product/product.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: getCEP, requestOptions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCEP", function() { return getCEP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestOptions", function() { return requestOptions; });
 // // Defining async function
 // var productGet = async function getapi(url) {
 //     inputName.value = ''
@@ -20347,6 +20351,23 @@ generateQRCodeForm();
 // }
 //
 // productGet(1232)
+// let requestOptions = {
+//     method: 'GET',
+//     headers: {
+//         'Accept': 'application/json',
+//         'Authorization': 'Bearer ' + tokenApiKey
+//     },
+// }
+function getCEP() {
+  console.log('vish');
+}
+var requestOptions = {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer ' + tokenApiKey
+  }
+};
 
 /***/ }),
 
@@ -20361,11 +20382,16 @@ generateQRCodeForm();
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _product__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./product */ "./resources/js/product/product.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+_product__WEBPACK_IMPORTED_MODULE_1__["getCEP"]();
+console.log(_product__WEBPACK_IMPORTED_MODULE_1__["requestOptions"]);
 
 var uploadImageAPI = function uploadImageAPI() {
   var baseurl = window.location.origin + window.location.pathname;
@@ -20386,11 +20412,11 @@ var uploadImageAPI = function uploadImageAPI() {
   }
 
   function _getProduct() {
-    _getProduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url) {
+    _getProduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
       var bearer, options, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
               bearer = 'Bearer ' + tokenApiKey;
               options = {
@@ -20400,97 +20426,76 @@ var uploadImageAPI = function uploadImageAPI() {
                   'Authorization': bearer
                 }
               };
-              _context2.next = 4;
+              _context.next = 4;
               return fetch(url, options).then(function (data) {
                 return data.json();
               }).then(function (data) {
                 if (data.product) {
+                  console.log('data');
+                  console.log(data);
                   setFeedbackInfo(data.product);
                   uploadImageInput.inputName.value = data.product.name;
                   uploadImageInput.inputBrand.value = data.product.brand;
                 }
 
                 if (data.errors) {
-                  console.log(data.errors);
-                  addErrorMessage(data.errors[0].erro.msg);
+                  console.log('12222222');
+                  console.log(data.errors); // addErrorMessage(data.errors[0].erro.msg)
                 }
-              })["catch"](function (error) {
-                addErrorMessage(error);
+              })["catch"](function (error) {// addErrorMessage(error)
               });
 
             case 4:
-              response = _context2.sent;
+              response = _context.sent;
 
             case 5:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2);
+      }, _callee);
     }));
     return _getProduct.apply(this, arguments);
   }
 
   uploadImageInput.input.addEventListener('change', function () {
     var api_url = window.location.origin + '/api/product/' + this.value; // Defining async function
-
-    function getapi(_x2) {
-      return _getapi.apply(this, arguments);
-    }
-
-    function _getapi() {
-      _getapi = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-        var bearer, options, response, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                bearer = 'Bearer ' + tokenApiKey;
-                options = {
-                  method: 'GET',
-                  headers: {
-                    'Accept': 'application/json',
-                    'Authorization': bearer
-                  }
-                };
-                _context.next = 4;
-                return fetch(url, options);
-
-              case 4:
-                response = _context.sent;
-                _context.next = 7;
-                return response.json();
-
-              case 7:
-                data = _context.sent;
-
-                if (!data['errors']) {
-                  _context.next = 13;
-                  break;
-                }
-
-                errorBox.innerHTML = data['errors'];
-                errorBox.classList.add("alert");
-                errorBox.classList.add("alert-danger");
-                return _context.abrupt("return");
-
-              case 13:
-                if (response) {
-                  uploadImageInput.inputName.value = data['descricao'];
-                  uploadImageInput.inputBrand.value = data['marca'];
-                }
-
-              case 14:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-      return _getapi.apply(this, arguments);
-    }
-
-    getProduct(api_url);
+    // async function getapi(url) {
+    //     var bearer = 'Bearer ' + tokenApiKey
+    //     var options = {
+    //         method: 'GET',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Authorization': bearer
+    //         },
+    //     }
+    //     const response = await fetch(url, options)
+    //         .then(function (data){
+    //             return data.json()
+    //         })
+    //         .then(function (data){
+    //             console.log('---1221212')
+    //             console.log(data)
+    //             uploadImageInput.inputName.value = data.name
+    //             uploadImageInput.inputBrand.value = data.brand
+    //         })
+    //         .catch(function (){
+    //             console.log('---ERROR')
+    //             errorBox.innerHTML = data['errors']
+    //             errorBox.classList.add("alert")
+    //             errorBox.classList.add("alert-danger")
+    //         })
+    //
+    //     var data = await response.json()
+    //
+    //     if (data['errors']) {
+    //         return
+    //     }
+    //
+    //     if (response) {
+    //     }
+    // }
+    // getProduct(api_url);
   });
 };
 
