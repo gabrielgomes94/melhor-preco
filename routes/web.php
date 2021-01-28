@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
     Route::get('/', function () {
-        return view('products/images/upload-images');
+        return view('dashboard');
     })->name('home');
 
     Route::prefix('product')->group(function() {
@@ -30,9 +30,7 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock'])->name('product.show');
-
     Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
-
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 });
 
