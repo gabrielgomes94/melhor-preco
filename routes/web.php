@@ -17,12 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function() {
-
-
     Route::get('/', function () {
         return view('products/images/upload-images');
     })->name('home');
-
 
     Route::prefix('product')->group(function() {
         Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
