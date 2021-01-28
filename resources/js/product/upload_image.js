@@ -1,17 +1,17 @@
 import * as product from "./product";
-product.getCEP()
-console.log(product.requestOptions)
+import * as errorBox from "./error_box";
 
 let uploadImageAPI = function() {
-    var baseurl = window.location.origin+window.location.pathname;
-    if (baseurl !== 'http://barrigudinha.test:8000/product/upload_images') {
+    if (window.location.pathname !== '/product/upload_images') {
         return;
     }
 
-    var uploadImageInput = {
-        input: document.querySelector('.input-sku'),
-        inputName: document.querySelector('.input-name'),
-        inputBrand: document.querySelector('.input-brand'),
+    var uploadImage = {
+        formInput: {
+            sku: document.querySelector('.input-sku'),
+            name: document.querySelector('.input-name'),
+            brand: document.querySelector('.input-brand')
+        },
         errorBox: document.querySelector('#error-box')
     }
 
@@ -30,67 +30,24 @@ let uploadImageAPI = function() {
                 return data.json()
             })
             .then(function(data) {
-                if (data.product) {
-                    console.log('data')
-                    console.log(data)
-                    setFeedbackInfo(data.product)
 
-                    uploadImageInput.inputName.value = data.product.name
-                    uploadImageInput.inputBrand.value = data.product.brand
+                if (data.product) {
+                    uploadImage.formInput.name.value = data.product.name
+                    uploadImage.formInput.brand.value = data.product.brand
                 }
 
                 if (data.errors) {
-                    console.log('12222222')
-                    console.log(data.errors)
-                    // addErrorMessage(data.errors[0].erro.msg)
+                    errorBox.show(data.errors, uploadImage.errorBox)
                 }
             })
             .catch(function(error) {
-                // addErrorMessage(error)
+                errorBox.show(error, uploadImage.errorBox)
             })
     }
 
-    uploadImageInput.input.addEventListener('change', function () {
+    uploadImage.formInput.sku.addEventListener('change', function () {
         const api_url = window.location.origin + '/api/product/' + this.value
-
-        // Defining async function
-        // async function getapi(url) {
-        //     var bearer = 'Bearer ' + tokenApiKey
-        //     var options = {
-        //         method: 'GET',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Authorization': bearer
-        //         },
-        //     }
-        //     const response = await fetch(url, options)
-        //         .then(function (data){
-        //             return data.json()
-        //         })
-        //         .then(function (data){
-        //             console.log('---1221212')
-        //             console.log(data)
-        //             uploadImageInput.inputName.value = data.name
-        //             uploadImageInput.inputBrand.value = data.brand
-        //         })
-        //         .catch(function (){
-        //             console.log('---ERROR')
-        //             errorBox.innerHTML = data['errors']
-        //             errorBox.classList.add("alert")
-        //             errorBox.classList.add("alert-danger")
-        //         })
-        //
-        //     var data = await response.json()
-        //
-        //     if (data['errors']) {
-        //         return
-        //     }
-        //
-        //     if (response) {
-        //     }
-        // }
-
-        // getProduct(api_url);
+        getProduct(api_url)
     });
 }
 

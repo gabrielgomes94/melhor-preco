@@ -20107,7 +20107,7 @@ __webpack_require__(/*! ./product/product */ "./resources/js/product/product.js"
 
 __webpack_require__(/*! ./product/upload_image */ "./resources/js/product/upload_image.js");
 
-__webpack_require__(/*! ./product/generate_qr_code */ "./resources/js/product/generate_qr_code.js");
+__webpack_require__(/*! ./product/generate_qr_code */ "./resources/js/product/generate_qr_code.js"); //
 
 /***/ }),
 
@@ -20153,14 +20153,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
-function show(errorMessage, errorBox) {
-  errorBox.innerHTML = errorMessage;
+function show(errors, errorBox) {
+  errorBox.innerHTML = "<ul></ul>";
+  errors.forEach(function (error, index) {
+    var errorMessage = document.createElement('li');
+    errorMessage.innerHTML = error.erro.msg;
+    errorBox.append(errorMessage);
+  });
   errorBox.classList.remove("d-none");
   errorBox.classList.add("alert");
   errorBox.classList.add("alert-danger");
   setTimeout(function () {
     errorBox.classList.add('d-none');
-  }, 3600);
+  }, 4200);
 }
 
 /***/ }),
@@ -20187,6 +20192,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var generateQRCodeForm = function generateQRCodeForm() {
   var i = 0;
+
+  if (window.location.pathname !== '/product/qr_codes') {
+    return;
+  }
+
   var generateQRCode = {
     input: {
       sku: document.querySelector('.input-sku'),
@@ -20227,8 +20237,7 @@ var generateQRCodeForm = function generateQRCodeForm() {
                 }
 
                 if (data.errors) {
-                  // let errorBox = generateQRCode.errorBox
-                  _error_box__WEBPACK_IMPORTED_MODULE_1__["show"](data.errors[0].erro.msg, generateQRCode.errorBox); // showErrorBox(data.errors[0].erro.msg)
+                  _error_box__WEBPACK_IMPORTED_MODULE_1__["show"](data.errors, generateQRCode.errorBox);
                 }
               })["catch"](function (error) {
                 addErrorMessage(error);
@@ -20284,7 +20293,6 @@ var generateQRCodeForm = function generateQRCodeForm() {
   }
 
   generateQRCode.button.addProduct.addEventListener('click', function () {
-    console.log(_error_box__WEBPACK_IMPORTED_MODULE_1__);
     var tableRow = createTableRow();
     var cells = updateTableRow(tableRow.cells);
     var row = tableRow.row;
@@ -20383,6 +20391,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _product__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./product */ "./resources/js/product/product.js");
+/* harmony import */ var _error_box__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./error_box */ "./resources/js/product/error_box.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -20390,20 +20399,19 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-_product__WEBPACK_IMPORTED_MODULE_1__["getCEP"]();
-console.log(_product__WEBPACK_IMPORTED_MODULE_1__["requestOptions"]);
+
 
 var uploadImageAPI = function uploadImageAPI() {
-  var baseurl = window.location.origin + window.location.pathname;
-
-  if (baseurl !== 'http://barrigudinha.test:8000/product/upload_images') {
+  if (window.location.pathname !== '/product/upload_images') {
     return;
   }
 
-  var uploadImageInput = {
-    input: document.querySelector('.input-sku'),
-    inputName: document.querySelector('.input-name'),
-    inputBrand: document.querySelector('.input-brand'),
+  var uploadImage = {
+    formInput: {
+      sku: document.querySelector('.input-sku'),
+      name: document.querySelector('.input-name'),
+      brand: document.querySelector('.input-brand')
+    },
     errorBox: document.querySelector('#error-box')
   };
 
@@ -20431,18 +20439,15 @@ var uploadImageAPI = function uploadImageAPI() {
                 return data.json();
               }).then(function (data) {
                 if (data.product) {
-                  console.log('data');
-                  console.log(data);
-                  setFeedbackInfo(data.product);
-                  uploadImageInput.inputName.value = data.product.name;
-                  uploadImageInput.inputBrand.value = data.product.brand;
+                  uploadImage.formInput.name.value = data.product.name;
+                  uploadImage.formInput.brand.value = data.product.brand;
                 }
 
                 if (data.errors) {
-                  console.log('12222222');
-                  console.log(data.errors); // addErrorMessage(data.errors[0].erro.msg)
+                  _error_box__WEBPACK_IMPORTED_MODULE_2__["show"](data.errors, uploadImage.errorBox);
                 }
-              })["catch"](function (error) {// addErrorMessage(error)
+              })["catch"](function (error) {
+                _error_box__WEBPACK_IMPORTED_MODULE_2__["show"](error, uploadImage.errorBox);
               });
 
             case 4:
@@ -20458,44 +20463,9 @@ var uploadImageAPI = function uploadImageAPI() {
     return _getProduct.apply(this, arguments);
   }
 
-  uploadImageInput.input.addEventListener('change', function () {
-    var api_url = window.location.origin + '/api/product/' + this.value; // Defining async function
-    // async function getapi(url) {
-    //     var bearer = 'Bearer ' + tokenApiKey
-    //     var options = {
-    //         method: 'GET',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Authorization': bearer
-    //         },
-    //     }
-    //     const response = await fetch(url, options)
-    //         .then(function (data){
-    //             return data.json()
-    //         })
-    //         .then(function (data){
-    //             console.log('---1221212')
-    //             console.log(data)
-    //             uploadImageInput.inputName.value = data.name
-    //             uploadImageInput.inputBrand.value = data.brand
-    //         })
-    //         .catch(function (){
-    //             console.log('---ERROR')
-    //             errorBox.innerHTML = data['errors']
-    //             errorBox.classList.add("alert")
-    //             errorBox.classList.add("alert-danger")
-    //         })
-    //
-    //     var data = await response.json()
-    //
-    //     if (data['errors']) {
-    //         return
-    //     }
-    //
-    //     if (response) {
-    //     }
-    // }
-    // getProduct(api_url);
+  uploadImage.formInput.sku.addEventListener('change', function () {
+    var api_url = window.location.origin + '/api/product/' + this.value;
+    getProduct(api_url);
   });
 };
 

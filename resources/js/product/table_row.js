@@ -1,8 +1,8 @@
 export function create() {
-        var row = document.createElement('tr')
-        var skuCell = document.createElement('th')
-        var nameCell = document.createElement('td')
-        var stock = document.createElement('td')
+    var row = document.createElement('tr')
+    var skuCell = document.createElement('th')
+    var nameCell = document.createElement('td')
+    var stock = document.createElement('td')
 
         return {
             row: row,

@@ -3,6 +3,10 @@ import * as errorBox from "./error_box";
 let generateQRCodeForm = function() {
     let i = 0
 
+    if (window.location.pathname !== '/product/qr_codes') {
+        return;
+    }
+
     var generateQRCode = {
         input: {
             sku: document.querySelector('.input-sku'),
@@ -35,9 +39,7 @@ let generateQRCodeForm = function() {
                 }
 
                 if (data.errors) {
-                    // let errorBox = generateQRCode.errorBox
-                    errorBox.show(data.errors[0].erro.msg, generateQRCode.errorBox)
-                    // showErrorBox(data.errors[0].erro.msg)
+                    errorBox.show(data.errors, generateQRCode.errorBox)
                 }
             })
             .catch(function(error) {
@@ -86,7 +88,6 @@ let generateQRCodeForm = function() {
     }
 
     generateQRCode.button.addProduct.addEventListener('click', function (){
-        console.log(errorBox)
         var tableRow = createTableRow()
         let cells = updateTableRow(tableRow.cells)
         let row = tableRow.row
