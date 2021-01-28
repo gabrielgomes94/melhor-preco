@@ -1,0 +1,112 @@
+$color-0: #3D5A80;
+$color-1: #98C1D9;
+$color-2: #E0FBFC;
+$color-3: #EE6C4D;
+$color-4: #293241;
+
+
+$background-color: #eee;
+$menu-bg: $color-0;
+$header-bg: $color-1;
+$text-color: $color-4;
+$text-color-white: white;
+
+
+.header {
+    padding: 1rem;
+}
+.header h2{
+    margin: 0;
+}
+
+.header-menu {
+    background: $color-0;
+}
+
+.header-menu h2 {
+    color: $text-color-white;
+}
+
+.header-page {
+    background: $background-color;
+}
+
+.border-qr-code {
+    border: 1px dashed grey;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: $background-color;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    /* don't forget to add all the previously mentioned styles here too */
+    background: $menu-bg;
+    color: $text-color-white;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    font-weight: bold;
+}
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}

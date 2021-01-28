@@ -1,7 +1,7 @@
 <?php
-namespace App\Bling\Services;
+namespace App\Bling\Product\Services;
 
-use App\Bling\Data\Product;
+use App\Barrigudinha\Product\Product;
 use Illuminate\Support\Facades\Storage;
 
 class ImageStorage
@@ -23,7 +23,7 @@ class ImageStorage
     private function getPath(Product $product)
     {
         $brand = $product->getBrand();
-        $sku = $product->getCode();
+        $sku = $product->getSku();
         $name = preg_replace('/\//', '',  $product->getName());
 
         $path = "{$brand}/{$sku} - {$name}";

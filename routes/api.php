@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\API\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/product/{sku}', [ProductController::class, 'getWithImage']);
-Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock']);
-Route::post('/product/{sku}', [ProductController::class, 'post']);
+Route::get('/product/{sku}', [ProductController::class, 'get'])->middleware('auth:sanctum');
+Route::post('/product/{sku}', [ProductController::class, 'post'])->middleware('auth:sanctum');

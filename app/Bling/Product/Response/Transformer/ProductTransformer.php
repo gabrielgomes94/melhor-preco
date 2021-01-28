@@ -1,7 +1,5 @@
 <?php
-namespace App\Bling\Response\Transformer;
-
-use App\Bling\Data\Product;
+namespace App\Bling\Product\Response\Transformer;
 
 class ProductTransformer
 {
@@ -22,10 +20,7 @@ class ProductTransformer
 
     private function setErrors($data): array
     {
-        $errors = [];
-        foreach ($data as $error) {
-            $errors[] = $error;
-        }
+        $errors = $data['retorno']['erros'][0]['erro'] ?? '';
 
         return $errors;
     }
@@ -40,7 +35,7 @@ class ProductTransformer
             $product = $product['produto'];
 
             $products['products'][] = [
-                'code' => $product['codigo'],
+                'sku' => $product['codigo'],
                 'name' => $product['descricao'],
                 'brand' => $product['marca'],
                 'images' => [] ?? null,

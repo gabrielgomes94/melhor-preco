@@ -1,9 +1,10 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Transformers\ProductTransformer;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Bling\Client;
+use App\Bling\Product\Client;
 
 class ProductController extends BaseController
 {
@@ -12,9 +13,41 @@ class ProductController extends BaseController
      */
     private $blingClient;
 
-    public function __construct(Client $blingClient)
+    /**
+     * @var ProductTransformer
+     */
+    private $transformer;
+
+    public function __construct(Client $blingClient, ProductTransformer $transformer)
     {
         $this->blingClient = $blingClient;
+        $this->transformer = $transformer;
+    }
+
+    public function get(Request $request, $sku)
+    {
+        $data = $this->blingClient->get($sku);
+        $data = $data['retorno'];
+
+        if (array_key_exists('erros', $data)) {
+            $errors = ['errors' =>  $data['erros']];
+
+            return $errors;
+        }
+
+        $data = $data['produtos'][0]['produto'];
+
+        $product = [
+            'product' => [
+                'sku' => $data['codigo'],
+                'name' => $data['descricao'],
+                'brand' => $data['marca'],
+                'images' => $data['imagem'] ?? [],
+                'stock' => $data['estoqueAtual'] ?? null,
+            ]
+        ];
+
+        return response()->json($product);
     }
 
     public function getWithImage(Request $request, $sku)
@@ -48,9 +81,9 @@ class ProductController extends BaseController
 
     public function getWithStock(Request $request, $sku)
     {
-        $data = $this->blingClient->getWithStock($sku);
+        $response = $this->blingClient->getWithStock($sku);
+        $data = $this->transformer->transform($response);
 
         return response()->json($data);
     }
-
 }

@@ -1,15 +1,14 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front\Products;
 
-use App\Bling\Data\Product;
-use App\Bling\Services\ImageStorage;
-use App\Bling\Services\ProductUpdater;
+use App\Barrigudinha\Product\Product;
+use App\Bling\Product\Services\ImageStorage;
+use App\Bling\Product\Services\ProductUpdater;
 use App\Http\Requests\ImageUploaderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Validation\ValidationException;
 
-class ImageUploaderController extends BaseController
+class ProductImageController extends BaseController
 {
     /**
      * @var ProductUpdater
@@ -39,15 +38,20 @@ class ImageUploaderController extends BaseController
 
         $this->productService->update($product);
 
-        return redirect()->route('sucesso');
+        return redirect()->route('product.images.upload_form');
+    }
+
+    public function uploadImage(Request $request)
+    {
+        return view('products/images/upload-images');
     }
 
     private function transformData(ImageUploaderRequest $request): array
     {
         return [
-            'code' => $request->input('codigo'),
-            'name' => $request->input('descricao'),
-            'brand' => $request->input('marca'),
+            'sku' => $request->input('sku'),
+            'name' => $request->input('description'),
+            'brand' => $request->input('brand'),
             'images' => [],
         ];
     }

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Front\ImageUploaderController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\Products\ProductImageController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ImageUploaderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +17,21 @@ use App\Http\Controllers\ImageUploaderController;
 */
 
 Route::middleware('auth')->group(function() {
-    Route::post('/file-upload', [ImageUploaderController::class, 'upload']);
-
     Route::get('/', function () {
-        return view('upload-images');
+        return view('dashboard');
+    })->name('home');
+
+    Route::prefix('product')->group(function() {
+        Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
+            ->name('product.images.upload_form');
+
+        Route::post('/file-upload', [ProductImageController::class, 'upload'])
+            ->name('product.images.upload');
     });
 
-    Route::get('/sucesso', function () {
-        return view('feedback');
-    })->name('sucesso');
+    Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock'])->name('product.show');
+    Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
+    Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 });
 
 

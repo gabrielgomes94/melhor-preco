@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Bling\Response;
+namespace App\Bling\Product\Response;
 
-use App\Bling\Response\Transformer\ProductTransformer;
+use App\Bling\Product\Response\Transformer\ProductTransformer;
 use Psr\Http\Message\ResponseInterface;
 
 class Factory
@@ -23,6 +23,11 @@ class Factory
         $responseData = $this->transformer->transform($data);
 
         return new ProductResponse($responseData);
+    }
+
+    public function makeWithError(array $message): ProductResponse
+    {
+        return new ProductResponse(null, $message);
     }
 
     private function decode(ResponseInterface $response)
