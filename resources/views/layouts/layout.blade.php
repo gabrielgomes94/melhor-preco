@@ -51,4 +51,9 @@
     </div>
     @stack('modals')
 </body>
+<script>
+    @if (Auth::check())
+        var tokenApiKey = "{!! env('API_KEY') !!}"
+    @endif
+</script>
 </html>

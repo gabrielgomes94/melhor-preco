@@ -1,5 +1,4 @@
 require('./bootstrap');
+require('./product/product')
 require('./product/upload_image')
 require('./product/generate_qr_code')
-
-

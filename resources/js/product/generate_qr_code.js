@@ -1,64 +1,111 @@
-let i = 0
-let input = document.querySelector('.input-sku');
-let inputName = document.querySelector('.input-name');
-let inputStockAmount = document.querySelector('.input-stock-amount');
-let buttonAddProduct = document.querySelector('#button-add-product')
-let table = document.querySelector('#input-table-body')
-let errorBox = document.querySelector('#error-box')
+import * as errorBox from "./error_box";
 
-input.addEventListener('change', function () {
-    // var base = window.location.href
-    var base = 'http://barrigudinha.test:8000/'
-    const api_url = base + "api/product/" + this.value + "/stock"
+let generateQRCodeForm = function() {
+    let i = 0
 
-    // Defining async function
-    async function getapi(url) {
-        inputName.value = ''
-        inputStockAmount.value = ''
-        const response = await fetch(url)
-
-        var data = await response.json()
-
-        // console.log(data)
-        if (data['errors']) {
-            errorBox.innerHTML = data['errors']
-            errorBox.classList.add("alert")
-            errorBox.classList.add("alert-danger")
-
-            return
-        }
-
-        if (response) {
-            inputName.value = data['products'][0]['name']
-            inputStockAmount.value = data['products'][0]['stock']
-        }
+    var generateQRCode = {
+        input: {
+            sku: document.querySelector('.input-sku'),
+            name: document.querySelector('.input-name'),
+            stockAmount: document.querySelector('.input-stock-amount')
+        },
+        button: {
+            addProduct: document.querySelector('#button-add-product')
+        },
+        table: document.querySelector('#input-table-body'),
+        errorBox: document.querySelector('#error-box')
     }
 
-    getapi(api_url);
-});
+    let requestOptions = {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + tokenApiKey
+        },
+    }
 
-buttonAddProduct.addEventListener('click', function (){
-    var row = document.createElement('tr')
-    var skuCell = document.createElement('th')
-    var nameCell = document.createElement('td')
-    var stock = document.createElement('td')
+    async function getProduct(url) {
+        const response = await fetch(url, requestOptions)
+            .then(function(data) {
+                return data.json()
+            })
+            .then(function(data) {
+                if (data.product) {
+                    setProductSelector(data.product)
+                }
 
-    skuCell.innerHTML = "<input type='number' name='products[" + i + "][sku]' value=" + input.value + ">"
-    nameCell.innerText = inputName.value
-    stock.innerHTML = "<input type='number' name='products[" + i + "][stock]' value=" + inputStockAmount.value + ">"
+                if (data.errors) {
+                    // let errorBox = generateQRCode.errorBox
+                    errorBox.show(data.errors[0].erro.msg, generateQRCode.errorBox)
+                    // showErrorBox(data.errors[0].erro.msg)
+                }
+            })
+            .catch(function(error) {
+                addErrorMessage(error)
+            })
 
-    if (inputStockAmount.value)
-    {
-        row.append(skuCell)
-        row.append(nameCell)
-        row.append(stock)
-        table.appendChild(row)
+        return response;
+    }
 
+    function cleanProductSelector() {
+        setProductSelector()
+    }
+
+    function setProductSelector(data = null) {
+        let name = data ? data.name : ''
+        let stock = data ? data.stock : ''
+
+        generateQRCode.input.name.value = name
+        generateQRCode.input.stockAmount.value = stock
+    }
+
+    function createTableRow() {
+        var row = document.createElement('tr')
+        var skuCell = document.createElement('th')
+        var nameCell = document.createElement('td')
+        var stock = document.createElement('td')
+
+        let tableRowStructure = {
+            row: row,
+            cells: {
+                sku: skuCell,
+                name: nameCell,
+                stock: stock
+            }
+        }
+
+        return tableRowStructure
+    }
+
+    function updateTableRow(cells){
+        cells.name.innerText = generateQRCode.input.name.value
+        cells.sku.innerHTML = "<input type='number' name='products[" + i + "][sku]' value=" + generateQRCode.input.sku.value + ">"
+        cells.stock.innerHTML = "<input type='number' name='products[" + i + "][stock]' value=" + generateQRCode.input.stockAmount.value + ">"
+
+        return cells
+    }
+
+    generateQRCode.button.addProduct.addEventListener('click', function (){
+        console.log(errorBox)
+        var tableRow = createTableRow()
+        let cells = updateTableRow(tableRow.cells)
+        let row = tableRow.row
+
+        row.append(cells.sku)
+        row.append(cells.name)
+        row.append(cells.stock)
+        generateQRCode.table.appendChild(row)
         i++
-    } else {
-        errorBox.innerText = 'Aconteceu algum problema'
+    });
 
-        errorBox.classList.add("alert")
-        errorBox.classList.add("alert-danger")
-    }
-});
+    generateQRCode.input.sku.addEventListener('change', function () {
+        // var base = window.location.href
+        var base = 'http://barrigudinha.test:8000/'
+        const api_url = base + "api/product/" + this.value
+
+        cleanProductSelector()
+        getProduct(api_url)
+    });
+}
+
+generateQRCodeForm()

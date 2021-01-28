@@ -20103,6 +20103,8 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./product/product */ "./resources/js/product/product.js");
+
 __webpack_require__(/*! ./product/upload_image */ "./resources/js/product/upload_image.js");
 
 __webpack_require__(/*! ./product/generate_qr_code */ "./resources/js/product/generate_qr_code.js");
@@ -20141,6 +20143,28 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/product/error_box.js":
+/*!*******************************************!*\
+  !*** ./resources/js/product/error_box.js ***!
+  \*******************************************/
+/*! exports provided: show */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
+function show(errorMessage, errorBox) {
+  errorBox.innerHTML = errorMessage;
+  errorBox.classList.remove("d-none");
+  errorBox.classList.add("alert");
+  errorBox.classList.add("alert-danger");
+  setTimeout(function () {
+    errorBox.classList.add('d-none');
+  }, 3600);
+}
+
+/***/ }),
+
 /***/ "./resources/js/product/generate_qr_code.js":
 /*!**************************************************!*\
   !*** ./resources/js/product/generate_qr_code.js ***!
@@ -20152,97 +20176,177 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _error_box__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error_box */ "./resources/js/product/error_box.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var i = 0;
-var input = document.querySelector('.input-sku');
-var inputName = document.querySelector('.input-name');
-var inputStockAmount = document.querySelector('.input-stock-amount');
-var buttonAddProduct = document.querySelector('#button-add-product');
-var table = document.querySelector('#input-table-body');
-var errorBox = document.querySelector('#error-box');
-input.addEventListener('change', function () {
-  // var base = window.location.href
-  var base = 'http://barrigudinha.test:8000/';
-  var api_url = base + "api/product/" + this.value + "/stock"; // Defining async function
 
-  function getapi(_x) {
-    return _getapi.apply(this, arguments);
+
+var generateQRCodeForm = function generateQRCodeForm() {
+  var i = 0;
+  var generateQRCode = {
+    input: {
+      sku: document.querySelector('.input-sku'),
+      name: document.querySelector('.input-name'),
+      stockAmount: document.querySelector('.input-stock-amount')
+    },
+    button: {
+      addProduct: document.querySelector('#button-add-product')
+    },
+    table: document.querySelector('#input-table-body'),
+    errorBox: document.querySelector('#error-box')
+  };
+  var requestOptions = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + tokenApiKey
+    }
+  };
+
+  function getProduct(_x) {
+    return _getProduct.apply(this, arguments);
   }
 
-  function _getapi() {
-    _getapi = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-      var response, data;
+  function _getProduct() {
+    _getProduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              inputName.value = '';
-              inputStockAmount.value = '';
-              _context.next = 4;
-              return fetch(url);
+              _context.next = 2;
+              return fetch(url, requestOptions).then(function (data) {
+                return data.json();
+              }).then(function (data) {
+                if (data.product) {
+                  setProductSelector(data.product);
+                }
+
+                if (data.errors) {
+                  // let errorBox = generateQRCode.errorBox
+                  _error_box__WEBPACK_IMPORTED_MODULE_1__["show"](data.errors[0].erro.msg, generateQRCode.errorBox); // showErrorBox(data.errors[0].erro.msg)
+                }
+              })["catch"](function (error) {
+                addErrorMessage(error);
+              });
+
+            case 2:
+              response = _context.sent;
+              return _context.abrupt("return", response);
 
             case 4:
-              response = _context.sent;
-              _context.next = 7;
-              return response.json();
-
-            case 7:
-              data = _context.sent;
-
-              if (!data['errors']) {
-                _context.next = 13;
-                break;
-              }
-
-              errorBox.innerHTML = data['errors'];
-              errorBox.classList.add("alert");
-              errorBox.classList.add("alert-danger");
-              return _context.abrupt("return");
-
-            case 13:
-              if (response) {
-                inputName.value = data['products'][0]['name'];
-                inputStockAmount.value = data['products'][0]['stock'];
-              }
-
-            case 14:
             case "end":
               return _context.stop();
           }
         }
       }, _callee);
     }));
-    return _getapi.apply(this, arguments);
+    return _getProduct.apply(this, arguments);
   }
 
-  getapi(api_url);
-});
-buttonAddProduct.addEventListener('click', function () {
-  var row = document.createElement('tr');
-  var skuCell = document.createElement('th');
-  var nameCell = document.createElement('td');
-  var stock = document.createElement('td');
-  skuCell.innerHTML = "<input type='number' name='products[" + i + "][sku]' value=" + input.value + ">";
-  nameCell.innerText = inputName.value;
-  stock.innerHTML = "<input type='number' name='products[" + i + "][stock]' value=" + inputStockAmount.value + ">";
+  function cleanProductSelector() {
+    setProductSelector();
+  }
 
-  if (inputStockAmount.value) {
-    row.append(skuCell);
-    row.append(nameCell);
-    row.append(stock);
-    table.appendChild(row);
+  function setProductSelector() {
+    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var name = data ? data.name : '';
+    var stock = data ? data.stock : '';
+    generateQRCode.input.name.value = name;
+    generateQRCode.input.stockAmount.value = stock;
+  }
+
+  function createTableRow() {
+    var row = document.createElement('tr');
+    var skuCell = document.createElement('th');
+    var nameCell = document.createElement('td');
+    var stock = document.createElement('td');
+    var tableRowStructure = {
+      row: row,
+      cells: {
+        sku: skuCell,
+        name: nameCell,
+        stock: stock
+      }
+    };
+    return tableRowStructure;
+  }
+
+  function updateTableRow(cells) {
+    cells.name.innerText = generateQRCode.input.name.value;
+    cells.sku.innerHTML = "<input type='number' name='products[" + i + "][sku]' value=" + generateQRCode.input.sku.value + ">";
+    cells.stock.innerHTML = "<input type='number' name='products[" + i + "][stock]' value=" + generateQRCode.input.stockAmount.value + ">";
+    return cells;
+  }
+
+  generateQRCode.button.addProduct.addEventListener('click', function () {
+    console.log(_error_box__WEBPACK_IMPORTED_MODULE_1__);
+    var tableRow = createTableRow();
+    var cells = updateTableRow(tableRow.cells);
+    var row = tableRow.row;
+    row.append(cells.sku);
+    row.append(cells.name);
+    row.append(cells.stock);
+    generateQRCode.table.appendChild(row);
     i++;
-  } else {
-    errorBox.innerText = 'Aconteceu algum problema';
-    errorBox.classList.add("alert");
-    errorBox.classList.add("alert-danger");
-  }
-});
+  });
+  generateQRCode.input.sku.addEventListener('change', function () {
+    // var base = window.location.href
+    var base = 'http://barrigudinha.test:8000/';
+    var api_url = base + "api/product/" + this.value;
+    cleanProductSelector();
+    getProduct(api_url);
+  });
+};
+
+generateQRCodeForm();
+
+/***/ }),
+
+/***/ "./resources/js/product/product.js":
+/*!*****************************************!*\
+  !*** ./resources/js/product/product.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// // Defining async function
+// var productGet = async function getapi(url) {
+//     inputName.value = ''
+//     inputStockAmount.value = ''
+//     var bearer = 'Bearer ' + tokenApiKey
+//
+//     var options = {
+//         method: 'GET',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Authorization': bearer
+//         },
+//     }
+//     const response = await fetch(url, options)
+//
+//     var data = await response.json()
+//
+//     // console.log(data)
+//     if (data['errors']) {
+//         errorBox.innerHTML = data['errors']
+//         errorBox.classList.add("alert")
+//         errorBox.classList.add("alert-danger")
+//
+//         return
+//     }
+//
+//     if (response) {
+//         inputName.value = data['products'][0]['name']
+//         inputStockAmount.value = data['products'][0]['stock']
+//     }
+// }
+//
+// productGet(1232)
 
 /***/ }),
 
@@ -20276,33 +20380,92 @@ var uploadImageAPI = function uploadImageAPI() {
     inputBrand: document.querySelector('.input-brand'),
     errorBox: document.querySelector('#error-box')
   };
+
+  function getProduct(_x) {
+    return _getProduct.apply(this, arguments);
+  }
+
+  function _getProduct() {
+    _getProduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url) {
+      var bearer, options, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              bearer = 'Bearer ' + tokenApiKey;
+              options = {
+                method: 'GET',
+                headers: {
+                  'Accept': 'application/json',
+                  'Authorization': bearer
+                }
+              };
+              _context2.next = 4;
+              return fetch(url, options).then(function (data) {
+                return data.json();
+              }).then(function (data) {
+                if (data.product) {
+                  setFeedbackInfo(data.product);
+                  uploadImageInput.inputName.value = data.product.name;
+                  uploadImageInput.inputBrand.value = data.product.brand;
+                }
+
+                if (data.errors) {
+                  console.log(data.errors);
+                  addErrorMessage(data.errors[0].erro.msg);
+                }
+              })["catch"](function (error) {
+                addErrorMessage(error);
+              });
+
+            case 4:
+              response = _context2.sent;
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return _getProduct.apply(this, arguments);
+  }
+
   uploadImageInput.input.addEventListener('change', function () {
     var api_url = window.location.origin + '/api/product/' + this.value; // Defining async function
 
-    function getapi(_x) {
+    function getapi(_x2) {
       return _getapi.apply(this, arguments);
     }
 
     function _getapi() {
       _getapi = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-        var response, data;
+        var bearer, options, response, data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return fetch(url);
+                bearer = 'Bearer ' + tokenApiKey;
+                options = {
+                  method: 'GET',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Authorization': bearer
+                  }
+                };
+                _context.next = 4;
+                return fetch(url, options);
 
-              case 2:
+              case 4:
                 response = _context.sent;
-                _context.next = 5;
+                _context.next = 7;
                 return response.json();
 
-              case 5:
+              case 7:
                 data = _context.sent;
 
                 if (!data['errors']) {
-                  _context.next = 11;
+                  _context.next = 13;
                   break;
                 }
 
@@ -20311,13 +20474,13 @@ var uploadImageAPI = function uploadImageAPI() {
                 errorBox.classList.add("alert-danger");
                 return _context.abrupt("return");
 
-              case 11:
+              case 13:
                 if (response) {
                   uploadImageInput.inputName.value = data['descricao'];
                   uploadImageInput.inputBrand.value = data['marca'];
                 }
 
-              case 12:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -20327,7 +20490,7 @@ var uploadImageAPI = function uploadImageAPI() {
       return _getapi.apply(this, arguments);
     }
 
-    getapi(api_url);
+    getProduct(api_url);
   });
 };
 
