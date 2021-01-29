@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function() {
             ->name('product.images.upload');
     });
 
-    Route::get('/product/{sku}/stock', [ProductController::class, 'getWithStock'])->name('product.show');
+    Route::get('/product/{sku}/stock', [ProductController::class, 'get'])->name('product.show');
     Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 });
