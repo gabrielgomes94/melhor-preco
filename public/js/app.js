@@ -20303,9 +20303,7 @@ var generateQRCodeForm = function generateQRCodeForm() {
     i++;
   });
   generateQRCode.input.sku.addEventListener('change', function () {
-    // var base = window.location.href
-    var base = 'http://barrigudinha.test:8000/';
-    var api_url = base + "api/product/" + this.value;
+    var api_url = window.location.origin + '/api/product/' + this.value;
     cleanProductSelector();
     getProduct(api_url);
   });

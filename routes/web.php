@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Front\ImageUploaderController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use Illuminate\Support\Facades\Route;

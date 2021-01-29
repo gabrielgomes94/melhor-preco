@@ -100,9 +100,7 @@ let generateQRCodeForm = function() {
     });
 
     generateQRCode.input.sku.addEventListener('change', function () {
-        // var base = window.location.href
-        var base = 'http://barrigudinha.test:8000/'
-        const api_url = base + "api/product/" + this.value
+        const api_url = window.location.origin + '/api/product/' + this.value
 
         cleanProductSelector()
         getProduct(api_url)
