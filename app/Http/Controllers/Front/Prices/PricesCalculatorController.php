@@ -8,4 +8,11 @@ class PricesCalculatorController extends Controller
 {
     public function calculate(Request $request) {
     }
+
+    public function calculate_single(Request $request) {
+        $sku = $request->input('sku');
+        $price = $request->input('price');
+
+        dd($price);
+    }
 }

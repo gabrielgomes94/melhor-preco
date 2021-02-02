@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Products\ProductImageController;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('prices')->name('prices')->group(function () {
         Route::get('single', [PricesController::class, 'single'])->name('.single');
+
+        Route::post('calculate_single', [PricesCalculatorController::class, 'calculate_single'])->name('.calculate_single');
     });
 });
 
