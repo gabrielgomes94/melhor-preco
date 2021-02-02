@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,10 @@ Route::middleware('auth')->group(function() {
     Route::get('/product/{sku}/stock', [ProductController::class, 'get'])->name('product.show');
     Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
+
+    Route::prefix('prices')->name('prices')->group(function () {
+        Route::get('single', [PricesController::class, 'single'])->name('.single');
+    });
 });
 
 
