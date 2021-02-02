@@ -11,8 +11,8 @@
             </div>
 
             <div class="form-group">
-                <label for="descricao">Preço de Compra</label>
-                <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="description">
+                <label for="price">Preço de Compra</label>
+                <input type="text" class="form-control input-price" id="price" placeholder="Nome" name="price">
             </div>
 
             <input type="submit"  class="btn btn-dark d-block w-75 mx-auto m-2" value="Enviar" />
