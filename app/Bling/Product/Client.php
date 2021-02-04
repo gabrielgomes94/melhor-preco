@@ -40,22 +40,27 @@ class Client
         ];
     }
 
-    public function get(string $sku): array
+    public function get(string $sku): ProductResponse
     {
         try {
             $response = $this->guzzleClient->request('GET', "{$sku}/json", $this->options);
-            $data = json_decode((string) $response->getBody(), true);
+
+            $productResponse = $this->responseFactory->make($response);
         } catch(GuzzleException $exception) {
             $data = [
                 'errors' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
             ];
+
+            $productResponse = $this->responseFactory->makeWithError($data);
         } catch(\Exception $exception) {
             $data = [
                 'errors' => 'Aconteceu algum erro bizarro. Contate o suporte.',
             ];
+
+            $productResponse = $this->responseFactory->makeWithError($data);
         }
 
-        return $data;
+        return $productResponse;
     }
 
     public function getWithStock(string $sku): ProductResponse

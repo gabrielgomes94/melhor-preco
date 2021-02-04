@@ -20,9 +20,6 @@ class Product
 
     public function get($sku): ProductResponse
     {
-
-        // To Do: Fix this
-//        $response = $this->blingClient->get($sku);
         $response = $this->blingClient->get($sku);
 
         return $response;
