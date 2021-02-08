@@ -1,8 +1,7 @@
 <?php
-
-
 namespace App\Bling\Prices;
 
+use App\Barrigudinha\Prices\Price;
 
 class CalculatorService
 {
@@ -16,44 +15,37 @@ class CalculatorService
         'comission' => 0.165,
     ];
 
-    public function calculate($sku, $buy_price)
+    public function calculate(Price $price)
     {
-        $buy_price = (float) $buy_price;
+        $costPrice = $price->purchasePrice *
+            (1 + $price->taxes['IPI']) *
+            (1 + $price->taxes['ICMS']) *
+            (1 + $price->taxes['SimplesNacional']);
 
-        $costPrice = $buy_price *
-            (1 + $this->configs['taxes']['IPI']) *
-            (1 + $this->configs['taxes']['ICMS']) *
-            (1 + $this->configs['taxes']['SimplesNacional']);
+        $suggestedPrice = $costPrice /
+            (1 - $price->commission - $price->taxes['SimplesNacional'] - $price->profitMargin);
 
-        $suggestedPrice = $costPrice / (1 - $this->configs['comission'] - $this->configs['taxes']['SimplesNacional'] - $this->configs['profitMargin']);
-
-        $profit = $this->calculateProfit($suggestedPrice, $costPrice);
+        $profit = $this->calculateProfit($suggestedPrice, $costPrice, $price);
 
         return [
-            'buyPrice' => $buy_price,
-            'costPrice' => $costPrice,
-            'taxes' => [
-                'IPI' => $buy_price * ($this->configs['taxes']['IPI']),
-                'ICMS' => $buy_price * ($this->configs['taxes']['ICMS']),
-            ],
-            'suggestedPrices' => [
+            'salePrices' => [
                 'normal' => [
                     'sellingPrice' => $suggestedPrice,
                     'profit' => $profit,
                 ],
                 '5PercentDiscount' => [
                     'sellingPrice' => $suggestedPrice * 0.95,
-                    'profit' => $this->calculateProfit($suggestedPrice * 0.95, $costPrice),
+                    'profit' => $this->calculateProfit($suggestedPrice * 0.95, $costPrice, $price),
                 ]
             ],
         ];
     }
 
-    private function calculateProfit($suggestedPrice, $costPrice)
+    private function calculateProfit($suggestedPrice, $costPrice, $price)
     {
         $profit = $suggestedPrice - ($costPrice
-                + ($suggestedPrice * $this->configs['comission'])
-                + ($suggestedPrice * $this->configs['taxes']['SimplesNacional']));
+                + ($suggestedPrice * $price->commission)
+                + ($suggestedPrice * $price->taxes['SimplesNacional']));
 
         return $profit;
     }
