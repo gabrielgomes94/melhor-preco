@@ -14,6 +14,9 @@
                 <li>
                     <a href={{ route('product.qr_codes') }}>Geração de QR Codes</a>
                 </li>
+                <li>
+                    <a href={{ route('prices.single') }}>Calculadora de Preços</a>
+                </li>
             </ul>
             <ul class="list-unstyled components">
                 <li>
