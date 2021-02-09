@@ -47,17 +47,13 @@ class Client
 
             $productResponse = $this->responseFactory->make($response);
         } catch(GuzzleException $exception) {
-            $data = [
-                'errors' => 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.',
-            ];
+            $error = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.';
 
-            $productResponse = $this->responseFactory->makeWithError($data);
+            $productResponse = $this->responseFactory->makeWithError($error);
         } catch(\Exception $exception) {
-            $data = [
-                'errors' => 'Aconteceu algum erro bizarro. Contate o suporte.',
-            ];
+            $error = 'Aconteceu algum erro bizarro. Contate o suporte.';
 
-            $productResponse = $this->responseFactory->makeWithError($data);
+            $productResponse = $this->responseFactory->makeWithError($error);
         }
 
         return $productResponse;

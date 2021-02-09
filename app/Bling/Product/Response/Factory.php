@@ -25,7 +25,7 @@ class Factory
         return new ProductResponse($responseData);
     }
 
-    public function makeWithError(array $message): ProductResponse
+    public function makeWithError(string $message): ProductResponse
     {
         return new ProductResponse(null, $message);
     }

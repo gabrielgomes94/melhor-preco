@@ -29,7 +29,8 @@ class ProductController extends BaseController
         $response = $this->blingClient->get($sku);
 
         if ($response->hasErrors()) {
-            return response()->json($response->errors());
+            $errors = $response->errors();
+            return response()->json(compact('errors'));
         }
 
         $product = $response->product()->toArray();
