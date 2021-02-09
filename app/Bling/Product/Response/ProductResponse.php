@@ -21,14 +21,14 @@ class ProductResponse
     private $product;
 
 
-    public function __construct(?array $data, ?array $error = null)
+    public function __construct(?array $data, $error = null)
     {
         if (!empty($data)) {
             $this->fill($data);
         }
 
         if (!empty($error)) {
-            $this->errors = $error;
+            $this->errors[] = $error;
         }
     }
 
