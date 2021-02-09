@@ -20154,15 +20154,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
 function show(errors, errorBox) {
-  errorBox.innerHTML = "<ul></ul>";
+  errorBox.innerHTML = "<ul class='list-group'></ul>";
   errors.forEach(function (error, index) {
-    var errorMessage = document.createElement('li');
-    errorMessage.innerHTML = error.erro.msg;
+    var errorMessage = document.createElement("li");
+    errorMessage.classList.add("list-group-item");
+    errorMessage.classList.add("list-group-item-danger");
+    errorMessage.innerHTML = error;
     errorBox.append(errorMessage);
   });
   errorBox.classList.remove("d-none");
-  errorBox.classList.add("alert");
-  errorBox.classList.add("alert-danger");
   setTimeout(function () {
     errorBox.classList.add('d-none');
   }, 4200);
@@ -20419,7 +20419,7 @@ var uploadImageAPI = function uploadImageAPI() {
 
   function _getProduct() {
     _getProduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-      var bearer, options, response;
+      var bearer, options;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -20449,9 +20449,6 @@ var uploadImageAPI = function uploadImageAPI() {
               });
 
             case 4:
-              response = _context.sent;
-
-            case 5:
             case "end":
               return _context.stop();
           }
@@ -20468,9 +20465,7 @@ var uploadImageAPI = function uploadImageAPI() {
 };
 
 var filePreview = function filePreview() {
-  var baseurl = window.location.origin + window.location.pathname;
-
-  if (baseurl !== 'http://barrigudinha.test:8000/product/upload_images') {
+  if (window.location.pathname !== '/product/upload_images') {
     return;
   }
 
