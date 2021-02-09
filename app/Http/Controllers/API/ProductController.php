@@ -26,28 +26,15 @@ class ProductController extends BaseController
 
     public function get(Request $request, $sku)
     {
-        $data = $this->blingClient->get($sku);
-        $data = $data['retorno'];
+        $response = $this->blingClient->get($sku);
 
-        if (array_key_exists('erros', $data)) {
-            $errors = ['errors' =>  $data['erros']];
-
-            return $errors;
+        if ($response->hasErrors()) {
+            return response()->json($response->errors());
         }
 
-        $data = $data['produtos'][0]['produto'];
+        $product = $response->product()->toArray();
 
-        $product = [
-            'product' => [
-                'sku' => $data['codigo'],
-                'name' => $data['descricao'],
-                'brand' => $data['marca'],
-                'images' => $data['imagem'] ?? [],
-                'stock' => $data['estoqueAtual'] ?? null,
-            ]
-        ];
-
-        return response()->json($product);
+        return response()->json(compact('product'));
     }
 
     public function getWithImage(Request $request, $sku)

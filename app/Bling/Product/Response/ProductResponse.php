@@ -15,6 +15,11 @@ class ProductResponse
      */
     private $products = [];
 
+    /**
+     * @var Product
+     */
+    private $product;
+
 
     public function __construct(?array $data, ?array $error = null)
     {
@@ -34,6 +39,8 @@ class ProductResponse
         foreach($products as $product) {
             $this->products[] = new Product($product);
         }
+
+        $this->product = new Product($products[0]);
     }
 
     public function toArray(): array
@@ -50,6 +57,12 @@ class ProductResponse
     {
         return $this->errors;
     }
+
+    public function product(): Product
+    {
+        return $this->product;
+    }
+
 
     public function hasErrors(): bool
     {
