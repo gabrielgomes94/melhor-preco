@@ -11,7 +11,7 @@
 
             <div class="form-group">
                 <label for="price">Preço de Compra(valor unitário do produto, sem incluir impostos ou frete)</label>
-                <input type="text" class="form-control input-price" id="price" placeholder="Preço de Compra" name="price" value="{{ $purchasePrice['purchasePrice'] ?? '' }}">
+                <input type="text" class="form-control input-price" id="price" placeholder="Preço de Compra" name="price" value="{{ $purchasePrice ?? '' }}">
             </div>
 
             <div class="form-group">

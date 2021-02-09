@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class SingleForm extends Component
 {
+    public $purchasePrice;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($purchasePrice)
     {
-        //
+        $this->purchasePrice = $purchasePrice;
     }
 
     /**
