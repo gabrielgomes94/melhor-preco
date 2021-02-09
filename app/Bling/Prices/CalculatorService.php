@@ -30,12 +30,22 @@ class CalculatorService
         return [
             'salePrices' => [
                 'normal' => [
-                    'sellingPrice' => $suggestedPrice,
-                    'profit' => $profit,
+                    'sellingPrice' => round($suggestedPrice, 2),
+                    'costPrice' => round($costPrice),
+                    'commission' => round($suggestedPrice * $price->commission),
+                    'profit' => round($profit, 2),
                 ],
                 '5PercentDiscount' => [
-                    'sellingPrice' => $suggestedPrice * 0.95,
-                    'profit' => $this->calculateProfit($suggestedPrice * 0.95, $costPrice, $price),
+                    'sellingPrice' => round($suggestedPrice * 0.95, 2),
+                    'costPrice' => round($costPrice),
+                    'commission' => round($suggestedPrice * 0.95 * $price->commission),
+                    'profit' => round($this->calculateProfit($suggestedPrice * 0.95, $costPrice, $price), 2),
+                ],
+                'minimumPossibleValue' => [
+                    'sellingPrice' => $suggestedPrice = round($this->calculatePriceFromProfit($costPrice, $price), 2),
+                    'costPrice' => round($costPrice),
+                    'commission' => round($suggestedPrice * $price->commission),
+                    'profit' => 0.01
                 ]
             ],
         ];
@@ -48,5 +58,13 @@ class CalculatorService
                 + ($suggestedPrice * $price->taxes['SimplesNacional']));
 
         return $profit;
+    }
+
+    private function calculatePriceFromProfit($costPrice, $price)
+    {
+        $profit = 0.01;
+        $suggestedPrice = ($profit + $costPrice) / (1 - $price->commission - $price->taxes['SimplesNacional']);
+
+        return $suggestedPrice;
     }
 }
