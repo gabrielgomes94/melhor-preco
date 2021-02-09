@@ -10,32 +10,32 @@
             </div>
 
             <div class="form-group">
-                <label for="price">Preço de Compra(valor unitário do produto, sem incluir impostos ou frete)</label>
+                <label for="price">Preço de Compra(valor unitário do produto, sem incluir impostos ou frete, em R$)</label>
                 <input type="text" class="form-control input-price" id="price" placeholder="Preço de Compra" name="price" value="{{ $purchasePrice ?? '' }}">
             </div>
 
             <div class="form-group">
-                <label for="commission">Comissão</label>
+                <label for="commission">Comissão (%)</label>
                 <input type="number" class="form-control input-commission" id="commission" placeholder="Comissão" name="commission" value=12.4>
             </div>
 
             <div class="form-group">
-                <label for="profit-margin">Margem de lucro desejada</label>
+                <label for="profit-margin">Margem de lucro desejada (%)</label>
                 <input type="number" class="form-control input-profit-margin" id="profit-margin" placeholder="Margem de Lucro" name="profit-margin" value="25">
             </div>
 
             <div class="form-group">
-                <label for="tax-ipi">IPI</label>
+                <label for="tax-ipi">IPI (%)</label>
                 <input type="number" class="form-control input-tax-ipi" id="tax-ipi" placeholder="Comissão" name="tax-ipi" value="4">
             </div>
 
             <div class="form-group">
-                <label for="tax-icms">ICMS</label>
+                <label for="tax-icms">ICMS (%)</label>
                 <input type="number" class="form-control input-tax-icms" id="tax-icms" placeholder="Comissão" name="tax-icms" value="6">
             </div>
 
             <div class="form-group">
-                <label for="tax-simples-nacional">Simples Nacional</label>
+                <label for="tax-simples-nacional">Simples Nacional (%)</label>
                 <input type="number" class="form-control input-tax-simples-nacional" id="tax-simples-nacional" placeholder="Comissão" name="tax-simples-nacional" value="4">
             </div>
 

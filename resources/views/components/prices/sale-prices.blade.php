@@ -1,7 +1,7 @@
 <div>
-    <h3>
-        Preço Sugerido
-    </h3>
+    <h1>
+        Preços Sugeridos
+    </h1>
 
     <div>
         @isset($salePrices['salePrices'])
@@ -19,7 +19,7 @@
             <h6 class="text-success"><strong>Lucro:</strong> {{ $salePrices['salePrices']['5PercentDiscount']['profit'] }}</h6>
             <br>
 
-            <h5>Preço mínimo. Abaixo disso temos prejuízo: </h5>
+            <h5>Preço mínimo(abaixo disso temos prejuízo): </h5>
             <h6><strong>Preço de venda:</strong> {{ $salePrices['salePrices']['minimumPossibleValue']['sellingPrice'] }}</h6>
             <h6 class="text-danger"><strong>Preço de custo:</strong> {{ $salePrices['salePrices']['minimumPossibleValue']['costPrice'] }}</h6>
             <h6 class="text-danger"><strong>Comissão:</strong> {{ $salePrices['salePrices']['minimumPossibleValue']['commission'] }}</h6>
