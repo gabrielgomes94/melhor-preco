@@ -25,12 +25,11 @@ let uploadImageAPI = function() {
             },
         }
 
-        const response = await fetch(url, options)
+        await fetch(url, options)
             .then(function(data) {
                 return data.json()
             })
             .then(function(data) {
-
                 if (data.product) {
                     uploadImage.formInput.name.value = data.product.name
                     uploadImage.formInput.brand.value = data.product.brand
@@ -47,13 +46,13 @@ let uploadImageAPI = function() {
 
     uploadImage.formInput.sku.addEventListener('change', function () {
         const api_url = window.location.origin + '/api/product/' + this.value
+
         getProduct(api_url)
     });
 }
 
 let filePreview = function () {
-    var baseurl = window.location.origin+window.location.pathname;
-    if (baseurl !== 'http://barrigudinha.test:8000/product/upload_images') {
+    if (window.location.pathname !== '/product/upload_images') {
         return;
     }
 
