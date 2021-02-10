@@ -29,12 +29,13 @@ class PricesCalculatorController extends Controller
             'purchasePrice' => $request->input('price'),
             'taxes' => [
                 'IPI' => $request->input('tax-ipi') / 100.0,
-                'ICMS' => $request->input('tax-icms') / 100.0,
-                'SimplesNacional' => $request->input('tax-simples-nacional') / 100.0,
+                'ICMSDifference' => $request->input('tax-icms') / 100.0,
+                'SimplesNacional' => 4 / 100.0,
 
             ],
             'commission' => $request->input('commission') / 100.0,
             'profitMargin' => $request->input('profit-margin') / 100.0,
+            'freight' => $request->input('freight')
         ];
 
         $price = new Price($data);

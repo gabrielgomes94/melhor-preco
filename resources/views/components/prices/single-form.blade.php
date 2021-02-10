@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label for="commission">Comissão (%)</label>
-                <input type="number" class="form-control input-commission" id="commission" placeholder="Comissão" name="commission" value=12.4>
+                <input type="text" class="form-control input-commission" id="commission" placeholder="Comissão" name="commission" value=12.8>
             </div>
 
             <div class="form-group">
@@ -30,13 +30,13 @@
             </div>
 
             <div class="form-group">
-                <label for="tax-icms">ICMS (%)</label>
+                <label for="tax-icms">Diferença de Alíquota de ICMS (%)</label>
                 <input type="number" class="form-control input-tax-icms" id="tax-icms" placeholder="Comissão" name="tax-icms" value="6">
             </div>
 
             <div class="form-group">
-                <label for="tax-simples-nacional">Simples Nacional (%)</label>
-                <input type="number" class="form-control input-tax-simples-nacional" id="tax-simples-nacional" placeholder="Comissão" name="tax-simples-nacional" value="4">
+                <label for="tax-simples-nacional">Frete (em R$)</label>
+                <input type="text" class="form-control input-tax-simples-nacional" id="tax-simples-nacional" placeholder="Frete" name="freight">
             </div>
 
             <input type="submit"  class="btn btn-dark d-block w-75 mx-auto m-2" value="Calcular" />

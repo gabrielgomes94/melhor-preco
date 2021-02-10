@@ -17,6 +17,8 @@ class Price
 
     public $salePrice;
 
+    public $freight;
+
     public function __construct(array $data)
     {
         $this->sku = $data['sku'];
@@ -24,5 +26,6 @@ class Price
         $this->taxes = $data['taxes'] ?? [];
         $this->commission = $data['commission'];
         $this->profitMargin = $data['profitMargin'];
+        $this->freight = $data['freight'];
     }
 }
