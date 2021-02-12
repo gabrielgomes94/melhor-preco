@@ -44,6 +44,7 @@ class PricesCalculatorController extends Controller
         return view('prices.single', [
             'salePrices' => $salePrices,
             'purchasePrice' => $request->input('price'),
+            'priceParams' => $request->all(),
         ]);
     }
 }
