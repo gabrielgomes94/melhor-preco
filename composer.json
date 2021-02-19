@@ -19,7 +19,8 @@
         "league/flysystem-aws-s3-v3": "*",
         "livewire/livewire": "^2.0",
         "phpoffice/phpspreadsheet": "^1.16",
-        "simplesoftwareio/simple-qrcode": "~4"
+        "simplesoftwareio/simple-qrcode": "~4",
+        "squizlabs/php_codesniffer": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
