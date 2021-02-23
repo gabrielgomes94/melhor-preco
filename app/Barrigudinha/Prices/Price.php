@@ -19,6 +19,8 @@ class Price
 
     public $freight;
 
+    public $desiredSellingPrice;
+
     public function __construct(array $data)
     {
         $this->sku = $data['sku'];
@@ -27,5 +29,6 @@ class Price
         $this->commission = $data['commission'];
         $this->profitMargin = $data['profitMargin'];
         $this->freight = $data['freight'];
+        $this->desiredSellingPrice = $data['sellingPrice'];
     }
 }

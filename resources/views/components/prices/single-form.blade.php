@@ -31,18 +31,31 @@
                 class="input-commission"
                 type="text"
                 placeholder="Comissão"
-                value="{{ $priceParams['commission'] ?? '' }}">
+                value="{{ $priceParams['commission'] ?? '' }}"  >
             </x-forms.input>
 
-            <x-forms.input
-                name="profit-margin"
-                label="Margem de lucro desejada (%)"
-                id="profit-margin"
-                class="input-profit-margin"
-                type="number"
-                placeholder="Margem de Lucro"
-                value="{{ $priceParams['profit-margin'] ?? '' }}">
-            </x-forms.input>
+
+            <div class="d-inline-flex justify-content-between w-100">
+                <x-forms.input
+                    name="profit-margin"
+                    label="Margem de lucro desejada (%)"
+                    id="profit-margin"
+                    class="input-profit-margin"
+                    type="number"
+                    placeholder="Margem de Lucro"
+                    value="{{ $priceParams['profit-margin'] ?? '' }}">
+                </x-forms.input>
+
+                <x-forms.input
+                    name="selling-price"
+                    label="Preço de venda (R$)"
+                    id="selling-price"
+                    class="input-selling-price"
+                    type="number"
+                    placeholder="Margem de Lucro"
+                    value="{{ $priceParams['selling-price'] ?? '' }}">
+                </x-forms.input>
+            </div>
 
             <x-forms.input
                 name="tax-icms"
