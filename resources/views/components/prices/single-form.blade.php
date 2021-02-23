@@ -58,7 +58,7 @@
             </div>
 
             <x-forms.input
-                name="tax-icms"
+                name="tax-ipi"
                 label="IPI (%)"
                 id="tax-ipi"
                 class="input-tax-ipi"
