@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="Barrigudinha">
+    <description>A custom coding standard for Barrigudinha Backoffice.</description>
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="45"/>
+    <arg name="colors"/>
+    <!-- Show progress and sniff codes in reports-->
+    <arg value="ps"/>
+
+    <file>app</file>
+
+    <rule ref="PSR12"/>
+</ruleset>
