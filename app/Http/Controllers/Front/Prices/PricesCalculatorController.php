@@ -35,7 +35,8 @@ class PricesCalculatorController extends Controller
             ],
             'commission' => $request->input('commission') / 100.0,
             'profitMargin' => $request->input('profit-margin') / 100.0,
-            'freight' => $request->input('freight')
+            'freight' => $request->input('freight'),
+            'sellingPrice' => $request->input('selling-price')
         ];
 
         $price = new Price($data);
