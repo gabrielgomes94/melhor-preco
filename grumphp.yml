@@ -1,7 +1,0 @@
-grumphp:
-  tasks:
-    phpcs:
-      standard: PSR12
-    phpunit:
-  git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: 'docker-compose run --rm --no-deps app'
