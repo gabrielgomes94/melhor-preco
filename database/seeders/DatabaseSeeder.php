@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\PriceCampaign;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Admin';
         $user->markEmailAsVerified();
         $user->save();
+
+        PriceCampaign::factory(10)->create();
     }
 }
