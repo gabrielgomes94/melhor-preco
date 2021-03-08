@@ -3,6 +3,7 @@
 use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\Pricing\Campaigns\PricingCampaignController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,8 +40,14 @@ Route::middleware('auth')->group(function() {
 
         Route::post('calculate_single', [PricesCalculatorController::class, 'calculate_single'])->name('.calculate_single');
     });
-});
 
+    Route::prefix('pricing')->group(function() {
+        Route::prefix('campaigns')->group(function() {
+            Route::get('/', [PricingCampaignController::class, 'list'])->name('.list
+            ');
+        });
+    });
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect('/');
