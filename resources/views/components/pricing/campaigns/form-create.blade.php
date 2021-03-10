@@ -12,6 +12,13 @@
             value="{{ $campaign['name'] ?? '' }}">
         </x-forms.input>
 
+        <x-pricing.forms.checkbox.store
+            name="stores"
+            id="stores"
+        >
+
+        </x-pricing.forms.checkbox.store>
+
         <x-forms.text-area
             name="skus"
             label="SKUs"
