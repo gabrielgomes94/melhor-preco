@@ -41,10 +41,11 @@ Route::middleware('auth')->group(function() {
         Route::post('calculate_single', [PricesCalculatorController::class, 'calculate_single'])->name('.calculate_single');
     });
 
-    Route::prefix('pricing')->group(function() {
-        Route::prefix('campaigns')->group(function() {
-            Route::get('/', [PricingCampaignController::class, 'list'])->name('.list
-            ');
+    Route::prefix('pricing')->name('pricing')->group(function() {
+        Route::prefix('campaigns')->name('.campaigns')->group(function() {
+            Route::get('/', [PricingCampaignController::class, 'list'])->name('.list');
+            Route::get('/create', [PricingCampaignController::class, 'create'])->name('.create');
+            Route::post('/store', [PricingCampaignController::class, 'store'])->name('.store');
         });
     });
 });
