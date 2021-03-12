@@ -1,4 +1,6 @@
 <div class="form-group">
+    <x-utils.error-box></x-utils.error-box>
+
     <form method="post" action="{{ route('pricing.campaigns.store') }}" enctype="multipart/form-data">
         @csrf
 
