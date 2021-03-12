@@ -6,6 +6,7 @@ use App\Http\Transformers\Pricing\CampaignTransformer;
 use Barrigudinha\Pricing\Repositories\Contracts\CampaignRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use App\Http\Requests\Pricing\CreatePriceCampaignRequest;
 
 class PricingCampaignController extends BaseController
 {
@@ -32,11 +33,11 @@ class PricingCampaignController extends BaseController
         return view('pricing.campaign.create');
     }
 
-    public function store(Request $request)
+    public function store(CreatePriceCampaignRequest $request)
     {
         $skus = $request->input('skus');
         $skus = explode(' ', $skus);
 
-        dd($skus);
+        return view('pricing.campaign.create');
     }
 }
