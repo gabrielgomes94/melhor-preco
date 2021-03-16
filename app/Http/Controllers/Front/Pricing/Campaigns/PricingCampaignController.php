@@ -27,17 +27,4 @@ class PricingCampaignController extends BaseController
 
         return view('pricing.campaign.list', compact('campaigns'));
     }
-
-    public function create()
-    {
-        return view('pricing.campaign.create');
-    }
-
-    public function store(CreatePriceCampaignRequest $request)
-    {
-        $skus = $request->input('skus');
-        $skus = explode(' ', $skus);
-
-        return view('pricing.campaign.create');
-    }
 }
