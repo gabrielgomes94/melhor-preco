@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Requests\Pricing\Data;
 use App\Http\Requests\Pricing\Data\CreateCampaign;
 use Tests\TestCase;
 
-class CreateCampaignDataTest extends TestCase
+class CreateCampaignTest extends TestCase
 {
     public function testShouldInstantiateCreateCampaignDataObject(): void
     {
