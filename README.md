@@ -20,6 +20,16 @@ docker-compose up -d
 
 - Copie o arquivo .env: `cp .env.example .env`
 - Prepare o ambiente para desenvolvimento: `docker-compose exec app composer setup-dev`
+- Entre no `tinker` e crie um token de API para seu usuário:
+```
+docker-compose exec app php artisan tinker
+$user = User::first();
+$user->createToken()->plainTextToken; // retorna o token do usuário
+```
+- E posteriormente, adicione esse token no .env:
+```
+API_KEY=token
+```
 
 - Configure o arquivo `/etc/hosts` da seguinte maneira:
 ```
