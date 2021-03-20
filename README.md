@@ -8,6 +8,7 @@ Antes de começar, garanta que você tem instalado na sua máquina:
 - Docker Engine e o Docker Compose
 
 - Baixe o repositório: `git clone git@github.com:gabrielgomes94/barrigudinha-backoffice.git`-
+- Acesse o repositório: `cd barrigudinha-backoffice`
 
 - Monte e suba os containers
 ```
@@ -16,6 +17,8 @@ docker-compose up -d
 ```
 
 - Instale as dependências: `docker-compose exec app composer install`
+
+- Copie o arquivo .env: `cp .env.example .env`
 
 - Gere a chave do Laravel: `docker-compose exec app php artisan key:generate`
 
