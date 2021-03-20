@@ -15,13 +15,13 @@ docker-compose build
 docker-compose up -d 
 ```
 
-- Instale as dependências: `composer install`
+- Instale as dependências: `docker-compose exec app composer install`
 
-- Gere a chave do Laravel: `php artisan key:generate`
+- Gere a chave do Laravel: `docker-compose exec app php artisan key:generate`
 
-- Rode as migrações: `php artisan migrate`
+- Rode as migrações: `docker-compose exec app php artisan migrate`
 
-- Rode o seed: `php artisan db:seed`
+- Rode o seed: `docker-compose exec app php artisan db:seed`
 
 - Configure o arquivo `/etc/hosts` da seguinte maneira:
 ```
