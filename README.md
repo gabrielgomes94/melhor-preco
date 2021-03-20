@@ -19,12 +19,7 @@ docker-compose up -d
 - Instale as dependências: `docker-compose exec app composer install`
 
 - Copie o arquivo .env: `cp .env.example .env`
-
-- Gere a chave do Laravel: `docker-compose exec app php artisan key:generate`
-
-- Rode as migrações: `docker-compose exec app php artisan migrate`
-
-- Rode o seed: `docker-compose exec app php artisan db:seed`
+- Prepare o ambiente para desenvolvimento: `docker-compose exec app composer setup-dev`
 
 - Configure o arquivo `/etc/hosts` da seguinte maneira:
 ```
