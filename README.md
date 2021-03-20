@@ -3,7 +3,11 @@
 
 ## Setup
 
-- Instale o Docker e o Docker Compose
+Antes de começar, garanta que você tem instalado na sua máquina:
+- Git
+- Docker Engine e o Docker Compose
+
+- Baixe o repositório: `git clone git@github.com:gabrielgomes94/barrigudinha-backoffice.git`-
 
 - Monte e suba os containers
 ```
