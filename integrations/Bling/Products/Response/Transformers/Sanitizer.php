@@ -6,20 +6,19 @@ class Sanitizer
 {
     public function sanitize(array $data): array
     {
-        $transformedData = [];
-
         if (isset($data['retorno']['erros'])) {
             $error = array_shift($data['retorno']['erros']);
 
-            $transformedData = ['error' => $error['erro']];
+            return ['error' => $error['erro']['msg']];
         }
 
         if (isset($data['retorno']['produtos'])) {
-            $product = $data['retorno']['produtos'][0]['produto'];
+            $productData = array_shift($data['retorno']['produtos']);
+            $product = $productData['produto'];
 
-            $transformedData = ['product' => $product];
+            return ['product' => $product];
         }
 
-        return $transformedData;
+        return [];
     }
 }
