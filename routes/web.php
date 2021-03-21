@@ -3,9 +3,10 @@
 use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\Pricing\Campaigns\PricingCampaignController;
+use App\Http\Controllers\Front\Pricing\ShowPricingController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Front\Pricing\CreatePricingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,9 +44,11 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('pricing')->name('pricing')->group(function() {
         Route::prefix('campaigns')->name('.campaigns')->group(function() {
-            Route::get('/', [PricingCampaignController::class, 'list'])->name('.list');
-            Route::get('/create', [PricingCampaignController::class, 'create'])->name('.create');
-            Route::post('/store', [PricingCampaignController::class, 'store'])->name('.store');
+            Route::get('/', [ShowPricingController::class, 'list'])->name('.list');
+//            Route::get('/{id}', [ShowPricingController::class, 'show'])->name('.show');
+
+            Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
+            Route::post('/store', [CreatePricingController::class, 'store'])->name('.store');
         });
     });
 });
