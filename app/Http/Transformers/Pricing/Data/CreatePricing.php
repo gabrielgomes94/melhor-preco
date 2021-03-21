@@ -31,4 +31,9 @@ class CreatePricing implements CreatePricingInterface
     {
         return $this->stores;
     }
+
+    public function __get($attribute)
+    {
+        return $this->{$attribute};
+    }
 }

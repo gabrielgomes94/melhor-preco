@@ -10,15 +10,30 @@ class CampaignTransformer
 {
     public function list(Collection $campaigns): array
     {
-        $transformedCampaigns = $campaigns->map(function($campaign) {
+        $transformedCampaigns = [];
+
+        foreach($campaigns as $campaign) {
             $name = $campaign->name;
-            $products = array_map(function($product) { return $product['sku']; },
-                $campaign->products);
+            $products = array_map(function($product) {
+                if (isset($product['sku'])) {
+                    return (string) $product['sku'];
+                }
+            }, $campaign->products);
 
-            return new CreatePricing($name, $products);
-        });
+            $stores = array_map(function($store) {
+                if (isset($store['code'])) {
+                    return (string) $store['code'];
+                }
+            }, $campaign->stores);
 
-        return $transformedCampaigns->toArray();
+            $transformedCampaigns[] = [
+                'name' => $name,
+                'products' => implode(',', $products),
+                'stores' => implode(',', $stores),
+            ];
+        }
+
+        return $transformedCampaigns;
     }
 }
 
