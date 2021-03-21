@@ -29,9 +29,6 @@ class CreatePricingController
         $data = $this->transformer->transform($request);
         $pricing = $this->pricingService->create($data);
 
-        dd($pricing);
-
-
         return view('pricing.campaign.create');
     }
 }
