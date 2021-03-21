@@ -16,9 +16,6 @@ class PricingRepository implements PricingRepositoryInterface
         $pricingModel->products = collect($pricing->products);
         $pricingModel->stores = $pricing->stores;
 
-        dd($pricingModel);
         $pricingModel->save();
-
-//        dd('opioi');
     }
 }
