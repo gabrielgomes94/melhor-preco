@@ -3,7 +3,7 @@
 
 namespace App\Http\Transformers\Pricing;
 
-use App\Http\Transformers\Pricing\Data\Campaign;
+use App\Http\Transformers\Pricing\Data\CreatePricing;
 use Illuminate\Database\Eloquent\Collection;
 
 class CampaignTransformer
@@ -15,7 +15,7 @@ class CampaignTransformer
             $products = array_map(function($product) { return $product['sku']; },
                 $campaign->products);
 
-            return new Campaign($name, $products);
+            return new CreatePricing($name, $products);
         });
 
         return $transformedCampaigns->toArray();
