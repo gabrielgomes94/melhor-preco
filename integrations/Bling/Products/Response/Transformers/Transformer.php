@@ -7,7 +7,7 @@ class Transformer
     public function transform(array $data)
     {
         if (!isset($data['product'])) {
-            return [];
+            return $data;
         }
 
         $product = $data['product'];
