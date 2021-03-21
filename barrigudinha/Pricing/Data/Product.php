@@ -10,10 +10,15 @@ class Product
     private int $stock;
     private float $purchasePrice;
 
-    public function __construct(ProductData $product) {
-        $this->sku = $product->sku;
-        $this->stock = $product->stock;
-        $this->purchasePrice = $product->purchasePrice;
+    public function __construct(string $sku, string $stock, float $purchasePrice) {
+        $this->sku = $sku;
+        $this->stock = $stock;
+        $this->purchasePrice = $purchasePrice;
+    }
+
+    public static function createFromProduct(ProductData $product): self
+    {
+        return new self($product->sku, $product->stock, $product->purchasePrice);
     }
 
     public function sku(): string
