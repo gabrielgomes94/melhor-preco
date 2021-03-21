@@ -10,6 +10,7 @@ use Integrations\Bling\Products\Client;
 use Integrations\Bling\Products\Response\Factory;
 use Integrations\Bling\Products\Response\ProductResponse;
 use Mockery as m;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Tests\TestCase;
 
@@ -40,6 +41,32 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(ProductResponse::class, $result);
     }
 
+    public function testShouldHandleConnectExceptions(): void
+    {
+        // Set
+        $factory = m::mock(Factory::class);
+        $httpClient = m::mock(GuzzleClient::class);
+        $client = new Client($factory, $httpClient);
+        $product = m::mock(ProductResponse::class);
+
+        $request = m::mock(RequestInterface::class);
+
+        // Expectations
+        $httpClient->expects()
+            ->request('GET', 'invalid/json', m::type('array'))
+            ->andThrow(new ConnectException('Error connect exception' , $request));
+
+        $factory->expects()
+            ->make(null, 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.')
+            ->andReturn($product);
+
+        // Actions
+        $result = $client->get('invalid');
+
+        // Assertions
+        $this->assertInstanceOf(ProductResponse::class, $result);
+    }
+
     public function testShouldHandleExceptions(): void
     {
         // Set
@@ -54,7 +81,7 @@ class ClientTest extends TestCase
             ->andThrow(Exception::class);
 
         $factory->expects()
-            ->makeWithError('Aconteceu algum erro bizarro. Contate o suporte.')
+            ->make(null, 'Aconteceu algum erro bizarro. Contate o suporte.')
             ->andReturn($product);
 
         // Actions

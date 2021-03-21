@@ -34,20 +34,17 @@ class Client
 
     public function get(string $sku): ProductResponse
     {
-        $uri = $this->uri($sku);
-
         try {
-            $response = $this->httpClient->request('GET', $uri, $this->options);
-            dd((string) $response->getBody());
-            $product = $this->factory->make($response);
+            $response = $this->httpClient->request('GET', $this->uri($sku), $this->options);
+            $product = $this->factory->make(response: $response);
 
         } catch(ConnectException $exception) {
             $error = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.';
-            $product = $this->factory->makeWithError($error);
+            $product = $this->factory->make(error: $error);
 
         } catch(Exception $exception) {
             $error = 'Aconteceu algum erro bizarro. Contate o suporte.';
-            $product = $this->factory->makeWithError($error);
+            $product = $this->factory->make(error: $error);
         }
 
         return $product;
