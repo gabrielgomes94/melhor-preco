@@ -45,7 +45,8 @@
             "App\\": "app/",
             "Barrigudinha\\": "barrigudinha/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Integrations\\": "integrations/"
         }
     },
     "autoload-dev": {
