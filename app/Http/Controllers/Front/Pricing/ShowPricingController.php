@@ -28,8 +28,8 @@ class ShowPricingController extends BaseController
         return view('pricing.campaign.list', compact('campaigns'));
     }
 
-    public function show()
+    public function show($id)
     {
-//        dd('tela de show');
+        return view('pricing.campaign.show');
     }
 }
