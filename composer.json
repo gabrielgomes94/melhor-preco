@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^8.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
@@ -45,13 +45,16 @@
             "App\\": "app/",
             "Barrigudinha\\": "barrigudinha/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Integrations\\": "integrations/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Tests\\Unit\\App\\": "tests/Unit/app/"
+            "Tests\\Unit\\App\\": "tests/Unit/app/",
+            "Tests\\Unit\\Barrigudinha\\": "tests/Unit/barrigudinha/",
+            "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/"
         }
     },
     "minimum-stability": "dev",
