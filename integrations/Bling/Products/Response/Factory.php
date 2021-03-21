@@ -17,29 +17,36 @@ class Factory
         $this->transformer = $transformer;
     }
 
-    public function make(ResponseInterface $response): ProductResponse
+    public function make(?ResponseInterface $response = null, string $error = ''): ProductResponse
     {
-        $data = $this->decode($response);
+        if (!$response) {
+            return $this->makeWithError($error);
+        }
 
-        $data = $this->sanitizer->sanitize($data);
+        $data = $this->getData($response);
+
+        if (empty($data)) {
+            return $this->makeWithError('Invalid response!');
+        }
 
         if (isset($data['error'])) {
-            $message = $data['error']['msg'] ?? '';
-
-            return $this->makeWithError($message);
+            return $this->makeWithError($data['error']);
         }
 
         $product = $this->transformer->transform($data);
         return new ProductResponse(data: $product);
     }
 
-    public function makeWithError(string $message): ProductResponse
+    private function makeWithError(string $message): ProductResponse
     {
         return new ProductResponse(error: $message);
     }
 
-    private function decode(ResponseInterface $response): array
+    private function getData(ResponseInterface $response): array
     {
-        return json_decode((string) $response->getBody(), true);
+        $data = json_decode((string) $response->getBody(), true);;
+        $data = $this->sanitizer->sanitize($data);
+
+        return  $data;
     }
 }
