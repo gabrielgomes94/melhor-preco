@@ -12,13 +12,22 @@ class Transformer
 
         $product = $data['product'];
 
+        $images = array_map(
+            function($image) {
+                return $image['link'];
+            },
+            $product['imagem']
+        );
+
         return [
             'product' => [
                 'sku' => $product['codigo'],
                 'name' => $product['descricao'],
                 'brand' => $product['marca'],
-                'images' => $product['imagem'],
-                'stock' => $product['estoqueAtual'],
+                'images' => $images ?? [],
+                'stock' => $product['estoqueAtual'] ?? 0,
+                'purchasePrice' => $product['precoCusto'],
+                'price' => $product['preco'],
             ]
         ];
     }
