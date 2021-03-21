@@ -3,7 +3,7 @@
 namespace Barrigudinha\Product\Repositories;
 
 use Integrations\Bling\Products\Client;
-use Integrations\Bling\Products\Response\Product as ProductResponse;
+use Integrations\Bling\Products\Response\ProductResponse;
 
 class Product
 {
