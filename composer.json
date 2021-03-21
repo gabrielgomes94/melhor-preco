@@ -52,7 +52,9 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Tests\\Unit\\App\\": "tests/Unit/app/"
+            "Tests\\Unit\\App\\": "tests/Unit/app/",
+            "Tests\\Unit\\Barrigudinha\\": "tests/Unit/barrigudinha/",
+            "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/"
         }
     },
     "minimum-stability": "dev",
