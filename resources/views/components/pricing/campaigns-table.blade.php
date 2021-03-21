@@ -13,9 +13,9 @@
         @foreach($campaigns as $campaign)
             <tr>
                 <th scope="row">1</th>
-                <td>{{ $campaign->name }}</td>
-                <td>{{ $campaign->skuList() }}</td>
-                <td> asddasdasaad </td>
+                <td>{{ $campaign['name'] }}</td>
+                <td>{{ $campaign['products'] }}</td>
+                <td>{{ $campaign['stores'] }}</td>
             </tr>
         @endforeach
 
