@@ -13,7 +13,7 @@ class Product
     public function __construct(ProductData $product) {
         $this->sku = $product->sku;
         $this->stock = $product->stock;
-//        $this->purchasePrice = $product->purchasePrice;
+        $this->purchasePrice = $product->purchasePrice;
     }
 
     public function sku(): string
@@ -29,5 +29,14 @@ class Product
     public function purchasePrice(): float
     {
         return $this->purchasePrice;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'sku' => $this->sku,
+            'stock' => $this->stock,
+            'purchasePrice' => $this->purchasePrice,
+        ];
     }
 }
