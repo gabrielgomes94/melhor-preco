@@ -2,29 +2,18 @@
 
 namespace Barrigudinha\Pricing\Data;
 
-use Carbon\Carbon;
-use Spatie\DataTransferObject\DataTransferObject;
+use Barrigudinha\Product\Product as ProductData;
 
-class Product extends DataTransferObject
+class Product
 {
     private string $sku;
     private int $stock;
     private float $purchasePrice;
-//    private Carbon $lastSaleAt;
-//    private Carbon $purchasedAt;
 
-    public function __construct(
-        string $sku,
-        int $stock,
-        float $purchasePrice
-//        Carbon $lastSaleAt,
-//        Carbon $purchasedAt
-    ) {
-        $this->sku = $sku;
-        $this->stock = $stock;
-        $this->purchasePrice = $purchasePrice;
-//        $this->lastSaleAt = $lastSaleAt;
-//        $this->purchasedAt = $purchasedAt;
+    public function __construct(ProductData $product) {
+        $this->sku = $product->sku;
+        $this->stock = $product->stock;
+        $this->purchasePrice = $product->purchasePrice;
     }
 
     public function sku(): string
@@ -41,5 +30,13 @@ class Product extends DataTransferObject
     {
         return $this->purchasePrice;
     }
-}
 
+    public function toArray(): array
+    {
+        return [
+            'sku' => $this->sku,
+            'stock' => $this->stock,
+            'purchasePrice' => $this->purchasePrice,
+        ];
+    }
+}

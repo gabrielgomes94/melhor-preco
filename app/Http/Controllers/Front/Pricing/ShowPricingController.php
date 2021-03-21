@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing\Campaigns;
+namespace App\Http\Controllers\Front\Pricing;
 
 use App\Http\Transformers\Pricing\CampaignTransformer;
 use Barrigudinha\Pricing\Repositories\Contracts\CampaignRepository;
-use Illuminate\Http\Request;
+use Barrigudinha\Pricing\Services\CreatePricing;
 use Illuminate\Routing\Controller as BaseController;
-use App\Http\Requests\Pricing\CreatePriceCampaignRequest;
 
-class PricingCampaignController extends BaseController
+class ShowPricingController extends BaseController
 {
     private CampaignTransformer $transformer;
-
     private CampaignRepository $repository;
+    private CreatePricing $pricingService;
 
-    public function __construct(CampaignRepository $repository, CampaignTransformer $transformer)
+    public function __construct(CampaignRepository $repository, CampaignTransformer $transformer, CreatePricing $pricingService)
     {
         $this->repository = $repository;
         $this->transformer = $transformer;
+        $this->pricingService = $pricingService;
     }
 
     public function list()
@@ -28,16 +28,8 @@ class PricingCampaignController extends BaseController
         return view('pricing.campaign.list', compact('campaigns'));
     }
 
-    public function create()
+    public function show()
     {
-        return view('pricing.campaign.create');
-    }
-
-    public function store(CreatePriceCampaignRequest $request)
-    {
-        $skus = $request->input('skus');
-        $skus = explode(' ', $skus);
-
-        return view('pricing.campaign.create');
+//        dd('tela de show');
     }
 }

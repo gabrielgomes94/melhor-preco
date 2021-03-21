@@ -2,8 +2,9 @@
 
 namespace Barrigudinha\Product\Repositories;
 
+use Barrigudinha\Product\Product as ProductData;
 use Integrations\Bling\Products\Client;
-use Integrations\Bling\Products\Response\ProductResponse;
+
 
 class Product
 {
@@ -14,10 +15,10 @@ class Product
         $this->client = $client;
     }
 
-    public function get(string $sku): ProductResponse
+    public function get(string $sku): ?ProductData
     {
         $response = $this->client->get($sku);
 
-        return $response;
+        return $response->product();
     }
 }
