@@ -50,9 +50,9 @@ class ProductIterator implements CastsAttributes
         }
 
         $products = $value->map(function ($product) {
-            return $product;
+            return $product->toArray();
         });
 
-        return $products->toArray();
+        return json_encode($products->toArray());
     }
 }
