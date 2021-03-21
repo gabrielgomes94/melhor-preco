@@ -17,7 +17,7 @@ class PriceCampaign extends Model
     ];
 
     protected $casts = [
-        'stores' => 'array',
-        'products' => ProductIterator::class,
+        'stores' => 'json',
+        'products' => 'json',
     ];
 }
