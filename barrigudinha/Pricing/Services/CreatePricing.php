@@ -26,7 +26,7 @@ class CreatePricing
                 continue;
             }
 
-            $products[] = new PricingProduct($product);
+            $products[] = PricingProduct::createFromProduct($product);
         }
 
         $pricing = new Pricing($data->name(), $products, $data->stores() ?? []);
