@@ -17,6 +17,9 @@
                 <li>
                     <a href={{ route('prices.single') }}>Calculadora de Preços</a>
                 </li>
+                <li>
+                    <a href={{ route('pricing.list') }}>Precificação</a>
+                </li>
             </ul>
             <ul class="list-unstyled components">
                 <li>
