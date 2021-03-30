@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function() {
     Route::prefix('pricing')->name('pricing')->group(function() {
         Route::get('/', [ShowPricingController::class, 'list'])->name('.list');
         Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
-        Route::get('/show/{id}', [ShowPricingController::class, 'show'])->name('.show');
+        Route::get('/{id}', [ShowPricingController::class, 'show'])->name('.show');
 
         Route::prefix('campaigns')->name('.campaigns')->group(function() {
             Route::post('/store', [CreatePricingController::class, 'store'])->name('.store');
