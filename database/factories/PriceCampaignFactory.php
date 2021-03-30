@@ -23,14 +23,46 @@ class PriceCampaignFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => 'Cadeira de Alimentação',
             'products' => [
                 [
                     'sku' => $this->faker->numberBetween(1111, 4444),
-                    'purchasePrice' => $this->faker->numberBetween(25, 150),
+                    'purchase' => [
+                        'price' => 35.5,
+                        'date' => $this->faker->dateTimeBetween('-6 weeks', '-3 weeks'),
+                    ],
+                    'lastSale' => [
+                        'date' => $this->faker->dateTimeBetween('-6 weeks', '-3 weeks'),
+                        'price' => 150,
+                        'profit' => 25,
+                    ],
                     'stock' => $this->faker->randomDigit,
-                    'lastSaleAt' => $this->faker->dateTimeBetween('-18 weeks', '-1 weeks'),
-                    'purchasedAt' => $this->faker->dateTimeBetween('-6 weeks', '-3 weeks'),
+                    'prices' => [
+                        [
+                            'store' => 'magalu',
+                            'value' => 102.2,
+                            'profit' => 10,
+                        ],
+                        [
+                            'store' => 'b2w',
+                            'value' => 106.2,
+                            'profit' => 14,
+                        ],
+                    ],
+                    'taxes' => [
+                        [
+                            'type' => 'in',
+                            'value' => 0.04,
+                        ],
+                        [
+                            'type' => 'in',
+                            'value' => 0.1,
+                        ],
+                        [
+                            'type' => 'out',
+                            'value' => 0.16,
+                        ],
+                    ],
                 ],
             ],
             'stores' => [
@@ -38,7 +70,14 @@ class PriceCampaignFactory extends Factory
                     'code' => 'magalu',
                     'name' => 'Magazine Luiza',
                     'commission' => 12.8,
-                ]
+                    'extra_costs' => 0.0,
+                ],
+                [
+                    'code' => 'b2w',
+                    'name' => 'B2W',
+                    'commission' => 12.8,
+                    'extra_costs' => 5,
+                ],
             ],
         ];
     }
