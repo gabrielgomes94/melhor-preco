@@ -8,8 +8,7 @@
 
         <div class="row">
             <div class="col">
-                <!-- utils/pageTitle -->
-{{--                <x-pricing.campaigns-table :campaigns="$campaigns"/>--}}
+                <x-pricing.products.list-table />
             </div>
         </div>
     </div>
