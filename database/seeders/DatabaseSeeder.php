@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         $user->markEmailAsVerified();
         $user->save();
 
-        PriceCampaign::factory(10)->create();
+        PriceCampaign::factory(1)->create();
     }
 }
