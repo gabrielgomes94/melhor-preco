@@ -27,6 +27,7 @@ class CampaignTransformer
             }, $campaign->stores);
 
             $transformedCampaigns[] = [
+                'id' => $campaign->id,
                 'name' => $name,
                 'products' => implode(',', $products),
                 'stores' => implode(',', $stores),

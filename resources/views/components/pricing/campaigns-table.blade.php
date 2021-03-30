@@ -6,6 +6,7 @@
             <th scope="col">Nome</th>
             <th scope="col">Produtos</th>
             <th scope="col">Lojas</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -16,6 +17,12 @@
                 <td>{{ $campaign['name'] }}</td>
                 <td>{{ $campaign['products'] }}</td>
                 <td>{{ $campaign['stores'] }}</td>
+                <td>
+                    <x-utils.navigation-button
+                        :route="route('pricing.show', $campaign['id'])"
+                        label="Visualizar"
+                    />
+                </td>
             </tr>
         @endforeach
 
