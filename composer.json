@@ -21,7 +21,8 @@
         "phpoffice/phpspreadsheet": "^1.16",
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/data-transfer-object": "^2.8",
-        "squizlabs/php_codesniffer": "^3.5.8"
+        "squizlabs/php_codesniffer": "^3.5.8",
+        "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
