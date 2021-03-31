@@ -1,3 +1,3 @@
 <div>
-    <a class="btn btn-primary" href="{{ $route }}" role="button">{{ $label }}</a>
+    <a class="btn {{ $customStyleClass }}" href="{{ $route }}" role="button">{{ $label }}</a>
 </div>
