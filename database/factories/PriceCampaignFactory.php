@@ -26,7 +26,7 @@ class PriceCampaignFactory extends Factory
             'name' => 'Cadeira de Alimentação',
             'products' => [
                 [
-                    'sku' => $this->faker->numberBetween(1111, 4444),
+                    'sku' => '1232',
                     'purchase' => [
                         'price' => 35.5,
                         'date' => $this->faker->dateTimeBetween('-6 weeks', '-3 weeks'),
