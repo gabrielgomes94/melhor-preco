@@ -29,6 +29,6 @@ class CreatePricingController
         $data = $this->transformer->transform($request);
         $pricing = $this->pricingService->create($data);
 
-        return view('pricing.campaign.create');
+        return view('pricing.show');
     }
 }
