@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col">
-                <x-pricing.products.list-table />
+                <x-pricing.products.list-table :pricing="$pricing" />
             </div>
         </div>
     </div>

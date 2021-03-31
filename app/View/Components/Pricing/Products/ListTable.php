@@ -6,14 +6,19 @@ use Illuminate\View\Component;
 
 class ListTable extends Component
 {
+    public array $products;
+
+    public array $stores;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(array $pricing)
     {
-        //
+        $this->products = $pricing['products'] ?? [];
+        $this->stores = $pricing['stores'] ?? [];
     }
 
     /**
