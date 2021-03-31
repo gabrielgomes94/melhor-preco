@@ -32,6 +32,18 @@
                         </div>
                     </td>
                 @endforeach
+                <td>
+                    <x-utils.navigation-button
+                        :route="route('pricing.create')"
+                        label="Detalhar"
+                    />
+
+                    <x-utils.navigation-button
+                        :route="route('pricing.create')"
+                        customStyleClass="btn-danger"
+                        label="Remover"
+                    />
+                </td>
             </tr>
         @endforeach
         </tbody>

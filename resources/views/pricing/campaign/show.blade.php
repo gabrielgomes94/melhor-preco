@@ -11,6 +11,11 @@
                 <x-pricing.products.list-table :pricing="$pricing" />
             </div>
         </div>
+
+        <x-utils.navigation-button
+            :route="route('pricing.create')"
+            label="Exportar"
+        />
     </div>
 </x-layout>
 <?php

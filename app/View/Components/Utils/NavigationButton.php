@@ -8,14 +8,16 @@ class NavigationButton extends Component
 {
     public string $label;
     public string $route;
+    public string $customStyleClass;
 
     /**
      * @return void
      */
-    public function __construct(string $label, string $route)
+    public function __construct(string $label, string $route, ?string $customStyleClass = null)
     {
         $this->label = $label;
         $this->route = $route;
+        $this->customStyleClass = $customStyleClass ?? 'btn-primary';
     }
 
     /**
