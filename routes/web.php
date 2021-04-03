@@ -5,6 +5,7 @@ use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Pricing\ShowPricingController;
 use App\Http\Controllers\Front\Products\ProductImageController;
+use App\Http\Controllers\Front\Products\UploadController as ProductsUploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Pricing\CreatePricingController;
 
@@ -51,6 +52,14 @@ Route::middleware('auth')->group(function() {
             Route::post('/store', [CreatePricingController::class, 'store'])->name('.store');
         });
     });
+
+    Route::prefix('products')
+        ->name('products')
+        ->group(function() {
+            Route::get('/upload', [ProductsUploadController::class, 'upload'])->name('.upload');
+
+            Route::put('/upload/spreadsheet', [ProductsUploadController::class, 'doUpload'])->name('.doUpload');
+        });
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
