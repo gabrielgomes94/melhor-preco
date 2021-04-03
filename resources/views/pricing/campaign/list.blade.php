@@ -12,6 +12,12 @@
                     :route="route('pricing.create')"
                     label="Novo"
                 />
+
+                <x-utils.navigation-button
+                    customStyleClass="btn-secondary"
+                    :route="route('products.upload')"
+                    label="Atualizar dados de Produto"
+                />
                 <!-- utils/pageTitle -->
 
 
