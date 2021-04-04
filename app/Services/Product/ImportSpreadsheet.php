@@ -22,6 +22,7 @@ class ImportSpreadsheet
 
         for ($row = 2; $row <= $worksheet->getHighestRow(); ++$row) {
             $sku = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+            $sku = trim($sku);
             $name = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
             $purchasePrice = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
             $purchasePrice = str_replace(',', '.', $purchasePrice);

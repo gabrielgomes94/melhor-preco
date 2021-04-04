@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Transformers\Pricing;
-
 
 use App\Http\Requests\Pricing\CreatePriceCampaignRequest;
 use App\Http\Transformers\Pricing\Data\CreatePricing;

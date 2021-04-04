@@ -6,7 +6,7 @@ use Barrigudinha\Pricing\Data\Contracts\CreatePricing as CreatePricingData;
 use Barrigudinha\Pricing\Data\Pricing;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
-use Barrigudinha\Product\Repositories\Product as ProductRepository;
+use Barrigudinha\Pricing\Repositories\Contracts\Product as ProductRepository;
 
 class CreatePricing
 {
@@ -22,14 +22,16 @@ class CreatePricing
     public function create(CreatePricingData $data)
     {
         foreach($data->skuList() as $sku) {
-            if (!$product = $this->productRepository->get($sku)) {
-                continue;
+            if ($product = $this->productRepository->get($sku)) {
+                $products[] = $product;
             }
-
-            $products[] = PricingProduct::createFromProduct($product);
         }
 
-        $pricing = new Pricing($data->name(), $products, $data->stores() ?? []);
+        $pricing = new Pricing(
+            name: $data->name(),
+            products: $products ?? [],
+            stores: $data->stores() ?? []);
+
         $this->pricingRepository->create($pricing);
 
         return $pricing;

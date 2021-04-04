@@ -2,41 +2,29 @@
 
 namespace App\Http\Controllers\Front\Pricing;
 
-use App\Presenters\Pricing\Show as Presenter;
-use App\Http\Transformers\Pricing\CampaignTransformer;
-use Barrigudinha\Pricing\Repositories\Contracts\CampaignRepository;
+use App\Presenters\Pricing\Show as PricingShow;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
-use Barrigudinha\Pricing\Services\CreatePricing;
 use Illuminate\Routing\Controller as BaseController;
 
 class ShowPricingController extends BaseController
 {
     private PricingRepository $repository;
-    private CampaignTransformer $transformer;
-    private CreatePricing $pricingService;
-    private Presenter $presenter;
+    private PricingShow $presenter;
 
-    public function __construct(PricingRepository $repository, CampaignTransformer $transformer, CreatePricing $pricingService, Presenter $presenter)
+    public function __construct(PricingRepository $repository, PricingShow $presenter)
     {
         $this->repository = $repository;
-        $this->transformer = $transformer;
-        $this->pricingService = $pricingService;
         $this->presenter = $presenter;
-    }
-
-    public function list()
-    {
-        $campaigns = $this->repository->all();
-        $campaigns = $this->transformer->list($campaigns);
-
-        return view('pricing.campaign.list', compact('campaigns'));
     }
 
     public function show(string $id)
     {
-        $campaign = $this->repository->find($id);
-        $campaign = $this->presenter->present($campaign);
+        if (!$pricing = $this->repository->find($id)) {
+            abort(404);
+        }
 
-        return view('pricing.campaign.show', ['pricing' => $campaign->toArray()]);
+        $presentationPricing = $this->presenter->present($pricing);
+
+        return view('pricing.show', ['pricing' => $presentationPricing]);
     }
 }
