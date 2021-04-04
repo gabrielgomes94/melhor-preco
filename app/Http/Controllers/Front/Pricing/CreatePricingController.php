@@ -10,7 +10,6 @@ use Barrigudinha\Pricing\Services\CreatePricing as Service;
 class CreatePricingController
 {
     private Transformer $transformer;
-
     private Service $pricingService;
 
     public function __construct(Transformer $transformer, Service $pricingService)
@@ -21,14 +20,14 @@ class CreatePricingController
 
     public function create()
     {
-        return view('pricing.campaign.create');
+        return view('pricing.create');
     }
 
     public function store(CreatePriceCampaignRequest $request)
     {
-        $data = $this->transformer->transform($request);
-        $pricing = $this->pricingService->create($data);
+        $createPricingData = $this->transformer->transform($request);
+        $pricing = $this->pricingService->create($createPricingData);
 
-        return view('pricing.show');
+        return redirect(route('pricing.list'));
     }
 }
