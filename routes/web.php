@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
+use App\Http\Controllers\Front\Pricing\ListPricingController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Pricing\ShowPricingController;
 use App\Http\Controllers\Front\Products\ProductImageController;
@@ -44,7 +45,7 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::prefix('pricing')->name('pricing')->group(function() {
-        Route::get('/', [ShowPricingController::class, 'list'])->name('.list');
+        Route::get('/', [ListPricingController::class, 'list'])->name('.list');
         Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
         Route::get('/{id}', [ShowPricingController::class, 'show'])->name('.show');
 
