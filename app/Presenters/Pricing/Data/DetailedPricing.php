@@ -3,6 +3,7 @@
 namespace App\Presenters\Pricing\Data;
 
 use App\Models\PriceCampaign;
+use App\Models\Pricing;
 
 class DetailedPricing
 {
@@ -18,12 +19,12 @@ class DetailedPricing
      */
     public array $stores;
 
-    public static function createFromModel(PriceCampaign $pricing): self
+    public static function createFromModel(Pricing $pricing): self
     {
         $presentationPricing = new DetailedPricing();
         $presentationPricing->name = $pricing->name;
         $presentationPricing->products = self::setProducts($pricing);
-        $presentationPricing->stores = self::setStores($pricing);
+////        $presentationPricing->stores = self::setStores($pricing);
 
         return $presentationPricing;
     }
@@ -35,24 +36,27 @@ class DetailedPricing
             'products' => array_map(function($product){
                 return $product->toArray();
             }, $this->products),
-            'stores' => $this->stores,
+//            'stores' => $this->stores,
         ];
     }
 
-    private static function setProducts(PriceCampaign $pricing): array
+    private static function setProducts(Pricing $pricing): array
     {
-        return array_map(function($product){
+        return array_map(function( $product){
+//            dd($product);
             return new Product(
                 sku: $product['sku'],
-                prices: $product['prices'],
+                name: $product['name'],
+                prices: []
+//                prices: $product['prices'],
             );
-        }, $pricing->products);
+        }, $pricing->products->toArray());
     }
-
-    private static function setStores(PriceCampaign $pricing): array
-    {
-        return array_map(function($store){
-            return $store['name'];
-        }, $pricing->stores);
-    }
+//
+//    private static function setStores(Pricing $pricing): array
+//    {
+//        return array_map(function($store){
+//            return $store['name'];
+//        }, $pricing?->stores ?? []);
+//    }
 }
