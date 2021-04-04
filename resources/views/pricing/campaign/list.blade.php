@@ -21,7 +21,7 @@
                 <!-- utils/pageTitle -->
 
 
-                <x-pricing.campaigns-table :campaigns="$campaigns"/>
+                <x-pricing.campaigns-table :campaigns="$pricingList"/>
             </div>
         </div>
     </div>
