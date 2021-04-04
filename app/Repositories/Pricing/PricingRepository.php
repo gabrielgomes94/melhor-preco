@@ -3,7 +3,10 @@
 namespace App\Repositories\Pricing;
 
 use App\Models\PriceCampaign;
+use App\Models\Pricing as PricingModel;
+use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Data\Pricing;
+use Barrigudinha\Pricing\Data\Product;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -11,22 +14,28 @@ class PricingRepository implements PricingRepositoryInterface
 {
     public function create(Pricing $pricing): bool
     {
-        $pricingModel = new PriceCampaign();
+        $pricingModel = new PricingModel();
 
         $pricingModel->name = $pricing->name;
-        $pricingModel->products = collect($pricing->products);
         $pricingModel->stores = $pricing->stores;
+        $pricingModel->save();
+
+        $pricingModel->products()->saveMany(
+            array_map(function(Product $product) {
+                return new ProductModel($product->toArray());
+            }, $pricing->products)
+        );
 
         return $pricingModel->save();
     }
 
     public function all(): Collection
     {
-        return PriceCampaign::all();
+        return PricingModel::all();
     }
 
-    public function find(string $id): ?PriceCampaign
+    public function find(string $id): ?PricingModel
     {
-        return PriceCampaign::find($id);
+        return PricingModel::find($id);
     }
 }
