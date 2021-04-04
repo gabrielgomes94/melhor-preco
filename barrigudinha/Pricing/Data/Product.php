@@ -6,19 +6,36 @@ use Barrigudinha\Product\Product as ProductData;
 
 class Product
 {
+    private string $name;
     private string $sku;
-    private int $stock;
     private float $purchasePrice;
+    private array $shops;
+    private array $taxes;
 
-    public function __construct(string $sku, string $stock, float $purchasePrice) {
-        $this->sku = $sku;
-        $this->stock = $stock;
-        $this->purchasePrice = $purchasePrice;
+    public function __construct(array $data)
+    {
+        $this->fill($data);
     }
 
-    public static function createFromProduct(ProductData $product): self
+    private function fill(array $data)
     {
-        return new self($product->sku, $product->stock, $product->purchasePrice);
+        $this->name = $data['name'] ?? '';
+        $this->sku = $data['sku'];
+        $this->purchasePrice = $data['purchase_price'];
+        $this->shops = [
+            [
+                'code' => 'magalu',
+                'sku' => $data['sku_magalu'] ?? null,
+            ],
+            [
+                'code' => 'b2w',
+                'sku' => $data['sku_b2w'] ?? null,
+            ],
+            [
+                'code' => 'mercado_livre',
+                'sku' => $data['sku_mercado_livre'] ?? null,
+            ],
+        ];
     }
 
     public function sku(): string
@@ -40,8 +57,14 @@ class Product
     {
         return [
             'sku' => $this->sku,
-            'stock' => $this->stock,
-            'purchasePrice' => $this->purchasePrice,
+            'purchase_price' => $this->purchasePrice,
+            'name' => $this->name,
+            'sku_magalu' => $this->shops[0]['sku'],
+            'sku_b2w' => null,
+            'sku_mercado_livre' => null,
+            'tax_ipi' => 0.0,
+            'tax_icms' => 0.0,
+            'tax_simples_nacional' => 0.0,
         ];
     }
 }
