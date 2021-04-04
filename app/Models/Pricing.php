@@ -11,9 +11,13 @@ class Pricing extends Model
 
     protected $table = 'pricing';
 
-
     protected $fillable = [
         'name',
+        'stores'
+    ];
+
+    protected $casts = [
+        'stores' => 'json',
     ];
 
     public function products()
