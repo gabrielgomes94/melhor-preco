@@ -3,10 +3,10 @@
 namespace Barrigudinha\Product\Repositories;
 
 use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Repositories\Contracts\Product as ProductInterface;
 use Integrations\Bling\Products\Client;
 
-
-class Product
+class Product implements ProductInterface
 {
     private Client $client;
 
