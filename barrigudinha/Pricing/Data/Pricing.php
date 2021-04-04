@@ -8,6 +8,9 @@ class Pricing
 
     public string $name;
 
+    /**
+     * @var Product[] $products
+     */
     public array $products;
 
     public array $stores;
