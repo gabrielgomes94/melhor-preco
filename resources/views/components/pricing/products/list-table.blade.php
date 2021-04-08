@@ -1,5 +1,4 @@
 <div>
-
     <!-- Be present above all else. - Naval Ravikant -->
     <table class="table table-bordered table-hover">
         <thead>
@@ -34,7 +33,10 @@
                 @endforeach
                 <td>
                     <x-utils.navigation-button
-                        :route="route('pricing.create')"
+                        :route="route('pricing.products.show', [
+                            'pricing_id' => $pricingId,
+                            'product_id' => $product['id']
+                        ])"
                         label="Detalhar"
                     />
 

@@ -22,6 +22,8 @@ class DetailedPricing
     public static function createFromModel(Pricing $pricing): self
     {
         $presentationPricing = new DetailedPricing();
+
+        $presentationPricing->id = $pricing->id;
         $presentationPricing->name = $pricing->name;
         $presentationPricing->products = self::setProducts($pricing);
 ////        $presentationPricing->stores = self::setStores($pricing);
@@ -32,8 +34,9 @@ class DetailedPricing
     public function toArray(): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
-            'products' => array_map(function($product){
+            'products' => array_map(function(Product $product){
                 return $product->toArray();
             }, $this->products),
 //            'stores' => $this->stores,
@@ -43,8 +46,8 @@ class DetailedPricing
     private static function setProducts(Pricing $pricing): array
     {
         return array_map(function( $product){
-//            dd($product);
             return new Product(
+                id: $product['id'],
                 sku: $product['sku'],
                 name: $product['name'],
                 prices: []
