@@ -6,8 +6,8 @@ use Illuminate\View\Component;
 
 class ListTable extends Component
 {
+    public string $pricingId;
     public array $products;
-
     public array $stores;
 
     /**
@@ -17,6 +17,7 @@ class ListTable extends Component
      */
     public function __construct(array $pricing)
     {
+        $this->pricingId = $pricing['id'];
         $this->products = $pricing['products'] ?? [];
         $this->stores = $pricing['stores'] ?? [];
     }

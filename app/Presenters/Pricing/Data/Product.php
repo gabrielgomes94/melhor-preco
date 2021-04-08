@@ -6,6 +6,7 @@ namespace App\Presenters\Pricing\Data;
 
 class Product
 {
+    public string $id;
     public string $sku;
     public string $name;
 
@@ -14,8 +15,9 @@ class Product
      */
     public array $prices;
 
-    public function __construct(string $sku, string $name, array $prices)
+    public function __construct(string $id, string $sku, string $name, array $prices)
     {
+        $this->id = $id;
         $this->sku = $sku;
         $this->name = $name;
         $this->prices = $this->setPrices($prices);
@@ -24,6 +26,7 @@ class Product
     public function toArray(): array
     {
         return [
+            'id' => $this->id,
             'sku' => $this->sku,
             'name' => $this->name,
             'prices' => array_map(function($price){
