@@ -13,6 +13,7 @@ class Price extends Model
         'commission',
         'profit',
         'store',
+        'store_sku_id',
         'value',
     ];
 
