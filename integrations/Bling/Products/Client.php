@@ -5,17 +5,17 @@ namespace Integrations\Bling\Products;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ConnectException;
-use Integrations\Bling\Products\Response\Factory;
+use Integrations\Bling\Products\Responses\Factory;
 
-use Integrations\Bling\Products\Response\ProductResponse;
+use Integrations\Bling\Products\Responses\ProductResponse;
 
 class Client
 {
-    private Factory $factory;
+    protected Factory $factory;
 
-    private GuzzleClient $httpClient;
+    protected GuzzleClient $httpClient;
 
-    private array $options;
+    protected array $options;
 
     public function __construct(Factory $factory, GuzzleClient $httpClient)
     {
@@ -40,17 +40,17 @@ class Client
 
         } catch(ConnectException $exception) {
             $error = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.';
-            $product = $this->factory->make(error: $error);
+            $product = $this->factory->makeError(error: $error);
 
         } catch(Exception $exception) {
             $error = 'Aconteceu algum erro bizarro. Contate o suporte.';
-            $product = $this->factory->make(error: $error);
+            $product = $this->factory->makeError(error: $error);
         }
 
         return $product;
     }
 
-    private function uri(string $sku): string
+    protected function uri(string $sku): string
     {
         return "{$sku}/json";
     }

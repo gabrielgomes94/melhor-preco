@@ -1,14 +1,16 @@
 <?php
 
-namespace Integrations\Bling\Products\Response\Contracts;
+namespace Integrations\Bling\Products\Responses\Responses\Contracts;
 
 use Barrigudinha\Product\Product;
 
-interface ProductResponse
+interface Response
 {
     public function errors(): array;
 
     public function hasErrors(): bool;
 
     public function product(): ?Product;
+
+    public function addStores(array $store);
 }
