@@ -14,7 +14,11 @@ class Product
     private array $images;
     private int $stock;
     private ?float $purchasePrice;
-    private ?float $price;
+
+    /**
+     * Store[] array
+     */
+    public array $stores = [];
 
     private function __construct(
         string $sku,
@@ -23,7 +27,6 @@ class Product
         array $images,
         ?int $stock,
         ?float $purchasePrice,
-        ?float $price
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -31,7 +34,6 @@ class Product
         $this->images = $images;
         $this->stock = (int) $stock ?? 0;
         $this->purchasePrice = $purchasePrice;
-        $this->price = $price;
     }
 
     public static function createFromArray(array $data): self
@@ -43,12 +45,16 @@ class Product
             images: $data['images'] ?? [],
             stock: $data['stock'],
             purchasePrice: (float) $data['purchasePrice'],
-            price: (float) $data['price']
         );
     }
 
     public function __get($attribute)
     {
         return $this->{$attribute};
+    }
+
+    public function addStore(Store $storeInfo)
+    {
+        $this->stores[] = $storeInfo;
     }
 }
