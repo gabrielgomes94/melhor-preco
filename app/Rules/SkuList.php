@@ -13,6 +13,7 @@ class SkuList implements Rule
      */
     public function passes($attribute, $value)
     {
+        $value= preg_replace('/\s+/', ' ', $value);
         $skus = explode(' ', $value);
 
         foreach($skus as $sku) {

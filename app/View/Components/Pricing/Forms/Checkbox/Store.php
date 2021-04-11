@@ -15,26 +15,26 @@ class Store extends Component
             'name' => 'Magazine Luiza',
             'commission' => 12.8,
         ],
-//        [
-//            'code' => 'mercado_livre',
-//            'name' => 'Mercado Livre',
-//            'commission' => 16.1,
-//        ],
-//        [
-//            'code' => 'b2w',
-//            'name' => 'B2W',
-//            'commission' => 16.2,
-//        ],
-//        [
-//            'code' => 'shopee',
-//            'name' => 'Shopee',
-//            'commission' => 5,
-//        ],
-//        [
-//            'code' => 'olist',
-//            'name' => 'Olist',
-//            'commission' => 20,
-//        ],
+        [
+            'code' => 'mercado_livre',
+            'name' => 'Mercado Livre',
+            'commission' => 16.1,
+        ],
+        [
+            'code' => 'b2w',
+            'name' => 'B2W',
+            'commission' => 16.2,
+        ],
+        [
+            'code' => 'shopee',
+            'name' => 'Shopee',
+            'commission' => 5,
+        ],
+        [
+            'code' => 'olist',
+            'name' => 'Olist',
+            'commission' => 20,
+        ],
     ];
 
     /**
