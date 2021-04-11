@@ -32,7 +32,10 @@ class ResponseBuilder implements ResponseBuilderInterface
     public function withStore(string $store, ResponseInterface $response): self
     {
         $store = $this->factory->makeStore($response, $store);
-        $this->response->addStores($store);
+
+        if (is_array($store)) {
+            $this->response->addStores($store);
+        }
 
         return $this;
     }
