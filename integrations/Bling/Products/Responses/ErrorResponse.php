@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrations\Bling\Products\Responses\Responses;
+namespace Integrations\Bling\Products\Responses;
 
 class ErrorResponse extends Response
 {

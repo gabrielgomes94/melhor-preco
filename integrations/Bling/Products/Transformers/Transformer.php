@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrations\Bling\Products\Responses\Transformers;
+namespace Integrations\Bling\Products\Transformers;
 
 class Transformer
 {
@@ -11,12 +11,13 @@ class Transformer
         }
 
         $product = $data['product'];
-        $images = array_map(
-            function($image) {
+
+        if ($product['imagem']) {
+            $images = array_map(function(array $image) {
                 return $image['link'];
-            },
-            $product['imagem']
-        );
+            }, $product['imagem']);
+        }
+
 
         return [
             'product' => [
@@ -43,11 +44,11 @@ class Transformer
         if (isset($product['produtoLoja'])) {
             $store = [
                 'code' => $storeCode,
-                'product_store_id' => $product['produtoLoja']['idProdutoLoja'] ?? '',
+                'skuStoreId' => $product['produtoLoja']['idProdutoLoja'] ?? '',
                 'price' => (float) $product['produtoLoja']['preco']['preco'] ?? 0.0,
-                'promotional_price' => (float) $product['produtoLoja']['preco']['precoPromocional'] ?? 0.0,
-                'created_at' => $product['produtoLoja']['dataInclusao'] ?? '',
-                'updated_at' => $product['produtoLoja']['dataAlteracao'] ?? '',
+                'promotionalPrice' => (float) $product['produtoLoja']['preco']['precoPromocional'] ?? 0.0,
+                'createdAt' => $product['produtoLoja']['dataInclusao'] ?? '',
+                'updatedAt' => $product['produtoLoja']['dataAlteracao'] ?? '',
             ];
         }
 

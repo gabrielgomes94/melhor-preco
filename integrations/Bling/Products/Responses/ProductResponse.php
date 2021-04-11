@@ -1,9 +1,8 @@
 <?php
 
-namespace Integrations\Bling\Products\Responses\Responses;
+namespace Integrations\Bling\Products\Responses;
 
 use Barrigudinha\Product\Product as ProductData;
-use Integrations\Bling\Products\Responses\Contracts\Response as ProductResponseInterface;
 
 class ProductResponse extends Response
 {

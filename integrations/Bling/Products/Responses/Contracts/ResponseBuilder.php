@@ -3,7 +3,7 @@
 namespace Integrations\Bling\Products\Responses\Contracts;
 
 use Integrations\Bling\Products\Responses\Factory;
-use Integrations\Bling\Products\Responses\Responses\Contracts\Response;
+use Integrations\Bling\Products\Responses\Response;
 use Psr\Http\Message\ResponseInterface;
 
 interface ResponseBuilder
@@ -16,4 +16,3 @@ interface ResponseBuilder
 
     public function get(): Response;
 }
-

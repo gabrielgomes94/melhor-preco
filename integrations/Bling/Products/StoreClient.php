@@ -5,9 +5,9 @@ namespace Integrations\Bling\Products;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ConnectException;
-use Integrations\Bling\Products\Responses\Builders\ResponseBuilder as ResponseBuilder;
-use Integrations\Bling\Products\Responses\Factory;
-use Integrations\Bling\Products\Responses\Responses\Contracts\Response;
+use Integrations\Bling\Products\Requests\Request;
+use Integrations\Bling\Products\Responses\ResponseBuilder;
+use Integrations\Bling\Products\Responses\Contracts\Response;
 
 class StoreClient
 {
@@ -20,7 +20,7 @@ class StoreClient
 
     public function getWithStores(string $sku, array $stores = []): Response
     {
-        $responseBuilder = new ResponseBuilder($this->factory);
+        $responseBuilder = app(ResponseBuilder::class);
 
         try {
             $responseBuilder->product($this->request->get($sku));
