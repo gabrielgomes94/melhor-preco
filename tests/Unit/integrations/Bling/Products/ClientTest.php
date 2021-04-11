@@ -7,8 +7,9 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use Integrations\Bling\Products\Client;
-use Integrations\Bling\Products\Response\Factory;
-use Integrations\Bling\Products\Response\ProductResponse;
+use Integrations\Bling\Products\Responses\ErrorResponse;
+use Integrations\Bling\Products\Responses\Factory;
+use Integrations\Bling\Products\Responses\ProductResponse;
 use Mockery as m;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -47,7 +48,7 @@ class ClientTest extends TestCase
         $factory = m::mock(Factory::class);
         $httpClient = m::mock(GuzzleClient::class);
         $client = new Client($factory, $httpClient);
-        $product = m::mock(ProductResponse::class);
+        $errorResponse = m::mock(ErrorResponse::class);
 
         $request = m::mock(RequestInterface::class);
 
@@ -57,14 +58,14 @@ class ClientTest extends TestCase
             ->andThrow(new ConnectException('Error connect exception' , $request));
 
         $factory->expects()
-            ->make(null, 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.')
-            ->andReturn($product);
+            ->makeError('ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.')
+            ->andReturn($errorResponse);
 
         // Actions
         $result = $client->get('invalid');
 
         // Assertions
-        $this->assertInstanceOf(ProductResponse::class, $result);
+        $this->assertInstanceOf(ErrorResponse::class, $result);
     }
 
     public function testShouldHandleExceptions(): void
@@ -73,7 +74,7 @@ class ClientTest extends TestCase
         $factory = m::mock(Factory::class);
         $httpClient = m::mock(GuzzleClient::class);
         $client = new Client($factory, $httpClient);
-        $product = m::mock(ProductResponse::class);
+        $errorResponse = m::mock(ErrorResponse::class);
 
         // Expectations
         $httpClient->expects()
@@ -81,13 +82,13 @@ class ClientTest extends TestCase
             ->andThrow(Exception::class);
 
         $factory->expects()
-            ->make(null, 'Aconteceu algum erro bizarro. Contate o suporte.')
-            ->andReturn($product);
+            ->makeError('Aconteceu algum erro bizarro. Contate o suporte.')
+            ->andReturn($errorResponse);
 
         // Actions
         $result = $client->get('invalid');
 
         // Assertions
-        $this->assertInstanceOf(ProductResponse::class, $result);
+        $this->assertInstanceOf(ErrorResponse::class, $result);
     }
 }

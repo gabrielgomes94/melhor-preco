@@ -2,12 +2,8 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-use Integrations\Bling\Products\Responses\Responses\ErrorResponse;
-use Integrations\Bling\Products\Responses\Responses\ProductResponse;
-use Integrations\Bling\Products\Responses\Responses\Response;
-use Integrations\Bling\Products\Responses\Responses\StoreResponse;
-use Integrations\Bling\Products\Responses\Transformers\Sanitizer;
-use Integrations\Bling\Products\Responses\Transformers\Transformer;
+use Integrations\Bling\Products\Transformers\Sanitizer;
+use Integrations\Bling\Products\Transformers\Transformer;
 use Psr\Http\Message\ResponseInterface;
 
 class Factory
@@ -33,7 +29,6 @@ class Factory
             return $this->makeError(error: $data['error']);
         }
 
-        $data = $this->getData($response);
         $product = $this->transformer->transform($data);
 
         return new ProductResponse(data: $product);
@@ -59,35 +54,8 @@ class Factory
         $store = $this->transformer->transformStore($data, $store);
 
         return $store;
-//        dd($store);
-//        return new StoreResponse($store);
     }
 
-    private function error(?ResponseInterface $response, string $error = ''): ?string
-    {
-        if (!$response) {
-            return $error;
-        }
-
-        $data = $this->getData($response);
-
-        if (empty($data)) {
-            return 'Invalid response!';
-        }
-
-        if (isset($data['error'])) {
-            return $data['error'];
-        }
-
-        return null;
-    }
-
-
-
-//    private function makeWithError(string $message): ResponseBuilder
-//    {
-//        return new ResponseBuilder(error: $message);
-//    }
 
     private function getData(ResponseInterface $response): array
     {

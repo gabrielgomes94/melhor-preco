@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Responses\Factory;
 
 use Integrations\Bling\Products\Responses\ProductResponse;
+use Integrations\Bling\Products\Responses\Response;
 
 class Client
 {
@@ -32,7 +33,7 @@ class Client
         $this->factory = $factory;
     }
 
-    public function get(string $sku): ProductResponse
+    public function get(string $sku): Response
     {
         try {
             $response = $this->httpClient->request('GET', $this->uri($sku), $this->options);

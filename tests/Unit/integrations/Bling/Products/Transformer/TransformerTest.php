@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Integrations\Bling\Products\Response\Transformer;
+namespace Tests\Unit\Integrations\Bling\Products\Transformer;
 
-use Integrations\Bling\Products\Response\Transformers\Transformer;
+use Integrations\Bling\Products\Transformers\Transformer;
 use Tests\TestCase;
 
 class TransformerTest extends TestCase
@@ -21,7 +21,7 @@ class TransformerTest extends TestCase
         $result = $tranformer->transform($data);
 
         // Assert
-        $this->assertSame($data, $result);
+        $this->assertEmpty($result);
     }
 
     public function testShouldTransformData(): void
@@ -34,11 +34,25 @@ class TransformerTest extends TestCase
                 'descricao' => 'Carrinho de Bebê',
                 'marca' => 'Galzerano',
                 'imagem' => [
-                    'link-to-image-1',
-                    'link-to-image-2',
-                    'link-to-image-3',
+                    [
+                        'link' => 'link-to-image-1',
+                        'validade' => 'S/ Validade',
+                        'tipoArmazenamento' => 'externo',
+                    ],
+                    [
+                        'link' => 'link-to-image-2',
+                        'validade' => 'S/ Validade',
+                        'tipoArmazenamento' => 'externo',
+                    ],
+                    [
+                        'link' => 'link-to-image-3',
+                        'validade' => 'S/ Validade',
+                        'tipoArmazenamento' => 'externo',
+                    ],
                 ],
                 'estoqueAtual' => 0,
+                'precoCusto' => 10.2,
+                'preco' => 20
             ],
         ];
 
@@ -53,6 +67,8 @@ class TransformerTest extends TestCase
                     'link-to-image-3',
                 ],
                 'stock' => 0,
+                'purchasePrice' => 10.2,
+                'price' => 20
             ],
         ];
 

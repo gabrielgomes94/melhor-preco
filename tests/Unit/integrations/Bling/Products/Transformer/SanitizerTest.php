@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Integrations\Bling\Products\Response\Transformer;
+namespace Tests\Unit\Integrations\Bling\Products\Transformer;
 
-use Integrations\Bling\Products\Response\Transformers\Sanitizer;
+use Integrations\Bling\Products\Transformers\Sanitizer;
 use Tests\TestCase;
 use Tests\Unit\fixtures\integrations\Bling\Data\Product;
 

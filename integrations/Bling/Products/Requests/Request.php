@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrations\Bling\Products;
+namespace Integrations\Bling\Products\Requests;
 
 use GuzzleHttp\Client as GuzzleClient;
 use Integrations\Bling\Products\Contracts\Request as RequestInterface;

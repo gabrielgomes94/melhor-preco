@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrations\Bling\Products\Responses\Transformers;
+namespace Integrations\Bling\Products\Transformers;
 
 class Sanitizer
 {
