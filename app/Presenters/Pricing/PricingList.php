@@ -19,20 +19,19 @@ class PricingList
             $transformedCampaigns[] = [
                 'id' => $campaign->id,
                 'name' => $name,
-                'products' => implode(',', $products),
-                'stores' => implode(',', $stores),
+                'products' => $products,
+                'stores' => $stores,
             ];
         }
 
         return $transformedCampaigns;
     }
 
-
     private function presentProducts(Pricing $pricing)
     {
         return $products = array_map(function($product) {
             if (isset($product['sku'])) {
-                return (string) $product['sku'];
+                return (string) $product['name'];
             }
         }, $pricing->products->toArray());
     }
@@ -40,9 +39,7 @@ class PricingList
     private function presentShops(Pricing $pricing)
     {
         return array_map(function($store) {
-            if (isset($store['code'])) {
-                return (string) $store['code'];
-            }
+            return (string) config("stores.{$store}.name");
         }, $pricing?->stores ?? []);
     }
 }

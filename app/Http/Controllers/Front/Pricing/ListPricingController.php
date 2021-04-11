@@ -21,6 +21,6 @@ class ListPricingController
         $pricing = $this->repository->all();
         $pricingList = $this->presenter->present($pricing);
 
-        return view('pricing.campaign.list', compact('pricingList'));
+        return view('pricing.list', compact('pricingList'));
     }
 }

@@ -7,20 +7,15 @@
         </x-slot>
 
         <div class="row">
-            <div class="col">
+            <div class="col d-inline-flex m-2">
                 <x-utils.navigation-button
                     :route="route('pricing.create')"
                     label="Novo"
                 />
-
-                <x-utils.navigation-button
-                    customStyleClass="btn-secondary"
-                    :route="route('products.upload')"
-                    label="Atualizar dados de Produto"
-                />
-                <!-- utils/pageTitle -->
-
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <x-pricing.campaigns-table :campaigns="$pricingList"/>
             </div>
         </div>
