@@ -39,6 +39,9 @@ class Factory
         return new ErrorResponse(error: $error);
     }
 
+    /**
+     * @return ErrorResponse|array
+     */
     public function makeStore(?ResponseInterface $response = null, string $store)
     {
         $data = $this->getData($response);
