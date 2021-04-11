@@ -1,11 +1,11 @@
 <div class="m-4">
-    <table class="table">
+    <table class="table w-100">
         <thead>
         <tr>
-            <th scope="col">Código</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Produtos</th>
-            <th scope="col">Lojas</th>
+            <th scope="col" class="w-10">Código</th>
+            <th scope="col" class="w-10">Nome</th>
+            <th scope="col" class="w-50">Produtos</th>
+            <th scope="col" class="w-30">Lojas</th>
             <th></th>
         </tr>
         </thead>
@@ -13,10 +13,22 @@
 
         @foreach($campaigns as $campaign)
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">{{ $campaign['id'] }}</th>
                 <td>{{ $campaign['name'] }}</td>
-                <td>{{ $campaign['products'] }}</td>
-                <td>{{ $campaign['stores'] }}</td>
+                <td class="w-50">
+                    @foreach ($campaign['products'] as $product)
+                        <div class="text-wrap">
+                            {{ $product }}
+                        </div>
+                    @endforeach
+                </td>
+                <td>
+                    @foreach ($campaign['stores'] as $store)
+                        <div class="text-wrap">
+                            {{ $store }}
+                        </div>
+                    @endforeach
+                </td>
                 <td>
                     <x-utils.navigation-button
                         :route="route('pricing.show', $campaign['id'])"
