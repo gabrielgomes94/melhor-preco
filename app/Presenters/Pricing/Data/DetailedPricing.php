@@ -2,17 +2,17 @@
 
 namespace App\Presenters\Pricing\Data;
 
-use App\Models\PriceCampaign;
 use App\Models\Pricing;
 
 class DetailedPricing
 {
-    public string $name;
+    private string $id;
+    private string $name;
 
     /**
      * @var Product[]
      */
-    public array $products;
+    private array $products;
 
     /**
      * @var string

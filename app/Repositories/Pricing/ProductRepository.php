@@ -53,7 +53,7 @@ class ProductRepository implements RepositoryContract
                 'commission' => 12.1,
                 'profit' => 0.0,
                 'store' => $store->code(),
-                'store_sku_id' => $store->store_sku_id(),
+                'store_sku_id' => $store->storeSkuId(),
                 'value' => $store->price(),
             ]);
 
