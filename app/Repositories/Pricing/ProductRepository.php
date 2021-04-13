@@ -13,8 +13,6 @@ class ProductRepository implements RepositoryContract
 {
     private StoreClient $client;
 
-//    private $createRepository;
-
     public function __construct(StoreClient $client)
     {
         $this->client = $client;
@@ -56,7 +54,6 @@ class ProductRepository implements RepositoryContract
                 'store_sku_id' => $store->storeSkuId(),
                 'value' => $store->price(),
             ]);
-
 
             $model->prices()->save($price);
         }
