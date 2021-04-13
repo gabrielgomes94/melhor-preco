@@ -1,5 +1,4 @@
 <div>
-    <!-- Be present above all else. - Naval Ravikant -->
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -14,37 +13,39 @@
         <tbody>
         @foreach($products as $product)
             <tr>
-                <th scope="row">{{ $product['sku'] }}</th>
-                <td> {{ $product['name'] ?? 'Berço Luck Cor: Rosa'}}</td>
-                @foreach($stores as $store)
+                <th scope="row">{{ $product->sku }}</th>
+                <td> {{ $product->name ?? 'Berço Luck Cor: Rosa'}}</td>
+                @foreach($product->prices as $price)
                     <td>
                         <div class="selling-price">
-                            R$ {{ $product['prices'][0]['value'] }}
+                            {{ $price->value() }}
                         </div>
                         <div>
                             <div class="profit-margin">
-                                {{ $product['prices'][0]['profit_margin'] }} %
+                                {{ $price->profitMargin() }}
                             </div>
                             <div class="profit-value">
-                                R$ {{ $product['prices'][0]['profit'] }}
+                                {{ $price->profit() }}
                             </div>
                         </div>
                     </td>
                 @endforeach
                 <td>
-                    <x-utils.navigation-button
-                        :route="route('pricing.products.show', [
+                    <div class="d-inline-flex justify-content-end">
+                        <x-utils.navigation-button
+                            :route="route('pricing.products.show', [
                             'pricing_id' => $pricingId,
-                            'product_id' => $product['id']
+                            'product_id' => $product->id
                         ])"
-                        label="Detalhar"
-                    />
+                            label="Detalhar"
+                        />
 
-                    <x-utils.navigation-button
-                        :route="route('pricing.create')"
-                        customStyleClass="btn-danger"
-                        label="Remover"
-                    />
+                        <x-utils.navigation-button
+                            :route="route('pricing.create')"
+                            customStyleClass="btn-danger"
+                            label="Remover"
+                        />
+                    </div>
                 </td>
             </tr>
         @endforeach
