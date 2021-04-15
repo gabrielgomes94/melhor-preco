@@ -5,68 +5,47 @@
         <form method="post" action="{{ route('prices.calculate_single') }}" enctype="multipart/form-data">
             @csrf
 
-            <x-forms.input
-                name="name"
+            <x-forms.input.read-only
+                attribute="name"
                 label="Nome do Produto"
-                id="sku"
-                class="input-sku"
-                type="text"
-                placeholder="Código SKU"
-                value="{{ $priceParams['sku'] ?? '' }}"
-                disabled="true"
-            ></x-forms.input>
+                value="{{ $productInfo->name }}"
+            >
+            </x-forms.input.read-only>
 
-            <x-forms.input
-                name="name"
+            <x-forms.input.money
+                attribute="purchasePrice"
                 label="Preço de Compra"
-                id="sku"
-                class="input-sku"
-                type="text"
-                placeholder="Código SKU"
-                value="{{ $priceParams['sku'] ?? '' }}"
-                disabled="true"
-            ></x-forms.input>
+                value="{{ $productInfo->purchasePrice }}"
+            >
+            </x-forms.input.money>
 
-            <x-forms.input
-                name="tax_ipi"
-                label="IPI"
-                id="sku"
-                class="input-tax-ipi"
-                type="text"
-                placeholder="Imposto IPI"
-                value="{{ $priceParams['sku'] ?? '' }}"
-            ></x-forms.input>
+            <x-forms.input.percentage
+                attribute="taxIPI"
+                label="Imposto IPI"
+                value=""
+            >
+            </x-forms.input.percentage>
 
-            <x-forms.input
-                name="tax_icms"
-                label="ICMS"
-                id="tax_icms"
-                class="input-tax-icms"
-                type="text"
-                placeholder="Imposto ICMS"
-                value="{{ $priceParams['sku'] ?? '' }}"
-            ></x-forms.input>
+            <x-forms.input.percentage
+                attribute="taxICMS"
+                label="Imposto ICMS"
+                value=""
+            >
+            </x-forms.input.percentage>
 
-            <x-forms.input
-                name="tax_simples_nacional"
+            <x-forms.input.percentage
+                attribute="taxSimplesNacional"
                 label="Imposto Simples Nacional"
-                id="tax_simples_nacional"
-                class="input-tax-simples-nacional"
-                type="text"
-                placeholder="Imposto Simples Nacional"
-                value="{{ $priceParams['sku'] ?? '' }}"
-            ></x-forms.input>
+                value=""
+            >
+            </x-forms.input.percentage>
 
-            <x-forms.input
-                name="additional_costs"
+            <x-forms.input.money
+                attribute="additionalCosts"
                 label="Custos Adicionais"
-                id="additional-costs"
-                class="input-additional-costs"
-                type="text"
-                placeholder="Custos Adicionais"
-                value="{{ $priceParams['sku'] ?? '' }}"
-            ></x-forms.input>
-
+                value=""
+            >
+            </x-forms.input.money>
 
             <input type="submit"
                    class="btn btn-dark d-block w-100 mx-auto m-2"
