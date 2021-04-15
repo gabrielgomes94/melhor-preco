@@ -18,6 +18,15 @@ class ProductRepository implements RepositoryContract
         $this->client = $client;
     }
 
+    public function getById(string $id): ?PricingProduct
+    {
+        if ($model = ProductModel::find($id)) {
+            return new PricingProduct($model->toArray());
+        }
+
+        return null;
+    }
+
     public function get(string $sku): ?PricingProduct
     {
         if ($model = $this->findInDB($sku)) {
