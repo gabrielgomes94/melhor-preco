@@ -20,6 +20,8 @@ class Product
      */
     private array $taxes;
 
+    private float $additionalCosts;
+
     public function __construct(array $data)
     {
         $this->fill($data);
@@ -38,6 +40,13 @@ class Product
         $this->taxes[] = new Tax('ipi', 'in', $data['tax_ipi']);
         $this->taxes[] = new Tax('icms', 'in', $data['tax_icms']);
         $this->taxes[] = new Tax('simples_nacional', 'out', $data['tax_simples_nacional']);
+
+        $this->additionalCosts = (float) $data['additional_costs'] ?? 0.0;
+    }
+
+    public function additionalCosts(): float
+    {
+        return $this->additionalCosts;
     }
 
     public function name(): string
