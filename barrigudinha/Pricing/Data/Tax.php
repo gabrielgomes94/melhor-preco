@@ -4,14 +4,18 @@ namespace Barrigudinha\Pricing\Data;
 
 class Tax
 {
+    const IPI = 'ipi';
+    const ICMS = 'icms';
+    const SIMPLES_NACIONAL = 'simples_nacional';
+
     public float $rate;
     public string $name;
     public string $type;
 
     private $validNames = [
-        'icms',
-        'ipi',
-        'simples_nacional'
+        self::IPI,
+        self::ICMS,
+        self::SIMPLES_NACIONAL,
     ];
 
     private $validTypes = [
