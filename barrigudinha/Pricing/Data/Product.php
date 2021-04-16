@@ -60,9 +60,15 @@ class Product
         return $this->purchasePrice;
     }
 
-    public function tax(string $tax): float
+    public function tax(string $taxCode): ?Tax
     {
+        foreach($this->taxes as $tax) {
+            if ($taxCode === $tax->name) {
+                return $tax;
+            }
+        }
 
+        return null;
     }
 
     public function toArray(): array
