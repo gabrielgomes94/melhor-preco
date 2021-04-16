@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Front\Pricing;
+
+use App\Http\Controllers\Controller;
 use App\Presenters\Pricing\Product\Presenter;
 use App\Repositories\Pricing\ProductRepository;
 
-class ShowProductPricingController
+class ShowProductPricingController extends Controller
 {
     private ProductRepository $repository;
 
