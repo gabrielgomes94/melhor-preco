@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Front\Pricing;
 
+use App\Http\Controllers\Controller;
 use App\Presenters\Pricing\PricingList;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
 
-class ListPricingController
+class ListPricingController extends Controller
 {
     private PricingRepository $repository;
     private PricingList $presenter;
