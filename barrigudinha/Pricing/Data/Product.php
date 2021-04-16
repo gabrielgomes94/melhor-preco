@@ -37,9 +37,9 @@ class Product
             $this->stores[] = $store;
         }
 
-        $this->taxes[] = new Tax('ipi', 'in', $data['tax_ipi']);
-        $this->taxes[] = new Tax('icms', 'in', $data['tax_icms']);
-        $this->taxes[] = new Tax('simples_nacional', 'out', $data['tax_simples_nacional']);
+        $this->taxes[] = new Tax(Tax::IPI, 'in', $data['tax_ipi']);
+        $this->taxes[] = new Tax(Tax::ICMS, 'in', $data['tax_icms']);
+        $this->taxes[] = new Tax(Tax::SIMPLES_NACIONAL, 'out', $data['tax_simples_nacional']);
 
         $this->additionalCosts = (float) $data['additional_costs'] ?? 0.0;
     }
