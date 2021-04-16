@@ -24,6 +24,6 @@ class Product
         $this->taxIPI = (float) $product?->tax(Tax::IPI)?->rate;
         $this->taxICMS = (float) $product?->tax(Tax::ICMS)?->rate;
         $this->taxSimplesNacional = (float) $product?->tax(Tax::SIMPLES_NACIONAL)?->rate;
-//        $this->additionalCosts = $product->additionalCosts;
+        $this->additionalCosts = $product->additionalCosts();
     }
 }

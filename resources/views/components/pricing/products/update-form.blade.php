@@ -43,7 +43,7 @@
             <x-forms.input.money
                 attribute="additionalCosts"
                 label="Custos Adicionais"
-                value=""
+                value="{{ $productInfo->additionalCosts }}"
             >
             </x-forms.input.money>
 
