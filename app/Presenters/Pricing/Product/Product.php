@@ -2,8 +2,8 @@
 
 namespace App\Presenters\Pricing\Product;
 
-use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
+use Barrigudinha\Pricing\Data\Tax;
 
 class Product
 {
@@ -17,10 +17,13 @@ class Product
 
     public function __construct(PricingProduct $product)
     {
-//        dd($product);
+
         $this->name = $product->name();
         $this->sku = $product->sku();
         $this->purchasePrice = $product->purchasePrice();
-//        $this->name = $product->name();
+        $this->taxIPI = (float) $product?->tax(Tax::IPI)?->rate;
+        $this->taxICMS = (float) $product?->tax(Tax::ICMS)?->rate;
+        $this->taxSimplesNacional = (float) $product?->tax(Tax::SIMPLES_NACIONAL)?->rate;
+//        $this->additionalCosts = $product->additionalCosts;
     }
 }
