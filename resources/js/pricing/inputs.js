@@ -1,10 +1,9 @@
 import IMask from 'imask';
 
-
 document.addEventListener('DOMContentLoaded', (event) => {
+    var moneyElements = document.querySelectorAll('.input-money');
+    var percentageElements = document.querySelectorAll('.input-percentage');
 
-    console.log('showowow');
-    var element = document.querySelector('.input-money');
     var maskOptions = {
         mask: Number,
         scale: 2,
@@ -15,7 +14,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
         radix: ',',
         mapToRadix: ['.'],
     };
-    var mask = IMask(element, maskOptions);
 
-    //the event occurred
+    moneyElements.forEach(function(element){
+        var mask = IMask(element, maskOptions);
+
+        element.addEventListener('change', function () {
+            var inputId = this.name.replace('-input-view', '');
+            var input = document.querySelector('#' + inputId);
+            input.value = mask.unmaskedValue;
+        })
+    });
+    percentageElements.forEach(function (element){
+            var mask = IMask(element, maskOptions);
+
+        element.addEventListener('change', function () {
+            var inputId = this.name.replace('-input-view', '');
+            var input = document.querySelector('#' + inputId);
+            input.value = mask.unmaskedValue;
+        })
+        }
+    )
 })
