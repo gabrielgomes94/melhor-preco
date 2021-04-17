@@ -23,9 +23,10 @@ class Product
 
     private float $additionalCosts;
 
-    public function __construct(array $data)
+    public function __construct(array $data, array $prices)
     {
         $this->fill($data);
+        $this->setPrices($prices);
     }
 
     private function fill(array $data)
@@ -46,6 +47,21 @@ class Product
         $this->additionalCosts = (float) $data['additional_costs'] ?? 0.0;
     }
 
+    private function setPrices(array $data)
+    {
+        foreach($data as $price)
+        {
+            $this->prices[] = new Price(
+                id: $price['id'],
+                profit: $price['profit'],
+                value: $price['value'],
+                commission: $price['commission'],
+                store: $price['store'],
+                storeSkuId: $price['store_sku_id'],
+            );
+        }
+    }
+
     public function additionalCosts(): float
     {
         return $this->additionalCosts;
@@ -59,6 +75,11 @@ class Product
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function prices(): array
+    {
+        return $this->prices;
     }
 
     public function sku(): string
