@@ -18,9 +18,6 @@ class UpdateProductPricingController extends Controller
 
     public function update(string $pricingId, string $productId, UpdateRequest $request)
     {
-//        dd($request->validated());
-//        $data = $this->service->updateProductData($request->all());
-//
         $this->service->updateProduct($productId, $request->validated());
 
         return redirect(route('pricing.products.show', [
