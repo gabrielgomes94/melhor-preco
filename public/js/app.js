@@ -25079,8 +25079,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var imask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! imask */ "./node_modules/imask/esm/index.js");
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  console.log('showowow');
-  var element = document.querySelector('.input-money');
+  var moneyElements = document.querySelectorAll('.input-money');
+  var percentageElements = document.querySelectorAll('.input-percentage');
   var maskOptions = {
     mask: Number,
     scale: 2,
@@ -25091,7 +25091,22 @@ document.addEventListener('DOMContentLoaded', function (event) {
     radix: ',',
     mapToRadix: ['.']
   };
-  var mask = Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(element, maskOptions); //the event occurred
+  moneyElements.forEach(function (element) {
+    var mask = Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(element, maskOptions);
+    element.addEventListener('change', function () {
+      var inputId = this.name.replace('-input-view', '');
+      var input = document.querySelector('#' + inputId);
+      input.value = mask.unmaskedValue;
+    });
+  });
+  percentageElements.forEach(function (element) {
+    var mask = Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(element, maskOptions);
+    element.addEventListener('change', function () {
+      var inputId = this.name.replace('-input-view', '');
+      var input = document.querySelector('#' + inputId);
+      input.value = mask.unmaskedValue;
+    });
+  });
 });
 
 /***/ }),
