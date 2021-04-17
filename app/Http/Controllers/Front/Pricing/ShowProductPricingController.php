@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front\Pricing;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pricing;
 use App\Presenters\Pricing\Product\Presenter;
 use App\Repositories\Pricing\ProductRepository;
 
@@ -25,7 +26,19 @@ class ShowProductPricingController extends Controller
 
         $productInfo = $this->presenter->single($product);
 
+        $breadcrumb = [
+            'pricing' => [
+                'name' => Pricing::find($pricingId)->name,
+                'link' => route('pricing.show', [$pricingId])
+            ],
+            'product' => [
+                'name' => $product->name(),
+                'link' => '',
+            ],
+        ];
+
         return view('pricing.products.show', [
+            'breadcrumb' => $breadcrumb,
             'productInfo' => $productInfo,
             'pricingId' => $pricingId,
         ]);
