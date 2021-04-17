@@ -15,6 +15,7 @@ class Product
     public float $taxICMS;
     public float $taxSimplesNacional;
     public float $additionalCosts;
+    public array $prices;
 
     public function __construct(PricingProduct $product)
     {
