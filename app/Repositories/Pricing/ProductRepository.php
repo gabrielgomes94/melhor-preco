@@ -21,7 +21,7 @@ class ProductRepository implements RepositoryContract
     public function getById(string $id): ?PricingProduct
     {
         if ($model = ProductModel::find($id)) {
-            return new PricingProduct($model->toArray());
+            return new PricingProduct($model->toArray(), $model->prices->toArray());
         }
 
         return null;
