@@ -7,6 +7,7 @@ use Barrigudinha\Pricing\Data\Tax;
 
 class Product
 {
+    public string $id;
     public string $name;
     public string $sku;
     public float $purchasePrice;
@@ -17,7 +18,7 @@ class Product
 
     public function __construct(PricingProduct $product)
     {
-
+        $this->id = $product->id();
         $this->name = $product->name();
         $this->sku = $product->sku();
         $this->purchasePrice = $product->purchasePrice();
