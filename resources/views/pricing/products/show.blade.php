@@ -2,12 +2,10 @@
 
     <div class="container">
         <div class="row">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Nome da Precificação</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Nome do Produto</li>
-                </ol>
-            </nav>
+            <x-utils.breadcrumb
+                :breadcrumb="$breadcrumb"
+            >
+            </x-utils.breadcrumb>
         </div>
     </div>
 
