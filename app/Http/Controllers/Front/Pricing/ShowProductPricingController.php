@@ -24,7 +24,8 @@ class ShowProductPricingController extends Controller
     {
         $product = $this->repository->getById($productId);
 
-        $productInfo = $this->presenter->single($product);
+        $productInfo = $this->presenter->singleProduct($product);
+        $prices = $this->presenter->prices($product);
 
         $breadcrumb = [
             'pricing' => [
@@ -41,6 +42,7 @@ class ShowProductPricingController extends Controller
             'breadcrumb' => $breadcrumb,
             'productInfo' => $productInfo,
             'pricingId' => $pricingId,
+            'prices' => $prices
         ]);
     }
 }
