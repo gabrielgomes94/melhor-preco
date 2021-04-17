@@ -1,17 +1,10 @@
 <div>
     <div class="form-group">
-        <h3>Nome do Produto</h3>
+        <h3>{{ $productInfo->name }}</h3>
 
         <x-forms.form.put
             action="{{ route('pricing.products.update', [$pricingId, $productInfo->id]) }}"
         >
-            <x-forms.input.read-only
-                attribute="name"
-                label="Nome do Produto"
-                value="{{ $productInfo->name }}"
-            >
-            </x-forms.input.read-only>
-
             <x-forms.input.money
                 attribute="purchasePrice"
                 label="Preço de Compra"
