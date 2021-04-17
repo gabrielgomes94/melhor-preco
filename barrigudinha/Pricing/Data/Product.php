@@ -6,6 +6,7 @@ use Barrigudinha\Product\Product as ProductData;
 
 class Product
 {
+    private string $id;
     private string $sku;
     private string $name;
     private float $purchasePrice;
@@ -29,6 +30,7 @@ class Product
 
     private function fill(array $data)
     {
+        $this->id = $data['id'];
         $this->name = $data['name'] ?? '';
         $this->sku = $data['sku'];
         $this->purchasePrice = $data['purchase_price'];
@@ -47,6 +49,11 @@ class Product
     public function additionalCosts(): float
     {
         return $this->additionalCosts;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
     }
 
     public function name(): string

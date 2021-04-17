@@ -2,9 +2,9 @@
     <div class="form-group">
         <h3>Nome do Produto</h3>
 
-        <form method="post" action="{{ route('prices.calculate_single') }}" enctype="multipart/form-data">
-            @csrf
-
+        <x-forms.form.put
+            action="{{ route('pricing.products.update', [$pricingId, $productInfo->id]) }}"
+        >
             <x-forms.input.read-only
                 attribute="name"
                 label="Nome do Produto"
@@ -50,7 +50,6 @@
             <input type="submit"
                    class="btn btn-dark d-block w-100 mx-auto m-2"
                    value="Atualizar" />
-        </form>
+        </x-forms.form.put>
     </div>
-
 </div>

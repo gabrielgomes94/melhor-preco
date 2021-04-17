@@ -27,6 +27,7 @@ class ShowProductPricingController extends Controller
 
         return view('pricing.products.show', [
             'productInfo' => $productInfo,
+            'pricingId' => $pricingId,
         ]);
     }
 }
