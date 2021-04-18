@@ -10,7 +10,6 @@ use App\Repositories\Pricing\ProductRepository;
 class ShowProductPricingController extends Controller
 {
     private ProductRepository $repository;
-
     private Presenter $presenter;
 
     public function __construct(ProductRepository $repository, Presenter $presenter)
@@ -22,6 +21,11 @@ class ShowProductPricingController extends Controller
     public function show($pricingId, $productId)
     {
         $product = $this->repository->getById($productId);
+
+        if (!$product) {
+            abort(404);
+        }
+
         $productInfo = $this->presenter->singleProduct($product);
         $prices = $this->presenter->prices($product);
 
