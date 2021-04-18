@@ -10,8 +10,17 @@ class Price
     private float $commission;
     private string $store;
     private string $storeSkuId;
+    private float $additionalCosts;
 
-    public function __construct(string $id, float $profit, float $value, float $commission, string $store, string $storeSkuId)
+    public function __construct(
+        string $id,
+        float $profit,
+        float $value,
+        float $commission,
+        string $store,
+        string $storeSkuId,
+        string $additionalCosts
+    )
     {
         $this->id = $id;
         $this->profit = $profit;
@@ -19,11 +28,22 @@ class Price
         $this->commission = $commission;
         $this->store = $store;
         $this->storeSkuId = $storeSkuId;
+        $this->additionalCosts = $additionalCosts;
+    }
+
+    public function additionalCosts()
+    {
+        return $this->additionalCosts;
     }
 
     public function id()
     {
         return $this->id;
+    }
+
+    public function commission()
+    {
+        return $this->commission;
     }
 
     public function profit()
