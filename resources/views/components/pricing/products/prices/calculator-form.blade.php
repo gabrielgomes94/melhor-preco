@@ -6,61 +6,34 @@
                     <form method="post" action="{{ route('prices.calculate_single') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <x-forms.input
-                            name="commission"
+                        <x-forms.input.percentage
+                            attribute="commission"
                             label="Comissão"
-                            id="commission"
-                            class="input-comission"
-                            type="text"
-                            placeholder="18,8%"
-                            value="{{ $priceParams['sku'] ?? '' }}"
-                            disabled="true"
-                        ></x-forms.input>
+                            value="{{ $price->commission }}"
+                        >
+                        </x-forms.input.percentage>
 
-                        <x-forms.input
-                            name="commission"
-                            label="Frete"
-                            id="commission"
-                            class="input-comission"
-                            type="text"
-                            placeholder="18,8%"
-                            value="{{ $priceParams['sku'] ?? '' }}"
-                            disabled="true"
-                        ></x-forms.input>
-
-                        <x-forms.input
-                            name="commission"
+                        <x-forms.input.money
+                            attribute="additionalCosts"
                             label="Custos Adicionais"
-                            id="commission"
-                            class="input-comission"
-                            type="text"
-                            placeholder="18,8%"
-                            value="{{ $priceParams['sku'] ?? '' }}"
-                            disabled="true"
-                        ></x-forms.input>
+                            value="{{ $price->additionalCosts }}"
+                        >
+                        </x-forms.input.money>
 
                         <div class="d-inline-flex justify-content-between w-100">
-                            <x-forms.input
-                                name="commission"
+                            <x-forms.input.percentage
+                                attribute="margin"
                                 label="Margem"
-                                id="commission"
-                                class="input-comission"
-                                type="text"
-                                placeholder="18,8%"
-                                value="{{ $priceParams['sku'] ?? '' }}"
-                                disabled="true"
-                            ></x-forms.input>
+                                value="{{ $price->margin }}"
+                            >
+                            </x-forms.input.percentage>
 
-                            <x-forms.input
-                                name="commission"
-                                label="Preço de Venda"
-                                id="commission"
-                                class="input-comission"
-                                type="text"
-                                placeholder="18,8%"
-                                value="{{ $priceParams['sku'] ?? '' }}"
-                                disabled="true"
-                            ></x-forms.input>
+                            <x-forms.input.money
+                                attribute="value"
+                                label="Preço"
+                                value="{{ $price->value }}"
+                            >
+                            </x-forms.input.money>
                         </div>
 
                         <input type="submit"
@@ -75,38 +48,26 @@
                     <form method="post" action="{{ route('prices.calculate_single') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <x-forms.input
-                            name="commission"
-                            label="Preço de Venda"
-                            id="commission"
-                            class="input-comission"
-                            type="text"
-                            placeholder="R$ 250,90"
-                            value="{{ $priceParams['sku'] ?? '' }}"
-                            disabled="true"
-                        ></x-forms.input>
+                        <x-forms.input.money
+                            attribute="value"
+                            label="Preço"
+                            value="{{ $price->value }}"
+                        >
+                        </x-forms.input.money>
 
-                        <x-forms.input
-                            name="commission"
+                        <x-forms.input.money
+                            attribute="profit"
                             label="Lucro"
-                            id="commission"
-                            class="input-comission"
-                            type="text"
-                            placeholder="R$ 62,90"
-                            value="{{ $priceParams['sku'] ?? '' }}"
-                            disabled="true"
-                        ></x-forms.input>
+                            value="{{ $price->profit }}"
+                        >
+                        </x-forms.input.money>
 
-                        <x-forms.input
-                            name="commission"
+                        <x-forms.input.percentage
+                            attribute="margin"
                             label="Margem"
-                            id="commission"
-                            class="input-comission"
-                            type="text"
-                            placeholder="23,95%"
-                            value="{{ $priceParams['sku'] ?? '' }}"
-                            disabled="true"
-                        ></x-forms.input>
+                            value="{{ $price->margin }}"
+                        >
+                        </x-forms.input.percentage>
 
                         <input type="submit"
                                class="btn btn-dark d-block w-100 mx-auto m-2"
