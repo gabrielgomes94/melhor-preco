@@ -2,16 +2,13 @@
 
 namespace App\Presenters\Pricing;
 
-use App\Models\PriceCampaign;
-use App\Models\Pricing;
-use App\Presenters\Pricing\Data\DetailedPricing;
+use App\Models\Pricing as PricingModel;
+use App\Presenters\Pricing\Show\Pricing;
 
 class Show
 {
-    public function present(Pricing $pricing): array
+    public function present(PricingModel $pricing): Pricing
     {
-        $detailedPricing = DetailedPricing::createFromModel($pricing);
-
-        return $detailedPricing->toArray();
+        return new Pricing($pricing);
     }
 }

@@ -6,36 +6,80 @@ use Barrigudinha\Product\Product as ProductData;
 
 class Product
 {
-    private string $name;
+    private string $id;
     private string $sku;
+    private string $name;
     private float $purchasePrice;
-    private array $shops;
+
+    /**
+     * @var Price[] $prices
+     */
+    private array $prices;
+
+    /**
+     * @var Tax[] $taxes
+     */
     private array $taxes;
 
-    public function __construct(array $data)
+    private float $additionalCosts;
+
+    public function __construct(array $data, array $prices)
     {
         $this->fill($data);
+        $this->setPrices($prices);
     }
 
     private function fill(array $data)
     {
+        $this->id = $data['id'];
         $this->name = $data['name'] ?? '';
         $this->sku = $data['sku'];
         $this->purchasePrice = $data['purchase_price'];
-        $this->shops = [
-            [
-                'code' => 'magalu',
-                'sku' => $data['sku_magalu'] ?? null,
-            ],
-            [
-                'code' => 'b2w',
-                'sku' => $data['sku_b2w'] ?? null,
-            ],
-            [
-                'code' => 'mercado_livre',
-                'sku' => $data['sku_mercado_livre'] ?? null,
-            ],
-        ];
+
+        foreach($data['stores'] ?? [] as $store) {
+            $this->stores[] = $store;
+        }
+
+        $this->taxes[] = new Tax(Tax::IPI, 'in', $data['tax_ipi']);
+        $this->taxes[] = new Tax(Tax::ICMS, 'in', $data['tax_icms']);
+        $this->taxes[] = new Tax(Tax::SIMPLES_NACIONAL, 'out', $data['tax_simples_nacional']);
+
+        $this->additionalCosts = (float) $data['additional_costs'] ?? 0.0;
+    }
+
+    private function setPrices(array $data)
+    {
+        foreach($data as $price)
+        {
+            $this->prices[] = new Price(
+                id: $price['id'],
+                profit: $price['profit'],
+                value: $price['value'],
+                commission: $price['commission'],
+                store: $price['store'],
+                storeSkuId: $price['store_sku_id'],
+            );
+        }
+    }
+
+    public function additionalCosts(): float
+    {
+        return $this->additionalCosts;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function prices(): array
+    {
+        return $this->prices;
     }
 
     public function sku(): string
@@ -53,15 +97,23 @@ class Product
         return $this->purchasePrice;
     }
 
+    public function tax(string $taxCode): ?Tax
+    {
+        foreach($this->taxes as $tax) {
+            if ($taxCode === $tax->name) {
+                return $tax;
+            }
+        }
+
+        return null;
+    }
+
     public function toArray(): array
     {
         return [
             'sku' => $this->sku,
             'purchase_price' => $this->purchasePrice,
             'name' => $this->name,
-            'sku_magalu' => $this->shops[0]['sku'],
-            'sku_b2w' => null,
-            'sku_mercado_livre' => null,
             'tax_ipi' => 0.0,
             'tax_icms' => 0.0,
             'tax_simples_nacional' => 0.0,

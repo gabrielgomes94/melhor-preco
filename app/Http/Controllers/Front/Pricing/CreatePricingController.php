@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front\Pricing;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\CreatePriceCampaignRequest;
 use App\Http\Transformers\Pricing\CreatePricingTransformer as Transformer;
 use Barrigudinha\Pricing\Services\CreatePricing as Service;
 
-
-class CreatePricingController
+class CreatePricingController extends Controller
 {
     private Transformer $transformer;
     private Service $pricingService;

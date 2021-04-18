@@ -3,10 +3,11 @@
 namespace Tests\Unit\Integrations\Bling\Products\Response;
 
 use Barrigudinha\Product\Product;
-use Integrations\Bling\Products\Response\Factory;
-use Integrations\Bling\Products\Response\ProductResponse;
-use Integrations\Bling\Products\Response\Transformers\Sanitizer;
-use Integrations\Bling\Products\Response\Transformers\Transformer;
+use Integrations\Bling\Products\Responses\ErrorResponse;
+use Integrations\Bling\Products\Responses\Factory;
+use Integrations\Bling\Products\Responses\ProductResponse;
+use Integrations\Bling\Products\Transformers\Sanitizer;
+use Integrations\Bling\Products\Transformers\Transformer;
 use Mockery as m;
 use Psr\Http\Message\ResponseInterface;
 use Tests\TestCase;
@@ -21,10 +22,10 @@ class FactoryTest extends TestCase
         $factory = new Factory($transformer, $sanitizer);
 
         // Act
-        $result = $factory->make(error: 'Invalid error!');
+        $result = $factory->makeError(error: 'Invalid error!');
 
         // Assert
-        $this->assertInstanceOf(ProductResponse::class, $result);
+        $this->assertInstanceOf(ErrorResponse::class, $result);
         $this->assertNull($result->product());
         $this->assertTrue($result->hasErrors());
         $this->assertSame(['Invalid error!'], $result->errors());
@@ -48,7 +49,7 @@ class FactoryTest extends TestCase
         $result = $factory->make($response);
 
         // Assert
-        $this->assertInstanceOf(ProductResponse::class, $result);
+        $this->assertInstanceOf(ErrorResponse::class, $result);
         $this->assertNull($result->product());
         $this->assertTrue($result->hasErrors());
         $this->assertSame(['Invalid response!'], $result->errors());
@@ -72,7 +73,7 @@ class FactoryTest extends TestCase
         $result = $factory->make($response);
 
         // Assert
-        $this->assertInstanceOf(ProductResponse::class, $result);
+        $this->assertInstanceOf(ErrorResponse::class, $result);
         $this->assertNull($result->product());
         $this->assertTrue($result->hasErrors());
         $this->assertSame(['A informacao desejada nao foi encontrada'], $result->errors());

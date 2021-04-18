@@ -6,7 +6,7 @@
             </h2>
         </x-slot>
 
-        <h3>{{ $pricing['name'] }}</h3>
+        <h3>{{ $pricing->name }}</h3>
 
         <div class="row">
             <div class="col">

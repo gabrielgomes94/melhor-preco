@@ -13,12 +13,10 @@ class Product extends Model
         'sku',
         'name',
         'purchase_price',
-        'sku_magalu',
-        'sku_b2w',
-        'sku_mercado_livre',
         'tax_ipi',
         'tax_icms',
         'tax_simples_nacional',
+        'additional_costs'
     ];
 
     public function pricings()

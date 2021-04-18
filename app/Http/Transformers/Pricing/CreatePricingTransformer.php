@@ -10,6 +10,7 @@ class CreatePricingTransformer
     public function transform(CreatePriceCampaignRequest $request): CreatePricing
     {
         $skus = $request->input('skus');
+        $skus = preg_replace('/\s+/', ' ', $skus);
         $skus = explode(' ', $skus);
 
         return new CreatePricing(

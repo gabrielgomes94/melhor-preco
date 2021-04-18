@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Front\Pricing;
 
+use App\Http\Controllers\Controller;
 use App\Presenters\Pricing\Show as PricingShow;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
-use Illuminate\Routing\Controller as BaseController;
 
-class ShowPricingController extends BaseController
+class ShowPricingController extends Controller
 {
     private PricingRepository $repository;
     private PricingShow $presenter;

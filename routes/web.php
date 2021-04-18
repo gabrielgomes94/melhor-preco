@@ -3,6 +3,8 @@
 use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\Pricing\ListPricingController;
+use App\Http\Controllers\Front\Pricing\ShowProductPricingController;
+use App\Http\Controllers\Front\Pricing\UpdateProductPricingController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Pricing\ShowPricingController;
 use App\Http\Controllers\Front\Products\ProductImageController;
@@ -48,6 +50,16 @@ Route::middleware('auth')->group(function() {
         Route::get('/', [ListPricingController::class, 'list'])->name('.list');
         Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
         Route::get('/{id}', [ShowPricingController::class, 'show'])->name('.show');
+
+        Route::prefix('/{pricing_id}/products')
+            ->name('.products')
+            ->group(function() {
+                Route::get('/{product_id}', [ShowProductPricingController::class, 'show'])
+                    ->name('.show');
+
+                Route::put('/{product_id}', [UpdateProductPricingController::class, 'update'])
+                    ->name('.update');
+            });
 
         Route::prefix('campaigns')->name('.campaigns')->group(function() {
             Route::post('/store', [CreatePricingController::class, 'store'])->name('.store');

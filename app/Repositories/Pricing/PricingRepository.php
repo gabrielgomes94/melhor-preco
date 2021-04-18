@@ -20,11 +20,10 @@ class PricingRepository implements PricingRepositoryInterface
         $pricingModel->stores = $pricing->stores;
         $pricingModel->save();
 
-        $pricingModel->products()->saveMany(
-            array_map(function(Product $product) {
-                return new ProductModel($product->toArray());
-            }, $pricing->products)
-        );
+        foreach ($pricing->products as $product) {
+            $productModel = ProductModel::where('sku', $product->sku())->first();
+            $pricingModel->products()->save($productModel);
+        }
 
         return $pricingModel->save();
     }
