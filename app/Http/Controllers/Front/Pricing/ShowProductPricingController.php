@@ -19,11 +19,9 @@ class ShowProductPricingController extends Controller
         $this->presenter = $presenter;
     }
 
-
     public function show($pricingId, $productId)
     {
         $product = $this->repository->getById($productId);
-
         $productInfo = $this->presenter->singleProduct($product);
         $prices = $this->presenter->prices($product);
 
