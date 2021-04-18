@@ -23,7 +23,7 @@ class Product
 
     private float $additionalCosts;
 
-    public function __construct(array $data, array $prices)
+    public function __construct(array $data, array $prices = [])
     {
         $this->fill($data);
         $this->setPrices($prices);
@@ -44,7 +44,7 @@ class Product
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $data['tax_icms']);
         $this->taxes[] = new Tax(Tax::SIMPLES_NACIONAL, 'out', $data['tax_simples_nacional']);
 
-        $this->additionalCosts = (float) $data['additional_costs'] ?? 0.0;
+        $this->additionalCosts = (float) ($data['additional_costs'] ?? 0.0);
     }
 
     private function setPrices(array $data)
@@ -58,6 +58,7 @@ class Product
                 commission: $price['commission'],
                 store: $price['store'],
                 storeSkuId: $price['store_sku_id'],
+                additionalCosts: $price['additional_costs'] ?? 0.0
             );
         }
     }

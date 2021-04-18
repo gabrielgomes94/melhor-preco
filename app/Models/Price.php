@@ -15,6 +15,7 @@ class Price extends Model
         'store',
         'store_sku_id',
         'value',
+        'additional_costs',
     ];
 
     public function product()
