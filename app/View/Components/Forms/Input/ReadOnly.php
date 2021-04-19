@@ -4,26 +4,8 @@ namespace App\View\Components\Forms\Input;
 
 use Illuminate\View\Component;
 
-class ReadOnly extends Component
+class ReadOnly extends SimpleInput
 {
-    public string $id;
-    public string $attribute;
-    public string $label;
-    public string $name;
-    public string $value;
-
-    /**
-     * @return void
-     */
-    public function __construct(string $attribute, string $label, ?string $value = '0.0')
-    {
-        $this->attribute = $attribute;
-        $this->label = $label;
-        $this->value = $value;
-        $this->id = $attribute;
-        $this->name = $attribute;
-    }
-
     /**
      * @return \Illuminate\Contracts\View\View|string
      */

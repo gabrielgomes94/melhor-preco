@@ -15,7 +15,7 @@
                 <x-pricing.products.update-form :productInfo="$productInfo" :pricingId="$pricingId" />
             </div>
             <div class="col-sm-8">
-                <x-pricing.products.prices.box :prices="$prices"/>
+                <x-pricing.products.prices.box :prices="$prices" :pricingId="$pricingId" :productId="$productInfo->id" />
             </div>
         </div>
     </div>
