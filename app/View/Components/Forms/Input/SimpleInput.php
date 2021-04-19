@@ -17,12 +17,12 @@ abstract class SimpleInput extends Component
     /**
      * @return void
      */
-    public function __construct(string $attribute, string $label, string $value)
+    public function __construct(string $attribute, string $label, string $value, string $id = null)
     {
         $this->attribute = $attribute;
         $this->label = $label;
         $this->value = $value;
-        $this->id = $attribute;
+        $this->id = $id ?? $attribute;
         $this->name = $attribute;
     }
 

@@ -17,7 +17,7 @@
          data-bs-parent="#accordion">
 
         <div class="accordion-body">
-            <x-pricing.products.prices.calculator-form :price="$price"/>
+            <x-pricing.products.prices.calculator-form :pricingId="$pricingId" :productId="$productId" :price="$price"/>
         </div>
     </div>
 </div>
