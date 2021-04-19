@@ -25033,6 +25033,8 @@ __webpack_require__(/*! ./product/generate_qr_code */ "./resources/js/product/ge
 
 __webpack_require__(/*! ./pricing/inputs */ "./resources/js/pricing/inputs.js");
 
+__webpack_require__(/*! ./pricing/calculator_forms */ "./resources/js/pricing/calculator_forms.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -25064,6 +25066,66 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/pricing/calculator_forms.js":
+/*!**************************************************!*\
+  !*** ./resources/js/pricing/calculator_forms.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var calculator_form = function calculator_form() {
+  var forms = document.querySelectorAll('.price-calculator-form');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var form = event.target;
+      var id = form.dataset.priceId;
+      var commission = form.querySelector('#commission-' + id).value;
+      var additionalCosts = form.querySelector('#additionalCosts-' + id).value;
+      var margin = form.querySelector('#desiredMargin-' + id).value;
+      var desiredPrice = form.querySelector('#desiredPrice-' + id).value;
+      var product = form.querySelector('#product-' + id).value;
+      var formData = new FormData();
+      formData.append('commission', commission);
+      formData.append('additionalCosts', additionalCosts);
+      formData.append('desiredMargin', margin);
+      formData.append('desiredPrice', desiredPrice);
+      formData.append('product', product);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData
+      }).then(function (response) {
+        return response.json();
+      })["catch"](function (error) {
+        return console.error('Error:', error);
+      }).then(function (data) {
+        var updatePriceInput = document.querySelector('#update-price-' + id + '-value');
+        var updateProfitInput = document.querySelector('#update-price-' + id + '-profit');
+        var updateMarginInput = document.querySelector('#update-price-' + id + '-margin');
+        updatePriceInput.value = data.price.suggestedPrice;
+        updateProfitInput.value = data.price.profit;
+
+        if (updateProfitInput.value > 0) {
+          updateProfitInput.style.backgroundColor = '#198754';
+          updateProfitInput.style.color = '#fff';
+        } else if (updateProfitInput.value < 0) {
+          updateProfitInput.style.backgroundColor = '#dc3545';
+          updateProfitInput.style.color = '#fff';
+        } else {
+          updateProfitInput.style.backgroundColor = '#e9ecef';
+          updateProfitInput.style.color = '#222';
+        }
+
+        updateMarginInput.value = data.price.margin;
+      });
+    });
+  });
+};
+
+calculator_form();
 
 /***/ }),
 
@@ -25102,7 +25164,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   percentageElements.forEach(function (element) {
     var mask = Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(element, maskOptions);
     element.addEventListener('change', function () {
-      var inputId = this.name.replace('-input-view', '');
+      var inputId = this.id.replace('-input-view', '');
       var input = document.querySelector('#' + inputId);
       input.value = mask.unmaskedValue;
     });
@@ -25285,56 +25347,12 @@ generateQRCodeForm();
 /*!*****************************************!*\
   !*** ./resources/js/product/product.js ***!
   \*****************************************/
-/*! exports provided: getCEP, requestOptions */
+/*! exports provided: requestOptions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCEP", function() { return getCEP; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestOptions", function() { return requestOptions; });
-// // Defining async function
-// var productGet = async function getapi(url) {
-//     inputName.value = ''
-//     inputStockAmount.value = ''
-//     var bearer = 'Bearer ' + tokenApiKey
-//
-//     var options = {
-//         method: 'GET',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Authorization': bearer
-//         },
-//     }
-//     const response = await fetch(url, options)
-//
-//     var data = await response.json()
-//
-//     // console.log(data)
-//     if (data['errors']) {
-//         errorBox.innerHTML = data['errors']
-//         errorBox.classList.add("alert")
-//         errorBox.classList.add("alert-danger")
-//
-//         return
-//     }
-//
-//     if (response) {
-//         inputName.value = data['products'][0]['name']
-//         inputStockAmount.value = data['products'][0]['stock']
-//     }
-// }
-//
-// productGet(1232)
-// let requestOptions = {
-//     method: 'GET',
-//     headers: {
-//         'Accept': 'application/json',
-//         'Authorization': 'Bearer ' + tokenApiKey
-//     },
-// }
-function getCEP() {
-  console.log('vish');
-}
 var requestOptions = {
   method: 'GET',
   headers: {
