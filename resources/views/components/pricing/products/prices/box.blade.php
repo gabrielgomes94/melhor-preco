@@ -1,9 +1,9 @@
 <div class="form-group">
     <h2>Preços</h2>
 
-    <x-pricing.prices.accordion>
+    <x-pricing.products.prices.accordion>
         @foreach($prices as $price)
-            <x-pricing.prices.accordion-item :price="$price"></x-pricing.prices.accordion-item>
+            <x-pricing.products.prices.accordion-item :price="$price" :pricingId="$pricingId" :productId="$productId"></x-pricing.products.prices.accordion-item>
         @endforeach
-    </x-pricing.prices.accordion>
+    </x-pricing.products.prices.accordion>
 </div>

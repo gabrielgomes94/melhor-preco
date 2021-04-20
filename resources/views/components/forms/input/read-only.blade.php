@@ -3,7 +3,7 @@
     <input
         type="text"
         class="form-control w-100"
-        id="{{ $label }}"
+        id="{{ $id }}"
         name="{{ $attribute }}"
         value="{{ $value }}"
         readonly

@@ -19,19 +19,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         var mask = IMask(element, maskOptions);
 
         element.addEventListener('change', function () {
-            var inputId = this.name.replace('-input-view', '');
-            var input = document.querySelector('#' + inputId);
+            var inputId = this.id.replace('-input-view', '');
+            var input = document.querySelector('#' + inputId)
             input.value = mask.unmaskedValue;
         })
     });
+
     percentageElements.forEach(function (element){
-            var mask = IMask(element, maskOptions);
+        var mask = IMask(element, maskOptions);
 
         element.addEventListener('change', function () {
-            var inputId = this.name.replace('-input-view', '');
+            var inputId = this.id.replace('-input-view', '');
             var input = document.querySelector('#' + inputId);
             input.value = mask.unmaskedValue;
         })
-        }
-    )
+    })
 })
