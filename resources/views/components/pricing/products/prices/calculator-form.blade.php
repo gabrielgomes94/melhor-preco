@@ -36,6 +36,7 @@
                             >
                             </x-forms.input.percentage>
 
+                            {{ $price->margin  }}
                             <x-forms.input.money
                                 attribute="desiredPrice"
                                 id="desiredPrice-{{ $price->id }}"

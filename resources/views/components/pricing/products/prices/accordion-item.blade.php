@@ -4,10 +4,11 @@
                 data-bs-toggle="collapse" data-bs-target="#price-accordion-collapse-{{ $price->id }}"
                 aria-expanded="true" aria-controls="price-accordion-collapse-{{ $price->id }}">
             <div class="d-flex justify-content-between w-100">
-                <div class="">{{ $price->store }}</div>
+                {{ $price->store }}
                 <div>
-                    {{ $price->value }}<br>
-                    {{ $price->profit }} | {{ $price->margin }}
+                    Preço: R$ {{ $price->value }}<br>
+                    Lucro: R$ {{ $price->profit }}<br>
+                    {{ $price->margin }} %
                 </div>
             </div>
         </button>

@@ -3,6 +3,9 @@
 namespace App\Presenters\Pricing\Product;
 
 use Barrigudinha\Pricing\Data\Price as PriceData;
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 
 class Price
 {
@@ -16,12 +19,27 @@ class Price
 
     public function __construct(PriceData $price)
     {
+        $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
+
         $this->id = $price->id();
         $this->store = $price->storeName();
-        $this->value = $price->get();
-        $this->profit = $price->profit();
-        $this->margin = $price->margin();
+        $this->value = $this->setMoneyValue($price->get());
+        $this->profit = $this->setMoneyValue($price->profit());
+
+        $this->margin =  $this->setMargin($price->margin());
         $this->commission = $price->commission();
         $this->additionalCosts = $price->additionalCosts();
+    }
+
+    private function setMoneyValue(Money $value)
+    {
+        return $this->moneyFormatter->format($value);
+    }
+
+    private function setMargin(float $margin)
+    {
+        $margin = round(($margin * 100), 2);
+
+        return (string) $margin;
     }
 }

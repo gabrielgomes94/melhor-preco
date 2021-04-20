@@ -1,5 +1,5 @@
 <div class="form-group">
-    <h2>Preços</h2>
+    <h4>Preços</h4>
 
     <x-pricing.products.prices.accordion>
         @foreach($prices as $price)

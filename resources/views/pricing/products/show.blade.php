@@ -1,5 +1,4 @@
 <x-layout>
-
     <div class="container">
         <div class="row">
             <x-utils.breadcrumb

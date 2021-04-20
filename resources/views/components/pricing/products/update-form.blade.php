@@ -1,6 +1,6 @@
 <div>
     <div class="form-group">
-        <h3>{{ $productInfo->name }}</h3>
+        <h4>{{ $productInfo->name }}</h4>
 
         <x-forms.form.put
             action="{{ route('pricing.products.update', [$pricingId, $productInfo->id]) }}"

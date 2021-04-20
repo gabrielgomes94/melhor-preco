@@ -2,11 +2,13 @@
 
 namespace Barrigudinha\Pricing\Data;
 
+use Money\Money;
+
 class Price
 {
     private string $id;
-    private float $profit;
-    private float $value;
+    private Money $profit;
+    private Money $value;
     private float $commission;
     private string $store;
     private string $storeSkuId;
@@ -23,8 +25,8 @@ class Price
     )
     {
         $this->id = $id;
-        $this->profit = $profit;
-        $this->value = $value;
+        $this->profit = Money::BRL($profit * 100);
+        $this->value = Money::BRL($value * 100);
         $this->commission = $commission;
         $this->store = $store;
         $this->storeSkuId = $storeSkuId;
@@ -58,7 +60,7 @@ class Price
 
     public function margin()
     {
-        return $this->profit / $this->value;
+        return $this->profit->ratioOf($this->value);
     }
 
     public function storeName()
