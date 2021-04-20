@@ -4,6 +4,7 @@ use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\Pricing\ListPricingController;
 use App\Http\Controllers\Front\Pricing\ShowProductPricingController;
+use App\Http\Controllers\Front\Pricing\UpdatePriceController;
 use App\Http\Controllers\Front\Pricing\UpdateProductPricingController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Pricing\ShowPricingController;
@@ -59,6 +60,13 @@ Route::middleware('auth')->group(function() {
 
                 Route::put('/{product_id}', [UpdateProductPricingController::class, 'update'])
                     ->name('.update');
+
+                Route::prefix('/{product_id}/prices')
+                    ->name('.prices')
+                    ->group(function() {
+                        Route::put('/{price_id}', [UpdatePriceController::class, 'update'])
+                        ->name('.update');
+                    });
             });
 
         Route::prefix('campaigns')->name('.campaigns')->group(function() {

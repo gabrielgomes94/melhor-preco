@@ -61,8 +61,9 @@
                 <div class="form-group">
                     <form
                         method="post"
-                        action="{{ route('prices.calculate_single') }}"
+                        action="{{ route('pricing.products.prices.update', [$pricingId, $productId, $price->id]) }}"
                         enctype="multipart/form-data">
+                        @method('PUT')
                         @csrf
 
                         <x-forms.input.read-only
