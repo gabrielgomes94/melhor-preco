@@ -25079,14 +25079,28 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var calculator_form = function calculator_form() {
   var forms = document.querySelectorAll('.price-calculator-form');
   forms.forEach(function (form) {
+    var id = form.dataset.priceId;
+    var commission = form.querySelector('#commission-' + id).value;
+    var additionalCosts = form.querySelector('#additionalCosts-' + id).value;
+    var desiredMarginInputView = form.querySelector('#desiredMargin-' + id + '-input-view');
+    var desiredMarginInput = form.querySelector('#desiredMargin-' + id);
+    var margin = desiredMarginInput.value;
+    var desiredPriceInputView = form.querySelector('#desiredPrice-' + id + '-input-view');
+    var desiredPriceInput = form.querySelector('#desiredPrice-' + id);
+    var desiredPrice = desiredPriceInput.value;
+    var product = form.querySelector('#product-' + id).value;
     form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      var form = event.target;
+      event.preventDefault(); // var form = event.target
+
       var id = form.dataset.priceId;
       var commission = form.querySelector('#commission-' + id).value;
       var additionalCosts = form.querySelector('#additionalCosts-' + id).value;
-      var margin = form.querySelector('#desiredMargin-' + id).value;
-      var desiredPrice = form.querySelector('#desiredPrice-' + id).value;
+      var desiredMarginInputView = form.querySelector('#desiredMargin-' + id + '-input-view');
+      var desiredMarginInput = form.querySelector('#desiredMargin-' + id);
+      var margin = desiredMarginInput.value;
+      var desiredPriceInputView = form.querySelector('#desiredPrice-' + id + '-input-view');
+      var desiredPriceInput = form.querySelector('#desiredPrice-' + id);
+      var desiredPrice = desiredPriceInput.value;
       var product = form.querySelector('#product-' + id).value;
       var formData = new FormData();
       formData.append('commission', commission);
@@ -25122,6 +25136,14 @@ var calculator_form = function calculator_form() {
         updateMarginInput.value = data.price.margin;
       });
     });
+    desiredMarginInputView.addEventListener('focus', function () {
+      desiredPriceInputView.value = '';
+      desiredPrice.value = '';
+    });
+    desiredPriceInputView.addEventListener('focus', function () {
+      desiredMarginInputView.value = '';
+      desiredMarginInput.value = '';
+    });
   });
 };
 
@@ -25156,7 +25178,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   moneyElements.forEach(function (element) {
     var mask = Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(element, maskOptions);
     element.addEventListener('change', function () {
-      var inputId = this.name.replace('-input-view', '');
+      var inputId = this.id.replace('-input-view', '');
       var input = document.querySelector('#' + inputId);
       input.value = mask.unmaskedValue;
     });
