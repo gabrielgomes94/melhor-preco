@@ -30,7 +30,7 @@ class PricesCalculatorController extends Controller
             'taxes' => [
                 'IPI' => $request->input('tax-ipi') / 100.0,
                 'ICMSDifference' => $request->input('tax-icms') / 100.0,
-                'SimplesNacional' => 4 / 100.0,
+                'SimplesNacional' => 4.65 / 100.0,
 
             ],
             'commission' => $request->input('commission') / 100.0,
