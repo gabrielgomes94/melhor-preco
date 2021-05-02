@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Services\Pricing;
-use App\Repositories\Pricing\UpdateProductRepository;
+use App\Repositories\Pricing\UpdateRepository;
 
 class UpdateProduct
 {
-    private UpdateProductRepository $repository;
+    private UpdateRepository $repository;
 
-    public function __construct(UpdateProductRepository $repository)
+    public function __construct(UpdateRepository $repository)
     {
         $this->repository = $repository;
     }
