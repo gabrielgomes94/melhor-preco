@@ -69,9 +69,9 @@ Route::middleware('auth')->group(function() {
     Route::prefix('products')
         ->name('products')
         ->group(function() {
-            Route::get('/upload', [ProductsUploadController::class, 'upload'])->name('.upload');
+            Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
 
-            Route::put('/upload/spreadsheet', [ProductsUploadController::class, 'doUpload'])->name('.doUpload');
+            Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
         });
 });
 
