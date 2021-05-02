@@ -8,3 +8,4 @@ interface Pricing
 {
     public function create(PricingData $pricing);
 }
+
