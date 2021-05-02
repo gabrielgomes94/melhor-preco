@@ -2,6 +2,8 @@
 
 namespace Barrigudinha\Product;
 
+use Barrigudinha\Pricing\Data\Product as PricingProduct;
+
 class Product
 {
     private string $sku;
@@ -56,5 +58,15 @@ class Product
     public function addStore(Store $storeInfo)
     {
         $this->stores[] = $storeInfo;
+    }
+
+    public function toPricing(): PricingProduct
+    {
+        return new PricingProduct([
+            'name' => $this->name,
+            'sku' => $this->sku,
+            'purchase_price' => $this->purchasePrice ?? 0.0,
+            'stores' => $this->stores,
+        ]);
     }
 }
