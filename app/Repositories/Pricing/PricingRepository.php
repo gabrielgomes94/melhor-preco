@@ -2,11 +2,9 @@
 
 namespace App\Repositories\Pricing;
 
-use App\Models\PriceCampaign;
 use App\Models\Pricing as PricingModel;
 use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Data\Pricing;
-use Barrigudinha\Pricing\Data\Product;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -21,8 +19,9 @@ class PricingRepository implements PricingRepositoryInterface
         $pricingModel->save();
 
         foreach ($pricing->products as $product) {
-            $productModel = ProductModel::where('sku', $product->sku())->first();
-            $pricingModel->products()->save($productModel);
+            if ($productModel = ProductModel::where('sku', $product->sku())->first()) {
+                $pricingModel->products()->save($productModel);
+            }
         }
 
         return $pricingModel->save();
