@@ -58,6 +58,10 @@ class Price
 
     public function margin()
     {
+        if (0 == $this->value) {
+            return 0.0;
+        }
+
         return $this->profit / $this->value;
     }
 

@@ -31,7 +31,7 @@ class Product
 
     private function fill(array $data)
     {
-        $this->id = $data['id'];
+        $this->id = $data['id'] ?? '';
         $this->name = $data['name'] ?? '';
         $this->sku = $data['sku'];
         $this->purchasePrice = $data['purchase_price'];
@@ -40,9 +40,9 @@ class Product
             $this->stores[] = $store;
         }
 
-        $this->taxes[] = new Tax(Tax::IPI, 'in', $data['tax_ipi']);
-        $this->taxes[] = new Tax(Tax::ICMS, 'in', $data['tax_icms']);
-        $this->taxes[] = new Tax(Tax::SIMPLES_NACIONAL, 'out', $data['tax_simples_nacional']);
+        $this->taxes[] = new Tax(Tax::IPI, 'in', $data['tax_ipi'] ?? 0.0);
+        $this->taxes[] = new Tax(Tax::ICMS, 'in', $data['tax_icms'] ?? 0.0);
+        $this->taxes[] = new Tax(Tax::SIMPLES_NACIONAL, 'out', $data['tax_simples_nacional'] ?? 4.65);
 
         $this->additionalCosts = (float) ($data['additional_costs'] ?? 0.0);
     }
