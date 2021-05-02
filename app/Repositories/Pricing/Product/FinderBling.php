@@ -3,6 +3,7 @@
 namespace App\Repositories\Pricing\Product;
 
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
+use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
 use Integrations\Bling\Products\StoreClient;
 
 class FinderBling implements ProductFinder

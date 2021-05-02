@@ -20,4 +20,15 @@ class Updator
 
         return false;
     }
+
+    public function updateICMS(string $sku, float $taxICMS): bool
+    {
+        if ($model = ProductModel::where('sku', $sku)->first()) {
+            $model->tax_icms = $taxICMS;
+
+            return $model->save();
+        }
+
+        return false;
+    }
 }
