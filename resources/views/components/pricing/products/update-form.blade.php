@@ -13,25 +13,18 @@
             </x-forms.input.money>
 
             <x-forms.input.percentage
-                attribute="taxIPI"
-                label="Imposto IPI"
-                value="{{ $productInfo->taxIPI }}"
-            >
-            </x-forms.input.percentage>
-
-            <x-forms.input.percentage
                 attribute="taxICMS"
                 label="Imposto ICMS"
                 value="{{ $productInfo->taxICMS }}"
             >
             </x-forms.input.percentage>
 
-            <x-forms.input.percentage
+            <x-forms.input.read-only
                 attribute="taxSimplesNacional"
-                label="Imposto Simples Nacional"
+                label="Imposto Simples Nacional (%)"
                 value="{{ $productInfo->taxSimplesNacional }}"
             >
-            </x-forms.input.percentage>
+            </x-forms.input.read-only>
 
             <x-forms.input.money
                 attribute="additionalCosts"

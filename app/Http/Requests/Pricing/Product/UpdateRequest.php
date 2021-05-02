@@ -25,7 +25,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'purchasePrice' => 'numeric',
-            'taxIPI' => 'numeric',
             'taxICMS' => 'numeric',
             'taxSimplesNacional' => 'numeric',
             'additionalCosts' => 'numeric',

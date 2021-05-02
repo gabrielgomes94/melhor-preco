@@ -10,9 +10,8 @@ class Updator
     {
         if ($model = ProductModel::find($productId)) {
             $model->purchase_price = $data['purchasePrice'];
-            $model->tax_ipi = $data['taxIPI'];
             $model->tax_icms = $data['taxICMS'];
-            $model->tax_simples_nacional = $data['taxSimplesNacional'];
+            $model->tax_simples_nacional = config('taxes.simples_nacional');
             $model->additional_costs = $data['additionalCosts'];
 
             return $model->save();

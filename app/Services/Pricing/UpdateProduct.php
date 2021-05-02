@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services\Pricing;
-use App\Repositories\Pricing\UpdateRepository;
+use App\Repositories\Pricing\Product\Updator as UpdateRepository;
 
 class UpdateProduct
 {
