@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Pricing\ProductIterator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +17,7 @@ class PriceCampaign extends Model
     ];
 
     protected $casts = [
-        'stores' => 'array',
-        'products' => 'array',
+        'stores' => 'json',
+        'products' => 'json',
     ];
 }
