@@ -2,27 +2,44 @@
 
 namespace Barrigudinha\Pricing\Services;
 
+use App\Repositories\Pricing\Product\Creator as ProductCreator;
+use App\Repositories\Pricing\Product\FinderBling as ProductFinderBling;
+use App\Repositories\Pricing\Product\FinderDB as ProductFinderDB;
 use Barrigudinha\Pricing\Data\Contracts\CreatePricing as CreatePricingData;
 use Barrigudinha\Pricing\Data\Pricing;
-use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
-use Barrigudinha\Pricing\Repositories\Contracts\Product as ProductRepository;
 
 class CreatePricing
 {
     private PricingRepository $pricingRepository;
-    private ProductRepository $productRepository;
+    private ProductCreator $productCreator;
+    private ProductFinderBling $productFinderBling;
+    private ProductFinderDB $productFinderDB;
 
-    public function __construct(ProductRepository $productRepository, PricingRepository $pricingRepository)
-    {
-        $this->productRepository = $productRepository;
+    public function __construct(
+        ProductCreator $productCreator,
+        ProductFinderBling $productFinderBling,
+        ProductFinderDB $productFinderDB,
+        PricingRepository $pricingRepository
+    ) {
+        $this->productCreator = $productCreator;
+        $this->productFinderBling = $productFinderBling;
+        $this->productFinderDB = $productFinderDB;
         $this->pricingRepository = $pricingRepository;
     }
 
     public function create(CreatePricingData $data)
     {
         foreach($data->skuList() as $sku) {
-            if ($product = $this->productRepository->get($sku)) {
+            if ($product = $this->productFinderDB->get($sku)) {
+                $products[] = $product;
+
+                continue;
+            }
+
+            if ($product = $this->productFinderBling->get($sku)) {
+                $this->productCreator->create($product);
+
                 $products[] = $product;
             }
         }
