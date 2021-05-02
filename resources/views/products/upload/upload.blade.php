@@ -1,13 +1,13 @@
 <x-layout>
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Atualização de Produtos por Planilha') }}
+            {{ __('Atualização de ICMS por Planilha') }}
         </h1>
     </x-slot>
 
     <x-layout.grid.container.single-row-2-8-2>
         <div class="form-group">
-            <form method="post" action="{{ route('products.doUpload') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('products.doUpdateICMS') }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

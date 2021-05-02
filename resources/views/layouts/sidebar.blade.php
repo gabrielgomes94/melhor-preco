@@ -20,6 +20,9 @@
                 <li>
                     <a href={{ route('pricing.list') }}>Precificação</a>
                 </li>
+                <li>
+                    <a href={{ route('products.updateICMS') }}>Atualizar ICMS</a>
+                </li>
             </ul>
             <ul class="list-unstyled components">
                 <li>
