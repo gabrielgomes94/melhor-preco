@@ -33,7 +33,7 @@ class Response implements ResponseInterface
 
     public function addStores(array $data)
     {
-        if (!isset($data['store'])) {
+        if (!isset($data['store']) || !$data['store']) {
             return;
         }
 

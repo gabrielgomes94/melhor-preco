@@ -16,7 +16,7 @@ class Creator
             'purchase_price' => $product->purchasePrice(),
             'tax_ipi' => 0.0,
             'tax_icms' => 0.0,
-            'tax_simples_nacional' => 0.0,
+            'tax_simples_nacional' => config('taxes.simples_nacional', 0.0),
         ]);
         $model->save();
 
