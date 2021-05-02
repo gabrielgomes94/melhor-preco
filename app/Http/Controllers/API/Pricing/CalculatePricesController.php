@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\API\Pricing;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Pricing\ProductRepository;
+use App\Repositories\Pricing\Product\FinderDB as ProductRepository;
 use App\Services\Pricing\CalculatePrice;
-use Barrigudinha\Pricing\Data\Tax;
 use Illuminate\Http\Request;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
-use Money\Money;
 
 class CalculatePricesController extends Controller
 {

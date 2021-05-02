@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front\Pricing;
 use App\Http\Controllers\Controller;
 use App\Models\Pricing;
 use App\Presenters\Pricing\Product\Presenter;
-use App\Repositories\Pricing\ProductRepository;
+use App\Repositories\Pricing\Product\FinderDB as ProductRepository;
 
 class ShowProductPricingController extends Controller
 {
