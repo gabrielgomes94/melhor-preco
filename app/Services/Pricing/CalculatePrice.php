@@ -7,6 +7,7 @@ use Barrigudinha\Pricing\Data\Product;
 use Illuminate\Http\Request;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 
 class CalculatePrice
 {
@@ -39,9 +40,12 @@ class CalculatePrice
 
     private function calculateFromMargin(CalculatePriceTransformer $calculatePrice)
     {
-        $costPrice = $calculatePrice->purchasePrice
-            ->multiply(1 + $calculatePrice->taxIPI)
-            ->multiply(1 + $calculatePrice->taxICMSDifference);
+        // Calculate ICMS
+//        $costPrice = $calculatePrice->purchasePrice
+//            ->multiply(1 + $calculatePrice->taxIPI)
+//            ->multiply(1 + $calculatePrice->taxICMSDifference);
+
+        $costPrice = $this->calculateCostPrice($calculatePrice);
 
         $markup = 1 - $calculatePrice->commission - $calculatePrice->taxSimplesNacional - $calculatePrice->desiredMargin;
         $suggestedPrice = $costPrice->divide($markup);
@@ -65,9 +69,10 @@ class CalculatePrice
 
     private function calculateFromPrice(CalculatePriceTransformer $calculatePrice)
     {
-        $costPrice = $calculatePrice->purchasePrice
-            ->multiply(1 + $calculatePrice->taxIPI)
-            ->multiply(1 + $calculatePrice->taxICMSDifference);
+//        $costPrice = $calculatePrice->purchasePrice
+//            ->multiply(1 + $calculatePrice->taxIPI)
+//            ->multiply(1 + $calculatePrice->taxICMSDifference);
+        $costPrice = $this->calculateCostPrice($calculatePrice);
 
         $commissionCut = $calculatePrice->desiredSellingPrice->multiply($calculatePrice->commission);
         $taxSimplesNacionalCut = $calculatePrice->desiredSellingPrice->multiply($calculatePrice->taxSimplesNacional);
@@ -88,4 +93,19 @@ class CalculatePrice
         ];
     }
 
+    private function calculateCostPrice(CalculatePriceTransformer $calculatePrice): Money
+    {
+        $outerICMSValue = $calculatePrice
+            ->purchasePrice
+            ->multiply($calculatePrice->taxICMSDifference);
+        $innerICMSValue = $calculatePrice->purchasePrice
+            ->subtract($outerICMSValue)
+            ->divide(1 - 0.18)
+            ->multiply(0.18);
+
+        $differenceICMS = $innerICMSValue->subtract($outerICMSValue);
+        $costPrice = $calculatePrice->purchasePrice->add($differenceICMS);
+
+        return $costPrice;
+    }
 }
