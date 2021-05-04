@@ -41,26 +41,25 @@ class CalculationParameters
             ->add($this->differenceICMS())
             ->add($this->additionalCosts);
 
-//        dd($this->differenceICMS());
         return $this->costPrice;
     }
 
     private function differenceICMS(): Money
     {
-        $baseICMSValue = $this->purchasePrice
-            ->multiply(1 - $this->taxICMSOutterState)
-            ->divide(1 - $this->taxICMSInnerState);
+        $baseICMS = $this->purchasePrice->divide(1 - $this->taxICMSOutterState);
+        $outerStateICMSValue = $baseICMS->multiply($this->taxICMSOutterState);
+        $baseDIFAL = $this->purchasePrice->divide(1 - $this->taxICMSInnerState);
 
+        $difal = $baseDIFAL
+            ->multiply($this->taxICMSInnerState)
+            ->subtract($outerStateICMSValue);
 
-        $innerICMSValue = $baseICMSValue->multiply($this->taxICMSInnerState);
-        $outerICMSValue = $this->purchasePrice->multiply($this->taxICMSOutterState);
-
-        return $innerICMSValue->subtract($outerICMSValue);
+        return $difal;
     }
 
     private function setMoneyFromFloat(float $value): Money
     {
-        return Money::BRL((int) $value * 100);
+        return Money::BRL((int) ($value * 100));
     }
 
     private function setPercentage(float $value): float
