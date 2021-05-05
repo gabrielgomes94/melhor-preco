@@ -4,15 +4,15 @@ namespace App\Http\Controllers\API\Pricing;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Pricing\Product\FinderDB as ProductRepository;
-use App\Services\Pricing\CalculatePrice;
+use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
 use Illuminate\Http\Request;
 
 class CalculatePricesController extends Controller
 {
     private ProductRepository $repository;
-    private CalculatePrice $service;
+    private Calculate $service;
 
-    public function __construct(ProductRepository $repository, CalculatePrice $service)
+    public function __construct(ProductRepository $repository, Calculate $service)
     {
         $this->repository = $repository;
         $this->service = $service;
@@ -24,7 +24,7 @@ class CalculatePricesController extends Controller
             abort(404);
         }
 
-        $price = $this->service->calculate($product, $request);
+        $price = $this->service->calculate($product, $request->all());
 
         return response()->json(compact('price'));
     }
