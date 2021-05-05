@@ -16,14 +16,24 @@ class CalculatedPrice
     private Money $costs;
     private float $margin;
 
-    public function __construct(Money $profit, Money $price, Money $costs)
+    public function __construct(Money $price, Money $costs)
     {
-        $this->profit = $profit;
         $this->price = $price;
         $this->costs = $costs;
+        $this->profit = $this->setProfit();
         $this->margin = $this->setMargin();
 
         $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'suggestedPrice' => $this->moneyFormatter->format($this->price),
+            'costs' => $this->moneyFormatter->format($this->costs),
+            'profit' => $this->moneyFormatter->format($this->profit),
+            'margin' => $this->margin,
+        ];
     }
 
     private function setMargin(): float
@@ -33,13 +43,8 @@ class CalculatedPrice
         return round($margin * 100, 2);
     }
 
-    public function toArray(): array
+    private function setProfit(): Money
     {
-        return [
-            'profit' => $this->moneyFormatter->format($this->profit),
-            'costs' => $this->moneyFormatter->format($this->costs),
-            'suggestedPrice' => $this->moneyFormatter->format($this->price),
-            'margin' => $this->margin,
-        ];
+        return $this->price->subtract($this->costs);
     }
 }

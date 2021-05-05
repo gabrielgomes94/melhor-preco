@@ -23,9 +23,7 @@ class CalculateFromMargin
             ->add($taxSimplesNacionalValue)
             ->add($calculatedPrice->additionalCosts);
 
-        $profit = $price->subtract($costs);
-
-        return new CalculatedPrice($profit, $price, $costs);
+        return new CalculatedPrice($price, $costs);
     }
 
     private static function markup(CalculationParameters $calculatedPrice)
