@@ -22,10 +22,7 @@ class CalculateFromPrice
             ->add($commissionValue)
             ->add($taxSimplesNacionalValue);
 
-        $profit = $calculatedPrice->desiredSellingPrice->subtract($costs);
-
         return new CalculatedPrice(
-            profit: $profit,
             price: $calculatedPrice->desiredSellingPrice,
             costs: $costs
         );

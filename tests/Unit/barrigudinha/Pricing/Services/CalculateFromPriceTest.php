@@ -3,12 +3,12 @@
 namespace Tests\Unit\Barrigudinha\Pricing\Services;
 
 use Barrigudinha\Pricing\Data\CalculationParameters;
-use Barrigudinha\Pricing\Data\Product;
 use Barrigudinha\Pricing\Services\PriceCalculator\CalculateFromMargin;
+use Barrigudinha\Pricing\Services\PriceCalculator\CalculateFromPrice;
 use Tests\Data\Pricing\ProductData;
 use Tests\TestCase;
 
-class CalculateFromMarginTest extends TestCase
+class CalculateFromPriceTest extends TestCase
 {
     public function testShouldCalculate(): void
     {
@@ -16,20 +16,20 @@ class CalculateFromMarginTest extends TestCase
         $product = ProductData::build();
         $data = [
             'commission' => 0.0,
-            'desiredMargin' => 20,
-            'desiredPrice' => 0.0,
+            'desiredMargin' => 0,
+            'desiredPrice' => 1500.0,
             'additionalCosts' => 0.0,
         ];
         $calculationParameters = new CalculationParameters($product, $data);
         $expected = [
-            'suggestedPrice' => '1437.49',
-            'costs' => '1149.99',
-            'profit' => '287.50',
-            'margin' => 20.0,
+            'suggestedPrice' => '1500.00',
+            'costs' => '1152.90',
+            'profit' => '347.10',
+            'margin' => 23.14,
         ];
 
         // Act
-        $result = CalculateFromMargin::calculate($calculationParameters);
+        $result = CalculateFromPrice::calculate($calculationParameters);
 
         // Assert
         $this->assertSame($expected, $result->toArray());
