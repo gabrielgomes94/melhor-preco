@@ -1,8 +1,10 @@
 <?php
 
-namespace Integrations\Bling\Products\Responses;
+namespace Integrations\Bling\Products\Responses\Builders;
 
 use Integrations\Bling\Products\Responses\Contracts\ResponseBuilder as ResponseBuilderInterface;
+use Integrations\Bling\Products\Responses\Factories\Factory;
+use Integrations\Bling\Products\Responses\Response;
 use Psr\Http\Message\ResponseInterface;
 
 class ResponseBuilder implements ResponseBuilderInterface
@@ -18,6 +20,13 @@ class ResponseBuilder implements ResponseBuilderInterface
     public function product(ResponseInterface $response): self
     {
         $this->response = $this->factory->make($response);
+
+        return $this;
+    }
+
+    public function products(ResponseInterface $response): self
+    {
+        $this->response = $this->factory->makeList($response);
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses\Contracts;
 
-use Integrations\Bling\Products\Responses\Factory;
+use Integrations\Bling\Products\Responses\Factories\Factory;
 use Integrations\Bling\Products\Responses\Response;
 use Psr\Http\Message\ResponseInterface;
 

@@ -1,7 +1,11 @@
 <?php
 
-namespace Integrations\Bling\Products\Responses;
+namespace Integrations\Bling\Products\Responses\Factories;
 
+use Integrations\Bling\Products\Responses\ErrorResponse;
+use Integrations\Bling\Products\Responses\ProductListResponse;
+use Integrations\Bling\Products\Responses\Response;
+use Integrations\Bling\Products\Responses\ProductResponse;
 use Integrations\Bling\Products\Transformers\Sanitizer;
 use Integrations\Bling\Products\Transformers\Transformer;
 use Psr\Http\Message\ResponseInterface;
@@ -34,6 +38,24 @@ class Factory
         return new ProductResponse(data: $product);
     }
 
+    public function makeList(ResponseInterface $response): Response
+    {
+        $data = json_decode((string) $response->getBody(), true);
+        $data = $this->sanitizer->sanitizeMultiple($data);
+
+        if (empty($data)) {
+            return $this->makeError(error: 'Invalid response!');
+        }
+
+        if (isset($data['error'])) {
+            return $this->makeError(error: $data['error']);
+        }
+
+        $products = $this->transformer->transformList($data);
+
+        return new ProductListResponse(data: $products);
+    }
+
     public function makeError(string $error): ErrorResponse
     {
         return new ErrorResponse(error: $error);
@@ -58,7 +80,6 @@ class Factory
 
         return $store;
     }
-
 
     private function getData(ResponseInterface $response): array
     {

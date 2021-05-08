@@ -9,7 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 class Request implements RequestInterface
 {
     protected GuzzleClient $httpClient;
-
     protected array $options;
 
     public function __construct(GuzzleClient $httpClient)
