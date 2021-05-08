@@ -18,7 +18,6 @@ class Transformer
             }, $product['imagem']);
         }
 
-
         return [
             'product' => [
                 'sku' => $product['codigo'],
@@ -28,6 +27,11 @@ class Transformer
                 'stock' => $product['estoqueAtual'] ?? 0,
                 'purchasePrice' => $product['precoCusto'],
                 'price' => $product['preco'],
+                'dimensions' => [
+                    'depth' => (float) $product['profundidadeProduto'],
+                    'height' => (float) $product['alturaProduto'],
+                    'width' => (float) $product['larguraProduto'],
+                ],
             ]
         ];
     }

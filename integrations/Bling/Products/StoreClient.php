@@ -3,7 +3,6 @@
 namespace Integrations\Bling\Products;
 
 use Exception;
-use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Requests\Request;
 use Integrations\Bling\Products\Responses\ResponseBuilder;
