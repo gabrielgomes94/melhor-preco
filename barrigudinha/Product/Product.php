@@ -16,6 +16,7 @@ class Product
     private array $images;
     private int $stock;
     private ?float $purchasePrice;
+    private Dimensions $dimensions;
 
     /**
      * Store[] array
@@ -29,6 +30,7 @@ class Product
         array $images,
         ?int $stock,
         ?float $purchasePrice,
+        Dimensions $dimensions
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -36,10 +38,17 @@ class Product
         $this->images = $images;
         $this->stock = (int) $stock ?? 0;
         $this->purchasePrice = $purchasePrice;
+        $this->dimensions = $dimensions;
     }
 
     public static function createFromArray(array $data): self
     {
+        $dimensions = new Dimensions(
+            depth: $data['dimensions']['depth'],
+            height: $data['dimensions']['height'],
+            width: $data['dimensions']['width']
+        );
+
         return new self(
             sku: $data['sku'],
             name: $data['name'],
@@ -47,6 +56,7 @@ class Product
             images: $data['images'] ?? [],
             stock: $data['stock'],
             purchasePrice: (float) $data['purchasePrice'],
+            dimensions: $dimensions
         );
     }
 
@@ -67,6 +77,9 @@ class Product
             'sku' => $this->sku,
             'purchase_price' => $this->purchasePrice ?? 0.0,
             'stores' => $this->stores,
+            'depth' => $this->dimensions->depth(),
+            'height' => $this->dimensions->height(),
+            'width' => $this->dimensions->width(),
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Barrigudinha\Pricing\Data;
 
+use Barrigudinha\Product\Dimensions;
 use Barrigudinha\Product\Product as ProductData;
 
 class Product
@@ -22,6 +23,7 @@ class Product
     private array $taxes;
 
     private float $additionalCosts;
+    private Dimensions $dimensions;
 
     public function __construct(array $data, array $prices = [])
     {
@@ -45,6 +47,12 @@ class Product
         $this->taxes[] = new Tax(Tax::SIMPLES_NACIONAL, 'out', $data['tax_simples_nacional'] ?? 4.65);
 
         $this->additionalCosts = (float) ($data['additional_costs'] ?? 0.0);
+
+        $this->dimensions = new Dimensions(
+            depth: $data['depth'],
+            height: $data['height'],
+            width: $data['width']
+        );
     }
 
     private function setPrices(array $data)
@@ -71,6 +79,11 @@ class Product
     public function id(): string
     {
         return $this->id;
+    }
+
+    public function dimensions(): Dimensions
+    {
+        return $this->dimensions;
     }
 
     public function name(): string

@@ -16,7 +16,10 @@ class Product extends Model
         'tax_ipi',
         'tax_icms',
         'tax_simples_nacional',
-        'additional_costs'
+        'additional_costs',
+        'depth',
+        'height',
+        'width',
     ];
 
     public function pricings()
