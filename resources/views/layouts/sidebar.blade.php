@@ -23,6 +23,9 @@
                 <li>
                     <a href={{ route('products.updateICMS') }}>Atualizar ICMS</a>
                 </li>
+                <li>
+                    <a href={{ route('products.sync') }}>Sincronização de Produtos</a>
+                </li>
             </ul>
             <ul class="list-unstyled components">
                 <li>

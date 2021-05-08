@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\Pricing\UpdateProductPricingController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Pricing\ShowPricingController;
 use App\Http\Controllers\Front\Products\ProductImageController;
+use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
 use App\Http\Controllers\Front\Products\UploadController as ProductsUploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Pricing\CreatePricingController;
@@ -69,8 +70,9 @@ Route::middleware('auth')->group(function() {
     Route::prefix('products')
         ->name('products')
         ->group(function() {
+            Route::get('/sync', [ProductSyncronizationController::class, 'sync'])->name('.sync');
+            Route::put('/sync', [ProductSyncronizationController::class, 'doSync'])->name('.doSync');
             Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
-
             Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
         });
 });
