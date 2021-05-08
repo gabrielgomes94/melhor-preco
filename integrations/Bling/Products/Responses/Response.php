@@ -9,6 +9,7 @@ use Integrations\Bling\Products\Responses\Contracts\Response as ResponseInterfac
 class Response implements ResponseInterface
 {
     protected ?Product $product = null;
+    protected array $data;
     protected array $errors = [];
 
 

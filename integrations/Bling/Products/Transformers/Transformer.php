@@ -36,7 +36,6 @@ class Transformer
         ];
     }
 
-
     public function transformStore(array $data, string $storeCode): array
     {
         if (!isset($data['product'])) {
@@ -59,5 +58,11 @@ class Transformer
         return [
             'store' => $store ?? [],
         ];
+    }
+
+
+    public function transformList(array $data): array
+    {
+        dd($data);
     }
 }

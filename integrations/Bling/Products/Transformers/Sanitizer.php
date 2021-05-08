@@ -21,4 +21,19 @@ class Sanitizer
 
         return [];
     }
+
+    public function sanitizeMultiple(array $data): array
+    {
+        if (isset($data['retorno']['erros'])) {
+            $error = array_shift($data['retorno']['erros']);
+
+            return ['error' => $error['erro']['msg']];
+        }
+
+        if (isset($data['retorno']['produtos'])) {
+            $products = $data['retorno']['produtos'];
+
+            return ['products' => $products];
+        }
+    }
 }
