@@ -126,11 +126,15 @@ class Product
     {
         return [
             'sku' => $this->sku,
-            'purchase_price' => $this->purchasePrice,
+            'purchasePrice' => $this->purchasePrice,
             'name' => $this->name,
-            'tax_ipi' => 0.0,
-            'tax_icms' => 0.0,
-            'tax_simples_nacional' => 0.0,
+            'taxIpi' => 0.0,
+            'taxICMS' => 0.0,
+            'taxSimplesNacional' => 0.0,
+            'depth' => $this->dimensions->depth(),
+            'height' => $this->dimensions->height(),
+            'width' => $this->dimensions->width(),
+            'additionalCosts' => $this->additionalCosts,
         ];
     }
 }
