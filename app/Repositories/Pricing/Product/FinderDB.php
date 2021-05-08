@@ -5,9 +5,22 @@ namespace App\Repositories\Pricing\Product;
 use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Data\Product;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
+use Illuminate\Support\Collection;
 
 class FinderDB implements ProductFinder
 {
+    /**
+     * @return Product[]
+     */
+    public function all(): array
+    {
+        $products = array_map(function($product) {
+            return new Product($product);
+        }, ProductModel::all()->toArray());
+
+        return $products;
+    }
+
     public function get(string $sku): ?Product
     {
         if ($model = $this->findBySku($sku)) {
