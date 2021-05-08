@@ -10,9 +10,9 @@ class Dimensions
     private float $height;
     private float $width;
 
-    public function __construct(float $depth, float $heigth, float $width)
+    public function __construct(float $depth, float $height, float $width)
     {
-        $this->fill($depth, $heigth, $width);
+        $this->fill($depth, $height, $width);
     }
 
     public function depth(): float
@@ -30,10 +30,10 @@ class Dimensions
         return $this->width;
     }
 
-    private function fill(float $depth, float $heigth, float $width)
+    private function fill(float $depth, float $height, float $width)
     {
         $this->depth = ($depth > 0) ? $depth : 0.0;
-        $this->height = ($heigth > 0) ? $heigth : 0.0;
+        $this->height = ($height > 0) ? $height : 0.0;
         $this->width = ($width > 0) ? $width : 0.0;
     }
 }

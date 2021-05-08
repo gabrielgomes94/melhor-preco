@@ -45,7 +45,7 @@ class Product
     {
         $dimensions = new Dimensions(
             depth: $data['dimensions']['depth'],
-            heigth: $data['dimensions']['height'],
+            height: $data['dimensions']['height'],
             width: $data['dimensions']['width']
         );
 
@@ -77,6 +77,9 @@ class Product
             'sku' => $this->sku,
             'purchase_price' => $this->purchasePrice ?? 0.0,
             'stores' => $this->stores,
+            'depth' => $this->dimensions->depth(),
+            'height' => $this->dimensions->height(),
+            'width' => $this->dimensions->width(),
         ]);
     }
 }
