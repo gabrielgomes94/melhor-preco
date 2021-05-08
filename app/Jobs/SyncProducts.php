@@ -27,7 +27,8 @@ class SyncProducts implements ShouldQueue, ShouldBeUnique
      * Execute the job.
      *
      * @return void
-     */public function handle(SyncProductData $syncService)
+     */
+    public function handle(SyncProductData $syncService)
     {
         $syncService->sync();
     }
