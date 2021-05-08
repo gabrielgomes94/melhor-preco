@@ -17,6 +17,9 @@ class Creator
             'tax_ipi' => 0.0,
             'tax_icms' => 0.0,
             'tax_simples_nacional' => config('taxes.simples_nacional', 0.0),
+            'depth' => $product->dimensions()->depth(),
+            'height' => $product->dimensions()->height(),
+            'width' => $product->dimensions()->width(),
         ]);
         $model->save();
 
