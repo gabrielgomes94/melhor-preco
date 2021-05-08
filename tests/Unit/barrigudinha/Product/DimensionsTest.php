@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class DimensionsTest extends TestCase
 {
-
     public function testShouldInstantiateDimensions()
     {
         // Set

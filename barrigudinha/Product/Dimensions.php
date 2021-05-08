@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Barrigudinha\Product;
-
 
 class Dimensions
 {
