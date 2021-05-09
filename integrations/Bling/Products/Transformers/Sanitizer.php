@@ -16,7 +16,7 @@ class Sanitizer
             $productData = array_shift($data['retorno']['produtos']);
             $product = $productData['produto'];
 
-            return ['product' => $product];
+            return $product;
         }
 
         return [];
@@ -33,7 +33,7 @@ class Sanitizer
         if (isset($data['retorno']['produtos'])) {
             $products = $data['retorno']['produtos'];
 
-            return ['products' => $products];
+            return $products;
         }
     }
 }

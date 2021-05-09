@@ -4,13 +4,13 @@ namespace Integrations\Bling\Products\Transformers;
 
 class Transformer
 {
-    public function transform(array $data): array
+    public function product(array $data): array
     {
-        if (!isset($data['product'])) {
+        if (!isset($data)) {
             return [];
         }
 
-        $product = $data['product'];
+        $product = $data;
 
         if ($product['imagem']) {
             $images = array_map(function(array $image) {
@@ -19,7 +19,6 @@ class Transformer
         }
 
         return [
-            'product' => [
                 'sku' => $product['codigo'],
                 'name' => $product['descricao'],
                 'brand' => $product['marca'],
@@ -32,17 +31,16 @@ class Transformer
                     'height' => (float) $product['alturaProduto'],
                     'width' => (float) $product['larguraProduto'],
                 ],
-            ]
         ];
     }
 
-    public function transformStore(array $data, string $storeCode): array
+    public function store(array $data, string $storeCode): array
     {
-        if (!isset($data['product'])) {
+        if (!isset($data)) {
             return [];
         }
 
-        $product = $data['product'];
+        $product = $data;
 
         if (isset($product['produtoLoja'])) {
             $store = [
@@ -55,14 +53,20 @@ class Transformer
             ];
         }
 
-        return [
-            'store' => $store ?? [],
-        ];
+        return $store ?? [];
     }
 
 
-    public function transformList(array $data): array
+    public function productsCollection(array $data): array
     {
-        dd($data);
+        if (!isset($data)) {
+            return [];
+        }
+
+        foreach ($data as $product) {
+            $productsCollection[] = $this->product($product['produto']);
+        }
+
+        return $productsCollection ?? [];
     }
 }
