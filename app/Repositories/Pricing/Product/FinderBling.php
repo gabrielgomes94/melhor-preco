@@ -21,12 +21,21 @@ class FinderBling implements ProductFinder
      */
     public function all(): array
     {
-        return [];
+        $page = 1;
+        $response = $this->client->list($page);
+        $products = $response->products();
+
+        while(!empty($products)) {
+            $page++;
+
+            $products = $this->client->list($page)->products();
+
+        }
     }
 
     public function get(string $sku): ?PricingProduct
     {
-        $response = $this->client->getWithStores($sku, ['magalu', 'b2w', 'mercado_livre']);
+        $response = $this->client->get($sku, ['magalu', 'b2w', 'mercado_livre']);
 
         if (!$product = $response->product()) {
             return null;
