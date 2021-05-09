@@ -7,9 +7,9 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use Integrations\Bling\Products\Client;
-use Integrations\Bling\Products\Responses\ErrorResponse;
+use Integrations\Bling\Products\Responses\Error;
 use Integrations\Bling\Products\Responses\Factory;
-use Integrations\Bling\Products\Responses\ProductResponse;
+use Integrations\Bling\Products\Responses\Product;
 use Mockery as m;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -24,7 +24,7 @@ class ClientTest extends TestCase
         $httpClient = m::mock(GuzzleClient::class);
         $client = new Client($factory, $httpClient);
         $response = m::mock(ResponseInterface::class);
-        $product = m::mock(ProductResponse::class);
+        $product = m::mock(Product::class);
 
         // Expectations
         $httpClient->expects()
@@ -39,7 +39,7 @@ class ClientTest extends TestCase
         $result = $client->get('1234');
 
         // Assertions
-        $this->assertInstanceOf(ProductResponse::class, $result);
+        $this->assertInstanceOf(Product::class, $result);
     }
 
     public function testShouldHandleConnectExceptions(): void
@@ -48,7 +48,7 @@ class ClientTest extends TestCase
         $factory = m::mock(Factory::class);
         $httpClient = m::mock(GuzzleClient::class);
         $client = new Client($factory, $httpClient);
-        $errorResponse = m::mock(ErrorResponse::class);
+        $errorResponse = m::mock(Error::class);
 
         $request = m::mock(RequestInterface::class);
 
@@ -65,7 +65,7 @@ class ClientTest extends TestCase
         $result = $client->get('invalid');
 
         // Assertions
-        $this->assertInstanceOf(ErrorResponse::class, $result);
+        $this->assertInstanceOf(Error::class, $result);
     }
 
     public function testShouldHandleExceptions(): void
@@ -74,7 +74,7 @@ class ClientTest extends TestCase
         $factory = m::mock(Factory::class);
         $httpClient = m::mock(GuzzleClient::class);
         $client = new Client($factory, $httpClient);
-        $errorResponse = m::mock(ErrorResponse::class);
+        $errorResponse = m::mock(Error::class);
 
         // Expectations
         $httpClient->expects()
@@ -89,6 +89,6 @@ class ClientTest extends TestCase
         $result = $client->get('invalid');
 
         // Assertions
-        $this->assertInstanceOf(ErrorResponse::class, $result);
+        $this->assertInstanceOf(Error::class, $result);
     }
 }

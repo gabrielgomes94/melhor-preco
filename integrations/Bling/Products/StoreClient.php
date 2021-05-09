@@ -6,7 +6,7 @@ namespace Integrations\Bling\Products;
 use Exception;
 use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Requests\ListRequest;
-use Integrations\Bling\Products\Requests\Request;
+use Integrations\Bling\Products\Requests\GetRequest;
 use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\Builders\ResponseBuilder;
 use Integrations\Bling\Products\Responses\Contracts\Response;
@@ -17,13 +17,13 @@ use Integrations\Bling\Products\Responses\Factories\ProductResponse;
 
 class StoreClient
 {
-    private Request $request;
+    private GetRequest $request;
     private ListRequest $listRequest;
     private ProductResponse $productResponse;
     private ProductCollectionResponse $productCollectionResponse;
     private ErrorResponse $errorResponse;
 
-    public function __construct(Request $request, ListRequest $listRequest, ProductResponse $productResponse, ErrorResponse $errorResponse, ProductCollectionResponse $productCollectionResponse)
+    public function __construct(GetRequest $request, ListRequest $listRequest, ProductResponse $productResponse, ErrorResponse $errorResponse, ProductCollectionResponse $productCollectionResponse)
     {
         $this->request = $request;
         $this->listRequest = $listRequest;

@@ -19,7 +19,7 @@ class ProductResponse extends BaseFactory
         $data = $this->getData($productResponse);
 
         if ($this->isInvalid($data)) {
-            return $this->error->makeFromData(data: $data);
+            return $this->errorResponse->makeFromData(data: $data);
         }
 
         $product = new Product(data: $this->transformer->product($data));

@@ -3,7 +3,7 @@
 namespace Tests\Unit\Integrations\Bling\Products\Response;
 
 use Barrigudinha\Product\Product;
-use Integrations\Bling\Products\Responses\ProductResponse;
+use Integrations\Bling\Products\Responses\Product;
 use Tests\TestCase;
 
 class ProductResponseTest extends TestCase
@@ -29,7 +29,7 @@ class ProductResponseTest extends TestCase
         $expected = Product::createFromArray($data['product']);
 
         // Act
-        $result = new ProductResponse(data: $data);
+        $result = new Product(data: $data);
 
         // Assert
         $this->assertInstanceOf(Product::class, $result->product());

@@ -8,13 +8,13 @@ use Integrations\Bling\Products\Transformers\Transformer;
 class BaseFactory
 {
     protected Sanitizer $sanitizer;
-    protected ErrorResponse $error;
+    protected ErrorResponse $errorResponse;
     protected Transformer $transformer;
 
-    public function __construct(Sanitizer $sanitizer, ErrorResponse $error, Transformer $transformer)
+    public function __construct(Sanitizer $sanitizer, ErrorResponse $errorResponse, Transformer $transformer)
     {
         $this->sanitizer = $sanitizer;
-        $this->error = $error;
+        $this->errorResponse = $errorResponse;
         $this->transformer = $transformer;
     }
 

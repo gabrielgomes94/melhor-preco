@@ -7,7 +7,7 @@ use Barrigudinha\Product\Repositories\Product;
 use Integrations\Bling\Products\Client;
 use Mockery as m;
 use Tests\TestCase;
-use Integrations\Bling\Products\Responses\ProductResponse as ProductResponse;
+use Integrations\Bling\Products\Responses\Product as ProductResponse;
 
 class ProductTest extends TestCase
 {
@@ -17,7 +17,7 @@ class ProductTest extends TestCase
         $client = m::mock(Client::class);
         $repository = new Product($client);
 
-        $response = new ProductResponse(
+        $response = new Product(
             data: [
                 'sku' => '1231',
                 'name' => 'Carrinho',
@@ -34,7 +34,7 @@ class ProductTest extends TestCase
         $result = $repository->get('1231');
 
         // Assert
-        $this->assertInstanceOf(ProductResponse::class, $result);
+        $this->assertInstanceOf(Product::class, $result);
         $this->assertInstanceOf(ProductData::class, $result->product());
         $this->assertSame([], $result->errors());
     }

@@ -12,7 +12,7 @@ class ProductCollectionResponse extends BaseFactory
         $data = $this->getData($productsResponse);
 
         if ($this->isInvalid($data)) {
-            return $this->error->makeFromData(data: $data);
+            return $this->errorResponse->makeFromData(data: $data);
         }
 
         $products = $this->transformer->productsCollection($data);
