@@ -2,34 +2,28 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Product as ProductData;
 use Barrigudinha\Product\Store;
-use Integrations\Bling\Products\Responses\Contracts\Response as ResponseInterface;
 
-class Response implements ResponseInterface
+class Product extends BaseResponse
 {
-    protected ?Product $product = null;
-    protected array $data;
-    protected array $errors = [];
+    protected ProductData $product;
 
-
-    public function addErrors(string $error){
-        $this->errors[] = $error;
+    public function __construct(array $data = [])
+    {
+        if (isset($data['product'])) {
+            $this->data = ProductData::createFromArray($data['product']);
+        }
     }
 
-    public function errors(): array
+    public function data(): ProductData
     {
-        return $this->errors;
+        return $this->data;
     }
 
-    public function hasErrors(): bool
+    public function product(): ProductData
     {
-        return !empty($this->errors);
-    }
-
-    public function product(): ?Product
-    {
-        return $this->product;
+        return $this->data;
     }
 
     public function addStores(array $data)
