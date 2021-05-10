@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Pricing\Product;
 
-use Barrigudinha\Pricing\Data\Product;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
+use Barrigudinha\Product\Product as ProductData;
 use Integrations\Bling\Products\StoreClient;
 
 class FinderBling implements ProductFinder
@@ -17,20 +17,29 @@ class FinderBling implements ProductFinder
     }
 
     /**
-     * @return Product[]
+     * @return ProductData[]
      */
     public function all(): array
     {
         $page = 1;
         $response = $this->client->list($page);
-        $products = $response->products();
+        $products = $response->data();
+        $productsList = [];
+
+        foreach ($products as $product) {
+            $productsList[] = $product;
+        }
 
         while(!empty($products)) {
             $page++;
+            $products = $this->client->list($page)->data();
 
-            $products = $this->client->list($page)->products();
-
+            foreach ($products as $product) {
+                $productsList[] = $product;
+            }
         }
+
+        return $productsList ?? [];
     }
 
     public function get(string $sku): ?PricingProduct

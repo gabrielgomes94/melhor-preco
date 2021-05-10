@@ -8,12 +8,14 @@ class ProductIterator extends BaseResponse
 {
     public function __construct(array $data)
     {
-        if (isset($data['products'])) {
+        $this->data= [];
+
+        if (isset($data)) {
             $this->data = array_map(
                 function(array $product){
                     return ProductData::createFromArray($product);
                 },
-                $data['products']
+                $data
             );
         }
     }
