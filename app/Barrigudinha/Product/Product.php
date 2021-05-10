@@ -52,6 +52,11 @@ class Product
         return $this->sku;
     }
 
+    public function sku(): string
+    {
+        return $this->sku;
+    }
+
     public function getName(): string
     {
         return $this->name;
