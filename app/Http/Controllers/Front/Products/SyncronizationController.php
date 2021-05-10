@@ -22,7 +22,7 @@ class SyncronizationController extends Controller
 
     public function doSync(Request $request)
     {
-        $this->job->dispatch();
+        SyncProducts::dispatch();
 
         return view('products.sync.sync');
     }

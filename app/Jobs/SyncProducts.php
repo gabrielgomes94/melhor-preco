@@ -21,6 +21,7 @@ class SyncProducts implements ShouldQueue, ShouldBeUnique
      */
     public function __construct()
     {
+
     }
 
     /**
