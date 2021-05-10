@@ -6,11 +6,12 @@ use Barrigudinha\Product\Product;
 
 interface Response
 {
+    /**
+     * @return mixed|Product|Product[]
+     */
+    public function data();
+
     public function errors(): array;
 
     public function hasErrors(): bool;
-
-    public function product(): ?Product;
-
-    public function addStores(array $store);
 }

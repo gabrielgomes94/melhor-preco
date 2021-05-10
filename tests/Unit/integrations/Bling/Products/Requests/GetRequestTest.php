@@ -3,19 +3,17 @@
 namespace Tests\Unit\Integrations\Bling\Products\Requests;
 
 use GuzzleHttp\Client;
-use Integrations\Bling\Products\Requests\Request;
+use Integrations\Bling\Products\Requests\GetRequest;
 use Mockery as m;
 use Psr\Http\Message\ResponseInterface;
 use Tests\TestCase;
 
-class RequestTest extends TestCase
+class GetRequestTest extends TestCase
 {
     public function testShouldSendGetRequest()
     {
         // Set
         $httpClient = m::mock(Client::class);
-        $response = m::mock(ResponseInterface::class);
-        $request = new Request($httpClient);
         $options = [
             'base_uri' => 'https://Bling.com.br/Api/v2/produto/',
             'query' => [
@@ -24,6 +22,8 @@ class RequestTest extends TestCase
                 'imagem' => 'S',
             ],
         ];
+        $response = m::mock(ResponseInterface::class);
+        $request = new GetRequest($httpClient, $options);
 
         // Expect
         $httpClient->expects()
@@ -39,7 +39,7 @@ class RequestTest extends TestCase
         // Set
         $httpClient = m::mock(Client::class);
         $response = m::mock(ResponseInterface::class);
-        $request = new Request($httpClient);
+        $request = new GetRequest($httpClient);
         $options = [
             'base_uri' => 'https://Bling.com.br/Api/v2/produto/',
             'query' => [

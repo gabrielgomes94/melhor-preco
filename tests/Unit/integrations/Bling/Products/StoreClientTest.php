@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Integrations\Bling\Products;
 
-use Integrations\Bling\Products\Requests\Request;
+use Integrations\Bling\Products\Requests\GetRequest;
 use Integrations\Bling\Products\StoreClient;
 use Mockery as m;
 use Tests\TestCase;
@@ -12,7 +12,7 @@ class StoreClientTest extends TestCase
     public function testShouldGetProductsWithStores(): void
     {
         // Set
-        $request = m::mock(Request::class);
+        $request = m::mock(GetRequest::class);
         $client = new StoreClient($request);
 
         $sku = '1232';

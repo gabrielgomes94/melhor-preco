@@ -6,23 +6,15 @@ use GuzzleHttp\Client as GuzzleClient;
 use Integrations\Bling\Products\Contracts\Request as RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class Request implements RequestInterface
+class GetRequest extends BaseRequest implements RequestInterface
 {
-    protected GuzzleClient $httpClient;
-
-    protected array $options;
-
-    public function __construct(GuzzleClient $httpClient)
+    public function __construct(GuzzleClient $httpClient, array $options = [])
     {
-        $this->httpClient = $httpClient;
-        $this->options = [
+        $options = array_replace($options, [
             'base_uri' => 'https://Bling.com.br/Api/v2/produto/',
-            'query' => [
-                'apikey' => env('BLING_API_KEY'),
-                'estoque' => 'S',
-                'imagem' => 'S',
-            ],
-        ];
+        ]);
+
+        parent::__construct($httpClient, $options);
     }
 
     /**

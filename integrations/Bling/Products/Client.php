@@ -5,9 +5,7 @@ namespace Integrations\Bling\Products;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ConnectException;
-use Integrations\Bling\Products\Responses\Factory;
-
-use Integrations\Bling\Products\Responses\ProductResponse;
+use Integrations\Bling\Products\Responses\Factories\Factory;
 use Integrations\Bling\Products\Responses\Response;
 
 class Client
