@@ -28,6 +28,12 @@ class Dimensions
         return $this->width;
     }
 
+    public function sum(): float
+    {
+        $sum = $this->depth + $this->height + $this->width;
+        return $sum;
+    }
+
     private function fill(float $depth, float $height, float $width)
     {
         $this->depth = ($depth > 0) ? $depth : 0.0;
