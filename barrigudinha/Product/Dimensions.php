@@ -30,8 +30,12 @@ class Dimensions
 
     public function sum(): float
     {
-        $sum = $this->depth + $this->height + $this->width;
-        return $sum;
+        return $this->depth + $this->height + $this->width;
+    }
+
+    public function cubicWeight(): float
+    {
+        return ($this->depth * $this->height * $this->width)/6000;
     }
 
     private function fill(float $depth, float $height, float $width)
