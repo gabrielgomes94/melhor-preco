@@ -2,29 +2,47 @@
 
 namespace Barrigudinha\Pricing\Services\PriceCalculator;
 
+use Barrigudinha\Pricing\Data\CalculatedPrice;
 use Barrigudinha\Pricing\Data\CalculationParameters;
+use Barrigudinha\Pricing\Data\CostPrice;
 use Barrigudinha\Pricing\Data\Product;
-use Illuminate\Http\Request;
+use Barrigudinha\Pricing\Data\Tax;
+use Barrigudinha\Pricing\Services\PriceCalculator\Calculators\FromMargin;
+use Barrigudinha\Pricing\Services\PriceCalculator\Calculators\FromPrice;
+use Barrigudinha\Utils\Helpers;
+use Money\Money;
 
 class Calculate
 {
     public function calculate(Product $product, array $data): array
     {
-        $calculatePrice = new CalculationParameters($product, $data);
+        $commission = Helpers::percentage($data['commission']);
+        $additionalCosts = Helpers::floatToMoney($data['additionalCosts'] ?? 0.0);
 
-        if ($calculatePrice->desiredMargin) {
-            return CalculateFromMargin::calculate($calculatePrice)->toArray();
+        if (isset($data['desiredMargin'])) {
+            $desiredMargin = Helpers::percentage($data['desiredMargin']);
+
+            $calculator = new FromMargin(
+                product: $product,
+                commission: $commission,
+                additionalCosts: $additionalCosts,
+                extra: ['desiredMargin' => $desiredMargin],
+            );
+
+            return (new CalculatedPrice(price: $calculator->price(), costs: $calculator->costs()))->toArray();
         }
 
-        if ($calculatePrice->desiredSellingPrice) {
-            return CalculateFromPrice::calculate($calculatePrice)->toArray();
-        }
+        if (isset($data['desiredPrice'])) {
+            $desiredPrice = Helpers::floatToMoney($data['desiredPrice']);
 
-        return [
-            'profit' => '',
-            'costs' => '',
-            'suggestedPrice' => '',
-            'margin' => '',
-        ];
+            $calculator = new FromPrice(
+                product: $product,
+                commission: $commission,
+                additionalCosts: $additionalCosts,
+                extra: ['desiredPrice' => $desiredPrice],
+            );
+            return (new CalculatedPrice(price: $calculator->price(), costs: $calculator->costs()))->toArray();
+        }
+        return [];
     }
 }
