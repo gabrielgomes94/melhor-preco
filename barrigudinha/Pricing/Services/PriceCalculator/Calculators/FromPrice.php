@@ -22,7 +22,7 @@ class FromPrice extends BaseCalculator
 
     protected function calculate(): void
     {
-        $freight = (new Freight($this->product))->get();
+        $freight = (new Freight($this->product, $this->price))->get();
 
         $this->costs = $this->costPrice
             ->add($this->commission())
