@@ -3,7 +3,7 @@
 namespace Tests\Unit\Barrigudinha\Pricing\Services;
 
 use Barrigudinha\Pricing\Data\CalculationParameters;
-use Barrigudinha\Pricing\Services\PriceCalculator\CalculateFromMargin;
+use Barrigudinha\Pricing\Services\PriceCalculator\FromMargin;
 use Barrigudinha\Pricing\Services\PriceCalculator\CalculateFromPrice;
 use Tests\Data\Pricing\ProductData;
 use Tests\TestCase;

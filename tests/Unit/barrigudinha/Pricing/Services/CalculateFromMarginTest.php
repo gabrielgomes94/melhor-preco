@@ -4,7 +4,7 @@ namespace Tests\Unit\Barrigudinha\Pricing\Services;
 
 use Barrigudinha\Pricing\Data\CalculationParameters;
 use Barrigudinha\Pricing\Data\Product;
-use Barrigudinha\Pricing\Services\PriceCalculator\CalculateFromMargin;
+use Barrigudinha\Pricing\Services\PriceCalculator\FromMargin;
 use Tests\Data\Pricing\ProductData;
 use Tests\TestCase;
 
@@ -29,7 +29,7 @@ class CalculateFromMarginTest extends TestCase
         ];
 
         // Act
-        $result = CalculateFromMargin::calculate($calculationParameters);
+        $result = FromMargin::calculate($calculationParameters);
 
         // Assert
         $this->assertSame($expected, $result->toArray());
