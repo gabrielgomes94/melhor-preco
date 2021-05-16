@@ -37,6 +37,7 @@ class FromMargin extends BaseCalculator
     private function setPrice(): Money
     {
         $markup = Markup::calculate($this->commission, $this->taxSimplesNacional(), $this->desiredMargin);
+
         return $this->costPrice->divide($markup);
     }
 }
