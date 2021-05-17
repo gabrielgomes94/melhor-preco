@@ -12,6 +12,8 @@ class Pricing
     public function make(PricingModel $model): PricingData
     {
         $products = array_map(function(ProductModel $product) {
+            $prices = $product->prices()->get()->toArray();
+
             return new Product([
                 'sku' => $product->sku,
                 'name' => $product->name,
@@ -20,8 +22,9 @@ class Pricing
                 'depth' => $product->depth,
                 'height' => $product->height,
                 'width' => $product->width,
-            ]);
+            ], $prices);
         }, $model->products->all());
+
 
         $pricing = new PricingData(
             name: $model->name,
