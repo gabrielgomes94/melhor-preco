@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Barrigudinha\Pricing\Data\Pricing as DomainPricing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -14,9 +14,14 @@
             </div>
         </div>
 
-        <x-utils.navigation-button
-            :route="route('pricing.create')"
-            label="Exportar"
-        />
+        <x-forms.form.post
+            :action="route('pricing.export', $pricing->id)"
+        >
+            <x-forms.submit
+                label="Exportar"
+                width="20"
+            >
+            </x-forms.submit>
+        </x-forms.form.post>
     </div>
 </x-layout>

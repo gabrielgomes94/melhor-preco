@@ -12,14 +12,10 @@ class Product
     private string $name;
     private float $purchasePrice;
 
-    /**
-     * @var Price[] $prices
-     */
+    /** @var Price[] $prices */
     private array $prices;
 
-    /**
-     * @var Tax[] $taxes
-     */
+    /** @var Tax[] $taxes */
     private array $taxes;
 
     private float $additionalCosts;
@@ -116,6 +112,36 @@ class Product
         foreach($this->taxes as $tax) {
             if ($taxCode === $tax->name) {
                 return $tax;
+            }
+        }
+
+        return null;
+    }
+
+    public function getStoreSku(string $storeSlug): ?string
+    {
+        if (!isset($this->prices)) {
+            return null;
+        }
+
+        foreach ($this->prices as $price) {
+            if ($storeSlug === $price->store()) {
+                return $price->storeSkuId();
+            }
+        }
+
+        return null;
+    }
+
+    public function getPriceFromStore(string $store): ?float
+    {
+        if (!isset($this->prices)) {
+            return null;
+        }
+
+        foreach ($this->prices as $price) {
+            if ($store === $price->store()) {
+                return $price->get();
             }
         }
 

@@ -7,15 +7,17 @@ use Illuminate\View\Component;
 class Submit extends Component
 {
     public string $label;
+    public string $width;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $label)
+    public function __construct(string $label, string $width = '')
     {
         $this->label = $label;
+        $this->width = 'w-'.($width ?? '100');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
+use App\Http\Controllers\Front\Pricing\ExportSpreadsheetController;
 use App\Http\Controllers\Front\Pricing\ListPricingController;
 use App\Http\Controllers\Front\Pricing\ShowProductPricingController;
 use App\Http\Controllers\Front\Pricing\UpdateProductPricingController;
@@ -52,6 +53,8 @@ Route::middleware('auth')->group(function() {
         Route::get('/', [ListPricingController::class, 'list'])->name('.list');
         Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
         Route::get('/{id}', [ShowPricingController::class, 'show'])->name('.show');
+
+        Route::post('{id}/export', [ExportSpreadsheetController::class, 'export'])->name('.export');
 
         Route::prefix('/{pricing_id}/products')
             ->name('.products')

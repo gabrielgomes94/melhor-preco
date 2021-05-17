@@ -6,8 +6,6 @@ use Barrigudinha\Pricing\Data\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
 use Barrigudinha\Product\Dimensions;
-use PHPUnit\TextUI\Help;
-use Symfony\Component\Console\Helper\Helper;
 
 class Freight
 {
@@ -44,6 +42,10 @@ class Freight
     {
         $cubicWeight = $dimensions->cubicWeight();
 
+        if ($this->isFixed()) {
+            return Money::BRL(500);
+        }
+
         if ($this->isSubsidy()) {
             $freightValue = config('freight_tables.b2w.subsidy_freight.value');
             $discount_percentage = $this->getDiscountPercentage();
@@ -64,6 +66,11 @@ class Freight
         }
 
         return Money::BRL(0);
+    }
+
+    private function isFixed(): bool
+    {
+        return $this->price->lessThan($this->rules['subsidy']['min']);
     }
 
     private function isSubsidy(): bool
