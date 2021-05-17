@@ -65,8 +65,18 @@ class Price
         return $this->profit / $this->value;
     }
 
+    public function store()
+    {
+        return $this->store;
+    }
+
     public function storeName()
     {
         return config("stores.{$this->store}.name");
+    }
+
+    public function storeSkuId(): string
+    {
+        return $this->storeSkuId;
     }
 }
