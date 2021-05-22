@@ -2,6 +2,7 @@
 
 namespace Integrations\Bling\Products\Clients;
 
+use Barrigudinha\Product\Clients\Contracts\ProductStore as ProductStoreInterface;
 use Exception;
 use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Requests\GetRequest;
@@ -12,7 +13,7 @@ use Integrations\Bling\Products\Responses\Factories\ErrorResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductCollectionResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductResponse;
 
-class ProductStore
+class ProductStore implements ProductStoreInterface
 {
     private GetRequest $getRequest;
     private ListRequest $listRequest;
@@ -34,11 +35,6 @@ class ProductStore
         $this->errorResponse = $errorResponse;
     }
 
-    /**
-     * @param string[] $stores
-     *
-     * @return BaseResponse
-     */
     public function get(string $sku, array $stores = []): BaseResponse
     {
         try {
@@ -71,7 +67,7 @@ class ProductStore
     {
         try {
             $products = $this->listRequest->all($page);
-            $response = $this->productCollectionResponse->make($products);
+            $response = $this->productCollectionResponse->makeWithStore($products);
         } catch (ConnectException $exception) {
             $message = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar.
             Tente novamente mais tarde.';
