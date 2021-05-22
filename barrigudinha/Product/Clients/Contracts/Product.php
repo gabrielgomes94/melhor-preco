@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrations\Bling\Products\Clients\Contracts;
+namespace Barrigudinha\Product\Clients\Contracts;
 
 use Integrations\Bling\Products\Responses\BaseResponse;
 

@@ -178,6 +178,10 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        /**
+         * Custom Service Providers...
+         */
+        App\Providers\BlingServiceProvider::class,
         App\Providers\PricingServiceProvider::class,
     ],
 
