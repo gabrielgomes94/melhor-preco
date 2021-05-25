@@ -6,7 +6,6 @@ use App\Repositories\Pricing\Product\Creator;
 use App\Repositories\Pricing\Product\FinderBling;
 use App\Repositories\Pricing\Product\FinderDB;
 use App\Repositories\Pricing\Product\Updator;
-use Integrations\Bling\Products\StoreClient as ProductClient;
 
 class SyncProductData
 {
