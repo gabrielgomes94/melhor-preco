@@ -36,7 +36,7 @@ class ProductResponse extends BaseFactory
 
     private function getData(ResponseInterface $response): array
     {
-        $data = json_decode((string) $response->getBody(), true);;
+        $data = json_decode((string) $response->getBody(), true);
         $data = $this->sanitizer->sanitize($data);
 
         return  $data;

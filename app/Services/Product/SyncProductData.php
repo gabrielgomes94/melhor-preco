@@ -26,7 +26,7 @@ class SyncProductData
     {
         $products = $this->erpRepository->all();
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $productData = $this->dbRepository->get($product->sku);
 
             if (!$productData) {
