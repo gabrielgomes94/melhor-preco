@@ -2,7 +2,6 @@
 
 namespace Integrations\Bling\Products\Transformers;
 
-
 class Store
 {
     public static function transform(array $product, string $storeSlug): array

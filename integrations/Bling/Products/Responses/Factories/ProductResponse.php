@@ -3,18 +3,18 @@
 namespace Integrations\Bling\Products\Responses\Factories;
 
 use Integrations\Bling\Products\Responses\Product;
-use Integrations\Bling\Products\Transformers\Sanitizer;
-use Integrations\Bling\Products\Transformers\Transformer;
+use Integrations\Bling\Products\Transformers\Product as ProductTransformer;
+use Integrations\Bling\Products\Transformers\Store as StoreTransformer;
 use Psr\Http\Message\ResponseInterface;
 
 class ProductResponse extends BaseFactory
 {
     /**
-     * @param ResponseInterface[][]|null $stores
+     * @param array<string, ResponseInterface> $stores
      */
     public function make(
         ResponseInterface $productResponse,
-        ?array $stores = []
+        array $stores = []
     ) {
         $data = $this->getData($productResponse);
 
@@ -22,12 +22,12 @@ class ProductResponse extends BaseFactory
             return $this->errorResponse->makeFromData(data: $data);
         }
 
-        $product = new Product(data: $this->transformer->product($data));
+        $product = new Product(data: ProductTransformer::transform($data));
 
         if ($stores) {
             foreach ($stores as $storeCode => $storeResponse) {
                 $data = $this->getData($storeResponse);
-                $product->addStores($this->transformer->store($data));
+                $product->addStores(StoreTransformer::transform($data, $storeCode));
             }
         }
 
