@@ -49,7 +49,7 @@ class Product
             width: $data['dimensions']['width']
         );
 
-        return new self(
+        $product = new self(
             sku: $data['sku'],
             name: $data['name'],
             brand: $data['brand'],
@@ -58,6 +58,13 @@ class Product
             purchasePrice: (float) $data['purchasePrice'],
             dimensions: $dimensions
         );
+
+
+        if (isset($data['store'])) {
+            $product->stores[] = Store::createFromArray($data['store']);
+        }
+
+        return $product;
     }
 
     public function __get($attribute)
