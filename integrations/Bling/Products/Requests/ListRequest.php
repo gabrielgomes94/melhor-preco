@@ -9,11 +9,18 @@ class ListRequest extends BaseRequest
 {
     public function __construct(Client $httpClient, array $options = [])
     {
-        $options = array_replace($options, [
-            'base_uri' => 'https://Bling.com.br/Api/v2/produtos/',
-        ]);
-
         parent::__construct($httpClient, $options);
+        $options = [
+            'base_uri' => 'https://Bling.com.br/Api/v2/produtos/',
+            'query' => [
+                'apikey' => env('BLING_API_KEY'),
+                'loja' => '203482706', // B2W apenas. TODO: permitir outras lojas futuramente
+                'estoque' => 'S',
+                'imagem' => 'S',
+            ],
+        ];
+
+        $this->options = $options;
     }
 
     /**
@@ -21,7 +28,13 @@ class ListRequest extends BaseRequest
      */
     public function all(int $page = 1): ResponseInterface
     {
-        return $this->httpClient->request('GET', $this->uriPaginated($page), $this->options);
+        $response = $this->httpClient->request(
+            'GET',
+            $this->uriPaginated($page),
+            $this->options
+        );
+
+        return $response;
     }
 
     private function uriPaginated(int $page): string

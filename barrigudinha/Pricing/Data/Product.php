@@ -21,6 +21,11 @@ class Product
     private float $additionalCosts;
     private Dimensions $dimensions;
 
+    /**
+     * @var Store[] $stores
+     */
+    private array $stores;
+
     public function __construct(array $data, array $prices = [])
     {
         $this->fill($data);
@@ -34,7 +39,7 @@ class Product
         $this->sku = $data['sku'];
         $this->purchasePrice = $data['purchase_price'];
 
-        foreach($data['stores'] ?? [] as $store) {
+        foreach ($data['stores'] ?? [] as $store) {
             $this->stores[] = $store;
         }
 
@@ -53,8 +58,7 @@ class Product
 
     private function setPrices(array $data)
     {
-        foreach($data as $price)
-        {
+        foreach ($data as $price) {
             $this->prices[] = new Price(
                 id: $price['id'],
                 profit: $price['profit'],
@@ -109,7 +113,7 @@ class Product
 
     public function tax(string $taxCode): ?Tax
     {
-        foreach($this->taxes as $tax) {
+        foreach ($this->taxes as $tax) {
             if ($taxCode === $tax->name) {
                 return $tax;
             }

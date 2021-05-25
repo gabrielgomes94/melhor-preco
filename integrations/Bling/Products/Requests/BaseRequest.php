@@ -12,7 +12,7 @@ class BaseRequest
     public function __construct(GuzzleClient $httpClient, array $options)
     {
         $this->options = [
-            'base_uri' => $options['base_uri'],
+            'base_uri' => $options['base_uri'] ?? '',
             'query' => [
                 'apikey' => env('BLING_API_KEY'),
                 'estoque' => 'S',

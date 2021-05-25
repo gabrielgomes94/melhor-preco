@@ -11,8 +11,8 @@ class Store
     private float $commission;
     private float $price;
     private float $promotionalPrice;
-    private Carbon $createdAt;
-    private Carbon $updatedAt;
+    private ?Carbon $createdAt;
+    private ?Carbon $updatedAt;
 
     public function __construct(
         string $store_sku_id,
@@ -27,11 +27,24 @@ class Store
         }
 
         $this->store_sku_id = $store_sku_id;
+        $this->commission = config('stores.b2w.commission'); // TODO: configurar config para pegar commissions
         $this->code = $code;
         $this->price = $price;
         $this->promotionalPrice = $promotionalPrice;
-        $this->createdAt = Carbon::createFromFormat('Y-m-d', $createdAt);
-        $this->updatedAt = Carbon::createFromFormat('Y-m-d', $updatedAt);
+        $this->createdAt = $this->setDate($createdAt);
+        $this->updatedAt = $this->setDate($updatedAt);
+    }
+
+    public static function createFromArray(array $data): self
+    {
+        return new self(
+            store_sku_id: $data['skuStoreId'],
+            code: $data['code'],
+            price: $data['price'],
+            promotionalPrice: $data['promotionalPrice'],
+            createdAt: $data['createdAt'],
+            updatedAt: $data['updatedAt']
+        );
     }
 
     public function storeSkuId(): string
@@ -44,9 +57,17 @@ class Store
         return $this->code;
     }
 
-    public function price(): string
+    public function price(): float
     {
         return $this->price;
     }
-}
 
+    private function setDate(string $date): ?Carbon
+    {
+        if ($date = Carbon::createFromFormat('Y-m-d', $date)) {
+            return $date;
+        }
+
+        return null;
+    }
+}

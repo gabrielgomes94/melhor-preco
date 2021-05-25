@@ -28,3 +28,6 @@ grumphp:
             - style
             - test
         - scopes: [ ]
+  fixer:
+    enabled: true
+    fix_by_default: true

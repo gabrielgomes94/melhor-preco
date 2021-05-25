@@ -4,14 +4,14 @@ namespace App\Repositories\Pricing\Product;
 
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
+use Barrigudinha\Product\Clients\Contracts\ProductStore;
 use Barrigudinha\Product\Product as ProductData;
-use Integrations\Bling\Products\StoreClient;
 
 class FinderBling implements ProductFinder
 {
-    private StoreClient $client;
+    private ProductStore $client;
 
-    public function __construct(StoreClient $client)
+    public function __construct(ProductStore $client)
     {
         $this->client = $client;
     }
@@ -30,7 +30,7 @@ class FinderBling implements ProductFinder
             $productsList[] = $product;
         }
 
-        while(!empty($products)) {
+        while (!empty($products)) {
             $page++;
             $products = $this->client->list($page)->data();
 
@@ -44,7 +44,7 @@ class FinderBling implements ProductFinder
 
     public function get(string $sku): ?PricingProduct
     {
-        $response = $this->client->get($sku, ['magalu', 'b2w', 'mercado_livre']);
+        $response = $this->client->get($sku, ['b2w']);
 
         if (!$product = $response->product()) {
             return null;

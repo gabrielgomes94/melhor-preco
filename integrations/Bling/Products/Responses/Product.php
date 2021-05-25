@@ -11,8 +11,8 @@ class Product extends BaseResponse
 
     public function __construct(array $data = [])
     {
-        if (isset($data['product'])) {
-            $this->data = ProductData::createFromArray($data['product']);
+        if (isset($data)) {
+            $this->data = ProductData::createFromArray($data);
         }
     }
 
@@ -21,9 +21,9 @@ class Product extends BaseResponse
         return $this->data;
     }
 
-    public function product(): ProductData
+    public function product(): ?ProductData
     {
-        return $this->data;
+        return $this->data ?? null;
     }
 
     public function addStores(array $data)
@@ -32,14 +32,7 @@ class Product extends BaseResponse
             return;
         }
 
-        $store = new Store(
-            store_sku_id: $data['store']['skuStoreId'],
-            code: $data['store']['code'],
-            price: $data['store']['price'],
-            promotionalPrice: $data['store']['promotionalPrice'],
-            createdAt: $data['store']['createdAt'],
-            updatedAt: $data['store']['updatedAt']
-        );
+        $store = Store::createFromArray($data['store']);
 
         $this->product->addStore($store);
     }
