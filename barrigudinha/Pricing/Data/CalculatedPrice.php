@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Barrigudinha\Pricing\Data;
 
 use Money\Currencies\ISOCurrencies;
@@ -38,7 +37,11 @@ class CalculatedPrice
 
     private function setMargin(): float
     {
-        $margin = $this->profit->ratioOf($this->price);
+        $margin = 0.0;
+
+        if (!$this->price->isZero()) {
+            $margin = $this->profit->ratioOf($this->price);
+        }
 
         return round($margin * 100, 2);
     }

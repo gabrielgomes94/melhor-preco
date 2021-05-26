@@ -5,9 +5,17 @@ namespace App\Repositories\Pricing\Product;
 use App\Models\Price as PriceModel;
 use Barrigudinha\Pricing\Data\Product;
 use App\Models\Product as ProductModel;
+use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
 
 class Creator
 {
+    private Calculate $service;
+
+    public function __construct(Calculate $service)
+    {
+        $this->service = $service;
+    }
+
     public function create(Product $product): ProductModel
     {
         $model = new ProductModel([
@@ -23,10 +31,16 @@ class Creator
         ]);
         $model->save();
 
-        foreach($product->stores ?? [] as $store) {
+        foreach ($product->stores() ?? [] as $store) {
+            $commission = config('stores.b2w.commission');
+            $calculatedPrice = $this->service->calculate($product, [
+                'commission' => $commission,
+                'desiredPrice' => $store->price(),
+            ]);
+
             $price = new PriceModel([
-                'commission' => 12.1,
-                'profit' => 0.0,
+                'commission' => $commission,
+                'profit' => $calculatedPrice['profit'] ?? 0.0,
                 'store' => $store->code(),
                 'store_sku_id' => $store->storeSkuId(),
                 'value' => $store->price(),
@@ -36,5 +50,9 @@ class Creator
         }
 
         return $model;
+    }
+
+    public function store()
+    {
     }
 }
