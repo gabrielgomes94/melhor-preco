@@ -106,6 +106,11 @@ class Product
         return $this->stock;
     }
 
+    public function stores(): array
+    {
+        return $this->stores;
+    }
+
     public function purchasePrice(): float
     {
         return $this->purchasePrice;
