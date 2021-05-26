@@ -31,14 +31,12 @@
     <div class="min-h-screen bg-gray-100">
 
         <!-- Page Heading -->
-
+        <!-- Sidebar -->
+        <x-sidebar>
+        </x-sidebar>
 
         <div class="wrapper">
-            <!-- Sidebar -->
 
-            <x-sidebar>
-
-            </x-sidebar>
 
             <!-- Page Content -->
             <main class="w-100">
