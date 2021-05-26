@@ -24,7 +24,7 @@
                             <div class="profit-margin">
                                 {{ $price->profitMargin() }}
                             </div>
-                            <div class="profit-value">
+                            <div class="profit-value {{ $price->color() }}">
                                 {{ $price->profit() }}
                             </div>
                         </div>

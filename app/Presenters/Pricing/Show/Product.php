@@ -12,7 +12,7 @@ class Product
     public string $name;
 
     /**
-     * @var PriceModel[] $prices
+     * @var Price[] $prices
      */
     public array $prices;
 
