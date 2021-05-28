@@ -4,6 +4,7 @@ use App\Http\Controllers\Front\Prices\PricesCalculatorController;
 use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\Pricing\ExportSpreadsheetController;
 use App\Http\Controllers\Front\Pricing\ListPricingController;
+use App\Http\Controllers\Front\Pricing\RemoveProductController;
 use App\Http\Controllers\Front\Pricing\ShowProductPricingController;
 use App\Http\Controllers\Front\Pricing\UpdatePriceController;
 use App\Http\Controllers\Front\Pricing\UpdateProductPricingController;
@@ -65,6 +66,10 @@ Route::middleware('auth')->group(function () {
 
                 Route::put('/{product_id}', [UpdateProductPricingController::class, 'update'])
                     ->name('.update');
+
+                Route::delete('/{product_id}', [RemoveProductController::class, 'remove'])
+                    ->name('.remove');
+
 
                 Route::prefix('/{product_id}/price')
                     ->name('.prices')
