@@ -49,12 +49,9 @@
 
             <div class="col-sm-6">
                 <div class="form-group">
-                    <form
-                        method="post"
-                        action="{{ route('prices.calculate_single') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-
+                    <x-forms.form.put
+                        action="{{ route('pricing.products.prices.update', [$pricingId, $productId, $price->id]) }}"
+                    >
                         <x-forms.input.read-only
                             attribute="value"
                             label="Preço"
@@ -82,7 +79,7 @@
                         <input type="submit"
                                class="btn btn-dark d-block w-100 mx-auto m-2"
                                value="Salvar" />
-                    </form>
+                    </x-forms.form.put>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\Pricing\ExportSpreadsheetController;
 use App\Http\Controllers\Front\Pricing\ListPricingController;
 use App\Http\Controllers\Front\Pricing\ShowProductPricingController;
+use App\Http\Controllers\Front\Pricing\UpdatePriceController;
 use App\Http\Controllers\Front\Pricing\UpdateProductPricingController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Pricing\ShowPricingController;
@@ -26,12 +27,12 @@ use App\Http\Controllers\Front\Pricing\CreatePricingController;
 |
 */
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->name('home');
 
-    Route::prefix('product')->group(function() {
+    Route::prefix('product')->group(function () {
         Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
             ->name('product.images.upload_form');
 
@@ -49,7 +50,7 @@ Route::middleware('auth')->group(function() {
         Route::post('calculate_single', [PricesCalculatorController::class, 'calculate_single'])->name('.calculate_single');
     });
 
-    Route::prefix('pricing')->name('pricing')->group(function() {
+    Route::prefix('pricing')->name('pricing')->group(function () {
         Route::get('/', [ListPricingController::class, 'list'])->name('.list');
         Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
         Route::get('/{id}', [ShowPricingController::class, 'show'])->name('.show');
@@ -58,22 +59,29 @@ Route::middleware('auth')->group(function() {
 
         Route::prefix('/{pricing_id}/products')
             ->name('.products')
-            ->group(function() {
+            ->group(function () {
                 Route::get('/{product_id}', [ShowProductPricingController::class, 'show'])
                     ->name('.show');
 
                 Route::put('/{product_id}', [UpdateProductPricingController::class, 'update'])
                     ->name('.update');
+
+                Route::prefix('/{product_id}/price')
+                    ->name('.prices')
+                    ->group(function () {
+                        Route::put('/{price_id}', [UpdatePriceController::class, 'update'])
+                            ->name('.update');
+                    });
             });
 
-        Route::prefix('campaigns')->name('.campaigns')->group(function() {
+        Route::prefix('campaigns')->name('.campaigns')->group(function () {
             Route::post('/store', [CreatePricingController::class, 'store'])->name('.store');
         });
     });
 
     Route::prefix('products')
         ->name('products')
-        ->group(function() {
+        ->group(function () {
             Route::get('/sync', [ProductSyncronizationController::class, 'sync'])->name('.sync');
             Route::put('/sync', [ProductSyncronizationController::class, 'doSync'])->name('.doSync');
             Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
