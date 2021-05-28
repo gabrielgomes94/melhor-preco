@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Front\Pricing;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\Price\UpdatePrice;
 use App\Repositories\Pricing\Price\Updator;
 
-class UpdatePriceController
+class UpdatePriceController extends Controller
 {
     private Updator $repository;
 
