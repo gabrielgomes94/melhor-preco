@@ -40,11 +40,16 @@
                             label="Detalhar"
                         />
 
-                        <x-utils.navigation-button
-                            :route="route('pricing.create')"
-                            customStyleClass="btn-danger"
-                            label="Remover"
-                        />
+                        <x-forms.form.delete
+                            :action="route('pricing.products.remove', [
+                                'pricing_id' => $pricingId,
+                                'product_id' => $product->id
+                            ])"
+                        >
+                            <button type="submit" class="btn btn-danger">
+                                Remover
+                            </button>
+                        </x-forms.form.delete>
                     </div>
                 </td>
             </tr>
