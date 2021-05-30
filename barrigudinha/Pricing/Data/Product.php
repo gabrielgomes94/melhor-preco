@@ -108,7 +108,7 @@ class Product
 
     public function stores(): array
     {
-        return $this->stores;
+        return $this->stores ?? [];
     }
 
     public function purchasePrice(): float
