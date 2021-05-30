@@ -8,34 +8,7 @@ class Store extends Component
 {
     public string $id;
     public string $name;
-
-    private array $stores = [
-        [
-            'code' => 'magalu',
-            'name' => 'Magazine Luiza',
-            'commission' => 12.8,
-        ],
-        [
-            'code' => 'mercado_livre',
-            'name' => 'Mercado Livre',
-            'commission' => 16.1,
-        ],
-        [
-            'code' => 'b2w',
-            'name' => 'B2W',
-            'commission' => 16.2,
-        ],
-        [
-            'code' => 'shopee',
-            'name' => 'Shopee',
-            'commission' => 5,
-        ],
-        [
-            'code' => 'olist',
-            'name' => 'Olist',
-            'commission' => 20,
-        ],
-    ];
+    private array $stores;
 
     /**
      * Create a new component instance.
@@ -46,7 +19,7 @@ class Store extends Component
     {
         $this->id = $id;
         $this->name = $name;
-        //
+        $this->stores = config('stores');
     }
 
     /**

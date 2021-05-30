@@ -6,10 +6,6 @@ let calculator_form = function() {
         var commission = form.querySelector('#commission-' + id).value
         var additionalCosts = form.querySelector('#additionalCosts-' + id).value
 
-        var desiredMarginInputView = form.querySelector('#desiredMargin-' + id + '-input-view')
-        var desiredMarginInput = form.querySelector('#desiredMargin-' + id)
-        var margin = desiredMarginInput.value
-
         var desiredPriceInputView = form.querySelector('#desiredPrice-' + id + '-input-view')
         var desiredPriceInput = form.querySelector('#desiredPrice-' + id)
         var desiredPrice = desiredPriceInput.value
@@ -23,10 +19,6 @@ let calculator_form = function() {
             var commission = form.querySelector('#commission-' + id).value
             var additionalCosts = form.querySelector('#additionalCosts-' + id).value
 
-            var desiredMarginInputView = form.querySelector('#desiredMargin-' + id + '-input-view')
-            var desiredMarginInput = form.querySelector('#desiredMargin-' + id)
-            var margin = desiredMarginInput.value
-
             var desiredPriceInputView = form.querySelector('#desiredPrice-' + id + '-input-view')
             var desiredPriceInput = form.querySelector('#desiredPrice-' + id)
             var desiredPrice = desiredPriceInput.value
@@ -36,7 +28,6 @@ let calculator_form = function() {
             var formData = new FormData()
             formData.append('commission', commission)
             formData.append('additionalCosts', additionalCosts)
-            formData.append('desiredMargin', margin)
             formData.append('desiredPrice', desiredPrice)
             formData.append('product', product)
 
@@ -67,16 +58,6 @@ let calculator_form = function() {
                     updateMarginInput.value = data.price.margin
                 })
         })
-
-        desiredMarginInputView.addEventListener('focus', function () {
-            desiredPriceInputView.value = ''
-            desiredPrice.value = ''
-        });
-
-        desiredPriceInputView.addEventListener('focus', function () {
-            desiredMarginInputView.value = ''
-            desiredMarginInput.value = ''
-        });
     })
 }
 

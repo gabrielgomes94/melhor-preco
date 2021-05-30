@@ -7,8 +7,8 @@
                 class="form-check-input"
                 type="checkbox"
                 name="stores[]"
-                value="{{ $store['code'] }}"
-                id="store-{{ $store['code'] }}"
+                value="{{ $store['slug'] }}"
+                id="store-{{ $store['slug'] }}"
             >
 
             <label class="form-check-label" for="defaultCheck1">

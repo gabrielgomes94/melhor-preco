@@ -1,46 +1,49 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Barrigudinha</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href={{ route('product.images.upload_form')  }}>Upload de Imagens</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href={{ route('product.qr_codes') }}>Geração de QR Codes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href={{ route('pricing.list') }}>Precificação</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="productDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                >
+                    Produtos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="productDropdown">
+                    <a class="dropdown-item" href={{ route('products.updateICMS') }}>Atualizar ICMS</a>
+                    <a class="dropdown-item" href={{ route('products.sync') }}>Sincronização de Produtos</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href={{ route('products.reports.overDimension') }}>Relatórios de Produtos</a>
+            </li>
+        </ul>
 
-    <!-- Sidebar -->
-    <nav id="sidebar">
-        <header class="header header-menu">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <h2>Barrigudinha</h2>
-            </div>
-        </header>
-        <div class="">
-            <ul class="list-unstyled components">
-                <li>
-                    <a href={{ route('product.images.upload_form')  }}>Upload de Imagens</a>
-                </li>
-                <li>
-                    <a href={{ route('product.qr_codes') }}>Geração de QR Codes</a>
-                </li>
-                <li>
-                    <a href={{ route('prices.single') }}>Calculadora de Preços</a>
-                </li>
-                <li>
-                    <a href={{ route('pricing.list') }}>Precificação</a>
-                </li>
-                <li>
-                    <a href={{ route('products.updateICMS') }}>Atualizar ICMS</a>
-                </li>
-                <li>
-                    <a href={{ route('products.sync') }}>Sincronização de Produtos</a>
-                </li>
-
-                <li>
-                    <a href={{ route('products.reports.overDimension') }}>Relatórios de Produtos</a>
-                </li>
-            </ul>
-            <ul class="list-unstyled components">
-                <li>
-                    <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
-                        Logout
-                    </a>
-                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                    Logout
+                </a>
+                <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>

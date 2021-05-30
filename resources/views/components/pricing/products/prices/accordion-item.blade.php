@@ -6,13 +6,13 @@
             <div class="d-flex justify-content-between w-100">
                 <div class="">{{ $price->store }}</div>
                 <div>
-                    {{ $price->value }}<br>
-                    {{ $price->profit }} | {{ $price->margin }}
+                    R$ {{ $price->value }}<br>
+                    R$ {{ $price->profit }} | {{ round($price->margin, 2) }} %
                 </div>
             </div>
         </button>
     </h2>
-    <div id="price-accordion-collapse-{{ $price->id }}" class="accordion-collapse collapse"
+    <div id="price-accordion-collapse-{{ $price->id }}" class="accordion-collapse collapse show"
          aria-labelledby="price-accordion-{{ $price->id }}"
          data-bs-parent="#accordion">
 
