@@ -20,7 +20,7 @@ class Price
         $this->store = $price->storeName();
         $this->value = $price->get();
         $this->profit = $price->profit();
-        $this->margin = $price->margin();
+        $this->margin = $price->margin() * 100;
         $this->commission = $price->commission();
         $this->additionalCosts = $price->additionalCosts();
     }
