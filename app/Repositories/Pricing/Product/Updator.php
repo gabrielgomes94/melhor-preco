@@ -16,9 +16,16 @@ class Updator
         $model->tax_icms = $data['taxICMS'];
         $model->tax_simples_nacional = config('taxes.simples_nacional');
         $model->additional_costs = $data['additionalCosts'];
-        $model->depth = $data['depth'];
-        $model->height = $data['height'];
-        $model->width = $data['width'];
+
+        if (isset($data['depth'])) {
+            $model->depth = $data['depth'];
+        }
+        if (isset($data['height'])) {
+            $model->depth = $data['height'];
+        }
+        if (isset($data['width'])) {
+            $model->depth = $data['width'];
+        }
 
         return $model->save();
     }
