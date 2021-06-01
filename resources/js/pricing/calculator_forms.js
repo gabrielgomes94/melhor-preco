@@ -42,8 +42,35 @@ let calculator_form = function() {
                     var updateProfitInput = document.querySelector('#update-price-' + id + '-profit')
                     var updateMarginInput = document.querySelector('#update-price-' + id + '-margin')
 
+                    var commissionInput = document.querySelector('#update-price-' + id + '-commission')
+                    var taxSimplesNacionalInput = document.querySelector('#update-price-' + id + '-simplesNacional')
+                    var freightInput = document.querySelector('#update-price-' + id + '-freight')
+                    var differenceICMSInput = document.querySelector('#update-price-' + id + '-differenceICMS')
+                    var purchasePriceInput = document.querySelector('#update-price-' + id + '-purchasePrice')
+
                     updatePriceInput.value = data.price.suggestedPrice
                     updateProfitInput.value = data.price.profit
+
+                    commissionInput.value = data.price.commission
+                    commissionInput.style.backgroundColor = '#dc3545';
+                    commissionInput.style.color = '#fff';
+
+                    taxSimplesNacionalInput.value = data.price.taxSimplesNacional
+                    taxSimplesNacionalInput.style.backgroundColor = '#dc3545';
+                    taxSimplesNacionalInput.style.color = '#fff';
+
+                    freightInput.value = data.price.freight
+                    freightInput.style.backgroundColor = '#dc3545';
+                    freightInput.style.color = '#fff';
+
+                    differenceICMSInput.value = data.price.differenceICMS
+                    differenceICMSInput.style.backgroundColor = '#dc3545';
+                    differenceICMSInput.style.color = '#fff';
+
+                    purchasePriceInput.value = data.price.purchasePrice
+                    purchasePriceInput.style.backgroundColor = '#dc3545';
+                    purchasePriceInput.style.color = '#fff';
+
                     if (updateProfitInput.value > 0) {
                         updateProfitInput.style.backgroundColor = '#198754';
                         updateProfitInput.style.color = '#fff';

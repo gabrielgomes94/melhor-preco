@@ -46,7 +46,6 @@
                     </form>
                 </div>
             </div>
-
             <div class="col-sm-6">
                 <div class="form-group">
                     <x-forms.form.put
@@ -57,6 +56,46 @@
                             label="Preço"
                             id="update-price-{{ $price->id }}-value"
                             value="{{ $price->value }}"
+                        >
+                        </x-forms.input.read-only>
+
+                        <x-forms.input.read-only
+                            attribute="purchasePrice"
+                            label="Preço de Compra"
+                            id="update-price-{{ $price->id }}-purchasePrice"
+                            value=""
+                        >
+                        </x-forms.input.read-only>
+
+                        <x-forms.input.read-only
+                            attribute="commission"
+                            label="Comissão"
+                            id="update-price-{{ $price->id }}-commission"
+                            value=""
+                        >
+                        </x-forms.input.read-only>
+
+                        <x-forms.input.read-only
+                            attribute="freight"
+                            label="Frete"
+                            id="update-price-{{ $price->id }}-freight"
+                            value=""
+                        >
+                        </x-forms.input.read-only>
+
+                        <x-forms.input.read-only
+                            attribute="simplesNacional"
+                            label="Simples Nacional"
+                            id="update-price-{{ $price->id }}-simplesNacional"
+                            value=""
+                        >
+                        </x-forms.input.read-only>
+
+                        <x-forms.input.read-only
+                            attribute="differenceICMS"
+                            label="Diferença de ICMS"
+                            id="update-price-{{ $price->id }}-differenceICMS"
+                            value=""
                         >
                         </x-forms.input.read-only>
 
