@@ -12,7 +12,7 @@ class Freight
     public const SUBSIDY_MIN_VALUE = 40.0;
     public const SUBSIDY_MAX_VALUE = 79.99;
     public const FREE_MIN_VALUE = 80.0;
-    private const SELLER_INDEX_POINTS = 0;
+    private const SELLER_INDEX_POINTS = 155;
 
     private Money $freight;
     private Money $price;
@@ -56,13 +56,14 @@ class Freight
 
         if ($this->isFree()) {
             $freightTable = config('freight_tables.b2w.free_freight_table');
-            foreach($freightTable as $row) {
+            $discount_percentage = $this->getDiscountPercentage();
+            foreach ($freightTable as $row) {
                 if ($row['interval'][0] <= $cubicWeight && $cubicWeight <= $row['interval'][1]) {
                     $freight = Money::BRL($row['value'] * 100);
                 }
             }
 
-            return $freight ?? Money::BRL(0);
+            return $freight->multiply(1 - $discount_percentage) ?? Money::BRL(0);
         }
 
         return Money::BRL(0);
