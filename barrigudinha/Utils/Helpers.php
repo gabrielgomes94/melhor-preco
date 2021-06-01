@@ -8,7 +8,7 @@ class Helpers
 {
     public static function floatToMoney(float $value): Money
     {
-        return Money::BRL((int) $value * 100);
+        return Money::BRL((int) ($value * 100));
     }
 
     public static function percentage(float $value): float
