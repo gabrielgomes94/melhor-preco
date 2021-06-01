@@ -90,7 +90,7 @@ class Freight
         $sellerIndexTable = config('freight_tables.b2w.seller_index');
 
         foreach ($sellerIndexTable as $row) {
-            if ($row['interval'][0] <= self::SELLER_INDEX_POINTS && self::SELLER_INDEX_POINTS <= $row['interval'][0]) {
+            if ($row['interval'][0] <= self::SELLER_INDEX_POINTS && self::SELLER_INDEX_POINTS <= $row['interval'][1]) {
                 $discount = $row['discount_percentage'];
 
                 break;
