@@ -27,7 +27,12 @@ class CostPrice
             ->add($this->additionalCosts);
     }
 
-    private function differenceICMS(): Money
+    public function purchasePrice(): Money
+    {
+        return $this->purchasePrice;
+    }
+
+    public function differenceICMS(): Money
     {
         $baseICMS = $this->purchasePrice->divide(1 - $this->taxICMSOutterState);
         $outerStateICMSValue = $baseICMS->multiply($this->taxICMSOutterState);

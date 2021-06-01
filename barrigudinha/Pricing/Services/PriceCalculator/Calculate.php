@@ -41,7 +41,15 @@ class Calculate
                 additionalCosts: $additionalCosts,
                 extra: ['desiredPrice' => $desiredPrice],
             );
-            return (new CalculatedPrice(price: $calculator->price(), costs: $calculator->costs()))->toArray();
+            return (new CalculatedPrice(
+                price: $calculator->price(),
+                costs: $calculator->costs(),
+                commission: $calculator->commission(),
+                freight: $calculator->freight(),
+                taxSimplesNacional: $calculator->simplesNacional(),
+                differenceICMS: $calculator->differenceICMS(),
+                purchasePrice: $calculator->purchasePrice()
+            ))->toArray();
         }
         return [];
     }

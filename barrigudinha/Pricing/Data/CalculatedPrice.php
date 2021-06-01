@@ -10,15 +10,26 @@ class CalculatedPrice
 {
     private DecimalMoneyFormatter $moneyFormatter;
 
+    private Money $commission;
+    private Money $freight;
     private Money $profit;
     private Money $price;
     private Money $costs;
+    private Money $taxSimplesNacional;
+    private Money $differenceICMS;
+    private Money $purchasePrice;
     private float $margin;
 
-    public function __construct(Money $price, Money $costs)
+    public function __construct(Money $price, Money $costs, Money $commission, Money $freight, Money $taxSimplesNacional, Money $differenceICMS, Money $purchasePrice)
     {
         $this->price = $price;
         $this->costs = $costs;
+        $this->commission = $commission;
+        $this->freight = $freight;
+        $this->taxSimplesNacional = $taxSimplesNacional;
+        $this->differenceICMS = $differenceICMS;
+        $this->purchasePrice = $purchasePrice;
+
         $this->profit = $this->setProfit();
         $this->margin = $this->setMargin();
 
@@ -30,7 +41,12 @@ class CalculatedPrice
         return [
             'suggestedPrice' => $this->moneyFormatter->format($this->price),
             'costs' => $this->moneyFormatter->format($this->costs),
+            'commission' => $this->moneyFormatter->format($this->commission),
+            'freight' => $this->moneyFormatter->format($this->freight),
+            'taxSimplesNacional' => $this->moneyFormatter->format($this->taxSimplesNacional),
+            'differenceICMS' => $this->moneyFormatter->format($this->differenceICMS),
             'profit' => $this->moneyFormatter->format($this->profit),
+            'purchasePrice' => $this->moneyFormatter->format($this->purchasePrice),
             'margin' => $this->margin,
         ];
     }

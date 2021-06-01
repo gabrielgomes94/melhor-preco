@@ -20,7 +20,7 @@ abstract class BaseCalculator
     protected Money $additionalCosts;
     protected Money $costs;
     protected Money $price;
-    protected Money $costPrice;
+    protected CostPrice $costPrice;
     protected Product $product;
 
     public function __construct(Product $product, float $commission, Money $additionalCosts, array $extra)
@@ -28,10 +28,15 @@ abstract class BaseCalculator
         $this->product = $product;
         $this->commission = $commission;
         $this->additionalCosts = $additionalCosts;
-        $this->costPrice = $this->setCostPrice($product, $additionalCosts);
+        $this->setCostPrice($product, $additionalCosts);
     }
 
-    protected abstract function calculate(): void;
+    abstract protected function calculate(): void;
+
+    public function freight(): Money
+    {
+        return $this->freight->get() ?? Money::BRL(0);
+    }
 
     public function price(): Money
     {
@@ -43,22 +48,37 @@ abstract class BaseCalculator
         return $this->costs;
     }
 
-    protected function commission(): Money
+    public function costPrice(): Money
+    {
+        return $this->costPrice->get();
+    }
+
+    public function purchasePrice(): Money
+    {
+        return $this->costPrice->purchasePrice();
+    }
+
+    public function differenceICMS(): Money
+    {
+        return $this->costPrice->differenceICMS();
+    }
+
+    public function commission(): Money
     {
         return $this->price->multiply($this->commission);
     }
 
-    protected function simplesNacional(): Money
+    public function simplesNacional(): Money
     {
         return $this->price->multiply($this->taxSimplesNacional());
     }
 
-    private function setCostPrice(Product $product, Money $additionalCosts): Money
+    private function setCostPrice(Product $product, Money $additionalCosts): void
     {
-        return (new CostPrice(
+        $this->costPrice = new CostPrice(
             Helpers::floatToMoney($product->purchasePrice()),
             $this->additionalCosts,
             Helpers::percentage($product->tax(Tax::ICMS)->rate)
-        ))->get();
+        );
     }
 }
