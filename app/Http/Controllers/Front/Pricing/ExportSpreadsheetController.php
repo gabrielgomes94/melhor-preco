@@ -23,7 +23,8 @@ class ExportSpreadsheetController extends Controller
     public function export(string $id, Request $request)
     {
         $pricing = $this->repository->get($id);
+        $products = collect($pricing->products)->sortBy('sku')->toArray();
 
-        return Excel::download(new PriceExport($pricing->products), 'precos.csv');
+        return Excel::download(new PriceExport($products), 'precos.csv');
     }
 }
