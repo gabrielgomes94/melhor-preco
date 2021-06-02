@@ -31,11 +31,11 @@ class Pricing
 
     private function setProducts(PricingModel $pricing): array
     {
-        $products = array_map(function(ProductModel $product) use ($pricing){
+        $products = array_map(function (ProductModel $product) use ($pricing) {
             return new Product($product, $pricing->stores);
-        }, $pricing->products->all());
+        }, $pricing->products->sortBy('sku')->all());
 
-        $products = array_filter($products, function(Product $product){
+        $products = array_filter($products, function (Product $product) {
             return $product->isValid();
         });
 
@@ -44,7 +44,7 @@ class Pricing
 
     private function setStores(PricingModel $pricing): array
     {
-        return array_map(function($store){
+        return array_map(function ($store) {
             return config('stores.' . $store . '.name');
         }, $pricing?->stores ?? []);
     }
