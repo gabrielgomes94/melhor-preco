@@ -7,7 +7,7 @@
         >
             <x-forms.input.money
                 attribute="purchasePrice"
-                label="Preço de Compra"
+                label="Preço de Custo"
                 value="{{ $productInfo->purchasePrice }}"
             >
             </x-forms.input.money>
