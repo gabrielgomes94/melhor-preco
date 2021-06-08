@@ -32,7 +32,8 @@ class Creator
         $model->save();
 
         foreach ($product->stores() ?? [] as $store) {
-            $commission = config('stores.b2w.commission');
+            $commission = config('stores.' . $store->code() . '.commission');
+
             $calculatedPrice = $this->service->calculate($product, [
                 'commission' => $commission,
                 'desiredPrice' => $store->price(),

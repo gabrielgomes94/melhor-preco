@@ -20,8 +20,7 @@ class Price
         string $store,
         string $storeSkuId,
         string $additionalCosts
-    )
-    {
+    ) {
         $this->id = $id;
         $this->profit = $profit;
         $this->value = $value;
@@ -70,9 +69,9 @@ class Price
         return $this->store;
     }
 
-    public function storeName()
+    public function storeName(): string
     {
-        return config("stores.{$this->store}.name");
+        return config("stores.{$this->store}.name") ?? '';
     }
 
     public function storeSkuId(): string
