@@ -66,8 +66,15 @@ class ProductStore implements ProductStoreInterface
     public function list(int $page = 1): BaseResponse
     {
         try {
-            $products = $this->listRequest->all($page);
-            $response = $this->productCollectionResponse->makeWithStore($products);
+            $stores = array_keys(config('stores_code'));
+            $responses = [];
+
+            foreach ($stores as $store) {
+                $products = $this->listRequest->all($page, $store);
+                $responses[] = $this->productCollectionResponse->makeWithStore($products, $store);
+            }
+
+            $response = $this->productCollectionResponse->mergeResponses($responses);
         } catch (ConnectException $exception) {
             $message = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar.
             Tente novamente mais tarde.';
