@@ -74,6 +74,11 @@ class Price
         return config("stores.{$this->store}.name") ?? '';
     }
 
+    public function storeSlug(): string
+    {
+        return $this->store;
+    }
+
     public function storeSkuId(): string
     {
         return $this->storeSkuId;

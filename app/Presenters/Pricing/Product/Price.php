@@ -8,6 +8,7 @@ class Price
 {
     public string $id;
     public string $store;
+    public string $storeSlug;
     public string $commission;
     public string $value;
     public string $profit;
@@ -18,6 +19,7 @@ class Price
     {
         $this->id = $price->id();
         $this->store = $price->storeName();
+        $this->storeSlug = $price->storeSlug();
         $this->value = $price->get();
         $this->profit = $price->profit();
         $this->margin = $price->margin() * 100;

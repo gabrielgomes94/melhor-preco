@@ -39,7 +39,7 @@ class Calculate
                 product: $product,
                 commission: $commission,
                 additionalCosts: $additionalCosts,
-                extra: ['desiredPrice' => $desiredPrice],
+                extra: ['desiredPrice' => $desiredPrice, 'store' => $data['store']],
             );
             return (new CalculatedPrice(
                 price: $calculator->price(),
