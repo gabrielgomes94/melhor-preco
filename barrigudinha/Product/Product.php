@@ -89,4 +89,14 @@ class Product
             'width' => $this->dimensions->width(),
         ]);
     }
+
+    public function sku(): string
+    {
+        return $this->sku;
+    }
+
+    public function stores(): array
+    {
+        return $this->stores;
+    }
 }
