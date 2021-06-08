@@ -17,16 +17,23 @@ class FromPrice extends BaseCalculator
         parent::__construct($product, $commission, $additionalCosts, $extra);
 
         $this->price = $extra['desiredPrice'] ?? 0.0;
+
+        $this->setFreight($extra);
         $this->calculate();
     }
 
     protected function calculate(): void
     {
-        $this->freight = new Freight($this->product, $this->price);
-
         $this->costs = $this->costPrice()
             ->add($this->commission())
             ->add($this->simplesNacional())
             ->add($this->freight());
+    }
+
+    private function setFreight(array $extra)
+    {
+        if ($extra['store']) {
+        }
+        $this->freight = new Freight($this->product, $this->price);
     }
 }
