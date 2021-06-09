@@ -3,9 +3,9 @@
 namespace App\Repositories\Pricing\Product;
 
 use App\Models\Price as PriceModel;
-use Barrigudinha\Pricing\Data\Product;
 use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
+use Barrigudinha\Product\Product;
 
 class Creator
 {
@@ -22,21 +22,22 @@ class Creator
             'sku' => $product->sku(),
             'name' => $product->name(),
             'purchase_price' => $product->purchasePrice(),
-            'tax_ipi' => 0.0,
             'tax_icms' => 0.0,
-            'tax_simples_nacional' => config('taxes.simples_nacional', 0.0),
             'depth' => $product->dimensions()->depth(),
             'height' => $product->dimensions()->height(),
             'width' => $product->dimensions()->width(),
+            'weight' => $product->weight(),
         ]);
+
         $model->save();
 
-        foreach ($product->stores() ?? [] as $store) {
+        foreach ($product->stores() as $store) {
             $commission = config('stores.' . $store->code() . '.commission');
 
             $calculatedPrice = $this->service->calculate($product, [
                 'commission' => $commission,
                 'desiredPrice' => $store->price(),
+                'store' => $store->code(),
             ]);
 
             $price = new PriceModel([

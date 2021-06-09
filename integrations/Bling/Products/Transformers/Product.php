@@ -16,20 +16,21 @@ class Product
             'brand' => $product['marca'],
             'images' => self::setImages($product),
             'stock' => $product['estoqueAtual'] ?? 0,
-            'purchasePrice' => $product['precoCusto'],
+            'purchasePrice' => $product['precoCusto'] ?? 0.0,
             'price' => $product['preco'],
             'dimensions' => [
                 'depth' => (float) $product['profundidadeProduto'],
                 'height' => (float) $product['alturaProduto'],
                 'width' => (float) $product['larguraProduto'],
             ],
+            'weight' => (float) $product['pesoBruto'],
         ];
     }
 
     private static function setImages(array $product): array
     {
         if ($product['imagem']) {
-            $images = array_map(function(array $image) {
+            $images = array_map(function (array $image) {
                 return $image['link'];
             }, $product['imagem']);
         }

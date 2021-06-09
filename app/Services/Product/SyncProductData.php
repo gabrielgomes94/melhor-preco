@@ -4,7 +4,7 @@ namespace App\Services\Product;
 
 use App\Repositories\Pricing\Product\Creator;
 use App\Repositories\Product\FinderBling;
-use App\Repositories\Pricing\Product\FinderDB;
+use App\Repositories\Product\FinderDB;
 use App\Repositories\Pricing\Product\Updator;
 
 class SyncProductData
@@ -30,11 +30,11 @@ class SyncProductData
             $productData = $this->dbRepository->get($product->sku);
 
             if (!$productData) {
-                $this->creator->create($product->toPricing());
+                $this->creator->create($product);
                 continue;
             }
 
-            $this->updator->update($productData->id(), $productData->toArray());
+//            $this->updator->update($productData->id(), $productData->toArray());
         }
     }
 }

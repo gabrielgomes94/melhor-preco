@@ -3,7 +3,7 @@
 namespace Barrigudinha\Pricing\Services\PriceCalculator\Calculators;
 
 use Barrigudinha\Pricing\Data\CostPrice;
-use Barrigudinha\Pricing\Data\Product;
+use Barrigudinha\Product\Product;
 use Barrigudinha\Pricing\Data\Tax;
 use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
 use Barrigudinha\Pricing\Services\PriceCalculator\SimplesNacional;

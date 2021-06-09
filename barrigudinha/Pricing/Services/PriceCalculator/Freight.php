@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Services\PriceCalculator;
 
-use Barrigudinha\Pricing\Data\Product;
+use Barrigudinha\Product\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
 use Barrigudinha\Product\Dimensions;
