@@ -3,6 +3,7 @@
 namespace App\Repositories\Pricing\Product;
 
 use App\Models\Product as ProductModel;
+use Barrigudinha\Product\Product;
 
 class Updator
 {
@@ -14,7 +15,6 @@ class Updator
 
         $model->purchase_price = $data['purchasePrice'];
         $model->tax_icms = $data['taxICMS'];
-        $model->tax_simples_nacional = config('taxes.simples_nacional');
         $model->additional_costs = $data['additionalCosts'];
 
         if (isset($data['depth'])) {

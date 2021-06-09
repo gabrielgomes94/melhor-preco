@@ -34,6 +34,9 @@ class SyncProductData
                 continue;
             }
 
+
+            // TODO: Criar método para sincronizar dados do bling com o banco
+//            $this->updator->sync($productData, $product);
 //            $this->updator->update($productData->id(), $productData->toArray());
         }
     }
