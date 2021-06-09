@@ -9,18 +9,14 @@ class Product
     private string $sku;
     private string $name;
     private string $brand;
-
-    /**
-     * @var string[]
-     */
-    private array $images;
     private int $stock;
     private ?float $purchasePrice;
     private Dimensions $dimensions;
 
-    /**
-     * Store[] array
-     */
+    /** @var string[] */
+    private array $images;
+
+    /** Store[] array */
     public array $stores = [];
 
     private function __construct(

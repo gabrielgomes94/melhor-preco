@@ -3,7 +3,7 @@
 namespace App\Services\Product;
 
 use App\Repositories\Pricing\Product\Creator;
-use App\Repositories\Pricing\Product\FinderBling;
+use App\Repositories\Product\FinderBling;
 use App\Repositories\Pricing\Product\FinderDB;
 use App\Repositories\Pricing\Product\Updator;
 

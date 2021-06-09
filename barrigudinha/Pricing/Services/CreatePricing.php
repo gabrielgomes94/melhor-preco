@@ -3,7 +3,7 @@
 namespace Barrigudinha\Pricing\Services;
 
 use App\Repositories\Pricing\Product\Creator as ProductCreator;
-use App\Repositories\Pricing\Product\FinderBling as ProductFinderBling;
+use App\Repositories\Product\FinderBling as ProductFinderBling;
 use App\Repositories\Pricing\Product\FinderDB as ProductFinderDB;
 use Barrigudinha\Pricing\Data\Contracts\CreatePricing as CreatePricingData;
 use Barrigudinha\Pricing\Data\Pricing;
@@ -30,7 +30,7 @@ class CreatePricing
 
     public function create(CreatePricingData $data)
     {
-        foreach($data->skuList() as $sku) {
+        foreach ($data->skuList() as $sku) {
             if ($product = $this->productFinderDB->get($sku)) {
                 $products[] = $product;
 
@@ -47,7 +47,8 @@ class CreatePricing
         $pricing = new Pricing(
             name: $data->name(),
             products: $products ?? [],
-            stores: $data->stores() ?? []);
+            stores: $data->stores() ?? []
+        );
 
         $this->pricingRepository->create($pricing);
 

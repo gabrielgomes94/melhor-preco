@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Repositories\Pricing\Product;
+namespace App\Repositories\Product;
 
 use App\Models\Product as ProductModel;
-use Barrigudinha\Pricing\Data\Product;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
-use Illuminate\Support\Collection;
+use Barrigudinha\Product\Product;
 
 class FinderDB implements ProductFinder
 {
@@ -14,8 +13,8 @@ class FinderDB implements ProductFinder
      */
     public function all(): array
     {
-        $products = array_map(function($product) {
-            return new Product($product);
+        $products = array_map(function ($product) {
+            return Product::createFromArray($product);
         }, ProductModel::all()->toArray());
 
         return $products;
@@ -24,7 +23,7 @@ class FinderDB implements ProductFinder
     public function get(string $sku): ?Product
     {
         if ($model = $this->findBySku($sku)) {
-            return new Product($model->toArray());
+            return Product::createFromArray($model->toArray());
         }
 
         return null;
@@ -33,7 +32,12 @@ class FinderDB implements ProductFinder
     public function getById(string $id): ?Product
     {
         if ($model = ProductModel::find($id)) {
-            return new Product($model->toArray(), $model->prices->toArray());
+            $product = Product::createFromArray($model->toArray());
+
+            return $product;
+
+            // TODO: foreach para enriquecer o $product com os preços
+//            return Product::createFromArray($model->toArray(), $model->prices->toArray());
         }
 
         return null;
