@@ -20,6 +20,7 @@ class Product extends Model
         'depth',
         'height',
         'width',
+        'weight',
     ];
 
     public function pricings()
