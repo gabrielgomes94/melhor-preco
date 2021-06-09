@@ -4,7 +4,7 @@ namespace Barrigudinha\Pricing\Services;
 
 use App\Repositories\Pricing\Product\Creator as ProductCreator;
 use App\Repositories\Product\FinderBling as ProductFinderBling;
-use App\Repositories\Pricing\Product\FinderDB as ProductFinderDB;
+use App\Repositories\Product\FinderDB as ProductFinderDB;
 use Barrigudinha\Pricing\Data\Contracts\CreatePricing as CreatePricingData;
 use Barrigudinha\Pricing\Data\Pricing;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
