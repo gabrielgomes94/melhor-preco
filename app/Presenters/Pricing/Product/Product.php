@@ -17,9 +17,9 @@ class Product
     public float $additionalCosts;
     public array $prices;
 
-    public function __construct(PricingProduct $product)
+    public function __construct(ProductData $product)
     {
-        $this->id = $product->id();
+        $this->id = $product->sku();
         $this->name = $product->name();
         $this->sku = $product->sku();
         $this->purchasePrice = $product->purchasePrice();
