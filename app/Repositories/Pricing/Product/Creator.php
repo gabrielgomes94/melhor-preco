@@ -19,6 +19,7 @@ class Creator
     public function create(Product $product): ProductModel
     {
         $model = new ProductModel([
+            'id' => $product->sku(),
             'sku' => $product->sku(),
             'name' => $product->name(),
             'purchase_price' => $product->purchasePrice(),

@@ -9,9 +9,10 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'sku';
+    public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'sku',
         'name',
         'purchase_price',
