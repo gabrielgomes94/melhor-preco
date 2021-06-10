@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Product;
 
+use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
 use Barrigudinha\Product\Product;
@@ -32,12 +33,7 @@ class FinderDB implements ProductFinder
     public function getById(string $id): ?Product
     {
         if ($model = ProductModel::find($id)) {
-            $product = Product::createFromArray($model->toArray());
-
-            return $product;
-
-            // TODO: foreach para enriquecer o $product com os preços
-//            return Product::createFromArray($model->toArray(), $model->prices->toArray());
+            return ProductFactory::buildFromModel($model);
         }
 
         return null;
