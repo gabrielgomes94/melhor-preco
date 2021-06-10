@@ -23,24 +23,10 @@ class FinderDB implements ProductFinder
 
     public function get(string $sku): ?Product
     {
-        if ($model = $this->findBySku($sku)) {
-            return Product::createFromArray($model->toArray());
-        }
-
-        return null;
-    }
-
-    public function getById(string $id): ?Product
-    {
-        if ($model = ProductModel::find($id)) {
+        if ($model = ProductModel::find($sku)) {
             return ProductFactory::buildFromModel($model);
         }
 
         return null;
-    }
-
-    private function findBySku(string $sku): ?ProductModel
-    {
-        return ProductModel::where('sku', $sku)->first();
     }
 }

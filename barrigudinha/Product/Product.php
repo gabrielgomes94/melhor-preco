@@ -13,7 +13,7 @@ class Product
     private string $name;
     private string $brand;
     private int $stock;
-    private ?float $purchasePrice;
+    private float $purchasePrice;
     private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
     private float $weight;
@@ -36,7 +36,7 @@ class Product
         string $brand,
         array $images,
         ?int $stock,
-        ?float $purchasePrice,
+        float $purchasePrice,
         Dimensions $dimensions,
         float $weight,
         ?float $taxICMS
@@ -124,7 +124,7 @@ class Product
         return $this->dimensions;
     }
 
-    public function purchasePrice(): ?float
+    public function purchasePrice(): float
     {
         return $this->purchasePrice;
     }

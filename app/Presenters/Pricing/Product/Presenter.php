@@ -14,6 +14,7 @@ class Presenter
 
     /**
      * @param PostPriced[] $postsPriced
+     * @param string[] $stores
      * @return Post[]
      */
     public function prices(array $postsPriced): array

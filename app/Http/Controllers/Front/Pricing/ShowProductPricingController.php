@@ -25,19 +25,22 @@ class ShowProductPricingController extends Controller
 
     public function show($pricingId, $productId)
     {
-        $product = $this->repository->getById($productId);
+        $product = $this->repository->get($productId);
 
         if (!$product) {
             abort(404);
         }
 
+
+        $pricing = Pricing::find($pricingId);
+
         $productInfo = $this->presenter->singleProduct($product);
-        $prices = $this->calculator->execute($product);
+        $prices = $this->calculator->execute($product, $pricing->stores);
         $prices = $this->presenter->prices($prices);
 
         $breadcrumb = [
             'pricing' => [
-                'name' => Pricing::find($pricingId)->name,
+                'name' => $pricing->name,
                 'link' => route('pricing.show', [$pricingId])
             ],
             'product' => [

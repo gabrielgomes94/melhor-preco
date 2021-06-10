@@ -20,7 +20,7 @@ class CalculatePricesController extends Controller
 
     public function calculate(string $pricingId, string $productId, string $priceId, Request $request)
     {
-        if (!$product = $this->repository->getById($productId)) {
+        if (!$product = $this->repository->get($productId)) {
             abort(404);
         }
 

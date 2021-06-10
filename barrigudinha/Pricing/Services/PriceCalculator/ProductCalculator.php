@@ -12,11 +12,15 @@ class ProductCalculator
     /**
      * @return PostPriced[]
      */
-    public function execute(Product $product): array
+    public function execute(Product $product, array $stores): array
     {
         foreach ($product->posts() as $post) {
-            $price = new Price($product, $post->price(), $post->store()->slug());
-            $posts[] = new PostPriced($post, $price, $product);
+            $store = $post->store()->slug();
+
+            if (in_array($store, $stores)) {
+                $price = new Price($product, $post->price(), $post->store()->slug());
+                $posts[] = new PostPriced($post, $price, $product);
+            }
         }
 
         return $posts ?? [];
