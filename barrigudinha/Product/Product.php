@@ -2,8 +2,10 @@
 
 namespace Barrigudinha\Product;
 
+use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Data\Tax;
+use Barrigudinha\Utils\Helpers;
 
 class Product
 {
@@ -12,6 +14,7 @@ class Product
     private string $brand;
     private int $stock;
     private ?float $purchasePrice;
+    private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
     private float $weight;
 
@@ -24,7 +27,10 @@ class Product
     /** @var Tax[] $taxes */
     public array $taxes;
 
-    private function __construct(
+    /** @var Post[] $posts */
+    public array $posts = [];
+
+    public function __construct(
         string $sku,
         string $name,
         string $brand,
@@ -47,7 +53,8 @@ class Product
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
     }
 
-    public static function createFromArray(array $data): self
+    // TODO: adicionar preços ao criar objeto
+    public static function createFromArray(array $data, array $stores = []): self
     {
         $dimensions = new Dimensions(
             depth: $data['dimensions']['depth'] ?? 0.0,
@@ -70,14 +77,18 @@ class Product
 
         if (isset($data['store'])) {
             $product->stores[] = Store::createFromArray($data['store']);
+        } elseif (isset($stores)) {
+            foreach ($stores as $store) {
+                $product->stores[] = Store::createFromArray($store);
+            }
         }
 
         return $product;
     }
 
-    public function __get($attribute)
+    public function addPost(Post $post)
     {
-        return $this->{$attribute};
+        $this->posts[] = $post;
     }
 
     public function addStore(Store $storeInfo)
@@ -96,6 +107,11 @@ class Product
             'height' => $this->dimensions->height(),
             'width' => $this->dimensions->width(),
         ]);
+    }
+
+    public function additionalCosts(): float
+    {
+        return $this->additionalCosts;
     }
 
     public function name(): string
@@ -121,6 +137,24 @@ class Product
     public function stores(): array
     {
         return $this->stores;
+    }
+
+    public function posts(): array
+    {
+//        foreach ($this->stores as $store) {
+//            $prices[] = new Post(
+//                $store,
+//                new Price(
+//                    product: $this,
+//                    value: Helpers::floatToMoney($store->price()),
+//                    store: $store->slug(),
+//                    commission: $store->commission()
+//                ),
+//                $store->id()
+//            );
+//        }
+
+        return $this->posts ?? [];
     }
 
     public function tax(string $taxCode): ?Tax
