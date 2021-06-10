@@ -6,16 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Pricing;
 use App\Presenters\Pricing\Product\Presenter;
 use App\Repositories\Product\FinderDB as ProductRepository;
+use Barrigudinha\Pricing\Services\PriceCalculator\ProductCalculator;
+
+//use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
 
 class ShowProductPricingController extends Controller
 {
     private ProductRepository $repository;
     private Presenter $presenter;
+    private ProductCalculator $calculator;
 
-    public function __construct(ProductRepository $repository, Presenter $presenter)
+    public function __construct(ProductRepository $repository, Presenter $presenter, ProductCalculator $calculator)
     {
         $this->repository = $repository;
         $this->presenter = $presenter;
+        $this->calculator = $calculator;
     }
 
     public function show($pricingId, $productId)
@@ -27,7 +32,8 @@ class ShowProductPricingController extends Controller
         }
 
         $productInfo = $this->presenter->singleProduct($product);
-        $prices = $this->presenter->prices($product);
+        $prices = $this->calculator->execute($product);
+        $prices = $this->presenter->prices($prices);
 
         $breadcrumb = [
             'pricing' => [
