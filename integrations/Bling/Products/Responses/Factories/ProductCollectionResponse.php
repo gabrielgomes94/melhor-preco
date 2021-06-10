@@ -2,7 +2,8 @@
 
 namespace Integrations\Bling\Products\Responses\Factories;
 
-use Barrigudinha\Product\Product;
+use App\Factories\Product\Post;
+use App\Factories\Product\Product;
 use Barrigudinha\Product\Product as ProductData;
 use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\ProductIterator;
@@ -43,7 +44,7 @@ class ProductCollectionResponse extends BaseFactory
         });
 
         $products = array_map(function (array $product) {
-            return ProductData::createFromArray($product);
+            return Product::buildFromERP($product);
         }, $products);
 
         return new ProductIterator(data: $products);
@@ -57,8 +58,8 @@ class ProductCollectionResponse extends BaseFactory
             foreach ($response->data() as $productResponse) {
                 foreach ($productList as $index => $product) {
                     if ($product->sku() === $productResponse->sku()) {
-                        $store = $productResponse->stores()[0];
-                        $productList[$index]->addStore($store);
+                        $post = $productResponse->posts()[0];
+                        $productList[$index]->addPost($post);
 
                         continue 2;
                     }
@@ -66,7 +67,6 @@ class ProductCollectionResponse extends BaseFactory
                 $productList[] = $productResponse;
             }
         }
-
 
         return new ProductIterator(data: $productList);
     }

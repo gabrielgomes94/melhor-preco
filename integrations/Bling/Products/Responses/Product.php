@@ -2,6 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses;
 
+use Barrigudinha\Product\Factories\Post;
 use Barrigudinha\Product\Product as ProductData;
 use Barrigudinha\Product\Store;
 
