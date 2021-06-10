@@ -2,6 +2,7 @@
 
 namespace App\Factories\Product;
 
+use App\Models\Product as ProductModel;
 use Barrigudinha\Product\Dimensions;
 use Barrigudinha\Product\Product as ProductObject;
 
@@ -28,7 +29,31 @@ class Product
         );
 
         if (isset($data['store'])) {
-            $post = Post::buildFromERP($data['store']);
+            $post = Post::build($data['store']);
+            $product->addPost($post);
+        }
+
+        return $product;
+    }
+
+    public static function buildFromModel(ProductModel $model): ProductObject
+    {
+        $dimensions = new Dimensions($model->depth, $model->height, $model->width);
+
+        $product = new ProductObject(
+            sku: $model->sku,
+            name: $model->name,
+            brand: $model->brand ?? '',
+            images: $model->images ?? [],
+            stock: $model->stock ?? 0,
+            purchasePrice: $model->purchasePrice ?? 0.0,
+            dimensions: $dimensions,
+            weight: $model->weight ?? 0.0,
+            taxICMS: $model->tax_icms ?? null
+        );
+
+        foreach ($model->prices as $pricePost) {
+            $post = Post::buildFromModel($pricePost);
             $product->addPost($post);
         }
 
