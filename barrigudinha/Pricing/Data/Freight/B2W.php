@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Data\Freight;
 
-class B2W
+class B2W extends BaseFreight
 {
 
 }

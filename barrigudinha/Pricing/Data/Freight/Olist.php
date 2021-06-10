@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Data\Freight;
 
-class Olist
+class Olist extends BaseFreight
 {
 
 }

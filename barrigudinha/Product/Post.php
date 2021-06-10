@@ -17,7 +17,12 @@ class Post
         $this->store = $store;
     }
 
-    public function price(): Price
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function price(): Money
     {
         return $this->price;
     }

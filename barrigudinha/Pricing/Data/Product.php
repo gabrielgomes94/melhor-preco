@@ -7,7 +7,7 @@ use Barrigudinha\Product\Product as ProductData;
 
 /**
  * Class Product
- * @deprecated 
+ * @deprecated
  */
 class Product
 {
