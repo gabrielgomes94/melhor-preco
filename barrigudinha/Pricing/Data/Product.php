@@ -5,6 +5,10 @@ namespace Barrigudinha\Pricing\Data;
 use Barrigudinha\Product\Dimensions;
 use Barrigudinha\Product\Product as ProductData;
 
+/**
+ * Class Product
+ * @deprecated 
+ */
 class Product
 {
     private string $id;
@@ -58,17 +62,17 @@ class Product
 
     private function setPrices(array $data)
     {
-        foreach ($data as $price) {
-            $this->prices[] = new Price(
-                id: $price['id'],
-                profit: $price['profit'],
-                value: $price['value'],
-                commission: $price['commission'],
-                store: $price['store'],
-                storeSkuId: $price['store_sku_id'],
-                additionalCosts: $price['additional_costs'] ?? 0.0
-            );
-        }
+//        foreach ($data as $price) {
+//            $this->prices[] = new Price(
+//                id: $price['id'],
+//                profit: $price['profit'],
+//                value: $price['value'],
+//                commission: $price['commission'],
+//                store: $price['store'],
+//                storeSkuId: $price['store_sku_id'],
+//                additionalCosts: $price['additional_costs'] ?? 0.0
+//            );
+//        }
     }
 
     public function additionalCosts(): float
