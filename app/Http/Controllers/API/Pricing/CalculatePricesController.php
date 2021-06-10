@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Pricing;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Pricing\Product\FinderDB as ProductRepository;
+use App\Repositories\Product\FinderDB as ProductRepository;
 use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
 use Illuminate\Http\Request;
 
