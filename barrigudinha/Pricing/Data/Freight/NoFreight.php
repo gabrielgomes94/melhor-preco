@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Barrigudinha\Pricing\Data\Freight;
-
 
 use Barrigudinha\Product\Product;
 use Money\Money;

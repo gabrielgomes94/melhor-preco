@@ -39,7 +39,6 @@ class Olist extends BaseFreight
             if ($cubicWeight <= 5.0) {
                 $weight = $cubicWeight;
             } else {
-
                 $weight = ($cubicWeight > $product->weight()) ?
                     $cubicWeight :
                     $product->weight();

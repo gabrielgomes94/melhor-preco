@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'b2w' => [
         'seller_index' => [

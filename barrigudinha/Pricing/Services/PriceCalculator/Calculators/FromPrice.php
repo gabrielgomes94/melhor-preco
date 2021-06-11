@@ -42,6 +42,5 @@ class FromPrice extends BaseCalculator
         } elseif ('b2w' == $extra['store']) {
             $this->freight = new B2W($this->product, $this->price);
         }
-
     }
 }
