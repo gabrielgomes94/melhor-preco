@@ -19,7 +19,7 @@ class FromPrice extends BaseCalculator
     ) {
         parent::__construct($product, $commission, $additionalCosts, $extra);
 
-        $this->price = $extra['desiredPrice'] ?? 0.0;
+        $this->price = $extra['desiredPrice'] ?? Money::BRL(0);
 
         $this->setFreight($extra);
         $this->calculate();
