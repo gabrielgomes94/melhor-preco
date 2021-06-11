@@ -32,7 +32,7 @@ class Updator
 
     public function updateICMS(string $sku, float $taxICMS): bool
     {
-        if ($model = ProductModel::where('sku', $sku)->first()) {
+        if ($model = ProductModel::find($sku)) {
             $model->tax_icms = $taxICMS;
 
             return $model->save();
