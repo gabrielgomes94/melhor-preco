@@ -2,19 +2,25 @@
 
 namespace App\Presenters\Pricing\Product;
 
-use Barrigudinha\Pricing\Data\Product as PricingProduct;
+use Barrigudinha\Pricing\PostPriced;
+use Barrigudinha\Product\Product as ProductData;
 
 class Presenter
 {
-    public function singleProduct(PricingProduct $product): Product
+    public function singleProduct(ProductData $product): Product
     {
         return new Product($product);
     }
 
-    public function prices(PricingProduct $product): array
+    /**
+     * @param PostPriced[] $postsPriced
+     * @param string[] $stores
+     * @return Post[]
+     */
+    public function prices(array $postsPriced): array
     {
-        foreach($product->prices() as $price) {
-            $pricePresentation[] = new Price($price);
+        foreach ($postsPriced as $post) {
+            $pricePresentation[] = new Post($post);
         }
 
         return $pricePresentation ?? [];

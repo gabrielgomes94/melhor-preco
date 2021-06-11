@@ -9,7 +9,10 @@ class Product extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
+        'id',
         'sku',
         'name',
         'purchase_price',
@@ -20,6 +23,7 @@ class Product extends Model
         'depth',
         'height',
         'width',
+        'weight',
     ];
 
     public function pricings()

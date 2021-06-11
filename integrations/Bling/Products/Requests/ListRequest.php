@@ -14,7 +14,6 @@ class ListRequest extends BaseRequest
             'base_uri' => 'https://Bling.com.br/Api/v2/produtos/',
             'query' => [
                 'apikey' => env('BLING_API_KEY'),
-                'loja' => '203482706', // B2W apenas. TODO: permitir outras lojas futuramente
                 'estoque' => 'S',
                 'imagem' => 'S',
             ],
@@ -26,8 +25,10 @@ class ListRequest extends BaseRequest
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function all(int $page = 1): ResponseInterface
+    public function all(int $page = 1, string $store = ''): ResponseInterface
     {
+        $this->options['query']['loja'] = config('stores_code.' . $store) ?? null;
+
         $response = $this->httpClient->request(
             'GET',
             $this->uriPaginated($page),

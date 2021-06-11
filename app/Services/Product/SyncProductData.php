@@ -3,8 +3,8 @@
 namespace App\Services\Product;
 
 use App\Repositories\Pricing\Product\Creator;
-use App\Repositories\Pricing\Product\FinderBling;
-use App\Repositories\Pricing\Product\FinderDB;
+use App\Repositories\Product\FinderBling;
+use App\Repositories\Product\FinderDB;
 use App\Repositories\Pricing\Product\Updator;
 
 class SyncProductData
@@ -27,14 +27,17 @@ class SyncProductData
         $products = $this->erpRepository->all();
 
         foreach ($products as $product) {
-            $productData = $this->dbRepository->get($product->sku);
+            $productData = $this->dbRepository->get($product->sku());
 
             if (!$productData) {
-                $this->creator->create($product->toPricing());
+                $this->creator->create($product);
                 continue;
             }
 
-            $this->updator->update($productData->id(), $productData->toArray());
+
+            // TODO: Criar método para sincronizar dados do bling com o banco
+//            $this->updator->sync($productData, $product);
+//            $this->updator->update($productData->id(), $productData->toArray());
         }
     }
 }

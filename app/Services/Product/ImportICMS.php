@@ -2,9 +2,12 @@
 
 namespace App\Services\Product;
 
+use App\Imports\ProductICMSImport;
 use App\Models\Product;
 use App\Repositories\Pricing\Product\Updator as UpdateRepository;
 use Illuminate\Http\UploadedFile;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ImportICMS
@@ -18,17 +21,12 @@ class ImportICMS
 
     public function execute(UploadedFile $file)
     {
-        $spreadsheet = IOFactory::load($file);
-        $worksheet  = $spreadsheet->getActiveSheet();
+        $productImport = (new ProductICMSImport());
+        $productImport->import($file);
+        $products = $productImport->get();
 
-        for ($row = 2; $row <= $worksheet->getHighestRow(); ++$row) {
-            $sku = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-            $sku = trim($sku);
-
-            $icms = $worksheet->getCellByColumnAndRow(35, $row)->getValue();
-            $icms = (float) str_replace(',', '.', $icms);
-
-            $q = $this->repository->updateICMS($sku, $icms);
+        foreach ($products as $product) {
+            $this->repository->updateICMS($product['sku'], (float) $product['icms']);
         }
     }
 }

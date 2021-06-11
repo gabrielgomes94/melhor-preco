@@ -1,26 +1,23 @@
 <?php
 
-namespace Barrigudinha\Pricing\Services\PriceCalculator;
+namespace Barrigudinha\Pricing\Data\Freight;
 
+use Barrigudinha\Product\Dimensions;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
-use Barrigudinha\Product\Dimensions;
 
-class Freight
+class B2W extends BaseFreight
 {
     public const SUBSIDY_MIN_VALUE = 40.0;
     public const SUBSIDY_MAX_VALUE = 79.99;
     public const FREE_MIN_VALUE = 80.0;
     private const SELLER_INDEX_POINTS = 155;
 
-    private Money $freight;
-    private Money $price;
-    private array $rules;
-
     public function __construct(Product $product, Money $price)
     {
-        $this->price = $price;
+        parent::__construct($product, $price);
+
         $this->rules = [
             'subsidy' => [
                 'min' => Helpers::floatToMoney(self::SUBSIDY_MIN_VALUE),
@@ -31,11 +28,6 @@ class Freight
             ],
         ];
         $this->freight = $this->calculate($product->dimensions());
-    }
-
-    public function get(): Money
-    {
-        return $this->freight;
     }
 
     private function calculate(Dimensions $dimensions): Money

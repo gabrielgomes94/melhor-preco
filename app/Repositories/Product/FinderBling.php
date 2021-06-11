@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Repositories\Pricing\Product;
+namespace App\Repositories\Product;
 
-use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
 use Barrigudinha\Product\Clients\Contracts\ProductStore;
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Product;
 
 class FinderBling implements ProductFinder
 {
@@ -17,32 +16,26 @@ class FinderBling implements ProductFinder
     }
 
     /**
-     * @return ProductData[]
+     * @return Product[]
      */
     public function all(): array
     {
-        $page = 1;
-        $response = $this->client->list($page);
-        $products = $response->data();
+        $page = 0;
         $productsList = [];
 
-        foreach ($products as $product) {
-            $productsList[] = $product;
-        }
-
-        while (!empty($products)) {
+        do {
             $page++;
             $products = $this->client->list($page)->data();
 
             foreach ($products as $product) {
                 $productsList[] = $product;
             }
-        }
+        } while (!empty($products));
 
         return $productsList ?? [];
     }
 
-    public function get(string $sku): ?PricingProduct
+    public function get(string $sku): ?Product
     {
         $response = $this->client->get($sku, ['b2w']);
 
@@ -50,6 +43,6 @@ class FinderBling implements ProductFinder
             return null;
         }
 
-        return $product->toPricing();
+        return $product;
     }
 }

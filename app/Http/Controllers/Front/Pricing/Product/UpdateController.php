@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing;
+namespace App\Http\Controllers\Front\Pricing\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\Product\UpdateRequest;
 use App\Services\Pricing\UpdateProduct as UpdateProductService;
 use Illuminate\Http\Request;
 
-class UpdateProductPricingController extends Controller
+class UpdateController extends Controller
 {
     private UpdateProductService $service;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front\Products;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Pricing\Product\FinderDB;
+use App\Repositories\Product\FinderDB;
 use Illuminate\Http\Request;
 
 class ReportsController extends Controller
@@ -22,7 +22,8 @@ class ReportsController extends Controller
 
         foreach ($products as $product) {
             $dimension = $product->dimensions();
-            if ($dimension->depth() > 90 ||
+            if (
+                $dimension->depth() > 90 ||
                 $dimension->width() > 90 ||
                 $dimension->height() > 90 ||
                 $dimension->sum() > 200
@@ -32,7 +33,8 @@ class ReportsController extends Controller
         }
 //        dd($overDimensionProducts);
 
-        return view('products.reports.over_dimension',
+        return view(
+            'products.reports.over_dimension',
             ['overDimensionProducts' => $overDimensionProducts]
         );
     }

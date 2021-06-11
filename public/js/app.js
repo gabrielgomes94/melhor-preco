@@ -25090,6 +25090,7 @@ var calculator_form = function calculator_form() {
       event.preventDefault(); // var form = event.target
 
       var id = form.dataset.priceId;
+      var store = form.querySelector('#store-' + id).value;
       var commission = form.querySelector('#commission-' + id).value;
       var additionalCosts = form.querySelector('#additionalCosts-' + id).value;
       var desiredPriceInputView = form.querySelector('#desiredPrice-' + id + '-input-view');
@@ -25097,6 +25098,7 @@ var calculator_form = function calculator_form() {
       var desiredPrice = desiredPriceInput.value;
       var product = form.querySelector('#product-' + id).value;
       var formData = new FormData();
+      formData.append('store', store);
       formData.append('commission', commission);
       formData.append('additionalCosts', additionalCosts);
       formData.append('desiredPrice', desiredPrice);

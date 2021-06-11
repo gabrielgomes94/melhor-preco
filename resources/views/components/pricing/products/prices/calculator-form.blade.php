@@ -11,6 +11,14 @@
                         enctype="multipart/form-data">
                         @csrf
 
+                        <x-forms.input.read-only
+                            attribute="store"
+                            id="store-{{ $price->id }}"
+                            label="Marketplace"
+                            value="{{ $price->storeSlug }}"
+                        >
+                        </x-forms.input.read-only>
+
                         <x-forms.input.percentage
                             attribute="commission"
                             id="commission-{{ $price->id }}"

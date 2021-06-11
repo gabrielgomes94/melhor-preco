@@ -16,6 +16,8 @@ let calculator_form = function() {
             event.preventDefault()
             // var form = event.target
             var id = form.dataset.priceId
+
+            var store = form.querySelector('#store-' + id).value
             var commission = form.querySelector('#commission-' + id).value
             var additionalCosts = form.querySelector('#additionalCosts-' + id).value
 
@@ -26,6 +28,7 @@ let calculator_form = function() {
             var product = form.querySelector('#product-' + id).value
 
             var formData = new FormData()
+            formData.append('store', store)
             formData.append('commission', commission)
             formData.append('additionalCosts', additionalCosts)
             formData.append('desiredPrice', desiredPrice)

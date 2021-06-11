@@ -3,6 +3,7 @@
 namespace App\Repositories\Pricing\Product;
 
 use App\Models\Product as ProductModel;
+use Barrigudinha\Product\Product;
 
 class Updator
 {
@@ -14,7 +15,6 @@ class Updator
 
         $model->purchase_price = $data['purchasePrice'];
         $model->tax_icms = $data['taxICMS'];
-        $model->tax_simples_nacional = config('taxes.simples_nacional');
         $model->additional_costs = $data['additionalCosts'];
 
         if (isset($data['depth'])) {
@@ -32,7 +32,7 @@ class Updator
 
     public function updateICMS(string $sku, float $taxICMS): bool
     {
-        if ($model = ProductModel::where('sku', $sku)->first()) {
+        if ($model = ProductModel::find($sku)) {
             $model->tax_icms = $taxICMS;
 
             return $model->save();

@@ -3,47 +3,53 @@
 namespace App\Repositories\Pricing\Product;
 
 use App\Models\Price as PriceModel;
-use Barrigudinha\Pricing\Data\Product;
 use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
+use Barrigudinha\Product\Product;
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 
 class Creator
 {
     private Calculate $service;
+    private DecimalMoneyFormatter $moneyFormatter;
 
     public function __construct(Calculate $service)
     {
         $this->service = $service;
+        $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
     }
 
     public function create(Product $product): ProductModel
     {
         $model = new ProductModel([
+            'id' => $product->sku(),
             'sku' => $product->sku(),
             'name' => $product->name(),
             'purchase_price' => $product->purchasePrice(),
-            'tax_ipi' => 0.0,
             'tax_icms' => 0.0,
-            'tax_simples_nacional' => config('taxes.simples_nacional', 0.0),
             'depth' => $product->dimensions()->depth(),
             'height' => $product->dimensions()->height(),
             'width' => $product->dimensions()->width(),
+            'weight' => $product->weight(),
         ]);
+
         $model->save();
 
-        foreach ($product->stores() ?? [] as $store) {
-            $commission = config('stores.b2w.commission');
+        foreach ($product->posts() as $post) {
             $calculatedPrice = $this->service->calculate($product, [
-                'commission' => $commission,
-                'desiredPrice' => $store->price(),
+                'commission' => $post->store()->commission(),
+                'desiredPrice' => $post->price(),
+                'store' => $post->store()->code(),
             ]);
 
             $price = new PriceModel([
-                'commission' => $commission,
+                'commission' => $post->store()->commission(),
                 'profit' => $calculatedPrice['profit'] ?? 0.0,
-                'store' => $store->code(),
-                'store_sku_id' => $store->storeSkuId(),
-                'value' => $store->price(),
+                'store' => $post->store()->code(),
+                'store_sku_id' => $post->store()->storeSkuId(),
+                'value' => $this->formatMoney($post->price()),
             ]);
 
             $model->prices()->save($price);
@@ -52,7 +58,8 @@ class Creator
         return $model;
     }
 
-    public function store()
+    private function formatMoney(Money $price): string
     {
+        return $this->moneyFormatter->format($price);
     }
 }

@@ -2,26 +2,20 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Product;
 
 class ProductIterator extends BaseResponse
 {
+    /**
+     * @param Product[] $data
+     */
     public function __construct(array $data)
     {
-        $this->data= [];
-
-        if (isset($data)) {
-            $this->data = array_map(
-                function(array $product){
-                    return ProductData::createFromArray($product);
-                },
-                $data
-            );
-        }
+        $this->data = $data;
     }
 
     /**
-     * @return ProductData[]
+     * @return Product[]
      */
     public function data(): array
     {
