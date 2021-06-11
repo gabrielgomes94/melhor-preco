@@ -3,9 +3,9 @@
 namespace Barrigudinha\Pricing\Services\PriceCalculator\Calculators;
 
 use Barrigudinha\Pricing\Data\CostPrice;
+use Barrigudinha\Pricing\Data\Freight\BaseFreight;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Pricing\Data\Tax;
-use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
 use Barrigudinha\Pricing\Services\PriceCalculator\SimplesNacional;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
@@ -16,7 +16,7 @@ abstract class BaseCalculator
 
     protected float $commission;
     protected float $taxSimplesNacional;
-    protected Freight $freight;
+    protected BaseFreight $freight;
     protected Money $additionalCosts;
     protected Money $costs;
     protected Money $price;
