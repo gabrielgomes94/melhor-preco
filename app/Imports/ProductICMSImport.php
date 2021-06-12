@@ -17,7 +17,10 @@ class ProductICMSImport implements ToCollection
     */
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row) {
+        foreach ($rows as $index => $row) {
+            if (0 === $index) {
+                continue;
+            }
             $this->products[] = [
                 'sku' => $row[1],
                 'icms' => $row[34],
