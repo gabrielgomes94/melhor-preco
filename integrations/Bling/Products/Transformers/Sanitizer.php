@@ -9,6 +9,10 @@ class Sanitizer
         if (isset($data['retorno']['erros'])) {
             $error = array_shift($data['retorno']['erros']);
 
+            if (is_string($error)) {
+                return ['error' => $error];
+            }
+
             return ['error' => $error['erro']['msg']];
         }
 
