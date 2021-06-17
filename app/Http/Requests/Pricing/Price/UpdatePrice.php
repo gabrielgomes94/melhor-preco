@@ -24,8 +24,9 @@ class UpdatePrice extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required|numeric',
             'profit' => 'required|numeric',
+            'storeSlug' => 'required',
+            'value' => 'required|numeric',
         ];
     }
 }

@@ -123,6 +123,14 @@
                         >
                         </x-forms.input.read-only>
 
+                        <x-forms.input.read-only
+                            attribute="storeSlug"
+                            label="Loja"
+                            id="update-price-{{ $price->id }}-store"
+                            value="{{ $price->storeSlug }}"
+                        >
+                        </x-forms.input.read-only>
+
                         <input type="submit"
                                class="btn btn-dark d-block w-100 mx-auto m-2"
                                value="Salvar" />
