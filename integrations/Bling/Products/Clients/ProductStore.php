@@ -97,9 +97,8 @@ class ProductStore implements ProductStoreInterface
         try {
             $storeCode = config('stores.' . $store . '.erpCode');
 
-            $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml/>');
-            $base = $xml->addChild('produtosLoja');
-            $productStore = $base->addChild('produtoLoja');
+            $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><produtosLoja/>');
+            $productStore = $xml->addChild('produtoLoja');
             $productStore->addChild('idLojaVirtual', $productStoreSku);
             $productStore->addChild('preco')->addChild('preco', $price);
 
