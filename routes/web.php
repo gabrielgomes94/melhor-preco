@@ -46,12 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 
-    Route::prefix('prices')->name('prices')->group(function () {
-        Route::get('single', [PricesController::class, 'single'])->name('.single');
-
-        Route::post('calculate_single', [PricesCalculatorController::class, 'calculate_single'])->name('.calculate_single');
-    });
-
     Route::prefix('pricing')->name('pricing')->group(function () {
         Route::get('/', [ListPricingController::class, 'list'])->name('.list');
         Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
