@@ -7,16 +7,19 @@ use Exception;
 use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Requests\GetRequest;
 use Integrations\Bling\Products\Requests\ListRequest;
+use Integrations\Bling\Products\Requests\PutRequest;
 use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\Error;
 use Integrations\Bling\Products\Responses\Factories\ErrorResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductCollectionResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductResponse;
+use SimpleXMLElement;
 
 class ProductStore implements ProductStoreInterface
 {
     private GetRequest $getRequest;
     private ListRequest $listRequest;
+    private PutRequest $putRequest;
     private ProductCollectionResponse $productCollectionResponse;
     private ProductResponse $productResponse;
     private ErrorResponse $errorResponse;
@@ -24,12 +27,14 @@ class ProductStore implements ProductStoreInterface
     public function __construct(
         GetRequest $getRequest,
         ListRequest $listRequest,
+        PutRequest $putRequest,
         ProductCollectionResponse $productCollectionResponse,
         ProductResponse $productResponse,
         ErrorResponse $errorResponse
     ) {
         $this->getRequest = $getRequest;
         $this->listRequest = $listRequest;
+        $this->putRequest = $putRequest;
         $this->productCollectionResponse = $productCollectionResponse;
         $this->productResponse = $productResponse;
         $this->errorResponse = $errorResponse;
@@ -75,6 +80,30 @@ class ProductStore implements ProductStoreInterface
             }
 
             $response = $this->productCollectionResponse->mergeResponses($responses);
+        } catch (ConnectException $exception) {
+            $message = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar.
+            Tente novamente mais tarde.';
+            $response = $this->handleError($message);
+        } catch (Exception $exception) {
+            $error = 'Aconteceu algum erro bizarro. Contate o suporte.';
+            $response = $this->handleError($error);
+        }
+
+        return $response;
+    }
+
+    public function update(string $sku, string $store, string $productStoreSku, float $price): BaseResponse
+    {
+        try {
+            $storeCode = config('stores.' . $store . '.erpCode');
+
+            $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><produtosLoja/>');
+            $productStore = $xml->addChild('produtoLoja');
+            $productStore->addChild('idLojaVirtual', $productStoreSku);
+            $productStore->addChild('preco')->addChild('preco', $price);
+
+            $product = $this->putRequest->put($sku, $storeCode, $xml->asXML());
+            $response = $this->productResponse->make($product, [$store]);
         } catch (ConnectException $exception) {
             $message = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar.
             Tente novamente mais tarde.';
