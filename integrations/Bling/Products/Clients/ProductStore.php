@@ -92,7 +92,7 @@ class ProductStore implements ProductStoreInterface
         return $response;
     }
 
-    public function update(string $sku, string $store, string $productStoreSku, float $price): BaseResponse
+    public function update(string $sku, string $store, string $productStoreSku, float $priceValue): BaseResponse
     {
         try {
             $storeCode = config('stores.' . $store . '.erpCode');
@@ -100,7 +100,9 @@ class ProductStore implements ProductStoreInterface
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><produtosLoja/>');
             $productStore = $xml->addChild('produtoLoja');
             $productStore->addChild('idLojaVirtual', $productStoreSku);
-            $productStore->addChild('preco')->addChild('preco', $price);
+            $price = $productStore->addChild('preco');
+            $price->addChild('preco', $priceValue);
+            $price->addChild('precoPromocional', $priceValue);
 
             $product = $this->putRequest->put($sku, $storeCode, $xml->asXML());
             $response = $this->productResponse->make($product, [$store]);
