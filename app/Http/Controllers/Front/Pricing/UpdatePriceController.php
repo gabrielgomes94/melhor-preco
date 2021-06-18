@@ -33,7 +33,7 @@ class UpdatePriceController extends Controller
         );
 
         return redirect()->route('pricing.show', [
-            'pricing_id' => $pricingId,
+            'id' => $pricingId,
         ]);
     }
 }
