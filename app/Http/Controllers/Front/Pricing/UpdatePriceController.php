@@ -32,9 +32,8 @@ class UpdatePriceController extends Controller
             $request->input('value')
         );
 
-        return redirect()->route('pricing.products.show', [
+        return redirect()->route('pricing.show', [
             'pricing_id' => $pricingId,
-            'product_id' => $productId,
         ]);
     }
 }
