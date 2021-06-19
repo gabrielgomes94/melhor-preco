@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-        return view('dashboard');
+        return view('pages.dashboard');
     })->name('home');
 
     Route::prefix('product')->group(function () {
