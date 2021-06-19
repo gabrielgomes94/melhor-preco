@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Front\Pricing\ExportSpreadsheetController;
+use App\Http\Controllers\Front\Pricing\Price\UpdateController;
 use App\Http\Controllers\Front\Pricing\PriceList\CreateController;
 use App\Http\Controllers\Front\Pricing\PriceList\ListController;
 use App\Http\Controllers\Front\Pricing\PriceList\ShowController;
-use App\Http\Controllers\Front\Pricing\RemoveProductController;
-use App\Http\Controllers\Front\Pricing\ShowProductPricingController;
-use App\Http\Controllers\Front\Pricing\UpdatePriceController;
+use App\Http\Controllers\Front\Pricing\Product\RemoveController;
+use App\Http\Controllers\Front\Pricing\Product\ShowController as ProductShowController;
 use App\Http\Controllers\Front\Pricing\Product\UpdateController as UpdateProductController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Products\ProductImageController;
@@ -53,20 +53,20 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/{pricing_id}/products')
             ->name('.products')
             ->group(function () {
-                Route::get('/{product_id}', [ShowProductPricingController::class, 'show'])
+                Route::get('/{product_id}', [ProductShowController::class, 'show'])
                     ->name('.show');
 
                 Route::put('/{product_id}', [UpdateProductController::class, 'update'])
                     ->name('.update');
 
-                Route::delete('/{product_id}', [RemoveProductController::class, 'remove'])
+                Route::delete('/{product_id}', [RemoveController::class, 'remove'])
                     ->name('.remove');
 
 
                 Route::prefix('/{product_id}/price')
                     ->name('.prices')
                     ->group(function () {
-                        Route::put('/{price_id}', [UpdatePriceController::class, 'update'])
+                        Route::put('/{price_id}', [UpdateController::class, 'update'])
                             ->name('.update');
                     });
             });

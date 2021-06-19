@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing;
+namespace App\Http\Controllers\Front\Pricing\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pricing;
 use App\Presenters\Pricing\Product\Presenter;
 use App\Repositories\Product\FinderDB as ProductRepository;
 use Barrigudinha\Pricing\Services\PriceCalculator\ProductCalculator;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Contracts\View\View;
 
-//use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
-
-class ShowProductPricingController extends Controller
+class ShowController extends Controller
 {
     private ProductRepository $repository;
     private Presenter $presenter;
@@ -23,6 +24,9 @@ class ShowProductPricingController extends Controller
         $this->calculator = $calculator;
     }
 
+    /**
+     * @return Application|ViewFactory|View
+     */
     public function show($pricingId, $productId)
     {
         $product = $this->repository->get($productId);
@@ -30,7 +34,6 @@ class ShowProductPricingController extends Controller
         if (!$product) {
             abort(404);
         }
-
 
         $pricing = Pricing::find($pricingId);
 
@@ -49,7 +52,7 @@ class ShowProductPricingController extends Controller
             ],
         ];
 
-        return view('pricing.products.show', [
+        return view('pages.pricing.products.show', [
             'breadcrumb' => $breadcrumb,
             'productInfo' => $productInfo,
             'pricingId' => $pricingId,
