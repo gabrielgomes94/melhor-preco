@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Front\Pricing\ExportSpreadsheetController;
 use App\Http\Controllers\Front\Pricing\Price\UpdateController;
 use App\Http\Controllers\Front\Pricing\PriceList\CreateController;
+use App\Http\Controllers\Front\Pricing\PriceList\ExportController;
 use App\Http\Controllers\Front\Pricing\PriceList\ListController;
 use App\Http\Controllers\Front\Pricing\PriceList\ShowController;
 use App\Http\Controllers\Front\Pricing\Product\RemoveController;
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [CreateController::class, 'create'])->name('.create');
         Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
 
-        Route::post('{id}/export', [ExportSpreadsheetController::class, 'export'])->name('.export');
+        Route::post('{id}/export', [ExportController::class, 'export'])->name('.export');
 
         Route::prefix('/{pricing_id}/products')
             ->name('.products')

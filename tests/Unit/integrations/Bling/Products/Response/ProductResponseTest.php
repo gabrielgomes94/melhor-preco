@@ -3,7 +3,6 @@
 namespace Tests\Unit\Integrations\Bling\Products\Response;
 
 use Barrigudinha\Product\Product;
-use Integrations\Bling\Products\Responses\Product;
 use Tests\TestCase;
 
 class ProductResponseTest extends TestCase
