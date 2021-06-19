@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing;
+namespace App\Http\Controllers\Front\Pricing\Price;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\Price\UpdatePrice;
@@ -32,7 +32,7 @@ class UpdatePriceController extends Controller
             $request->input('value')
         );
 
-        return redirect()->route('pricing.show', [
+        return redirect()->route('pages.pricing.show', [
             'id' => $pricingId,
         ]);
     }
