@@ -34,7 +34,7 @@ class ReportsController extends Controller
 //        dd($overDimensionProducts);
 
         return view(
-            'products.reports.over_dimension',
+            'pages.products.reports.over_dimension',
             ['overDimensionProducts' => $overDimensionProducts]
         );
     }

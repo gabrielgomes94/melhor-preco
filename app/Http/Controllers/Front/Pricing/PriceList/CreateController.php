@@ -1,13 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing;
+namespace App\Http\Controllers\Front\Pricing\PriceList;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\CreatePriceCampaignRequest;
 use App\Http\Transformers\Pricing\CreatePricingTransformer as Transformer;
 use Barrigudinha\Pricing\Services\CreatePricing as Service;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
-class CreatePricingController extends Controller
+class CreateController extends Controller
 {
     private Transformer $transformer;
     private Service $pricingService;
@@ -18,15 +23,21 @@ class CreatePricingController extends Controller
         $this->pricingService = $pricingService;
     }
 
+    /**
+     * @return Application|ViewFactory|View
+     */
     public function create()
     {
-        return view('pricing.create');
+        return view('pages.pricing.create');
     }
 
+    /**
+     * @return Redirector|RedirectResponse
+     */
     public function store(CreatePriceCampaignRequest $request)
     {
         $createPricingData = $this->transformer->transform($request);
-        $pricing = $this->pricingService->create($createPricingData);
+        $this->pricingService->create($createPricingData);
 
         return redirect(route('pricing.list'));
     }

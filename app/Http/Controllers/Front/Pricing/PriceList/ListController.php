@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing;
+namespace App\Http\Controllers\Front\Pricing\PriceList;
 
 use App\Http\Controllers\Controller;
 use App\Presenters\Pricing\PricingList;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Contracts\View\View;
 
-class ListPricingController extends Controller
+class ListController extends Controller
 {
     private PricingRepository $repository;
     private PricingList $presenter;
@@ -17,11 +20,14 @@ class ListPricingController extends Controller
         $this->presenter = $presenter;
     }
 
+    /**
+     * @return Application|ViewFactory|View
+     */
     public function list()
     {
         $pricing = $this->repository->all();
         $pricingList = $this->presenter->present($pricing);
 
-        return view('pricing.list', compact('pricingList'));
+        return view('pages.pricing.list', compact('pricingList'));
     }
 }

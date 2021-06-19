@@ -11,5 +11,9 @@
 
     <file>app</file>
 
-    <rule ref="PSR12"/>
+    <rule ref="PSR12">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+
 </ruleset>

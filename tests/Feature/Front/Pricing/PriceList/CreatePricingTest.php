@@ -1,11 +1,12 @@
 <?php
 
-namespace Tests\Feature\Front\Pricing;
+namespace Tests\Feature\Front\Pricing\PriceList;
 
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\ValidationException;
+use Tests\Data\Product\Models\ProductData;
 use Tests\TestCase;
 
 class CreatePricingTest extends TestCase
@@ -27,7 +28,7 @@ class CreatePricingTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertViewIs('pricing.create');
+        $response->assertViewIs('pages.pricing.create');
     }
 
     public function test_should_store_pricing(): void
@@ -65,12 +66,6 @@ class CreatePricingTest extends TestCase
         // Set
         $this->setupProducts();
 
-        $input = [
-            'name' => 'Promoção com carrinhos de bebê',
-            'stores' => ['magalu'],
-            'skus' => '',
-        ];
-
         // Act
         $response = $this->post('pricing/campaigns/store', []);
 
@@ -81,18 +76,6 @@ class CreatePricingTest extends TestCase
 
     private function setupProducts(): void
     {
-        $product = new Product([
-            'sku' => '1220',
-            'name' => 'Carrinho de Bebê de Teste',
-            'purchase_price' => 500.0,
-            'sku_magalu' => '9887512931890',
-            'sku_b2w' => '890712378912',
-            'sku_mercado_livre' => '6908125902',
-            'tax_ipi' => 4.0,
-            'tax_icms' => 16.0,
-            'tax_simples_nacional' => 4.0,
-        ]);
-
-        $product->save();
+        ProductData::persisted();
     }
 }

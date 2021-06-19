@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Front\Products;
 
 use App\Barrigudinha\Product\Product;
@@ -43,7 +44,7 @@ class ProductImageController extends BaseController
 
     public function uploadImage(Request $request)
     {
-        return view('products/images/upload-images');
+        return view('pages.products/images/upload-images');
     }
 
     private function transformData(ImageUploaderRequest $request): array

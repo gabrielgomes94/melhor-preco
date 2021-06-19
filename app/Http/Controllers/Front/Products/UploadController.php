@@ -17,7 +17,7 @@ class UploadController extends Controller
 
     public function updateICMS()
     {
-        return view('products/upload/upload');
+        return view('pages.products/upload/upload');
     }
 
     public function doUpdateICMS(Request $request)
@@ -26,6 +26,6 @@ class UploadController extends Controller
 
         $this->importService->execute($inputFile[0]);
 
-        return view('products/upload/upload');
+        return view('pages.products/upload/upload');
     }
 }

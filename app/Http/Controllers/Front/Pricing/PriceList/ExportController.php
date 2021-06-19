@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing;
+namespace App\Http\Controllers\Front\Pricing\PriceList;
 
 use App\Exports\B2W\PriceExport;
 use App\Http\Controllers\Controller;
@@ -9,7 +9,7 @@ use App\Services\Pricing\Spreadsheets\ExportPrices;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ExportSpreadsheetController extends Controller
+class ExportController extends Controller
 {
     private PricingRepository $repository;
     private ExportPrices $exportPrices;
