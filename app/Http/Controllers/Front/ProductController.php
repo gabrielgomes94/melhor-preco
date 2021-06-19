@@ -40,17 +40,17 @@ class ProductController extends BaseController
         if (!empty($data['products'])) {
             $product = $data['products'][0];
 
-            return view('products/get_with_stock', ['product' => $product]);
+            return view('pages.products/get_with_stock', ['product' => $product]);
         }
 
         $errors = $data['errors'] ?? '';
 
-        return view('products/get_with_stock', ['errors' => $errors]);
+        return view('pages.products/get_with_stock', ['errors' => $errors]);
     }
 
     public function createQrCode(Request $request)
     {
-        return view('products/generate_qr_code');
+        return view('pages.products/generate_qr_code');
     }
 
     public function generateQrCode(Request $request)
@@ -59,6 +59,6 @@ class ProductController extends BaseController
         $products = $request->input('products');
         $qrCodes = $qrCodeService->generate($products);
 
-        return view('products/qr_codes/list', ['products' => $qrCodes]);
+        return view('pages.products/qr_codes/list', ['products' => $qrCodes]);
     }
 }

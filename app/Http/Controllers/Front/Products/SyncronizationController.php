@@ -17,13 +17,13 @@ class SyncronizationController extends Controller
 
     public function sync(Request $request)
     {
-        return view('products.sync.sync');
+        return view('pages.products.sync.sync');
     }
 
     public function doSync(Request $request)
     {
         SyncProducts::dispatch();
 
-        return view('products.sync.sync');
+        return view('pages.products.sync.sync');
     }
 }
