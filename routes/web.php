@@ -1,22 +1,19 @@
 <?php
 
-use App\Http\Controllers\Front\Prices\PricesCalculatorController;
-use App\Http\Controllers\Front\Prices\PricesController;
 use App\Http\Controllers\Front\Pricing\ExportSpreadsheetController;
-use App\Http\Controllers\Front\Pricing\ListPricingController;
-use App\Http\Controllers\Front\Pricing\Product\UpdateController;
+use App\Http\Controllers\Front\Pricing\PriceList\CreateController;
+use App\Http\Controllers\Front\Pricing\PriceList\ListController;
+use App\Http\Controllers\Front\Pricing\PriceList\ShowController;
 use App\Http\Controllers\Front\Pricing\RemoveProductController;
 use App\Http\Controllers\Front\Pricing\ShowProductPricingController;
 use App\Http\Controllers\Front\Pricing\UpdatePriceController;
 use App\Http\Controllers\Front\Pricing\Product\UpdateController as UpdateProductController;
 use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\Pricing\ShowPricingController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use App\Http\Controllers\Front\Products\ReportsController;
 use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
 use App\Http\Controllers\Front\Products\UploadController as ProductsUploadController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Front\Pricing\CreatePricingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 
     Route::prefix('pricing')->name('pricing')->group(function () {
-        Route::get('/', [ListPricingController::class, 'list'])->name('.list');
-        Route::get('/create', [CreatePricingController::class, 'create'])->name('.create');
-        Route::get('/{id}', [ShowPricingController::class, 'show'])->name('.show');
+        Route::get('/', [ListController::class, 'list'])->name('.list');
+        Route::get('/create', [CreateController::class, 'create'])->name('.create');
+        Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
 
         Route::post('{id}/export', [ExportSpreadsheetController::class, 'export'])->name('.export');
 
@@ -75,7 +72,7 @@ Route::middleware('auth')->group(function () {
             });
 
         Route::prefix('campaigns')->name('.campaigns')->group(function () {
-            Route::post('/store', [CreatePricingController::class, 'store'])->name('.store');
+            Route::post('/store', [CreateController::class, 'store'])->name('.store');
         });
     });
 
