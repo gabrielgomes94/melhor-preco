@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Front\Products;
 
 use App\Barrigudinha\Product\Product;
