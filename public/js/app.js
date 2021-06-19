@@ -25078,31 +25078,71 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 var calculator_form = function calculator_form() {
   var forms = document.querySelectorAll('.price-calculator-form');
+
+  function getFormData(form) {
+    var id = form.dataset.priceId;
+    var calculatorParams = {
+      store: form.querySelector('#store-' + id).value,
+      commission: form.querySelector('#commission-' + id).value,
+      additionalCosts: form.querySelector('#additionalCosts-' + id).value,
+      desiredPrice: form.querySelector('#desiredPrice-' + id).value,
+      product: form.querySelector('#product-' + id).value
+    };
+    var formData = new FormData();
+    formData.append('store', calculatorParams.store);
+    formData.append('commission', calculatorParams.commission);
+    formData.append('additionalCosts', calculatorParams.additionalCosts);
+    formData.append('desiredPrice', calculatorParams.desiredPrice);
+    formData.append('product', calculatorParams.product);
+    return formData;
+  }
+
   forms.forEach(function (form) {
     var id = form.dataset.priceId;
-    var commission = form.querySelector('#commission-' + id).value;
-    var additionalCosts = form.querySelector('#additionalCosts-' + id).value;
-    var desiredPriceInputView = form.querySelector('#desiredPrice-' + id + '-input-view');
-    var desiredPriceInput = form.querySelector('#desiredPrice-' + id);
-    var desiredPrice = desiredPriceInput.value;
-    var product = form.querySelector('#product-' + id).value;
-    form.addEventListener('submit', function (event) {
-      event.preventDefault(); // var form = event.target
+    var calculator = {
+      inputs: {
+        price: getInput(id, 'value'),
+        profit: getInput(id, 'profit'),
+        margin: getInput(id, 'margin'),
+        commission: getInput(id, 'commission'),
+        taxSimplesNacional: getInput(id, 'simplesNacional'),
+        freight: getInput(id, 'freight'),
+        differenceICMS: getInput(id, 'differenceICMS'),
+        purchasePrice: getInput(id, 'purchasePrice')
+      }
+    };
 
-      var id = form.dataset.priceId;
-      var store = form.querySelector('#store-' + id).value;
-      var commission = form.querySelector('#commission-' + id).value;
-      var additionalCosts = form.querySelector('#additionalCosts-' + id).value;
-      var desiredPriceInputView = form.querySelector('#desiredPrice-' + id + '-input-view');
-      var desiredPriceInput = form.querySelector('#desiredPrice-' + id);
-      var desiredPrice = desiredPriceInput.value;
-      var product = form.querySelector('#product-' + id).value;
-      var formData = new FormData();
-      formData.append('store', store);
-      formData.append('commission', commission);
-      formData.append('additionalCosts', additionalCosts);
-      formData.append('desiredPrice', desiredPrice);
-      formData.append('product', product);
+    function getInput(id, inputName) {
+      return document.querySelector('#update-price-' + id + '-' + inputName);
+    }
+
+    function setColor(input, color) {
+      var backgroundColor = '#e9ecef';
+      var textColor = '#222';
+
+      switch (color) {
+        case 'red':
+          backgroundColor = '#dc3545';
+          textColor = '#fff';
+          break;
+
+        case 'green':
+          backgroundColor = '#198754';
+          textColor = '#fff';
+          break;
+      }
+
+      calculator.inputs[input].style.backgroundColor = backgroundColor;
+      calculator.inputs[input].style.color = textColor;
+    }
+
+    function setValue(input, value) {
+      calculator.inputs[input].value = value;
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var formData = getFormData(form);
       fetch(form.action, {
         method: 'POST',
         body: formData
@@ -25111,44 +25151,21 @@ var calculator_form = function calculator_form() {
       })["catch"](function (error) {
         return console.error('Error:', error);
       }).then(function (data) {
-        var updatePriceInput = document.querySelector('#update-price-' + id + '-value');
-        var updateProfitInput = document.querySelector('#update-price-' + id + '-profit');
-        var updateMarginInput = document.querySelector('#update-price-' + id + '-margin');
-        var commissionInput = document.querySelector('#update-price-' + id + '-commission');
-        var taxSimplesNacionalInput = document.querySelector('#update-price-' + id + '-simplesNacional');
-        var freightInput = document.querySelector('#update-price-' + id + '-freight');
-        var differenceICMSInput = document.querySelector('#update-price-' + id + '-differenceICMS');
-        var purchasePriceInput = document.querySelector('#update-price-' + id + '-purchasePrice');
-        updatePriceInput.value = data.price.suggestedPrice;
-        updateProfitInput.value = data.price.profit;
-        commissionInput.value = data.price.commission;
-        commissionInput.style.backgroundColor = '#dc3545';
-        commissionInput.style.color = '#fff';
-        taxSimplesNacionalInput.value = data.price.taxSimplesNacional;
-        taxSimplesNacionalInput.style.backgroundColor = '#dc3545';
-        taxSimplesNacionalInput.style.color = '#fff';
-        freightInput.value = data.price.freight;
-        freightInput.style.backgroundColor = '#dc3545';
-        freightInput.style.color = '#fff';
-        differenceICMSInput.value = data.price.differenceICMS;
-        differenceICMSInput.style.backgroundColor = '#dc3545';
-        differenceICMSInput.style.color = '#fff';
-        purchasePriceInput.value = data.price.purchasePrice;
-        purchasePriceInput.style.backgroundColor = '#dc3545';
-        purchasePriceInput.style.color = '#fff';
-
-        if (updateProfitInput.value > 0) {
-          updateProfitInput.style.backgroundColor = '#198754';
-          updateProfitInput.style.color = '#fff';
-        } else if (updateProfitInput.value < 0) {
-          updateProfitInput.style.backgroundColor = '#dc3545';
-          updateProfitInput.style.color = '#fff';
-        } else {
-          updateProfitInput.style.backgroundColor = '#e9ecef';
-          updateProfitInput.style.color = '#222';
-        }
-
-        updateMarginInput.value = data.price.margin;
+        setValue('price', data.price.suggestedPrice);
+        setValue('profit', data.price.profit);
+        setValue('commission', data.price.commission);
+        setValue('taxSimplesNacional', data.price.taxSimplesNacional);
+        setValue('freight', data.price.freight);
+        setValue('differenceICMS', data.price.differenceICMS);
+        setValue('purchasePrice', data.price.purchasePrice);
+        setValue('margin', data.price.margin);
+        setColor('commission', 'red');
+        setColor('taxSimplesNacional', 'red');
+        setColor('freight', 'red');
+        setColor('differenceICMS', 'red');
+        setColor('purchasePrice', 'red');
+        calculator.inputs.profit.value > 0 ? setColor('profit', 'green') : setColor('profit', 'red');
+        calculator.inputs.margin.value > 0 ? setColor('margin', 'green') : setColor('margin', 'red');
       });
     });
   });
