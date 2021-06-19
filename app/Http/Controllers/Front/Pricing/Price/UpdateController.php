@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\Price\UpdatePrice;
 use App\Models\Price;
 use App\Repositories\Pricing\Price\Updator;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Integrations\Bling\Products\Clients\ProductStore;
 
-class UpdatePriceController extends Controller
+class UpdateController extends Controller
 {
     private Updator $repository;
     private ProductStore $client;
@@ -19,6 +21,9 @@ class UpdatePriceController extends Controller
         $this->client = $client;
     }
 
+    /**
+     * @return Redirector|RedirectResponse
+     */
     public function update(string $pricingId, string $productId, string $priceId, UpdatePrice $request)
     {
         $this->repository->update($priceId, $request->validated());
