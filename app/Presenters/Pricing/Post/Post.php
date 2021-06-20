@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Presenters\Pricing\Product;
+namespace App\Presenters\Pricing\Post;
 
-use Barrigudinha\Pricing\PostPriced;
+use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 
 class Post
 {
@@ -31,5 +32,10 @@ class Post
         $this->margin = $postPriced->price()->margin() * 100;
         $this->commission = $postPriced->post()->store()->commission();
         $this->additionalCosts = $this->moneyFormatter->format($postPriced->price()->additionalCosts());
+    }
+
+    protected function formatMoney(Money $value): string
+    {
+        return $this->moneyFormatter->format($value);
     }
 }

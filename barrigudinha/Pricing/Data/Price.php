@@ -2,6 +2,10 @@
 
 namespace Barrigudinha\Pricing\Data;
 
+use Barrigudinha\Pricing\Data\Freight\B2W;
+use Barrigudinha\Pricing\Data\Freight\BaseFreight;
+use Barrigudinha\Pricing\Data\Freight\NoFreight;
+use Barrigudinha\Pricing\Data\Freight\Olist;
 use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Utils\Helpers;
@@ -14,7 +18,7 @@ class Price
     private float $commissionRate;
     private float $margin;
     private CostPrice $costPrice;
-    private Freight $freight;
+    private BaseFreight $freight;
     private Money $additionalCosts;
     private Money $costs;
     private Money $commission;
@@ -37,9 +41,8 @@ class Price
         $this->product = $product;
         $this->commissionRate = $commission;
         $this->additionalCosts = $additionalCosts ?? Money::BRL(0);
-//        $this->commission
         $this->setCostPrice($product);
-        $this->value = $value;
+        $this->value = $value->multiply(1 - $discountRate);
         $this->setFreight($store);
         $this->calculate();
     }
@@ -57,17 +60,19 @@ class Price
 
     private function setFreight(string $store)
     {
-        if ($store === 'olist') {
-        }
+        $this->freight = new NoFreight($this->product, $this->value);
 
-        $this->freight = new Freight($this->product, $this->value);
+        if ('olist' == $store) {
+            $this->freight = new Olist($this->product, $this->value);
+        } elseif ('b2w' == $store) {
+            $this->freight = new B2W($this->product, $this->value);
+        }
     }
 
     public function additionalCosts(): Money
     {
         return Money::BRL(0);
     }
-
 
     public function get(): Money
     {
@@ -144,87 +149,3 @@ class Price
         return Helpers::percentage(config('taxes.simples_nacional'));
     }
 }
-
-
-//class Price
-//{
-//    private string $id;
-//    private float $profit;
-//    private float $value;
-//    private float $commission;
-//    private string $store;
-//    private string $storeSkuId;
-//    private float $additionalCosts;
-//
-//    public function __construct(
-//        string $id,
-//        float $profit,
-//        float $value,
-//        float $commission,
-//        string $store,
-//        string $storeSkuId,
-//        string $additionalCosts
-//    ) {
-//        $this->id = $id;
-//        $this->profit = $profit;
-//        $this->value = $value;
-//        $this->commission = $commission;
-//        $this->store = $store;
-//        $this->storeSkuId = $storeSkuId;
-//        $this->additionalCosts = $additionalCosts;
-//    }
-//
-//    public function additionalCosts()
-//    {
-//        return $this->additionalCosts;
-//    }
-//
-//    public function id()
-//    {
-//        return $this->id;
-//    }
-//
-//    public function commission()
-//    {
-//        return $this->commission;
-//    }
-//
-//    public function profit()
-//    {
-//        return $this->profit;
-//    }
-//
-//    public function get()
-//    {
-//        return $this->value;
-//    }
-//
-//    public function margin()
-//    {
-//        if (0 == $this->value) {
-//            return 0.0;
-//        }
-//
-//        return $this->profit / $this->value;
-//    }
-//
-//    public function store()
-//    {
-//        return $this->store;
-//    }
-//
-//    public function storeName(): string
-//    {
-//        return config("stores.{$this->store}.name") ?? '';
-//    }
-//
-//    public function storeSlug(): string
-//    {
-//        return $this->store;
-//    }
-//
-//    public function storeSkuId(): string
-//    {
-//        return $this->storeSkuId;
-//    }
-//}

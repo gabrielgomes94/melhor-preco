@@ -4,6 +4,6 @@
      data-bs-parent="#accordion">
 
     <div class="accordion-body">
-        <x-pricing.prices.calculator :pricingId="$pricingId" :productId="$productId" :price="$price"/>
+        <x-pricing.prices.calculator.calculator :pricingId="$pricingId" :productId="$productId" :price="$price"/>
     </div>
 </div>

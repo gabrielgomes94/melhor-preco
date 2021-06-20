@@ -2,9 +2,9 @@
 
 namespace Barrigudinha\Pricing\Services\PriceCalculator;
 
-use App\Presenters\Pricing\Product\Post;
+use Barrigudinha\Pricing\Data\PostPriced\Factory as PostPricedFactory;
 use Barrigudinha\Pricing\Data\Price;
-use Barrigudinha\Pricing\PostPriced;
+use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Product\Product;
 
 class ProductCalculator
@@ -19,7 +19,7 @@ class ProductCalculator
 
             if (in_array($store, $stores)) {
                 $price = new Price($product, $post->price(), $post->store()->slug());
-                $posts[] = new PostPriced($post, $price, $product);
+                $posts[] = PostPricedFactory::make($post, $price, $product);
             }
         }
 
