@@ -2,7 +2,9 @@
 
 namespace App\Presenters\Pricing\Product;
 
-use Barrigudinha\Pricing\PostPriced;
+use App\Presenters\Pricing\Post\Factory as PostPresenterFactory;
+use App\Presenters\Pricing\Post\Post;
+use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Product\Product as ProductData;
 
 class Presenter
@@ -14,13 +16,12 @@ class Presenter
 
     /**
      * @param PostPriced[] $postsPriced
-     * @param string[] $stores
      * @return Post[]
      */
     public function prices(array $postsPriced): array
     {
         foreach ($postsPriced as $post) {
-            $pricePresentation[] = new Post($post);
+            $pricePresentation[] = PostPresenterFactory::make($post);
         }
 
         return $pricePresentation ?? [];
