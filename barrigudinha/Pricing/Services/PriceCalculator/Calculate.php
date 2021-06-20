@@ -20,6 +20,7 @@ class Calculate
         float $discount = 0.0
     ): PostPriced {
         $commission = Helpers::percentage($commission);
+        $discount = Helpers::percentage($discount);
         $additionalCosts = Helpers::floatToMoney($additionalCosts ?? 0.0);
 
         if (!$desiredPrice instanceof Money) {

@@ -22,7 +22,7 @@ class MagaluPostPriced extends PostPriced
             value: $price->get(),
             store: $post->store()->slug(),
             commission: Helpers::percentage($post->store()->commission()),
-            discountRate: self::IN_CASH_DISCOUNT
+            discountRate: Helpers::percentage(self::IN_CASH_DISCOUNT)
         );
     }
 

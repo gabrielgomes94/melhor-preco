@@ -42,7 +42,7 @@ class Price
         $this->commissionRate = $commission;
         $this->additionalCosts = $additionalCosts ?? Money::BRL(0);
         $this->setCostPrice($product);
-        $this->value = $value->multiply(1 - Helpers::percentage($discountRate));
+        $this->value = $value->multiply(1 - $discountRate);
         $this->setFreight($store);
         $this->calculate();
     }
