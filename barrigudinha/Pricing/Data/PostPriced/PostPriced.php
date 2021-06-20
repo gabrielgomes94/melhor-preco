@@ -1,6 +1,6 @@
 <?php
 
-namespace Barrigudinha\Pricing;
+namespace Barrigudinha\Pricing\Data\PostPriced;
 
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Product\Post;
