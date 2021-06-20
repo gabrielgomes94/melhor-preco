@@ -2,6 +2,10 @@
 
 namespace Barrigudinha\Pricing\Data;
 
+use Barrigudinha\Pricing\Data\Freight\B2W;
+use Barrigudinha\Pricing\Data\Freight\BaseFreight;
+use Barrigudinha\Pricing\Data\Freight\NoFreight;
+use Barrigudinha\Pricing\Data\Freight\Olist;
 use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Utils\Helpers;
@@ -14,7 +18,7 @@ class Price
     private float $commissionRate;
     private float $margin;
     private CostPrice $costPrice;
-    private Freight $freight;
+    private BaseFreight $freight;
     private Money $additionalCosts;
     private Money $costs;
     private Money $commission;
@@ -56,17 +60,19 @@ class Price
 
     private function setFreight(string $store)
     {
-        if ($store === 'olist') {
-        }
+        $this->freight = new NoFreight($this->product, $this->value);
 
-        $this->freight = new Freight($this->product, $this->value);
+        if ('olist' == $store) {
+            $this->freight = new Olist($this->product, $this->value);
+        } elseif ('b2w' == $store) {
+            $this->freight = new B2W($this->product, $this->value);
+        }
     }
 
     public function additionalCosts(): Money
     {
         return Money::BRL(0);
     }
-
 
     public function get(): Money
     {

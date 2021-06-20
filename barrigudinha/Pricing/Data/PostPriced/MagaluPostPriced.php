@@ -5,6 +5,7 @@ namespace Barrigudinha\Pricing\Data\PostPriced;
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Product\Post;
 use Barrigudinha\Product\Product;
+use Barrigudinha\Utils\Helpers;
 
 class MagaluPostPriced extends PostPriced
 {
@@ -20,6 +21,7 @@ class MagaluPostPriced extends PostPriced
             product: $product,
             value: $price->get(),
             store: $post->store()->slug(),
+            commission: Helpers::percentage($post->store()->commission()),
             discountRate: self::IN_CASH_DISCOUNT
         );
     }
