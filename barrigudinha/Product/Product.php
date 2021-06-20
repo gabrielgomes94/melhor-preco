@@ -141,20 +141,18 @@ class Product
 
     public function posts(): array
     {
-//        foreach ($this->stores as $store) {
-//            $prices[] = new Post(
-//                $store,
-//                new Price(
-//                    product: $this,
-//                    value: Helpers::floatToMoney($store->price()),
-//                    store: $store->slug(),
-//                    commission: $store->commission()
-//                ),
-//                $store->id()
-//            );
-//        }
-
         return $this->posts ?? [];
+    }
+
+    public function post(string $store): ?Post
+    {
+        foreach ($this->posts() as $post) {
+            if ($post->store()->slug() === $store) {
+                return $post;
+            }
+        }
+
+        return null;
     }
 
     public function tax(string $taxCode): ?Tax
