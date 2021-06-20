@@ -37,9 +37,8 @@ class Price
         $this->product = $product;
         $this->commissionRate = $commission;
         $this->additionalCosts = $additionalCosts ?? Money::BRL(0);
-//        $this->commission
         $this->setCostPrice($product);
-        $this->value = $value;
+        $this->value = $value->multiply(1 - Helpers::percentage($discountRate));
         $this->setFreight($store);
         $this->calculate();
     }
@@ -144,87 +143,3 @@ class Price
         return Helpers::percentage(config('taxes.simples_nacional'));
     }
 }
-
-
-//class Price
-//{
-//    private string $id;
-//    private float $profit;
-//    private float $value;
-//    private float $commission;
-//    private string $store;
-//    private string $storeSkuId;
-//    private float $additionalCosts;
-//
-//    public function __construct(
-//        string $id,
-//        float $profit,
-//        float $value,
-//        float $commission,
-//        string $store,
-//        string $storeSkuId,
-//        string $additionalCosts
-//    ) {
-//        $this->id = $id;
-//        $this->profit = $profit;
-//        $this->value = $value;
-//        $this->commission = $commission;
-//        $this->store = $store;
-//        $this->storeSkuId = $storeSkuId;
-//        $this->additionalCosts = $additionalCosts;
-//    }
-//
-//    public function additionalCosts()
-//    {
-//        return $this->additionalCosts;
-//    }
-//
-//    public function id()
-//    {
-//        return $this->id;
-//    }
-//
-//    public function commission()
-//    {
-//        return $this->commission;
-//    }
-//
-//    public function profit()
-//    {
-//        return $this->profit;
-//    }
-//
-//    public function get()
-//    {
-//        return $this->value;
-//    }
-//
-//    public function margin()
-//    {
-//        if (0 == $this->value) {
-//            return 0.0;
-//        }
-//
-//        return $this->profit / $this->value;
-//    }
-//
-//    public function store()
-//    {
-//        return $this->store;
-//    }
-//
-//    public function storeName(): string
-//    {
-//        return config("stores.{$this->store}.name") ?? '';
-//    }
-//
-//    public function storeSlug(): string
-//    {
-//        return $this->store;
-//    }
-//
-//    public function storeSkuId(): string
-//    {
-//        return $this->storeSkuId;
-//    }
-//}
