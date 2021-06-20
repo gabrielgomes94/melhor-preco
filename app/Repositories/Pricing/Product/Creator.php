@@ -38,15 +38,16 @@ class Creator
         $model->save();
 
         foreach ($product->posts() as $post) {
-            $calculatedPrice = $this->service->calculate($product, [
-                'commission' => $post->store()->commission(),
-                'desiredPrice' => $post->price(),
-                'store' => $post->store()->code(),
-            ]);
+            $calculatedPrice = $this->service->calculate(
+                product: $product,
+                store: $post->store()->code(),
+                desiredPrice: $post->price(),
+                commission: $post->store()->commission(),
+            );
 
             $price = new PriceModel([
                 'commission' => $post->store()->commission(),
-                'profit' => $calculatedPrice['profit'] ?? 0.0,
+                'profit' => $calculatedPrice->price()->profit() ?? 0.0,
                 'store' => $post->store()->code(),
                 'store_sku_id' => $post->store()->storeSkuId(),
                 'value' => $this->formatMoney($post->price()),
