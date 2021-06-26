@@ -40,12 +40,12 @@ class FinderDB implements ProductFinder
             throw new InvalidStoreException($store);
         }
 
-        $products = array_filter(ProductModel::all()->all(), function (ProductModel $product) use ($store){
+        $products = array_filter(ProductModel::all()->all(), function (ProductModel $product) use ($store) {
             return $product->inStore($store);
         });
 
         return array_map(function (ProductModel $product) {
-            return Product::createFromArray($product->toArray());
+            return ProductFactory::buildFromModel($product);
         }, $products);
     }
 
