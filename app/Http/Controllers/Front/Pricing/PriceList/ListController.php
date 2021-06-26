@@ -23,6 +23,14 @@ class ListController extends Controller
     /**
      * @return Application|ViewFactory|View
      */
+    public function all()
+    {
+        return view('pages.pricing.price-list.list');
+    }
+
+    /**
+     * @return Application|ViewFactory|View
+     */
     public function list()
     {
         $pricing = $this->repository->all();

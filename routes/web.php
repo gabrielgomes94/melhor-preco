@@ -43,14 +43,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 
-    Route::prefix('pricing')->name('pricing')->group(function () {
-        Route::get('/', [ListController::class, 'list'])->name('.list');
-        Route::get('/create', [CreateController::class, 'create'])->name('.create');
-        Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
+    Route::prefix('pricing')
+        ->name('pricing')
+        ->group(function () {
+            Route::get('/', [ListController::class, 'list'])->name('.list');
+            Route::get('/create', [CreateController::class, 'create'])->name('.create');
+            Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
 
-        Route::post('{id}/export', [ExportController::class, 'export'])->name('.export');
+            Route::post('{id}/export', [ExportController::class, 'export'])->name('.export');
 
-        Route::prefix('/{pricing_id}/products')
+            Route::prefix('/price_list')
+                ->name('.priceList')
+                ->group(function () {
+                    Route::get('/all', [ListController::class, 'all'])->name('.all');
+                });
+
+
+            Route::prefix('/{pricing_id}/products')
             ->name('.products')
             ->group(function () {
                 Route::get('/{product_id}', [ProductShowController::class, 'show'])
@@ -71,10 +80,10 @@ Route::middleware('auth')->group(function () {
                     });
             });
 
-        Route::prefix('campaigns')->name('.campaigns')->group(function () {
-            Route::post('/store', [CreateController::class, 'store'])->name('.store');
+            Route::prefix('campaigns')->name('.campaigns')->group(function () {
+                Route::post('/store', [CreateController::class, 'store'])->name('.store');
+            });
         });
-    });
 
     Route::prefix('products')
         ->name('products')
