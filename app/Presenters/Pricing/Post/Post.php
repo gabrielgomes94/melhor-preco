@@ -19,10 +19,16 @@ class Post
     public string $profit;
     public string $margin;
     public string $additionalCosts;
+    public string $name;
+    public string $sku;
 
     public function __construct(PostPriced $postPriced)
     {
         $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
+
+        $this->name = $postPriced->product()->name();
+        $this->sku = $postPriced->product()->sku();
+
 
         $this->id = $postPriced->post()->id();
         $this->store = $postPriced->post()->store()->name();

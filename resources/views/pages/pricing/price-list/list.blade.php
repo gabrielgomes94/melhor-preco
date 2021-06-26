@@ -6,7 +6,6 @@
             </h2>
         </x-slot>
 
-
         <x-pricing.price-list.table/>
     </div>
 </x-layout>

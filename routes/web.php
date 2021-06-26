@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function () {
                 ->name('.priceList')
                 ->group(function () {
                     Route::get('/all', [ListController::class, 'all'])->name('.all');
+
+                    Route::get('/{store}', [ShowController::class, 'byStore'])->name('.byStore');
                 });
 
 
