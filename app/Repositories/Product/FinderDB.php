@@ -23,9 +23,9 @@ class FinderDB implements ProductFinder
      */
     public function all(): array
     {
-        $products = array_map(function ($product) {
-            return Product::createFromArray($product);
-        }, ProductModel::all()->toArray());
+        $products = array_map(function (ProductModel $product) {
+            return ProductFactory::buildFromModel($product);
+        }, ProductModel::all()->all());
 
         return $products;
     }
@@ -56,5 +56,10 @@ class FinderDB implements ProductFinder
         }
 
         return null;
+    }
+
+    public function getModel(string $sku): ?ProductModel
+    {
+        return ProductModel::find($sku);
     }
 }

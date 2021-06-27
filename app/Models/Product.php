@@ -49,4 +49,15 @@ class Product extends Model
 
         return false;
     }
+
+    public function getPrice(string $store): ?Price
+    {
+        foreach ($this->prices as $price) {
+            if ($price->store === $store) {
+                return $price;
+            }
+        }
+
+        return null;
+    }
 }
