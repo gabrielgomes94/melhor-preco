@@ -24,7 +24,7 @@ class UpdateController extends Controller
     /**
      * @return Redirector|RedirectResponse
      */
-    public function update(string $pricingId, string $productId, string $priceId, UpdatePrice $request)
+    public function update(string $productId, string $priceId, UpdatePrice $request)
     {
         $this->repository->update($priceId, $request->validated());
 
@@ -37,8 +37,6 @@ class UpdateController extends Controller
             $request->input('value')
         );
 
-        return redirect()->route('pricing.show', [
-            'id' => $pricingId,
-        ]);
+        return redirect()->back();
     }
 }
