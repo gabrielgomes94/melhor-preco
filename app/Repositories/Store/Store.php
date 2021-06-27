@@ -17,4 +17,9 @@ class Store implements StoreRepository
     {
         return config('stores.' . $store . '.erpCode');
     }
+
+    public function name(string $store): string
+    {
+        return config('stores.' . $store . '.name');
+    }
 }
