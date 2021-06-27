@@ -15,6 +15,7 @@ class Product extends Model
 
     protected $fillable = [
         'id',
+        'erp_id',
         'sku',
         'name',
         'purchase_price',

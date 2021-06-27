@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-use Barrigudinha\Product\Factories\Post;
+use App\Factories\Product\Product as ProductFactory;
 use Barrigudinha\Product\Product as ProductData;
 use Barrigudinha\Product\Store;
 
@@ -13,7 +13,7 @@ class Product extends BaseResponse
     public function __construct(array $data = [])
     {
         if (isset($data)) {
-            $this->data = ProductData::createFromArray($data);
+            $this->data = ProductFactory::buildFromERP($data);
         }
     }
 

@@ -25,6 +25,7 @@ class Creator
     {
         $model = new ProductModel([
             'id' => $product->sku(),
+            'erp_id' => $product->erpId(),
             'sku' => $product->sku(),
             'name' => $product->name(),
             'purchase_price' => $product->purchasePrice(),

@@ -9,6 +9,7 @@ use Barrigudinha\Utils\Helpers;
 
 class Product
 {
+    private ?string $erpId;
     private string $sku;
     private string $name;
     private string $brand;
@@ -39,7 +40,8 @@ class Product
         float $purchasePrice,
         Dimensions $dimensions,
         float $weight,
-        ?float $taxICMS
+        ?float $taxICMS,
+        ?string $erpId,
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -49,6 +51,7 @@ class Product
         $this->purchasePrice = $purchasePrice;
         $this->dimensions = $dimensions;
         $this->weight = $weight;
+        $this->erpId = $erpId;
 
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
     }
@@ -71,7 +74,8 @@ class Product
             purchasePrice: $data['purchasePrice'] ?? 0.0,
             dimensions: $dimensions,
             weight: $data['weight'] ?? 0.0,
-            taxICMS: $data['tax_icms'] ?? null
+            taxICMS: $data['tax_icms'] ?? null,
+            erpId: null
         );
 
 
@@ -122,6 +126,11 @@ class Product
     public function dimensions(): Dimensions
     {
         return $this->dimensions;
+    }
+
+    public function erpId(): ?string
+    {
+        return $this->erpId;
     }
 
     public function purchasePrice(): float
