@@ -25,7 +25,7 @@ class CalculatePricesController extends Controller
         $this->transformer = $transformer;
     }
 
-    public function calculate(string $pricingId, string $productId, string $priceId, Request $request)
+    public function calculate(string $productId, string $priceId, Request $request)
     {
         if (!$product = $this->repository->get($productId)) {
             abort(404);
