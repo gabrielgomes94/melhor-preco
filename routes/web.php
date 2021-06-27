@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function () {
                 ->group(function () {
                     Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])
                         ->name('.showByStore');
+
+                    Route::post('/export', [ExportController::class, 'exportStore'])->name('.exportStore');
                 });
 
 
