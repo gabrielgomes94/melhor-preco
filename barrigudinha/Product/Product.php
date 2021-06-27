@@ -130,7 +130,7 @@ class Product
 
     public function erpId(): ?string
     {
-        return $this->erpId;
+        return $this->erpId ?? null;
     }
 
     public function purchasePrice(): float

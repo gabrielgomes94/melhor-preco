@@ -51,7 +51,7 @@ class Product
             dimensions: $dimensions,
             weight: $model->weight ?? 0.0,
             taxICMS: $model->tax_icms ?? null,
-            erpId: $model->erpId ?? null
+            erpId: $model->erp_id ?? null
         );
 
         foreach ($model->prices as $pricePost) {
