@@ -1,31 +1,13 @@
 <x-layout>
     <div class="container">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">SKU</th>
-                    <th scope="col">Produto</th>
-                    <th scope="col">{{ $store->name }}</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($products as $product)
-                    <tr>
-                        <th scope="row">{{ $product->sku }}</th>
-                        <td> {{ $product->name }}</td>
-                        <td>
-                            <div>
-                                Preço: {{ $product->value }} <br>
-                                Lucro: {{ $product->profit }} <br>
-                                Margem: {{ $product->margin }} <br>
+        <div class="d-flex justify-content-between">
+            <h2>Precificação {{ $store->name }}</h2>
 
-                            </div>
-                        </td>
-                        <td></td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            <x-pricing.products.single-store.export-button :store="$store" />
+        </div>
+
+        <div class="d-flex">
+            <x-pricing.products.single-store.list-table :products="$products" :store="$store"/>
+        </div>
     </div>
 </x-layout>

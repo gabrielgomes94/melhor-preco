@@ -35,7 +35,7 @@ class Post
         $this->storeSlug = $postPriced->post()->store()->slug();
         $this->value = $this->moneyFormatter->format($postPriced->post()->price());
         $this->profit = $this->moneyFormatter->format($postPriced->price()->profit());
-        $this->margin = $postPriced->price()->margin() * 100;
+        $this->margin = $postPriced->price()->margin();
         $this->commission = $postPriced->post()->store()->commission();
         $this->additionalCosts = $this->moneyFormatter->format($postPriced->price()->additionalCosts());
     }

@@ -16,7 +16,8 @@ class Presenter
     public function present(string $store): Store
     {
         $store = new Store(
-            name: $this->repository->name($store)
+            name: $this->repository->name($store),
+            slug: $store
         );
 
         return $store;
