@@ -60,8 +60,15 @@ Route::middleware('auth')->group(function () {
                     Route::get('/{store}', [ShowController::class, 'byStore'])->name('.byStore');
                 });
 
+            Route::prefix('/{store}/products')
+                ->name('.products')
+                ->group(function () {
+                    Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])
+                        ->name('.showByStore');
+                });
 
-            Route::prefix('/{pricing_id}/products')
+
+            Route::prefix('/products')
             ->name('.products')
             ->group(function () {
                 Route::get('/{product_id}', [ProductShowController::class, 'show'])

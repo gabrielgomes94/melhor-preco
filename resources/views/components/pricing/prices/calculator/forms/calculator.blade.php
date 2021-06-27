@@ -1,7 +1,7 @@
 <div class="form-group">
     <form
         method="post"
-        action="{{ route('pricing.products.prices.calculate', [$pricingId, $productId, $price->id]) }}"
+        action="{{ route('pricing.products.prices.calculate', [$productId, $price->id]) }}"
         data-price-id="{{ $price->id }}"
         class="price-calculator-form"
         enctype="multipart/form-data">

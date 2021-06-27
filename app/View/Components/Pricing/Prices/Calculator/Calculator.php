@@ -7,13 +7,11 @@ use Illuminate\View\Component;
 
 class Calculator extends Component
 {
-    public string $pricingId;
     public string $productId;
     public Post $price;
 
-    public function __construct(string $pricingId, string $productId, Post $price)
+    public function __construct(string $productId, Post $price)
     {
-        $this->pricingId = $pricingId;
         $this->productId = $productId;
         $this->price = $price;
     }
