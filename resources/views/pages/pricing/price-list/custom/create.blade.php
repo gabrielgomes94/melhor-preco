@@ -8,7 +8,6 @@
                     </h2>
                 </div>
 
-
                 <x-utils.navigation-button
                     :route="route('pricing.list')"
                     label="Voltar"

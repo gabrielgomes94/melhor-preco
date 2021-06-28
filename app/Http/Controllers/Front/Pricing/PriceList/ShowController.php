@@ -49,7 +49,7 @@ class ShowController extends Controller
 
         $presentationPricing = $this->presenter->present($pricing);
 
-        return view('pages.pricing.show', ['pricing' => $presentationPricing]);
+        return view('pages.pricing.price-list.custom.show', ['pricing' => $presentationPricing]);
     }
 
     /**

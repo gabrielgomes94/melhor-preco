@@ -2,13 +2,13 @@
     <ul class="list-group">
         <x-pricing.price-list.link
             uri="{{ route('pricing.priceList.all') }}"
-            content="Por categoria"
+            content="Por categoria (em breve)"
             disabled="true"
         />
 
         <x-pricing.price-list.link
             uri="{{ route('pricing.priceList.all') }}"
-            content="Por produto"
+            content="Por produto (em breve)"
             disabled="true"
         />
 
@@ -40,5 +40,10 @@
                 content="Shopee"
             />
         </li>
+
+        <x-pricing.price-list.link
+            uri="{{ route('pricing.priceList.custom') }}"
+            content="Listas customizadas"
+        />
     </ul>
 </div>

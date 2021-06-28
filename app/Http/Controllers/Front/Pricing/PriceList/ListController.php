@@ -36,6 +36,6 @@ class ListController extends Controller
         $pricing = $this->repository->all();
         $pricingList = $this->presenter->present($pricing);
 
-        return view('pages.pricing.list', compact('pricingList'));
+        return view('pages.pricing.price-list.custom.list', compact('pricingList'));
     }
 }

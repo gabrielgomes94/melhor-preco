@@ -16,7 +16,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <x-pricing.campaigns-table :campaigns="$pricingList"/>
+                <x-pricing.price-list.custom-list-table :priceLists="$pricingList"/>
             </div>
         </div>
     </div>

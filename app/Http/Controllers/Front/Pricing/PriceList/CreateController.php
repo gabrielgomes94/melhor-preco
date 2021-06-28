@@ -28,7 +28,7 @@ class CreateController extends Controller
      */
     public function create()
     {
-        return view('pages.pricing.create');
+        return view('pages.pricing.price-list.custom.create');
     }
 
     /**
