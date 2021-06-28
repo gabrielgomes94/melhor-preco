@@ -9,7 +9,7 @@
                 </div>
 
                 <x-utils.navigation-button
-                    :route="route('pricing.list')"
+                    :route="route('pricing.priceList.custom.list')"
                     label="Voltar"
                 />
             </div>
