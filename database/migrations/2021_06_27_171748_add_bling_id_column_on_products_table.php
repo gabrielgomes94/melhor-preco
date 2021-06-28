@@ -14,7 +14,7 @@ class AddBlingIdColumnOnProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('erp_id');
+            $table->string('erp_id')->nullable();
         });
     }
 
