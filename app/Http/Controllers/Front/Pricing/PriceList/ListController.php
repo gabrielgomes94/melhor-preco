@@ -23,9 +23,9 @@ class ListController extends Controller
     /**
      * @return Application|ViewFactory|View
      */
-    public function all()
+    public function index()
     {
-        return view('pages.pricing.price-list.list');
+        return view('pages.pricing.price-list.index');
     }
 
     /**

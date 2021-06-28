@@ -63,7 +63,7 @@ class ShowController extends Controller
         $store = $this->storePresenter->present($store);
         $productsPresented = $this->productPresenter->listPriced($productsPriced);
 
-        return view('pages.pricing.price-list.show-by-store', [
+        return view('pages.pricing.price-list.stores.show', [
             'store' => $store,
             'products' => $productsPresented,
         ]);

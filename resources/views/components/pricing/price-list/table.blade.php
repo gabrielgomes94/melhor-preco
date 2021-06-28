@@ -1,13 +1,13 @@
 <div>
     <ul class="list-group">
         <x-pricing.price-list.link
-            uri="{{ route('pricing.priceList.all') }}"
+            uri="{{ route('pricing.priceList.index') }}"
             content="Por categoria (em breve)"
             disabled="true"
         />
 
         <x-pricing.price-list.link
-            uri="{{ route('pricing.priceList.all') }}"
+            uri="{{ route('pricing.priceList.index') }}"
             content="Por produto (em breve)"
             disabled="true"
         />

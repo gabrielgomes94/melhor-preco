@@ -52,8 +52,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/price_list')
                 ->name('.priceList')
                 ->group(function () {
-                    Route::get('/', [ListController::class, 'all'])->name('.list');
-                    Route::get('/all', [ListController::class, 'all'])->name('.all');
+                    Route::get('/', [ListController::class, 'index'])->name('.index');
 
                     Route::prefix('/custom')->name('.custom')->group(function () {
                         Route::get('/', [ListController::class, 'list'])->name('.list');
