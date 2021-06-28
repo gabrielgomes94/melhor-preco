@@ -16,12 +16,11 @@ class UpdateController extends Controller
         $this->service = $service;
     }
 
-    public function update(string $pricingId, string $productId, UpdateRequest $request)
+    public function update(string $productId, UpdateRequest $request)
     {
         $this->service->updateProduct($productId, $request->validated());
 
         return redirect(route('pricing.products.show', [
-            'pricing_id' => $pricingId,
             'product_id' => $productId
         ]));
     }
