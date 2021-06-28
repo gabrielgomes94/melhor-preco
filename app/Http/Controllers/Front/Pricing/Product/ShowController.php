@@ -30,7 +30,7 @@ class ShowController extends Controller
     /**
      * @return Application|ViewFactory|View
      */
-    public function show($pricingId, $productId)
+    public function show(string $priceListId, string $productId)
     {
         $product = $this->repository->get($productId);
 
@@ -38,7 +38,7 @@ class ShowController extends Controller
             abort(404);
         }
 
-        $pricing = Pricing::find($pricingId);
+        $pricing = Pricing::find($priceListId);
 
         $productInfo = $this->presenter->singleProduct($product);
         $prices = $this->calculator->execute($product, $pricing->stores);
@@ -47,7 +47,7 @@ class ShowController extends Controller
         $breadcrumb = [
             'pricing' => [
                 'name' => $pricing->name,
-                'link' => route('pricing.show', [$pricingId])
+                'link' => route('pricing.show', [$priceListId])
             ],
             'product' => [
                 'name' => $product->name(),

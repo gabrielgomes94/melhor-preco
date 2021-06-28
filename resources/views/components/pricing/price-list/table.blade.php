@@ -42,7 +42,7 @@
         </li>
 
         <x-pricing.price-list.link
-            uri="{{ route('pricing.priceList.custom') }}"
+            uri="{{ route('pricing.priceList.custom.list') }}"
             content="Listas customizadas"
         />
     </ul>

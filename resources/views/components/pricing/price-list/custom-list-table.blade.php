@@ -21,7 +21,7 @@
                 </td>
                 <td>
                     <x-utils.navigation-button
-                        :route="route('pricing.show', $priceList['id'])"
+                        :route="route('pricing.priceList.custom.show', $priceList['id'])"
                         label="Visualizar"
                     />
                 </td>

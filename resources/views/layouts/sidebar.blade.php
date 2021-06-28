@@ -10,7 +10,7 @@
                 <a class="nav-link" href={{ route('product.qr_codes') }}>Geração de QR Codes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={{ route('pricing.list') }}>Precificação</a>
+                <a class="nav-link" href={{ route('pricing.priceList.list') }}>Precificação</a>
             </li>
             <li class="nav-item dropdown">
                 <a
