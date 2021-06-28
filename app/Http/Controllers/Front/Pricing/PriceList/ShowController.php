@@ -82,7 +82,6 @@ class ShowController extends Controller
             ],
         ];
 
-
         return view('pages.pricing.price-list.stores.show', [
             'store' => $store,
             'products' => $productsPresented,

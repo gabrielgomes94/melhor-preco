@@ -20,8 +20,6 @@ class UpdateController extends Controller
     {
         $this->service->updateProduct($productId, $request->validated());
 
-        return redirect(route('pricing.products.show', [
-            'product_id' => $productId
-        ]));
+        return redirect()->back();
     }
 }
