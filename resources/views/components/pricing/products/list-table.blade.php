@@ -33,23 +33,12 @@
                 <td>
                     <div class="d-inline-flex justify-content-end">
                         <x-utils.navigation-button
-                            :route="route('pricing.products.show', [
-                            'pricing_id' => $pricingId,
+                            :route="route('pricing.priceList.custom.product.show', [
+                            'price_list_id' => $pricingId,
                             'product_id' => $product->id
                         ])"
                             label="Detalhar"
                         />
-
-{{--                        <x-forms.form.delete--}}
-{{--                            :action="route('pricing.products.remove', [--}}
-{{--                                'pricing_id' => $pricingId,--}}
-{{--                                'product_id' => $product->id--}}
-{{--                            ])"--}}
-{{--                        >--}}
-{{--                            <button type="submit" class="btn btn-danger">--}}
-{{--                                Remover--}}
-{{--                            </button>--}}
-{{--                        </x-forms.form.delete>--}}
                     </div>
                 </td>
             </tr>

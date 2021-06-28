@@ -1,6 +1,6 @@
 <div class="form-group">
     <x-forms.form.put
-        action="{{ route('pricing.products.prices.update', [$pricingId, $productId, $price->id]) }}"
+        action="{{ route('pricing.products.prices.update', [$productId, $price->id]) }}"
     >
         <x-forms.input.read-only
             attribute="value"

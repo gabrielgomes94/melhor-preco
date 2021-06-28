@@ -25,4 +25,13 @@ class ProductCalculator
 
         return $posts ?? [];
     }
+
+    public function single(Product $product, string $store): PostPriced
+    {
+        $post = $product->post($store);
+
+        $price = new Price($product, $post->price(), $store);
+
+        return PostPricedFactory::make($post, $price, $product);
+    }
 }

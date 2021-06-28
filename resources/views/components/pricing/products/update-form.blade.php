@@ -3,7 +3,7 @@
         <h3>{{ $productInfo->sku }} - {{ $productInfo->name }}</h3>
 
         <x-forms.form.put
-            action="{{ route('pricing.products.update', [$pricingId, $productInfo->id]) }}"
+            action="{{ route('pricing.products.update', [$productInfo->id]) }}"
         >
             <x-forms.input.money
                 attribute="purchasePrice"

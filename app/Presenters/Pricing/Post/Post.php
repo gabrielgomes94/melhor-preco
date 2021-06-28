@@ -19,17 +19,23 @@ class Post
     public string $profit;
     public string $margin;
     public string $additionalCosts;
+    public string $name;
+    public string $sku;
 
     public function __construct(PostPriced $postPriced)
     {
         $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
+
+        $this->name = $postPriced->product()->name();
+        $this->sku = $postPriced->product()->sku();
+
 
         $this->id = $postPriced->post()->id();
         $this->store = $postPriced->post()->store()->name();
         $this->storeSlug = $postPriced->post()->store()->slug();
         $this->value = $this->moneyFormatter->format($postPriced->post()->price());
         $this->profit = $this->moneyFormatter->format($postPriced->price()->profit());
-        $this->margin = $postPriced->price()->margin() * 100;
+        $this->margin = $postPriced->price()->margin();
         $this->commission = $postPriced->post()->store()->commission();
         $this->additionalCosts = $this->moneyFormatter->format($postPriced->price()->additionalCosts());
     }

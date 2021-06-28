@@ -25,10 +25,10 @@ Route::post('/product/{sku}', [ProductController::class, 'post'])->middleware('a
 
 
 
-Route::prefix('pricing')->name('pricing')->group(function() {
-    Route::prefix('/{pricing_id}/products/{product_id}/prices/')
+Route::prefix('pricing')->name('pricing')->group(function () {
+    Route::prefix('/products/{product_id}/prices/')
         ->name('.products.prices')
-        ->group(function() {
+        ->group(function () {
             Route::post('/{price_id}/calculate', [CalculatePricesController::class, 'calculate'])
                 ->name('.calculate');
         });

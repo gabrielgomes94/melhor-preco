@@ -6,13 +6,9 @@
             aria-expanded="true"
             aria-controls="price-accordion-collapse-{{ $price->id }}"
     >
-
         <div class="d-flex justify-content-between w-100">
             <div class="">{{ $price->store }}</div>
-            <div>
-                R$ {{ $price->value }}<br>
-                R$ {{ $price->profit }} | {{ round($price->margin, 2) }} %
-            </div>
+            <div>R$ {{ $price->value }}</div>
         </div>
     </button>
 </h2>

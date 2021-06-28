@@ -183,6 +183,7 @@ return [
          */
         App\Providers\BlingServiceProvider::class,
         App\Providers\PricingServiceProvider::class,
+        App\Providers\StoreServiceProvider::class,
     ],
 
     /*

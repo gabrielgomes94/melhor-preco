@@ -43,38 +43,52 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
     Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
 
-    Route::prefix('pricing')->name('pricing')->group(function () {
-        Route::get('/', [ListController::class, 'list'])->name('.list');
-        Route::get('/create', [CreateController::class, 'create'])->name('.create');
-        Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
+    Route::prefix('pricing')
+        ->name('pricing')
+        ->group(function () {
+            Route::get('/create', [CreateController::class, 'create'])->name('.create');
+            Route::post('{id}/export', [ExportController::class, 'export'])->name('.export');
 
-        Route::post('{id}/export', [ExportController::class, 'export'])->name('.export');
+            Route::prefix('/price_list')
+                ->name('.priceList')
+                ->group(function () {
+                    Route::get('/', [ListController::class, 'index'])->name('.index');
 
-        Route::prefix('/{pricing_id}/products')
-            ->name('.products')
-            ->group(function () {
-                Route::get('/{product_id}', [ProductShowController::class, 'show'])
-                    ->name('.show');
-
-                Route::put('/{product_id}', [UpdateProductController::class, 'update'])
-                    ->name('.update');
-
-                Route::delete('/{product_id}', [RemoveController::class, 'remove'])
-                    ->name('.remove');
-
-
-                Route::prefix('/{product_id}/price')
-                    ->name('.prices')
-                    ->group(function () {
-                        Route::put('/{price_id}', [UpdateController::class, 'update'])
-                            ->name('.update');
+                    Route::prefix('/custom')->name('.custom')->group(function () {
+                        Route::get('/', [ListController::class, 'list'])->name('.list');
+                        Route::get('/create', [CreateController::class, 'create'])->name('.create');
+                        Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
+                        Route::get('/{price_list_id}/show/{product_id}', [ProductShowController::class, 'show'])
+                            ->name('.product.show');
                     });
-            });
 
-        Route::prefix('campaigns')->name('.campaigns')->group(function () {
-            Route::post('/store', [CreateController::class, 'store'])->name('.store');
+                    Route::get('/{store}', [ShowController::class, 'byStore'])->name('.byStore');
+                });
+
+            Route::prefix('/{store}/products')
+                ->name('.products')
+                ->group(function () {
+                    Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])->name('.showByStore');
+                    Route::post('/export', [ExportController::class, 'exportStore'])->name('.exportStore');
+                });
+
+            Route::prefix('/products')
+                ->name('.products')
+                ->group(function () {
+                    Route::get('/{product_id}', [ProductShowController::class, 'show'])->name('.show');
+                    Route::put('/{product_id}', [UpdateProductController::class, 'update'])->name('.update');
+                    Route::delete('/{product_id}', [RemoveController::class, 'remove'])->name('.remove');
+                    Route::prefix('/{product_id}/price')
+                        ->name('.prices')
+                        ->group(function () {
+                            Route::put('/{price_id}', [UpdateController::class, 'update'])->name('.update');
+                        });
+                });
+
+            Route::prefix('campaigns')->name('.campaigns')->group(function () {
+                Route::post('/store', [CreateController::class, 'store'])->name('.store');
+            });
         });
-    });
 
     Route::prefix('products')
         ->name('products')
@@ -83,7 +97,6 @@ Route::middleware('auth')->group(function () {
             Route::put('/sync', [ProductSyncronizationController::class, 'doSync'])->name('.doSync');
             Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
             Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
-
             Route::get('/reports/over-dimension', [ReportsController::class, 'overDimension'])->name('.reports.overDimension');
         });
 });

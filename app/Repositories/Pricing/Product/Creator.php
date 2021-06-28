@@ -25,6 +25,7 @@ class Creator
     {
         $model = new ProductModel([
             'id' => $product->sku(),
+            'erp_id' => $product->erpId(),
             'sku' => $product->sku(),
             'name' => $product->name(),
             'purchase_price' => $product->purchasePrice(),
@@ -47,7 +48,7 @@ class Creator
 
             $price = new PriceModel([
                 'commission' => $post->store()->commission(),
-                'profit' => $calculatedPrice->price()->profit() ?? 0.0,
+                'profit' => $this->formatMoney($calculatedPrice->price()->profit()) ?? 0.0,
                 'store' => $post->store()->code(),
                 'store_sku_id' => $post->store()->storeSkuId(),
                 'value' => $this->formatMoney($post->price()),

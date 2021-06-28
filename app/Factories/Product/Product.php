@@ -25,7 +25,8 @@ class Product
             purchasePrice: $data['purchasePrice'] ?? 0.0,
             dimensions: $dimensions,
             weight: $data['weight'] ?? 0.0,
-            taxICMS: $data['tax_icms'] ?? null
+            taxICMS: $data['tax_icms'] ?? null,
+            erpId: $data['erpId'],
         );
 
         if (isset($data['store'])) {
@@ -49,7 +50,8 @@ class Product
             purchasePrice: $model->purchase_price ?? 0.0,
             dimensions: $dimensions,
             weight: $model->weight ?? 0.0,
-            taxICMS: $model->tax_icms ?? null
+            taxICMS: $model->tax_icms ?? null,
+            erpId: $model->erp_id ?? null
         );
 
         foreach ($model->prices as $pricePost) {

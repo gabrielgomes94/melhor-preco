@@ -11,6 +11,7 @@ class Product
         }
 
         return [
+            'erpId' => $product['id'],
             'sku' => $product['codigo'],
             'name' => $product['descricao'],
             'brand' => $product['marca'],

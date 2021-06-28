@@ -23,11 +23,19 @@ class ListController extends Controller
     /**
      * @return Application|ViewFactory|View
      */
+    public function index()
+    {
+        return view('pages.pricing.price-list.index');
+    }
+
+    /**
+     * @return Application|ViewFactory|View
+     */
     public function list()
     {
         $pricing = $this->repository->all();
         $pricingList = $this->presenter->present($pricing);
 
-        return view('pages.pricing.list', compact('pricingList'));
+        return view('pages.pricing.price-list.custom.list', compact('pricingList'));
     }
 }

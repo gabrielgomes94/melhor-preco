@@ -27,17 +27,14 @@ class SyncProductData
         $products = $this->erpRepository->all();
 
         foreach ($products as $product) {
-            $productData = $this->dbRepository->get($product->sku());
+            $productModel = $this->dbRepository->getModel($product->sku());
 
-            if (!$productData) {
+            if (!$productModel) {
                 $this->creator->create($product);
                 continue;
             }
 
-
-            // TODO: Criar método para sincronizar dados do bling com o banco
-//            $this->updator->sync($productData, $product);
-//            $this->updator->update($productData->id(), $productData->toArray());
+            $this->updator->sync($product, $productModel);
         }
     }
 }
