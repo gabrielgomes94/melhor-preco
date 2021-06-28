@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
                         Route::get('/', [ListController::class, 'list'])->name('.list');
                         Route::get('/create', [CreateController::class, 'create'])->name('.create');
                         Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
-                        Route::get('/{price_list_id}/show/{product_id}', [ProductShowController::class, 'showByStore'])
+                        Route::get('/{price_list_id}/show/{product_id}', [ProductShowController::class, 'show'])
                             ->name('.product.show');
                     });
 

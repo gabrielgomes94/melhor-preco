@@ -45,11 +45,11 @@ class ShowController extends Controller
         $prices = $this->presenter->prices($prices);
 
         $breadcrumb = [
-            'pricing' => [
+            [
                 'name' => $pricing->name,
-                'link' => route('pricing.show', [$priceListId])
+                'link' => route('pricing.priceList.custom.show', [$priceListId])
             ],
-            'product' => [
+            [
                 'name' => $product->name(),
                 'link' => '',
             ],
@@ -58,7 +58,7 @@ class ShowController extends Controller
         return view('pages.pricing.products.show', [
             'breadcrumb' => $breadcrumb,
             'productInfo' => $productInfo,
-            'pricingId' => $pricingId,
+            'pricingId' => $priceListId,
             'prices' => $prices
         ]);
     }
@@ -76,7 +76,23 @@ class ShowController extends Controller
         $productInfo = $this->presenter->singleProduct($product);
         $prices = $this->presenter->prices([$price]);
 
+        $breadcrumb = [
+            [
+                'link' => route('pricing.priceList.index'),
+                'name' => 'Listas de Preços',
+            ],
+            [
+                'link' => route('pricing.priceList.byStore', $store),
+                'name' => $store,
+            ],
+            [
+                'link' => '',
+                'name' => $productInfo->name,
+            ],
+        ];
+
         return view('pages.pricing.products.show', [
+            'breadcrumb' => $breadcrumb,
             'productInfo' => $productInfo,
             'prices' => $prices
         ]);

@@ -6,7 +6,9 @@
             <x-pricing.products.single-store.export-button :store="$store" />
         </div>
 
+        <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
         <div class="d-flex">
+
             <x-pricing.products.single-store.list-table :products="$products" :store="$store"/>
         </div>
     </div>

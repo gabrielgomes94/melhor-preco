@@ -8,6 +8,7 @@
 
         <h3>{{ $pricing->name }}</h3>
 
+        <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
         <div class="row">
             <div class="col">
                 <x-pricing.products.list-table :pricing="$pricing" />

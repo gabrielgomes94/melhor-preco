@@ -48,8 +48,17 @@ class ShowController extends Controller
         }
 
         $presentationPricing = $this->presenter->present($pricing);
+        $breadcrumb = [
+            [
+                'link' => route('pricing.priceList.index'),
+                'name' => 'Listas de Preços',
+            ],
+        ];
 
-        return view('pages.pricing.price-list.custom.show', ['pricing' => $presentationPricing]);
+        return view('pages.pricing.price-list.custom.show', [
+            'breadcrumb' => $breadcrumb,
+            'pricing' => $presentationPricing
+        ]);
     }
 
     /**
@@ -62,10 +71,22 @@ class ShowController extends Controller
 
         $store = $this->storePresenter->present($store);
         $productsPresented = $this->productPresenter->listPriced($productsPriced);
+        $breadcrumb = [
+            [
+                'link' => route('pricing.priceList.index'),
+                'name' => 'Listas de Preços',
+            ],
+            [
+                'link' => route('pricing.priceList.byStore', $store->slug),
+                'name' => $store->name,
+            ],
+        ];
+
 
         return view('pages.pricing.price-list.stores.show', [
             'store' => $store,
             'products' => $productsPresented,
+            'breadcrumb' => $breadcrumb,
         ]);
     }
 }
