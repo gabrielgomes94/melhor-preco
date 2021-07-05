@@ -18,6 +18,7 @@ class Product
     private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
     private float $weight;
+    private float $taxICMS;
 
     /** @var string[] */
     private array $images;
@@ -54,6 +55,7 @@ class Product
         $this->erpId = $erpId;
 
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
+        $this->taxICMS = $taxICMS ?? 0.0;
     }
 
     // TODO: adicionar preços ao criar objeto
@@ -173,6 +175,11 @@ class Product
         }
 
         return null;
+    }
+
+    public function taxICMS(): float
+    {
+        return $this->taxICMS;
     }
 
     public function weight(): float
