@@ -19,6 +19,7 @@ class Product
     private Dimensions $dimensions;
     private float $weight;
     private float $taxICMS;
+    private ?string $parentSku;
 
     /** @var string[] */
     private array $images;
@@ -43,6 +44,7 @@ class Product
         float $weight,
         ?float $taxICMS,
         ?string $erpId,
+        ?string $parentSku
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -56,6 +58,7 @@ class Product
 
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
         $this->taxICMS = $taxICMS ?? 0.0;
+        $this->parentSku = $parentSku;
     }
 
     // TODO: adicionar preços ao criar objeto
@@ -149,6 +152,12 @@ class Product
     {
         return $this->stores;
     }
+
+    public function parentSku(): ?string
+    {
+        return $this->parentSku;
+    }
+
 
     public function posts(): array
     {

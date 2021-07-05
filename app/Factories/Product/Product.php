@@ -27,6 +27,7 @@ class Product
             weight: $data['weight'] ?? 0.0,
             taxICMS: $data['tax_icms'] ?? null,
             erpId: $data['erpId'],
+            parentSku: $data['parent_sku']
         );
 
         if (isset($data['store'])) {

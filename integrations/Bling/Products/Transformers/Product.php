@@ -25,6 +25,7 @@ class Product
                 'width' => (float) $product['larguraProduto'],
             ],
             'weight' => (float) $product['pesoBruto'],
+            'parent_sku' => $product['codigoPai'] ?? null,
         ];
     }
 
