@@ -13,7 +13,7 @@ class Money extends BaseInput
     {
         parent::__construct($attribute, $value, $componentId, $label);
 
-        $this->visibleComponentId = $componentId . '-input-view';
+        $this->visibleComponentId = $this->componentId . '-input-view';
     }
 
     /**

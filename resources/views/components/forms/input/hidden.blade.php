@@ -1,7 +1,7 @@
 <div class="form-group">
     <input
         type="hidden"
-        id="{{ $id }}-input"
+        id="{{ $componentId }}-input"
         name="{{ $attribute }}"
         value="{{ $value }}"
     >
