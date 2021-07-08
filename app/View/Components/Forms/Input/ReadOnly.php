@@ -2,12 +2,13 @@
 
 namespace App\View\Components\Forms\Input;
 
-use Illuminate\View\Component;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\View;
 
-class ReadOnly extends SimpleInput
+class ReadOnly extends BaseInput
 {
     /**
-     * @return \Illuminate\Contracts\View\View|string
+     * @return View|Htmlable|Closure|string
      */
     public function render()
     {

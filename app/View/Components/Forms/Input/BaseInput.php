@@ -1,35 +1,34 @@
 <?php
 
-
 namespace App\View\Components\Forms\Input;
 
-
+use Closure;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-abstract class SimpleInput extends Component
+abstract class BaseInput extends Component
 {
-    public string $id;
-    public string $label;
-    public string $name;
     public string $attribute;
     public string $value;
+    public ?string $componentId;
+    public ?string $label;
 
     /**
      * @return void
      */
-    public function __construct(string $attribute, string $label, string $value, string $id = null)
+    public function __construct(string $attribute, string $value, ?string $componentId = null, ?string $label = null)
     {
         $this->attribute = $attribute;
+        $this->componentId = $componentId ?? $attribute;
         $this->label = $label;
         $this->value = $value;
-        $this->id = $id ?? $attribute;
-        $this->name = $attribute;
     }
 
     /**
      * Get the view / view contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\Support\Htmlable|\Closure|string
+     * @return View|Htmlable|Closure|string
      */
     abstract public function render();
 }
