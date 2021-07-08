@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Product;
+namespace Barrigudinha\Product\Services;
 
 use Barrigudinha\Product\Data\UpdateCosts;
 use Barrigudinha\Product\Product;

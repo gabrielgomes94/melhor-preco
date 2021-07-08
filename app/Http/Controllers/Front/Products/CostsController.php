@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Front\Products;
 
+use App\Factories\Product\Product as ProductFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateCostsRequest;
 use App\Repositories\Pricing\Product\Updator;
 use App\Repositories\Product\FinderDB;
-//use Barrigudinha\Product\Services\Update as UpdateService;
-use App\Services\Product\Update as UpdateService;
 use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Services\Update as UpdateService;
 use Illuminate\Http\Request;
 
 class CostsController extends Controller
@@ -37,11 +37,9 @@ class CostsController extends Controller
 
     public function update(string $productId, UpdateCostsRequest $request)
     {
-        $data = $request->transform();
-
-        $product = $this->repository->get($productId);
         $productModel = $this->repository->getModel($productId);
-
+        $product = ProductFactory::buildFromModel($productModel);
+        $data = $request->transform();
         $product = $this->updateService->updateCosts($product, $data);
 
         $this->updator->sync($product, $productModel);
