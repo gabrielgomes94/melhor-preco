@@ -9,7 +9,7 @@ use App\Http\Controllers\Front\Pricing\Product\RemoveController;
 use App\Http\Controllers\Front\Pricing\Product\ShowController as ProductShowController;
 use App\Http\Controllers\Front\Pricing\Product\UpdateController as UpdateProductController;
 use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\Products\PriceCostsController;
+use App\Http\Controllers\Front\Products\CostsController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use App\Http\Controllers\Front\Products\ReportsController;
 use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
@@ -77,8 +77,8 @@ Route::middleware('auth')->group(function () {
                 ->name('.products')
                 ->group(function () {
                     Route::get('/{product_id}', [ProductShowController::class, 'show'])->name('.show');
-                    Route::put('/{product_id}', [UpdateProductController::class, 'update'])->name('.update');
                     Route::delete('/{product_id}', [RemoveController::class, 'remove'])->name('.remove');
+
                     Route::prefix('/{product_id}/price')
                         ->name('.prices')
                         ->group(function () {
@@ -100,7 +100,13 @@ Route::middleware('auth')->group(function () {
             Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
             Route::get('/reports/over-dimension', [ReportsController::class, 'overDimension'])->name('.reports.overDimension');
 
-            Route::get('/price_cost/edit', [PriceCostsController::class, 'edit'])->name('.editPriceCosts');
+            Route::prefix('/costs')
+                ->name('.costs')
+                ->group(function () {
+                    Route::get('/edit', [CostsController::class, 'edit'])->name('.edit');
+
+                    Route::post('/price_cost/update/{product_id}', [CostsController::class, 'update'])->name('.update');
+                });
         });
 });
 
