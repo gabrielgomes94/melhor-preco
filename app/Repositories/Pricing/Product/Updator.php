@@ -60,6 +60,7 @@ class Updator
         $model->erp_id = $product->erpId();
         $model->purchase_price = $product->purchasePrice();
         $model->additional_costs = $product->additionalCosts();
+        $model->tax_icms = $product->taxICMS();
         $model->depth = $product->dimensions()->depth();
         $model->height = $product->dimensions()->height();
         $model->width = $product->dimensions()->width();

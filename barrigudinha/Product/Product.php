@@ -44,7 +44,8 @@ class Product
         float $weight,
         ?float $taxICMS,
         ?string $erpId,
-        ?string $parentSku
+        ?string $parentSku,
+        ?float $additionalCosts = 0.0
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -59,40 +60,7 @@ class Product
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
         $this->taxICMS = $taxICMS ?? 0.0;
         $this->parentSku = $parentSku;
-    }
-
-    // TODO: adicionar preços ao criar objeto
-    public static function createFromArray(array $data, array $stores = []): self
-    {
-        $dimensions = new Dimensions(
-            depth: $data['dimensions']['depth'] ?? 0.0,
-            height: $data['dimensions']['height'] ?? 0.0,
-            width: $data['dimensions']['width'] ?? 0.0
-        );
-
-        $product = new self(
-            sku: $data['sku'],
-            name: $data['name'],
-            brand: $data['brand'] ?? '',
-            images: $data['images'] ?? [],
-            stock: $data['stock'] ?? 0,
-            purchasePrice: $data['purchasePrice'] ?? 0.0,
-            dimensions: $dimensions,
-            weight: $data['weight'] ?? 0.0,
-            taxICMS: $data['tax_icms'] ?? null,
-            erpId: null
-        );
-
-
-        if (isset($data['store'])) {
-            $product->stores[] = Store::createFromArray($data['store']);
-        } elseif (isset($stores)) {
-            foreach ($stores as $store) {
-                $product->stores[] = Store::createFromArray($store);
-            }
-        }
-
-        return $product;
+        $this->additionalCosts = $additionalCosts;
     }
 
     public function addPost(Post $post)
@@ -194,5 +162,20 @@ class Product
     public function weight(): float
     {
         return $this->weight;
+    }
+
+    public function setAdditionalCosts(float $additionalCosts): void
+    {
+        $this->additionalCosts = $additionalCosts;
+    }
+
+    public function setPurchasePrice(float $purchasePrice): void
+    {
+        $this->purchasePrice = $purchasePrice;
+    }
+
+    public function setTaxICMS(float $taxICMS): void
+    {
+        $this->taxICMS = $taxICMS;
     }
 }

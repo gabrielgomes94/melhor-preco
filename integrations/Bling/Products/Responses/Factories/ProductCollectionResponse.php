@@ -23,7 +23,7 @@ class ProductCollectionResponse extends BaseFactory
         $products = ProductsCollection::transform($data);
 
         $products = array_map(function (array $product) {
-            return ProductData::createFromArray($product);
+            return Product::buildFromERP($product);
         }, $products);
 
         return new ProductIterator(data: $products);

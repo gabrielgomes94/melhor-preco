@@ -27,6 +27,8 @@ class Product extends Model
         'height',
         'width',
         'weight',
+        'parent_sku',
+        'additional_costs',
     ];
 
     public function pricings(): BelongsToMany

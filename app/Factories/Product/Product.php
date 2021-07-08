@@ -52,7 +52,9 @@ class Product
             dimensions: $dimensions,
             weight: $model->weight ?? 0.0,
             taxICMS: $model->tax_icms ?? null,
-            erpId: $model->erp_id ?? null
+            erpId: $model->erp_id ?? null,
+            parentSku: $model->parent_sku,
+            additionalCosts:$model->additional_costs
         );
 
         foreach ($model->prices as $pricePost) {
