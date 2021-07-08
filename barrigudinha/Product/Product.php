@@ -5,6 +5,7 @@ namespace Barrigudinha\Product;
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Data\Tax;
+use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Utils\Helpers;
 
 class Product
@@ -20,6 +21,8 @@ class Product
     private float $weight;
     private float $taxICMS;
     private ?string $parentSku;
+
+    public ?Costs $costs;
 
     /** @var string[] */
     private array $images;
@@ -45,7 +48,8 @@ class Product
         ?float $taxICMS,
         ?string $erpId,
         ?string $parentSku,
-        ?float $additionalCosts = 0.0
+        ?float $additionalCosts = 0.0,
+        ?Costs $costs = null
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -61,6 +65,8 @@ class Product
         $this->taxICMS = $taxICMS ?? 0.0;
         $this->parentSku = $parentSku;
         $this->additionalCosts = $additionalCosts;
+
+        $this->costs = $costs;
     }
 
     public function addPost(Post $post)
@@ -86,9 +92,9 @@ class Product
         ]);
     }
 
-    public function additionalCosts(): float
+    public function costs(): Costs
     {
-        return $this->additionalCosts;
+        return $this->costs;
     }
 
     public function name(): string
@@ -106,11 +112,6 @@ class Product
         return $this->erpId ?? null;
     }
 
-    public function purchasePrice(): float
-    {
-        return $this->purchasePrice;
-    }
-
     public function sku(): string
     {
         return $this->sku;
@@ -125,7 +126,6 @@ class Product
     {
         return $this->parentSku;
     }
-
 
     public function posts(): array
     {
@@ -154,28 +154,13 @@ class Product
         return null;
     }
 
-    public function taxICMS(): float
-    {
-        return $this->taxICMS;
-    }
-
     public function weight(): float
     {
         return $this->weight;
     }
 
-    public function setAdditionalCosts(float $additionalCosts): void
+    public function setCosts(Costs $costs): void
     {
-        $this->additionalCosts = $additionalCosts;
-    }
-
-    public function setPurchasePrice(float $purchasePrice): void
-    {
-        $this->purchasePrice = $purchasePrice;
-    }
-
-    public function setTaxICMS(float $taxICMS): void
-    {
-        $this->taxICMS = $taxICMS;
+        $this->costs = $costs;
     }
 }

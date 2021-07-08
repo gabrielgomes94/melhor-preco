@@ -37,7 +37,7 @@
                                     <x-forms.input.money
                                         attribute="purchasePrice"
                                         componentId="purchasePrice-{{ $product->sku() }}"
-                                        value="{{ $product->purchasePrice() }}"
+                                        value="{{ $product->costs()->purchasePrice() }}"
                                     >
                                     </x-forms.input.money>
                                 </td>
@@ -45,7 +45,7 @@
                                     <x-forms.input.percentage
                                         attribute="taxICMS"
                                         id="taxICMS{{ $product->sku() }}"
-                                        value="{{ $product->taxICMS() }}"
+                                        value="{{ $product->costs()->taxICMS() }}"
                                     >
                                     </x-forms.input.percentage>
                                 </td>
@@ -53,7 +53,7 @@
                                     <x-forms.input.money
                                         attribute="additionalCosts"
                                         componentId="additionalCosts-{{ $product->sku() }}"
-                                        value="{{ $product->additionalCosts() }}"
+                                        value="{{ $product->costs()->additionalCosts() }}"
                                     >
                                     </x-forms.input.money>
                                 </td>

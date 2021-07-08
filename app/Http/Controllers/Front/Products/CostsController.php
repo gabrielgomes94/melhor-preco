@@ -39,7 +39,7 @@ class CostsController extends Controller
     {
         $productModel = $this->repository->getModel($productId);
         $product = ProductFactory::buildFromModel($productModel);
-        $data = $request->transform();
+        $data = $request->validated();
         $product = $this->updateService->updateCosts($product, $data);
 
         $this->updator->sync($product, $productModel);

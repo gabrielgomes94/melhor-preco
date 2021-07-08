@@ -2,17 +2,22 @@
 
 namespace Barrigudinha\Product\Services;
 
-use Barrigudinha\Product\Data\UpdateCosts;
+use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Product;
-use Barrigudinha\Product\Services\Contracts\Update as UpdateInterface;
 
-class Update implements UpdateInterface
+class Update
 {
-    public function updateCosts(Product $product, UpdateCosts $costs): Product
+    public function updateCosts(Product $product, array $data): Product
     {
-        $product->setAdditionalCosts($costs->additionalCosts());
-        $product->setPurchasePrice($costs->purchasePrice());
-        $product->setTaxICMS($costs->taxICMS());
+        $costs = new Costs(
+            purchasePrice: $data['purchasePrice'] ?? $product->costs()->purchasePrice(),
+            additionalCosts: $data['additionalCosts'] ?? $product->costs()->additionalCosts(),
+            taxICMS: $data['taxICMS'] ?? $product->costs()->taxICMS(),
+        );
+
+        $product->setCosts($costs);
+
+        // To Do: calcular lucro com os preços atualizados
 
         return $product;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Product;
 
-use Barrigudinha\Product\Data\UpdateCosts;
+use Barrigudinha\Product\Data\Costs;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCostsRequest extends FormRequest
@@ -29,14 +29,5 @@ class UpdateCostsRequest extends FormRequest
             'taxICMS' => 'nullable|numeric',
             'additionalCosts' => 'nullable|numeric',
         ];
-    }
-
-    public function transform(): UpdateCosts
-    {
-        return new UpdateCosts(
-            purchasePrice: $this->input('purchasePrice'),
-            additionalCosts: $this->input('additionalCosts'),
-            taxICMS: $this->input('taxICMS'),
-        );
     }
 }
