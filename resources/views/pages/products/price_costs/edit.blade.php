@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Relatório de Produtos que Excedem Dimensões') }}
+            {{ __('Atualizar custos dos produtos') }}
         </h2>
     </x-slot>
 

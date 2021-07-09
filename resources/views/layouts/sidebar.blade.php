@@ -27,6 +27,7 @@
                 <div class="dropdown-menu" aria-labelledby="productDropdown">
                     <a class="dropdown-item" href={{ route('products.updateICMS') }}>Atualizar ICMS</a>
                     <a class="dropdown-item" href={{ route('products.sync') }}>Sincronização de Produtos</a>
+                    <a class="dropdown-item" href={{ route('products.costs.edit') }}>Atualizar Custos</a>
                 </div>
             </li>
             <li class="nav-item">
