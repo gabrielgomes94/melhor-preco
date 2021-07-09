@@ -21,7 +21,7 @@
                     </thead>
                     <tbody>
                     @foreach($products as $product)
-                        <x-forms.form.post :action="route('products.costs.update', $product->sku())">
+                        <x-forms.form.put :action="route('products.costs.update', $product->sku())">
                             <tr>
                                 <td>
                                     {{ $product->sku() }}
@@ -61,7 +61,7 @@
                                     <x-forms.submit label="Atualizar"/>
                                 </td>
                             </tr>
-                        </x-forms.form.post>
+                        </x-forms.form.put>
                     @endforeach
                     </tbody>
                 </table>

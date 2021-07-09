@@ -105,7 +105,7 @@ Route::middleware('auth')->group(function () {
                 ->group(function () {
                     Route::get('/edit', [CostsController::class, 'edit'])->name('.edit');
 
-                    Route::post('/price_cost/update/{product_id}', [CostsController::class, 'update'])->name('.update');
+                    Route::put('/price_cost/update/{product_id}', [CostsController::class, 'update'])->name('.update');
                 });
         });
 });

@@ -2,7 +2,7 @@
     <div class="form-group">
         <h3>{{ $productInfo->sku }} - {{ $productInfo->name }}</h3>
 
-        <x-forms.form.post action="{{ route('products.costs.update', $productInfo->sku) }}">
+        <x-forms.form.put action="{{ route('products.costs.update', $productInfo->sku) }}">
             <x-forms.input.money
                 attribute="purchasePrice"
                 label="Preço de Custo"
@@ -27,6 +27,6 @@
             <input type="submit"
                    class="btn btn-dark d-block w-100 mx-auto m-2"
                    value="Atualizar" />
-        </x-forms.form.post>
+        </x-forms.form.put>
     </div>
 </div>
