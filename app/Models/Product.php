@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Factories\Product\Product as ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -61,5 +62,10 @@ class Product extends Model
         }
 
         return null;
+    }
+
+    public function toDomainObject(): \Barrigudinha\Product\Product
+    {
+        return ProductFactory::buildFromModel($this);
     }
 }
