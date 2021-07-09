@@ -65,6 +65,10 @@
                     @endforeach
                     </tbody>
                 </table>
+
+                <div class="d-flex justify-content-center">
+                    {!! $paginator->links() !!}
+                </div>
             </div>
         </div>
     </div>
