@@ -44,7 +44,7 @@
                                 <td>
                                     <x-forms.input.percentage
                                         attribute="taxICMS"
-                                        id="taxICMS{{ $product->sku() }}"
+                                        componentId="taxICMS-{{ $product->sku() }}"
                                         value="{{ $product->costs()->taxICMS() }}"
                                     >
                                     </x-forms.input.percentage>
