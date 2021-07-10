@@ -10,7 +10,6 @@ use App\Repositories\Pricing\Product\Updator;
 use App\Repositories\Product\FinderDB;
 use Barrigudinha\Product\Services\Update as UpdateService;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class CostsController extends Controller
 {
@@ -34,6 +33,7 @@ class CostsController extends Controller
     public function edit(Request $request)
     {
         $products = $this->repository->all();
+
         $paginator = $this->paginator->paginate($products, $request);
 
         return view('pages.products.price_costs.edit', [
