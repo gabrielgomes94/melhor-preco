@@ -26,6 +26,7 @@ class Product
             ],
             'weight' => (float) $product['pesoBruto'],
             'parent_sku' => $product['codigoPai'] ?? null,
+            'hasVariations' => isset($product['variacoes']),
         ];
     }
 

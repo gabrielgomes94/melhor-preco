@@ -15,12 +15,12 @@ class Product
     private string $name;
     private string $brand;
     private int $stock;
-    private float $purchasePrice;
     private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
     private float $weight;
     private float $taxICMS;
     private ?string $parentSku;
+    private bool $hasVariations;
 
     public ?Costs $costs;
 
@@ -41,22 +41,22 @@ class Product
         string $name,
         string $brand,
         array $images,
+        bool $hasVariations,
         ?int $stock,
-        float $purchasePrice,
         Dimensions $dimensions,
         float $weight,
         ?float $taxICMS,
         ?string $erpId,
         ?string $parentSku,
         ?float $additionalCosts = 0.0,
-        ?Costs $costs = null
+        ?Costs $costs = null,
+
     ) {
         $this->sku = $sku;
         $this->name = $name;
         $this->brand = $brand;
         $this->images = $images;
         $this->stock = (int) $stock ?? 0;
-        $this->purchasePrice = $purchasePrice;
         $this->dimensions = $dimensions;
         $this->weight = $weight;
         $this->erpId = $erpId;
@@ -65,6 +65,8 @@ class Product
         $this->taxICMS = $taxICMS ?? 0.0;
         $this->parentSku = $parentSku;
         $this->additionalCosts = $additionalCosts;
+
+        $this->hasVariations = $hasVariations;
 
         $this->costs = $costs;
     }
@@ -110,6 +112,11 @@ class Product
     public function erpId(): ?string
     {
         return $this->erpId ?? null;
+    }
+
+    public function hasVariations(): bool
+    {
+        return $this->hasVariations;
     }
 
     public function sku(): string

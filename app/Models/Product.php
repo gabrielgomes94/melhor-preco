@@ -30,6 +30,7 @@ class Product extends Model
         'weight',
         'parent_sku',
         'additional_costs',
+        'has_variations',
     ];
 
     public function pricings(): BelongsToMany
