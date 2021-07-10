@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Factories\Product\Product as ProductFactory;
+use App\Models\Product as ProductModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -63,6 +64,16 @@ class Product extends Model
         }
 
         return null;
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function getVariations(): array
+    {
+        $products = $this->where('parent_sku', $this->id)->get()->all();
+
+        return $products ?? [];
     }
 
     public function toDomainObject(): \Barrigudinha\Product\Product
