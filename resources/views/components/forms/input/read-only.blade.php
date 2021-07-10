@@ -1,9 +1,12 @@
 <div class="form-group w-100">
-    <label for="{{ $label }}">{{ $label }}</label>
+    @isset($label)
+        <label for="{{ $componentId }}">{{ $label }}</label>
+    @endisset
+
     <input
         type="text"
         class="form-control w-100"
-        id="{{ $id }}"
+        id="{{ $componentId }}"
         name="{{ $attribute }}"
         value="{{ $value }}"
         readonly

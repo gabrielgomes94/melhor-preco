@@ -5,6 +5,7 @@ namespace Barrigudinha\Product;
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Data\Tax;
+use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Utils\Helpers;
 
 class Product
@@ -18,6 +19,10 @@ class Product
     private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
     private float $weight;
+    private float $taxICMS;
+    private ?string $parentSku;
+
+    public ?Costs $costs;
 
     /** @var string[] */
     private array $images;
@@ -42,6 +47,9 @@ class Product
         float $weight,
         ?float $taxICMS,
         ?string $erpId,
+        ?string $parentSku,
+        ?float $additionalCosts = 0.0,
+        ?Costs $costs = null
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -54,40 +62,11 @@ class Product
         $this->erpId = $erpId;
 
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
-    }
+        $this->taxICMS = $taxICMS ?? 0.0;
+        $this->parentSku = $parentSku;
+        $this->additionalCosts = $additionalCosts;
 
-    // TODO: adicionar preços ao criar objeto
-    public static function createFromArray(array $data, array $stores = []): self
-    {
-        $dimensions = new Dimensions(
-            depth: $data['dimensions']['depth'] ?? 0.0,
-            height: $data['dimensions']['height'] ?? 0.0,
-            width: $data['dimensions']['width'] ?? 0.0
-        );
-
-        $product = new self(
-            sku: $data['sku'],
-            name: $data['name'],
-            brand: $data['brand'] ?? '',
-            images: $data['images'] ?? [],
-            stock: $data['stock'] ?? 0,
-            purchasePrice: $data['purchasePrice'] ?? 0.0,
-            dimensions: $dimensions,
-            weight: $data['weight'] ?? 0.0,
-            taxICMS: $data['tax_icms'] ?? null,
-            erpId: null
-        );
-
-
-        if (isset($data['store'])) {
-            $product->stores[] = Store::createFromArray($data['store']);
-        } elseif (isset($stores)) {
-            foreach ($stores as $store) {
-                $product->stores[] = Store::createFromArray($store);
-            }
-        }
-
-        return $product;
+        $this->costs = $costs;
     }
 
     public function addPost(Post $post)
@@ -113,9 +92,9 @@ class Product
         ]);
     }
 
-    public function additionalCosts(): float
+    public function costs(): Costs
     {
-        return $this->additionalCosts;
+        return $this->costs;
     }
 
     public function name(): string
@@ -133,11 +112,6 @@ class Product
         return $this->erpId ?? null;
     }
 
-    public function purchasePrice(): float
-    {
-        return $this->purchasePrice;
-    }
-
     public function sku(): string
     {
         return $this->sku;
@@ -146,6 +120,11 @@ class Product
     public function stores(): array
     {
         return $this->stores;
+    }
+
+    public function parentSku(): ?string
+    {
+        return $this->parentSku;
     }
 
     public function posts(): array
@@ -178,5 +157,10 @@ class Product
     public function weight(): float
     {
         return $this->weight;
+    }
+
+    public function setCosts(Costs $costs): void
+    {
+        $this->costs = $costs;
     }
 }

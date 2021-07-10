@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Pricing\Product;
+namespace App\Http\Requests\Product;
 
+use Barrigudinha\Product\Data\Costs;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class UpdateCostsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +25,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'purchasePrice' => 'numeric',
-            'taxICMS' => 'numeric',
-            'taxSimplesNacional' => 'numeric',
-            'additionalCosts' => 'numeric',
+            'purchasePrice' => 'nullable|numeric',
+            'taxICMS' => 'nullable|numeric',
+            'additionalCosts' => 'nullable|numeric',
         ];
     }
 }

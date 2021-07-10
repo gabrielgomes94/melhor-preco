@@ -1,17 +1,20 @@
 <div class="form-group w-100">
-    <label for="">{{ $label }} (R$)</label>
+    @isset($label)
+        <label for="{{ $visibleComponentId }}">{{ $label }} (R$)</label>
+    @endisset
+
     <input
         type="text"
         class="form-control w-100 input-money"
-        id="{{ $id  }}-input-view"
-        name="{{ $name }}"
+        id="{{ $visibleComponentId  }}"
+        name="{{ $attribute }}"
         value="{{ $value }}"
     >
 
     <input
         type="hidden"
-        id="{{ $id }}"
-        name="{{ $name }}"
+        id="{{ $componentId }}"
+        name="{{ $attribute }}"
         value="{{ $value }}"
     >
 </div>

@@ -138,7 +138,7 @@ class Price
     private function setCostPrice(Product $product): void
     {
         $this->costPrice = new CostPrice(
-            Helpers::floatToMoney($product->purchasePrice()),
+            Helpers::floatToMoney($product->costs()->purchasePrice()),
             $this->additionalCosts,
             Helpers::percentage($product->tax(Tax::ICMS)->rate)
         );

@@ -2,9 +2,7 @@
     <div class="form-group">
         <h3>{{ $productInfo->sku }} - {{ $productInfo->name }}</h3>
 
-        <x-forms.form.put
-            action="{{ route('pricing.products.update', [$productInfo->id]) }}"
-        >
+        <x-forms.form.put action="{{ route('products.costs.update', $productInfo->sku) }}">
             <x-forms.input.money
                 attribute="purchasePrice"
                 label="Preço de Custo"
@@ -18,13 +16,6 @@
                 value="{{ $productInfo->taxICMS }}"
             >
             </x-forms.input.percentage>
-
-            <x-forms.input.read-only
-                attribute="taxSimplesNacional"
-                label="Imposto Simples Nacional (%)"
-                value="{{ $productInfo->taxSimplesNacional }}"
-            >
-            </x-forms.input.read-only>
 
             <x-forms.input.money
                 attribute="additionalCosts"

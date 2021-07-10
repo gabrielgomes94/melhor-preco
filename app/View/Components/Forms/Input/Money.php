@@ -2,13 +2,22 @@
 
 namespace App\View\Components\Forms\Input;
 
-use Illuminate\View\Component;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\View;
 
-class Money extends SimpleInput
+class Money extends BaseInput
 {
+    public ?string $visibleComponentId;
+
+    public function __construct(string $attribute, string $value, ?string $componentId = null, ?string $label = null)
+    {
+        parent::__construct($attribute, $value, $componentId, $label);
+
+        $this->visibleComponentId = $this->componentId . '-input-view';
+    }
 
     /**
-     * @return \Illuminate\Contracts\View\View|string
+     * @return View|Htmlable|Closure|string
      */
     public function render()
     {

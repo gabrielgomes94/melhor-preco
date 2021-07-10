@@ -3,6 +3,7 @@
 namespace App\Factories\Product;
 
 use App\Models\Product as ProductModel;
+use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Dimensions;
 use Barrigudinha\Product\Product as ProductObject;
 
@@ -16,6 +17,10 @@ class Product
             width: $data['dimensions']['width'] ?? 0.0
         );
 
+        $costs = new Costs(
+            purchasePrice: $data['purchasePrice'] ?? 0.0
+        );
+
         $product = new ProductObject(
             sku: $data['sku'],
             name: $data['name'],
@@ -27,6 +32,8 @@ class Product
             weight: $data['weight'] ?? 0.0,
             taxICMS: $data['tax_icms'] ?? null,
             erpId: $data['erpId'],
+            parentSku: $data['parent_sku'],
+            costs: $costs,
         );
 
         if (isset($data['store'])) {
@@ -41,6 +48,12 @@ class Product
     {
         $dimensions = new Dimensions($model->depth, $model->height, $model->width);
 
+        $costs = new Costs(
+            purchasePrice: $model->purchase_price ?? 0.0,
+            additionalCosts:$model->additional_costs,
+            taxICMS: $model->tax_icms ?? null
+        );
+
         $product = new ProductObject(
             sku: $model->sku,
             name: $model->name,
@@ -51,7 +64,10 @@ class Product
             dimensions: $dimensions,
             weight: $model->weight ?? 0.0,
             taxICMS: $model->tax_icms ?? null,
-            erpId: $model->erp_id ?? null
+            erpId: $model->erp_id ?? null,
+            parentSku: $model->parent_sku,
+            additionalCosts:$model->additional_costs,
+            costs: $costs
         );
 
         foreach ($model->prices as $pricePost) {

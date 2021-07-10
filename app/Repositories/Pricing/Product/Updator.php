@@ -58,12 +58,14 @@ class Updator
     public function sync(Product $product, ProductModel $model): bool
     {
         $model->erp_id = $product->erpId();
-        $model->purchase_price = $product->purchasePrice();
-        $model->additional_costs = $product->additionalCosts();
+        $model->purchase_price = $product->costs()->purchasePrice();
+        $model->additional_costs = $product->costs()->additionalCosts();
+        $model->tax_icms = $product->costs()->taxICMS();
         $model->depth = $product->dimensions()->depth();
         $model->height = $product->dimensions()->height();
         $model->width = $product->dimensions()->width();
         $model->weight = $product->weight();
+        $model->parent_sku = $product->parentSku();
 
         foreach ($product->posts() as $post) {
             $calculatedPrice = $this->service->calculate(

@@ -28,7 +28,7 @@ class Creator
             'erp_id' => $product->erpId(),
             'sku' => $product->sku(),
             'name' => $product->name(),
-            'purchase_price' => $product->purchasePrice(),
+            'purchase_price' => $product->costs()->purchasePrice(),
             'tax_icms' => 0.0,
             'depth' => $product->dimensions()->depth(),
             'height' => $product->dimensions()->height(),

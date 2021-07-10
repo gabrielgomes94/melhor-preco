@@ -9,7 +9,7 @@
 
         <x-forms.input.read-only
             attribute="store"
-            id="store-{{ $price->id }}"
+            componentId="store-{{ $price->id }}"
             label="Marketplace"
             value="{{ $price->storeSlug }}"
         >
@@ -17,7 +17,7 @@
 
         <x-forms.input.percentage
             attribute="commission"
-            id="commission-{{ $price->id }}"
+            componentId="commission-{{ $price->id }}"
             label="Comissão"
             value="{{ $price->commission }}"
         >
@@ -25,7 +25,7 @@
 
         <x-forms.input.money
             attribute="additionalCosts"
-            id="additionalCosts-{{ $price->id }}"
+            componentId="additionalCosts-{{ $price->id }}"
             label="Custos Adicionais"
             value="{{ $price->additionalCosts }}"
         >
@@ -33,19 +33,21 @@
 
         <x-forms.input.money
             attribute="desiredPrice"
-            id="desiredPrice-{{ $price->id }}"
+            componentId="desiredPrice-{{ $price->id }}"
             label="Preço desejado"
             value="{{ $price->value }}"
         >
         </x-forms.input.money>
 
-        <input type="hidden"
-               name="product"
-               id="product-{{ $price->id }}"
-               value="{{ $productId }}" />
+        <input
+            type="hidden"
+            name="product"
+            id="product-{{ $price->id }}"
+            value="{{ $productId }}" />
 
-        <input type="submit"
-               class="btn btn-dark d-block w-100 mx-auto m-2"
-               value="Calcular" />
+        <input
+            type="submit"
+            class="btn btn-dark d-block w-100 mx-auto m-2"
+            value="Calcular" />
     </form>
 </div>
