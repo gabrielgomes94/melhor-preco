@@ -6,6 +6,7 @@ use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Data\Tax;
 use Barrigudinha\Product\Data\Costs;
+use Barrigudinha\Product\Variations\Variations;
 use Barrigudinha\Utils\Helpers;
 
 class Product
@@ -21,6 +22,7 @@ class Product
     private float $taxICMS;
     private ?string $parentSku;
     private bool $hasVariations;
+    private ?Variations $variations;
 
     public ?Costs $costs;
 
@@ -50,7 +52,7 @@ class Product
         ?string $parentSku,
         ?float $additionalCosts = 0.0,
         ?Costs $costs = null,
-
+        ?Variations $variations = null,
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -67,6 +69,7 @@ class Product
         $this->additionalCosts = $additionalCosts;
 
         $this->hasVariations = $hasVariations;
+        $this->variations = $variations;
 
         $this->costs = $costs;
     }
@@ -169,5 +172,10 @@ class Product
     public function setCosts(Costs $costs): void
     {
         $this->costs = $costs;
+    }
+
+    public function variations(): ?Variations
+    {
+        return $this->variations;
     }
 }

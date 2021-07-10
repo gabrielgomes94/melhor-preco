@@ -6,6 +6,8 @@ use App\Models\Product as ProductModel;
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Dimensions;
 use Barrigudinha\Product\Product as ProductObject;
+use Barrigudinha\Product\Variations\NoVariations;
+use Barrigudinha\Product\Variations\Variations;
 
 class Product
 {
@@ -46,6 +48,20 @@ class Product
 
     public static function buildFromModel(ProductModel $model): ProductObject
     {
+        if ($model->has_variations) {
+            $variations = $model->getVariations();
+            foreach ($variations as $variation) {
+                $variationProducts[] = self::build($variation);
+            }
+        }
+
+        $product = self::build($model, $variationProducts ?? []);
+
+        return $product;
+    }
+
+    private static function build(ProductModel $model, ?array $variationProducts = null): ProductObject
+    {
         $dimensions = new Dimensions($model->depth, $model->height, $model->width);
 
         $costs = new Costs(
@@ -53,6 +69,10 @@ class Product
             additionalCosts:$model->additional_costs,
             taxICMS: $model->tax_icms ?? null
         );
+
+        $variations = $variationProducts
+            ? new Variations($variationProducts)
+            : new NoVariations();
 
         $product = new ProductObject(
             sku: $model->sku,
@@ -67,7 +87,8 @@ class Product
             erpId: $model->erp_id ?? null,
             parentSku: $model->parent_sku,
             additionalCosts:$model->additional_costs,
-            costs: $costs
+            costs: $costs,
+            variations: $variations
         );
 
         foreach ($model->prices as $pricePost) {
