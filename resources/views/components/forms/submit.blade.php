@@ -1,5 +1,5 @@
 <input
     type="submit"
-    class="btn btn-dark d-block mx-auto m-2 {{ $width }}"
+    class="btn btn-dark d-block mx-auto {{ $width }} {{ $classComponents }}"
     value="{{ $label }}"
 />

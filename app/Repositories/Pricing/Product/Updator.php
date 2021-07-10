@@ -66,6 +66,7 @@ class Updator
         $model->width = $product->dimensions()->width();
         $model->weight = $product->weight();
         $model->parent_sku = $product->parentSku();
+        $model->has_variations = $product->hasVariations();
 
         foreach ($product->posts() as $post) {
             $calculatedPrice = $this->service->calculate(

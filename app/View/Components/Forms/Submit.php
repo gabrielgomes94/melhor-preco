@@ -8,16 +8,18 @@ class Submit extends Component
 {
     public string $label;
     public string $width;
+    public string $classComponents;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $label, string $width = '')
+    public function __construct(string $label, string $width = '', string $classComponents = '')
     {
         $this->label = $label;
         $this->width = 'w-'.($width ?? '100');
+        $this->classComponents = $classComponents ?? '';
     }
 
     /**

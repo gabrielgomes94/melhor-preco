@@ -137,10 +137,11 @@ class Price
 
     private function setCostPrice(Product $product): void
     {
+        // To Do: verificar questão dos custos adicionais
         $this->costPrice = new CostPrice(
             Helpers::floatToMoney($product->costs()->purchasePrice()),
             $this->additionalCosts,
-            Helpers::percentage($product->tax(Tax::ICMS)->rate)
+            Helpers::percentage($product->costs()->taxICMS())
         );
     }
 

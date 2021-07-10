@@ -23,9 +23,11 @@ class FinderDB implements ProductFinder
      */
     public function all(): array
     {
+        $products = ProductModel::whereNull('parent_sku')->get()->all();
+
         $products = array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);
-        }, ProductModel::all()->all());
+        }, $products);
 
         return $products;
     }
@@ -40,9 +42,12 @@ class FinderDB implements ProductFinder
             throw new InvalidStoreException($store);
         }
 
-        $products = array_filter(ProductModel::all()->all(), function (ProductModel $product) use ($store) {
-            return $product->inStore($store);
-        });
+        $products = array_filter(
+            ProductModel::whereNull('parent_sku')->get()->all(),
+            function (ProductModel $product) use ($store) {
+                return $product->inStore($store);
+            }
+        );
 
         return array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);
