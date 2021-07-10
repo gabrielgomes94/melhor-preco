@@ -69,16 +69,9 @@ class Updator
         $model->has_variations = $product->hasVariations();
 
         foreach ($product->posts() as $post) {
-            $calculatedPrice = $this->service->calculate(
-                product: $product,
-                store: $post->store()->code(),
-                desiredPrice: $post->price(),
-                commission: $post->store()->commission(),
-            );
-
             if ($price = $model->getPrice($post->store()->slug())) {
                 $price->commission = $post->store()->commission();
-                $price->profit = $this->formatMoney($calculatedPrice->price()->profit());
+                $price->profit = $this->formatMoney($post->profit());
                 $price->store = $post->store()->code();
                 $price->store_sku_id = $post->store()->storeSkuId();
                 $price->value = $this->formatMoney($post->price());
@@ -90,7 +83,7 @@ class Updator
 
             $price = new PriceModel([
                 'commission' => $post->store()->commission(),
-                'profit' => $this->formatMoney($calculatedPrice->price()->profit()),
+                'profit' => $this->formatMoney($post->profit()),
                 'store' => $post->store()->code(),
                 'store_sku_id' => $post->store()->storeSkuId(),
                 'value' => $this->formatMoney($post->price()),
