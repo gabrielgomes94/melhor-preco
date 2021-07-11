@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Bling\Product\Services;
 
 use App\Bling\Product\Client;
@@ -24,10 +25,9 @@ class ProductUpdater
         $productXML = $xml->addChild('produto');
         $productXML->addChild('codigo', $product->getSku());
         $productXML->addChild('descricao', $product->getName());
-        $productXML->addChild('marca', $product->getBrand());
         $images = $productXML->addChild('imagens');
 
-        foreach($product->getImages() as $imageUrl)  {
+        foreach ($product->getImages() as $imageUrl) {
             $images->addChild('url', $imageUrl);
         }
 
