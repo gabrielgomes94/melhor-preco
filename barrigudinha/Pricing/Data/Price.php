@@ -140,7 +140,8 @@ class Price
         // To Do: verificar questão dos custos adicionais
         $this->costPrice = new CostPrice(
             Helpers::floatToMoney($product->costs()->purchasePrice()),
-            $this->additionalCosts,
+            Helpers::floatToMoney($product->costs()->additionalCosts())
+                ->add($this->additionalCosts),
             Helpers::percentage($product->costs()->taxICMS())
         );
     }
