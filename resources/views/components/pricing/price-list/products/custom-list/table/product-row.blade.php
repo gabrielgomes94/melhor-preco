@@ -4,14 +4,14 @@
     @foreach($stores as $store)
         <td>
             <div class="selling-price">
-                {{ $product->price($store) }}
+                {{ $product->price($store->slug()) }}
             </div>
             <div>
                 <div class="profit-margin">
-                    {{ $product->margin($store) }}
+                    {{ $product->margin($store->slug()) }}
                 </div>
                 <div class="profit-value">
-                    {{ $product->profit($store) }}
+                    {{ $product->profit($store->slug()) }}
                 </div>
             </div>
         </td>

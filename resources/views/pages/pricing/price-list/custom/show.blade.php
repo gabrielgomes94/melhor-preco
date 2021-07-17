@@ -13,7 +13,7 @@
             <div class="col">
                 <x-pricing.price-list.products.custom-list.table
                     :priceList="$priceList"
-                    :stores="$priceList->stores()"
+                    :stores="$stores"
                     :products="$products"
                 />
             </div>

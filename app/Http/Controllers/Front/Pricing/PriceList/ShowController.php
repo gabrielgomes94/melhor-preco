@@ -63,12 +63,14 @@ class ShowController extends Controller
         $products = $this->productPresenter->list($priceList->products());
 
         $paginator = $this->paginator->paginate($products, $request);
+        $stores = $this->storePresenter->list($priceList->stores());
 
         return view('pages.pricing.price-list.custom.show', [
             'breadcrumb' => $breadcrumb,
             'priceList' => $priceList,
             'paginator' => $paginator,
             'products' => $paginator->items(),
+            'stores' => $stores,
         ]);
     }
 
@@ -81,15 +83,15 @@ class ShowController extends Controller
         $productsPriced = $this->calculateListService->execute($products, $store);
 
         $store = $this->storePresenter->present($store);
-        $productsPresented = $this->productPresenter->list($products, $store->slug);
+        $productsPresented = $this->productPresenter->list($products, $store->slug());
         $breadcrumb = [
             [
                 'link' => route('pricing.priceList.index'),
                 'name' => 'Listas de Preços',
             ],
             [
-                'link' => route('pricing.priceList.byStore', $store->slug),
-                'name' => $store->name,
+                'link' => route('pricing.priceList.byStore', $store->slug()),
+                'name' => $store->name(),
             ],
         ];
 
