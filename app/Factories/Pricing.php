@@ -25,7 +25,6 @@ class Pricing
             ], $prices);
         }, $model->products->all());
 
-
         $pricing = new PricingData(
             name: $model->name,
             products: $products,

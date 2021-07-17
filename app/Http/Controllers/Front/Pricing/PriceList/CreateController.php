@@ -39,6 +39,6 @@ class CreateController extends Controller
         $createPricingData = $this->transformer->transform($request);
         $this->pricingService->create($createPricingData);
 
-        return redirect(route('pricing.list'));
+        return redirect(route('pricing.priceList.index'));
     }
 }

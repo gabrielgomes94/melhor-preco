@@ -6,23 +6,19 @@
             </h2>
         </x-slot>
 
-        <h3>{{ $pricing->name }}</h3>
+        <h3>{{ $priceList->name() }}</h3>
 
         <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
         <div class="row">
             <div class="col">
-                <x-pricing.products.list-table :pricing="$pricing" />
+                <x-pricing.price-list.products.custom-list.table
+                    :priceList="$priceList"
+                    :stores="$priceList->stores()"
+                    :products="$products"
+                />
             </div>
         </div>
 
-        <x-forms.form.post
-            :action="route('pricing.export', $pricing->id)"
-        >
-            <x-forms.submit
-                label="Exportar"
-                width="20"
-            >
-            </x-forms.submit>
-        </x-forms.form.post>
+        <x-utils.paginator-links :paginator="$paginator" />
     </div>
 </x-layout>

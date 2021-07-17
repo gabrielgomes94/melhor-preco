@@ -7,6 +7,7 @@ use App\Http\Controllers\Utils\Paginator;
 use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Pricing\Show as PricingShow;
 use App\Presenters\Store\Presenter as StorePresenter;
+use App\Repositories\Pricing\PriceListRepository;
 use App\Repositories\Product\FinderDB;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
 use Barrigudinha\Pricing\Services\PriceCalculator\CalculateList;
@@ -17,7 +18,7 @@ use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
-    private PricingRepository $repository;
+    private PriceListRepository $repository;
     private PricingShow $presenter;
     private FinderDB $productRepository;
     private StorePresenter $storePresenter;
@@ -26,7 +27,7 @@ class ShowController extends Controller
     private Paginator $paginator;
 
     public function __construct(
-        PricingRepository $repository,
+        PriceListRepository $repository,
         PricingShow $presenter,
         FinderDB $productRepository,
         StorePresenter $storePresenter,
@@ -46,13 +47,12 @@ class ShowController extends Controller
     /**
      * @return Application|ViewFactory|View
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        if (!$pricing = $this->repository->find($id)) {
+        if (!$priceList = $this->repository->get($id)) {
             abort(404);
         }
 
-        $presentationPricing = $this->presenter->present($pricing);
         $breadcrumb = [
             [
                 'link' => route('pricing.priceList.index'),
@@ -60,9 +60,15 @@ class ShowController extends Controller
             ],
         ];
 
+        $products = $this->productPresenter->list($priceList->products());
+
+        $paginator = $this->paginator->paginate($products, $request);
+
         return view('pages.pricing.price-list.custom.show', [
             'breadcrumb' => $breadcrumb,
-            'pricing' => $presentationPricing
+            'priceList' => $priceList,
+            'paginator' => $paginator,
+            'products' => $paginator->items(),
         ]);
     }
 

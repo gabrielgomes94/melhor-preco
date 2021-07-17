@@ -50,9 +50,9 @@ class Product
         return $this->product->name();
     }
 
-    public function price(): string
+    public function price(?string $store = null): string
     {
-        $post = $this->product->post($this->store);
+        $post = $this->product->post($store ?? $this->store);
 
         if (!$post) {
             return '';
@@ -63,9 +63,9 @@ class Product
         return $price;
     }
 
-    public function profit(): string
+    public function profit(?string $store = null): string
     {
-        $post = $this->product->post($this->store);
+        $post = $this->product->post($store ?? $this->store);
 
         if (!$post) {
             return '';
@@ -74,9 +74,9 @@ class Product
         return $this->moneyFormatter->format($post->profit());
     }
 
-    public function margin(): string
+    public function margin(?string $store = null): string
     {
-        $post = $this->product->post($this->store);
+        $post = $this->product->post($store ?? $this->store);
 
         if (!$post) {
             return '';

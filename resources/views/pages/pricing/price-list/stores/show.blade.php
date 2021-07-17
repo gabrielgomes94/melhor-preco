@@ -12,8 +12,6 @@
             <x-pricing.price-list.products.store-list.table :products="$products" :store="$store"/>
         </div>
 
-        <div class="d-flex justify-content-center">
-            {!! $paginator->links() !!}
-        </div>
+        <x-utils.paginator-links :paginator="$paginator" />
     </div>
 </x-layout>

@@ -2,12 +2,7 @@
 
     <div class="container">
         <div class="row">
-            @isset($breadcrumb)
-                <x-utils.breadcrumb
-                    :breadcrumb="$breadcrumb"
-                >
-                </x-utils.breadcrumb>
-            @endisset
+            <x-utils.breadcrumb :breadcrumb="$breadcrumb" />
         </div>
     </div>
 
