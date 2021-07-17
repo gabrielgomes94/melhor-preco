@@ -11,5 +11,9 @@
 
             <x-pricing.products.single-store.list-table :products="$products" :store="$store"/>
         </div>
+
+        <div class="d-flex justify-content-center">
+            {!! $paginator->links() !!}
+        </div>
     </div>
 </x-layout>

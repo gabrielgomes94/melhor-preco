@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front\Pricing\PriceList;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Utils\Paginator;
 use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Pricing\Show as PricingShow;
 use App\Presenters\Store\Presenter as StorePresenter;
@@ -12,6 +13,7 @@ use Barrigudinha\Pricing\Services\PriceCalculator\CalculateList;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
@@ -21,6 +23,7 @@ class ShowController extends Controller
     private StorePresenter $storePresenter;
     private ProductPresenter $productPresenter;
     private CalculateList $calculateListService;
+    private Paginator $paginator;
 
     public function __construct(
         PricingRepository $repository,
@@ -28,7 +31,8 @@ class ShowController extends Controller
         FinderDB $productRepository,
         StorePresenter $storePresenter,
         ProductPresenter $productPresenter,
-        CalculateList $calculateListService
+        CalculateList $calculateListService,
+        Paginator $paginator,
     ) {
         $this->repository = $repository;
         $this->presenter = $presenter;
@@ -36,6 +40,7 @@ class ShowController extends Controller
         $this->storePresenter = $storePresenter;
         $this->productPresenter = $productPresenter;
         $this->calculateListService = $calculateListService;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -64,7 +69,7 @@ class ShowController extends Controller
     /**
      * @return Application|ViewFactory|View
      */
-    public function byStore(string $store)
+    public function byStore(string $store, Request $request)
     {
         $products = $this->productRepository->allByStore($store);
         $productsPriced = $this->calculateListService->execute($products, $store);
@@ -82,10 +87,13 @@ class ShowController extends Controller
             ],
         ];
 
+        $paginator = $this->paginator->paginate($productsPresented, $request);
+
         return view('pages.pricing.price-list.stores.show', [
             'store' => $store,
-            'products' => $productsPresented,
             'breadcrumb' => $breadcrumb,
+            'paginator' => $paginator,
+            'products' => $paginator->items(),
         ]);
     }
 }
