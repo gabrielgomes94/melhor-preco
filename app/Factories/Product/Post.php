@@ -28,7 +28,8 @@ class Post
         return new ProductPost(
             id: $pricePost->id,
             price: Helpers::floatToMoney($pricePost->value),
-            store: new Store(store_sku_id: $pricePost->store_sku_id, code: $pricePost->store)
+            store: new Store(store_sku_id: $pricePost->store_sku_id, code: $pricePost->store),
+            profit: Helpers::floatToMoney($pricePost->profit) ?? null,
         );
     }
 }
