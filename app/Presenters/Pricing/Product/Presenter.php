@@ -16,6 +16,19 @@ class Presenter
     }
 
     /**
+     * @param ProductData[] $post
+     * @return array
+     */
+    public function list(array $products, string $store = null): array
+    {
+        foreach ($products as $product) {
+            $presentedProducts[] = new Product($product, $store);
+        }
+
+        return $presentedProducts ?? [];
+    }
+
+    /**
      * @param PostPriced[] $posts
      * @return array
      */

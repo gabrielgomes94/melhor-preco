@@ -22,4 +22,18 @@ class Presenter
 
         return $store;
     }
+
+    /**
+     * @param string[] $stores
+     * @return array
+     */
+    public function list(array $stores): array
+    {
+        return array_map(function(string $store) {
+            return new Store(
+                name: $this->repository->name($store),
+                slug: $store
+            );
+        }, $stores);
+    }
 }

@@ -3,32 +3,37 @@
 namespace App\Http\Controllers\Front\Pricing\PriceList;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Utils\Paginator;
 use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Pricing\Show as PricingShow;
 use App\Presenters\Store\Presenter as StorePresenter;
+use App\Repositories\Pricing\PriceListRepository;
 use App\Repositories\Product\FinderDB;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
 use Barrigudinha\Pricing\Services\PriceCalculator\CalculateList;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
-    private PricingRepository $repository;
+    private PriceListRepository $repository;
     private PricingShow $presenter;
     private FinderDB $productRepository;
     private StorePresenter $storePresenter;
     private ProductPresenter $productPresenter;
     private CalculateList $calculateListService;
+    private Paginator $paginator;
 
     public function __construct(
-        PricingRepository $repository,
+        PriceListRepository $repository,
         PricingShow $presenter,
         FinderDB $productRepository,
         StorePresenter $storePresenter,
         ProductPresenter $productPresenter,
-        CalculateList $calculateListService
+        CalculateList $calculateListService,
+        Paginator $paginator,
     ) {
         $this->repository = $repository;
         $this->presenter = $presenter;
@@ -36,18 +41,18 @@ class ShowController extends Controller
         $this->storePresenter = $storePresenter;
         $this->productPresenter = $productPresenter;
         $this->calculateListService = $calculateListService;
+        $this->paginator = $paginator;
     }
 
     /**
      * @return Application|ViewFactory|View
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        if (!$pricing = $this->repository->find($id)) {
+        if (!$priceList = $this->repository->get($id)) {
             abort(404);
         }
 
-        $presentationPricing = $this->presenter->present($pricing);
         $breadcrumb = [
             [
                 'link' => route('pricing.priceList.index'),
@@ -55,37 +60,48 @@ class ShowController extends Controller
             ],
         ];
 
+        $products = $this->productPresenter->list($priceList->products());
+
+        $paginator = $this->paginator->paginate($products, $request);
+        $stores = $this->storePresenter->list($priceList->stores());
+
         return view('pages.pricing.price-list.custom.show', [
             'breadcrumb' => $breadcrumb,
-            'pricing' => $presentationPricing
+            'priceList' => $priceList,
+            'paginator' => $paginator,
+            'products' => $paginator->items(),
+            'stores' => $stores,
         ]);
     }
 
     /**
      * @return Application|ViewFactory|View
      */
-    public function byStore(string $store)
+    public function byStore(string $store, Request $request)
     {
         $products = $this->productRepository->allByStore($store);
         $productsPriced = $this->calculateListService->execute($products, $store);
 
         $store = $this->storePresenter->present($store);
-        $productsPresented = $this->productPresenter->listPriced($productsPriced);
+        $productsPresented = $this->productPresenter->list($products, $store->slug());
         $breadcrumb = [
             [
                 'link' => route('pricing.priceList.index'),
                 'name' => 'Listas de Preços',
             ],
             [
-                'link' => route('pricing.priceList.byStore', $store->slug),
-                'name' => $store->name,
+                'link' => route('pricing.priceList.byStore', $store->slug()),
+                'name' => $store->name(),
             ],
         ];
 
+        $paginator = $this->paginator->paginate($productsPresented, $request);
+
         return view('pages.pricing.price-list.stores.show', [
             'store' => $store,
-            'products' => $productsPresented,
             'breadcrumb' => $breadcrumb,
+            'paginator' => $paginator,
+            'products' => $paginator->items(),
         ]);
     }
 }

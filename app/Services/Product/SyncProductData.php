@@ -29,6 +29,7 @@ class SyncProductData
     {
         $products = $this->erpRepository->all();
 
+//        dd(count($products));
         foreach ($products as $product) {
             $productModel = $this->dbRepository->getModel($product->sku());
 

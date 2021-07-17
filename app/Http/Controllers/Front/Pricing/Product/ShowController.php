@@ -87,7 +87,7 @@ class ShowController extends Controller
             ],
             [
                 'link' => '',
-                'name' => $productInfo->name,
+                'name' => $productInfo->name(),
             ],
         ];
 
