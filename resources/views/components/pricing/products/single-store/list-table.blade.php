@@ -11,32 +11,17 @@
     </thead>
     <tbody>
     @foreach($products as $product)
-        <tr>
-            <th scope="row">{{ $product->sku }}</th>
-            <td> {{ $product->name }} </td>
-            <td>R$ {{ $product->value }} </td>
-            <td>
-                <x-pricing.products.utils.profit-text
-                    preffix="R$"
-                    value="{{ $product->profit }}"
-                />
-            </td>
-            <td>
-                <x-pricing.products.utils.profit-text
-                    value="{{ $product->margin }}"
-                    suffix="%"
-                />
-            </td>
-            <td>
-                <x-utils.navigation-button
-                    :route="route('pricing.products.showByStore', [
-                        'store' => $store->slug,
-                        'product_id' => $product->sku
-                    ])"
-                    label="Calcular"
-                />
-            </td>
-        </tr>
+        <x-pricing.products.single-store.product-row
+            :product="$product"
+            :store="$store->slug"
+        />
+
+        @if ($product->hasVariations())
+            <x-pricing.products.single-store.variations-row
+                :variations="$product->variations()"
+                :store="$store->slug"
+            />
+        @endif
     @endforeach
     </tbody>
 </table>

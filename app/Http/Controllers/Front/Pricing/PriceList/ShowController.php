@@ -70,7 +70,7 @@ class ShowController extends Controller
         $productsPriced = $this->calculateListService->execute($products, $store);
 
         $store = $this->storePresenter->present($store);
-        $productsPresented = $this->productPresenter->listPriced($productsPriced);
+        $productsPresented = $this->productPresenter->list($products, $store->slug);
         $breadcrumb = [
             [
                 'link' => route('pricing.priceList.index'),

@@ -29,7 +29,6 @@ class Post
         $this->name = $postPriced->product()->name();
         $this->sku = $postPriced->product()->sku();
 
-
         $this->id = $postPriced->post()->id();
         $this->store = $postPriced->post()->store()->name();
         $this->storeSlug = $postPriced->post()->store()->slug();
