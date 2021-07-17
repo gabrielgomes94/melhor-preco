@@ -22,7 +22,7 @@ class PriceListRepository implements PriceListRepositoryInterface
     {
         $model = PricingModel::find($id);
 
-        $products = array_map(function(ProductModel $product){
+        $products = array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);
         }, $model->products->all());
 

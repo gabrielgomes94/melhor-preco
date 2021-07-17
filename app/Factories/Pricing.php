@@ -11,7 +11,7 @@ class Pricing
 {
     public function make(PricingModel $model): PricingData
     {
-        $products = array_map(function(ProductModel $product) {
+        $products = array_map(function (ProductModel $product) {
             $prices = $product->prices()->get()->toArray();
 
             return new Product([
