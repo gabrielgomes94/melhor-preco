@@ -86,7 +86,9 @@ class Product
             return '0.0';
         }
 
-        return $post->profit()->ratioOf($post->price()) * 100;
+        $margin = $post->profit()->ratioOf($post->price()) * 100;
+
+        return round($margin, 2);
     }
 
     public function purchasePrice(): string
