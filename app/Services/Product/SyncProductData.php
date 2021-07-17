@@ -14,9 +14,10 @@ class SyncProductData
     private FinderBling $erpRepository;
     private Updator $updator;
     private Creator $creator;
-    private Update $updateService;
+//    private Update $updateService;
+    private UpdateCosts $updateService;
 
-    public function __construct(FinderDB $dbRepository, FinderBling $erpRepository, Updator $updator, Creator $creator, Update $updateService)
+    public function __construct(FinderDB $dbRepository, FinderBling $erpRepository, Updator $updator, Creator $creator, UpdateCosts $updateService)
     {
         $this->dbRepository = $dbRepository;
         $this->erpRepository = $erpRepository;
@@ -40,13 +41,18 @@ class SyncProductData
 
             $productObject = $productModel->toDomainObject();
 
-            $product = $this->updateService->updateCosts($product, [
+//            $product = $this->updateService->updateCosts($product, [
+//                'purchasePrice' => $productObject->costs()->purchasePrice(),
+//                'additionalCosts' => $productObject->costs()->additionalCosts(),
+//                'taxICMS' => $productObject->costs()->taxICMS(),
+//            ]);
+//            $this->updator->sync($product, $productModel);
+
+            $this->updateService->execute($product->sku(), [
                 'purchasePrice' => $productObject->costs()->purchasePrice(),
                 'additionalCosts' => $productObject->costs()->additionalCosts(),
                 'taxICMS' => $productObject->costs()->taxICMS(),
             ]);
-
-            $this->updator->sync($product, $productModel);
         }
     }
 }

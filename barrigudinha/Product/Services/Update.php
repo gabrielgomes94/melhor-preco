@@ -25,9 +25,10 @@ class Update
         );
         $product->setCosts($costs);
 
-        foreach ($product->posts() as $post) {
-            $post->setProfit($this->calculateProfit($product, $post));
-        }
+        // To Do: atualizar variações
+//        foreach ($product->posts() as $post) {
+//            $post->setProfit($this->calculateProfit($product, $post));
+//        }
 
         return $product;
     }

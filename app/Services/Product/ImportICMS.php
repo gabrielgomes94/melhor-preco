@@ -11,14 +11,16 @@ use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Services\Product\UpdateCosts;
 
 class ImportICMS
 {
     private FinderDB $finder;
     private UpdateRepository $repository;
-    private Update $updateService;
+//    private Update $updateService;
+    private UpdateCosts $updateService;
 
-    public function __construct(UpdateRepository $repository, FinderDB $finder, Update $updateService)
+    public function __construct(UpdateRepository $repository, FinderDB $finder, UpdateCosts $updateService)
     {
         $this->repository = $repository;
         $this->finder = $finder;
@@ -37,8 +39,13 @@ class ImportICMS
             }
 
             $productObject = $model->toDomainObject();
-            $this->updateService->updateCosts(
-                $productObject,
+//            $this->updateService->updateCosts(
+//                $productObject,
+//                ['taxICMS' => (float) $product['icms']]
+//            );
+//            dd($product['sku']);
+            $this->updateService->execute(
+                $product['sku'],
                 ['taxICMS' => (float) $product['icms']]
             );
 
