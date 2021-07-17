@@ -1,46 +1,24 @@
 <table class="table table-bordered table-hover">
     <thead>
-    <tr>
-        <th scope="col">SKU</th>
-        <th scope="col">Produto</th>
-        @foreach($stores as $store)
-            <th scope="col">{{ $store }}</th>
-        @endforeach
-        <th scope="col">Ações</th>
-    </tr>
+        <x-pricing.price-list.products.custom-list.table.header
+            :stores="$stores"
+        />
     </thead>
     <tbody>
     @foreach($products as $product)
-        <tr>
-            <th scope="row">{{ $product->sku() }}</th>
-            <td> {{ $product->name() }}</td>
-            @foreach($stores as $store)
-                <td>
-                    <div class="selling-price">
-                        {{ $product->price($store) }}
-                    </div>
-                    <div>
-                        <div class="profit-margin">
-                            {{ $product->margin($store) }}
-                        </div>
-                        <div class="profit-value">
-                            {{ $product->profit($store) }}
-                        </div>
-                    </div>
-                </td>
-            @endforeach
-            <td>
-                <div class="d-inline-flex justify-content-end">
-                    <x-utils.navigation-button
-                        :route="route('pricing.priceList.custom.product.show', [
-                            'price_list_id' => $priceList->id(),
-                            'product_id' => $product->sku()
-                        ])"
-                        label="Detalhar"
-                    />
-                </div>
-            </td>
-        </tr>
+        <x-pricing.price-list.products.custom-list.table.product-row
+            :product="$product"
+            :priceList="$priceList"
+            :stores="$stores"
+        />
+
+        @if($product->hasVariations())
+            <x-pricing.price-list.products.custom-list.table.variations-row
+                :variations="$product->variations()"
+                :priceList="$priceList"
+                :stores="$stores"
+            />
+        @endif
     @endforeach
     </tbody>
 </table>
