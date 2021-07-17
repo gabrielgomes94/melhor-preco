@@ -11,15 +11,6 @@ use Money\Formatter\DecimalMoneyFormatter;
 
 class Product
 {
-    private string $id;
-    private string $name;
-    private string $sku;
-    private float $purchasePrice;
-//    private float $taxIPI;
-    private float $taxICMS;
-//    private float $taxSimplesNacional;
-    private float $additionalCosts;
-    private array $prices;
     private ProductData $product;
     private $store;
 
@@ -27,13 +18,6 @@ class Product
 
     public function __construct(ProductData $product, ?string $store = null)
     {
-        $this->id = $product->sku();
-        $this->name = $product->name();
-        $this->sku = $product->sku();
-        $this->purchasePrice = $product->costs()->purchasePrice();
-        $this->taxICMS = (float) $product->costs()->taxICMS();
-        $this->additionalCosts = $product->costs()->additionalCosts();
-
         $this->product = $product;
         $this->store = $store;
 
