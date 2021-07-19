@@ -23,7 +23,7 @@ class FinderDB implements ProductFinder
      */
     public function all(): array
     {
-        $products = ProductModel::whereNull('parent_sku')->get()->all();
+        $products = ProductModel::whereNull('parent_sku')->sortBy('id')->get()->all();
 
         $products = array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);
@@ -43,7 +43,7 @@ class FinderDB implements ProductFinder
         }
 
         $products = array_filter(
-            ProductModel::whereNull('parent_sku')->get()->all(),
+            ProductModel::whereNull('parent_sku')->sortBy('id')->get()->all(),
             function (ProductModel $product) use ($store) {
                 return $product->inStore($store);
             }
