@@ -3,22 +3,18 @@
 namespace App\Services\Product;
 
 use App\Imports\ProductICMSImport;
-use App\Models\Product;
 use App\Repositories\Pricing\Product\Updator as UpdateRepository;
 use App\Repositories\Product\FinderDB;
-use Barrigudinha\Product\Services\Update;
 use Illuminate\Http\UploadedFile;
-use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+
 
 class ImportICMS
 {
     private FinderDB $finder;
     private UpdateRepository $repository;
-    private Update $updateService;
+    private UpdateCosts $updateService;
 
-    public function __construct(UpdateRepository $repository, FinderDB $finder, Update $updateService)
+    public function __construct(UpdateRepository $repository, FinderDB $finder, UpdateCosts $updateService)
     {
         $this->repository = $repository;
         $this->finder = $finder;
@@ -37,8 +33,9 @@ class ImportICMS
             }
 
             $productObject = $model->toDomainObject();
-            $this->updateService->updateCosts(
-                $productObject,
+
+            $this->updateService->execute(
+                $product['sku'],
                 ['taxICMS' => (float) $product['icms']]
             );
 

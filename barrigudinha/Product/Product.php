@@ -172,6 +172,12 @@ class Product
     public function setCosts(Costs $costs): void
     {
         $this->costs = $costs;
+
+        if ($this->hasVariations()) {
+            foreach($this->variations->get() as $variation) {
+                $variation->setCosts($costs);
+            }
+        }
     }
 
     public function variations(): ?Variations

@@ -6,7 +6,6 @@ use App\Repositories\Pricing\Product\Creator;
 use App\Repositories\Product\FinderBling;
 use App\Repositories\Product\FinderDB;
 use App\Repositories\Pricing\Product\Updator;
-use Barrigudinha\Product\Services\Update;
 
 class SyncProductData
 {
@@ -14,9 +13,9 @@ class SyncProductData
     private FinderBling $erpRepository;
     private Updator $updator;
     private Creator $creator;
-    private Update $updateService;
+    private UpdateCosts $updateService;
 
-    public function __construct(FinderDB $dbRepository, FinderBling $erpRepository, Updator $updator, Creator $creator, Update $updateService)
+    public function __construct(FinderDB $dbRepository, FinderBling $erpRepository, Updator $updator, Creator $creator, UpdateCosts $updateService)
     {
         $this->dbRepository = $dbRepository;
         $this->erpRepository = $erpRepository;
@@ -29,7 +28,6 @@ class SyncProductData
     {
         $products = $this->erpRepository->all();
 
-//        dd(count($products));
         foreach ($products as $product) {
             $productModel = $this->dbRepository->getModel($product->sku());
 
@@ -40,13 +38,11 @@ class SyncProductData
 
             $productObject = $productModel->toDomainObject();
 
-            $product = $this->updateService->updateCosts($product, [
+            $this->updateService->execute($product->sku(), [
                 'purchasePrice' => $productObject->costs()->purchasePrice(),
                 'additionalCosts' => $productObject->costs()->additionalCosts(),
                 'taxICMS' => $productObject->costs()->taxICMS(),
             ]);
-
-            $this->updator->sync($product, $productModel);
         }
     }
 }
