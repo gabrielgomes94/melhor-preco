@@ -7,13 +7,13 @@
         @foreach($products as $product)
             <x-pricing.price-list.products.store-list.table.product-row
                 :product="$product"
-                :store="$store->slug"
+                :store="$store->slug()"
             />
 
             @if ($product->hasVariations())
                 <x-pricing.price-list.products.store-list.table.variations-row
                     :variations="$product->variations()"
-                    :store="$store->slug"
+                    :store="$store->slug()"
                 />
             @endif
         @endforeach
