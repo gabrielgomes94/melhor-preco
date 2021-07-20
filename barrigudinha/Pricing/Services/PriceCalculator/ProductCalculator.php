@@ -38,7 +38,7 @@ class ProductCalculator
     public function single(Product $product, string $store): PostPriced
     {
         $post = $product->post($store);
-        $commission = $this->storeRepository->commission();
+        $commission = $this->storeRepository->commission($store);
 
         $price = new Price($product, $post->price(), $store, null, $commission);
 
