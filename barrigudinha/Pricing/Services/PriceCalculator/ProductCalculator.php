@@ -6,9 +6,18 @@ use Barrigudinha\Pricing\Data\PostPriced\Factory as PostPricedFactory;
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Product\Product;
+use App\Repositories\Store\Store as StoreRepository;
 
 class ProductCalculator
 {
+    private StoreRepository $storeRepository;
+
+    public function __construct(StoreRepository $storeRepository)
+    {
+        $this->storeRepository = $storeRepository;
+    }
+
+
     /**
      * @return PostPriced[]
      */
@@ -29,8 +38,9 @@ class ProductCalculator
     public function single(Product $product, string $store): PostPriced
     {
         $post = $product->post($store);
+        $commission = $this->storeRepository->commission();
 
-        $price = new Price($product, $post->price(), $store);
+        $price = new Price($product, $post->price(), $store, null, $commission);
 
         return PostPricedFactory::make($post, $price, $product);
     }

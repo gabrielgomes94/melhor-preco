@@ -22,4 +22,9 @@ class Store implements StoreRepository
     {
         return config('stores.' . $store . '.name');
     }
+
+    public function commission(string $store): string
+    {
+        return config('stores.' . $store . '.commission');
+    }
 }

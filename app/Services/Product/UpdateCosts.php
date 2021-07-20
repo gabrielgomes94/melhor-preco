@@ -32,7 +32,6 @@ class UpdateCosts
 
         $costs = $this->makeCosts($product, $data);
         $product->setCosts($costs);
-
         foreach ($product->posts() as $post) {
             $postPriced = $this->calculator->single($product, $post->store()->slug());
             $post->setProfit($postPriced->price()->profit());
