@@ -3,7 +3,7 @@
         attribute="value"
         label="Preço (5% de desconto)"
         componentId="discounted-price-{{ $price->id }}-value"
-        value="{{ $price->discountedPrice }}"
+        value="{{ $discountedPrice['price'] }}"
     >
     </x-forms.input.read-only>
 
@@ -51,7 +51,7 @@
         attribute="profit"
         label="Lucro"
         componentId="discounted-price-{{ $price->id }}-profit"
-        value="{{ $price->profit }}"
+        value="{{ $discountedPrice['profit'] }}"
     >
     </x-forms.input.read-only>
 
@@ -59,7 +59,7 @@
         attribute="margin"
         label="Margem"
         componentId="discounted-price-{{ $price->id }}-margin"
-        value="{{ $price->margin }}"
+        value="{{ $discountedPrice['margin'] }}"
     >
     </x-forms.input.read-only>
 </div>

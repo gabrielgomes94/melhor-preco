@@ -142,6 +142,9 @@ class Product
         return $this->posts ?? [];
     }
 
+    /**
+     * @deprecated
+     */
     public function post(string $store): ?Post
     {
         foreach ($this->posts() as $post) {
@@ -152,6 +155,41 @@ class Product
 
         return null;
     }
+
+    public function getPost(string $storeSlug): ?Post
+    {
+        foreach ($this->posts() as $post) {
+            if ($post->store()->slug() === $storeSlug) {
+                return $post;
+            }
+        }
+
+        return null;
+    }
+
+    public function getStore(string $storeSlug): ?Store
+    {
+        foreach ($this->stores() as $store) {
+            if ($store->slug() === $storeSlug) {
+                return $store;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return Store[]
+     */
+    public function getStores(array $storesSlug): array
+    {
+        foreach ($storesSlug as $slug) {
+            $stores[] = $this->getStore($slug);
+        }
+
+        return $stores ?? [];
+    }
+
 
     public function tax(string $taxCode): ?Tax
     {
@@ -174,10 +212,28 @@ class Product
         $this->costs = $costs;
 
         if ($this->hasVariations()) {
-            foreach($this->variations->get() as $variation) {
+            foreach ($this->variations->get() as $variation) {
                 $variation->setCosts($costs);
             }
         }
+    }
+
+    /**
+     * @var Post[]
+     */
+    public function setPosts(array $posts): void
+    {
+        $updatedPosts = [];
+
+        foreach ($posts as $post) {
+            if (!$posts instanceof Post) {
+                continue;
+            }
+
+            $updatedPosts[] = $post;
+        }
+
+        $this->posts = $updatedPosts ?? [];
     }
 
     public function variations(): ?Variations

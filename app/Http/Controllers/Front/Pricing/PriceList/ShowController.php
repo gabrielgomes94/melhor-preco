@@ -9,8 +9,6 @@ use App\Presenters\Pricing\Show as PricingShow;
 use App\Presenters\Store\Presenter as StorePresenter;
 use App\Repositories\Pricing\PriceListRepository;
 use App\Repositories\Product\FinderDB;
-use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
-use Barrigudinha\Pricing\Services\PriceCalculator\CalculateList;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
@@ -23,7 +21,6 @@ class ShowController extends Controller
     private FinderDB $productRepository;
     private StorePresenter $storePresenter;
     private ProductPresenter $productPresenter;
-    private CalculateList $calculateListService;
     private Paginator $paginator;
 
     public function __construct(
@@ -32,7 +29,6 @@ class ShowController extends Controller
         FinderDB $productRepository,
         StorePresenter $storePresenter,
         ProductPresenter $productPresenter,
-        CalculateList $calculateListService,
         Paginator $paginator,
     ) {
         $this->repository = $repository;
@@ -40,7 +36,6 @@ class ShowController extends Controller
         $this->productRepository = $productRepository;
         $this->storePresenter = $storePresenter;
         $this->productPresenter = $productPresenter;
-        $this->calculateListService = $calculateListService;
         $this->paginator = $paginator;
     }
 
@@ -80,8 +75,6 @@ class ShowController extends Controller
     public function byStore(string $store, Request $request)
     {
         $products = $this->productRepository->allByStore($store);
-        $productsPriced = $this->calculateListService->execute($products, $store);
-
         $store = $this->storePresenter->present($store);
         $productsPresented = $this->productPresenter->list($products, $store->slug());
         $breadcrumb = [
