@@ -8,7 +8,6 @@ use App\Presenters\Pricing\Product\Presenter;
 use App\Repositories\Product\FinderDB as ProductRepository;
 use Barrigudinha\Pricing\PostPriced\Services\CreatePostPriced;
 use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
-use Barrigudinha\Pricing\Services\PriceCalculator\ProductCalculator;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
@@ -17,15 +16,13 @@ class ShowController extends Controller
 {
     private ProductRepository $repository;
     private Presenter $presenter;
-    private ProductCalculator $calculator;
     private Calculate $calculateService;
     private CreatePostPriced $createPostPriced;
 
-    public function __construct(ProductRepository $repository, Presenter $presenter, ProductCalculator $calculator, Calculate $calculateService, CreatePostPriced $createPostPriced)
+    public function __construct(ProductRepository $repository, Presenter $presenter, Calculate $calculateService, CreatePostPriced $createPostPriced)
     {
         $this->repository = $repository;
         $this->presenter = $presenter;
-        $this->calculator = $calculator;
         $this->calculateService = $calculateService;
         $this->createPostPriced = $createPostPriced;
     }
