@@ -156,10 +156,40 @@ class Product
         return null;
     }
 
-    public function getPost(string $store): ?Post
+    public function getPost(string $storeSlug): ?Post
     {
-        return $this->post($store);
+        foreach ($this->posts() as $post) {
+            if ($post->store()->slug() === $storeSlug) {
+                return $post;
+            }
+        }
+
+        return null;
     }
+
+    public function getStore(string $storeSlug): ?Store
+    {
+        foreach ($this->stores() as $store) {
+            if ($store->slug() === $storeSlug) {
+                return $store;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return Store[]
+     */
+    public function getStores(array $storesSlug): array
+    {
+        foreach ($storesSlug as $slug) {
+            $stores[] = $this->getStore($slug);
+        }
+
+        return $stores ?? [];
+    }
+
 
     public function tax(string $taxCode): ?Tax
     {

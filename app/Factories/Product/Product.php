@@ -93,7 +93,10 @@ class Product
 
         foreach ($model->prices as $pricePost) {
             $post = Post::buildFromModel($pricePost);
+            $store = $post->store();
+
             $product->addPost($post);
+            $product->addStore($store);
         }
 
         return $product;
