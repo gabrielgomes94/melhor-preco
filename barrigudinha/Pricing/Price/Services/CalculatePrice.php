@@ -15,11 +15,10 @@ class CalculatePrice implements CalculatePriceInterface
         Product $product,
         Store $store,
         Money $desiredPrice,
-        float $commission = 0.0,
-        float $discount = 0.0
+        array $options = []
     ): Price {
-        $commission = Helpers::percentage($commission);
-        $discount = Helpers::percentage($discount);
+        $commission = Helpers::percentage($options['commission'] ?? $store->commission());
+        $discount = Helpers::percentage($options['discount'] ?? 0.0);
 
         $price = new Price(
             product: $product,

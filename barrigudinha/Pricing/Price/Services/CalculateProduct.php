@@ -18,7 +18,7 @@ class CalculateProduct implements CalculateProductInterface
     {
         foreach ($product->posts() as $post) {
             $price = $this->calculatePrice->recalculate($product, $post->store());
-            $post->setProfit($price->profit());
+            $post->setProfit($price->get(), $price->profit());
 
             $posts[] = $post;
         }

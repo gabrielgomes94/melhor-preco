@@ -34,14 +34,14 @@ class Post
         return $this->profit ?? Money::BRL(0);
     }
 
-
     public function store(): Store
     {
         return $this->store;
     }
 
-    public function setProfit(Money $profit): void
+    public function setPrice(Money $price, Money $profit): void
     {
+        $this->price = $price;
         $this->profit = $profit;
     }
 }
