@@ -3,7 +3,9 @@
 return [
     'integrations' => [
         'bling' => [
-            'update_price' => env('BLING_UPDATE_PRICE', true),
+            'update_price' => [
+                'enabled' => env('BLING_UPDATE_PRICE', true),
+            ],
         ],
     ],
 ];

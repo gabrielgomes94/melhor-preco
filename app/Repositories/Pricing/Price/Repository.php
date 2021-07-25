@@ -21,16 +21,12 @@ class Repository
         return Price::find($id);
     }
 
-    public function update(string $priceId, Money $price, Money $profit): bool
+    public function update(Price $model, Money $price, Money $profit): bool
     {
-        if (!$priceModel = $this->get($priceId)) {
-            return false;
-        }
+        $model->value = $this->formatValue($price);
+        $model->profit = $this->formatValue($profit);
 
-        $priceModel->value = $this->formatValue($price);
-        $priceModel->profit = $this->formatValue($profit);
-
-        return $priceModel->save();
+        return $model->save();
     }
 
     private function formatValue(Money $value): float

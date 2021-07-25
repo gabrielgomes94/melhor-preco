@@ -25,7 +25,7 @@ class UpdatePrice
     public function execute(Product $product, Store $store, float $priceValue): bool
     {
         $priceValue = Helpers::floatToMoney($priceValue);
-        $products[] = $this->getProducts($product);
+        $products = $this->getProducts($product);
 
         foreach ($products as $product) {
             if (!$post = $product->getPost($store->slug())) {
@@ -34,13 +34,15 @@ class UpdatePrice
 
             $price = $this->calculatePrice->calculate($product, $store, $priceValue);
             $post->setPrice($price->get(), $price->profit());
-            $this->priceRepository->update($post->id(), $post->price(), $post->profit());
+
+            $priceModel = $this->priceRepository->get($post->id());
+            $this->priceRepository->update($priceModel, $post->price(), $post->profit());
 
             if (config('features.integrations.bling.update_price.enabled')) {
                 $this->client->update(
                     $product->sku(),
                     $store->slug(),
-                    $price->store_sku_id,
+                    $priceModel->store_sku_id,
                     (string) $price
                 );
             }
