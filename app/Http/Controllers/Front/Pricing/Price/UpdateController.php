@@ -39,7 +39,6 @@ class UpdateController extends Controller
         $this->updatePriceService->execute($product, $store, $data['value']);
 
         /// To Do: Mostrar mensagem de sucesso
-
         return redirect()->back();
     }
 }

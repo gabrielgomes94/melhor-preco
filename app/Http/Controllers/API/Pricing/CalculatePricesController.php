@@ -7,7 +7,9 @@ use App\Http\Transformers\Pricing\PriceTransformer;
 use App\Repositories\Product\FinderDB as ProductRepository;
 use Barrigudinha\Pricing\Data\PostPriced\MagaluPostPriced;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
+use Barrigudinha\Pricing\PostPriced\Services\CreatePostPriced;
 use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
+use Barrigudinha\Utils\Helpers;
 use Illuminate\Http\Request;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -17,12 +19,14 @@ class CalculatePricesController extends Controller
     private ProductRepository $repository;
     private Calculate $service;
     private PriceTransformer $transformer;
+    private CreatePostPriced $createPostPriced;
 
-    public function __construct(ProductRepository $repository, Calculate $service, PriceTransformer $transformer)
+    public function __construct(ProductRepository $repository, Calculate $service, PriceTransformer $transformer, CreatePostPriced $createPostPriced)
     {
         $this->repository = $repository;
         $this->service = $service;
         $this->transformer = $transformer;
+        $this->createPostPriced = $createPostPriced;
     }
 
     public function calculate(string $productId, string $priceId, Request $request)
@@ -31,13 +35,15 @@ class CalculatePricesController extends Controller
             abort(404);
         }
 
-        $postPriced = $this->service->calculate(
-            $product,
-            $request->input('store'),
-            $request->input('desiredPrice'),
-            $request->input('commission'),
-            $request->input('additionalCosts', 0.0),
-        );
+        if (!$store = $product->getStore($request->input('store'))) {
+            // To Do: show errors
+        }
+        $desiredPrice = Helpers::floatToMoney($request->input('desiredPrice'));
+
+        $postPriced = $this->createPostPriced->create($product, $store, $desiredPrice, [
+            'commission' => $request->input('commission'),
+            'discount' => $request->input('discount'),
+        ]);
 
         $price = $this->transformer->transform($postPriced);
 

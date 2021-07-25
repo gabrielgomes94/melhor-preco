@@ -20,11 +20,10 @@ class CreatePostPriced implements CreatePostPricedService
         $this->calculatePrice = $calculatePrice;
     }
 
-    public function create(Product $product, Store $store, ?Money $price = null): PostPriced
+    public function create(Product $product, Store $store, ?Money $price = null, array $options = []): PostPriced
     {
-        $commission = $store->commission();
         $price = $this->getPrice($product, $store->slug(), $price);
-        $price = $this->calculatePrice->calculate($product, $store, $price);
+        $price = $this->calculatePrice->calculate($product, $store, $price, $options);
         $post = $product->getPost($store->slug());
 
         return Factory::make($post, $price, $product);
