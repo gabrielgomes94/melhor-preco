@@ -4,7 +4,6 @@ namespace App\Repositories\Pricing\Product;
 
 use App\Models\Price as PriceModel;
 use App\Models\Product as ProductModel;
-use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
 use Barrigudinha\Product\Product;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -12,12 +11,10 @@ use Money\Money;
 
 class Updator
 {
-    private Calculate $service;
     private DecimalMoneyFormatter $moneyFormatter;
 
-    public function __construct(Calculate $service)
+    public function __construct()
     {
-        $this->service = $service;
         $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
     }
 

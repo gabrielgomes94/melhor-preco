@@ -5,26 +5,19 @@ namespace App\Http\Controllers\API\Pricing;
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\Pricing\PriceTransformer;
 use App\Repositories\Product\FinderDB as ProductRepository;
-use Barrigudinha\Pricing\Data\PostPriced\MagaluPostPriced;
-use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Pricing\PostPriced\Services\CreatePostPriced;
-use Barrigudinha\Pricing\Services\PriceCalculator\Calculate;
 use Barrigudinha\Utils\Helpers;
 use Illuminate\Http\Request;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
 
 class CalculatePricesController extends Controller
 {
     private ProductRepository $repository;
-    private Calculate $service;
     private PriceTransformer $transformer;
     private CreatePostPriced $createPostPriced;
 
-    public function __construct(ProductRepository $repository, Calculate $service, PriceTransformer $transformer, CreatePostPriced $createPostPriced)
+    public function __construct(ProductRepository $repository, PriceTransformer $transformer, CreatePostPriced $createPostPriced)
     {
         $this->repository = $repository;
-        $this->service = $service;
         $this->transformer = $transformer;
         $this->createPostPriced = $createPostPriced;
     }
