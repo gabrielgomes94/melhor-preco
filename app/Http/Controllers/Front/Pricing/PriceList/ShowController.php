@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front\Pricing\PriceList;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Utils\Breadcrumb;
 use App\Http\Controllers\Utils\Paginator;
 use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Pricing\Show as PricingShow;
@@ -22,6 +23,7 @@ class ShowController extends Controller
     private StorePresenter $storePresenter;
     private ProductPresenter $productPresenter;
     private Paginator $paginator;
+    private Breadcrumb $breadcrumb;
 
     public function __construct(
         PriceListRepository $repository,
@@ -30,6 +32,7 @@ class ShowController extends Controller
         StorePresenter $storePresenter,
         ProductPresenter $productPresenter,
         Paginator $paginator,
+        Breadcrumb $breadcrumb
     ) {
         $this->repository = $repository;
         $this->presenter = $presenter;
@@ -37,6 +40,7 @@ class ShowController extends Controller
         $this->storePresenter = $storePresenter;
         $this->productPresenter = $productPresenter;
         $this->paginator = $paginator;
+        $this->breadcrumb = $breadcrumb;
     }
 
     /**
@@ -48,12 +52,10 @@ class ShowController extends Controller
             abort(404);
         }
 
-        $breadcrumb = [
-            [
-                'link' => route('pricing.priceList.index'),
-                'name' => 'Listas de Preços',
-            ],
-        ];
+        $breadcrumb = $this->breadcrumb->generate(
+            Breadcrumb::priceListIndex(),
+            Breadcrumb::priceListCustom($priceList),
+        );
 
         $products = $this->productPresenter->list($priceList->products());
 
@@ -77,16 +79,11 @@ class ShowController extends Controller
         $products = $this->productRepository->allByStore($store);
         $store = $this->storePresenter->present($store);
         $productsPresented = $this->productPresenter->list($products, $store->slug());
-        $breadcrumb = [
-            [
-                'link' => route('pricing.priceList.index'),
-                'name' => 'Listas de Preços',
-            ],
-            [
-                'link' => route('pricing.priceList.byStore', $store->slug()),
-                'name' => $store->name(),
-            ],
-        ];
+
+        $breadcrumb = $this->breadcrumb->generate(
+            Breadcrumb::priceListIndex(),
+            Breadcrumb::priceListByStore($store->name(), $store->slug())
+        );
 
         $paginator = $this->paginator->paginate($productsPresented, $request);
 
