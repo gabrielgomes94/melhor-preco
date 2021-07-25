@@ -5,23 +5,28 @@ namespace App\Services\Product;
 use App\Repositories\Pricing\Product\Creator;
 use App\Repositories\Product\FinderBling;
 use App\Repositories\Product\FinderDB;
-use App\Repositories\Pricing\Product\Updator;
+use Barrigudinha\Pricing\Price\Services\CalculateProduct;
 
 class SyncProductData
 {
     private FinderDB $dbRepository;
     private FinderBling $erpRepository;
-    private Updator $updator;
     private Creator $creator;
     private UpdateCosts $updateService;
+    private CalculateProduct $calculateProduct;
 
-    public function __construct(FinderDB $dbRepository, FinderBling $erpRepository, Updator $updator, Creator $creator, UpdateCosts $updateService)
-    {
+    public function __construct(
+        FinderDB $dbRepository,
+        FinderBling $erpRepository,
+        Creator $creator,
+        UpdateCosts $updateService,
+        CalculateProduct $calculateProduct
+    ) {
         $this->dbRepository = $dbRepository;
         $this->erpRepository = $erpRepository;
-        $this->updator = $updator;
         $this->creator = $creator;
         $this->updateService = $updateService;
+        $this->calculateProduct = $calculateProduct;
     }
 
     public function sync(): void
@@ -30,9 +35,11 @@ class SyncProductData
 
         foreach ($products as $product) {
             $productModel = $this->dbRepository->getModel($product->sku());
+            $product = $this->calculateProduct->recalculate($product);
 
             if (!$productModel) {
                 $this->creator->create($product);
+
                 continue;
             }
 
