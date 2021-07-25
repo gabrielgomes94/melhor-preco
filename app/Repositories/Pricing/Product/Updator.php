@@ -21,40 +21,6 @@ class Updator
         $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
     }
 
-    public function update(string $productId, array $data)
-    {
-        if (!$model = ProductModel::find($productId)) {
-            return false;
-        }
-
-        $model->purchase_price = $data['purchasePrice'];
-        $model->tax_icms = $data['taxICMS'];
-        $model->additional_costs = $data['additionalCosts'];
-
-        if (isset($data['depth'])) {
-            $model->depth = $data['depth'];
-        }
-        if (isset($data['height'])) {
-            $model->height = $data['height'];
-        }
-        if (isset($data['width'])) {
-            $model->width = $data['width'];
-        }
-
-        return $model->save();
-    }
-
-    public function updateICMS(string $sku, float $taxICMS): bool
-    {
-        if ($model = ProductModel::find($sku)) {
-            $model->tax_icms = $taxICMS;
-
-            return $model->save();
-        }
-
-        return false;
-    }
-
     public function sync(Product $product, ProductModel $model): bool
     {
         $model->erp_id = $product->erpId();
