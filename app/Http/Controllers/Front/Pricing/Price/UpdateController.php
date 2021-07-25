@@ -4,21 +4,20 @@ namespace App\Http\Controllers\Front\Pricing\Price;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\Price\UpdatePrice;
-use App\Models\Price;
-use App\Repositories\Pricing\Price\Updator;
+use App\Repositories\Product\FinderDB;
+use App\Services\Product\UpdatePrice as UpdatePriceService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Integrations\Bling\Products\Clients\ProductStore;
 
 class UpdateController extends Controller
 {
-    private Updator $repository;
-    private ProductStore $client;
+    private FinderDB $repository;
+    private UpdatePriceService $updatePriceService;
 
-    public function __construct(Updator $repository, ProductStore $client)
+    public function __construct(FinderDB $repository, UpdatePriceService $updatePriceService)
     {
         $this->repository = $repository;
-        $this->client = $client;
+        $this->updatePriceService = $updatePriceService;
     }
 
     /**
@@ -26,16 +25,20 @@ class UpdateController extends Controller
      */
     public function update(string $productId, string $priceId, UpdatePrice $request)
     {
-        $this->repository->update($priceId, $request->validated());
+        $data = $request->validated();
 
-        $price = Price::find($priceId);
+        // To Do: mover sa lógicas abaixo para um service: GetProductService
+        if (!$product = $this->repository->get($productId)) {
+            // To Do: Mostrar erro
+        }
 
-        $this->client->update(
-            $productId,
-            $request->input('storeSlug'),
-            $price->store_sku_id,
-            $request->input('value')
-        );
+        if (!$store = $product->getStore($data['storeSlug'])) {
+            // To Do: Mostrar erro
+        }
+
+        $this->updatePriceService->execute($product, $store, $data['value']);
+
+        /// To Do: Mostrar mensagem de sucesso
 
         return redirect()->back();
     }

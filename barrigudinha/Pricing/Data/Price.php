@@ -9,6 +9,8 @@ use Barrigudinha\Pricing\Data\Freight\Olist;
 use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Utils\Helpers;
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 
 class Price
@@ -133,6 +135,13 @@ class Price
     public function simplesNacional(): Money
     {
         return $this->value->multiply($this->taxSimplesNacional());
+    }
+
+    public function __toString(): string
+    {
+        $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
+
+        return $moneyFormatter->format($this->get());
     }
 
     private function setCostPrice(Product $product): void
