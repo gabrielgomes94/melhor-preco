@@ -5,6 +5,10 @@ namespace App\Bling\Product\Response;
 use App\Bling\Product\Response\Transformer\ProductTransformer;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @deprecated
+ * Quando passarmos a usar o cliente novo para integração no Bling, essa classe será desnecessária
+ */
 class Factory
 {
     /**

@@ -5,6 +5,10 @@ use App\Bling\Product\Client;
 use App\Bling\Product\Response\ProductResponse;
 use App\Bling\Product\Response\Transformer\ProductTransformer;
 
+/**
+ * @deprecated
+ * Usar o cliente presente em Integrations/Bling
+ */
 class Product
 {
 

@@ -3,6 +3,10 @@ namespace App\Bling\Product\Response;
 
 use App\Barrigudinha\Product\Product;
 
+/**
+ * @deprecated
+ * Quando passarmos a usar o cliente novo para integração no Bling, essa classe será desnecessária
+ */
 class ProductResponse
 {
     /**

@@ -4,6 +4,10 @@ namespace App\Bling\Product\Services;
 use App\Barrigudinha\Product\Product;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @deprecated
+ * TO DO: contextualizar essa classe dentro de app/Services/Product/Images
+ */
 class ImageStorage
 {
     public function store(Product $product, array $files): array

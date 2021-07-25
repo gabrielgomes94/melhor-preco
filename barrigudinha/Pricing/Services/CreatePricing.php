@@ -9,6 +9,10 @@ use Barrigudinha\Pricing\Data\Contracts\CreatePricing as CreatePricingData;
 use Barrigudinha\Pricing\Data\Pricing;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
 
+/**
+ * @deprecated
+ * TO DO: mover essa classe para dentro do contexto Pricing/PriceList e renomear ela.
+ */
 class CreatePricing
 {
     private PricingRepository $pricingRepository;

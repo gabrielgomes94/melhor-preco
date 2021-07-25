@@ -6,6 +6,10 @@ use App\Bling\Product\Response\ProductResponse;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 
+/**
+ * @deprecated
+ * Usar o cliente presente em Integrations/Bling
+ */
 class Client
 {
     /**
