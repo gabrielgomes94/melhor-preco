@@ -22,32 +22,44 @@ class UpdatePrice
         $this->client = $client;
     }
 
-    public function execute(Product $product, Store $store, float $price): bool
+    public function execute(Product $product, Store $store, float $priceValue): bool
     {
-        $price = Helpers::floatToMoney($price);
+        $priceValue = Helpers::floatToMoney($priceValue);
+        $products[] = $this->getProducts($product);
 
-        if (!$post = $product->getPost($store->slug())) {
-            return false;
+        foreach ($products as $product) {
+            if (!$post = $product->getPost($store->slug())) {
+                return false;
+            }
+
+            $price = $this->calculatePrice->calculate($product, $store, $priceValue);
+            $post->setPrice($price->get(), $price->profit());
+            $this->priceRepository->update($post->id(), $post->price(), $post->profit());
+
+            if (config('features.integrations.bling.update_price.enabled')) {
+                $this->client->update(
+                    $product->sku(),
+                    $store->slug(),
+                    $price->store_sku_id,
+                    (string) $price
+                );
+            }
         }
 
-        $price = $this->calculatePrice->calculate($product, $store, $price);
-        $post->setPrice($price->get(), $price->profit());
-
-        /**
-         * Refatorar repository de atualização
-         */
-        $this->priceRepository->update($post->id(), $post->price(), $post->profit());
-
-        /**
-         * Integrar com o cliente do Bling para atualizar preços
-         */
-        $this->client->update(
-            $product->sku(),
-            $store->slug(),
-            $price->store_sku_id,
-            (string) $price
-        );
-
         return true;
+    }
+
+    /**
+     * @return Product[]
+     */
+    private function getProducts(Product $product): array
+    {
+        $products[] = $product;
+
+        foreach ($product->variations()->get() as $variation) {
+            $products[] = $variation;
+        }
+
+        return $products;
     }
 }
