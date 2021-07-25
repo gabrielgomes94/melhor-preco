@@ -1,6 +1,10 @@
 <?php
 namespace App\Bling\Product\Response\Transformer;
 
+/**
+ * @deprecated
+ * Quando passarmos a usar o cliente novo para integração no Bling, essa classe será desnecessária
+ */
 class ProductTransformer
 {
     public function transform(array $data)

@@ -92,7 +92,7 @@ class ProductStore implements ProductStoreInterface
         return $response;
     }
 
-    public function update(string $sku, string $store, string $productStoreSku, float $priceValue): BaseResponse
+    public function update(string $sku, string $store, string $productStoreSku, string $priceValue): BaseResponse
     {
         try {
             $storeCode = config('stores.' . $store . '.erpCode');

@@ -23,21 +23,21 @@
         >
         </x-forms.input.percentage>
 
-        <x-forms.input.money
-            attribute="additionalCosts"
-            componentId="additionalCosts-{{ $price->id }}"
-            label="Custos Adicionais"
-            value="{{ $price->additionalCosts }}"
+        <x-forms.input.percentage
+            attribute="discount"
+            componentId="discount-{{ $price->id }}"
+            label="Desconto"
+            value=""
         >
-        </x-forms.input.money>
+        </x-forms.input.percentage>
 
-        <x-forms.input.money
+        <x-forms.input.percentage
             attribute="desiredPrice"
             componentId="desiredPrice-{{ $price->id }}"
             label="Preço desejado"
             value="{{ $price->value }}"
         >
-        </x-forms.input.money>
+        </x-forms.input.percentage>
 
         <input
             type="hidden"

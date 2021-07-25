@@ -84,7 +84,7 @@ class Product
 
     public function taxICMS(): string
     {
-        return $this->product->costs()->purchasePrice();
+        return $this->product->costs()->taxICMS();
     }
 
     public function additionalCosts(): string

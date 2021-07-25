@@ -1,9 +1,13 @@
 <?php
-namespace App\Bling\Product\Services;
 
+namespace App\Bling\Product\Services;
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
+/**
+ * @deprecated
+ * TO DO: contextualizar essa classe dentro de app/Services/Product/StockTag/QRCode
+ */
 class GenerateQRCode
 {
     public function generate(array $products)

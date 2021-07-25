@@ -6,6 +6,11 @@ use App\Bling\Product\Client;
 use App\Barrigudinha\Product\Product;
 use SimpleXMLElement;
 
+
+/**
+ * @deprecated
+ * Mover essa classe para o contexto app/Services/Products/Images
+ */
 class ProductUpdater
 {
     /**

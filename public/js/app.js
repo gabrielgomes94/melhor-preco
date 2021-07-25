@@ -25084,14 +25084,14 @@ var calculator_form = function calculator_form() {
     var calculatorParams = {
       store: form.querySelector('#store-' + id).value,
       commission: form.querySelector('#commission-' + id).value,
-      additionalCosts: form.querySelector('#additionalCosts-' + id).value,
+      discount: form.querySelector('#discount-' + id).value,
       desiredPrice: form.querySelector('#desiredPrice-' + id).value,
       product: form.querySelector('#product-' + id).value
     };
     var formData = new FormData();
     formData.append('store', calculatorParams.store);
     formData.append('commission', calculatorParams.commission);
-    formData.append('additionalCosts', calculatorParams.additionalCosts);
+    formData.append('discount', calculatorParams.discount);
     formData.append('desiredPrice', calculatorParams.desiredPrice);
     formData.append('product', calculatorParams.product);
     return formData;
