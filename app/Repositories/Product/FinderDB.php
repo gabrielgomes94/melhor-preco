@@ -54,6 +54,16 @@ class FinderDB implements ProductFinder
         }, $products);
     }
 
+    /**
+     * @return Product[]
+     */
+    public function allWithVariations(): array
+    {
+        return array_map(function (ProductModel $product) {
+            return ProductFactory::buildFromModel($product);
+        }, ProductModel::all());
+    }
+
     public function get(string $sku): ?Product
     {
         if ($model = ProductModel::find($sku)) {

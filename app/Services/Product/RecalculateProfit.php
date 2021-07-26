@@ -21,7 +21,7 @@ class RecalculateProfit
 
     public function recalculateAll(): void
     {
-        $products = $this->repository->all();
+        $products = $this->repository->allWithVariations();
 
         foreach ($products as $product) {
             $product = $this->calculateProductService->recalculate($product);
