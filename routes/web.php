@@ -4,7 +4,8 @@ use App\Http\Controllers\Front\Pricing\Price\UpdateController;
 use App\Http\Controllers\Front\Pricing\PriceList\CreateController;
 use App\Http\Controllers\Front\Pricing\PriceList\ExportController;
 use App\Http\Controllers\Front\Pricing\PriceList\ListController;
-use App\Http\Controllers\Front\Pricing\PriceList\ShowController;
+use App\Http\Controllers\Front\Pricing\PriceList\ByStore\ShowController as ByStoreShowController;
+use App\Http\Controllers\Front\Pricing\PriceList\Custom\ShowController as CustomShowController;
 use App\Http\Controllers\Front\Pricing\Product\RemoveController;
 use App\Http\Controllers\Front\Pricing\Product\ShowController as ProductShowController;
 use App\Http\Controllers\Front\Pricing\Product\UpdateController as UpdateProductController;
@@ -58,12 +59,12 @@ Route::middleware('auth')->group(function () {
                     Route::prefix('/custom')->name('.custom')->group(function () {
                         Route::get('/', [ListController::class, 'list'])->name('.list');
                         Route::get('/create', [CreateController::class, 'create'])->name('.create');
-                        Route::get('/{id}', [ShowController::class, 'show'])->name('.show');
+                        Route::get('/{id}', [CustomShowController::class, 'show'])->name('.show');
                         Route::get('/{price_list_id}/show/{product_id}', [ProductShowController::class, 'show'])
                             ->name('.product.show');
                     });
 
-                    Route::get('/{store}', [ShowController::class, 'byStore'])->name('.byStore');
+                    Route::get('/{store}', [ByStoreShowController::class, 'show'])->name('.byStore');
                 });
 
             Route::prefix('/{store}/products')
