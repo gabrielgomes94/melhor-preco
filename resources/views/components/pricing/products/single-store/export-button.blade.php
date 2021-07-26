@@ -1,5 +1,5 @@
 <x-forms.form.post
-    :action="route('pricing.products.exportStore', $store->slug())"
+    :action="route('pricing.products.export', $store->slug())"
 >
     <x-forms.submit
         label="Exportar planilha"
