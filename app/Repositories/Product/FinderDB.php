@@ -61,7 +61,7 @@ class FinderDB implements ProductFinder
     {
         return array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);
-        }, ProductModel::all());
+        }, ProductModel::all()->all());
     }
 
     public function get(string $sku): ?Product
