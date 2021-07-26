@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing\PriceList;
+namespace App\Http\Controllers\Front\Pricing\PriceList\Custom;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\CreatePriceCampaignRequest;

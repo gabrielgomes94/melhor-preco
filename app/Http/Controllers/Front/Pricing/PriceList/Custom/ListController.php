@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing\PriceList;
+namespace App\Http\Controllers\Front\Pricing\PriceList\Custom;
 
 use App\Http\Controllers\Controller;
 use App\Presenters\Pricing\PricingList;
@@ -18,14 +18,6 @@ class ListController extends Controller
     {
         $this->repository = $repository;
         $this->presenter = $presenter;
-    }
-
-    /**
-     * @return Application|ViewFactory|View
-     */
-    public function index()
-    {
-        return view('pages.pricing.price-list.index');
     }
 
     /**

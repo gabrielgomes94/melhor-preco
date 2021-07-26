@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Front\Pricing\Price\UpdateController;
-use App\Http\Controllers\Front\Pricing\PriceList\CreateController;
-use App\Http\Controllers\Front\Pricing\PriceList\ExportController;
-use App\Http\Controllers\Front\Pricing\PriceList\ListController;
+use App\Http\Controllers\Front\Pricing\PriceList\IndexController;
+use App\Http\Controllers\Front\Pricing\PriceList\ByStore\ExportController as ByStoreExportController;
 use App\Http\Controllers\Front\Pricing\PriceList\ByStore\ShowController as ByStoreShowController;
+use App\Http\Controllers\Front\Pricing\PriceList\Custom\CreateController;
+use App\Http\Controllers\Front\Pricing\PriceList\Custom\ExportController as CustomExportController;
+use App\Http\Controllers\Front\Pricing\PriceList\Custom\ListController;
 use App\Http\Controllers\Front\Pricing\PriceList\Custom\ShowController as CustomShowController;
 use App\Http\Controllers\Front\Pricing\Product\RemoveController;
 use App\Http\Controllers\Front\Pricing\Product\ShowController as ProductShowController;
@@ -15,12 +17,12 @@ Route::middleware('auth')->group(function () {
         ->name('pricing')
         ->group(function () {
             Route::get('/create', [CreateController::class, 'create'])->name('.create');
-            Route::post('{id}/export', [ExportController::class, 'export'])->name('.export');
+            Route::post('{id}/export', [CustomExportController::class, 'export'])->name('.export');
 
             Route::prefix('/price_list')
                 ->name('.priceList')
                 ->group(function () {
-                    Route::get('/', [ListController::class, 'index'])->name('.index');
+                    Route::get('/', [IndexController::class, 'index'])->name('.index');
 
                     Route::prefix('/custom')->name('.custom')->group(function () {
                         Route::get('/', [ListController::class, 'list'])->name('.list');
@@ -37,7 +39,7 @@ Route::middleware('auth')->group(function () {
                 ->name('.products')
                 ->group(function () {
                     Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])->name('.showByStore');
-                    Route::post('/export', [ExportController::class, 'exportStore'])->name('.exportStore');
+                    Route::post('/export', [ByStoreExportController::class, 'export'])->name('.export');
                 });
 
             Route::prefix('/products')
