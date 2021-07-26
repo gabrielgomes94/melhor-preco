@@ -5,33 +5,43 @@ namespace App\Services\Product;
 use App\Repositories\Pricing\Product\Updator;
 use App\Repositories\Product\FinderDB;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
 
 class RecalculateProfit
 {
     private FinderDB $repository;
     private CalculateProduct $calculateProductService;
     private Updator $productUpdator;
+    private UpdatePrice $updatePrice;
 
-    public function __construct(FinderDB $repository, CalculateProduct $calculateProductService, Updator $productUpdator)
+    public function __construct(FinderDB $repository, CalculateProduct $calculateProductService, Updator $productUpdator, UpdatePrice $updatePrice)
     {
         $this->repository = $repository;
         $this->calculateProductService = $calculateProductService;
         $this->productUpdator = $productUpdator;
+        $this->updatePrice = $updatePrice;
     }
 
     public function recalculateAll(): void
     {
-        $products = $this->repository->allWithVariations();
+        $products = $this->repository->all();
 
         foreach ($products as $product) {
-            $product = $this->calculateProductService->recalculate($product);
-            $model = $this->repository->getModel($product->sku());
+            foreach ($product->posts() as $post) {
+                $value = $this->formatMoney($post->price());
 
-            if (!$model) {
-                continue;
+                $this->updatePrice->execute($product, $post->store(), $value);
             }
-
-            $this->productUpdator->sync($product, $model);
         }
+    }
+
+    private function formatMoney(Money $money): float
+    {
+        $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
+        $value = $moneyFormatter->format($money);
+
+        return (float) $value;
     }
 }
