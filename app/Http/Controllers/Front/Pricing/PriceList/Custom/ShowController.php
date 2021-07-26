@@ -1,42 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\Front\Pricing\PriceList;
+namespace App\Http\Controllers\Front\Pricing\PriceList\Custom;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Utils\Breadcrumb;
 use App\Http\Controllers\Utils\Paginator;
 use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Pricing\Show as PricingShow;
 use App\Presenters\Store\Presenter as StorePresenter;
 use App\Repositories\Pricing\PriceListRepository;
-use App\Repositories\Product\FinderDB;
+use Barrigudinha\Pricing\PriceList\PriceList;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ShowController extends Controller
 {
     private PriceListRepository $repository;
     private PricingShow $presenter;
-    private FinderDB $productRepository;
     private StorePresenter $storePresenter;
     private ProductPresenter $productPresenter;
     private Paginator $paginator;
+    private Breadcrumb $breadcrumb;
 
     public function __construct(
         PriceListRepository $repository,
         PricingShow $presenter,
-        FinderDB $productRepository,
         StorePresenter $storePresenter,
         ProductPresenter $productPresenter,
         Paginator $paginator,
+        Breadcrumb $breadcrumb
     ) {
         $this->repository = $repository;
         $this->presenter = $presenter;
-        $this->productRepository = $productRepository;
         $this->storePresenter = $storePresenter;
         $this->productPresenter = $productPresenter;
         $this->paginator = $paginator;
+        $this->breadcrumb = $breadcrumb;
     }
 
     /**
@@ -48,53 +50,31 @@ class ShowController extends Controller
             abort(404);
         }
 
-        $breadcrumb = [
-            [
-                'link' => route('pricing.priceList.index'),
-                'name' => 'Listas de Preços',
-            ],
-        ];
-
         $products = $this->productPresenter->list($priceList->products());
-
         $paginator = $this->paginator->paginate($products, $request);
-        $stores = $this->storePresenter->list($priceList->stores());
 
-        return view('pages.pricing.price-list.custom.show', [
+        return view('pages.pricing.price-list.custom.show', $this->getViewData($priceList, $paginator));
+    }
+
+    private function getViewData(PriceList $priceList, LengthAwarePaginator $paginator): array
+    {
+        $stores = $this->storePresenter->list($priceList->stores());
+        $breadcrumb = $this->generateBreadcrumb($priceList);
+
+        return [
             'breadcrumb' => $breadcrumb,
             'priceList' => $priceList,
             'paginator' => $paginator,
             'products' => $paginator->items(),
             'stores' => $stores,
-        ]);
+        ];
     }
 
-    /**
-     * @return Application|ViewFactory|View
-     */
-    public function byStore(string $store, Request $request)
+    private function generateBreadcrumb(PriceList $priceList): array
     {
-        $products = $this->productRepository->allByStore($store);
-        $store = $this->storePresenter->present($store);
-        $productsPresented = $this->productPresenter->list($products, $store->slug());
-        $breadcrumb = [
-            [
-                'link' => route('pricing.priceList.index'),
-                'name' => 'Listas de Preços',
-            ],
-            [
-                'link' => route('pricing.priceList.byStore', $store->slug()),
-                'name' => $store->name(),
-            ],
-        ];
-
-        $paginator = $this->paginator->paginate($productsPresented, $request);
-
-        return view('pages.pricing.price-list.stores.show', [
-            'store' => $store,
-            'breadcrumb' => $breadcrumb,
-            'paginator' => $paginator,
-            'products' => $paginator->items(),
-        ]);
+        return $this->breadcrumb->generate(
+            Breadcrumb::priceListIndex(),
+            Breadcrumb::priceListCustom($priceList),
+        );
     }
 }
