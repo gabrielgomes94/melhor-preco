@@ -1,20 +1,5 @@
 <?php
 
-use App\Http\Controllers\Front\Pricing\Price\UpdateController;
-use App\Http\Controllers\Front\Pricing\PriceList\CreateController;
-use App\Http\Controllers\Front\Pricing\PriceList\ExportController;
-use App\Http\Controllers\Front\Pricing\PriceList\ListController;
-use App\Http\Controllers\Front\Pricing\PriceList\ByStore\ShowController as ByStoreShowController;
-use App\Http\Controllers\Front\Pricing\PriceList\Custom\ShowController as CustomShowController;
-use App\Http\Controllers\Front\Pricing\Product\RemoveController;
-use App\Http\Controllers\Front\Pricing\Product\ShowController as ProductShowController;
-use App\Http\Controllers\Front\Pricing\Product\UpdateController as UpdateProductController;
-use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\Products\CostsController;
-use App\Http\Controllers\Front\Products\ProductImageController;
-use App\Http\Controllers\Front\Products\ReportsController;
-use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
-use App\Http\Controllers\Front\Products\UploadController as ProductsUploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,87 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+include 'web/pricing.php';
+include 'web/product.php';
+
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.dashboard');
     })->name('home');
-
-    Route::prefix('product')->group(function () {
-        Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
-            ->name('product.images.upload_form');
-
-        Route::post('/file-upload', [ProductImageController::class, 'upload'])
-            ->name('product.images.upload');
-    });
-
-    Route::get('/product/{sku}/stock', [ProductController::class, 'get'])->name('product.show');
-    Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
-    Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
-
-    Route::prefix('pricing')
-        ->name('pricing')
-        ->group(function () {
-            Route::get('/create', [CreateController::class, 'create'])->name('.create');
-            Route::post('{id}/export', [ExportController::class, 'export'])->name('.export');
-
-            Route::prefix('/price_list')
-                ->name('.priceList')
-                ->group(function () {
-                    Route::get('/', [ListController::class, 'index'])->name('.index');
-
-                    Route::prefix('/custom')->name('.custom')->group(function () {
-                        Route::get('/', [ListController::class, 'list'])->name('.list');
-                        Route::get('/create', [CreateController::class, 'create'])->name('.create');
-                        Route::get('/{id}', [CustomShowController::class, 'show'])->name('.show');
-                        Route::get('/{price_list_id}/show/{product_id}', [ProductShowController::class, 'show'])
-                            ->name('.product.show');
-                    });
-
-                    Route::get('/{store}', [ByStoreShowController::class, 'show'])->name('.byStore');
-                });
-
-            Route::prefix('/{store}/products')
-                ->name('.products')
-                ->group(function () {
-                    Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])->name('.showByStore');
-                    Route::post('/export', [ExportController::class, 'exportStore'])->name('.exportStore');
-                });
-
-            Route::prefix('/products')
-                ->name('.products')
-                ->group(function () {
-                    Route::get('/{product_id}', [ProductShowController::class, 'show'])->name('.show');
-                    Route::delete('/{product_id}', [RemoveController::class, 'remove'])->name('.remove');
-
-                    Route::prefix('/{product_id}/price')
-                        ->name('.prices')
-                        ->group(function () {
-                            Route::put('/{price_id}', [UpdateController::class, 'update'])->name('.update');
-                        });
-                });
-
-            Route::prefix('campaigns')->name('.campaigns')->group(function () {
-                Route::post('/store', [CreateController::class, 'store'])->name('.store');
-            });
-        });
-
-    Route::prefix('products')
-        ->name('products')
-        ->group(function () {
-            Route::get('/sync', [ProductSyncronizationController::class, 'sync'])->name('.sync');
-            Route::put('/sync', [ProductSyncronizationController::class, 'doSync'])->name('.doSync');
-            Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
-            Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
-            Route::get('/reports/over-dimension', [ReportsController::class, 'overDimension'])->name('.reports.overDimension');
-
-            Route::prefix('/costs')
-                ->name('.costs')
-                ->group(function () {
-                    Route::get('/edit', [CostsController::class, 'edit'])->name('.edit');
-
-                    Route::put('/price_cost/update/{product_id}', [CostsController::class, 'update'])->name('.update');
-                });
-        });
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
