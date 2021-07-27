@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Exceptions\Store\InvalidStoreException;
 use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
+use Barrigudinha\Utils\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -64,6 +66,15 @@ class Product extends Model
         }
 
         return null;
+    }
+
+    public function profitMargin(string $store): float
+    {
+        if (!$price = $this->getPrice($store)) {
+            throw new InvalidStoreException();
+        }
+
+        return $price->margin();
     }
 
     /**

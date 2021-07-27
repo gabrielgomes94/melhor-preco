@@ -8,6 +8,7 @@ use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Store\Repositories\StoreRepository;
+use Barrigudinha\Utils\Helpers;
 
 class FinderDB implements ProductFinder
 {
@@ -23,45 +24,40 @@ class FinderDB implements ProductFinder
      */
     public function all(): array
     {
-        $products = ProductModel::whereNull('parent_sku')->get()->sortBy('id')->all();
+        $products = $this->getProducts();
 
-        $products = array_map(function (ProductModel $product) {
-            return ProductFactory::buildFromModel($product);
-        }, $products);
-
-        return $products;
+        return $this->mapProducts($products);
     }
 
     /**
      * @throw InvalidStoreException
      * @return Product[]
      */
-    public function allByStore(string $store): array
+    public function allByStore(string $store, array $options = []): array
     {
         if (!in_array($store, $this->storeRepository->all())) {
             throw new InvalidStoreException($store);
         }
 
         $products = array_filter(
-            ProductModel::whereNull('parent_sku')->get()->sortBy('id')->all(),
-            function (ProductModel $product) use ($store) {
-                return $product->inStore($store);
+            $this->getProducts(),
+            function (ProductModel $product) use ($store, $options) {
+                if (!$product->inStore($store)) {
+                    return false;
+                }
+
+                if (empty($options)) {
+                    return true;
+                }
+
+                return $product->getPrice($store)->isProfitMarginInRange(
+                        $options['minimumProfit'] ?? null,
+                        $options['maximumProfit'] ?? null
+                    );
             }
         );
 
-        return array_map(function (ProductModel $product) {
-            return ProductFactory::buildFromModel($product);
-        }, $products);
-    }
-
-    /**
-     * @return Product[]
-     */
-    public function allWithVariations(): array
-    {
-        return array_map(function (ProductModel $product) {
-            return ProductFactory::buildFromModel($product);
-        }, ProductModel::all()->all());
+        return $this->mapProducts($products);
     }
 
     public function get(string $sku): ?Product
@@ -76,5 +72,23 @@ class FinderDB implements ProductFinder
     public function getModel(string $sku): ?ProductModel
     {
         return ProductModel::find($sku);
+    }
+
+    /**
+     * @return ProductModel[]
+     */
+    private function getProducts(): array
+    {
+        return ProductModel::whereNull('parent_sku')->get()->sortBy('id')->all();
+    }
+
+    /**
+     * @return Product[]
+     */
+    private function mapProducts(array $products): array
+    {
+        return array_map(function (ProductModel $product) {
+            return ProductFactory::buildFromModel($product);
+        }, $products);
     }
 }

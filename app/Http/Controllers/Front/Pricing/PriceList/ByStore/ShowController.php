@@ -42,12 +42,13 @@ class ShowController extends Controller
      */
     public function show(string $store, Request $request)
     {
-        $products = $this->productRepository->allByStore($store);
+        $options = $this->setOptions($request);
+        $products = $this->productRepository->allByStore($store, $options);
         $store = $this->storePresenter->present($store);
         $productsPresented = $this->productPresenter->list($products, $store->slug());
-        $paginator = $this->paginator->paginate($productsPresented, $request);
 
-        return view('pages.pricing.price-list.stores.show', $this->viewData($store, $paginator));
+
+        return view('pages.pricing.price-list.stores.show', $this->viewData($store, $productsPresented, $request));
     }
 
     private function getBreadcrumb(Store $store): array
@@ -58,13 +59,27 @@ class ShowController extends Controller
         );
     }
 
-    private function viewData(Store $store, LengthAwarePaginator $paginator): array
+    private function setOptions(Request $request): array
     {
+        return [
+            'minimumProfit' => $request->input('minimumProfitFilter') ?? null,
+            'maximumProfit' => $request->input('maximumProfitFilter') ?? null,
+        ];
+    }
+
+    /**
+     */
+    private function viewData(Store $store, array $productsPresented, Request $request): array
+    {
+        $paginator = $this->paginator->paginate($productsPresented, $request);
+
         return [
             'store' => $store,
             'breadcrumb' => $this->getBreadcrumb($store),
             'paginator' => $paginator,
             'products' => $paginator->items(),
+            'minimumProfit' => $request->input('minimumProfitFilter') ?? '',
+            'maximumProfit' => $request->input('maximumProfitFilter') ?? '',
         ];
     }
 }
