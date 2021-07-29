@@ -13,15 +13,17 @@ class MagaluPostPriced extends PostPriced
 
     private Price $discountedPrice;
 
-    public function __construct(Post $post, Price $price, Product $product)
+    public function __construct(Post $post, Price $price, Product $product, array $options = [])
     {
         parent::__construct($post, $price, $product);
+
+        $commission = Helpers::percentage($options['commission'] ?? $post->store()->commission());
 
         $this->discountedPrice = new Price(
             product: $product,
             value: $price->get(),
             store: $post->store()->slug(),
-            commission: Helpers::percentage($post->store()->commission()),
+            commission: $commission,
             discountRate: Helpers::percentage(self::IN_CASH_DISCOUNT)
         );
     }

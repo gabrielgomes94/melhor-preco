@@ -26,7 +26,7 @@ class CreatePostPriced implements CreatePostPricedService
         $price = $this->calculatePrice->calculate($product, $store, $price, $options);
         $post = $product->getPost($store->slug());
 
-        return Factory::make($post, $price, $product);
+        return Factory::make($post, $price, $product, $options);
     }
 
     /**

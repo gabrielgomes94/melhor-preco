@@ -8,14 +8,14 @@ use Barrigudinha\Product\Product;
 
 class Factory
 {
-    public static function make(Post $post, Price $price, Product $product): PostPriced
+    public static function make(Post $post, Price $price, Product $product, array $options = []): PostPriced
     {
         $store = $post->store()->slug();
 
         if ($store === 'magalu') {
-            return new MagaluPostPriced($post, $price, $product);
+            return new MagaluPostPriced($post, $price, $product, $options);
         }
 
-        return new PostPriced($post, $price, $product);
+        return new PostPriced($post, $price, $product, $options);
     }
 }

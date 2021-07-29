@@ -12,7 +12,7 @@ class PostPriced
     private Post $post;
     private Price $price;
 
-    public function __construct(Post $post, Price $price, Product $product)
+    public function __construct(Post $post, Price $price, Product $product, array $options = [])
     {
         $this->post = $post;
         $this->price = $price;
