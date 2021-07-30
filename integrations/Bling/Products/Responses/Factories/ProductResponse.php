@@ -3,8 +3,8 @@
 namespace Integrations\Bling\Products\Responses\Factories;
 
 use Integrations\Bling\Products\Responses\Product;
-use Integrations\Bling\Products\Transformers\Product as ProductTransformer;
-use Integrations\Bling\Products\Transformers\Store as StoreTransformer;
+use Integrations\Bling\Products\Responses\Transformers\Product as ProductTransformer;
+use Integrations\Bling\Products\Responses\Transformers\Store as StoreTransformer;
 use Psr\Http\Message\ResponseInterface;
 
 class ProductResponse extends BaseFactory

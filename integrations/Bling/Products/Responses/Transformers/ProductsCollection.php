@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrations\Bling\Products\Transformers;
+namespace Integrations\Bling\Products\Responses\Transformers;
 
 class ProductsCollection
 {
@@ -25,7 +25,7 @@ class ProductsCollection
 
         foreach ($data as $product) {
             if (isset($product['produto']['produtoLoja'])) {
-                $productsCollection[] = ProductWithStore::transform($product['produto'], $storeCode);
+                $productsCollection[] = Product::transformWithStore($product['produto'], $storeCode);
             }
         }
 

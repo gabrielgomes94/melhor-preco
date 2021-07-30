@@ -1,8 +1,8 @@
 <?php
 
-namespace Integrations\Bling\Products\Transformers;
+namespace Integrations\Bling\Products\Responses\Transformers;
 
-use Integrations\Bling\Products\Data\Store as StoreData;
+use Integrations\Bling\Products\Responses\Data\Store as StoreData;
 
 class Store
 {

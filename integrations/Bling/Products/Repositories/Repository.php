@@ -2,13 +2,10 @@
 
 namespace Integrations\Bling\Products\Repositories;
 
-//use Barrigudinha\Product\Clients\Contracts\ProductStore;
 use Integrations\Bling\Products\Clients\ProductStore;
-use Integrations\Bling\Products\Data\Product;
 
 class Repository
 {
-    private Product $productClient;
     private ProductStore $client;
 
     public function __construct(ProductStore $client)
@@ -16,7 +13,7 @@ class Repository
         $this->client = $client;
     }
 
-    public function get(string $sku, string $storeSlug): ?Product
+    public function get(string $sku, string $storeSlug)
     {
         $response = $this->client->get($sku, [$storeSlug]);
 
@@ -33,8 +30,7 @@ class Repository
         $productsList = [];
 
         do {
-            $page++;
-            $products = $this->client->list($page)->data();
+            $products = $this->client->list($page++)->data();
 
             foreach ($products as $product) {
                 $productsList[] = $product;

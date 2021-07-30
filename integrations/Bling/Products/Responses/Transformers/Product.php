@@ -1,20 +1,33 @@
 <?php
 
-namespace Integrations\Bling\Products\Transformers;
+namespace Integrations\Bling\Products\Responses\Transformers;
 
-use Integrations\Bling\Products\Data\Product as ProductData;
+use Integrations\Bling\Products\Responses\Data\Product as ProductData;
 
 class Product
 {
-    public static function transform(array $product): ProductData
+    public static function transform(array $product): ?ProductData
     {
         if (!isset($product)) {
-            return [];
+            return null;
         }
 
         $data = self::getData($product);
 
         return ProductData::createFromArray($data);
+    }
+
+    public static function transformWithStore(array $product, string $storeSlug): ?ProductData
+    {
+        if (!isset($data)) {
+            return null;
+        }
+
+        $product = self::transform($data);
+        $product->addStore(Store::transform($data, $storeSlug));
+
+        return $product;
+
     }
 
     private static function getData(array $product): array

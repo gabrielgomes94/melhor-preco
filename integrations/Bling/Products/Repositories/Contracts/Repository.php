@@ -2,12 +2,11 @@
 
 namespace Integrations\Bling\Products\Repositories\Contracts;
 
-use Integrations\Bling\Products\Data\Product;
-use Integrations\Bling\Products\Data\ProductIterator;
+use Integrations\Bling\Products\Responses\Data\Product;
 
 interface Repository
 {
-    public function all(array $stores = []): ProductIterator;
+    public function all(array $stores = []): array;
 
     public function get(string $sku, array $stores = []): ?Product;
 

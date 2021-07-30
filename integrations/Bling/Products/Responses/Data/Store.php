@@ -1,6 +1,6 @@
 <?php
 
-namespace Integrations\Bling\Products\Data;
+namespace Integrations\Bling\Products\Responses\Data;
 
 class Store
 {

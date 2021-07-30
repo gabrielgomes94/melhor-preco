@@ -39,8 +39,6 @@ class SyncProductData
 
             if (!$productModel) {
                 $this->creator->createFromArray($product->toArray());
-
-                continue;
             }
 
             /**

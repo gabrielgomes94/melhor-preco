@@ -6,7 +6,7 @@ use App\Factories\Product\Product;
 use Integrations\Bling\Products\Data\Product as ProductData;
 use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\ProductIterator;
-use Integrations\Bling\Products\Transformers\ProductsCollection;
+use Integrations\Bling\Products\Responses\Transformers\ProductsCollection;
 use Psr\Http\Message\ResponseInterface;
 
 class ProductCollectionResponse extends BaseFactory
@@ -37,10 +37,6 @@ class ProductCollectionResponse extends BaseFactory
         }
 
         $products = ProductsCollection::transformWithStore($data, $store);
-
-//        $products = array_filter($products, function (ProductData $product) {
-//            return $product->hasStore();
-//        });
 
         return new ProductIterator(data: $products);
     }
