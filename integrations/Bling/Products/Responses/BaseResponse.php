@@ -3,7 +3,7 @@
 namespace Integrations\Bling\Products\Responses;
 
 use Integrations\Bling\Products\Responses\Contracts\Response as ResponseInterface;
-use Integrations\Bling\Products\Data\Product as ProductData;
+use Integrations\Bling\Products\Responses\Data\Product as ProductData;
 
 abstract class BaseResponse implements ResponseInterface
 {

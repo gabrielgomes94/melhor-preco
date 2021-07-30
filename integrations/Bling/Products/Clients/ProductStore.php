@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Requests\GetRequest;
 use Integrations\Bling\Products\Requests\ListRequest;
 use Integrations\Bling\Products\Requests\PutRequest;
+use Integrations\Bling\Products\Requests\Transformers\ProductStore as ProductStoreTransformer;
 use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\Error;
 use Integrations\Bling\Products\Responses\Factories\ErrorResponse;
@@ -96,15 +97,9 @@ class ProductStore implements ProductStoreInterface
     {
         try {
             $storeCode = config('stores.' . $store . '.erpCode');
-
-            $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><produtosLoja/>');
-            $productStore = $xml->addChild('produtoLoja');
-            $productStore->addChild('idLojaVirtual', $productStoreSku);
-            $price = $productStore->addChild('preco');
-            $price->addChild('preco', $priceValue);
-            $price->addChild('precoPromocional', $priceValue);
-
+            $xml = ProductStoreTransformer::generateXML($productStoreSku, $priceValue);
             $product = $this->putRequest->put($sku, $storeCode, $xml->asXML());
+
             $response = $this->productResponse->make($product, [$store]);
         } catch (ConnectException $exception) {
             $message = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar.
