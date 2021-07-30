@@ -24,11 +24,9 @@ class ProductResponse extends BaseFactory
 
         $productData = ProductTransformer::transform($data);
 
-        if ($stores) {
-            foreach ($stores as $storeCode => $storeResponse) {
-                $data = $this->getData($storeResponse);
-                $productData->addStore(StoreTransformer::transform($data, $storeCode));
-            }
+        foreach ($stores as $storeCode => $storeResponse) {
+            $data = $this->getData($storeResponse);
+            $productData->addStore(StoreTransformer::transform($data, $storeCode));
         }
 
         return new Product(data: $productData);

@@ -30,7 +30,8 @@ class Repository
         $productsList = [];
 
         do {
-            $products = $this->client->list($page++)->data();
+            $page++;
+            $products = $this->client->list($page)->data();
 
             foreach ($products as $product) {
                 $productsList[] = $product;

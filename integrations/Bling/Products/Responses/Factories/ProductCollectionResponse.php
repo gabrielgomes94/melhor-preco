@@ -3,7 +3,6 @@
 namespace Integrations\Bling\Products\Responses\Factories;
 
 use App\Factories\Product\Product;
-use Integrations\Bling\Products\Data\Product as ProductData;
 use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\ProductIterator;
 use Integrations\Bling\Products\Responses\Transformers\ProductsCollection;
@@ -20,10 +19,6 @@ class ProductCollectionResponse extends BaseFactory
         }
 
         $products = ProductsCollection::transform($data);
-
-        $products = array_map(function (array $product) {
-            return Product::buildFromERP($product);
-        }, $products);
 
         return new ProductIterator(data: $products);
     }

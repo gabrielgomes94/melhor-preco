@@ -6,18 +6,18 @@ use Integrations\Bling\Products\Responses\Data\Product as ProductData;
 
 class Product
 {
-    public static function transform(array $product): ?ProductData
+    public static function transform(array $data): ?ProductData
     {
-        if (!isset($product)) {
+        if (!isset($data)) {
             return null;
         }
 
-        $data = self::getData($product);
+        $data = self::getData($data);
 
         return ProductData::createFromArray($data);
     }
 
-    public static function transformWithStore(array $product, string $storeSlug): ?ProductData
+    public static function transformWithStore(array $data, string $storeSlug): ?ProductData
     {
         if (!isset($data)) {
             return null;
