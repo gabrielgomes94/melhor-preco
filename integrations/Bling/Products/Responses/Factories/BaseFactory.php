@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses\Factories;
 
-use Integrations\Bling\Products\Transformers\Sanitizer;
+use Integrations\Bling\Products\Responses\Sanitizers\Sanitizer;
 
 class BaseFactory
 {

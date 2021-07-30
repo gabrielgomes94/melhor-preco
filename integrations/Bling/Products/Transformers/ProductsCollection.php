@@ -29,7 +29,6 @@ class ProductsCollection
             }
         }
 
-
         return $productsCollection ?? [];
     }
 }

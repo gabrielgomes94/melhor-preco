@@ -22,16 +22,16 @@ class ProductResponse extends BaseFactory
             return $this->errorResponse->makeFromData(data: $data);
         }
 
-        $product = new Product(data: ProductTransformer::transform($data));
+        $productData = ProductTransformer::transform($data);
 
         if ($stores) {
             foreach ($stores as $storeCode => $storeResponse) {
                 $data = $this->getData($storeResponse);
-                $product->addStores(StoreTransformer::transform($data, $storeCode));
+                $productData->addStore(StoreTransformer::transform($data, $storeCode));
             }
         }
 
-        return $product;
+        return new Product(data: $productData);
     }
 
     private function getData(ResponseInterface $response): array
