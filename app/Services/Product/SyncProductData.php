@@ -6,18 +6,19 @@ use App\Repositories\Pricing\Product\Creator;
 use App\Repositories\Product\FinderBling;
 use App\Repositories\Product\FinderDB;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
+use Integrations\Bling\Products\Repositories\Repository as BlingRepository;
 
 class SyncProductData
 {
     private FinderDB $dbRepository;
-    private FinderBling $erpRepository;
+    private BlingRepository $erpRepository;
     private Creator $creator;
     private UpdateCosts $updateService;
     private CalculateProduct $calculateProduct;
 
     public function __construct(
         FinderDB $dbRepository,
-        FinderBling $erpRepository,
+        BlingRepository $erpRepository,
         Creator $creator,
         UpdateCosts $updateService,
         CalculateProduct $calculateProduct
@@ -35,21 +36,18 @@ class SyncProductData
 
         foreach ($products as $product) {
             $productModel = $this->dbRepository->getModel($product->sku());
-            $product = $this->calculateProduct->recalculate($product);
 
             if (!$productModel) {
-                $this->creator->create($product);
+                $this->creator->createFromArray($product->toArray());
 
                 continue;
             }
 
-            $productObject = $productModel->toDomainObject();
-
-            $this->updateService->execute($product->sku(), [
-                'purchasePrice' => $productObject->costs()->purchasePrice(),
-                'additionalCosts' => $productObject->costs()->additionalCosts(),
-                'taxICMS' => $productObject->costs()->taxICMS(),
-            ]);
+            /**
+             * To Do:
+             *  - Mergear dados da base local com a base do Bling
+             *  - Atualizar dados na base local
+             */
         }
     }
 }
