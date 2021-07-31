@@ -4,25 +4,18 @@ namespace App\Services\Product\Update;
 
 use App\Factories\Product\Dimensions;
 use App\Factories\Product\Post;
-use App\Repositories\Product\DB\Updator;
-use App\Repositories\Store\Store as StoreRepository;
-use Barrigudinha\Pricing\Price\Services\CalculatePrice;
+use App\Repositories\Product\Updator;
 use Barrigudinha\Product\Product;
-use Barrigudinha\Utils\Helpers;
 
 class UpdateProduct
 {
-    private CalculatePrice $calculatePrice;
     private UpdatePosts $updatePosts;
     private Updator $productUpdator;
-    private StoreRepository $storeRepository;
 
-    public function __construct(CalculatePrice $calculatePrice, UpdatePosts $updatePosts, Updator $productUpdator, StoreRepository $storeRepository)
+    public function __construct(UpdatePosts $updatePosts, Updator $productUpdator)
     {
-        $this->calculatePrice = $calculatePrice;
         $this->updatePosts = $updatePosts;
         $this->productUpdator = $productUpdator;
-        $this->storeRepository = $storeRepository;
     }
 
     public function execute(Product $product, array $data): bool
@@ -47,11 +40,13 @@ class UpdateProduct
     {
         foreach ($stores as $store) {
             if (!$post = $product->getPost($store['slug'])) {
-                $posts[] = Post::build($store);
+                $post = Post::build($store);
             }
 
             $this->updatePosts->updatePrice($product, $post->store(), $store['price']);
+
             $posts[]  = $post;
+
         }
 
         return $posts ?? [];

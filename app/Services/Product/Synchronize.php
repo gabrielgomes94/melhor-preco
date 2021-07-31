@@ -3,13 +3,11 @@
 namespace App\Services\Product;
 
 use App\Repositories\Pricing\Product\Creator;
-use App\Repositories\Product\DB\Updator;
-use App\Repositories\Product\FinderBling;
 use App\Repositories\Product\FinderDB;
 use App\Services\Product\Update\UpdateProduct;
 use Integrations\Bling\Products\Repositories\Repository as BlingRepository;
 
-class SyncProductData
+class Synchronize
 {
     private FinderDB $dbRepository;
     private BlingRepository $erpRepository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Product\DB;
+namespace App\Repositories\Product;
 
 use App\Models\Product as ProductModel;
 use App\Repositories\Product\FinderDB;
