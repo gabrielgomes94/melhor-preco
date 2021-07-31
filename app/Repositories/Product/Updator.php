@@ -35,4 +35,17 @@ class Updator
 
         return $model->save();
     }
+
+    public function updateCosts(Product $product): bool
+    {
+        if (!$model = $this->repository->getModel($product->sku())) {
+            return false;
+        }
+
+        $model->purchase_price = $product->costs()->purchasePrice();
+        $model->additional_costs = $product->costs()->additionalCosts();
+        $model->tax_icms = $product->costs()->taxICMS();
+
+        return $model->save();
+    }
 }

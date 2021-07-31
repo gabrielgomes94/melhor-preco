@@ -3,62 +3,60 @@
 namespace App\Services\Product\Update;
 
 use App\Factories\Product\Costs;
-use App\Factories\Product\Product as ProductFactory;
-use App\Models\Product as ProductModel;
-use App\Repositories\Pricing\Product\Updator;
 use App\Repositories\Product\FinderDB;
+use App\Repositories\Product\Updator as ProductUpdator;
+use App\Services\Pricing\UpdatePrice;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
 use Barrigudinha\Product\Product;
 
 class UpdateCosts
 {
-    private FinderDB $repository;
-    private Updator $updator;
     private CalculateProduct $calculateProduct;
+    private FinderDB $repository;
+    private ProductUpdator $productUpdator;
+    private UpdatePrice $updatePriceService;
 
-    public function __construct(FinderDB $repository, Updator $updator, CalculateProduct $calculateProduct)
+    public function __construct(FinderDB $repository, ProductUpdator $productUpdator, CalculateProduct $calculateProduct, UpdatePrice $updatePriceService)
     {
         $this->repository = $repository;
-        $this->updator = $updator;
+        $this->productUpdator = $productUpdator;
         $this->calculateProduct = $calculateProduct;
+        $this->updatePriceService = $updatePriceService;
     }
 
     public function execute(string $sku, array $data): bool
     {
-        if (!$productModel = $this->repository->getModel($sku)) {
+        if (!$product = $this->repository->get($sku)) {
             return false;
         }
 
-        $product = $this->updateProduct($productModel, $data);
+        $products = $this->getProducts($product);
 
-        if (!$this->updator->sync($product, $productModel)) {
-            return false;
-        }
+        foreach ($products as $product) {
+            $costs = Costs::make($data, $product);
+            $product->setCosts($costs);
+            $product = $this->calculateProduct->recalculate($product);
 
-        if ($product->hasVariations()) {
-            $this->updateVariations($product, $data);
+            $this->productUpdator->updateCosts($product);
+
+            foreach ($product->posts() as $post) {
+                $this->updatePriceService->execute($product->sku(), $post);
+            }
         }
 
         return true;
     }
-
-    private function updateProduct(ProductModel $model, array $data): Product
+    /**
+     * @return Product[]
+     */
+    private function getProducts(Product $product): array
     {
-        $product = ProductFactory::buildFromModel($model);
-        $costs = Costs::make($data, $product);
-        $product->setCosts($costs);
-        $product = $this->calculateProduct->recalculate($product);
+        $products[] = $product;
 
-        return $product;
-    }
-
-    private function updateVariations(Product $product, array $data): void
-    {
         foreach ($product->variations()->get() as $variation) {
-            $variationModel = $this->repository->getModel($variation->sku());
-            $product = $this->updateProduct($variationModel, $data);
-
-            $this->updator->sync($product, $variationModel);
+            $products[] = $variation;
         }
+
+        return $products;
     }
 }

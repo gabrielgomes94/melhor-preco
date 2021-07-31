@@ -5,6 +5,7 @@ namespace App\Services\Product\Update;
 use App\Factories\Product\Dimensions;
 use App\Factories\Product\Post;
 use App\Repositories\Product\Updator;
+use Barrigudinha\Product\Dimensions as DimensionsObject;
 use Barrigudinha\Product\Product;
 
 class UpdateProduct
@@ -27,7 +28,7 @@ class UpdateProduct
         return $this->productUpdator->update($product);
     }
 
-    private function getDimensions(Product $product, array $data)
+    private function getDimensions(Product $product, array $data): DimensionsObject
     {
         return Dimensions::make([
             'depth' => $data['depth'],
