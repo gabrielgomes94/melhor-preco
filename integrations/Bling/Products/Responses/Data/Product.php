@@ -87,7 +87,7 @@ class Product
             function (Store $store) {
                 return $store->toArray();
             },
-            $this->stores
+            $this->stores ?? []
         );
     }
 }

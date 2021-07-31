@@ -27,7 +27,6 @@ class Product
         $product->addStore(Store::transform($data, $storeSlug));
 
         return $product;
-
     }
 
     private static function getData(array $product): array

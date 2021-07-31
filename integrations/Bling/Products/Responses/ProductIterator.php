@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-use Integrations\Bling\Products\Data\Product;
+use Integrations\Bling\Products\Responses\Data\Product;
 
 class ProductIterator extends BaseResponse
 {

@@ -3,19 +3,23 @@
 namespace Integrations\Bling\Products\Repositories;
 
 use Integrations\Bling\Products\Clients\ProductStore;
-use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\Contracts\Response;
+use Integrations\Bling\Products\Responses\Data\ProductsCollection;
+use Integrations\Bling\Products\Responses\Factories\ProductCollectionResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductResponse;
+use Integrations\Bling\Products\Responses\ProductIterator;
 
 class Repository
 {
     private ProductStore $client;
     private ProductResponse $productResponse;
+    private ProductCollectionResponse $productCollectionResponse;
 
-    public function __construct(ProductStore $client, ProductResponse $productResponse)
+    public function __construct(ProductStore $client, ProductResponse $productResponse, ProductCollectionResponse $productCollectionResponse)
     {
         $this->client = $client;
         $this->productResponse = $productResponse;
+        $this->productCollectionResponse = $productCollectionResponse;
     }
 
     public function get(string $sku, array $stores = []): Response
@@ -33,26 +37,30 @@ class Repository
         return $this->productResponse->makeStores($storeResponses ?? []);
     }
 
-    public function all(): array
+    public function all(): ProductIterator
+    {
+        $productsCollection = $this->getProductCollection()->toArray();
+
+        return new ProductIterator(data: $productsCollection);
+    }
+
+
+    private function getProductCollection(): ProductsCollection
     {
         $page = 0;
-        $productsList = [];
+        $productsCollection = new ProductsCollection();
 
         do {
-            $page++;
-            $products = $this->client->list($page)->data();
+            $stores = array_keys(config('stores_code'));
+            $products = $this->client->list($page++)->data();
+            $productsCollection->addProducts($products);
 
-            foreach ($products as $product) {
-                $productsList[] = $product;
+            foreach ($stores as $store) {
+                $productsStore = $this->client->list($page, $store)->data();
+                $productsCollection->addStores($productsStore);
             }
         } while (!empty($products));
 
-        return $productsList ?? [];
+        return $productsCollection ?? [];
     }
-
-    /**
-     * public function allWithStore();
-     * public function getWithStore();
-     * public function getWithStore();
-     */
 }

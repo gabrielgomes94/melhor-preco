@@ -34,7 +34,7 @@ class SyncProductData
     {
         $products = $this->erpRepository->all();
 
-        foreach ($products as $product) {
+        foreach ($products->data() as $product) {
             $productModel = $this->dbRepository->getModel($product->sku());
 
             if (!$productModel) {

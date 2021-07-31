@@ -25,7 +25,7 @@ class ProductsCollection
 
         foreach ($data as $product) {
             if (isset($product['produto']['produtoLoja'])) {
-                $productsCollection[] = Product::transformWithStore($product['produto'], $storeCode);
+                $productsCollection[] = ProductStore::transform($product['produto'], $storeCode);
             }
         }
 
