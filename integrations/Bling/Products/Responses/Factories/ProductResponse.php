@@ -2,6 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses\Factories;
 
+use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\Data\Product as ProductData;
 use Integrations\Bling\Products\Responses\Product;
 use Integrations\Bling\Products\Responses\Transformers\Product as ProductTransformer;
@@ -13,7 +14,7 @@ class ProductResponse extends BaseFactory
     /**
      * @param array<string, ResponseInterface> $stores
      */
-    public function make(ResponseInterface $productResponse, ?string $store = null): Product
+    public function make(ResponseInterface $productResponse, ?string $store = null): BaseResponse
     {
         $data = $this->getData($productResponse);
 

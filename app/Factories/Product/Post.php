@@ -11,7 +11,7 @@ class Post
 {
     public static function build(array $data): ProductPost
     {
-        $store = new Store(store_sku_id: $data['skuStoreId'], code: $data['code']);
+        $store = new Store(store_sku_id: $data['skuStoreId'], code: $data['slug']);
         $price = Helpers::floatToMoney($data['price']);
 
         $post = new ProductPost(

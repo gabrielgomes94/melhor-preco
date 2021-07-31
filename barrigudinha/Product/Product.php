@@ -218,6 +218,16 @@ class Product
         }
     }
 
+    public function setDimensions(Dimensions $dimensions)
+    {
+        $this->dimensions = $dimensions;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     /**
      * @var Post[]
      */

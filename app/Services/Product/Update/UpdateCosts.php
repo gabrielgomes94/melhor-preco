@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services\Product\Update;
 
 use App\Factories\Product\Costs;
 use App\Factories\Product\Product as ProductFactory;

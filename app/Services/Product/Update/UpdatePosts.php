@@ -1,28 +1,25 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services\Product\Update;
 
-use App\Repositories\Pricing\Price\Repository;
+use App\Services\Pricing\UpdatePrice as UpdatePriceService;
 use Barrigudinha\Pricing\Price\Services\CalculatePrice;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Product\Store;
 use Barrigudinha\Utils\Helpers;
-use Integrations\Bling\Products\Clients\ProductStore;
 
-class UpdatePrice
+class UpdatePosts
 {
-    private Repository $priceRepository;
     private CalculatePrice $calculatePrice;
-    private ProductStore $client;
+    private UpdatePriceService $updatePriceService;
 
-    public function __construct(Repository $priceRepository, CalculatePrice $calculatePrice, ProductStore $client)
+    public function __construct(CalculatePrice $calculatePrice, UpdatePriceService $updatePriceService)
     {
-        $this->priceRepository = $priceRepository;
         $this->calculatePrice = $calculatePrice;
-        $this->client = $client;
+        $this->updatePriceService = $updatePriceService;
     }
 
-    public function execute(Product $product, Store $store, float $priceValue): bool
+    public function updatePrice(Product $product, Store $store, float $priceValue): bool
     {
         $priceValue = Helpers::floatToMoney($priceValue);
         $products = $this->getProducts($product);
@@ -34,18 +31,7 @@ class UpdatePrice
 
             $price = $this->calculatePrice->calculate($product, $store, $priceValue);
             $post->setPrice($price->get(), $price->profit());
-
-            $priceModel = $this->priceRepository->get($post->id());
-            $this->priceRepository->update($priceModel, $post->price(), $post->profit());
-
-            if (config('features.integrations.bling.update_price.enabled')) {
-                $this->client->update(
-                    $product->sku(),
-                    $store->slug(),
-                    $priceModel->store_sku_id,
-                    (string) $price
-                );
-            }
+            $this->updatePriceService->execute($product->sku(), $post);
         }
 
         return true;

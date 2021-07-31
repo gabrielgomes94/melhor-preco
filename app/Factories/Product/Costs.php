@@ -7,7 +7,7 @@ use Barrigudinha\Product\Product;
 
 class Costs
 {
-    public static function make(array $data, Product $product)
+    public static function make(array $data, Product $product): CostsObject
     {
         return new CostsObject(
             purchasePrice: $data['purchasePrice'] ?? $product->costs()->purchasePrice(),

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front\Pricing\Price;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pricing\Price\UpdatePrice;
 use App\Repositories\Product\FinderDB;
-use App\Services\Product\UpdatePrice as UpdatePriceService;
+use App\Services\Product\UpdatePosts as UpdatePriceService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 

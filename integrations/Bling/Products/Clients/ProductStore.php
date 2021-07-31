@@ -90,7 +90,7 @@ class ProductStore implements ProductStoreInterface
             $storeCode = config('stores.' . $store . '.erpCode');
             $xml = ProductStoreTransformer::generateXML($productStoreSku, $priceValue);
             $product = $this->putRequest->put($sku, $storeCode, $xml);
-            $response = $this->productResponse->make($product, [$store]);
+            $response = $this->productResponse->make($product, $store);
         } catch (ConnectException $exception) {
             $response = $this->handleError($this->connectionErrorMessage());
         } catch (Exception $exception) {

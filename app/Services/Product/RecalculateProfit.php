@@ -4,6 +4,7 @@ namespace App\Services\Product;
 
 use App\Repositories\Pricing\Product\Updator;
 use App\Repositories\Product\FinderDB;
+use App\Services\Product\Update\UpdatePosts;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -12,16 +13,12 @@ use Money\Money;
 class RecalculateProfit
 {
     private FinderDB $repository;
-    private CalculateProduct $calculateProductService;
-    private Updator $productUpdator;
-    private UpdatePrice $updatePrice;
+    private UpdatePosts $updatePosts;
 
-    public function __construct(FinderDB $repository, CalculateProduct $calculateProductService, Updator $productUpdator, UpdatePrice $updatePrice)
+    public function __construct(FinderDB $repository, UpdatePosts $updatePosts)
     {
         $this->repository = $repository;
-        $this->calculateProductService = $calculateProductService;
-        $this->productUpdator = $productUpdator;
-        $this->updatePrice = $updatePrice;
+        $this->updatePosts = $updatePosts;
     }
 
     public function recalculateAll(): void
@@ -32,7 +29,7 @@ class RecalculateProfit
             foreach ($product->posts() as $post) {
                 $value = $this->formatMoney($post->price());
 
-                $this->updatePrice->execute($product, $post->store(), $value);
+                $this->updatePosts->execute($product, $post->store(), $value);
             }
         }
     }
