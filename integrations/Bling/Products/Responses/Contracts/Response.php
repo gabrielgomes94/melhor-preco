@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses\Contracts;
 
-use Integrations\Bling\Products\Data\Product;
+use Integrations\Bling\Products\Responses\Data\Product;
 
 interface Response
 {

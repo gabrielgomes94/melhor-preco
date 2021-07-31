@@ -3,23 +3,30 @@
 namespace Integrations\Bling\Products\Repositories;
 
 use Integrations\Bling\Products\Clients\ProductStore;
+use Integrations\Bling\Products\Repositories\Contracts\Repository as RepositoryInterface;
 use Integrations\Bling\Products\Responses\Contracts\Response;
 use Integrations\Bling\Products\Responses\Data\ProductsCollection;
-use Integrations\Bling\Products\Responses\Factories\ProductCollectionResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductResponse;
 use Integrations\Bling\Products\Responses\ProductIterator;
 
-class Repository
+class Repository implements RepositoryInterface
 {
     private ProductStore $client;
     private ProductResponse $productResponse;
-    private ProductCollectionResponse $productCollectionResponse;
 
-    public function __construct(ProductStore $client, ProductResponse $productResponse, ProductCollectionResponse $productCollectionResponse)
-    {
+    public function __construct(
+        ProductStore $client,
+        ProductResponse $productResponse,
+    ) {
         $this->client = $client;
         $this->productResponse = $productResponse;
-        $this->productCollectionResponse = $productCollectionResponse;
+    }
+
+    public function all(array $stores = []): ProductIterator
+    {
+        $productsCollection = $this->getProductCollection($stores)->toArray();
+
+        return new ProductIterator(data: $productsCollection);
     }
 
     public function get(string $sku, array $stores = []): Response
@@ -37,21 +44,14 @@ class Repository
         return $this->productResponse->makeStores($storeResponses ?? []);
     }
 
-    public function all(): ProductIterator
-    {
-        $productsCollection = $this->getProductCollection()->toArray();
 
-        return new ProductIterator(data: $productsCollection);
-    }
-
-
-    private function getProductCollection(): ProductsCollection
+    private function getProductCollection(array $stores = []): ProductsCollection
     {
         $page = 0;
         $productsCollection = new ProductsCollection();
 
         do {
-            $stores = array_keys(config('stores_code'));
+            $stores = $stores ?: array_keys(config('stores_code'));
             $products = $this->client->list($page++)->data();
             $productsCollection->addProducts($products);
 
