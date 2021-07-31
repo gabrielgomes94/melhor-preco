@@ -2,7 +2,6 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-//use Barrigudinha\Product\Product;
 use Integrations\Bling\Products\Data\Product;
 
 class ProductIterator extends BaseResponse

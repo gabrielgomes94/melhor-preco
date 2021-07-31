@@ -41,23 +41,22 @@ class ProductStore implements ProductStoreInterface
         $this->errorResponse = $errorResponse;
     }
 
-    public function get(string $sku, array $stores = []): BaseResponse
+    public function get(string $sku, ?string $store = null): BaseResponse
     {
         try {
-            $productResponse = $this->getRequest->get($sku);
-            $storeResponses = [];
+            if (!$store) {
+                $productResponse = $this->getRequest->get($sku);
 
-            foreach ($stores as $store) {
-                $storeResponses[$store] = $this->getRequest->getStore($sku, $store);
+                return $this->productResponse->make($productResponse);
             }
 
-            $response = $this->productResponse->make($productResponse, $storeResponses);
+            $response = $this->getRequest->getStore($sku, $store);
+
+            return $this->productResponse->make($response, $store);
         } catch (ConnectException $exception) {
-            $message = 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar.
-            Tente novamente mais tarde.';
-            $response = $this->handleError($message);
+            $response = $this->handleError($this->connectionErrorMessage());
         } catch (Exception $exception) {
-            $response = $this->handleError('Aconteceu algum erro bizarro. Contate o suporte.');
+            $response = $this->handleError($this->bizarreErrorMessage());
         }
 
         return $response;
@@ -116,5 +115,15 @@ class ProductStore implements ProductStoreInterface
     private function handleError(string $message): Error
     {
         return $this->errorResponse->make($message);
+    }
+
+    private function connectionErrorMessage(): string
+    {
+        return 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.';
+    }
+
+    private function bizarreErrorMessage():  string
+    {
+        return 'Aconteceu algum erro bizarro. Contate o suporte.';
     }
 }

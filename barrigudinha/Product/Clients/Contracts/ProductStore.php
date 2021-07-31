@@ -11,7 +11,8 @@ interface ProductStore
      * @param array $stores
      * @return BaseResponse
      */
-    public function get(string $sku, array $stores = []): BaseResponse;
+    public function get(string $sku, ?string $store = null): BaseResponse;
 
     public function list(int $page = 1): BaseResponse;
 }
+

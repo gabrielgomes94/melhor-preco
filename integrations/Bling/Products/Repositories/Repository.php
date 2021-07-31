@@ -3,25 +3,34 @@
 namespace Integrations\Bling\Products\Repositories;
 
 use Integrations\Bling\Products\Clients\ProductStore;
+use Integrations\Bling\Products\Responses\BaseResponse;
+use Integrations\Bling\Products\Responses\Contracts\Response;
+use Integrations\Bling\Products\Responses\Factories\ProductResponse;
 
 class Repository
 {
     private ProductStore $client;
+    private ProductResponse $productResponse;
 
-    public function __construct(ProductStore $client)
+    public function __construct(ProductStore $client, ProductResponse $productResponse)
     {
         $this->client = $client;
+        $this->productResponse = $productResponse;
     }
 
-    public function get(string $sku, string $storeSlug)
+    public function get(string $sku, array $stores = []): Response
     {
-        $response = $this->client->get($sku, [$storeSlug]);
+        if (!$stores) {
+            $response = $this->client->get($sku);
 
-        if (!$product = $response->data()) {
-            return null;
+            return $this->productResponse->make($response);
         }
 
-        return $product;
+        foreach ($stores as $store) {
+            $storeResponses[] = $this->client->get($sku, $store)->data();
+        }
+
+        return $this->productResponse->makeStores($storeResponses ?? []);
     }
 
     public function all(): array

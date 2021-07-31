@@ -36,13 +36,21 @@ class ProductCollectionResponse extends BaseFactory
         return new ProductIterator(data: $products);
     }
 
-    public function mergeResponses(array $responses)
+    public function mergeResponses(array $responses): ProductIterator
     {
         $productList = [];
 
         foreach ($responses as $response) {
             foreach ($response->data() as $productResponse) {
+                if(!$productResponse) {
+                    continue;
+                }
+
                 foreach ($productList as $index => $product) {
+                    if (!$product) {
+                        continue;
+                    }
+
                     if ($product->sku() === $productResponse->sku()) {
                         $store = $productResponse->stores()[0];
                         $productList[$index]->addStore($store);
@@ -50,6 +58,7 @@ class ProductCollectionResponse extends BaseFactory
                         continue 2;
                     }
                 }
+
                 $productList[] = $productResponse;
             }
         }
