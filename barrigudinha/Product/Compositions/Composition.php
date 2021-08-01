@@ -24,6 +24,12 @@ class Composition
         return $this->compositionProducts;
     }
 
+    public function hasCompositions(): bool
+    {
+        return !empty($this->compositionProducts);
+    }
+
+
     public function costs(): Costs
     {
         $purchasePrice = 0.0;

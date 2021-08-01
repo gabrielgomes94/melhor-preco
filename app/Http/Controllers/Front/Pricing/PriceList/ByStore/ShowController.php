@@ -9,6 +9,7 @@ use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Store\Presenter as StorePresenter;
 use App\Presenters\Store\Store;
 use App\Repositories\Product\FinderDB;
+use App\Repositories\Product\Options\Options;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -58,12 +59,15 @@ class ShowController extends Controller
         );
     }
 
-    private function setOptions(Request $request): array
+    private function setOptions(Request $request): Options
     {
-        return [
-            'minimumProfit' => $request->input('minimumProfitFilter') ?? null,
-            'maximumProfit' => $request->input('maximumProfitFilter') ?? null,
+        $data = [
+            'minimumProfit' => $request->input('minProfit') ?? null,
+            'maximumProfit' => $request->input('maxProfit') ?? null,
+            'filterKits' => (bool) $request->input('filterKits') ?? false,
         ];
+
+        return new Options($data);
     }
 
     /**
@@ -77,8 +81,8 @@ class ShowController extends Controller
             'breadcrumb' => $this->getBreadcrumb($store),
             'paginator' => $paginator,
             'products' => $paginator->items(),
-            'minimumProfit' => $request->input('minimumProfitFilter') ?? '',
-            'maximumProfit' => $request->input('maximumProfitFilter') ?? '',
+            'minimumProfit' => $request->input('minProfit') ?? '',
+            'maximumProfit' => $request->input('maxProfit') ?? '',
         ];
     }
 }

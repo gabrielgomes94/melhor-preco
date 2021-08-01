@@ -11,11 +11,13 @@
         value="{{ $value }}"
     >
 
-    <input
-        type="hidden"
-        id="{{ $componentId }}"
-        name="{{ $attribute }}"
-        value="{{ $value }}"
-    >
+        @if (!$simpleInput)
+            <input
+                type="hidden"
+                id="{{ $componentId }}"
+                name="{{ $attribute }}"
+                value="{{ $value }}"
+            >
+        @endif
 </div>
 

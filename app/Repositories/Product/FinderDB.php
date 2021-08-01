@@ -5,9 +5,11 @@ namespace App\Repositories\Product;
 use App\Exceptions\Store\InvalidStoreException;
 use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
+use App\Repositories\Product\Options\Options;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Store\Repositories\StoreRepository;
+use PhpOption\Option;
 
 class FinderDB implements ProductFinder
 {
@@ -39,31 +41,22 @@ class FinderDB implements ProductFinder
      * @throw InvalidStoreException
      * @return Product[]
      */
-    public function allByStore(string $store, array $options = []): array
+    public function allByStore(string $store, ?Options $options = null): array
     {
         if (!in_array($store, $this->storeRepository->all())) {
             throw new InvalidStoreException($store);
         }
 
-        $products = array_filter(
-            $this->getProducts(),
-            function (ProductModel $product) use ($store, $options) {
-                if (!$product->inStore($store)) {
-                    return false;
-                }
+        $products = $this->filter($this->getProducts(), $store, $options);
 
-                if (empty($options)) {
-                    return true;
-                }
+        $products = $this->mapProducts($products);
 
-                return $product->getPrice($store)->isProfitMarginInRange(
-                        $options['minimumProfit'] ?? null,
-                        $options['maximumProfit'] ?? null
-                    );
-            }
-        );
+        if ($options->filterKits() === true) {
+            $products = $this->filterKits($products);;
+        }
 
-        return $this->mapProducts($products);
+
+        return $products;
     }
 
     public function get(string $sku): ?Product
@@ -102,8 +95,60 @@ class FinderDB implements ProductFinder
     // To Do: criar método para checar inativos do lado do Produto. Verificar também o campo Ativo que será adicionado no banco
     private function filterActives(array $products): array
     {
-        return array_filter($products, function (Product $product) {
-            return !empty($product->posts());
-        });
+        foreach ($products as $product) {
+            if (empty($product->posts())) {
+                continue;
+            }
+
+            $activeProducts[] = $product;
+        }
+
+        return $activeProducts ?? [];
+    }
+
+    /**
+     * @param Product[] $products
+     */
+    private function filterKits(array $products): array
+    {
+        foreach ($products as $product) {
+            if ($product->hasCompositionProducts()) {
+                $kits[] = $product;
+            }
+        };
+
+        return $kits ?? [];
+    }
+
+    /**
+     * @param ProductModel[] $products
+     * @return array|bool
+     */
+    private function filter(array $products, string $store, Options $options): array
+    {
+        foreach ($products as $product) {
+            if (!$product->inStore($store)) {
+                continue;
+            }
+
+            if (!$options->hasProfitFilters()) {
+                $productsList[] = $product;
+
+                continue;
+            }
+
+            if ($this->isInMarginRange($product, $store, $options)) {
+                $productsList[] = $product;
+            }
+        }
+
+        return $productsList ?? [];
+    }
+
+    private function isInMarginRange($product, $store, $options)
+    {
+        return $product
+            ->getPrice($store)
+            ->isProfitMarginInRange($options->minimumProfit(), $options->maximumProfit());
     }
 }

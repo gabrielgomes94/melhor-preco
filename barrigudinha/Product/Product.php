@@ -209,7 +209,7 @@ class Product
 
     public function hasCompositionProducts(): bool
     {
-        return !empty($this->compositionProducts);
+        return $this->compositionProducts->hasCompositions();
     }
 
     public function tax(string $taxCode): ?Tax
