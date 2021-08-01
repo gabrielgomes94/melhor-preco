@@ -19,6 +19,7 @@ class Product
     private ?string $parentSku;
     private bool $hasVariations;
     private array $stores;
+    private array $compositionProducts = [];
 
     private function __construct(array $data)
     {
@@ -36,6 +37,7 @@ class Product
         $this->weight = $data['weight'];
         $this->parentSku = $data['parentSku'] ?? null;
         $this->hasVariations = $data['hasVariations'] ?? false;
+        $this->compositionProducts = $data['compositionProducts'] ?? [];
     }
 
     public static function createFromArray(array $data): self
@@ -78,6 +80,7 @@ class Product
             'parent_sku' => $this->parentSku,
             'has_variations' => $this->hasVariations,
             'stores' => $this->getStores(),
+            'composition_products' => $this->compositionProducts,
         ];
     }
 

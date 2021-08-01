@@ -3,6 +3,7 @@
 namespace App\Factories\Product;
 
 use App\Models\Product as ProductModel;
+use Barrigudinha\Product\Compositions\Composition;
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Dimensions;
 use Barrigudinha\Product\Product as ProductObject;
@@ -20,12 +21,20 @@ class Product
             }
         }
 
-        $product = self::build($model, $variationProducts ?? []);
+        if ($model->hasCompositionProducts()) {
+            $compositionProducts = $model->compositionProducts();
+
+            foreach ($compositionProducts as $compositionProduct) {
+                $composition[] = self::build($compositionProduct);
+            }
+        }
+
+        $product = self::build($model, $variationProducts ?? [], $composition ?? []);
 
         return $product;
     }
 
-    private static function build(ProductModel $model, ?array $variationProducts = null): ProductObject
+    private static function build(ProductModel $model, ?array $variationProducts = null, ?array $compositionProducts = null): ProductObject
     {
         $dimensions = new Dimensions($model->depth, $model->height, $model->width);
 
@@ -38,6 +47,8 @@ class Product
         $variations = $variationProducts
             ? new Variations($variationProducts)
             : new NoVariations();
+
+        $composition = new Composition($compositionProducts ?? []);
 
         $product = new ProductObject(
             sku: $model->sku,
@@ -53,7 +64,8 @@ class Product
             parentSku: $model->parent_sku,
             additionalCosts:$model->additional_costs,
             costs: $costs,
-            variations: $variations
+            variations: $variations,
+            compositionProducts: $composition
         );
 
         foreach ($model->prices as $pricePost) {

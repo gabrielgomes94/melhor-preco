@@ -5,6 +5,7 @@ namespace Barrigudinha\Product;
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Data\Tax;
+use Barrigudinha\Product\Compositions\Composition;
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Variations\Variations;
 use Barrigudinha\Utils\Helpers;
@@ -18,11 +19,12 @@ class Product
     private int $stock;
     private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
-    private float $weight;
+    private float $weight;  // To Do: mover esse atributo para dentro de Dimensions
     private float $taxICMS;
-    private ?string $parentSku;
+    private ?string $parentSku;// To Do: talvez seja interessante mover o parentSku para dentro de Variations
     private bool $hasVariations;
-    private ?Variations $variations;
+    private ?Variations $variations; // Variation, HasVariations, NoVariations, BaseVariation
+    private Composition $compositionProducts;
 
     public ?Costs $costs;
 
@@ -38,6 +40,9 @@ class Product
     /** @var Post[] $posts */
     public array $posts = [];
 
+    /**
+     * @param Composition[]|null $compositionProducts
+     */
     public function __construct(
         string $sku,
         string $name,
@@ -53,6 +58,7 @@ class Product
         ?float $additionalCosts = 0.0,
         ?Costs $costs = null,
         ?Variations $variations = null,
+        ?Composition $compositionProducts = null
     ) {
         $this->sku = $sku;
         $this->name = $name;
@@ -63,6 +69,7 @@ class Product
         $this->weight = $weight;
         $this->erpId = $erpId;
 
+        // To Do: remove this line
         $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
         $this->taxICMS = $taxICMS ?? 0.0;
         $this->parentSku = $parentSku;
@@ -72,6 +79,7 @@ class Product
         $this->variations = $variations;
 
         $this->costs = $costs;
+        $this->compositionProducts = $compositionProducts ?? [];
     }
 
     public function addPost(Post $post)
@@ -97,8 +105,17 @@ class Product
         ]);
     }
 
+    public function compositionProducts(): Composition
+    {
+        return $this->compositionProducts;
+    }
+
     public function costs(): Costs
     {
+        if ($this->hasCompositionProducts()) {
+            return $this->compositionProducts()->costs();
+        }
+
         return $this->costs;
     }
 
@@ -190,6 +207,10 @@ class Product
         return $stores ?? [];
     }
 
+    public function hasCompositionProducts(): bool
+    {
+        return !empty($this->compositionProducts);
+    }
 
     public function tax(string $taxCode): ?Tax
     {
@@ -205,6 +226,11 @@ class Product
     public function weight(): float
     {
         return $this->weight;
+    }
+
+    public function setCompositionProducts(array $compositionProducts): void
+    {
+        $this->compositionProducts = $compositionProducts;
     }
 
     public function setCosts(Costs $costs): void
