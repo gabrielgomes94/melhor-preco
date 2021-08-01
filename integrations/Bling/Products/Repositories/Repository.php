@@ -44,7 +44,6 @@ class Repository implements RepositoryInterface
         return $this->productResponse->makeStores($storeResponses ?? []);
     }
 
-
     private function getProductCollection(array $stores = []): ProductsCollection
     {
         $page = 0;
@@ -52,7 +51,7 @@ class Repository implements RepositoryInterface
 
         do {
             $stores = $stores ?: array_keys(config('stores_code'));
-            $products = $this->client->list($page++)->data();
+            $products = $this->client->list(++$page)->data();
             $productsCollection->addProducts($products);
 
             foreach ($stores as $store) {

@@ -2,12 +2,14 @@
 
 namespace Integrations\Bling\Products\Responses\Data;
 
+use Integrations\Bling\Products\Responses\Data\Product as ProductData;
+
 class ProductsCollection
 {
     /**
      * @var Product[]
      */
-    private array $products;
+    private array $products = [];
 
     public function addProducts(array $products): void
     {

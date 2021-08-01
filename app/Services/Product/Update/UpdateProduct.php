@@ -23,7 +23,9 @@ class UpdateProduct
     {
         $product->setDimensions($this->getDimensions($product, $data));
         $product->setName($data['name']);
-        $product->setPosts($this->getPosts($product, $data['stores']));
+
+        $posts = $this->setPosts($product, $data['stores']);
+        $product->setPosts($posts);
 
         return $this->productUpdator->update($product);
     }
@@ -37,7 +39,7 @@ class UpdateProduct
         ], $product);
     }
 
-    private function getPosts(Product $product, array $stores): array
+    private function setPosts(Product $product, array $stores): array
     {
         foreach ($stores as $store) {
             if (!$post = $product->getPost($store['slug'])) {
@@ -45,9 +47,7 @@ class UpdateProduct
             }
 
             $this->updatePosts->updatePrice($product, $post->store(), $store['price']);
-
             $posts[]  = $post;
-
         }
 
         return $posts ?? [];

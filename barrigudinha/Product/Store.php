@@ -4,6 +4,7 @@ namespace Barrigudinha\Product;
 
 class Store
 {
+    // To Do: ajustar o padrao da declaração dessa variavel
     private string $store_sku_id;
     private string $code;
     private float $commission;
@@ -24,7 +25,7 @@ class Store
     public static function createFromArray(array $data): self
     {
         $store = new self(
-            store_sku_id: $data['skuStoreId'],
+            store_sku_id: $data['storeSkuId'],
             code: $data['code']
         );
 
