@@ -5,6 +5,7 @@ namespace App\Services\Product;
 use App\Imports\ProductICMSImport;
 use App\Repositories\Pricing\Product\Updator as UpdateRepository;
 use App\Repositories\Product\FinderDB;
+use App\Services\Product\Update\UpdateCosts;
 use Illuminate\Http\UploadedFile;
 
 
@@ -39,7 +40,7 @@ class ImportICMS
                 ['taxICMS' => (float) $product['icms']]
             );
 
-            $this->repository->sync($productObject, $model);
+//            $this->repository->sync($productObject, $model);
         }
     }
 }

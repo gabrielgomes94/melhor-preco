@@ -26,7 +26,13 @@ class FinderDB implements ProductFinder
         $products = $this->getProducts();
         $products = $this->mapProducts($products);
 
-        return $this->filterActives($products);
+        $products = $this->filterActives($products);
+
+        foreach ($products as $product) {
+            $productList[] = $product;
+        }
+
+        return $productList;
     }
 
     /**
