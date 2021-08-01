@@ -25,7 +25,7 @@ class ListRequest extends BaseRequest
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function all(int $page = 1, string $store = ''): ResponseInterface
+    public function all(int $page = 1, ?string $store = null): ResponseInterface
     {
         $this->options['query']['loja'] = config('stores_code.' . $store) ?? null;
 

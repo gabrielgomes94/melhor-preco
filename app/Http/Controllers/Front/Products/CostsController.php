@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\Paginator;
 use App\Http\Requests\Product\UpdateCostsRequest;
 use App\Repositories\Product\FinderDB;
-use App\Services\Product\UpdateCosts;
+use App\Services\Product\Update\UpdateCosts;
 use Illuminate\Http\Request;
 
 class CostsController extends Controller

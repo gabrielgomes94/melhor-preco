@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\Product\SyncProductData;
+use App\Services\Product\Synchronize;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,7 +29,7 @@ class SyncProducts implements ShouldQueue, ShouldBeUnique
      *
      * @return void
      */
-    public function handle(SyncProductData $syncService)
+    public function handle(Synchronize $syncService)
     {
         $syncService->sync();
     }

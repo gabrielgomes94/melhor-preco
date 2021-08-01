@@ -37,7 +37,7 @@ class FinderBling implements ProductFinder
 
     public function get(string $sku): ?Product
     {
-        $response = $this->client->get($sku, ['b2w']);
+        $response = $this->client->get($sku);
 
         if (!$product = $response->data()) {
             return null;

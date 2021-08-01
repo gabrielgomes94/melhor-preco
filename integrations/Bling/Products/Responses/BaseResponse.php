@@ -3,7 +3,7 @@
 namespace Integrations\Bling\Products\Responses;
 
 use Integrations\Bling\Products\Responses\Contracts\Response as ResponseInterface;
-use Barrigudinha\Product\Product as ProductData;
+use Integrations\Bling\Products\Responses\Data\Product as ProductData;
 
 abstract class BaseResponse implements ResponseInterface
 {
@@ -18,7 +18,8 @@ abstract class BaseResponse implements ResponseInterface
      */
     abstract public function data(): array|ProductData;
 
-    public function addErrors(string $error){
+    public function addErrors(string $error)
+    {
         $this->errors[] = $error;
     }
 

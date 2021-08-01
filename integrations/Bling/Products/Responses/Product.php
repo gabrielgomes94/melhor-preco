@@ -2,19 +2,16 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-use App\Factories\Product\Product as ProductFactory;
-use Barrigudinha\Product\Product as ProductData;
+use Integrations\Bling\Products\Responses\Data\Product as ProductData;
 use Barrigudinha\Product\Store;
 
 class Product extends BaseResponse
 {
     protected ProductData $product;
 
-    public function __construct(array $data = [])
+    public function __construct(ProductData $data)
     {
-        if (isset($data)) {
-            $this->data = ProductFactory::buildFromERP($data);
-        }
+        $this->data = $data;
     }
 
     public function data(): ProductData

@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\Exceptions\Store\InvalidStoreException;
 use App\Factories\Product\Product as ProductFactory;
-use App\Models\Product as ProductModel;
-use Barrigudinha\Utils\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -23,9 +21,7 @@ class Product extends Model
         'sku',
         'name',
         'purchase_price',
-        'tax_ipi',
         'tax_icms',
-        'tax_simples_nacional',
         'additional_costs',
         'depth',
         'height',

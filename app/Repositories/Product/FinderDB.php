@@ -8,7 +8,6 @@ use App\Models\Product as ProductModel;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
 use Barrigudinha\Product\Product;
 use Barrigudinha\Store\Repositories\StoreRepository;
-use Barrigudinha\Utils\Helpers;
 
 class FinderDB implements ProductFinder
 {
@@ -25,8 +24,9 @@ class FinderDB implements ProductFinder
     public function all(): array
     {
         $products = $this->getProducts();
+        $products = $this->mapProducts($products);
 
-        return $this->mapProducts($products);
+        return $this->filterActives($products);
     }
 
     /**
@@ -83,6 +83,7 @@ class FinderDB implements ProductFinder
     }
 
     /**
+     * @param ProductModel[]
      * @return Product[]
      */
     private function mapProducts(array $products): array
@@ -90,5 +91,13 @@ class FinderDB implements ProductFinder
         return array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);
         }, $products);
+    }
+
+    // To Do: criar método para checar inativos do lado do Produto. Verificar também o campo Ativo que será adicionado no banco
+    private function filterActives(array $products): array
+    {
+        return array_filter($products, function (Product $product) {
+            return !empty($product->posts());
+        });
     }
 }

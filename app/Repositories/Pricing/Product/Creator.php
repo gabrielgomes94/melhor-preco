@@ -4,54 +4,53 @@ namespace App\Repositories\Pricing\Product;
 
 use App\Models\Price as PriceModel;
 use App\Models\Product as ProductModel;
+use App\Repositories\Store\Store;
 use Barrigudinha\Product\Product;
+use Barrigudinha\Store\Repositories\StoreRepository;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 
 class Creator
 {
-    private DecimalMoneyFormatter $moneyFormatter;
+    private Store $storeRepository;
 
-    public function __construct()
+    public function __construct(Store $storeRepository)
     {
-        $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
+        $this->storeRepository = $storeRepository;
     }
 
-    public function create(Product $product): ProductModel
+    public function createFromArray(array $data)
     {
         $model = new ProductModel([
-            'id' => $product->sku(),
-            'erp_id' => $product->erpId(),
-            'sku' => $product->sku(),
-            'name' => $product->name(),
-            'purchase_price' => $product->costs()->purchasePrice(),
+            'id' => $data['id'],
+            'erp_id' => $data['erp_id'],
+            'sku' => $data['sku'],
+            'name' => $data['name'],
+            'purchase_price' => $data['purchase_price'],
+            'depth' => $data['depth'],
+            'height' => $data['height'],
+            'width' => $data['width'],
+            'weight' => $data['weight'],
             'tax_icms' => 0.0,
-            'depth' => $product->dimensions()->depth(),
-            'height' => $product->dimensions()->height(),
-            'width' => $product->dimensions()->width(),
-            'weight' => $product->weight(),
+            'parent_sku' => $data['parent_sku'] ?? null,
+            'has_variations' => $data['has_variations'] ?? false,
         ]);
 
         $model->save();
 
-        foreach ($product->posts() as $post) {
+        foreach ($data['stores'] as $store) {
             $price = new PriceModel([
-                'commission' => $post->store()->commission(),
-                'profit' => $this->formatMoney($post->profit()),
-                'store' => $post->store()->code(),
-                'store_sku_id' => $post->store()->storeSkuId(),
-                'value' => $this->formatMoney($post->price()),
+                'store' => $store['slug'],
+                'store_sku_id' => $store['storeSkuId'],
+                'value' => $store['price'],
+                'commission' => $this->storeRepository->commission($store['slug']),
+                'profit' => 0.0,
             ]);
 
             $model->prices()->save($price);
         }
 
         return $model;
-    }
-
-    private function formatMoney(Money $price): string
-    {
-        return $this->moneyFormatter->format($price);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\Products\Responses\Contracts;
 
-use Barrigudinha\Product\Product;
+use Integrations\Bling\Products\Responses\Data\Product;
 
 interface Response
 {
