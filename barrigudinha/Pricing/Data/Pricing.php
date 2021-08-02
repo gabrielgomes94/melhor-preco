@@ -2,6 +2,9 @@
 
 namespace Barrigudinha\Pricing\Data;
 
+/*
+ * To Do: renomear essa classe para PriceList
+ */
 class Pricing
 {
     public string $id;

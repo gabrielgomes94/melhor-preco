@@ -2,6 +2,10 @@
 
 namespace Barrigudinha\Pricing\Data;
 
+/**
+ * To Do: remove this class
+ * @deprecated
+ */
 class Tax
 {
     const IPI = 'ipi';

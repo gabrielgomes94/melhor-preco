@@ -67,7 +67,7 @@ class Product extends Model
 
     public function inStore(string $store): bool
     {
-        foreach ($this->prices as $price) {
+        foreach ($this->prices ?? [] as $price) {
             if ($price->store === $store) {
                 return true;
             }
@@ -78,7 +78,7 @@ class Product extends Model
 
     public function getPrice(string $store): ?Price
     {
-        foreach ($this->prices as $price) {
+        foreach ($this->prices ?? [] as $price) {
             if ($price->store === $store) {
                 return $price;
             }

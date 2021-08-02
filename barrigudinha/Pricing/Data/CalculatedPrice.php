@@ -6,6 +6,10 @@ use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 
+/**
+ * @deprecated
+ * To do: remover essa classe
+ */
 class CalculatedPrice
 {
     private DecimalMoneyFormatter $moneyFormatter;
