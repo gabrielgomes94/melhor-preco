@@ -46,6 +46,8 @@ class Product
             'weight' => (float) $product['pesoBruto'],
             'parentSku' => $product['codigoPai'] ?? null,
             'hasVariations' => isset($product['variacoes']),
+            'isComposition' => isset($product['estrutura']),
+            'compositionProducts' => self::getCompositionProducts($product),
         ];
     }
 
@@ -58,5 +60,16 @@ class Product
         }
 
         return $images ?? [];
+    }
+
+    private static function getCompositionProducts(array $product = []): array
+    {
+        if (!isset($product['estrutura'])) {
+            return [];
+        }
+
+        return array_map(function (array $compositionProduct) {
+            return $compositionProduct['componente']['codigo'];
+        }, $product['estrutura']);
     }
 }

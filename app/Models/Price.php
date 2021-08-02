@@ -36,16 +36,8 @@ class Price extends Model
         return $profit->ratioOf($value);
     }
 
-    public function isProfitMarginInRange(?float $minimumProfit = null, ?float $maximumProfit = null): bool
+    public function isProfitMarginInRange(float $minimumProfit, float $maximumProfit): bool
     {
-        if ($minimumProfit === null) {
-            $minimumProfit = -1000000000000;
-        }
-
-        if ($maximumProfit === null) {
-            $maximumProfit = 1000000000000;
-        }
-
         $minimumProfit = Helpers::percentage($minimumProfit);
         $maximumProfit = Helpers::percentage($maximumProfit);
 

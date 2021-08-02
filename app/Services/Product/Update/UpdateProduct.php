@@ -26,6 +26,7 @@ class UpdateProduct
 
         $posts = $this->setPosts($product, $data['stores']);
         $product->setPosts($posts);
+        $product->setCompositionProducts($data['composition_products']);
 
         return $this->productUpdator->update($product);
     }

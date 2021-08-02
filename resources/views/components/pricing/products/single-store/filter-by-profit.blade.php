@@ -3,13 +3,13 @@
 >
     <div class="">
         <x-forms.input.percentage
-            attribute="minimumProfitFilter"
+            attribute="minProfit"
             label="Margem de Lucro mínima"
             value="{{ $minimumProfit }}"
         />
 
         <x-forms.input.percentage
-            attribute="maximumProfitFilter"
+            attribute="maxProfit"
             label="Margem de Lucro maxima"
             value="{{ $maximumProfit }}"
         />

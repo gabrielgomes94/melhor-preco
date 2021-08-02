@@ -30,6 +30,11 @@ class Product extends Model
         'parent_sku',
         'additional_costs',
         'has_variations',
+        'composition_products'
+    ];
+
+    protected $casts = [
+        'composition_products' => 'array',
     ];
 
     public function pricings(): BelongsToMany
@@ -40,6 +45,24 @@ class Product extends Model
     public function prices(): HasMany
     {
         return $this->hasMany(Price::class);
+    }
+
+    public function compositionProducts(): array
+    {
+        foreach ($this->composition_products as $composition_product) {
+            if (!$model = $this->find($composition_product)) {
+                continue;
+            }
+
+            $composition[] = $model;
+        }
+
+        return $composition ?? [];
+    }
+
+    public function hasCompositionProducts(): bool
+    {
+        return !empty($this->composition_products);
     }
 
     public function inStore(string $store): bool
