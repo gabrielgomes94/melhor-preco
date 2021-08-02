@@ -10,15 +10,20 @@ class Options
 
     public function __construct(array $data)
     {
-        $this->minimumProfit = (float) $data['minimumProfit'] ?? null;
-        $this->maximumProfit = (float) $data['maximumProfit'] ?? null;
-        $this->kits = (bool) $data['filterKits'];
+        $this->minimumProfit = isset($data['minimumProfit'])
+            ? (float) $data['minimumProfit']
+            : null;
 
+        $this->maximumProfit = isset($data['maximumProfit'])
+            ? (float) $data['maximumProfit']
+            : null;
+
+        $this->kits = (bool) $data['filterKits'];
     }
 
     public function hasProfitFilters(): bool
     {
-        return $this->maximumProfit || $this->minimumProfit;
+        return isset($this->maximumProfit) || isset($this->minimumProfit);
     }
 
     public function maximumProfit(): float

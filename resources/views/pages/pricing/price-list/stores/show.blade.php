@@ -16,6 +16,7 @@
                 <div class="d-flex flex-column justify-content-around">
                     <div class="d-flex justify-content-end m-2">
                         <x-pricing.products.single-store.filter-by-profit :store="$store" :minimumProfit="$minimumProfit" :maximumProfit="$maximumProfit" />
+
                     </div>
 
                     <div class="d-flex justify-content-end m-2">

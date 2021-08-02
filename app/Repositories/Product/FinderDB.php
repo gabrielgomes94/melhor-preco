@@ -145,7 +145,7 @@ class FinderDB implements ProductFinder
         return $productsList ?? [];
     }
 
-    private function isInMarginRange($product, $store, $options)
+    private function isInMarginRange(ProductModel $product, string $store, Options $options)
     {
         return $product
             ->getPrice($store)
