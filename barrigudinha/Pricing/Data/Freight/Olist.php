@@ -32,9 +32,9 @@ class Olist extends BaseFreight
             if ($cubicWeight <= 5.0) {
                 $weight = $cubicWeight;
             } else {
-                $weight = ($cubicWeight > $product->weight()) ?
+                $weight = ($cubicWeight > $product->dimensions()->weight()) ?
                     $cubicWeight :
-                    $product->weight();
+                    $product->dimensions()->weight();
             }
 
             $freightTable = config('freight_tables.olist.free_freight_table');

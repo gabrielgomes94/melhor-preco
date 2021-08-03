@@ -19,7 +19,6 @@ class Product
     private int $stock;
     private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
-    private float $weight;  // To Do: mover esse atributo para dentro de Dimensions
     private float $taxICMS;
     private ?string $parentSku;// To Do: talvez seja interessante mover o parentSku para dentro de Variations
     private bool $hasVariations;
@@ -51,7 +50,6 @@ class Product
         bool $hasVariations,
         ?int $stock,
         Dimensions $dimensions,
-        float $weight,
         ?float $taxICMS,
         ?string $erpId,
         ?string $parentSku,
@@ -66,7 +64,6 @@ class Product
         $this->images = $images;
         $this->stock = (int) $stock ?? 0;
         $this->dimensions = $dimensions;
-        $this->weight = $weight;
         $this->erpId = $erpId;
 
         // To Do: remove this line
@@ -221,11 +218,6 @@ class Product
         }
 
         return null;
-    }
-
-    public function weight(): float
-    {
-        return $this->weight;
     }
 
     public function setCompositionProducts(array $compositionProducts): void

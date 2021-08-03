@@ -9,6 +9,9 @@ use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 
+/**
+ * @deprecated
+ */
 class Updator
 {
     private DecimalMoneyFormatter $moneyFormatter;
@@ -27,7 +30,7 @@ class Updator
         $model->depth = $product->dimensions()->depth();
         $model->height = $product->dimensions()->height();
         $model->width = $product->dimensions()->width();
-        $model->weight = $product->weight();
+        $model->weight = $product->dimensions()->weight();
         $model->parent_sku = $product->parentSku();
         $model->has_variations = $product->hasVariations();
 

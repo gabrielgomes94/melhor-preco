@@ -56,7 +56,8 @@ class Product
         $this->dimensions = new Dimensions(
             depth: $data['depth'],
             height: $data['height'],
-            width: $data['width']
+            width: $data['width'],
+            weight: $data['weight']
         );
     }
 

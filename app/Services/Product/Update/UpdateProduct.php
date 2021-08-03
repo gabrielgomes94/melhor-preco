@@ -33,11 +33,7 @@ class UpdateProduct
 
     private function getDimensions(Product $product, array $data): DimensionsObject
     {
-        return Dimensions::make([
-            'depth' => $data['depth'],
-            'height' => $data['height'],
-            'width' => $data['width'],
-        ], $product);
+        return Dimensions::make($data, $product);
     }
 
     private function setPosts(Product $product, array $stores): array

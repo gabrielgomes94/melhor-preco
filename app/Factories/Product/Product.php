@@ -36,7 +36,7 @@ class Product
 
     private static function build(ProductModel $model, ?array $variationProducts = null, ?array $compositionProducts = null): ProductObject
     {
-        $dimensions = new Dimensions($model->depth, $model->height, $model->width);
+        $dimensions = new Dimensions($model->depth, $model->height, $model->width, $model->weight);
 
         $costs = new Costs(
             purchasePrice: $model->purchase_price ?? 0.0,
@@ -58,7 +58,6 @@ class Product
             hasVariations: $model->has_variations,
             stock: $model->stock ?? 0,
             dimensions: $dimensions,
-            weight: $model->weight ?? 0.0,
             taxICMS: $model->tax_icms ?? null,
             erpId: $model->erp_id ?? null,
             parentSku: $model->parent_sku,
