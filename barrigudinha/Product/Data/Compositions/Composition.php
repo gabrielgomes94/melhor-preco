@@ -1,6 +1,6 @@
 <?php
 
-namespace Barrigudinha\Product\Compositions;
+namespace Barrigudinha\Product\Data\Compositions;
 
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Product;

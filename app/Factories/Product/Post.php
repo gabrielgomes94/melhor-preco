@@ -4,7 +4,7 @@ namespace App\Factories\Product;
 
 use App\Models\Price;
 use Barrigudinha\Product\Post as ProductPost;
-use Barrigudinha\Product\Store;
+use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Utils\Helpers;
 
 class Post

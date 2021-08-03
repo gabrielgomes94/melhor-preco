@@ -4,7 +4,7 @@ namespace Barrigudinha\Pricing\Price\Services\Contracts;
 
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Product\Product;
-use Barrigudinha\Product\Store;
+use Barrigudinha\Product\Data\Store;
 use Money\Money;
 
 interface CalculatePrice

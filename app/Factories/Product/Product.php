@@ -3,12 +3,12 @@
 namespace App\Factories\Product;
 
 use App\Models\Product as ProductModel;
-use Barrigudinha\Product\Compositions\Composition;
+use Barrigudinha\Product\Data\Compositions\Composition;
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Data\Dimensions;
 use Barrigudinha\Product\Product as ProductObject;
-use Barrigudinha\Product\Variations\NoVariations;
-use Barrigudinha\Product\Variations\Variations;
+use Barrigudinha\Product\Data\Variations\NoVariations;
+use Barrigudinha\Product\Data\Variations\Variations;
 
 class Product
 {

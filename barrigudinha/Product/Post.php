@@ -2,6 +2,7 @@
 
 namespace Barrigudinha\Product;
 
+use Barrigudinha\Product\Data\Store;
 use Money\Money;
 
 class Post

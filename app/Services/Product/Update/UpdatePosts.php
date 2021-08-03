@@ -5,7 +5,7 @@ namespace App\Services\Product\Update;
 use App\Services\Pricing\UpdatePrice as UpdatePriceService;
 use Barrigudinha\Pricing\Price\Services\CalculatePrice;
 use Barrigudinha\Product\Product;
-use Barrigudinha\Product\Store;
+use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Utils\Helpers;
 
 class UpdatePosts

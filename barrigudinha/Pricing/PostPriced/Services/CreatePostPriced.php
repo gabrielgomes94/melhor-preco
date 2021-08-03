@@ -8,7 +8,7 @@ use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\PostPriced\Services\Contracts\CreatePostPricedService;
 use Barrigudinha\Pricing\Price\Services\CalculatePrice;
 use Barrigudinha\Product\Product;
-use Barrigudinha\Product\Store;
+use Barrigudinha\Product\Data\Store;
 use Money\Money;
 
 class CreatePostPriced implements CreatePostPricedService

@@ -1,6 +1,6 @@
 <?php
 
-namespace Barrigudinha\Product\Variations;
+namespace Barrigudinha\Product\Data\Variations;
 
 use Barrigudinha\Product\Product;
 

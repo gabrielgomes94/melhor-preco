@@ -1,8 +1,9 @@
 <?php
 
-namespace Barrigudinha\Product\Variations;
+namespace Barrigudinha\Product\Data\Variations;
 
 use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Data\Variations\Variations;
 
 class NoVariations extends Variations
 {

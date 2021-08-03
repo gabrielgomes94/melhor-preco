@@ -3,7 +3,7 @@
 namespace Integrations\Bling\Products\Responses;
 
 use Integrations\Bling\Products\Responses\Data\Product as ProductData;
-use Barrigudinha\Product\Store;
+use Barrigudinha\Product\Data\Store;
 
 class Product extends BaseResponse
 {
