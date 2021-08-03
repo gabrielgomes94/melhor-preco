@@ -2,7 +2,7 @@
 
 namespace App\Factories\Product;
 
-use Barrigudinha\Product\Dimensions as DimensionsObject;
+use Barrigudinha\Product\Data\Dimensions as DimensionsObject;
 use Barrigudinha\Product\Product;
 
 class Dimensions

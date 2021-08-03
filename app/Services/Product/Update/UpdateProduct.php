@@ -5,7 +5,7 @@ namespace App\Services\Product\Update;
 use App\Factories\Product\Dimensions;
 use App\Factories\Product\Post;
 use App\Repositories\Product\Updator;
-use Barrigudinha\Product\Dimensions as DimensionsObject;
+use Barrigudinha\Product\Data\Dimensions as DimensionsObject;
 use Barrigudinha\Product\Product;
 
 class UpdateProduct

@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Data;
 
-use Barrigudinha\Product\Dimensions;
+use Barrigudinha\Product\Data\Dimensions;
 use Barrigudinha\Product\Product as ProductData;
 
 /**

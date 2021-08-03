@@ -7,6 +7,7 @@ use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Data\Tax;
 use Barrigudinha\Product\Compositions\Composition;
 use Barrigudinha\Product\Data\Costs;
+use Barrigudinha\Product\Data\Dimensions;
 use Barrigudinha\Product\Variations\Variations;
 use Barrigudinha\Utils\Helpers;
 
