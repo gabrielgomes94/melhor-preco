@@ -4,6 +4,7 @@ namespace Barrigudinha\Pricing\Data;
 
 use Barrigudinha\Pricing\Data\Freight\B2W;
 use Barrigudinha\Pricing\Data\Freight\BaseFreight;
+use Barrigudinha\Pricing\Data\Freight\MercadoLivre;
 use Barrigudinha\Pricing\Data\Freight\NoFreight;
 use Barrigudinha\Pricing\Data\Freight\Olist;
 use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
@@ -68,6 +69,8 @@ class Price
             $this->freight = new Olist($this->product, $this->value);
         } elseif ('b2w' == $store) {
             $this->freight = new B2W($this->product, $this->value);
+        } elseif ('mercado_livre' == $store) {
+            $this->freight = new MercadoLivre($this->product, $this->value);
         }
     }
 

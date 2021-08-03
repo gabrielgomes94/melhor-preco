@@ -62,6 +62,93 @@ return [
             ],
         ],
     ],
+    'mercado_livre' => [
+        'free_freight_discount' => 79,
+        'free_freight_table_1' => [
+            [
+                'interval' => [0, 0.499],
+                'value' => 32.9,
+            ],
+            [
+                'interval' => [0.5, 0.999],
+                'value' => 35.9,
+            ],
+            [
+                'interval' => [1, 1.999],
+                'value' => 36.9,
+            ],
+            [
+                'interval' => [2, 4.999],
+                'value' => 45.9,
+            ],
+            [
+                'interval' => [5, 8.999],
+                'value' => 67.9,
+            ],
+            [
+                'interval' => [9, 12.999],
+                'value' => 106.9,
+            ],
+            [
+                'interval' => [13, 16.999],
+                'value' => 118.9,
+            ],
+            [
+                'interval' => [17, 22.999],
+                'value' => 138.9,
+            ],
+            [
+                'interval' => [23, 28.999],
+                'value' => 159.9,
+            ],
+            [
+                'interval' => [29, 999999999999],
+                'value' => 181.9,
+            ],
+        ],
+        'free_freight_table_2' => [
+            [
+                'interval' => [0, 0.499],
+                'value' => 16.45,
+            ],
+            [
+                'interval' => [0.5, 0.999],
+                'value' => 17.95,
+            ],
+            [
+                'interval' => [1, 1.999],
+                'value' => 18.45,
+            ],
+            [
+                'interval' => [2, 4.999],
+                'value' => 22.95,
+            ],
+            [
+                'interval' => [5, 8.999],
+                'value' => 33.95,
+            ],
+            [
+                'interval' => [9, 12.999],
+                'value' => 53.45,
+            ],
+            [
+                'interval' => [13, 16.999],
+                'value' => 59.45,
+            ],
+            [
+                'interval' => [17, 22.999],
+                'value' => 69.45,
+            ],
+            [
+                'interval' => [23, 28.999],
+                'value' => 79.95,
+            ],
+            [
+                'interval' => [29, 999999999999],
+                'value' => 90.95,
+            ],
+        ],
+    ],
     'olist' => [
         'customer_freight_value' => 5.0,
         'free_freight_discount' => 40.0,
