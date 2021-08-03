@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Product\Data\Variations;
 
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class Variations
 {

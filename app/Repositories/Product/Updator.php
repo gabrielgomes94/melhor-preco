@@ -4,7 +4,7 @@ namespace App\Repositories\Product;
 
 use App\Models\Product as ProductModel;
 use App\Repositories\Product\FinderDB;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class Updator
 {

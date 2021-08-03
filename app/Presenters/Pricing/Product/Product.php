@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Pricing\Product;
 
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Entities\Product as ProductData;
 use Barrigudinha\Pricing\Data\Tax;
 use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Product\Data\Variations\Variations;

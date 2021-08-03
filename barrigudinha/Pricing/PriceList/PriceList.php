@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\PriceList;
 
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class PriceList
 {

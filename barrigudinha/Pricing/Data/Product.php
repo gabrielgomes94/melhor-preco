@@ -3,7 +3,7 @@
 namespace Barrigudinha\Pricing\Data;
 
 use Barrigudinha\Product\Data\Dimensions;
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Entities\Product as ProductData;
 
 /**
  * Class Product

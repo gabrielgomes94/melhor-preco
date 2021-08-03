@@ -3,7 +3,7 @@
 namespace App\Factories\Product;
 
 use Barrigudinha\Product\Data\Costs as CostsObject;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class Costs
 {

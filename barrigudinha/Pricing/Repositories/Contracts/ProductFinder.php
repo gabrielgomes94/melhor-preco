@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Repositories\Contracts;
 
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 interface ProductFinder
 {

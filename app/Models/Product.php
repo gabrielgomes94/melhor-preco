@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Exceptions\Store\InvalidStoreException;
 use App\Factories\Product\Product as ProductFactory;
+use Barrigudinha\Product\Entities\Product as ProductEntity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -106,7 +107,7 @@ class Product extends Model
         return $products ?? [];
     }
 
-    public function toDomainObject(): \Barrigudinha\Product\Product
+    public function toDomainObject(): ProductEntity
     {
         return ProductFactory::buildFromModel($this);
     }

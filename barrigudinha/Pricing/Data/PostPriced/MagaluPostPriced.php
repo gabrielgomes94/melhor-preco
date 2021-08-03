@@ -3,8 +3,8 @@
 namespace Barrigudinha\Pricing\Data\PostPriced;
 
 use Barrigudinha\Pricing\Data\Price;
-use Barrigudinha\Product\Post;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Post;
+use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 
 class MagaluPostPriced extends PostPriced

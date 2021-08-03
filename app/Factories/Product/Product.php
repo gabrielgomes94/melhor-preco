@@ -6,7 +6,7 @@ use App\Models\Product as ProductModel;
 use Barrigudinha\Product\Data\Compositions\Composition;
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Data\Dimensions;
-use Barrigudinha\Product\Product as ProductObject;
+use Barrigudinha\Product\Entities\Product as ProductObject;
 use Barrigudinha\Product\Data\Variations\NoVariations;
 use Barrigudinha\Product\Data\Variations\Variations;
 

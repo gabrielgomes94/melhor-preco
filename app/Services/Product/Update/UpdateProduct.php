@@ -6,7 +6,7 @@ use App\Factories\Product\Dimensions;
 use App\Factories\Product\Post;
 use App\Repositories\Product\Updator;
 use Barrigudinha\Product\Data\Dimensions as DimensionsObject;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class UpdateProduct
 {

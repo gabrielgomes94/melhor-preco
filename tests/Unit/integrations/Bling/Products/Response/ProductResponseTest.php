@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Integrations\Bling\Products\Response;
 
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 use Tests\TestCase;
 
 class ProductResponseTest extends TestCase

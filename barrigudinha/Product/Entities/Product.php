@@ -1,6 +1,6 @@
 <?php
 
-namespace Barrigudinha\Product;
+namespace Barrigudinha\Product\Entities;
 
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
@@ -10,6 +10,7 @@ use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Data\Dimensions;
 use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Product\Data\Variations\Variations;
+use Barrigudinha\Product\Entities\Post;
 use Barrigudinha\Utils\Helpers;
 
 class Product

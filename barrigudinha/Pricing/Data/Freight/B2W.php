@@ -3,7 +3,7 @@
 namespace Barrigudinha\Pricing\Data\Freight;
 
 use Barrigudinha\Product\Data\Dimensions;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
 

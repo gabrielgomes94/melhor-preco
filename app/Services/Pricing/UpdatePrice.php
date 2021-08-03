@@ -3,7 +3,7 @@
 namespace App\Services\Pricing;
 
 use App\Repositories\Pricing\Price\Repository;
-use Barrigudinha\Product\Post;
+use Barrigudinha\Product\Entities\Post;
 use Integrations\Bling\Products\Clients\ProductStore;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

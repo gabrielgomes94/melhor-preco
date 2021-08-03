@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Data\Freight;
 
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 use Money\Money;
 
 class NoFreight extends BaseFreight

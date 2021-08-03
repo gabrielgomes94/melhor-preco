@@ -7,7 +7,7 @@ use Barrigudinha\Pricing\Data\Freight\BaseFreight;
 use Barrigudinha\Pricing\Data\Freight\NoFreight;
 use Barrigudinha\Pricing\Data\Freight\Olist;
 use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

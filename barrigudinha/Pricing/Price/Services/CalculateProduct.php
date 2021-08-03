@@ -3,7 +3,7 @@
 namespace Barrigudinha\Pricing\Price\Services;
 
 use Barrigudinha\Pricing\Price\Services\Contracts\CalculateProduct as CalculateProductInterface;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class CalculateProduct implements CalculateProductInterface
 {

@@ -4,7 +4,7 @@ namespace App\Repositories\Pricing\Product;
 
 use App\Models\Price as PriceModel;
 use App\Models\Product as ProductModel;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;

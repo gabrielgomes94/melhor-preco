@@ -3,7 +3,7 @@
 namespace Barrigudinha\Product\Data\Compositions;
 
 use Barrigudinha\Product\Data\Costs;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class Composition
 {

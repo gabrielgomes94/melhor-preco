@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Price\Services\Contracts;
 
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 interface SimulatePrice
 {

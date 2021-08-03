@@ -3,7 +3,7 @@
 namespace Barrigudinha\Pricing\PostPriced\Services\Contracts;
 
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Product\Data\Store;
 use Money\Money;
 
