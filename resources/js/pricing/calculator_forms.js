@@ -117,8 +117,8 @@ let calculator_form = function() {
                 .then(function(data) {
                     setData('price', data.price)
 
-                    if (data.discountedPrice) {
-                        setData('discountedPrice', data.discountedPrice)
+                    if (data.secondaryPrice) {
+                        setData('discountedPrice', data.secondaryPrice)
                     }
                 })
         })
