@@ -2,8 +2,7 @@
 
 namespace App\Http\Transformers\Pricing;
 
-use Barrigudinha\Pricing\Data\PostPriced\MagaluPostPriced;
-use Barrigudinha\Pricing\Data\PostPriced\MercadoLivrePostPriced;
+use Barrigudinha\Pricing\Data\PostPriced\Contracts\HasSecondaryPrice;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Pricing\Data\Price;
 use Money\Currencies\ISOCurrencies;
@@ -23,15 +22,11 @@ class PriceTransformer
     {
         $data = [
             'price' => $this->setData($postPriced->price()),
-            'discountedPrice' => [],
+            'secondaryPrice' => [],
         ];
 
-        if ($postPriced instanceof MagaluPostPriced) {
-            $data['discountedPrice'] = $this->setData($postPriced->discountedPrice());
-        }
-
-        if ($postPriced instanceof MercadoLivrePostPriced) {
-            $data['discountedPrice'] = $this->setData($postPriced->priceWithoutFreight());
+        if ($postPriced instanceof HasSecondaryPrice) {
+            $data['secondaryPrice'] = $this->setData($postPriced->secondaryPrice());
         }
 
         return $data;

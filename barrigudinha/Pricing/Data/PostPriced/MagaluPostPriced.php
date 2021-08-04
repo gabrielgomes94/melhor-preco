@@ -2,15 +2,15 @@
 
 namespace Barrigudinha\Pricing\Data\PostPriced;
 
+use Barrigudinha\Pricing\Data\PostPriced\Contracts\HasSecondaryPrice;
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Product\Entities\Post;
 use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 
-class MagaluPostPriced extends PostPriced
+class MagaluPostPriced extends PostPriced implements HasSecondaryPrice
 {
     private const IN_CASH_DISCOUNT = 5.0;
-
     private Price $discountedPrice;
 
     public function __construct(Post $post, Price $price, Product $product, array $options = [])
@@ -28,7 +28,7 @@ class MagaluPostPriced extends PostPriced
         );
     }
 
-    public function discountedPrice(): Price
+    public function secondaryPrice(): Price
     {
         return $this->discountedPrice;
     }

@@ -3,8 +3,6 @@
 namespace App\Presenters\Pricing\Post;
 
 use App\Presenters\Pricing\Post\Contracts\HasSecondaryPrice;
-use Barrigudinha\Pricing\Data\Freight\MercadoLivre;
-use Barrigudinha\Pricing\Data\PostPriced\MagaluPostPriced;
 use Barrigudinha\Pricing\Data\PostPriced\MercadoLivrePostPriced;
 
 class MercadoLivrePost extends Post implements HasSecondaryPrice
@@ -17,9 +15,9 @@ class MercadoLivrePost extends Post implements HasSecondaryPrice
     public function secondaryPrice(): array
     {
         return [
-            'price' => $this->formatMoney($this->postPriced->priceWithoutFreight()->get()),
-            'profit' => $this->formatMoney($this->postPriced->priceWithoutFreight()->profit()),
-            'margin' => $this->postPriced->priceWithoutFreight()->margin(),
+            'price' => $this->formatMoney($this->postPriced->secondaryPrice()->get()),
+            'profit' => $this->formatMoney($this->postPriced->secondaryPrice()->profit()),
+            'margin' => $this->postPriced->secondaryPrice()->margin(),
         ];
     }
 }

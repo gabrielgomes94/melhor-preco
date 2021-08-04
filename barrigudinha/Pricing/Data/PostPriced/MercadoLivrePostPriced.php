@@ -2,12 +2,13 @@
 
 namespace Barrigudinha\Pricing\Data\PostPriced;
 
+use Barrigudinha\Pricing\Data\PostPriced\Contracts\HasSecondaryPrice;
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Product\Entities\Post;
 use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 
-class MercadoLivrePostPriced extends PostPriced
+class MercadoLivrePostPriced extends PostPriced implements HasSecondaryPrice
 {
     private Price $priceWithoutFreight;
 
@@ -24,7 +25,7 @@ class MercadoLivrePostPriced extends PostPriced
         );
     }
 
-    public function priceWithoutFreight(): Price
+    public function secondaryPrice(): Price
     {
         return $this->priceWithoutFreight;
     }
