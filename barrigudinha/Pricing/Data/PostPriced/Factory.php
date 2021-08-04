@@ -16,6 +16,10 @@ class Factory
             return new MagaluPostPriced($post, $price, $product, $options);
         }
 
+        if ($store === 'mercado_livre') {
+            return new MercadoLivrePostPriced($post, $price, $product, $options);
+        }
+
         return new PostPriced($post, $price, $product, $options);
     }
 }

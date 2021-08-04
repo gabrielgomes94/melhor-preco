@@ -21,9 +21,11 @@ class Post
     public string $additionalCosts;
     public string $name;
     public string $sku;
+    protected PostPriced $postPriced;
 
     public function __construct(PostPriced $postPriced)
     {
+        $this->postPriced = $postPriced;
         $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
         $this->name = $postPriced->product()->name();

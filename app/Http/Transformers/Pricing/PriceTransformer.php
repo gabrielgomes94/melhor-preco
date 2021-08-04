@@ -3,6 +3,7 @@
 namespace App\Http\Transformers\Pricing;
 
 use Barrigudinha\Pricing\Data\PostPriced\MagaluPostPriced;
+use Barrigudinha\Pricing\Data\PostPriced\MercadoLivrePostPriced;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Pricing\Data\Price;
 use Money\Currencies\ISOCurrencies;
@@ -27,6 +28,10 @@ class PriceTransformer
 
         if ($postPriced instanceof MagaluPostPriced) {
             $data['discountedPrice'] = $this->setData($postPriced->discountedPrice());
+        }
+
+        if ($postPriced instanceof MercadoLivrePostPriced) {
+            $data['discountedPrice'] = $this->setData($postPriced->priceWithoutFreight());
         }
 
         return $data;
