@@ -4,6 +4,7 @@ namespace Barrigudinha\Pricing\Data;
 
 use Barrigudinha\Pricing\Data\Freight\B2W;
 use Barrigudinha\Pricing\Data\Freight\BaseFreight;
+use Barrigudinha\Pricing\Data\Freight\Factory;
 use Barrigudinha\Pricing\Data\Freight\MercadoLivre;
 use Barrigudinha\Pricing\Data\Freight\NoFreight;
 use Barrigudinha\Pricing\Data\Freight\Olist;
@@ -61,17 +62,9 @@ class Price
         $this->profit = $this->value->subtract($this->costs);
     }
 
-    private function setFreight(string $store)
+    private function setFreight(string $store): void
     {
-        $this->freight = new NoFreight($this->product, $this->value);
-
-        if ('olist' == $store) {
-            $this->freight = new Olist($this->product, $this->value);
-        } elseif ('b2w' == $store) {
-            $this->freight = new B2W($this->product, $this->value);
-        } elseif ('mercado_livre' == $store) {
-            $this->freight = new MercadoLivre($this->product, $this->value);
-        }
+        $this->freight = Factory::make($store, $this->product, $this->value);
     }
 
     public function additionalCosts(): Money
