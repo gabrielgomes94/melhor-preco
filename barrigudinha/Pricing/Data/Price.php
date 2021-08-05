@@ -2,13 +2,8 @@
 
 namespace Barrigudinha\Pricing\Data;
 
-use Barrigudinha\Pricing\Data\Freight\B2W;
-use Barrigudinha\Pricing\Data\Freight\BaseFreight;
-use Barrigudinha\Pricing\Data\Freight\Factory;
-use Barrigudinha\Pricing\Data\Freight\MercadoLivre;
-use Barrigudinha\Pricing\Data\Freight\NoFreight;
-use Barrigudinha\Pricing\Data\Freight\Olist;
-use Barrigudinha\Pricing\Services\PriceCalculator\Freight;
+use Barrigudinha\Pricing\Price\Freight\BaseFreight;
+use Barrigudinha\Pricing\Price\Freight\Factory;
 use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Currencies\ISOCurrencies;
@@ -17,8 +12,6 @@ use Money\Money;
 
 class Price
 {
-    // TODO: calcular o preço e lucro diretamente nesse objeto
-
     private float $commissionRate;
     private float $margin;
     private CostPrice $costPrice;
@@ -58,13 +51,12 @@ class Price
             ->add($this->simplesNacional())
             ->add($this->freight());
 
-
         $this->profit = $this->value->subtract($this->costs);
     }
 
     private function setFreight(string $store): void
     {
-        $this->freight = Factory::make($store, $this->product, $this->value);
+        $this->freight = Factory::make($store, $this->product->dimensions(), $this->value);
     }
 
     public function additionalCosts(): Money
@@ -142,7 +134,7 @@ class Price
 
     private function setCostPrice(Product $product): void
     {
-        // To Do: verificar questão dos custos adicionais
+        // To Do: verificar questão dos custos adicionais. Talvez seja interessante criar uma factory que recebe o objeto custos e cria um CostPrice
         $this->costPrice = new CostPrice(
             Helpers::floatToMoney($product->costs()->purchasePrice()),
             Helpers::floatToMoney($product->costs()->additionalCosts())

@@ -1,23 +1,21 @@
 <?php
 
-namespace Barrigudinha\Pricing\Data\Freight;
+namespace Barrigudinha\Pricing\Price\Freight;
 
 use Barrigudinha\Product\Data\Dimensions;
-use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
+use function config;
 
 class B2W extends BaseFreight
 {
     public const SUBSIDY_MIN_VALUE = 40.0;
     public const SUBSIDY_MAX_VALUE = 79.99;
     public const FREE_MIN_VALUE = 80.0;
-    private const SELLER_INDEX_POINTS = 155;
+    private const SELLER_INDEX_POINTS = 42;
 
-    public function __construct(Product $product, Money $price)
+    public function __construct(Dimensions $dimensions, Money $price)
     {
-        parent::__construct($product, $price);
-
         $this->rules = [
             'subsidy' => [
                 'min' => Helpers::floatToMoney(self::SUBSIDY_MIN_VALUE),
@@ -27,12 +25,13 @@ class B2W extends BaseFreight
                 'min' => Helpers::floatToMoney(self::FREE_MIN_VALUE),
             ],
         ];
-        $this->freight = $this->calculate($product->dimensions());
+
+        parent::__construct($dimensions, $price);
     }
 
-    private function calculate(Dimensions $dimensions): Money
+    protected function calculate(): Money
     {
-        $cubicWeight = $dimensions->cubicWeight();
+        $cubicWeight = $this->dimensions->cubicWeight();
 
         if ($this->isFixed()) {
             return Money::BRL(500);
@@ -49,11 +48,7 @@ class B2W extends BaseFreight
         if ($this->isFree()) {
             $freightTable = config('freight_tables.b2w.free_freight_table');
             $discount_percentage = $this->getDiscountPercentage();
-            foreach ($freightTable as $row) {
-                if ($row['interval'][0] <= $cubicWeight && $cubicWeight <= $row['interval'][1]) {
-                    $freight = Money::BRL($row['value'] * 100);
-                }
-            }
+            $freight = $this->consultFreightTable($cubicWeight, $freightTable);
 
             return $freight->multiply(1 - $discount_percentage) ?? Money::BRL(0);
         }

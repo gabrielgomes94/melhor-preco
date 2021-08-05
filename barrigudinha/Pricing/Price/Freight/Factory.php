@@ -1,8 +1,8 @@
 <?php
 
-namespace Barrigudinha\Pricing\Data\Freight;
+namespace Barrigudinha\Pricing\Price\Freight;
 
-use Barrigudinha\Product\Entities\Product;
+use Barrigudinha\Product\Data\Dimensions;
 use Barrigudinha\Store\Store;
 use Money\Money;
 
@@ -14,17 +14,17 @@ class Factory
         Store::OLIST => Olist::class,
     ];
 
-    public static function make(string $store, Product $product, Money $value): BaseFreight
+    public static function make(string $store, Dimensions $dimensions, Money $value): BaseFreight
     {
         /**
-         * @var BaseFreight $class
+         * @var BaseFreight $freightClass
          */
         foreach (self::$customFreights as $storeSlug => $freightClass) {
             if ($store === $storeSlug) {
-                return new $freightClass($product, $value);
+                return new $freightClass($dimensions, $value);
             }
         }
 
-        return new NoFreight($product, $value);
+        return new NoFreight($dimensions, $value);
     }
 }
