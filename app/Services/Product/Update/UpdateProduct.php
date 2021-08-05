@@ -5,8 +5,8 @@ namespace App\Services\Product\Update;
 use App\Factories\Product\Dimensions;
 use App\Factories\Product\Post;
 use App\Repositories\Product\Updator;
-use Barrigudinha\Product\Dimensions as DimensionsObject;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Data\Dimensions as DimensionsObject;
+use Barrigudinha\Product\Entities\Product;
 
 class UpdateProduct
 {
@@ -33,11 +33,7 @@ class UpdateProduct
 
     private function getDimensions(Product $product, array $data): DimensionsObject
     {
-        return Dimensions::make([
-            'depth' => $data['depth'],
-            'height' => $data['height'],
-            'width' => $data['width'],
-        ], $product);
+        return Dimensions::make($data, $product);
     }
 
     private function setPosts(Product $product, array $stores): array

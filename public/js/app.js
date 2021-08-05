@@ -25183,8 +25183,8 @@ var calculator_form = function calculator_form() {
       }).then(function (data) {
         setData('price', data.price);
 
-        if (data.discountedPrice) {
-          setData('discountedPrice', data.discountedPrice);
+        if (data.secondaryPrice) {
+          setData('discountedPrice', data.secondaryPrice);
         }
       });
     });

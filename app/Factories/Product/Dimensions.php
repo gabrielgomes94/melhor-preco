@@ -2,8 +2,8 @@
 
 namespace App\Factories\Product;
 
-use Barrigudinha\Product\Dimensions as DimensionsObject;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Data\Dimensions as DimensionsObject;
+use Barrigudinha\Product\Entities\Product;
 
 class Dimensions
 {
@@ -12,7 +12,8 @@ class Dimensions
         return new DimensionsObject(
             depth: $data['depth'] ?? $product->dimensions()->depth(),
             height: $data['height'] ?? $product->dimensions()->height(),
-            width: $data['width'] ?? $product->dimensions()->width()
+            width: $data['width'] ?? $product->dimensions()->width(),
+            weight: $data['weight'] ?? $product->dimensions()->weight()
         );
     }
 }

@@ -6,7 +6,7 @@ use App\Presenters\Pricing\Post\Factory as PostPresenterFactory;
 use App\Presenters\Pricing\Post\Post;
 use Barrigudinha\Pricing\Data\PostPriced\Factory;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Entities\Product as ProductData;
 
 class Presenter
 {

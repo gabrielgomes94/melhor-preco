@@ -1,13 +1,16 @@
 <?php
 
-namespace Barrigudinha\Product;
+namespace Barrigudinha\Product\Entities;
 
 use Barrigudinha\Pricing\Data\Price;
 use Barrigudinha\Pricing\Data\Product as PricingProduct;
 use Barrigudinha\Pricing\Data\Tax;
-use Barrigudinha\Product\Compositions\Composition;
+use Barrigudinha\Product\Data\Compositions\Composition;
 use Barrigudinha\Product\Data\Costs;
-use Barrigudinha\Product\Variations\Variations;
+use Barrigudinha\Product\Data\Dimensions;
+use Barrigudinha\Product\Data\Store;
+use Barrigudinha\Product\Data\Variations\Variations;
+use Barrigudinha\Product\Entities\Post;
 use Barrigudinha\Utils\Helpers;
 
 class Product
@@ -19,7 +22,6 @@ class Product
     private int $stock;
     private ?float $additionalCosts = 0.0;
     private Dimensions $dimensions;
-    private float $weight;  // To Do: mover esse atributo para dentro de Dimensions
     private float $taxICMS;
     private ?string $parentSku;// To Do: talvez seja interessante mover o parentSku para dentro de Variations
     private bool $hasVariations;
@@ -51,7 +53,6 @@ class Product
         bool $hasVariations,
         ?int $stock,
         Dimensions $dimensions,
-        float $weight,
         ?float $taxICMS,
         ?string $erpId,
         ?string $parentSku,
@@ -66,7 +67,6 @@ class Product
         $this->images = $images;
         $this->stock = (int) $stock ?? 0;
         $this->dimensions = $dimensions;
-        $this->weight = $weight;
         $this->erpId = $erpId;
 
         // To Do: remove this line
@@ -221,11 +221,6 @@ class Product
         }
 
         return null;
-    }
-
-    public function weight(): float
-    {
-        return $this->weight;
     }
 
     public function setCompositionProducts(array $compositionProducts): void

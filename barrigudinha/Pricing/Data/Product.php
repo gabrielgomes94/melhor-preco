@@ -2,8 +2,8 @@
 
 namespace Barrigudinha\Pricing\Data;
 
-use Barrigudinha\Product\Dimensions;
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Data\Dimensions;
+use Barrigudinha\Product\Entities\Product as ProductData;
 
 /**
  * Class Product
@@ -56,7 +56,8 @@ class Product
         $this->dimensions = new Dimensions(
             depth: $data['depth'],
             height: $data['height'],
-            width: $data['width']
+            width: $data['width'],
+            weight: $data['weight']
         );
     }
 

@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Product\Repositories\Contracts;
 
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Entities\Product as ProductData;
 
 interface Product
 {

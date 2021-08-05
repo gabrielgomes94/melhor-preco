@@ -35,7 +35,7 @@ return [
         'name' => 'Mercado Livre',
         'slug' => 'mercado_livre',
         'erpCode' => '203476906',
-        'commission' => 11.5,
+        'commission' => 16.5,
         'extra_costs' => [
             'freight' => 0.0,
             'extra_commission' => 0.0,

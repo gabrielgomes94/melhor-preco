@@ -7,7 +7,7 @@ use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
 use App\Repositories\Product\Options\Options;
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Store\Repositories\StoreRepository;
 use PhpOption\Option;
 

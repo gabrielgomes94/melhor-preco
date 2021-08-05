@@ -1,50 +1,34 @@
 <?php
 
-namespace Barrigudinha\Pricing\Data\Freight;
+namespace Barrigudinha\Pricing\Price\Freight;
 
-use Barrigudinha\Product\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
+use function config;
 
 class Olist extends BaseFreight
 {
     public const FREE_MIN_VALUE = 79.0;
     private array $rules;
 
-    public function __construct(Product $product, Money $price)
+    public function __construct($dimensions, Money $price)
     {
-        parent::__construct($product, $price);
-
         $this->rules = [
             'free' => [
                 'min' => Helpers::floatToMoney(self::FREE_MIN_VALUE),
             ],
         ];
 
-        $this->freight = $this->calculate($product);
+        parent::__construct($dimensions, $price);
     }
 
-    private function calculate(Product $product): Money
+    protected function calculate(): Money
     {
         if ($this->isFree()) {
-            $cubicWeight = $product->dimensions()->cubicWeight();
-
-            if ($cubicWeight <= 5.0) {
-                $weight = $cubicWeight;
-            } else {
-                $weight = ($cubicWeight > $product->weight()) ?
-                    $cubicWeight :
-                    $product->weight();
-            }
-
+            $weight = $this->getWeight();
             $freightTable = config('freight_tables.olist.free_freight_table');
             $discount_percentage = $this->getDiscountPercentage();
-
-            foreach ($freightTable as $row) {
-                if ($row['interval'][0] <= $weight && $weight <= $row['interval'][1]) {
-                    $freight = Helpers::floatToMoney($row['value']);
-                }
-            }
+            $freight = $this->consultFreightTable($weight, $freightTable);
 
             return $freight->multiply(1 - $discount_percentage) ?? Money::BRL(0);
         }

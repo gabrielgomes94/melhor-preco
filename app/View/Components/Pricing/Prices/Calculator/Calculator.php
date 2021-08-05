@@ -2,7 +2,9 @@
 
 namespace App\View\Components\Pricing\Prices\Calculator;
 
+use App\Presenters\Pricing\Post\Contracts\HasSecondaryPrice;
 use App\Presenters\Pricing\Post\MagaluPost;
+use App\Presenters\Pricing\Post\MercadoLivrePost;
 use App\Presenters\Pricing\Post\Post;
 use Illuminate\View\Component;
 
@@ -11,6 +13,11 @@ class Calculator extends Component
     public string $productId;
     public Post $price;
 
+    private array $specificViews = [
+        MagaluPost::class => 'components.pricing.prices.calculator.magalu-calculator',
+        MercadoLivrePost::class =>  'components.pricing.prices.calculator.mercado-livre-calculator'
+    ];
+
     public function __construct(string $productId, Post $price)
     {
         $this->productId = $productId;
@@ -18,20 +25,18 @@ class Calculator extends Component
     }
 
     /**
-     * Get the view / contents that represent the component.
-     *
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render()
     {
-        if ($this->price instanceof MagaluPost) {
-            $discountedPrice = [
-                'price' => $this->price->discountedPrice,
-                'profit' => $this->price->discountedProfit,
-                'margin' => $this->price->discountedMargin,
-            ];
+        if ($this->price instanceof HasSecondaryPrice) {
+            $secondaryPrice = $this->price->secondaryPrice();
 
-            return view('components.pricing.prices.calculator.magalu-calculator', compact('discountedPrice'));
+            foreach ($this->specificViews as $class => $view) {
+                if ($this->price instanceof $class) {
+                    return view($view, compact('secondaryPrice'));
+                }
+            }
         }
 
         return view('components.pricing.prices.calculator.calculator');

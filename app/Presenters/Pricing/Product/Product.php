@@ -2,10 +2,10 @@
 
 namespace App\Presenters\Pricing\Product;
 
-use Barrigudinha\Product\Product as ProductData;
+use Barrigudinha\Product\Entities\Product as ProductData;
 use Barrigudinha\Pricing\Data\Tax;
-use Barrigudinha\Product\Store;
-use Barrigudinha\Product\Variations\Variations;
+use Barrigudinha\Product\Data\Store;
+use Barrigudinha\Product\Data\Variations\Variations;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 

@@ -3,8 +3,8 @@
 namespace Barrigudinha\Pricing\Data\PostPriced;
 
 use Barrigudinha\Pricing\Data\Price;
-use Barrigudinha\Product\Post;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Post;
+use Barrigudinha\Product\Entities\Product;
 
 class Factory
 {
@@ -14,6 +14,10 @@ class Factory
 
         if ($store === 'magalu') {
             return new MagaluPostPriced($post, $price, $product, $options);
+        }
+
+        if ($store === 'mercado_livre') {
+            return new MercadoLivrePostPriced($post, $price, $product, $options);
         }
 
         return new PostPriced($post, $price, $product, $options);

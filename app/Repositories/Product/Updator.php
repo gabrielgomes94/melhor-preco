@@ -4,7 +4,7 @@ namespace App\Repositories\Product;
 
 use App\Models\Product as ProductModel;
 use App\Repositories\Product\FinderDB;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class Updator
 {
@@ -29,7 +29,7 @@ class Updator
         $model->depth = $product->dimensions()->depth();
         $model->height = $product->dimensions()->height();
         $model->width = $product->dimensions()->width();
-        $model->weight = $product->weight();
+        $model->weight = $product->dimensions()->weight();
         $model->parent_sku = $product->parentSku();
         $model->has_variations = $product->hasVariations();
         $model->composition_products = $product->compositionProducts();

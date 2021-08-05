@@ -1,7 +1,8 @@
 <?php
 
-namespace Barrigudinha\Product;
+namespace Barrigudinha\Product\Entities;
 
+use Barrigudinha\Product\Data\Store;
 use Money\Money;
 
 class Post

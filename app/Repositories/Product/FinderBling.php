@@ -4,7 +4,7 @@ namespace App\Repositories\Product;
 
 use Barrigudinha\Pricing\Repositories\Contracts\ProductFinder;
 use Barrigudinha\Product\Clients\Contracts\ProductStore;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class FinderBling implements ProductFinder
 {

@@ -7,7 +7,7 @@ use App\Repositories\Product\FinderDB;
 use App\Repositories\Product\Updator as ProductUpdator;
 use App\Services\Pricing\UpdatePrice;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
-use Barrigudinha\Product\Product;
+use Barrigudinha\Product\Entities\Product;
 
 class UpdateCosts
 {

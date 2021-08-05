@@ -1,6 +1,8 @@
 <?php
 
-namespace Barrigudinha\Product;
+namespace Barrigudinha\Product\Data;
+
+use function config;
 
 class Store
 {
