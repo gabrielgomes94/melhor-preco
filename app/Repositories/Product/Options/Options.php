@@ -4,9 +4,12 @@ namespace App\Repositories\Product\Options;
 
 class Options
 {
+    private int $page = 1;
+    private int $perPage = 40;
     private ?float $minimumProfit;
     private ?float $maximumProfit;
     private bool $kits;
+    private ?string $store;
 
     public function __construct(array $data)
     {
@@ -18,7 +21,10 @@ class Options
             ? (float) $data['maximumProfit']
             : null;
 
-        $this->kits = (bool) $data['filterKits'];
+        $this->kits = (bool) ($data['filterKits'] ?? false);
+
+        $this->page = $data['page'] ?? 1;
+        $this->store = $data['store'] ?? null;
     }
 
     public function hasProfitFilters(): bool
@@ -39,5 +45,20 @@ class Options
     public function filterKits(): bool
     {
         return $this->kits;
+    }
+
+    public function page(): int
+    {
+        return $this->page;
+    }
+
+    public function perPage(): int
+    {
+        return $this->perPage;
+    }
+
+    public function store(): ?string
+    {
+        return $this->store;
     }
 }

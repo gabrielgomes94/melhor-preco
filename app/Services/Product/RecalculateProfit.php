@@ -3,7 +3,7 @@
 namespace App\Services\Product;
 
 use App\Repositories\Pricing\Product\Updator;
-use App\Repositories\Product\FinderDB;
+use App\Repositories\Product\ListDB;
 use App\Services\Product\Update\UpdatePosts;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
 use Money\Currencies\ISOCurrencies;
@@ -12,10 +12,10 @@ use Money\Money;
 
 class RecalculateProfit
 {
-    private FinderDB $repository;
+    private ListDB $repository;
     private UpdatePosts $updatePosts;
 
-    public function __construct(FinderDB $repository, UpdatePosts $updatePosts)
+    public function __construct(ListDB $repository, UpdatePosts $updatePosts)
     {
         $this->repository = $repository;
         $this->updatePosts = $updatePosts;
@@ -29,7 +29,7 @@ class RecalculateProfit
             foreach ($product->posts() as $post) {
                 $value = $this->formatMoney($post->price());
 
-                $this->updatePosts->execute($product, $post->store(), $value);
+                $this->updatePosts->updatePrice($product, $post->store(), $value);
             }
         }
     }

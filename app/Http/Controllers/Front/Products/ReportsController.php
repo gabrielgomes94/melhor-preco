@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Front\Products;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Product\FinderDB;
+use App\Repositories\Product\ListDB;
 use Illuminate\Http\Request;
 
 class ReportsController extends Controller
 {
-    private FinderDB $repository;
+    private ListDB $repository;
 
-    public function __construct(FinderDB $repository)
+    public function __construct(ListDB $repository)
     {
         $this->repository = $repository;
     }
