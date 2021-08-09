@@ -8,7 +8,7 @@ use App\Http\Controllers\Utils\Paginator;
 use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Store\Presenter as StorePresenter;
 use App\Presenters\Store\Store;
-use App\Repositories\Product\FinderDB;
+use App\Repositories\Pricing\Product\ListDB;
 use App\Repositories\Product\Options\Options;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,14 +18,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ShowController extends Controller
 {
-    private FinderDB $productRepository;
+    private ListDB $productRepository;
     private StorePresenter $storePresenter;
     private ProductPresenter $productPresenter;
     private Paginator $paginator;
     private Breadcrumb $breadcrumb;
 
     public function __construct(
-        FinderDB $productRepository,
+        ListDB $productRepository,
         StorePresenter $storePresenter,
         ProductPresenter $productPresenter,
         Paginator $paginator,
@@ -43,12 +43,13 @@ class ShowController extends Controller
      */
     public function show(string $store, Request $request)
     {
-        $options = $this->setOptions($request);
-        $products = $this->productRepository->allByStore($store, $options);
+        $options = $this->setOptions($request, $store);
+        $products = $this->productRepository->all($options);
         $store = $this->storePresenter->present($store);
-        $productsPresented = $this->productPresenter->list($products, $store->slug());
+        $productsPresented = $this->productPresenter->list($products['items'], $store->slug());
+        $paginator = $this->paginator->paginate($productsPresented, $request, 40, $products['total']);
 
-        return view('pages.pricing.price-list.stores.show', $this->viewData($store, $productsPresented, $request));
+        return view('pages.pricing.price-list.stores.show', $this->viewData($store, $productsPresented, $request, $paginator));
     }
 
     private function getBreadcrumb(Store $store): array
@@ -59,12 +60,14 @@ class ShowController extends Controller
         );
     }
 
-    private function setOptions(Request $request): Options
+    private function setOptions(Request $request, string $store): Options
     {
         $data = [
             'minimumProfit' => $request->input('minProfit') ?? null,
             'maximumProfit' => $request->input('maxProfit') ?? null,
             'filterKits' => (bool) $request->input('filterKits') ?? false,
+            'store' => $store,
+            'page' => $request->input('page'),
         ];
 
         return new Options($data);
@@ -72,10 +75,8 @@ class ShowController extends Controller
 
     /**
      */
-    private function viewData(Store $store, array $productsPresented, Request $request): array
+    private function viewData(Store $store, array $productsPresented, Request $request, $paginator): array
     {
-        $paginator = $this->paginator->paginate($productsPresented, $request);
-
         return [
             'store' => $store,
             'breadcrumb' => $this->getBreadcrumb($store),

@@ -4,22 +4,27 @@ namespace App\Http\Controllers\Front\Pricing\PriceList\ByStore;
 
 use App\Exports\BlingPriceExport;
 use App\Http\Controllers\Controller;
+use App\Repositories\Pricing\Product\ListDB;
 use App\Repositories\Product\FinderDB;
+use App\Repositories\Product\Options\Options;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
-    private FinderDB $productsRepository;
+    private ListDB $productsRepository;
 
-    public function __construct(FinderDB $productsRepository)
+    public function __construct(ListDB $productsRepository)
     {
         $this->productsRepository = $productsRepository;
     }
 
     public function exportStore(string $store, Request $request)
     {
-        $products = $this->productsRepository->allByStore($store);
+        $options = new Options([
+            'store' => $store
+        ]);
+        $products = $this->productsRepository->all($options);
 
         return Excel::download(new BlingPriceExport($products, $store), 'precos.csv');
     }

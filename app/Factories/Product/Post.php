@@ -23,13 +23,23 @@ class Post
         return $post;
     }
 
-    public static function buildFromModel(Price $pricePost)
+    public static function buildFromModel(Price $pricePost): ProductPost
     {
         return new ProductPost(
             id: $pricePost->id,
             price: Helpers::floatToMoney($pricePost->value),
             store: new Store(store_sku_id: $pricePost->store_sku_id, code: $pricePost->store),
             profit: Helpers::floatToMoney($pricePost->profit) ?? null,
+        );
+    }
+
+    public static function buildFromArray(array $pricePost): ProductPost
+    {
+        return new ProductPost(
+            id: $pricePost['id'] ?? null,
+            price: Helpers::floatToMoney($pricePost['price']),
+            store: new Store(store_sku_id: $pricePost['storeSkuId'], code: $pricePost['storeSlug']),
+            profit: Helpers::floatToMoney($pricePost['profit']) ?? null,
         );
     }
 }
