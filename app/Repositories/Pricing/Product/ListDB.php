@@ -17,9 +17,20 @@ class ListDB extends BaseList
             ->whereNull('parent_sku')
             ->whereNotNull('product_id')
             ->where('store', $store)
-            ->get()
+            ->paginate(perPage: $options->perPage(), page: $options->page())
             ->sortBy('product_id')
             ->all();
+    }
+
+    protected function countProducts(Options $options): int
+    {
+        $store = $options->store();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->whereNull('parent_sku')
+            ->whereNotNull('product_id')
+            ->where('store', $store)
+            ->count();
     }
 
     protected function mapProducts(array $products, Options $options): array

@@ -11,10 +11,16 @@ class ListDB extends BaseList
     protected function getProducts(?Options $options = null): array
     {
         return ProductModel::whereNull('parent_sku')
-            ->get()
+            ->paginate(perPage: $options->perPage(), page: $options->page())
             ->sortBy('id')
             ->all();
     }
+
+    protected function countProducts(Options $options): int
+    {
+        return ProductModel::whereNull('parent_sku')->count();
+    }
+
 
     protected function mapProducts(array $products, ?Options $options = null): array
     {

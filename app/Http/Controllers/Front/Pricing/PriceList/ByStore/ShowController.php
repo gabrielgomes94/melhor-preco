@@ -46,9 +46,10 @@ class ShowController extends Controller
         $options = $this->setOptions($request, $store);
         $products = $this->productRepository->all($options);
         $store = $this->storePresenter->present($store);
-        $productsPresented = $this->productPresenter->list($products, $store->slug());
+        $productsPresented = $this->productPresenter->list($products['items'], $store->slug());
+        $paginator = $this->paginator->paginate($productsPresented, $request, 40, $products['total']);
 
-        return view('pages.pricing.price-list.stores.show', $this->viewData($store, $productsPresented, $request));
+        return view('pages.pricing.price-list.stores.show', $this->viewData($store, $productsPresented, $request, $paginator));
     }
 
     private function getBreadcrumb(Store $store): array
@@ -66,6 +67,7 @@ class ShowController extends Controller
             'maximumProfit' => $request->input('maxProfit') ?? null,
             'filterKits' => (bool) $request->input('filterKits') ?? false,
             'store' => $store,
+            'page' => $request->input('page'),
         ];
 
         return new Options($data);
@@ -73,10 +75,8 @@ class ShowController extends Controller
 
     /**
      */
-    private function viewData(Store $store, array $productsPresented, Request $request): array
+    private function viewData(Store $store, array $productsPresented, Request $request, $paginator): array
     {
-        $paginator = $this->paginator->paginate($productsPresented, $request);
-
         return [
             'store' => $store,
             'breadcrumb' => $this->getBreadcrumb($store),

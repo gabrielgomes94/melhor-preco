@@ -22,8 +22,8 @@ abstract class BaseList
             $options = new Options([]);
         }
 
-        $products = $this->getProducts($options);
-        $products = $this->mapProducts($products, $options);
+        $totalProducts = $this->getProducts($options);
+        $products = $this->mapProducts($totalProducts, $options);
         $products = $this->filterActives($products);
 
         if ($options->filterKits() === true) {
@@ -34,9 +34,14 @@ abstract class BaseList
             $productList[] = $product;
         }
 
-        return $productList ?? [];
+
+        return [
+            'items' => $productList ?? [],
+            'total' => $this->countProducts($options),
+        ];
     }
 
+    protected abstract function countProducts(Options $options): int;
     protected abstract function getProducts(Options $options): array;
     protected abstract function mapProducts(array $products, Options $options): array;
 

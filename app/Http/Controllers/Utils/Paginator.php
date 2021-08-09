@@ -9,14 +9,13 @@ class Paginator
 {
     private const PAGE = 'page';
 
-    public function paginate(array $array, Request $request, int $perPage = 40): LengthAwarePaginator
+    public function paginate(array $array, Request $request, int $perPage = 40, int $count = 0): LengthAwarePaginator
     {
         $currentPage = $request->input(self::PAGE) ?? 1;
-        $startingPoint = ($currentPage * $perPage) - $perPage;
 
         return new LengthAwarePaginator(
-            array_slice($array, $startingPoint, $perPage, true),
-            count($array),
+            $array,
+            $count,
             $perPage,
             $currentPage,
             [
