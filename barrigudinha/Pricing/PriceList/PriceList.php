@@ -3,15 +3,14 @@
 namespace Barrigudinha\Pricing\PriceList;
 
 use Barrigudinha\Product\Entities\Product;
+use Barrigudinha\Product\Entities\ProductsCollection;
 
 class PriceList
 {
     private string $id;
     private string $name;
 
-    /** @var Product[]
-     */
-    private array $products;
+    private ProductsCollection $products;
 
     /** @var string[]  */
     private array $stores;
@@ -20,7 +19,7 @@ class PriceList
     {
         $this->id = $id;
         $this->name = $name;
-        $this->products = $products;
+        $this->products = new ProductsCollection($products);
         $this->stores = $stores;
     }
 
@@ -29,10 +28,7 @@ class PriceList
         return $this->id;
     }
 
-    /**
-     * @return Product[]
-     */
-    public function products(): array
+    public function products(): ProductsCollection
     {
         return $this->products;
     }

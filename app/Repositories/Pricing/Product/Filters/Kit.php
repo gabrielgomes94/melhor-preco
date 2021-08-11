@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Pricing\Product\Filters;
-
 
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Repositories\Contracts\Options;
@@ -11,7 +9,7 @@ class Kit
 {
     public static function execute(ProductsCollection $productsCollection, Options $options): ProductsCollection
     {
-        if (!$options->filterKits()){
+        if (!$options->filterKits()) {
             return $productsCollection;
         }
 
