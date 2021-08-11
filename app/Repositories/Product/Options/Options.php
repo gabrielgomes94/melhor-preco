@@ -4,8 +4,8 @@ namespace App\Repositories\Product\Options;
 
 class Options
 {
-    private int $page = 1;
-    private int $perPage = 40;
+    private ?int $page = null;
+    private ?int $perPage = null;
     private ?float $minimumProfit;
     private ?float $maximumProfit;
     private bool $kits;
@@ -23,7 +23,7 @@ class Options
 
         $this->kits = (bool) ($data['filterKits'] ?? false);
 
-        $this->page = $data['page'] ?? 1;
+        $this->page = $data['page'] ?? null;
         $this->store = $data['store'] ?? null;
     }
 
@@ -47,12 +47,12 @@ class Options
         return $this->kits;
     }
 
-    public function page(): int
+    public function page(): ?int
     {
         return $this->page;
     }
 
-    public function perPage(): int
+    public function perPage(): ?int
     {
         return $this->perPage;
     }
