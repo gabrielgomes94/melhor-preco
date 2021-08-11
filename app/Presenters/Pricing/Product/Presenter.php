@@ -7,6 +7,7 @@ use App\Presenters\Pricing\Post\Post;
 use Barrigudinha\Pricing\Data\PostPriced\Factory;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Product\Entities\Product as ProductData;
+use Barrigudinha\Product\Entities\ProductsCollection;
 
 class Presenter
 {
@@ -19,8 +20,10 @@ class Presenter
      * @param ProductData[] $post
      * @return array
      */
-    public function list(array $products, string $store = null): array
+    public function list(ProductsCollection $products, string $store = null): array
     {
+
+
         foreach ($products as $product) {
             $presentedProducts[] = new Product($product, $store);
         }

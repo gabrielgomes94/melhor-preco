@@ -2,80 +2,48 @@
 
 namespace App\Repositories\Product;
 
-use App\Models\Product as ProductModel;
+use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
 use App\Repositories\Product\Options\Options;
-use Barrigudinha\Product\Entities\Product;
-use Barrigudinha\Store\Repositories\StoreRepository;
+use Barrigudinha\Product\Entities\ProductsCollection;
+use Barrigudinha\Product\Repositories\Contracts\ListProducts;
+use Barrigudinha\Product\Repositories\Contracts\Options as OptionsInterface;
 
-abstract class BaseList
+abstract class BaseList implements ListProducts
 {
-    protected StoreRepository $storeRepository;
+    protected array $filters = [];
 
-    public function __construct(StoreRepository $storeRepository)
+    public abstract function count(?OptionsInterface $options = null): int;
+    protected abstract function getProducts(?Options $options = null): array;
+    protected abstract function mapProducts(array $products, Options $options): ProductsCollection;
+
+    public function all(): ProductsCollection
     {
-        $this->storeRepository = $storeRepository;
+        $products = $this->getProducts();
+
+        return $this->map($products);
     }
 
-    public function all(?Options $options = null): array
+    public function list(?OptionsInterface $options = null): ProductsCollection
     {
         if (!$options) {
-            $options = new Options([]);
+            $options = new Options(['page' => 1]);
         }
 
-        $totalProducts = $this->getProducts($options);
-        $products = $this->mapProducts($totalProducts, $options);
-        $products = $this->filterActives($products);
+        $products = $this->getProducts($options);
+        $products = $this->mapProducts($products, $options);
 
-        if ($options->filterKits() === true) {
-            $products = $this->filterKits($products);
-        }
-
-        foreach ($products as $product) {
-            $productList[] = $product;
-        }
-
-
-        return [
-            'items' => $productList ?? [],
-            'total' => $this->countProducts($options),
-        ];
+        return $this->filterProducts($products, $options);
     }
 
-    protected abstract function countProducts(Options $options): int;
-    protected abstract function getProducts(Options $options): array;
-    protected abstract function mapProducts(array $products, Options $options): array;
-
-    protected function filterActives(array $products): array
+    private function filterProducts(ProductsCollection $products, Options $options): ProductsCollection
     {
-        foreach ($products as $product) {
-            if (empty($product->posts())) {
-                continue;
-            }
-
-            $activeProducts[] = $product;
+        /**
+         * @var Filter $filter
+         */
+        foreach ($this->filters as $filter) {
+            $products = $filter::execute($products, $options);
         }
 
-        return $activeProducts ?? [];
-    }
-
-    /**
-     * @param Product[] $products
-     */
-    protected function filterKits(array $products): array
-    {
-        foreach ($products as $product) {
-            if ($product->hasCompositionProducts()) {
-                $kits[] = $product;
-            }
-        };
-
-        return $kits ?? [];
-    }
-
-    protected function isInMarginRange(ProductModel $product, string $store, Options $options): bool
-    {
-        return $product
-            ->getPrice($store)
-            ->isProfitMarginInRange($options->minimumProfit(), $options->maximumProfit());
+        return $products ?? new ProductsCollection([]);
     }
 }

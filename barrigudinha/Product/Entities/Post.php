@@ -3,6 +3,7 @@
 namespace Barrigudinha\Product\Entities;
 
 use Barrigudinha\Product\Data\Store;
+use Barrigudinha\Utils\Helpers;
 use Money\Money;
 
 class Post
@@ -44,5 +45,22 @@ class Post
     {
         $this->price = $price;
         $this->profit = $profit;
+    }
+
+    public function margin(): float
+    {
+        if ($this->price->isZero()) {
+            return 0.0;
+        }
+
+        return $this->profit->ratioOf($this->price);
+    }
+
+    public function isInMarginRange(float $minimumProfit, float $maximumProfit)
+    {
+        $minimumProfit = Helpers::percentage($minimumProfit);
+        $maximumProfit = Helpers::percentage($maximumProfit);
+
+        return $minimumProfit <= $this->margin() && $this->margin() <= $maximumProfit;
     }
 }

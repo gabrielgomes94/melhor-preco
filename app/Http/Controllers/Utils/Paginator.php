@@ -8,8 +8,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class Paginator
 {
     private const PAGE = 'page';
+    public const PER_PAGE = 40;
 
-    public function paginate(array $array, Request $request, int $perPage = 40, int $count = 0): LengthAwarePaginator
+    public function paginate(iterable $array, Request $request, int $perPage = 40, int $count = 0): LengthAwarePaginator
     {
         $currentPage = $request->input(self::PAGE) ?? 1;
 

@@ -10,6 +10,7 @@ use App\Repositories\Product\ListDB;
 use App\Repositories\Product\Options\Options;
 use App\Services\Product\Update\UpdateCosts;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CostsController extends Controller
 {
@@ -29,14 +30,9 @@ class CostsController extends Controller
 
     public function edit(Request $request)
     {
-        $perPage = 40;
-        $options = new Options([
-            'page' => $request->input('page') ?? 1,
-            'perPage' => $perPage,
-        ]);
-        $products = $this->repository->all($options);
-
-        $paginator = $this->paginator->paginate($products['items'], $request, $perPage, $products['total']);
+        $options = $this->setOptions($request);
+        $products = $this->repository->list($options);
+        $paginator = $this->setPagination($products, $request);
 
         return view('pages.products.price_costs.edit', [
             'paginator' => $paginator,
@@ -50,5 +46,22 @@ class CostsController extends Controller
         $this->updateService->execute($productId, $data);
 
         return redirect()->back();
+    }
+
+    private function setOptions(Request $request): Options
+    {
+        $perPage = 40;
+
+        return new Options([
+            'page' => $request->input('page') ?? 1,
+            'perPage' => $perPage,
+        ]);
+    }
+
+    private function setPagination(iterable $products, Request $request): LengthAwarePaginator
+    {
+        $options = $this->setOptions($request);
+
+        return $this->paginator->paginate(array: $products, request: $request, count: $this->repository->count($options));
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Repositories\Product\Options;
 
-class Options
+use Barrigudinha\Product\Repositories\Contracts\Options as OptionsInterface;
+
+class Options implements OptionsInterface
 {
     private ?int $page = null;
-    private ?int $perPage = null;
+    private ?int $perPage = 40;
     private ?float $minimumProfit;
     private ?float $maximumProfit;
     private bool $kits;
@@ -25,6 +27,11 @@ class Options
 
         $this->page = $data['page'] ?? null;
         $this->store = $data['store'] ?? null;
+    }
+
+    public function hasPagination(): bool
+    {
+        return (bool) $this->page;
     }
 
     public function hasProfitFilters(): bool
