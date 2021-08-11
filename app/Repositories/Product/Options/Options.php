@@ -7,7 +7,7 @@ use Barrigudinha\Product\Repositories\Contracts\Options as OptionsInterface;
 class Options implements OptionsInterface
 {
     private ?int $page = null;
-    private ?int $perPage = null;
+    private ?int $perPage = 40;
     private ?float $minimumProfit;
     private ?float $maximumProfit;
     private bool $kits;
