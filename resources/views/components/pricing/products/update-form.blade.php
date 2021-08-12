@@ -5,6 +5,7 @@
         <x-forms.form.put action="{{ route('products.costs.update', $productInfo->sku()) }}">
             <x-forms.input.money
                 attribute="purchasePrice"
+                componentId="purchasePrice-{{ $productInfo->sku() }}"
                 label="Preço de Custo"
                 value="{{ $productInfo->purchasePrice() }}"
             >
@@ -12,6 +13,7 @@
 
             <x-forms.input.percentage
                 attribute="taxICMS"
+                componentId="taxICMS-{{ $productInfo->sku() }}"
                 label="Imposto ICMS"
                 value="{{ $productInfo->taxICMS() }}"
             >
@@ -19,6 +21,7 @@
 
             <x-forms.input.money
                 attribute="additionalCosts"
+                componentId="additionalCosts-{{ $productInfo->sku() }}"
                 label="Custos Adicionais"
                 value="{{ $productInfo->additionalCosts() }}"
             >

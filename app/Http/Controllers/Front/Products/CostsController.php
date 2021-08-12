@@ -47,7 +47,7 @@ class CostsController extends Controller
         try {
             $this->updateService->execute($productId, $data);
 
-            session()->flash('message', "Preço atualizado com sucesso no produto {$productId}");
+            session()->flash('message', "Produto {$productId} teve seu custo atualizado com sucesso.");
         } catch (UpdatePriceException $exception) {
             session()->flash('error', $exception->getMessage());
         }
