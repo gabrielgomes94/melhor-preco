@@ -5,7 +5,8 @@ namespace App\Services\Product\Update;
 use App\Factories\Product\Costs;
 use App\Repositories\Product\FinderDB;
 use App\Repositories\Product\Updator as ProductUpdator;
-use App\Services\Pricing\UpdatePrice;
+use App\Services\Pricing\UpdatePrice\Exceptions\UpdateDBException;
+use App\Services\Pricing\UpdatePrice\UpdateDB;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
 use Barrigudinha\Product\Entities\Product;
 
@@ -14,9 +15,9 @@ class UpdateCosts
     private CalculateProduct $calculateProduct;
     private FinderDB $repository;
     private ProductUpdator $productUpdator;
-    private UpdatePrice $updatePriceService;
+    private UpdateDB $updatePriceService;
 
-    public function __construct(FinderDB $repository, ProductUpdator $productUpdator, CalculateProduct $calculateProduct, UpdatePrice $updatePriceService)
+    public function __construct(FinderDB $repository, ProductUpdator $productUpdator, CalculateProduct $calculateProduct, UpdateDB $updatePriceService)
     {
         $this->repository = $repository;
         $this->productUpdator = $productUpdator;
@@ -40,7 +41,11 @@ class UpdateCosts
             $this->productUpdator->updateCosts($product);
 
             foreach ($product->posts() as $post) {
-                $this->updatePriceService->execute($product->sku(), $post);
+                $result = $this->updatePriceService->execute($post);
+
+                if (!$result) {
+                    throw new UpdateDBException();
+                }
             }
         }
 

@@ -2,7 +2,7 @@
 
 namespace App\Services\Product\Update;
 
-use App\Services\Pricing\UpdatePrice as UpdatePriceService;
+use App\Services\Pricing\UpdatePrice\Update;
 use Barrigudinha\Pricing\Price\Services\CalculatePrice;
 use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Product\Data\Store;
@@ -11,9 +11,9 @@ use Barrigudinha\Utils\Helpers;
 class UpdatePosts
 {
     private CalculatePrice $calculatePrice;
-    private UpdatePriceService $updatePriceService;
+    private Update $updatePriceService;
 
-    public function __construct(CalculatePrice $calculatePrice, UpdatePriceService $updatePriceService)
+    public function __construct(CalculatePrice $calculatePrice, Update $updatePriceService)
     {
         $this->calculatePrice = $calculatePrice;
         $this->updatePriceService = $updatePriceService;
@@ -31,6 +31,7 @@ class UpdatePosts
 
             $price = $this->calculatePrice->calculate($product, $store, $priceValue);
             $post->setPrice($price->get(), $price->profit());
+
             $this->updatePriceService->execute($product->sku(), $post);
         }
 
