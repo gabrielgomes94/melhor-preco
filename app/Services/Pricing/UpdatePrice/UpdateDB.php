@@ -1,10 +1,7 @@
 <?php
 
-
 namespace App\Services\Pricing\UpdatePrice;
 
-
-use App\Models\Price;
 use App\Repositories\Pricing\Price\Repository;
 use Barrigudinha\Pricing\Services\UpdatePrice\Contracts\UpdateDB as UpdateDBAlias;
 use Barrigudinha\Product\Entities\Post;
