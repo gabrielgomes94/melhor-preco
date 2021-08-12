@@ -23,7 +23,6 @@ class Price
     private function getValue(string $value): float
     {
         $value = str_replace(',', '.', $value);
-        ;
 
         return (float) $value;
     }
