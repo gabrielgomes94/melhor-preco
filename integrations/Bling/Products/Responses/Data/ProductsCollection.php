@@ -2,8 +2,6 @@
 
 namespace Integrations\Bling\Products\Responses\Data;
 
-use Integrations\Bling\Products\Responses\Data\Product as ProductData;
-
 class ProductsCollection
 {
     /**

@@ -4,6 +4,13 @@
             {{ __('Atualizar custos dos produtos') }}
         </h2>
     </x-slot>
+
+    <div class="container">
+        <div class="row">
+            <x-utils.alert-messages />
+        </div>
+    </div>
+
     <div class="container">
         <div class="row mt-4">
             <div class="col-sm-12">

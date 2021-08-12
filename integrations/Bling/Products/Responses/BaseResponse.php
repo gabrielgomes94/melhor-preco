@@ -16,7 +16,7 @@ abstract class BaseResponse implements ResponseInterface
     /**
      * @return ProductData[]|ProductData
      */
-    abstract public function data(): array|ProductData;
+    abstract public function data();
 
     public function addErrors(string $error)
     {

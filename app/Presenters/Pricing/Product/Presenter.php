@@ -22,8 +22,6 @@ class Presenter
      */
     public function list(ProductsCollection $products, string $store = null): array
     {
-
-
         foreach ($products as $product) {
             $presentedProducts[] = new Product($product, $store);
         }
