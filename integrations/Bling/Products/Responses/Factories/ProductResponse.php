@@ -16,7 +16,7 @@ class ProductResponse extends BaseFactory
      */
     public function make(ResponseInterface $productResponse, ?string $store = null): BaseResponse
     {
-        $data = $this->getData($productResponse);
+        $data = $this->sanitizer->sanitize($productResponse);
 
         if ($this->isInvalid($data)) {
             return $this->errorResponse->makeFromData(data: $data);
@@ -45,19 +45,10 @@ class ProductResponse extends BaseFactory
     {
         $product = $stores[0];
 
-        for ($i = 1;  $i < count($stores); $i++) {
+        for ($i = 1; $i < count($stores); $i++) {
             $product->addStore($stores[$i]->stores()[0]);
         }
 
         return $product;
-    }
-
-
-    private function getData(ResponseInterface $response): array
-    {
-        $data = json_decode((string) $response->getBody(), true);
-        $data = $this->sanitizer->sanitize($data);
-
-        return  $data;
     }
 }

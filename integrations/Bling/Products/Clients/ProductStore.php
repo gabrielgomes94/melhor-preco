@@ -12,6 +12,7 @@ use Integrations\Bling\Products\Requests\Transformers\ProductStore as ProductSto
 use Integrations\Bling\Products\Responses\BaseResponse;
 use Integrations\Bling\Products\Responses\Error;
 use Integrations\Bling\Products\Responses\Factories\ErrorResponse;
+use Integrations\Bling\Products\Responses\Factories\PriceResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductCollectionResponse;
 use Integrations\Bling\Products\Responses\Factories\ProductResponse;
 
@@ -20,6 +21,7 @@ class ProductStore implements ProductStoreInterface
     private GetRequest $getRequest;
     private ListRequest $listRequest;
     private PutRequest $putRequest;
+    private PriceResponse $priceResponse;
     private ProductCollectionResponse $productCollectionResponse;
     private ProductResponse $productResponse;
     private ErrorResponse $errorResponse;
@@ -28,6 +30,7 @@ class ProductStore implements ProductStoreInterface
         GetRequest $getRequest,
         ListRequest $listRequest,
         PutRequest $putRequest,
+        PriceResponse $priceResponse,
         ProductCollectionResponse $productCollectionResponse,
         ProductResponse $productResponse,
         ErrorResponse $errorResponse
@@ -35,6 +38,7 @@ class ProductStore implements ProductStoreInterface
         $this->getRequest = $getRequest;
         $this->listRequest = $listRequest;
         $this->putRequest = $putRequest;
+        $this->priceResponse = $priceResponse;
         $this->productCollectionResponse = $productCollectionResponse;
         $this->productResponse = $productResponse;
         $this->errorResponse = $errorResponse;
@@ -90,7 +94,8 @@ class ProductStore implements ProductStoreInterface
             $storeCode = config('stores.' . $store . '.erpCode');
             $xml = ProductStoreTransformer::generateXML($productStoreSku, $priceValue);
             $product = $this->putRequest->put($sku, $storeCode, $xml);
-            $response = $this->productResponse->make($product, $store);
+
+            $response = $this->priceResponse->make($product, $store);
         } catch (ConnectException $exception) {
             $response = $this->handleError($this->connectionErrorMessage());
         } catch (Exception $exception) {
@@ -110,7 +115,7 @@ class ProductStore implements ProductStoreInterface
         return 'ERRO: ou a conexão de internet está muito instável ou a API do Bling está fora do ar. Tente novamente mais tarde.';
     }
 
-    private function bizarreErrorMessage():  string
+    private function bizarreErrorMessage(): string
     {
         return 'Aconteceu algum erro bizarro. Contate o suporte.';
     }
