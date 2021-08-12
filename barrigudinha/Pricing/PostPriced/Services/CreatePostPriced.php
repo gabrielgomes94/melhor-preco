@@ -4,7 +4,7 @@ namespace Barrigudinha\Pricing\PostPriced\Services;
 
 use Barrigudinha\Pricing\Data\PostPriced\Factory;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
-use Barrigudinha\Pricing\Data\Price;
+use Barrigudinha\Pricing\Price\Price;
 use Barrigudinha\Pricing\PostPriced\Services\Contracts\CreatePostPricedService;
 use Barrigudinha\Pricing\Price\Services\CalculatePrice;
 use Barrigudinha\Product\Entities\Product;

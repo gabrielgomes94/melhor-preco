@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Data\PostPriced\Contracts;
 
-use Barrigudinha\Pricing\Data\Price;
+use Barrigudinha\Pricing\Price\Price;
 
 interface HasSecondaryPrice
 {

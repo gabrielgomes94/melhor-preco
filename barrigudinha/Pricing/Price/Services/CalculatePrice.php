@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Price\Services;
 
-use Barrigudinha\Pricing\Data\Price;
+use Barrigudinha\Pricing\Price\Price;
 use Barrigudinha\Pricing\Price\Services\Contracts\CalculatePrice as CalculatePriceInterface;
 use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Product\Data\Store;

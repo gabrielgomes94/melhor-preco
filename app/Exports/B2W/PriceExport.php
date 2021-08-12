@@ -11,7 +11,6 @@ class PriceExport implements FromArray
 {
     private Pricing $pricing;
 
-    /** @var Product[] $products  */
     private array $products;
 
     public function __construct(array $products)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Barrigudinha\Pricing\Data;
+namespace Barrigudinha\Pricing\Price;
 
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
