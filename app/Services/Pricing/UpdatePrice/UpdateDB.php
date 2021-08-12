@@ -3,10 +3,10 @@
 namespace App\Services\Pricing\UpdatePrice;
 
 use App\Repositories\Pricing\Price\Repository;
-use Barrigudinha\Pricing\Services\UpdatePrice\Contracts\UpdateDB as UpdateDBAlias;
+use Barrigudinha\Pricing\Services\UpdatePrice\Contracts\UpdateDB as UpdateDBInterface;
 use Barrigudinha\Product\Entities\Post;
 
-class UpdateDB implements UpdateDBAlias
+class UpdateDB implements UpdateDBInterface
 {
     private Repository $priceRepository;
 
