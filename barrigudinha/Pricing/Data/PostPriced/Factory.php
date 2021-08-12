@@ -2,7 +2,7 @@
 
 namespace Barrigudinha\Pricing\Data\PostPriced;
 
-use Barrigudinha\Pricing\Data\Price;
+use Barrigudinha\Pricing\Price\Price;
 use Barrigudinha\Product\Entities\Post;
 use Barrigudinha\Product\Entities\Product;
 

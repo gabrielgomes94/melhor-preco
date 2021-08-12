@@ -4,7 +4,7 @@ namespace App\Http\Transformers\Pricing;
 
 use Barrigudinha\Pricing\Data\PostPriced\Contracts\HasSecondaryPrice;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
-use Barrigudinha\Pricing\Data\Price;
+use Barrigudinha\Pricing\Price\Price;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;

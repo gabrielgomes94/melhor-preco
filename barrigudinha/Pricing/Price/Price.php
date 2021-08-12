@@ -1,7 +1,8 @@
 <?php
 
-namespace Barrigudinha\Pricing\Data;
+namespace Barrigudinha\Pricing\Price;
 
+use Barrigudinha\Pricing\Data\CostPrice;
 use Barrigudinha\Pricing\Price\Freight\BaseFreight;
 use Barrigudinha\Pricing\Price\Freight\Factory;
 use Barrigudinha\Product\Entities\Product;
