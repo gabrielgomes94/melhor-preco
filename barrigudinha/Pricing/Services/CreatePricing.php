@@ -40,12 +40,6 @@ class CreatePricing
 
                 continue;
             }
-
-//            if ($product = $this->productFinderBling->get($sku)) {
-//                $this->productCreator->create($product);
-//
-//                $products[] = $product;
-//            }
         }
 
         $pricing = new Pricing(
