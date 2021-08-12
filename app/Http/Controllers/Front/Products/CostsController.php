@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Front\Products;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\Paginator;
 use App\Http\Requests\Product\UpdateCostsRequest;
-use App\Models\Product;
 use App\Repositories\Product\ListDB;
 use App\Repositories\Product\Options\Options;
+use App\Services\Pricing\UpdatePrice\Exceptions\UpdatePriceException;
 use App\Services\Product\Update\UpdateCosts;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -43,7 +43,14 @@ class CostsController extends Controller
     public function update(string $productId, UpdateCostsRequest $request)
     {
         $data = $request->validated();
-        $this->updateService->execute($productId, $data);
+
+        try {
+            $this->updateService->execute($productId, $data);
+
+            session()->flash('message', "Preço atualizado com sucesso no produto {$productId}");
+        } catch (UpdatePriceException $exception) {
+            session()->flash('error', $exception->getMessage());
+        }
 
         return redirect()->back();
     }

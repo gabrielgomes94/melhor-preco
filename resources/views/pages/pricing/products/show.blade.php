@@ -3,6 +3,8 @@
     <div class="container">
         <div class="row">
             <x-utils.breadcrumb :breadcrumb="$breadcrumb" />
+
+            <x-utils.alert-messages />
         </div>
     </div>
 
