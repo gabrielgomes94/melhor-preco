@@ -2,6 +2,8 @@
 
 namespace Barrigudinha\Pricing\Price;
 
+use Barrigudinha\Pricing\Price\Commission\Commission;
+use Barrigudinha\Pricing\Price\Commission\Factory as CommissionFactory;
 use Barrigudinha\Pricing\Price\CostPrice;
 use Barrigudinha\Pricing\Price\Freight\BaseFreight;
 use Barrigudinha\Pricing\Price\Freight\Factory;
@@ -19,7 +21,7 @@ class Price
     private BaseFreight $freight;
     private Money $additionalCosts;
     private Money $costs;
-    private Money $commission;
+    private Commission $commission;
     private Money $differenceICMS;
     private Money $profit;
     private Money $purchasePrice;
@@ -41,6 +43,7 @@ class Price
         $this->additionalCosts = $additionalCosts ?? Money::BRL(0);
         $this->setCostPrice($product);
         $this->value = $value->multiply(1 - $discountRate);
+        $this->setCommission($store);
         $this->setFreight($store);
         $this->calculate();
     }
@@ -53,6 +56,11 @@ class Price
             ->add($this->freight());
 
         $this->profit = $this->value->subtract($this->costs);
+    }
+
+    private function setCommission(string $store): void
+    {
+        $this->commission = CommissionFactory::make($store, $this->value, $this->commissionRate);
     }
 
     private function setFreight(string $store): void
@@ -118,7 +126,7 @@ class Price
 
     public function commission(): Money
     {
-        return $this->value->multiply($this->commissionRate);
+        return $this->commission->get();
     }
 
     public function simplesNacional(): Money
