@@ -47,7 +47,7 @@ class UpdateProduct
                 $post = Post::build($store);
             }
 
-            $this->updatePosts->updatePrice($product, $post->store(), $store['price']);
+//            $this->updatePosts->updatePrice($product, $post->store(), $store['price']);
             $posts[]  = $post;
         }
 
