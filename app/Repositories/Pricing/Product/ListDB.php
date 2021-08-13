@@ -23,53 +23,26 @@ class ListDB extends BaseList
         MarginRange::class,
     ];
 
-    protected function getProducts(?Options $options = null): array
-    {
-        $store = $options?->store();
-
-        if ($options->filterKits()) {
-            return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-                ->whereNull('parent_sku')
-                ->whereNotNull('product_id')
-                ->whereNotIn('composition_products', ['[]'])
-                ->where('store', $store)
-                ->paginate(perPage: $options->perPage(), page: $options->page())
-                ->sortBy('product_id')
-                ->all();
-        }
-
-
-        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-            ->whereNull('parent_sku')
-            ->whereNotNull('product_id')
-            ->where('store', $store)
-            ->paginate(perPage: $options->perPage(), page: $options->page())
-            ->sortBy('product_id')
-            ->all();
-    }
-
     public function count(?Options $options = null): int
     {
         if (!$options) {
             return 0;
         }
 
-        $store = $options?->store();
-
         if ($options->filterKits()) {
-            return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-                ->whereNull('parent_sku')
-                ->whereNotNull('product_id')
-                ->whereNotIn('composition_products', ['[]'])
-                ->where('store', $store)
-                ->count();
+            return $this->countCompositionProducts($options);
         }
 
-        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-            ->whereNull('parent_sku')
-            ->whereNotNull('product_id')
-            ->where('store', $store)
-            ->count();
+        return $this->countProducts($options);
+    }
+
+    protected function getProducts(?Options $options = null): array
+    {
+        if ($options->filterKits()) {
+            return $this->queryCompositionProducts($options);
+        }
+
+        return $this->queryProducts($options);
     }
 
     protected function mapProducts(array $products, Options $options): ProductsCollection
@@ -79,5 +52,55 @@ class ListDB extends BaseList
         }, $products);
 
         return new ProductsCollection($products);
+    }
+
+    private function countCompositionProducts(?Options $options = null): int
+    {
+        $store = $options?->store();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->whereNull('parent_sku')
+            ->whereNotNull('product_id')
+            ->whereNotIn('composition_products', ['[]'])
+            ->where('store', $store)
+            ->count();
+    }
+
+    private function countProducts(?Options $options = null)
+    {
+        $store = $options?->store();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->whereNull('parent_sku')
+            ->whereNotNull('product_id')
+            ->where('store', $store)
+            ->count();
+    }
+
+    private function queryCompositionProducts(?Options $options = null): array
+    {
+        $store = $options?->store();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->whereNull('parent_sku')
+            ->whereNotNull('product_id')
+            ->whereNotIn('composition_products', ['[]'])
+            ->where('store', $store)
+            ->paginate(perPage: $options->perPage(), page: $options->page())
+            ->sortBy('product_id')
+            ->all();
+    }
+
+    private function queryProducts(?Options $options = null): array
+    {
+        $store = $options?->store();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->whereNull('parent_sku')
+            ->whereNotNull('product_id')
+            ->where('store', $store)
+            ->paginate(perPage: $options->perPage(), page: $options->page())
+            ->sortBy('product_id')
+            ->all();
     }
 }
