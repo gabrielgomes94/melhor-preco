@@ -12,8 +12,6 @@ class ProductsCollection extends BaseIterator
 
                 continue;
             }
-
-            throw new \Exception('Invalid product');
         }
 
         return $products ?? [];

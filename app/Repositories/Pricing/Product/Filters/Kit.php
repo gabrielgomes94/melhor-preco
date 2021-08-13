@@ -17,7 +17,7 @@ class Kit
             if ($product->hasCompositionProducts()) {
                 $kits[] = $product;
             }
-        };
+        }
 
         return new ProductsCollection($kits ?? []);
     }

@@ -32,7 +32,12 @@ class Updator
         $model->weight = $product->dimensions()->weight();
         $model->parent_sku = $product->parentSku();
         $model->has_variations = $product->hasVariations();
-        $model->composition_products = $product->compositionProducts();
+
+        if (!$composition = $product->compositionProducts()) {
+            $model->composition_products = [];
+        }
+
+        $model->composition_products = $composition;
 
         return $model->save();
     }

@@ -18,7 +18,7 @@ class ListDB extends BaseList
         Active::class,
     ];
 
-    protected function getProducts(?Options $options = null): array
+    protected function get(?Options $options = null): array
     {
         if (!$options || !$options->page()) {
             return ProductModel::whereNull('parent_sku')
@@ -38,7 +38,7 @@ class ListDB extends BaseList
         return ProductModel::whereNull('parent_sku')->count();
     }
 
-    protected function mapProducts(array $products, ?Options $options = null): ProductsCollection
+    protected function map(array $products, ?Options $options = null): ProductsCollection
     {
         $products = array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);

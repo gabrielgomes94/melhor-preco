@@ -13,14 +13,14 @@ abstract class BaseList implements ListProducts
     protected array $filters = [];
 
     public abstract function count(?OptionsInterface $options = null): int;
-    protected abstract function getProducts(?Options $options = null): array;
-    protected abstract function mapProducts(array $products, Options $options): ProductsCollection;
+    protected abstract function get(?Options $options = null): array;
+    protected abstract function map(array $products, Options $options): ProductsCollection;
 
     public function all(): ProductsCollection
     {
-        $products = $this->getProducts();
+        $products = $this->get();
 
-        return $this->map($products);
+        return new ProductsCollection($products);
     }
 
     public function list(?OptionsInterface $options = null): ProductsCollection
@@ -29,8 +29,8 @@ abstract class BaseList implements ListProducts
             $options = new Options(['page' => 1]);
         }
 
-        $products = $this->getProducts($options);
-        $products = $this->mapProducts($products, $options);
+        $products = $this->get($options);
+        $products = $this->map($products, $options);
 
         return $this->filterProducts($products, $options);
     }

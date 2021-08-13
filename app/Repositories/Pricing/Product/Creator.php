@@ -35,7 +35,7 @@ class Creator
             'tax_icms' => 0.0,
             'parent_sku' => $data['parent_sku'] ?? null,
             'has_variations' => $data['has_variations'] ?? false,
-            'composition_products' => $data['composition_products'],
+            'composition_products' => $data['composition_products'] ?? [],
         ]);
 
         $model->save();
