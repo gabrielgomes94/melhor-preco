@@ -36,7 +36,7 @@ class ListDB extends BaseList
         return $this->countProducts($options);
     }
 
-    protected function getProducts(?Options $options = null): array
+    protected function get(?Options $options = null): array
     {
         if ($options->filterKits()) {
             return $this->queryCompositionProducts($options);
@@ -45,7 +45,7 @@ class ListDB extends BaseList
         return $this->queryProducts($options);
     }
 
-    protected function mapProducts(array $products, Options $options): ProductsCollection
+    protected function map(array $products, Options $options): ProductsCollection
     {
         $products = array_map(function (ProductModel $product) {
             return ProductFactory::buildWithPrice($product);
