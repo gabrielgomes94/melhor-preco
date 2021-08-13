@@ -10,6 +10,7 @@ use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Product\Entities\Product as ProductObject;
 use Barrigudinha\Product\Data\Variations\NoVariations;
 use Barrigudinha\Product\Data\Variations\Variations;
+use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Utils\Helpers;
 
 class Product
@@ -44,7 +45,7 @@ class Product
         return $product;
     }
 
-    private static function getComposition(ProductModel $model): array
+    private static function getComposition(ProductModel $model): ProductsCollection
     {
         if ($model->hasCompositionProducts()) {
             $compositionProducts = $model->compositionProducts();
@@ -54,7 +55,7 @@ class Product
             }
         }
 
-        return $composition ?? [];
+        return new ProductsCollection($composition ?? []);
     }
 
     private static function getVariations(ProductModel $model): array
@@ -69,7 +70,7 @@ class Product
         return $variationProducts ?? [];
     }
 
-    private static function build(ProductModel $model, ?array $variationProducts = null, ?array $compositionProducts = null): ProductObject
+    private static function build(ProductModel $model, ?array $variationProducts = null, ?ProductsCollection $compositionProducts = null): ProductObject
     {
         $dimensions = new Dimensions($model->depth, $model->height, $model->width, $model->weight);
 
@@ -83,7 +84,7 @@ class Product
             ? new Variations($variationProducts)
             : new NoVariations();
 
-        $composition = new Composition($compositionProducts ?? []);
+        $composition = new Composition($compositionProducts ?? new ProductsCollection());
 
         $product = new ProductObject(
             sku: $model->sku,

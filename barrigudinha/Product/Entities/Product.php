@@ -79,7 +79,7 @@ class Product
         $this->variations = $variations;
 
         $this->costs = $costs;
-        $this->compositionProducts = $compositionProducts ?? [];
+        $this->compositionProducts = $compositionProducts;
     }
 
     public function addPost(Post $post)
@@ -105,7 +105,12 @@ class Product
         ]);
     }
 
-    public function compositionProducts(): Composition
+    public function compositionProducts(): array
+    {
+        return $this->compositionProducts->getSkus();
+    }
+
+    public function composition(): Composition
     {
         return $this->compositionProducts;
     }
@@ -113,7 +118,7 @@ class Product
     public function costs(): Costs
     {
         if ($this->hasCompositionProducts()) {
-            return $this->compositionProducts()->costs();
+            return $this->composition()->costs();
         }
 
         return $this->costs;
@@ -223,7 +228,7 @@ class Product
         return null;
     }
 
-    public function setCompositionProducts(array $compositionProducts): void
+    public function setCompositionProducts(Composition $compositionProducts): void
     {
         $this->compositionProducts = $compositionProducts;
     }

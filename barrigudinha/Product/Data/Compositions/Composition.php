@@ -4,31 +4,30 @@ namespace Barrigudinha\Product\Data\Compositions;
 
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Entities\Product;
+use Barrigudinha\Product\Entities\ProductsCollection;
 
 class Composition
 {
-    /**
-     * @var Product[]
-     */
-    private array $compositionProducts;
+    private ProductsCollection $compositionProducts;
 
-    private float $costs;
-
-    public function __construct(array $compositionProducts)
+    public function __construct(ProductsCollection $compositionProducts)
     {
-        $this->compositionProducts = $compositionProducts ?? [];
-    }
-
-    public function products(): array
-    {
-        return $this->compositionProducts;
+        $this->compositionProducts = $compositionProducts;
     }
 
     public function hasCompositions(): bool
     {
-        return !empty($this->compositionProducts);
+        return $this->compositionProducts->count() !== 0;
     }
 
+    public function getSkus(): array
+    {
+        foreach ($this->compositionProducts as $product) {
+            $skuList[] = $product->sku();
+        }
+
+        return $skuList ?? [];
+    }
 
     public function costs(): Costs
     {
