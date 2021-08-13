@@ -27,6 +27,18 @@ class ListDB extends BaseList
     {
         $store = $options?->store();
 
+        if ($options->filterKits()) {
+            return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+                ->whereNull('parent_sku')
+                ->whereNotNull('product_id')
+                ->whereNotIn('composition_products', ['[]'])
+                ->where('store', $store)
+                ->paginate(perPage: $options->perPage(), page: $options->page())
+                ->sortBy('product_id')
+                ->all();
+        }
+
+
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
             ->whereNotNull('product_id')
@@ -43,6 +55,15 @@ class ListDB extends BaseList
         }
 
         $store = $options?->store();
+
+        if ($options->filterKits()) {
+            return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+                ->whereNull('parent_sku')
+                ->whereNotNull('product_id')
+                ->whereNotIn('composition_products', ['[]'])
+                ->where('store', $store)
+                ->count();
+        }
 
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
