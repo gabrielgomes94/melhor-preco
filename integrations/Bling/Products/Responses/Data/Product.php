@@ -20,6 +20,7 @@ class Product
     private bool $hasVariations;
     private array $stores;
     private array $compositionProducts = [];
+    private bool $isActive;
 
     private function __construct(array $data)
     {
@@ -38,6 +39,7 @@ class Product
         $this->parentSku = $data['parentSku'] ?? null;
         $this->hasVariations = $data['hasVariations'] ?? false;
         $this->compositionProducts = $data['compositionProducts'] ?? [];
+        $this->isActive = $data['isActive'];
     }
 
     public static function createFromArray(array $data): self
@@ -81,6 +83,7 @@ class Product
             'has_variations' => $this->hasVariations,
             'stores' => $this->getStores(),
             'composition_products' => $this->compositionProducts,
+            'is_active' => $this->isActive,
         ];
     }
 

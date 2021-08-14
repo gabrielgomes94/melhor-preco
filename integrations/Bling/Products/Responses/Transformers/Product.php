@@ -48,6 +48,7 @@ class Product
             'hasVariations' => isset($product['variacoes']),
             'isComposition' => isset($product['estrutura']),
             'compositionProducts' => self::getCompositionProducts($product),
+            'isActive' => self::isActive($product['situacao']),
         ];
     }
 
@@ -71,5 +72,10 @@ class Product
         return array_map(function (array $compositionProduct) {
             return $compositionProduct['componente']['codigo'];
         }, $product['estrutura']);
+    }
+
+    private static function isActive(string $situation): bool
+    {
+        return $situation === 'Ativo';
     }
 }
