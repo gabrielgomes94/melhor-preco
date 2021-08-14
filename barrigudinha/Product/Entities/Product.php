@@ -236,6 +236,11 @@ class Product
         return null;
     }
 
+    public function setActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
     public function setCompositionProducts(Composition $compositionProducts): void
     {
         $this->compositionProducts = $compositionProducts;

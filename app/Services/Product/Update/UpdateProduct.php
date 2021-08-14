@@ -31,6 +31,7 @@ class UpdateProduct
         $product->setPosts($posts);
         $compositionProducts = $this->getCompositionProducts->execute($data['composition_products']);
         $product->setCompositionProducts($compositionProducts);
+        $product->setActive($data['is_active']);
 
         return $this->productUpdator->update($product);
     }
@@ -47,7 +48,6 @@ class UpdateProduct
                 $post = Post::build($store);
             }
 
-//            $this->updatePosts->updatePrice($product, $post->store(), $store['price']);
             $posts[]  = $post;
         }
 
