@@ -62,6 +62,7 @@ class CostsController extends Controller
         return new Options([
             'page' => $request->input('page') ?? 1,
             'perPage' => $perPage,
+            'sku' => $request->input('sku') ?? null,
         ]);
     }
 
