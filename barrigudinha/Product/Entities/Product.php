@@ -27,6 +27,7 @@ class Product
     private bool $hasVariations;
     private ?Variations $variations; // Variation, HasVariations, NoVariations, BaseVariation
     private Composition $compositionProducts;
+    private bool $isActive;
 
     public ?Costs $costs;
 
@@ -51,6 +52,7 @@ class Product
         string $brand,
         array $images,
         bool $hasVariations,
+        bool $isActive,
         ?int $stock,
         Dimensions $dimensions,
         ?float $taxICMS,
@@ -80,6 +82,7 @@ class Product
 
         $this->costs = $costs;
         $this->compositionProducts = $compositionProducts;
+        $this->isActive = $isActive;
     }
 
     public function addPost(Post $post)
@@ -122,6 +125,11 @@ class Product
         }
 
         return $this->costs;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
     }
 
     public function name(): string
