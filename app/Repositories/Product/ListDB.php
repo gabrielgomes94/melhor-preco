@@ -22,6 +22,7 @@ class ListDB extends BaseList
     {
         if (!$options || !$options->page()) {
             return ProductModel::whereNull('parent_sku')
+                ->where('is_active', true)
                 ->get()
                 ->sortBy('sku')
                 ->all();
@@ -32,6 +33,7 @@ class ListDB extends BaseList
         }
 
         return ProductModel::whereNull('parent_sku')
+            ->where('is_active', true)
             ->paginate(perPage: $options->perPage(), page: $options->page())
             ->sortBy('sku')
             ->all();
@@ -43,7 +45,7 @@ class ListDB extends BaseList
             return $this->countProductsBySku($options);
         }
 
-        return ProductModel::whereNull('parent_sku')->count();
+        return ProductModel::whereNull('parent_sku')->where('is_active', true)->count();
     }
 
     protected function map(array $products, ?Options $options = null): ProductsCollection

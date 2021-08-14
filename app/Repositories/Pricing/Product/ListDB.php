@@ -68,6 +68,7 @@ class ListDB extends BaseList
 
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
+            ->where('is_active', true)
             ->whereNotNull('product_id')
             ->whereNotIn('composition_products', ['[]'])
             ->where('store', $store)
@@ -80,6 +81,7 @@ class ListDB extends BaseList
 
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
+            ->where('is_active', true)
             ->whereNotNull('product_id')
             ->where('store', $store)
             ->count();
@@ -93,15 +95,18 @@ class ListDB extends BaseList
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->where('store', $store)
             ->where('sku', $sku)
+            ->where('is_active', true)
             ->orWhere(function ($query) use ($sku, $store) {
                 $query->where('parent_sku', $sku)
-                    ->where('store', $store);
+                    ->where('store', $store)
+                    ->where('is_active', true);
             })
             ->orWhere(function ($query) use ($sku, $store) {
                 $sku = '%"' . $sku .'"%';
 
                 $query->where('composition_products', 'like', $sku)
-                    ->where('store', $store);
+                    ->where('store', $store)
+                    ->where('is_active', true);
             })
             ->count();
     }
@@ -112,6 +117,7 @@ class ListDB extends BaseList
 
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
+            ->where('is_active', true)
             ->whereNotNull('product_id')
             ->whereNotIn('composition_products', ['[]'])
             ->where('store', $store)
@@ -126,6 +132,7 @@ class ListDB extends BaseList
 
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
+            ->where('is_active', true)
             ->whereNotNull('product_id')
             ->where('store', $store)
             ->paginate(perPage: $options->perPage(), page: $options->page())
@@ -141,15 +148,18 @@ class ListDB extends BaseList
         return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->where('store', $store)
             ->where('sku', $sku)
+            ->where('is_active', true)
             ->orWhere(function ($query) use ($sku, $store) {
                 $query->where('parent_sku', $sku)
-                    ->where('store', $store);
+                    ->where('store', $store)
+                    ->where('is_active', true);
             })
             ->orWhere(function ($query) use ($sku, $store) {
                 $sku = '%"' . $sku .'"%';
 
                 $query->where('composition_products', 'like', $sku)
-                    ->where('store', $store);
+                    ->where('store', $store)
+                    ->where('is_active', true);
             })
             ->paginate(perPage: $options->perPage(), page: $options->page())
             ->sortBy('product_id')
