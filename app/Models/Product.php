@@ -80,7 +80,9 @@ class Product extends Model
 
     public function isActive(): bool
     {
-        return (bool) $this->is_active;
+        $hasPrices = $this->prices()->count() > 0;
+
+        return (bool) $this->is_active && $hasPrices;
     }
 
 

@@ -129,7 +129,7 @@ class Product
 
     public function isActive(): bool
     {
-        return $this->isActive;
+        return $this->isActive && count($this->posts) > 0;
     }
 
     public function name(): string
