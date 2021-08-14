@@ -12,6 +12,7 @@ class Options implements OptionsInterface
     private ?float $maximumProfit;
     private bool $kits;
     private ?string $store;
+    private ?string $searchSku;
 
     public function __construct(array $data)
     {
@@ -27,6 +28,7 @@ class Options implements OptionsInterface
 
         $this->page = $data['page'] ?? null;
         $this->store = $data['store'] ?? null;
+        $this->searchSku = $data['sku'] ?? null;
     }
 
     public function hasPagination(): bool
@@ -62,6 +64,11 @@ class Options implements OptionsInterface
     public function perPage(): ?int
     {
         return $this->perPage;
+    }
+
+    public function searchSku(): ?string
+    {
+        return $this->searchSku;
     }
 
     public function store(): ?string

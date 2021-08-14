@@ -29,6 +29,10 @@ class ListDB extends BaseList
             return 0;
         }
 
+        if ($sku = $options->searchSku()) {
+            return $this->countProductsBySku($options);
+        }
+
         if ($options->filterKits()) {
             return $this->countCompositionProducts($options);
         }
@@ -38,6 +42,10 @@ class ListDB extends BaseList
 
     protected function get(?Options $options = null): array
     {
+        if ($sku = $options->searchSku()) {
+            return $this->queryProductsBySku($options);
+        }
+
         if ($options->filterKits()) {
             return $this->queryCompositionProducts($options);
         }
@@ -77,6 +85,27 @@ class ListDB extends BaseList
             ->count();
     }
 
+    private function countProductsBySku(?Options $options = null): int
+    {
+        $store = $options?->store();
+        $sku = $options?->searchSku();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->where('store', $store)
+            ->where('sku', $sku)
+            ->orWhere(function ($query) use ($sku, $store) {
+                $query->where('parent_sku', $sku)
+                    ->where('store', $store);
+            })
+            ->orWhere(function ($query) use ($sku, $store) {
+                $sku = '%"' . $sku .'"%';
+
+                $query->where('composition_products', 'like', $sku)
+                    ->where('store', $store);
+            })
+            ->count();
+    }
+
     private function queryCompositionProducts(?Options $options = null): array
     {
         $store = $options?->store();
@@ -99,6 +128,29 @@ class ListDB extends BaseList
             ->whereNull('parent_sku')
             ->whereNotNull('product_id')
             ->where('store', $store)
+            ->paginate(perPage: $options->perPage(), page: $options->page())
+            ->sortBy('product_id')
+            ->all();
+    }
+
+    private function queryProductsBySku(?Options $options = null): array
+    {
+        $store = $options?->store();
+        $sku = $options?->searchSku();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->where('store', $store)
+            ->where('sku', $sku)
+            ->orWhere(function ($query) use ($sku, $store) {
+                $query->where('parent_sku', $sku)
+                    ->where('store', $store);
+            })
+            ->orWhere(function ($query) use ($sku, $store) {
+                $sku = '%"' . $sku .'"%';
+
+                $query->where('composition_products', 'like', $sku)
+                    ->where('store', $store);
+            })
             ->paginate(perPage: $options->perPage(), page: $options->page())
             ->sortBy('product_id')
             ->all();

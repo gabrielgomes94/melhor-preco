@@ -27,6 +27,10 @@ class ListDB extends BaseList
                 ->all();
         }
 
+        if ($sku = $options->searchSku()) {
+            return $this->queryProductsBySku($options);
+        }
+
         return ProductModel::whereNull('parent_sku')
             ->paginate(perPage: $options->perPage(), page: $options->page())
             ->sortBy('sku')
@@ -35,6 +39,10 @@ class ListDB extends BaseList
 
     public function count(?Options $options = null): int
     {
+        if ($sku = $options->searchSku()) {
+            return $this->countProductsBySku($options);
+        }
+
         return ProductModel::whereNull('parent_sku')->count();
     }
 
@@ -45,5 +53,27 @@ class ListDB extends BaseList
         }, $products);
 
         return new ProductsCollection($products);
+    }
+
+    private function queryProductsBySku(?Options $options = null): array
+    {
+        $sku = $options?->searchSku();
+
+        return ProductModel::where('sku', $sku)
+            ->orWhere('parent_sku', $sku)
+            ->orWhere('composition_products', 'like', '%"' . $sku .'"%')
+            ->paginate(perPage: $options->perPage(), page: $options->page())
+            ->sortBy('product_id')
+            ->all();
+    }
+
+    private function countProductsBySku(?Options $options = null): int
+    {
+        $sku = $options?->searchSku();
+
+        return ProductModel::where('sku', $sku)
+            ->orWhere('parent_sku', $sku)
+            ->orWhere('composition_products', 'like', '%"' . $sku .'"%')
+            ->count();
     }
 }
