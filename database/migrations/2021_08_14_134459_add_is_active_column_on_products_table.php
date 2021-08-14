@@ -14,7 +14,7 @@ class AddIsActiveColumnOnProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('is_active')->nullable();
+            $table->boolean('is_active')->nullable();
         });
     }
 
