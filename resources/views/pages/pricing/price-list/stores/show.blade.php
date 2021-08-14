@@ -27,11 +27,6 @@
                         <x-pricing.products.single-store.filter-kits :store="$store" />
                     </div>
 
-{{--                TODO:
-                        - Filtrar apenas Kits
-                        - Todos os produtos
---}}
-
                     <div class="d-flex justify-content-end m-2">
                         <x-pricing.products.single-store.export-button :store="$store" />
                     </div>

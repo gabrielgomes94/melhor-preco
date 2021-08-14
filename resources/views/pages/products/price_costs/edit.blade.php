@@ -12,18 +12,25 @@
     </div>
 
     <div class="container">
-        <div class="row mt-4">
-            <div class="col-sm-12">
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <x-products.price_costs.sku-search-bar :sku="$sku" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
                 <table class="table w-100">
                     <thead>
-                        <tr>
-                            <th scope="col" class="w-10">SKU</th>
-                            <th scope="col" class="w-10">Nome</th>
-                            <th scope="col" class="w-10">Preço de Custo (R$)</th>
-                            <th scope="col" class="w-10">Alíquota de ICMS (%)</th>
-                            <th scope="col" class="w-10">Custos Adicionais (R$)</th>
-                            <th></th>
-                        </tr>
+                    <tr>
+                        <th scope="col" class="w-10">SKU</th>
+                        <th scope="col" class="w-10">Nome</th>
+                        <th scope="col" class="w-10">Preço de Custo (R$)</th>
+                        <th scope="col" class="w-10">Alíquota de ICMS (%)</th>
+                        <th scope="col" class="w-10">Custos Adicionais (R$)</th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach($products as $product)
