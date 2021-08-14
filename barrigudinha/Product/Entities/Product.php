@@ -272,14 +272,10 @@ class Product
      */
     public function setPosts(array $posts): void
     {
-        $updatedPosts = [];
-
         foreach ($posts as $post) {
-            if (!$posts instanceof Post) {
-                continue;
+            if ($post instanceof Post) {
+                $updatedPosts[] = $post;
             }
-
-            $updatedPosts[] = $post;
         }
 
         $this->posts = $updatedPosts ?? [];
