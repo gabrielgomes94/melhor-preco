@@ -22,12 +22,18 @@ class ListDB extends BaseList
     {
         if (!$options || !$options->page()) {
             return ProductModel::whereNull('parent_sku')
+                ->where('is_active', true)
                 ->get()
                 ->sortBy('sku')
                 ->all();
         }
 
+        if ($sku = $options->searchSku()) {
+            return $this->queryProductsBySku($options);
+        }
+
         return ProductModel::whereNull('parent_sku')
+            ->where('is_active', true)
             ->paginate(perPage: $options->perPage(), page: $options->page())
             ->sortBy('sku')
             ->all();
@@ -35,7 +41,11 @@ class ListDB extends BaseList
 
     public function count(?Options $options = null): int
     {
-        return ProductModel::whereNull('parent_sku')->count();
+        if ($sku = $options->searchSku()) {
+            return $this->countProductsBySku($options);
+        }
+
+        return ProductModel::whereNull('parent_sku')->where('is_active', true)->count();
     }
 
     protected function map(array $products, ?Options $options = null): ProductsCollection
@@ -45,5 +55,27 @@ class ListDB extends BaseList
         }, $products);
 
         return new ProductsCollection($products);
+    }
+
+    private function queryProductsBySku(?Options $options = null): array
+    {
+        $sku = $options?->searchSku();
+
+        return ProductModel::where('sku', $sku)
+            ->orWhere('parent_sku', $sku)
+            ->orWhere('composition_products', 'like', '%"' . $sku .'"%')
+            ->paginate(perPage: $options->perPage(), page: $options->page())
+            ->sortBy('product_id')
+            ->all();
+    }
+
+    private function countProductsBySku(?Options $options = null): int
+    {
+        $sku = $options?->searchSku();
+
+        return ProductModel::where('sku', $sku)
+            ->orWhere('parent_sku', $sku)
+            ->orWhere('composition_products', 'like', '%"' . $sku .'"%')
+            ->count();
     }
 }

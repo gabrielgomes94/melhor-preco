@@ -25,14 +25,24 @@ class UpdateProduct
 
     public function execute(Product $product, array $data): bool
     {
-        $product->setDimensions($this->getDimensions($product, $data));
-        $product->setName($data['name']);
-        $posts = $this->setPosts($product, $data['stores']);
+        $dimensions = $this->getDimensions($product, $data);
+        $product->setDimensions($dimensions);
+
+        $posts = $this->getPosts($product, $data['stores']);
         $product->setPosts($posts);
-        $compositionProducts = $this->getCompositionProducts->execute($data['composition_products']);
-        $product->setCompositionProducts($compositionProducts);
+
+        $compositions = $this->getCompositionProducts($data);
+        $product->setCompositionProducts($compositions);
+
+        $product->setName($data['name']);
+        $product->setActive($data['is_active']);
 
         return $this->productUpdator->update($product);
+    }
+
+    private function getCompositionProducts(array $data): Composition
+    {
+        return $this->getCompositionProducts->execute($data['composition_products']);
     }
 
     private function getDimensions(Product $product, array $data): DimensionsObject
@@ -40,14 +50,13 @@ class UpdateProduct
         return Dimensions::make($data, $product);
     }
 
-    private function setPosts(Product $product, array $stores): array
+    private function getPosts(Product $product, array $stores): array
     {
         foreach ($stores as $store) {
             if (!$post = $product->getPost($store['slug'])) {
                 $post = Post::build($store);
             }
 
-//            $this->updatePosts->updatePrice($product, $post->store(), $store['price']);
             $posts[]  = $post;
         }
 

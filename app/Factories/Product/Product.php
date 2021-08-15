@@ -92,6 +92,7 @@ class Product
             brand: $model->brand ?? '',
             images: $model->images ?? [],
             hasVariations: $model->has_variations,
+            isActive: $model->isActive(),
             stock: $model->stock ?? 0,
             dimensions: $dimensions,
             taxICMS: $model->tax_icms ?? null,

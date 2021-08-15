@@ -27,6 +27,7 @@ class Product
     private bool $hasVariations;
     private ?Variations $variations; // Variation, HasVariations, NoVariations, BaseVariation
     private Composition $compositionProducts;
+    private bool $isActive;
 
     public ?Costs $costs;
 
@@ -51,6 +52,7 @@ class Product
         string $brand,
         array $images,
         bool $hasVariations,
+        bool $isActive,
         ?int $stock,
         Dimensions $dimensions,
         ?float $taxICMS,
@@ -80,6 +82,7 @@ class Product
 
         $this->costs = $costs;
         $this->compositionProducts = $compositionProducts;
+        $this->isActive = $isActive;
     }
 
     public function addPost(Post $post)
@@ -122,6 +125,11 @@ class Product
         }
 
         return $this->costs;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive && count($this->posts) > 0;
     }
 
     public function name(): string
@@ -228,6 +236,11 @@ class Product
         return null;
     }
 
+    public function setActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
     public function setCompositionProducts(Composition $compositionProducts): void
     {
         $this->compositionProducts = $compositionProducts;
@@ -259,14 +272,10 @@ class Product
      */
     public function setPosts(array $posts): void
     {
-        $updatedPosts = [];
-
         foreach ($posts as $post) {
-            if (!$posts instanceof Post) {
-                continue;
+            if ($post instanceof Post) {
+                $updatedPosts[] = $post;
             }
-
-            $updatedPosts[] = $post;
         }
 
         $this->posts = $updatedPosts ?? [];

@@ -38,6 +38,7 @@ class Updator
         }
 
         $model->composition_products = $composition;
+        $model->is_active = $product->isActive();
 
         return $model->save();
     }

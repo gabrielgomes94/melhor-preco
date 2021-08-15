@@ -73,6 +73,7 @@ class ShowController extends Controller
             'filterKits' => (bool) $request->input('filterKits') ?? false,
             'store' => $store,
             'page' => $request->input('page'),
+            'sku'=> $request->input('sku') ?? null,
         ];
 
         return new Options($data);
@@ -89,6 +90,7 @@ class ShowController extends Controller
             'products' => $paginator->items(),
             'minimumProfit' => $request->input('minProfit') ?? '',
             'maximumProfit' => $request->input('maxProfit') ?? '',
+            'sku' => $request->input('sku') ?? '',
         ];
     }
 }

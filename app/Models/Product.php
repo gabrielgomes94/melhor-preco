@@ -31,7 +31,8 @@ class Product extends Model
         'parent_sku',
         'additional_costs',
         'has_variations',
-        'composition_products'
+        'composition_products',
+        'is_active',
     ];
 
     protected $casts = [
@@ -76,6 +77,14 @@ class Product extends Model
 
         return false;
     }
+
+    public function isActive(): bool
+    {
+        $hasPrices = $this->prices()->count() > 0;
+
+        return (bool) $this->is_active && $hasPrices;
+    }
+
 
     public function getPrice(string $store): ?Price
     {

@@ -36,6 +36,7 @@ class Creator
             'parent_sku' => $data['parent_sku'] ?? null,
             'has_variations' => $data['has_variations'] ?? false,
             'composition_products' => $data['composition_products'] ?? [],
+            'is_active' => $data['is_active']
         ]);
 
         $model->save();

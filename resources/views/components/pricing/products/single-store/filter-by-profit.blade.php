@@ -14,6 +14,13 @@
             value="{{ $maximumProfit }}"
         />
 
+        <x-forms.input.text
+            attribute="sku"
+            label="SKU"
+            visibleComponentId="sku"
+            value="{{ $sku }}"
+        />
+
         <div class="m-2">
             <x-forms.submit
                 label="Filtrar"
