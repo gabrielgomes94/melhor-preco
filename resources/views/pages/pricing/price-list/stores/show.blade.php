@@ -30,6 +30,9 @@
                     <div class="d-flex justify-content-end m-2">
                         <x-pricing.products.single-store.export-button :store="$store" />
                     </div>
+                    <div class="d-flex justify-content-end m-2">
+                        <a href="{{ route('pricing.priceLog.lastUpdatedProducts', $store->slug()) }}" class="link-primary">Histórico de atualizações</a>
+                    </div>
                 </div>
             </div>
 

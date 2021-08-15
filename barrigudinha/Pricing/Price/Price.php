@@ -36,15 +36,19 @@ class Price
         string $store,
         ?Money $additionalCosts = null,
         float $commission = 0.0,
-        float $discountRate = 0.0
+        float $discountRate = 0.0,
+        ?array $options = null
     ) {
         $this->product = $product;
         $this->commissionRate = $commission;
         $this->additionalCosts = $additionalCosts ?? Money::BRL(0);
         $this->setCostPrice($product);
         $this->value = $value->multiply(1 - $discountRate);
+
+        $ignoreFreight = $options['ignoreFreight'] ?? false;
+
         $this->setCommission($store);
-        $this->setFreight($store);
+        $this->setFreight($store, $ignoreFreight);
         $this->calculate();
     }
 
@@ -63,9 +67,9 @@ class Price
         $this->commission = CommissionFactory::make($store, $this->value, $this->commissionRate);
     }
 
-    private function setFreight(string $store): void
+    private function setFreight(string $store, bool $ignoreFreight): void
     {
-        $this->freight = Factory::make($store, $this->product->dimensions(), $this->value);
+        $this->freight = Factory::make($store, $this->product->dimensions(), $this->value, $ignoreFreight);
     }
 
     public function additionalCosts(): Money
