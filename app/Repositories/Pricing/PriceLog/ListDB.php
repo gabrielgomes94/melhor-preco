@@ -18,14 +18,15 @@ class ListDB extends BaseList
 
     protected function get(?Options $options = null): array
     {
-        $query = ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+        $store = $options?->store();
+
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
             ->where('is_active', true)
+            ->where('prices.store', $store)
             ->orderBy('prices.updated_at', 'desc')
             ->paginate(perPage: $options->perPage(), page: $options->page())
             ->all();
-
-        return $query;
     }
 
     protected function map(array $products, Options $options): ProductsCollection

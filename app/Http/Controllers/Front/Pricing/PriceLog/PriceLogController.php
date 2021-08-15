@@ -27,6 +27,7 @@ class PriceLogController extends Controller
     {
         $options = new Options([
             'page' => 1,
+            'store' => $storeSlug,
         ]);
 
         $products = $this->repository->list($options);
