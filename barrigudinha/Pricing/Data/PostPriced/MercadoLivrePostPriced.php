@@ -18,11 +18,15 @@ class MercadoLivrePostPriced extends PostPriced implements HasSecondaryPrice
         parent::__construct($post, $price, $product);
 
         $commission = Helpers::percentage($options['commission'] ?? $post->store()->commission());
+
         $this->priceWithoutFreight = new Price(
             product: $product,
             value: $price->get(),
             store: Store::MERCADO_LIVRE,
             commission: $commission,
+            options: [
+                'ignoreFreight' => true,
+            ]
         );
     }
 

@@ -14,8 +14,12 @@ class Factory
         Store::OLIST => Olist::class,
     ];
 
-    public static function make(string $store, Dimensions $dimensions, Money $value): BaseFreight
+    public static function make(string $store, Dimensions $dimensions, Money $value, ?bool $ignoreFreight = null): BaseFreight
     {
+        if ($ignoreFreight) {
+            return new NoFreight($dimensions, $value);
+        }
+
         /**
          * @var BaseFreight $freightClass
          */
