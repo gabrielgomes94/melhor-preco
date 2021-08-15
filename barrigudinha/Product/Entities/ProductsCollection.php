@@ -12,6 +12,8 @@ class ProductsCollection extends BaseIterator
 
                 continue;
             }
+
+            $products[] = $item;
         }
 
         return $products ?? [];
