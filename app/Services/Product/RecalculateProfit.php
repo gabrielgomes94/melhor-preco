@@ -2,7 +2,6 @@
 
 namespace App\Services\Product;
 
-use App\Repositories\Pricing\Product\Updator;
 use App\Repositories\Product\ListDB;
 use App\Services\Product\Update\UpdatePosts;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
