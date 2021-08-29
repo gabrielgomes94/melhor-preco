@@ -40,9 +40,9 @@ abstract class BaseList implements ListProducts
         /**
          * @var Filter $filter
          */
-//        foreach ($this->filters as $filter) {
-//            $products = $filter::execute($products, $options);
-//        }
+        foreach ($this->filters as $filter) {
+            $products = $filter::execute($products, $options);
+        }
 
         return $products ?? new ProductsCollection([]);
     }

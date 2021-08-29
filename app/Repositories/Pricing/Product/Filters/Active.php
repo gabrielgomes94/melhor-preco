@@ -4,7 +4,7 @@ namespace App\Repositories\Pricing\Product\Filters;
 
 use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
 use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Repositories\Contracts\Options;
+use Barrigudinha\Product\Utils\Contracts\Options;
 
 class Active implements Filter
 {
