@@ -20,7 +20,7 @@ class ListDB extends BaseList
         Active::class,
     ];
 
-    protected function get(?Options $options = null): array
+    protected function get(Options $options): array
     {
         if (!$options->page()) {
             return QueryProducts::query($options)->get()->all();
@@ -33,7 +33,7 @@ class ListDB extends BaseList
         return QueryProducts::paginate($options);
     }
 
-    public function count(?Options $options = null): int
+    public function count(Options $options): int
     {
         if ($options->sku()) {
             return QueryProductsBySku::count($options);
@@ -42,7 +42,7 @@ class ListDB extends BaseList
         return QueryProducts::count($options);
     }
 
-    protected function map(array $products, ?Options $options = null): ProductsCollection
+    protected function map(array $products, Options $options): ProductsCollection
     {
         $products = array_map(function (ProductModel $product) {
             return ProductFactory::buildFromModel($product);

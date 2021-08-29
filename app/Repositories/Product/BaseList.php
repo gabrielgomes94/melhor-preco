@@ -3,18 +3,17 @@
 namespace App\Repositories\Product;
 
 use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
-use App\Repositories\Product\Options\Options;
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Repositories\Contracts\ListProducts;
-use Barrigudinha\Product\Utils\Contracts\Options as OptionsInterface;
+use Barrigudinha\Product\Utils\Contracts\Options;
 
 abstract class BaseList implements ListProducts
 {
     protected array $filters = [];
 
-    public abstract function count(?OptionsInterface $options = null): int;
-    protected abstract function get(?OptionsInterface $options = null): array;
-    protected abstract function map(array $products, OptionsInterface $options): ProductsCollection;
+    public abstract function count(Options $options): int;
+    protected abstract function get(Options $options): array;
+    protected abstract function map(array $products, Options $options): ProductsCollection;
 
     public function all(): ProductsCollection
     {
@@ -23,19 +22,15 @@ abstract class BaseList implements ListProducts
         return new ProductsCollection($products);
     }
 
-    public function list(?OptionsInterface $options = null): ProductsCollection
+    public function list(Options $options): ProductsCollection
     {
-        if (!$options) {
-            $options = new Options(['page' => 1]);
-        }
-
         $products = $this->get($options);
         $products = $this->map($products, $options);
 
         return $this->filterProducts($products, $options);
     }
 
-    private function filterProducts(ProductsCollection $products, OptionsInterface $options): ProductsCollection
+    private function filterProducts(ProductsCollection $products, Options $options): ProductsCollection
     {
         /**
          * @var Filter $filter

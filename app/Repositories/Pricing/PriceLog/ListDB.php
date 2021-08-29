@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ListDB extends BaseList
 {
-    public function count(?Options $options = null): int
+    public function count(Options $options): int
     {
         return $this->query($options)->count();
     }

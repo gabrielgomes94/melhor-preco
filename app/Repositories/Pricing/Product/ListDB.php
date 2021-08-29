@@ -6,7 +6,6 @@ use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
 use App\Repositories\Pricing\Product\Filters\Active;
 use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
-use App\Repositories\Pricing\Product\Filters\Kit;
 use App\Repositories\Pricing\Product\Filters\MarginRange;
 use App\Repositories\Pricing\Product\Queries\CompositionProducts as QueryCompositionProducts;
 use App\Repositories\Pricing\Product\Queries\Products as QueryProducts;
@@ -14,7 +13,6 @@ use App\Repositories\Pricing\Product\Queries\ProductsBySku as QueryProductsBySku
 use App\Repositories\Product\BaseList;
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Utils\Contracts\Options;
-use Illuminate\Database\Eloquent\Builder;
 
 class ListDB extends BaseList
 {
@@ -26,12 +24,8 @@ class ListDB extends BaseList
         MarginRange::class,
     ];
 
-    public function count(?Options $options = null): int
+    public function count(Options $options): int
     {
-        if (!$options) {
-            return 0;
-        }
-
         if ($options->sku()) {
             return QueryProductsBySku::count($options);
         }
@@ -43,7 +37,7 @@ class ListDB extends BaseList
         return QueryProducts::count($options);
     }
 
-    protected function get(?Options $options = null): array
+    protected function get(Options $options): array
     {
         if ($options->sku()) {
             return QueryProductsBySku::paginate($options);
