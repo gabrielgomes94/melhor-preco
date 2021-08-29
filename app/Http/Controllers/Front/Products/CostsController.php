@@ -3,50 +3,40 @@
 namespace App\Http\Controllers\Front\Products;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Utils\Paginator;
+use App\Http\Requests\Product\EditCostsRequest;
 use App\Http\Requests\Product\UpdateCostsRequest;
-use App\Repositories\Product\ListDB;
-use App\Repositories\Product\Options\Options;
 use App\Services\Pricing\UpdatePrice\Exceptions\UpdatePriceException;
+use App\Services\Product\ListProducts;
 use App\Services\Product\Update\UpdateCosts;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class CostsController extends Controller
 {
-    private ListDB $repository;
-    private Paginator $paginator;
     private UpdateCosts $updateService;
+    private ListProducts $listProductsService;
 
     public function __construct(
-        ListDB $repository,
-        Paginator $paginator,
-        UpdateCosts $updateService
+        UpdateCosts $updateService,
+        ListProducts $listProductsService
     ) {
-        $this->repository = $repository;
-        $this->paginator = $paginator;
         $this->updateService = $updateService;
+        $this->listProductsService = $listProductsService;
     }
 
-    public function edit(Request $request)
+    public function edit(EditCostsRequest $request)
     {
-        $options = $this->setOptions($request);
-        $products = $this->repository->list($options);
-        $paginator = $this->setPagination($products, $request);
+        $paginator = $this->listProductsService->listPaginate($request->getOptions());
 
         return view('pages.products.price_costs.edit', [
             'paginator' => $paginator,
             'products' => $paginator->items(),
-            'sku' => $request->input('sku') ?? null,
+            'sku' => $request->getSku(),
         ]);
     }
 
     public function update(string $productId, UpdateCostsRequest $request)
     {
-        $data = $request->validated();
-
         try {
-            $this->updateService->execute($productId, $data);
+            $this->updateService->execute($productId, $request->validated());
 
             session()->flash('message', "Produto {$productId} teve seu custo atualizado com sucesso.");
         } catch (UpdatePriceException $exception) {
@@ -54,23 +44,5 @@ class CostsController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    private function setOptions(Request $request): Options
-    {
-        $perPage = 40;
-
-        return new Options([
-            'page' => $request->input('page') ?? 1,
-            'perPage' => $perPage,
-            'sku' => $request->input('sku') ?? null,
-        ]);
-    }
-
-    private function setPagination(iterable $products, Request $request): LengthAwarePaginator
-    {
-        $options = $this->setOptions($request);
-
-        return $this->paginator->paginate(array: $products, request: $request, count: $this->repository->count($options));
     }
 }
