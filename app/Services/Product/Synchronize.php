@@ -3,19 +3,19 @@
 namespace App\Services\Product;
 
 use App\Repositories\Pricing\Product\Creator;
-use App\Repositories\Product\FinderDB;
+use App\Repositories\Product\GetDB;
 use App\Services\Product\Update\UpdateProduct;
 use Integrations\Bling\Products\Repositories\Repository as BlingRepository;
 
 class Synchronize
 {
-    private FinderDB $dbRepository;
+    private GetDB $dbRepository;
     private BlingRepository $erpRepository;
     private Creator $creator;
     private UpdateProduct $productUpdator;
 
     public function __construct(
-        FinderDB $dbRepository,
+        GetDB $dbRepository,
         BlingRepository $erpRepository,
         Creator $creator,
         UpdateProduct $productUpdator

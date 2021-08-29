@@ -3,7 +3,7 @@
 namespace App\Services\Product\Update;
 
 use App\Factories\Product\Costs;
-use App\Repositories\Product\FinderDB;
+use App\Repositories\Product\GetDB;
 use App\Repositories\Product\Updator as ProductUpdator;
 use App\Services\Pricing\UpdatePrice\Exceptions\UpdateDBException;
 use App\Services\Pricing\UpdatePrice\UpdateDB;
@@ -13,11 +13,11 @@ use Barrigudinha\Product\Entities\Product;
 class UpdateCosts
 {
     private CalculateProduct $calculateProduct;
-    private FinderDB $repository;
+    private GetDB $repository;
     private ProductUpdator $productUpdator;
     private UpdateDB $updatePriceService;
 
-    public function __construct(FinderDB $repository, ProductUpdator $productUpdator, CalculateProduct $calculateProduct, UpdateDB $updatePriceService)
+    public function __construct(GetDB $repository, ProductUpdator $productUpdator, CalculateProduct $calculateProduct, UpdateDB $updatePriceService)
     {
         $this->repository = $repository;
         $this->productUpdator = $productUpdator;

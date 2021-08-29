@@ -3,14 +3,13 @@
 namespace App\Repositories\Product;
 
 use App\Models\Product as ProductModel;
-use App\Repositories\Product\FinderDB;
 use Barrigudinha\Product\Entities\Product;
 
 class Updator
 {
-    private FinderDB $repository;
+    private GetDB $repository;
 
-    public function __construct(FinderDB $repository)
+    public function __construct(GetDB $repository)
     {
         $this->repository = $repository;
     }

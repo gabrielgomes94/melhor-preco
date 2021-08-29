@@ -4,7 +4,7 @@ namespace Barrigudinha\Pricing\Services;
 
 use App\Repositories\Pricing\Product\Creator as ProductCreator;
 use App\Repositories\Product\FinderBling as ProductFinderBling;
-use App\Repositories\Product\FinderDB as ProductFinderDB;
+use App\Repositories\Product\GetDB;
 use Barrigudinha\Pricing\Data\Contracts\CreatePricing as CreatePricingData;
 use Barrigudinha\Pricing\Data\Pricing;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
@@ -18,12 +18,12 @@ class CreatePricing
     private PricingRepository $pricingRepository;
     private ProductCreator $productCreator;
     private ProductFinderBling $productFinderBling;
-    private ProductFinderDB $productFinderDB;
+    private GetDB $productFinderDB;
 
     public function __construct(
         ProductCreator $productCreator,
         ProductFinderBling $productFinderBling,
-        ProductFinderDB $productFinderDB,
+        GetDB $productFinderDB,
         PricingRepository $pricingRepository
     ) {
         $this->productCreator = $productCreator;
