@@ -3,6 +3,7 @@
 namespace Barrigudinha\Product\Repositories\Contracts;
 
 use Barrigudinha\Product\Entities\ProductsCollection;
+use Barrigudinha\Product\Utils\Contracts\Options;
 
 interface ListProducts
 {
