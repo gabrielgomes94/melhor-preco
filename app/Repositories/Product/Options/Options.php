@@ -13,6 +13,7 @@ class Options implements OptionsInterface
     private bool $kits;
     private ?string $store;
     private ?string $searchSku;
+    public array $extra;
 
     public function __construct(array $data)
     {
@@ -29,6 +30,12 @@ class Options implements OptionsInterface
         $this->page = $data['page'] ?? null;
         $this->store = $data['store'] ?? null;
         $this->searchSku = $data['sku'] ?? null;
+
+        // Gambeta: fix this
+        $this->extra = [
+            'path' => $data['path'],
+            'query' => $data['query'],
+        ];
     }
 
     public function hasPagination(): bool
@@ -74,5 +81,15 @@ class Options implements OptionsInterface
     public function store(): ?string
     {
         return $this->store;
+    }
+
+    public function url(): string
+    {
+        return $this->extra['path'];
+    }
+
+    public function query(): array
+    {
+        return $this->extra['query'];
     }
 }

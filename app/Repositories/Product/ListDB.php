@@ -6,8 +6,10 @@ use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
 use App\Repositories\Pricing\Product\Filters\Active;
 use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
+use App\Repositories\Product\Queries\Products as QueryProducts;
+use App\Repositories\Product\Queries\ProductsBySku as QueryProductsBySku;
 use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Repositories\Contracts\Options;
+use Barrigudinha\Product\Utils\Contracts\Options;
 
 class ListDB extends BaseList
 {
@@ -20,32 +22,24 @@ class ListDB extends BaseList
 
     protected function get(?Options $options = null): array
     {
-        if (!$options || !$options->page()) {
-            return ProductModel::whereNull('parent_sku')
-                ->where('is_active', true)
-                ->get()
-                ->sortBy('sku')
-                ->all();
+        if (!$options->page()) {
+            return QueryProducts::query($options)->get()->all();
         }
 
-        if ($sku = $options->searchSku()) {
-            return $this->queryProductsBySku($options);
+        if ($options->sku()) {
+            return QueryProductsBySku::paginate($options);
         }
 
-        return ProductModel::whereNull('parent_sku')
-            ->where('is_active', true)
-            ->paginate(perPage: $options->perPage(), page: $options->page())
-            ->sortBy('sku')
-            ->all();
+        return QueryProducts::paginate($options);
     }
 
     public function count(?Options $options = null): int
     {
-        if ($sku = $options->searchSku()) {
-            return $this->countProductsBySku($options);
+        if ($options->sku()) {
+            return QueryProductsBySku::count($options);
         }
 
-        return ProductModel::whereNull('parent_sku')->where('is_active', true)->count();
+        return QueryProducts::count($options);
     }
 
     protected function map(array $products, ?Options $options = null): ProductsCollection
@@ -55,27 +49,5 @@ class ListDB extends BaseList
         }, $products);
 
         return new ProductsCollection($products);
-    }
-
-    private function queryProductsBySku(?Options $options = null): array
-    {
-        $sku = $options?->searchSku();
-
-        return ProductModel::where('sku', $sku)
-            ->orWhere('parent_sku', $sku)
-            ->orWhere('composition_products', 'like', '%"' . $sku .'"%')
-            ->paginate(perPage: $options->perPage(), page: $options->page())
-            ->sortBy('product_id')
-            ->all();
-    }
-
-    private function countProductsBySku(?Options $options = null): int
-    {
-        $sku = $options?->searchSku();
-
-        return ProductModel::where('sku', $sku)
-            ->orWhere('parent_sku', $sku)
-            ->orWhere('composition_products', 'like', '%"' . $sku .'"%')
-            ->count();
     }
 }
