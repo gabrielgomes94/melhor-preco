@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Product\Queries;
 
-use App\Models\Product as ProductModel;
+use App\Models\Product;
 use Barrigudinha\Product\Repositories\Contracts\Query;
 use Barrigudinha\Product\Utils\Contracts\Options;
 
@@ -27,7 +27,7 @@ class ProductsBySku implements Query
     {
         $sku = $options->sku();
 
-        return ProductModel::where('sku', $sku)
+        return Product::where('sku', $sku)
             ->orWhere('parent_sku', $sku)
             ->orWhere('composition_products', 'like', '%"' . $sku .'"%')
             ->orderBy('sku');

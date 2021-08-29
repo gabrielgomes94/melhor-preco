@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Pricing\Product\Queries;
 
-use App\Models\Product as ProductModel;
+use App\Models\Product;
 use Barrigudinha\Product\Repositories\Contracts\Query;
 use Barrigudinha\Product\Utils\Contracts\Options;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,7 +26,7 @@ class ProductsBySku implements Query
         $store = $options?->store();
         $sku = $options?->sku();
 
-        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+        return Product::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->where('store', $store)
             ->where('sku', $sku)
             ->where('is_active', true)
