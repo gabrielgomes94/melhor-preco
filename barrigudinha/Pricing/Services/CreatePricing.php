@@ -3,11 +3,11 @@
 namespace Barrigudinha\Pricing\Services;
 
 use App\Repositories\Pricing\Product\Creator as ProductCreator;
-use App\Repositories\Product\FinderBling as ProductFinderBling;
 use App\Repositories\Product\GetDB;
 use Barrigudinha\Pricing\Data\Contracts\CreatePricing as CreatePricingData;
 use Barrigudinha\Pricing\Data\Pricing;
 use Barrigudinha\Pricing\Repositories\Contracts\Pricing as PricingRepository;
+use Integrations\Bling\Products\Repositories\Repository;
 
 /**
  * @deprecated
@@ -17,12 +17,12 @@ class CreatePricing
 {
     private PricingRepository $pricingRepository;
     private ProductCreator $productCreator;
-    private ProductFinderBling $productFinderBling;
+    private Repository $productFinderBling;
     private GetDB $productFinderDB;
 
     public function __construct(
         ProductCreator $productCreator,
-        ProductFinderBling $productFinderBling,
+        Repository $productFinderBling,
         GetDB $productFinderDB,
         PricingRepository $pricingRepository
     ) {
