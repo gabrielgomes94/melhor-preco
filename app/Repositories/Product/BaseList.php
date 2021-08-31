@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Product;
 
+use App\Http\Requests\Utils\ProductOptions;
 use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Repositories\Contracts\ListProducts;
@@ -17,16 +18,16 @@ abstract class BaseList implements ListProducts
 
     public function all(): ProductsCollection
     {
-        $products = $this->get();
+        $options = new ProductOptions([]);
+        $products = $this->get($options);
 
-        return new ProductsCollection($products);
+        return $this->map($products, $options);
     }
 
     public function list(Options $options): ProductsCollection
     {
         $products = $this->get($options);
         $products = $this->map($products, $options);
-
         return $this->filterProducts($products, $options);
     }
 

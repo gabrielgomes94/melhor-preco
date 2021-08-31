@@ -24,7 +24,7 @@ class RecalculateProfit
     {
         $products = $this->repository->all();
 
-        foreach ($products['items'] as $product) {
+        foreach ($products as $product) {
             foreach ($product->posts() as $post) {
                 $value = $this->formatMoney($post->price());
                 $this->updatePosts->updatePrice($product, $post->store(), $value);

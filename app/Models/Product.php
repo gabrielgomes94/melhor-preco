@@ -29,7 +29,6 @@ class Product extends Model
         'width',
         'weight',
         'parent_sku',
-        'additional_costs',
         'has_variations',
         'composition_products',
         'is_active',
