@@ -3,18 +3,27 @@ FROM php:8.0-fpm
 # Arguments defined in docker-compose.yml
 ARG user
 ARG uid
+ARG APCU_VERSION=5.1.18
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
+    build-essential \
+    libicu-dev \
     libzip-dev \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libpq-dev \
+    locales \
     zip \
     unzip \
-    npm
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    git \
+    curl \
+    wget \
+    zsh
 
 RUN curl -fsSL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get install -y nodejs
@@ -23,9 +32,26 @@ RUN apt-get install -y nodejs
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-RUN docker-php-ext-install intl
-RUN docker-php-ext-install zip
+RUN docker-php-ext-configure zip
+
+RUN docker-php-ext-install \
+        bcmath \
+        mbstring \
+        pcntl \
+        intl \
+        zip \
+        opcache \
+        pdo pdo_pgsql \
+        gd
+
+# apcu for caching, xdebug for debugging and also phpunit coverage
+RUN pecl install \
+        apcu-${APCU_VERSION} \
+        xdebug \
+    && docker-php-ext-enable \
+        apcu \
+        xdebug
+
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

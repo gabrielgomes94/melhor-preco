@@ -5,7 +5,7 @@ services:
       args:
         user: gabriel
         uid: 1000
-      context: ./
+      context: ./.docker
       dockerfile: Dockerfile
     image: barrigudinha
     container_name: barrigudinha-app
@@ -18,21 +18,17 @@ services:
     environment:
       - COMPOSER_MEMORY_LIMIT=-1
   db:
-    image: mysql:5.7
+    image: postgres:13.4
     container_name: barrigudinha-db
-    restart: unless-stopped
+    restart: always
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      POSTGRES_DATABASE: ${DB_DATABASE}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
     volumes:
-      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
-      - mysqldata:/var/lib/mysql/
+      - db_data:/var/lib/postgresql/data
     networks:
     - barrigudinha
   nginx:
@@ -50,5 +46,5 @@ networks:
   barrigudinha:
     driver: bridge
 volumes:
-  mysqldata:
+  db_data:
     driver: local
