@@ -5,6 +5,7 @@ namespace App\Services\Product\Update;
 use App\Factories\Product\Costs;
 use App\Repositories\Product\GetDB;
 use App\Repositories\Product\Updator as ProductUpdator;
+use App\Services\Pricing\UpdatePrice\Exceptions\ProductNotFound;
 use App\Services\Pricing\UpdatePrice\Exceptions\UpdateDBException;
 use App\Services\Pricing\UpdatePrice\UpdateDB;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
@@ -28,7 +29,7 @@ class UpdateCosts
     public function execute(string $sku, array $data): bool
     {
         if (!$product = $this->repository->get($sku)) {
-            return false;
+            throw new ProductNotFound();
         }
 
         $products = $this->getProducts($product);
