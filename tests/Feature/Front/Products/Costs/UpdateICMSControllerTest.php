@@ -4,6 +4,7 @@ namespace Tests\Feature\Front\Products\Costs;
 
 use App\Jobs\Products\Spreadsheets\UploadICMS;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Session;
@@ -12,6 +13,8 @@ use Tests\TestCase;
 
 class UpdateICMSControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_should_render_upload_imcs_page(): void
     {
         // Set
