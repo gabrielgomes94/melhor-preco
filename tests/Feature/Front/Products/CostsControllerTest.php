@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Session;
 use Tests\Data\Models\Product\Contracts\ProductFactory;
 use Tests\Data\Models\ProductDataFactory;
 use Tests\TestCase;
@@ -126,6 +127,7 @@ class CostsControllerTest extends TestCase
     public function test_should_update_costs(): void
     {
         // Set
+        Session::start();
         $user = User::factory()->create();
         ProductDataFactory::createCollection([
             [
@@ -140,6 +142,7 @@ class CostsControllerTest extends TestCase
             'purchasePrice' => 500.0,
             'taxICMS' => 6.0,
             'additionalCosts' => 1.5,
+            '_token' => csrf_token(),
         ];
 
         // Actions
@@ -160,12 +163,14 @@ class CostsControllerTest extends TestCase
     public function test_should_not_update_costs(): void
     {
         // Set
+        Session::start();
         $user = User::factory()->create();
 
         $input = [
             'purchasePrice' => 500.0,
             'taxICMS' => 6.0,
             'additionalCosts' => 1.5,
+            '_token' => csrf_token(),
         ];
 
         // Actions
