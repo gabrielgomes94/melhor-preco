@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Front\Products;
+namespace App\Http\Controllers\Front\Products\Costs;
 
 use App\Http\Controllers\Controller;
 use App\Services\Product\ImportICMS;
 use Illuminate\Http\Request;
+use function view;
 
-class UploadController extends Controller
+class UpdateICMSController extends Controller
 {
     private ImportICMS $importService;
 

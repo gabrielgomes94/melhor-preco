@@ -6,7 +6,7 @@ use App\Http\Controllers\Front\Products\CostsController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use App\Http\Controllers\Front\Products\ReportsController;
 use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
-use App\Http\Controllers\Front\Products\UploadController as ProductsUploadController;
+use App\Http\Controllers\Front\Products\Costs\UpdateICMSController as ProductsUploadController;
 
 Route::middleware('auth')->group(function () {
 
