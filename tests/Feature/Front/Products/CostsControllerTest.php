@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Front\Products;
 
-use App\Models\Product as ProductModel;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -24,8 +24,8 @@ class CostsControllerTest extends TestCase
         ]);
 
         $products = [
-            ProductModel::find('1234')->toDomainObject(),
-            ProductModel::find('1235')->toDomainObject(),
+            Product::find('1234')->toDomainObject(),
+            Product::find('1235')->toDomainObject(),
         ];
         $paginator = new LengthAwarePaginator($products,2, 40, 1, [
                 'path' => 'http://localhost/products/costs/edit',
@@ -53,7 +53,7 @@ class CostsControllerTest extends TestCase
             ['id' => '1234'],
         ]);
 
-        $products = [ProductModel::find('1234')->toDomainObject()];
+        $products = [Product::find('1234')->toDomainObject()];
         $paginator = new LengthAwarePaginator($products,1, 40, 1, [
                 'path' => 'http://localhost/products/costs/edit',
                 'query' => ['sku' => '1234'],
@@ -109,7 +109,7 @@ class CostsControllerTest extends TestCase
         ],ProductFactory::WITH_VARIATIONS);
 
         $products = [
-            ProductModel::find('0001')->toDomainObject(),
+            Product::find('0001')->toDomainObject(),
         ];
 
         // Actions
@@ -128,7 +128,12 @@ class CostsControllerTest extends TestCase
         // Set
         $user = User::factory()->create();
         ProductDataFactory::createCollection([
-            ['id' => '1234'],
+            [
+                'id' => '1234',
+                'purchase_price' => 400.0,
+                'taxICMS' => 12.0,
+                'additionalCosts' => 0,
+            ],
         ]);
 
         $input = [
@@ -142,9 +147,14 @@ class CostsControllerTest extends TestCase
             ->actingAs($user)
             ->put('/products/costs/price_cost/update/1234', $input);
 
+        $product = Product::find('1234')->toDomainObject();
+
         // Assertions
         $response->assertStatus(302);
         $response->assertSessionHas('message', 'Produto 1234 teve seu custo atualizado com sucesso.');
+        $this->assertSame(500.00, $product->costs()->purchasePrice());
+        $this->assertSame(6.00, $product->costs()->taxICMS());
+        $this->assertSame(1.50, $product->costs()->additionalCosts());
     }
 
     public function test_should_not_update_costs(): void
