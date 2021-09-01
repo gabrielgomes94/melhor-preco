@@ -3,30 +3,48 @@
 namespace App\Http\Controllers\Front\Products\Costs;
 
 use App\Http\Controllers\Controller;
-use App\Services\Product\ImportICMS;
+use App\Jobs\Products\Spreadsheets\UploadICMS;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use function view;
 
 class UpdateICMSController extends Controller
 {
-    private ImportICMS $importService;
-
-    public function __construct(ImportICMS $importService)
-    {
-        $this->importService = $importService;
-    }
-
     public function updateICMS()
     {
-        return view('pages.products/upload/upload');
+        return view('pages.products.costs.upload_icms');
     }
 
     public function doUpdateICMS(Request $request)
     {
-        $inputFile = $request->file('file');
+        try {
+            $request->validate([
+                'file' => 'required|file|mimes:csv,txt,xlsx',
+            ]);
 
-        $this->importService->execute($inputFile[0]);
+            UploadICMS::dispatch($this->getFileUrl($request));
 
-        return view('pages.products/upload/upload');
+            session()->flash('message', $this->successfulMessage());
+        } catch (ValidationException $e) {
+            session()->flash('error', 'É necessário enviar um arquivo .xlsx ou .csv.');
+        }
+
+        return view('pages.products.costs.upload_icms');
+    }
+
+    private function getFileUrl(Request $request): string
+    {
+        $file = $request->file('file');
+
+        return Storage::putFileAs(
+            "spreadsheets/products/update_costs",
+            $file,
+            $file->getClientOriginalName());
+    }
+
+    private function successfulMessage(): string
+    {
+        return 'A planilha foi enviada com sucesso para ser processada. Em breve você receberá um email informando o resultado dessa operação.';
     }
 }

@@ -18,18 +18,16 @@ class ImportICMS
         $this->updateService = $updateService;
     }
 
-    public function execute(UploadedFile $file)
+    public function execute(string $filepath)
     {
         $productImport = (new ProductICMSImport());
-        $productImport->import($file);
+        $productImport->import($filepath);
         $products = $productImport->get();
 
         foreach ($products as $product) {
-            if (!$model = $this->finder->getModel($product['sku'])) {
+            if (!$this->finder->getModel($product['sku'])) {
                 continue;
             }
-
-            $productObject = $model->toDomainObject();
 
             $this->updateService->execute(
                 $product['sku'],
