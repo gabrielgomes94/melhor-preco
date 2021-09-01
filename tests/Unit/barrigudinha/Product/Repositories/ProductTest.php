@@ -9,6 +9,9 @@ use Mockery as m;
 use Tests\TestCase;
 use Integrations\Bling\Products\Responses\Product as ProductResponse;
 
+/**
+ * @deprecated
+ */
 class ProductTest extends TestCase
 {
     public function testShouldGetProduct(): void

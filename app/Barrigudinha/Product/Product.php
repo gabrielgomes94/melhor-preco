@@ -1,6 +1,9 @@
 <?php
 namespace App\Barrigudinha\Product;
 
+/**
+ * @deprecated
+ */
 class Product
 {
     /**

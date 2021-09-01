@@ -7,6 +7,9 @@ use Money\Money;
 use Tests\Data\Pricing\ProductData;
 use Tests\TestCase;
 
+/**
+ * @deprecated
+ */
 class CalculationParametersTest extends TestCase
 {
     public function testShouldCalculateCostPrice(): void
