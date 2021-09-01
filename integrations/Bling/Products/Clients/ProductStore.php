@@ -88,6 +88,15 @@ class ProductStore implements ProductStoreInterface
         return $response;
     }
 
+
+    /**
+     * ToDo: Renomear esse método para updatePrice
+     * @param string $sku
+     * @param string $store
+     * @param string $productStoreSku
+     * @param string $priceValue
+     * @return BaseResponse
+     */
     public function update(string $sku, string $store, string $productStoreSku, string $priceValue): BaseResponse
     {
         try {
