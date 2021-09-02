@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\ProductController;
-use App\Http\Controllers\Front\Products\CostsController;
+use App\Http\Controllers\Front\Products\Costs\CostsController;
 use App\Http\Controllers\Front\Products\ProductImageController;
 use App\Http\Controllers\Front\Products\ReportsController;
 use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Front\Products;
+namespace Tests\Feature\Front\Products\Costs;
 
 use App\Models\Product;
 use App\Models\User;
@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Tests\Data\Models\Product\Contracts\ProductFactory;
 use Tests\Data\Models\ProductDataFactory;
 use Tests\TestCase;
+use function csrf_token;
 
 class CostsControllerTest extends TestCase
 {
