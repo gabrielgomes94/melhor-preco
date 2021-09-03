@@ -25,6 +25,7 @@ class Updator
         $model->additional_costs = $product->costs()->additionalCosts();
         $model->tax_icms = $product->costs()->taxICMS();
         $model->name = $product->name();
+        $model->brand = $product->brand();
         $model->depth = $product->dimensions()->depth();
         $model->height = $product->dimensions()->height();
         $model->width = $product->dimensions()->width();

@@ -21,6 +21,7 @@ class Product extends Model
         'erp_id',
         'sku',
         'name',
+        'brand',
         'purchase_price',
         'tax_icms',
         'additional_costs',

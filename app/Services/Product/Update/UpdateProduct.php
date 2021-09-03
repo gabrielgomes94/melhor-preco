@@ -36,6 +36,7 @@ class UpdateProduct
 
         $product->setName($data['name']);
         $product->setActive($data['is_active']);
+        $product->setBrand($data['brand']);
 
         return $this->productUpdator->update($product);
     }
