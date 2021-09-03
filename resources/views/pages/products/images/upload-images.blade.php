@@ -10,26 +10,7 @@
                 <div class="row mt-4">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
-                        <div class="error-container">
-                            <div id="error-box" class="">
-                                <p id="error-box-message" class="text-danger"></p>
-                            </div>
-
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        <p class="text-danger">{{$error}}</p>
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            @isset($data['message'])
-                                <div class="alert alert-primary">
-                                    <p class="text-primary">Upload feito com sucesso. </p>
-                                </div>
-                            @endisset
-                        </div>
-
+                        <x-utils.alert-messages />
 
                         <div class="form-group">
                             <form method="post" action="{{ route('product.images.upload') }}" enctype="multipart/form-data">

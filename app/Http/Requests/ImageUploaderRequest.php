@@ -14,8 +14,6 @@ class ImageUploaderRequest extends FormRequest
     {
         return [
             'sku' => 'required',
-            'description' => 'required',
-            'brand' => 'required',
             'file' => 'array|required',
             'file.*' => 'image'
         ];
@@ -25,8 +23,6 @@ class ImageUploaderRequest extends FormRequest
     {
         return [
             'sku.required' => 'Código SKU deve estar presente',
-            'description.required' => 'Nome deve estar presente',
-            'brand.required' => 'Marca deve estar presente',
             'file.required' => 'Imagens devem estar presentes',
             'file.*.image' => 'O arquivo deve ser uma imagem. Formatos suportados: jpeg, png, bmp, gif, svg, webp',
         ];
