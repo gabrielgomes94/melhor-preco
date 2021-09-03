@@ -1,33 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Front\Products;
+namespace App\Http\Controllers\Front\Products\Images;
 
-use App\Barrigudinha\Product\Product;
-use App\Bling\Product\Services\ImageStorage;
-use App\Bling\Product\Services\ProductUpdater;
 use App\Http\Requests\ImageUploaderRequest;
 use App\Services\Product\Images\StoreImages;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
+use function redirect;
+use function session;
+use function view;
+
 class ProductImageController extends BaseController
 {
-    /**
-     * @var ProductUpdater
-     */
-    private $productService;
-
-    /**
-     * @var ImageStorage
-     */
-    private $imageService;
-
     private StoreImages $storeImages;
 
-    public function __construct(ProductUpdater $productService, ImageStorage $imageService, StoreImages $storeImages)
+    public function __construct(StoreImages $storeImages)
     {
-        $this->productService = $productService;
-        $this->imageService = $imageService;
         $this->storeImages = $storeImages;
     }
 
