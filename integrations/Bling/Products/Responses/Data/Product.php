@@ -74,6 +74,7 @@ class Product
             'erp_id' => $this->erpId,
             'sku' => $this->sku,
             'name' => $this->name,
+            'brand' => $this->brand,
             'purchase_price' => $this->purchasePrice,
             'depth' => $this->depth,
             'height' => $this->height,

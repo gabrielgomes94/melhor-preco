@@ -14,6 +14,9 @@ class Product extends BaseResponse
         $this->data = $data;
     }
 
+    /**
+     * @deprecated
+     */
     public function data(): ProductData
     {
         return $this->data;

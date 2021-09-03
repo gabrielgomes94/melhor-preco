@@ -7,6 +7,7 @@ use Exception;
 use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Requests\GetRequest;
 use Integrations\Bling\Products\Requests\ListRequest;
+use Integrations\Bling\Products\Requests\PostRequest;
 use Integrations\Bling\Products\Requests\PutRequest;
 use Integrations\Bling\Products\Requests\Transformers\ProductStore as ProductStoreTransformer;
 use Integrations\Bling\Products\Responses\BaseResponse;
@@ -20,6 +21,7 @@ class ProductStore implements ProductStoreInterface
 {
     private GetRequest $getRequest;
     private ListRequest $listRequest;
+    private PostRequest $postRequest;
     private PutRequest $putRequest;
     private PriceResponse $priceResponse;
     private ProductCollectionResponse $productCollectionResponse;
@@ -29,6 +31,7 @@ class ProductStore implements ProductStoreInterface
     public function __construct(
         GetRequest $getRequest,
         ListRequest $listRequest,
+        PostRequest $postRequest,
         PutRequest $putRequest,
         PriceResponse $priceResponse,
         ProductCollectionResponse $productCollectionResponse,
@@ -37,6 +40,7 @@ class ProductStore implements ProductStoreInterface
     ) {
         $this->getRequest = $getRequest;
         $this->listRequest = $listRequest;
+        $this->postRequest = $postRequest;
         $this->putRequest = $putRequest;
         $this->priceResponse = $priceResponse;
         $this->productCollectionResponse = $productCollectionResponse;
@@ -88,16 +92,24 @@ class ProductStore implements ProductStoreInterface
         return $response;
     }
 
+    public function update(string $sku, string $xml)
+    {
+        try {
+            $response = $this->postRequest->post($sku, $xml);
+            return $this->productResponse->make($response);
+        } catch (ConnectException $exception) {
+            $response = $this->handleError($this->connectionErrorMessage());
+        } catch (Exception $exception) {
+            $response = $this->handleError($this->bizarreErrorMessage());
+        }
+
+        return $response ?? '';
+    }
 
     /**
      * ToDo: Renomear esse método para updatePrice
-     * @param string $sku
-     * @param string $store
-     * @param string $productStoreSku
-     * @param string $priceValue
-     * @return BaseResponse
      */
-    public function update(string $sku, string $store, string $productStoreSku, string $priceValue): BaseResponse
+    public function updatePrice(string $sku, string $store, string $productStoreSku, string $priceValue): BaseResponse
     {
         try {
             $storeCode = config('stores.' . $store . '.erpCode');
