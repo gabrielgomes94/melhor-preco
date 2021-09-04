@@ -2,7 +2,6 @@
 
 namespace App\Services\Product\Images;
 
-use App\Repositories\Product\GetDB;
 use Illuminate\Support\Facades\Storage;
 use Integrations\Bling\Products\Clients\ProductStore;
 use Integrations\Bling\Products\Responses\Error as ErrorResponse;
