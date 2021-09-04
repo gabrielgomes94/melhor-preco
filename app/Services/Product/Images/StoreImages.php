@@ -3,40 +3,29 @@
 namespace App\Services\Product\Images;
 
 use App\Repositories\Product\GetDB;
-use Barrigudinha\Product\Entities\Product;
 use Illuminate\Support\Facades\Storage;
 use Integrations\Bling\Products\Clients\ProductStore;
-use Integrations\Bling\Products\Responses\Factories\ErrorResponse;
-use Integrations\Bling\Products\Responses\Product as ProductResponse;
+use Integrations\Bling\Products\Responses\Error as ErrorResponse;
 use SimpleXMLElement;
 
 class StoreImages
 {
-    private GetDB $finder;
     private ProductStore $client;
 
-    public function __construct(GetDB $finder, ProductStore $client)
+    public function __construct(ProductStore $client)
     {
-        $this->finder = $finder;
         $this->client = $client;
     }
 
-    public function execute(string $sku, array $images): bool
+    public function execute(string $sku, string $name, string $brand, array $images): bool
     {
-        $response = $this->client->get($sku);
-
-        if (!$response instanceof ProductResponse) {
-            throw new \Exception('Produto não encontrado');
-        }
-
-        $data = $response->data()->toArray();
-        $path = $this->getPath($data['sku'], $data['name'], $data['brand']);
+        $path = $this->getPath($sku, $name, $brand);
         $urls = $this->storeImages($path, $images);
 
-        $updateResponse = $this->client->update($data['sku'], $this->getXML($urls));
+        $updateResponse = $this->client->update($sku, $this->getXML($urls));
 
         if ($updateResponse instanceof ErrorResponse) {
-            throw new \Exception("Erro: produto não foi enviado para o Bling");
+            throw new \Exception("Erro: produto não foi enviado para o Bling.");
         }
 
         return true;

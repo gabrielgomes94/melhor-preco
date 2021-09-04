@@ -14,8 +14,17 @@ class ImageUploaderRequest extends FormRequest
     {
         return [
             'sku' => 'required',
-            'file' => 'array|required',
-            'file.*' => 'image'
+            'name' => 'required',
+            'brand' => 'required',
+            'images' => 'array|required',
+            'images.*' => 'image'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'brand' => 'marca',
         ];
     }
 
@@ -23,8 +32,8 @@ class ImageUploaderRequest extends FormRequest
     {
         return [
             'sku.required' => 'Código SKU deve estar presente',
-            'file.required' => 'Imagens devem estar presentes',
-            'file.*.image' => 'O arquivo deve ser uma imagem. Formatos suportados: jpeg, png, bmp, gif, svg, webp',
+            'images.required' => 'Imagens devem estar presentes',
+            'images.*.image' => 'O arquivo deve ser uma imagem. Formatos suportados: jpeg, png, bmp, gif, svg, webp',
         ];
     }
 }
