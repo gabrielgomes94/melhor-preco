@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Front\Products\StockTag\StockTagController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\Products\Costs\CostsController;
 use App\Http\Controllers\Front\Products\Images\ProductImageController;
+use App\Http\Controllers\Front\Products\Reports\ProductController;
 use App\Http\Controllers\Front\Products\ReportsController;
 use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
 use App\Http\Controllers\Front\Products\Costs\UpdateICMSController as ProductsUploadController;
@@ -19,8 +20,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/product/{sku}/stock', [ProductController::class, 'get'])->name('product.show');
-    Route::get('/product/qr_codes', [ProductController::class, 'createQrCode'])->name('product.qr_codes');
-    Route::post('/product/qr_codes/new', [ProductController::class, 'generateQrCode']);
+    Route::get('/product/qr_codes', [StockTagController::class, 'createQrCode'])->name('product.qr_codes');
+    Route::post('/product/qr_codes/new', [StockTagController::class, 'generateQrCode']);
 
     Route::prefix('products')
         ->name('products')
