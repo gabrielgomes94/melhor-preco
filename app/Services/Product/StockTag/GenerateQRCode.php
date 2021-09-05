@@ -3,6 +3,7 @@
 namespace App\Services\Product\StockTag;
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 use function route;
 
 class GenerateQRCode
@@ -11,8 +12,8 @@ class GenerateQRCode
     {
         $qrCodes = [];
 
-        foreach($products as $product) {
-            for($i = 0; $i < $product['stock']; $i++) {
+        foreach ($products as $product) {
+            for ($i = 0; $i < $product['stock']; $i++) {
                 $productLink = route('products.reports.show', ['sku' => $product['sku']]);
 
                 $qrCodes[] = [
