@@ -3,11 +3,14 @@
 namespace Tests\Feature\Front\Products\StockTag;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Tests\TestCase;
 
 class StockTagControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_should_render_create_qr_code_page(): void
     {
         // Set

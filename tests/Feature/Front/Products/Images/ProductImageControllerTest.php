@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +16,8 @@ use Tests\TestCase;
 
 class ProductImageControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_should_upload_images(): void
     {
         // Set
