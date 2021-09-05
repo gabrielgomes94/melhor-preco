@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Front\Products\StockTag\StockTagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Products\Costs\CostsController;
 use App\Http\Controllers\Front\Products\Images\ProductImageController;
+use App\Http\Controllers\Front\Products\Reports\DimensionsController;
 use App\Http\Controllers\Front\Products\Reports\ProductController;
-use App\Http\Controllers\Front\Products\ReportsController;
+use App\Http\Controllers\Front\Products\StockTag\StockTagController;
 use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
 use App\Http\Controllers\Front\Products\Costs\UpdateICMSController as ProductsUploadController;
 
@@ -25,7 +25,6 @@ Route::middleware('auth')->group(function () {
             Route::put('/sync', [ProductSyncronizationController::class, 'doSync'])->name('.doSync');
             Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
             Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
-            Route::get('/reports/over-dimension', [ReportsController::class, 'overDimension'])->name('.reports.overDimension');
 
             Route::prefix('/stock_tags')
                 ->name('.stock_tags')
@@ -37,7 +36,10 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/reports')
                 ->name('.reports')
                 ->group(function () {
-                    Route::get('/{sku}', [ProductController::class, 'get'])->name('.show');
+                    Route::get('/show-info/{sku}', [ProductController::class, 'get'])->name('.show');
+
+                    Route::get('/over_dimension', [DimensionsController::class, 'overDimension'])
+                        ->name('.overDimension');
                 });
 
             Route::prefix('/costs')

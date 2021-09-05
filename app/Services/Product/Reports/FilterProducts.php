@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Front\Products;
+namespace App\Services\Product\Reports;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Product\ListDB;
-use Illuminate\Http\Request;
 
-class ReportsController extends Controller
+class FilterProducts
 {
     private ListDB $repository;
 
@@ -15,13 +13,13 @@ class ReportsController extends Controller
         $this->repository = $repository;
     }
 
-    public function overDimension(Request $request)
+    public function getOverDimensions(): array
     {
         $products = $this->repository->all();
-        $overDimensionProducts = [];
 
         foreach ($products as $product) {
             $dimension = $product->dimensions();
+
             if (
                 $dimension->depth() > 90 ||
                 $dimension->width() > 90 ||
@@ -31,11 +29,8 @@ class ReportsController extends Controller
                 $overDimensionProducts[] = $product;
             }
         }
-//        dd($overDimensionProducts);
 
-        return view(
-            'pages.products.reports.over_dimension',
-            ['overDimensionProducts' => $overDimensionProducts]
-        );
+        return $overDimensionProducts ?? [];
     }
+
 }
