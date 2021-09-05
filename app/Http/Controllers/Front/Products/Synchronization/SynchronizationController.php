@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Front\Products;
+namespace App\Http\Controllers\Front\Products\Synchronization;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SyncProducts;
 use Illuminate\Http\Request;
+use function view;
 
-class SyncronizationController extends Controller
+class SynchronizationController extends Controller
 {
     private SyncProducts $job;
 

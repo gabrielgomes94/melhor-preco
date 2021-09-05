@@ -6,7 +6,7 @@ use App\Http\Controllers\Front\Products\Images\ProductImageController;
 use App\Http\Controllers\Front\Products\Reports\DimensionsController;
 use App\Http\Controllers\Front\Products\Reports\ProductController;
 use App\Http\Controllers\Front\Products\StockTag\StockTagController;
-use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncronizationController;
+use App\Http\Controllers\Front\Products\Synchronization\SynchronizationController;
 use App\Http\Controllers\Front\Products\Costs\UpdateICMSController as ProductsUploadController;
 
 Route::middleware('auth')->group(function () {
@@ -21,8 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('products')
         ->name('products')
         ->group(function () {
-            Route::get('/sync', [ProductSyncronizationController::class, 'sync'])->name('.sync');
-            Route::put('/sync', [ProductSyncronizationController::class, 'doSync'])->name('.doSync');
+            Route::get('/sync', [SynchronizationController::class, 'sync'])->name('.sync');
+            Route::put('/sync', [SynchronizationController::class, 'doSync'])->name('.doSync');
             Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
             Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services\Product\Synchronization;
 
 use App\Repositories\Pricing\Product\Creator;
 use App\Repositories\Product\GetDB;
