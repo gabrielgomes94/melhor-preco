@@ -47,19 +47,19 @@ class StockTagControllerTest extends TestCase
 
         $expected = [
             [
-                'qrCode' => QrCode::generate('http://localhost/products/reports/2907'),
+                'qrCode' => QrCode::generate('http://localhost/products/reports/show_info/2907'),
                 'sku' => '2907',
                 'stock' => '1',
                 'name' => 'Cadeirinha Recline Ssfety 1ST',
             ],
             [
-                'qrCode' => QrCode::generate('http://localhost/products/reports/2908'),
+                'qrCode' => QrCode::generate('http://localhost/products/reports/show_info/2908'),
                 'sku' => '2908',
                 'stock' => '2',
                 'name' => 'Cadeirinha Legacy Voyage Preto',
             ],
             [
-                'qrCode' => QrCode::generate('http://localhost/products/reports/2908'),
+                'qrCode' => QrCode::generate('http://localhost/products/reports/show_info/2908'),
                 'sku' => '2908',
                 'stock' => '2',
                 'name' => 'Cadeirinha Legacy Voyage Preto',

@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/reports')
                 ->name('.reports')
                 ->group(function () {
-                    Route::get('/show-info/{sku}', [ProductController::class, 'get'])->name('.show');
+                    Route::get('/show_info/{sku}', [ProductController::class, 'get'])->name('.show');
 
                     Route::get('/over_dimension', [DimensionsController::class, 'overDimension'])
                         ->name('.overDimension');
