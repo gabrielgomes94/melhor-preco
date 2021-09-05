@@ -30,12 +30,12 @@ class Product
         $this->brand = $data['brand'];
         $this->images = $data['images'] ?? [];
         $this->stock = $data['stock'];
-        $this->purchasePrice = $data['purchasePrice'];
-        $this->price = $data['price'];
-        $this->depth = $data['depth'];
-        $this->height = $data['height'];
-        $this->width = $data['width'];
-        $this->weight = $data['weight'];
+        $this->purchasePrice = (float) $data['purchasePrice'] ?? 0.0;
+        $this->price = (float) $data['price'];
+        $this->depth = (float) $data['depth'];
+        $this->height = (float) $data['height'];
+        $this->width = (float) $data['width'];
+        $this->weight = (float) $data['weight'];
         $this->parentSku = $data['parentSku'] ?? null;
         $this->hasVariations = $data['hasVariations'] ?? false;
         $this->compositionProducts = $data['compositionProducts'] ?? [];
@@ -74,6 +74,7 @@ class Product
             'erp_id' => $this->erpId,
             'sku' => $this->sku,
             'name' => $this->name,
+            'brand' => $this->brand,
             'purchase_price' => $this->purchasePrice,
             'depth' => $this->depth,
             'height' => $this->height,
@@ -84,6 +85,7 @@ class Product
             'stores' => $this->getStores(),
             'composition_products' => $this->compositionProducts,
             'is_active' => $this->isActive,
+            'stock' => $this->stock,
         ];
     }
 

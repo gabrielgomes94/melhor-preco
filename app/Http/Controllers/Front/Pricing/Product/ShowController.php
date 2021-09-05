@@ -7,7 +7,7 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use App\Models\Pricing;
 use App\Presenters\Pricing\Product\Presenter;
 use App\Repositories\Pricing\PriceListRepository;
-use App\Repositories\Product\FinderDB as ProductRepository;
+use App\Repositories\Product\GetDB;
 use Barrigudinha\Pricing\PostPriced\Services\CreatePostPriced;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
@@ -16,14 +16,14 @@ use Illuminate\Contracts\View\View;
 class ShowController extends Controller
 {
     private PriceListRepository $priceListRepository;
-    private ProductRepository $repository;
+    private GetDB $repository;
     private Presenter $presenter;
     private CreatePostPriced $createPostPriced;
     private Breadcrumb $breadcrumb;
 
     public function __construct(
         PriceListRepository $priceListRepository,
-        ProductRepository $repository,
+        GetDB $repository,
         Presenter $presenter,
         CreatePostPriced $createPostPriced,
         Breadcrumb $breadcrumb

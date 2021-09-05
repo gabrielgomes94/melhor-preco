@@ -7,7 +7,7 @@
                 <a class="nav-link" href={{ route('product.images.upload_form')  }}>Upload de Imagens</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={{ route('product.qr_codes') }}>Geração de QR Codes</a>
+                <a class="nav-link" href={{ route('products.stock_tags.index') }}>Geração de QR Codes</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{ route('pricing.priceList.index') }}>Precificação</a>

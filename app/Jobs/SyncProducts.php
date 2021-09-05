@@ -2,15 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Services\Product\Synchronize;
+use App\Services\Product\Synchronization\Synchronize;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SyncProducts implements ShouldQueue, ShouldBeUnique
+class SyncProducts implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,9 +19,7 @@ class SyncProducts implements ShouldQueue, ShouldBeUnique
      * @return void
      */
     public function __construct()
-    {
-
-    }
+    {}
 
     /**
      * Execute the job.

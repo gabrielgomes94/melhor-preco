@@ -3,7 +3,7 @@
 namespace App\Repositories\Pricing\Product\Filters;
 
 use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Repositories\Contracts\Options;
+use Barrigudinha\Product\Utils\Contracts\Options;
 
 class MarginRange
 {

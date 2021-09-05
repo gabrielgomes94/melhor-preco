@@ -26,7 +26,7 @@ class UpdateERP implements UpdateERPInterface
             return true;
         }
 
-        $response = $this->client->update(
+        $response = $this->client->updatePrice(
             $sku,
             $post->store()->slug(),
             $post->store()->storeSkuId(),

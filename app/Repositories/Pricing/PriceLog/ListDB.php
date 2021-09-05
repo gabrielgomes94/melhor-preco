@@ -5,28 +5,22 @@ namespace App\Repositories\Pricing\PriceLog;
 use App\Factories\Pricing\PriceLog\PriceLog;
 use App\Models\Product as ProductModel;
 use App\Repositories\Product\BaseList;
-use App\Repositories\Product\Options\Options;
 use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Repositories\Contracts\Options as OptionsInterface;
+use Barrigudinha\Product\Utils\Contracts\Options;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListDB extends BaseList
 {
-    public function count(?OptionsInterface $options = null): int
+    public function count(Options $options): int
     {
-        // TODO: Implement count() method.
+        return $this->query($options)->count();
     }
 
     protected function get(?Options $options = null): array
     {
-        $store = $options?->store();
-
-        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-            ->whereNull('parent_sku')
-            ->where('is_active', true)
-            ->where('prices.store', $store)
-            ->orderBy('prices.updated_at', 'desc')
+        return $this->query($options)
             ->paginate(perPage: $options->perPage(), page: $options->page())
-            ->all();
+            ->items();
     }
 
     protected function map(array $products, Options $options): ProductsCollection
@@ -36,5 +30,14 @@ class ListDB extends BaseList
         }, $products);
 
         return new ProductsCollection($products);
+    }
+
+    private function query(Options $options): Builder
+    {
+        return ProductModel::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+            ->whereNull('parent_sku')
+            ->where('is_active', true)
+            ->where('prices.store', $options->store())
+            ->orderBy('prices.updated_at', 'desc');
     }
 }

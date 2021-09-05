@@ -10,48 +10,30 @@
                 <div class="row mt-4">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
-                        <div class="error-container">
-                            <div id="error-box" class="">
-                                <p id="error-box-message" class="text-danger"></p>
-                            </div>
-
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        <p class="text-danger">{{$error}}</p>
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            @isset($data['message'])
-                                <div class="alert alert-primary">
-                                    <p class="text-primary">Upload feito com sucesso. </p>
-                                </div>
-                            @endisset
-                        </div>
-
+                        <x-utils.alert-messages />
 
                         <div class="form-group">
                             <form method="post" action="{{ route('product.images.upload') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group ">
-                                    <label for="codigo">Código SKU</label>
-                                    <input type="text" class="form-control input-sku" id="name" placeholder="Código SKU" name="sku">
+                                    <label for="sku">Código SKU</label>
+                                    <input type="text" class="form-control input-sku" id="sku" placeholder="Código SKU" name="sku">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="descricao">Nome</label>
-                                    <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="description" readonly>
+                                    <label for="name">Nome</label>
+                                    <input type="text" class="form-control input-name" id="name" placeholder="Nome" name="name" readonly>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="marca">Marca</label>
-                                    <input type="text" class="form-control input-brand" id="name" placeholder="Marca" name="brand">
+                                    <input type="text" class="form-control input-brand" id="brand" placeholder="Marca" name="brand">
                                 </div>
 
                                 <div class="form-group">
-                                    <input name="file[]" type="file" class="input-file" multiple />
+                                    <label for="imagens">Imagens</label>
+                                    <input name="images[]" type="file" class="input-file" id="imagens" multiple />
                                     <div class="preview-image d-flex" ></div>
                                 </div>
 

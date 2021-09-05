@@ -4,35 +4,38 @@ namespace App\Http\Controllers\Front\Pricing\PriceLog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\Breadcrumb;
+use App\Http\Requests\Pricing\PriceLog\PriceLogRequest;
 use App\Presenters\Store\Presenter;
-use App\Repositories\Pricing\PriceLog\ListDB;
-use App\Repositories\Product\Options\Options;
-use App\Repositories\Store\Store;
-use Illuminate\Http\Request;
+use App\Presenters\Store\Store;
+use App\Services\Pricing\PriceLog\ListProducts;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PriceLogController extends Controller
 {
     private Breadcrumb $breadcrumb;
-    private ListDB $repository;
     private Presenter $storePresenter;
+    private ListProducts $listProductsService;
 
-    public function __construct(Breadcrumb $breadcrumb, ListDB $repository, Presenter $storePresenter)
+    public function __construct(Breadcrumb $breadcrumb, Presenter $storePresenter, ListProducts $listProductsService)
     {
         $this->breadcrumb = $breadcrumb;
-        $this->repository = $repository;
         $this->storePresenter = $storePresenter;
+        $this->listProductsService = $listProductsService;
     }
 
-    public function lastUpdatedProducts(string $storeSlug, Request $request)
+    public function lastUpdatedProducts(string $storeSlug, PriceLogRequest $request)
     {
-        $options = new Options([
-            'page' => 1,
-            'store' => $storeSlug,
-        ]);
+        $options = $request->getOptions();
+        $options->setStore($storeSlug);
 
-        $products = $this->repository->list($options);
-        $store = $this->storePresenter->present($storeSlug);
-        $breadcrumb = $this->breadcrumb->generate(
+        $products = $this->listProductsService->listPaginate($options);
+
+        return view('pages.pricing.price-log.last-updated-products', $this->viewData($storeSlug, $products));
+    }
+
+    private function getBreadcrumb(Store $store): array
+    {
+        return $this->breadcrumb->generate(
             Breadcrumb::priceListIndex(),
             Breadcrumb::priceListByStore($store->name(), $store->slug()),
             [
@@ -40,11 +43,18 @@ class PriceLogController extends Controller
                 'name' => 'Histórico de Atualizações',
             ]
         );
+    }
 
-        return view('pages.pricing.price-log.last-updated-products', [
+    private function viewData(string $storeSlug, LengthAwarePaginator $paginator): array
+    {
+        $store = $this->storePresenter->present($storeSlug);
+        $breadcrumb = $this->getBreadcrumb($store);
+
+        return [
             'breadcrumb' => $breadcrumb,
-            'products' => $products,
+            'products' => $paginator->items(),
+            'paginator' => $paginator,
             'store' => $store,
-        ]);
+        ];
     }
 }

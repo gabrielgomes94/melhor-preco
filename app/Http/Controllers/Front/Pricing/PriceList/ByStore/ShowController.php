@@ -4,55 +4,43 @@ namespace App\Http\Controllers\Front\Pricing\PriceList\ByStore;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\Breadcrumb;
-use App\Http\Controllers\Utils\Paginator;
+use App\Http\Requests\Pricing\PriceList\ByStore\ShowRequest;
 use App\Presenters\Pricing\Product\Presenter as ProductPresenter;
 use App\Presenters\Store\Presenter as StorePresenter;
 use App\Presenters\Store\Store;
-use App\Repositories\Pricing\Product\ListDB;
-use App\Repositories\Product\Options\Options;
+use App\Services\Pricing\Products\ListProducts;
+use Barrigudinha\Product\Entities\ProductsCollection;
+use Barrigudinha\Product\Utils\Contracts\Options;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ShowController extends Controller
 {
-    private ListDB $productRepository;
     private StorePresenter $storePresenter;
     private ProductPresenter $productPresenter;
-    private Paginator $paginator;
     private Breadcrumb $breadcrumb;
+    private ListProducts $listProductsService;
 
     public function __construct(
-        ListDB $productRepository,
         StorePresenter $storePresenter,
         ProductPresenter $productPresenter,
-        Paginator $paginator,
-        Breadcrumb $breadcrumb
+        Breadcrumb $breadcrumb,
+        ListProducts $listProductsService
     ) {
-        $this->productRepository = $productRepository;
         $this->storePresenter = $storePresenter;
         $this->productPresenter = $productPresenter;
-        $this->paginator = $paginator;
         $this->breadcrumb = $breadcrumb;
+        $this->listProductsService = $listProductsService;
     }
 
     /**
      * @return Application|Factory|View
      */
-    public function show(string $store, Request $request)
+    public function show(string $store, ShowRequest $request)
     {
-        $options = $this->setOptions($request, $store);
-        $products = $this->productRepository->list($options);
-        $store = $this->storePresenter->present($store);
-        $productsPresented = $this->productPresenter->list($products, $store->slug());
-
-        $paginator = $this->paginator->paginate(
-            array: $productsPresented,
-            request: $request,
-            count: $this->productRepository->count($options)
-        );
+        $paginator = $this->listProductsService->listPaginate($this->getOptions($store, $request));
 
         return view('pages.pricing.price-list.stores.show', $this->viewData($store, $request, $paginator));
     }
@@ -65,29 +53,25 @@ class ShowController extends Controller
         );
     }
 
-    private function setOptions(Request $request, string $store): Options
+    private function getOptions(string $store, ShowRequest $request): Options
     {
-        $data = [
-            'minimumProfit' => $request->input('minProfit') ?? null,
-            'maximumProfit' => $request->input('maxProfit') ?? null,
-            'filterKits' => (bool) $request->input('filterKits') ?? false,
-            'store' => $store,
-            'page' => $request->input('page'),
-            'sku'=> $request->input('sku') ?? null,
-        ];
+        $options = $request->getOptions();
+        $options->setStore($store);
 
-        return new Options($data);
+        return $options;
     }
 
-    /**
-     */
-    private function viewData(Store $store, Request $request, $paginator): array
+    private function viewData(string $store, ShowRequest $request, LengthAwarePaginator $paginator): array
     {
+        $store = $this->storePresenter->present($store);
+        $collection = new ProductsCollection($paginator->items());
+        $productsPresented = $this->productPresenter->list($collection, $store->slug());
+
         return [
             'store' => $store,
             'breadcrumb' => $this->getBreadcrumb($store),
             'paginator' => $paginator,
-            'products' => $paginator->items(),
+            'products' => $productsPresented,
             'minimumProfit' => $request->input('minProfit') ?? '',
             'maximumProfit' => $request->input('maxProfit') ?? '',
             'sku' => $request->input('sku') ?? '',

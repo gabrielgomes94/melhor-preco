@@ -54,7 +54,7 @@ class Product
 
     private static function getImages(array $product): array
     {
-        if ($product['imagem']) {
+        if (isset($product['imagem']) && $product['imagem']) {
             $images = array_map(function (array $image) {
                 return $image['link'];
             }, $product['imagem']);

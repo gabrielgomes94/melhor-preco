@@ -95,17 +95,9 @@ class Product
         $this->stores[] = $storeInfo;
     }
 
-    public function toPricing(): PricingProduct
+    public function brand(): string
     {
-        return new PricingProduct([
-            'name' => $this->name,
-            'sku' => $this->sku,
-            'purchase_price' => $this->purchasePrice ?? 0.0,
-            'stores' => $this->stores,
-            'depth' => $this->dimensions->depth(),
-            'height' => $this->dimensions->height(),
-            'width' => $this->dimensions->width(),
-        ]);
+        return $this->brand;
     }
 
     public function compositionProducts(): array
@@ -125,6 +117,11 @@ class Product
         }
 
         return $this->costs;
+    }
+
+    public function images(): array
+    {
+        return $this->images;
     }
 
     public function isActive(): bool
@@ -257,9 +254,19 @@ class Product
         }
     }
 
-    public function setDimensions(Dimensions $dimensions)
+    public function setBrand(string $brand): void
+    {
+        $this->brand = $brand;
+    }
+
+    public function setDimensions(Dimensions $dimensions): void
     {
         $this->dimensions = $dimensions;
+    }
+
+    public function setImages(array $images): void
+    {
+        $this->images = $images;
     }
 
     public function setName(string $name): void

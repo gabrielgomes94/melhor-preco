@@ -6,6 +6,9 @@ use Barrigudinha\Pricing\Data\CalculatedPrice;
 use Money\Money;
 use Tests\TestCase;
 
+/**
+ * @deprecated
+ */
 class CalculatedPriceTest extends TestCase
 {
     public function testShouldInstantiate()

@@ -27,6 +27,7 @@ class Creator
             'erp_id' => $data['erp_id'],
             'sku' => $data['sku'],
             'name' => $data['name'],
+            'brand' => $data['brand'],
             'purchase_price' => $data['purchase_price'],
             'depth' => $data['depth'],
             'height' => $data['height'],

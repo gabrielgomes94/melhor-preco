@@ -32,9 +32,7 @@ class Repository implements RepositoryInterface
     public function get(string $sku, array $stores = []): Response
     {
         if (!$stores) {
-            $response = $this->client->get($sku);
-
-            return $this->productResponse->make($response);
+            return $this->client->get($sku);
         }
 
         foreach ($stores as $store) {

@@ -15,6 +15,8 @@
                 <div class="d-flex justify-content-between">
                     <x-pricing.price-log.table :products="$products"/>
                 </div>
+
+                <x-utils.paginator-links :paginator="$paginator"/>
             </div>
         </div>
     </div>
