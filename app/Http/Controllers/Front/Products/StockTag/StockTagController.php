@@ -17,7 +17,7 @@ class StockTagController extends Controller
 
     public function createQrCode(Request $request)
     {
-        return view('pages.products/generate_qr_code');
+        return view('pages.products.stock_tags.generate_qr_code');
     }
 
     public function generateQrCode(Request $request)
@@ -25,6 +25,6 @@ class StockTagController extends Controller
         $products = $request->input('products');
         $qrCodes = $this->generateQRCodeService->generate($products);
 
-        return view('pages.products/qr_codes/list', ['products' => $qrCodes]);
+        return view('pages.products.stock_tags.list', ['products' => $qrCodes]);
     }
 }

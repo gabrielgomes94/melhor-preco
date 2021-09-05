@@ -23,12 +23,12 @@ class ProductController extends Controller
         if ($response instanceof Error) {
             $errors = $this->transformErrors($response->errors());
 
-            return view('pages.products/get_with_stock', ['errors' => $errors]);
+            return view('pages.products.repo rts.get_with_stock', ['errors' => $errors]);
         }
 
         $product = $this->transform($response->data()->toArray());
 
-        return view('pages.products/get_with_stock', ['product' => $product]);
+        return view('pages.products.reports.get_with_stock', ['product' => $product]);
     }
 
     private function transform(array $data): array

@@ -25289,7 +25289,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var generateQRCodeForm = function generateQRCodeForm() {
   var i = 0;
 
-  if (window.location.pathname !== '/product/qr_codes') {
+  if (window.location.pathname !== '/products/stock_tags') {
     return;
   }
 
@@ -25382,9 +25382,9 @@ var generateQRCodeForm = function generateQRCodeForm() {
   }
 
   function updateTableRow(cells) {
-    cells.name.innerText = generateQRCode.input.name.value;
-    cells.sku.innerHTML = "<input type='number' name='products[" + i + "][sku]' value=" + generateQRCode.input.sku.value + ">";
-    cells.stock.innerHTML = "<input type='number' name='products[" + i + "][stock]' value=" + generateQRCode.input.stockAmount.value + ">";
+    cells.name.innerHTML = "<input type='text' name='products[" + i + "][name]' value='" + generateQRCode.input.name.value + "'>";
+    cells.sku.innerHTML = "<input type='number' name='products[" + i + "][sku]' value='" + generateQRCode.input.sku.value + "'>";
+    cells.stock.innerHTML = "<input type='number' name='products[" + i + "][stock]' value='" + generateQRCode.input.stockAmount.value + "'>";
     return cells;
   }
 

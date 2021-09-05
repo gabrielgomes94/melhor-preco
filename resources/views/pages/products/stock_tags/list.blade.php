@@ -13,8 +13,17 @@
                     @foreach ($products as $product)
                         <div class="border-qr-code">
                             <div class="m-4">
-                                <p>{{ $product['sku'] }}</p>
-                                {{ $product['qrCode'] }}
+                                <div class="fs-5" style="width: 6rem;">
+                                    {{ $product['sku'] }}
+                                </div>
+
+                                <div class="mb-1 mt-1">
+                                    {{ $product['qrCode'] }}
+                                </div>
+
+                                <div class="text-wrap" style="width: 6.5rem; font-size: 0.9rem;">
+                                    {{ $product['name'] }}
+                                </div>
                             </div>
                         </div>
                     @endforeach

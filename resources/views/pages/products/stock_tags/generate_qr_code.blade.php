@@ -54,7 +54,7 @@
             <div class="row mt-4">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form action="qr_codes/new" method="post">
+                    <form action="{{ route('products.stock_tags.generate') }}" method="post">
                         @csrf
                         <table class="table">
                             <thead>

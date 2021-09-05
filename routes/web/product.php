@@ -10,7 +10,6 @@ use App\Http\Controllers\Front\Products\SyncronizationController as ProductSyncr
 use App\Http\Controllers\Front\Products\Costs\UpdateICMSController as ProductsUploadController;
 
 Route::middleware('auth')->group(function () {
-
     Route::prefix('product')->group(function () {
         Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
             ->name('product.images.upload_form');
@@ -18,10 +17,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/file-upload', [ProductImageController::class, 'upload'])
             ->name('product.images.upload');
     });
-
-    Route::get('/product/{sku}/stock', [ProductController::class, 'get'])->name('product.show');
-    Route::get('/product/qr_codes', [StockTagController::class, 'createQrCode'])->name('product.qr_codes');
-    Route::post('/product/qr_codes/new', [StockTagController::class, 'generateQrCode']);
 
     Route::prefix('products')
         ->name('products')
@@ -31,6 +26,19 @@ Route::middleware('auth')->group(function () {
             Route::get('/update_icms', [ProductsUploadController::class, 'updateICMS'])->name('.updateICMS');
             Route::put('/update_icms/spreadsheet', [ProductsUploadController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
             Route::get('/reports/over-dimension', [ReportsController::class, 'overDimension'])->name('.reports.overDimension');
+
+            Route::prefix('/stock_tags')
+                ->name('.stock_tags')
+                ->group(function () {
+                    Route::get('/', [StockTagController::class, 'createQrCode'])->name('.index');
+                    Route::post('/generate', [StockTagController::class, 'generateQrCode'])->name('.generate');
+                });
+
+            Route::prefix('/reports')
+                ->name('.reports')
+                ->group(function () {
+                    Route::get('/{sku}', [ProductController::class, 'get'])->name('.show');
+                });
 
             Route::prefix('/costs')
                 ->name('.costs')

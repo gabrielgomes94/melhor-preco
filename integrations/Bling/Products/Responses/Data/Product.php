@@ -85,6 +85,7 @@ class Product
             'stores' => $this->getStores(),
             'composition_products' => $this->compositionProducts,
             'is_active' => $this->isActive,
+            'stock' => $this->stock,
         ];
     }
 
