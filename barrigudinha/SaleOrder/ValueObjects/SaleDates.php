@@ -17,6 +17,11 @@ class SaleDates
         $this->expectedArrivalAt = $expectedArrivalAt;
     }
 
+    public function selledAt(): Carbon
+    {
+        return $this->selledAt;
+    }
+
     public function toArray(): array
     {
         return [

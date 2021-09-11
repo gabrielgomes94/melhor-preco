@@ -2,17 +2,11 @@
 
 namespace Barrigudinha\SaleOrder\ValueObjects;
 
-/**
- * To Do: Tornar esse objeto um Iterator
- */
-class Items
+use Barrigudinha\Utils\BaseIterator;
+
+class Items extends BaseIterator
 {
     private array $items;
-
-    public function __construct(array $items)
-    {
-        $this->build($items);
-    }
 
     public function toArray(): array
     {
@@ -21,12 +15,14 @@ class Items
         }, $this->items);
     }
 
-    private function build(array $items)
+    protected  function build(array $data): array
     {
-        foreach ($items as $item) {
+        foreach ($data as $item) {
             if ($item instanceof Item) {
-                $this->items[] = $item;
+                $items[] = $item;
             }
         }
+
+        return $items ?? [];
     }
 }

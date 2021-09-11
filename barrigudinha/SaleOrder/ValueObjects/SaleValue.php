@@ -17,6 +17,11 @@ class SaleValue
         $this->totalValue = $totalValue;
     }
 
+    public function totalValue(): float
+    {
+        return $this->totalValue;
+    }
+
     public function toArray(): array
     {
         return [

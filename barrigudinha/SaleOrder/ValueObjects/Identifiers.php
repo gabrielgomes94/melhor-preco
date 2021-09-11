@@ -24,6 +24,16 @@ class Identifiers
         $this->storeSaleOrderId = $storeSaleOrderId;
     }
 
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function storeId(): ?string
+    {
+        return $this->storeId;
+    }
+
     public function toArray(): array
     {
         return [

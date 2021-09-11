@@ -24,6 +24,11 @@ class Item
         $this->discount = $discount;
     }
 
+    public function sku(): string
+    {
+        return $this->sku;
+    }
+
     public function toArray(): array
     {
         return [

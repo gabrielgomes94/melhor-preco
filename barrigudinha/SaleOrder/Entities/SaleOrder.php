@@ -61,4 +61,29 @@ class SaleOrder
             'shipment' => $this->shipment->toArray(),
         ];
     }
+
+    public function identifiers(): Identifiers
+    {
+        return $this->identifiers;
+    }
+
+    public function saleDates(): SaleDates
+    {
+        return $this->saleDates;
+    }
+
+    public function saleValue(): SaleValue
+    {
+        return $this->saleValue;
+    }
+
+    public function items(): Items
+    {
+        return $this->items;
+    }
+
+    public function status(): Status
+    {
+        return $this->status;
+    }
 }

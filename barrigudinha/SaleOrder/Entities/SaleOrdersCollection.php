@@ -16,4 +16,13 @@ class SaleOrdersCollection extends BaseIterator
 
         return $saleOrders ?? [];
     }
+
+    public function toArray(): array
+    {
+        foreach ($this->objects as $saleOrder) {
+            $saleOrders[] = $saleOrder->toArray();
+        }
+
+        return $saleOrders ?? [];
+    }
 }
