@@ -29,7 +29,8 @@ class ListController extends Controller
         $saleOrders = $this->service->listSaleOrder($response->data());
 
         return view('pages.sales.list', [
-            'saleOrders' => $saleOrders,
+            'saleOrders' => $saleOrders['saleOrders'],
+            'total' => $saleOrders['total'],
         ]);
     }
     //

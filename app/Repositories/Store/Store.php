@@ -40,4 +40,17 @@ class Store implements StoreRepository
 
         return '';
     }
+
+    public function getSlugFromCode(?string $erpCode): ?string
+    {
+        $stores = config('stores');
+
+        foreach ($stores as $store) {
+            if ($store['erpCode'] === $erpCode) {
+                return $store['slug'];
+            }
+        }
+
+        return null;
+    }
 }

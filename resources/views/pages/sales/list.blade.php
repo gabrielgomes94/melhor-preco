@@ -34,11 +34,24 @@
                             <td>{{ $saleOrder['selledAt'] }}</td>
                             <td>{{ $saleOrder['store'] }}</td>
                             <td>{{ $saleOrder['status'] }}</td>
-                            <td>{{ $saleOrder['skus'] }}</td>
-                            <td>{{ $saleOrder['totalValue'] }}</td>
+                            <td class="text-break">{{ $saleOrder['skus'] }}</td>
+                            <td>
+                                {{ $saleOrder['value'] }}
+                            </td>
                             <td>{{ $saleOrder['profit'] }}</td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-break"></td>
+                            <td>
+                                {{ $total['value'] }}
+                            </td>
+                            <td>{{ $total['profit'] }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

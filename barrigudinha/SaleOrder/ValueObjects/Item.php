@@ -29,6 +29,21 @@ class Item
         return $this->sku;
     }
 
+    public function unitValue(): float
+    {
+        return $this->unitValue;
+    }
+
+    public function discount(): float
+    {
+        return $this->discount;
+    }
+
+    public function quantity(): float
+    {
+        return $this->quantity;
+    }
+
     public function toArray(): array
     {
         return [
