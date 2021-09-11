@@ -2,15 +2,46 @@
 
 namespace Barrigudinha\SaleOrder\Entities;
 
-use Barrigudinha\SaleOrder\ValueObjects\Address;
+use Barrigudinha\SaleOrder\ValueObjects\Address\Address;
 
 class Customer
 {
     private string $name;
-    private string $fiscalId; // To Do: talvez converter esse campo para um VO
+    private string $fiscalId;
     private string $stateRegistration;
     private string $documentNumber;
-    private Address $address;
-    private string $email;
     private array $phones;
+    private Address $address;
+    private ?string $email;
+
+    public function __construct(
+        string $name,
+        string $fiscalId,
+        string $stateRegistration,
+        string $documentNumber,
+        array $phones,
+        Address $address,
+        ?string $email = null
+    ) {
+        $this->name = $name;
+        $this->fiscalId = $fiscalId;
+        $this->stateRegistration = $stateRegistration;
+        $this->documentNumber = $documentNumber;
+        $this->email = $email;
+        $this->phones = $phones;
+        $this->address = $address;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'fiscalId' => $this->fiscalId,
+            'stateRegistration' => $this->stateRegistration,
+            'documentNumber' => $this->documentNumber,
+            'email' => $this->email,
+            'phones' => $this->phones,
+            'address' => $this->address,
+        ];
+    }
 }
