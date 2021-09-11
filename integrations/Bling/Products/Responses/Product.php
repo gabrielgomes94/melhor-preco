@@ -14,14 +14,14 @@ class Product extends BaseResponse
         $this->data = $data;
     }
 
-    /**
-     * @deprecated
-     */
     public function data(): ProductData
     {
         return $this->data;
     }
 
+    /**
+     * @deprecated
+     */
     public function product(): ?ProductData
     {
         return $this->data ?? null;
