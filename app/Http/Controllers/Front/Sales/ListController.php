@@ -23,7 +23,7 @@ class ListController extends Controller
         $response = $this->repository->list();
 
         if ($response instanceof ErrorResponse) {
-            dd('vida nas luas de saturno');
+            abort(404);
         }
 
         $saleOrders = $this->service->listSaleOrder($response->data());
