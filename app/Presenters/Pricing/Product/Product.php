@@ -3,7 +3,6 @@
 namespace App\Presenters\Pricing\Product;
 
 use Barrigudinha\Product\Entities\Product as ProductData;
-use Barrigudinha\Pricing\Data\Tax;
 use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Product\Data\Variations\Variations;
 use Money\Currencies\ISOCurrencies;
