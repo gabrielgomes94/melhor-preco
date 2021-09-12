@@ -8,5 +8,7 @@ Route::middleware('auth')->group(function () {
         ->name('sales')
         ->group(function () {
             Route::get('/list', [ListController::class, 'list'])->name('.list');
+
+            Route::get('/export', [ListController::class, 'export'])->name('.export');
         });
 });

@@ -50,6 +50,8 @@ class Service
 
             $saleOrdersTransformed[] = [
                 'saleOrderCode' => $saleOrder->identifiers()->id(),
+                'purchaseSaleOrderId' => $saleOrder->identifiers()->purchaseSaleOrderId(),
+                'storeSaleOrderId' => $saleOrder->identifiers()->storeSaleOrderId(),
                 'selledAt' => $saleOrder->saleDates()->selledAt()->format('d-m-Y'),
                 'store' => $this->storeRepository->getNameFromCode(
                     $saleOrder->identifiers()->storeId()

@@ -29,6 +29,16 @@ class Identifiers
         return $this->id;
     }
 
+    public function purchaseSaleOrderId(): string
+    {
+        return $this->purchaseOrderId;
+    }
+
+    public function storeSaleOrderId(): string
+    {
+        return $this->storeSaleOrderId ?? '';
+    }
+
     public function storeId(): ?string
     {
         return $this->storeId;
