@@ -27,4 +27,30 @@ class Store implements StoreRepository
     {
         return config('stores.' . $store . '.commission');
     }
+
+    public function getNameFromCode(?string $erpCode): string
+    {
+        $stores = config('stores');
+
+        foreach ($stores as $store) {
+            if ($store['erpCode'] === $erpCode) {
+                return $store['name'];
+            }
+        }
+
+        return '';
+    }
+
+    public function getSlugFromCode(?string $erpCode): ?string
+    {
+        $stores = config('stores');
+
+        foreach ($stores as $store) {
+            if ($store['erpCode'] === $erpCode) {
+                return $store['slug'];
+            }
+        }
+
+        return null;
+    }
 }

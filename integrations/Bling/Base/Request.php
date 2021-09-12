@@ -1,10 +1,10 @@
 <?php
 
-namespace Integrations\Bling\Products\Requests;
+namespace Integrations\Bling\Base;
 
 use GuzzleHttp\Client as GuzzleClient;
 
-class BaseRequest
+class Request
 {
     protected GuzzleClient $httpClient;
     protected array $options;

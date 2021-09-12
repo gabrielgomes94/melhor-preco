@@ -3,9 +3,10 @@
 namespace Integrations\Bling\Products\Requests;
 
 use GuzzleHttp\Client as GuzzleClient;
+use Integrations\Bling\Base\Request;
 use Psr\Http\Message\ResponseInterface;
 
-class PostRequest extends BaseRequest
+class PostRequest extends Request
 {
     public function __construct(GuzzleClient $httpClient, array $options = [])
     {
