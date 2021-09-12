@@ -33,5 +33,4 @@ class ListController extends Controller
             'total' => $saleOrders['total'],
         ]);
     }
-    //
 }

@@ -38,10 +38,14 @@ class Service
                 continue;
             }
 
-            $skus = [];
+            $products = [];
 
             foreach($saleOrder->items() as $item) {
-                $skus[] = $item->sku();
+                if (!$product = $this->productRepository->get($item->sku())) {
+                    continue;
+                }
+
+                $products[] = "{$product->sku()} - {$product->name()}";
             }
 
             $saleOrdersTransformed[] = [
@@ -51,7 +55,7 @@ class Service
                     $saleOrder->identifiers()->storeId()
                 ),
                 'status' => (string) $saleOrder->status(),
-                'skus' => implode(', ', $skus ?? []),
+                'products' => $products,
                 'value' => $saleOrder->saleValue()->totalValue(),
                 'profit' => $this->getProfit($saleOrder),
             ];
@@ -79,7 +83,9 @@ class Service
                 continue;
             }
 
-            $slug = $this->storeRepository->getSlugFromCode($saleOrder->identifiers()->storeId());
+            $slug = $this->storeRepository->getSlugFromCode(
+                $saleOrder->identifiers()->storeId()
+            );
 
             if (!$slug) {
                 continue;
@@ -95,10 +101,12 @@ class Service
             $discount = Helpers::floatToMoney($item->discount());
 
             $value = $unitValue->subtract($discount);
-
             $price = $this->calculatePrice->calculate($product, $store, $value);
-
-            $profit = $profit->add($price->profit()->multiply($item->quantity()));
+            $profit = $profit->add(
+                $price->profit()->multiply(
+                    $item->quantity()
+                )
+            );
         }
 
         $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
