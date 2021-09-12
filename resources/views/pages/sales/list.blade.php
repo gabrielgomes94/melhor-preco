@@ -13,6 +13,22 @@
 
     <div class="container">
         <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <x-forms.form.get
+                    :action="route('sales.export')"
+                >
+                    <x-forms.submit
+                        label="Exportar planilha"
+                        width="20"
+                    >
+                    </x-forms.submit>
+                </x-forms.form.get>
+
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-12">
                 <table class="table table-hover">
                     <thead>
