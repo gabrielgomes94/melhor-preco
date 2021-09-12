@@ -2,16 +2,11 @@
 
 namespace Barrigudinha\Product\Entities;
 
-use Barrigudinha\Pricing\Price\Price;
-use Barrigudinha\Pricing\Data\Product as PricingProduct;
-use Barrigudinha\Pricing\Data\Tax;
 use Barrigudinha\Product\Data\Compositions\Composition;
 use Barrigudinha\Product\Data\Costs;
 use Barrigudinha\Product\Data\Dimensions;
 use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Product\Data\Variations\Variations;
-use Barrigudinha\Product\Entities\Post;
-use Barrigudinha\Utils\Helpers;
 
 class Product
 {
@@ -36,9 +31,6 @@ class Product
 
     /** @var Store[] array */
     public array $stores = [];
-
-    /** @var Tax[] $taxes */
-    public array $taxes;
 
     /** @var Post[] $posts */
     public array $posts = [];
@@ -71,8 +63,6 @@ class Product
         $this->dimensions = $dimensions;
         $this->erpId = $erpId;
 
-        // To Do: remove this line
-        $this->taxes[] = new Tax(Tax::ICMS, 'in', $taxICMS ?? 0.0);
         $this->taxICMS = $taxICMS ?? 0.0;
         $this->parentSku = $parentSku;
         $this->additionalCosts = $additionalCosts;
@@ -220,17 +210,6 @@ class Product
     public function hasCompositionProducts(): bool
     {
         return $this->compositionProducts->hasCompositions();
-    }
-
-    public function tax(string $taxCode): ?Tax
-    {
-        foreach ($this->taxes as $tax) {
-            if ($taxCode === $tax->name) {
-                return $tax;
-            }
-        }
-
-        return null;
     }
 
     public function setActive(bool $isActive): void

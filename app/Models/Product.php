@@ -39,11 +39,6 @@ class Product extends Model
         'composition_products' => 'array',
     ];
 
-    public function pricings(): BelongsToMany
-    {
-        return $this->belongsToMany(Pricing::class);
-    }
-
     public function prices(): HasMany
     {
         return $this->hasMany(Price::class);
