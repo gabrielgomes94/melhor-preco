@@ -13,9 +13,8 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    // .postCss('resources/css/app.css', 'public/css', [
-    //     require('postcss-import'),
-    //     require('tailwindcss'),
-    // ])
     .webpackConfig(require('./webpack.config'))
 
+
+mix.js('public/themes/volt-v1.4.1/src/assets/js/volt.js', 'public/js/volt.js')
+    .sass('public/scss/volt.scss', 'public/css/volt.css')
