@@ -18,18 +18,15 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-
-        <!-- Page Heading -->
-        <!-- Sidebar -->
-        <x-sidebar>
-        </x-sidebar>
-
-        <div class="wrapper">
-            <!-- Page Content -->
-            <main class="w-100">
-                <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <x-layout.menu.menu />
+            </div>
+            <div class="col-sm-10">
+                <main class="w-100">
                     <div class="row">
                         <div class="col-sm-12">
+                            <x-sidebar></x-sidebar>
                             <header class="header header-page ">
                                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                                     <h2>{{ $header ?? ''}}</h2>
@@ -37,16 +34,24 @@
                             </header>
                         </div>
                     </div>
-                </div>
-                {{ $slot }}
-            </main>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ $slot }}
+                        </div>
+                    </div>
+                </main>
+            </div>
         </div>
     </div>
     @stack('modals')
 </body>
+
+
 <script>
     @if (Auth::check())
         var tokenApiKey = "{!! env('API_KEY') !!}"
     @endif
 </script>
+
 </html>
