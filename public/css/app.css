@@ -33,12 +33,12 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: #eee;
 }
 
 p {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;
@@ -91,7 +91,7 @@ a:focus {
 }
 
 #sidebar ul li.active > a,
-a[aria-expanded=true] {
+a[aria-expanded="true"] {
   color: #fff;
   background: #6d7fcc;
 }
