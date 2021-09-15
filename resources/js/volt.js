@@ -18,7 +18,7 @@
 import Swal from 'sweetalert2';
 import Datepicker from 'vanillajs-datepicker/js/Datepicker';
 import SmoothScroll from 'smooth-scroll';
-
+import Bootstrap from 'bootstrap';
 
 "use strict";
 const d = document;
