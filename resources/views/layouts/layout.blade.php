@@ -19,26 +19,25 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         <div class="row">
-
             <div class="col-sm-2">
                 <x-layout.menu.menu />
             </div>
+
             <div class="col-sm-10">
                 <main class="w-100">
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm-12">
-                                <x-sidebar></x-sidebar>
+                            <div class="col-12">
                                 <header class="header header-page ">
-                                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                                        <h2>{{ $header ?? ''}}</h2>
+                                    <div class="max-w-7xl mx-auto py-5 px-4 sm:px-4 lg:px-8">
+                                        {{ $header ?? ''}}
                                     </div>
                                 </header>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-12">
                                 {{ $slot }}
                             </div>
                         </div>
@@ -53,7 +52,7 @@
 
 <script>
     @if (Auth::check())
-        var tokenApiKey = "{!! env('API_KEY') !!}"
+        var tokenApiKey = "{!! Auth::user()->createToken('token')->plainTextToken  !!}"
     @endif
 </script>
 
