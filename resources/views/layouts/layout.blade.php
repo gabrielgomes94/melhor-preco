@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <header class="header header-page ">
-                                    <div class="max-w-7xl mx-auto py-5 px-4 sm:px-4 lg:px-8">
+                                    <div class="max-w-7xl mx-auto py-5">
                                         {{ $header ?? ''}}
                                     </div>
                                 </header>
