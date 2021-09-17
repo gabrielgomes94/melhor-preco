@@ -109,4 +109,9 @@ class Product
 
         return $variationsPresented ?? [];
     }
+
+    public function store(): ?string
+    {
+        return $this->store;
+    }
 }
