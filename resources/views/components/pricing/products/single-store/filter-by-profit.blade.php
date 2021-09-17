@@ -1,31 +1,30 @@
-<x-forms.form.get
+<x-template.forms.get
     :action="route('pricing.priceList.byStore', $store->slug())"
+    :formId="$formId"
 >
-    <div class="">
-        <x-forms.input.percentage
-            attribute="minProfit"
-            label="Margem de Lucro mínima"
-            value="{{ $minimumProfit }}"
-        />
+    <div class="row">
+        <div class="col-6">
+            <x-forms.input.percentage
+                attribute="minProfit"
+                label="Margem de Lucro mínima"
+                value="{{ $minimumProfit }}"
+            />
+        </div>
+        <div class="col-6">
+            <x-forms.input.percentage
+                attribute="maxProfit"
+                label="Margem de Lucro maxima"
+                value="{{ $maximumProfit }}"
+            />
+        </div>
 
-        <x-forms.input.percentage
-            attribute="maxProfit"
-            label="Margem de Lucro maxima"
-            value="{{ $maximumProfit }}"
-        />
-
-        <x-forms.input.text
-            attribute="sku"
-            label="SKU"
-            visibleComponentId="sku"
-            value="{{ $sku }}"
-        />
-
-        <div class="m-2">
-            <x-forms.submit
-                label="Filtrar"
-                width="20"
+        <div class="col-12">
+            <x-forms.input.text
+                attribute="sku"
+                label="SKU"
+                visibleComponentId="sku"
+                value="{{ $sku }}"
             />
         </div>
     </div>
-</x-forms.form.get>
+</x-template.forms.get>

@@ -1,8 +1,8 @@
-<tr>
-    <th scope="col">SKU</th>
-    <th scope="col">Produto</th>
-    <th scope="col">Preço</th>
-    <th scope="col">Lucro</th>
-    <th scope="col">Margem</th>
-    <th scope="col"></th>
+<tr class="d-flex">
+    <th scope="col" class="col-1">SKU</th>
+    <th scope="col" class="col-4">Produto</th>
+    <th scope="col" class="col-2">Preço</th>
+    <th scope="col" class="col-2">Lucro</th>
+    <th scope="col" class="col-2">Margem</th>
+    <th scope="col" class="col-1"></th>
 </tr>

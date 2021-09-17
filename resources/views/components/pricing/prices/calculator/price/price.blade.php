@@ -74,9 +74,8 @@
         >
         </x-forms.input.read-only>
 
-        <input
-            type="submit"
-            class="btn btn-dark d-block w-100 mx-auto m-2"
-            value="Salvar" />
+        <div class="d-flex justify-content-center">
+            <x-template.buttons.submit label="Salvar" />
+        </div>
     </x-forms.form.put>
 </div>

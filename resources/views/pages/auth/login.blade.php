@@ -1,69 +1,84 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo"></x-slot>
-
-        <x-jet-validation-errors class="mb-4" />
-
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <div class="container">
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <h1>Barrigudinha Backoffice</h1>
-
-                    <div class="login-card">
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
-                            <div class="form-group row">
-                                <div class="col-sm-2">
-                                    <x-jet-label for="email" class="col-form-label" value="{{ __('Email') }}" />
-                                </div>
-
-                                <div class="col-sm-10">
-                                    <x-jet-input id="email" class="block mt-1 w-full form-control" type="email" name="email" :value="old('email')" required autofocus />
-                                </div>
+    <main>
+        <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center form-bg-image" data-background-lg="{{ asset('images/illustrations/signin.svg') }}">
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                            <div class="text-center text-md-center mb-4 mt-md-0">
+                                <h1 class="mb-0 h3">Barrigudinha Backoffice</h1>
                             </div>
 
-                            <div class="mt-4 form-group row">
-                                <div class="col-sm-2">
-                                    <x-jet-label for="password" class="col-form-label" value="{{ __('Senha') }}" />
+                            <form method="POST" action="{{ route('login') }}" class="mt-4">
+                                @csrf
+
+                                <div class="form-group mb-4">
+                                    <label for="email">Email</label>
+
+                                    <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+
+                                        <input type="email"
+                                               name="email"
+                                               class="form-control"
+                                               placeholder="exemplo@barrigudinha.com"
+                                               id="email" value="{{ old('email') }}" autofocus required
+                                        >
+                                    </div>
                                 </div>
 
-                                <div class="col-sm-10">
-                                    <x-jet-input id="password" class="block mt-1 w-full form-control" type="password" name="password" required autocomplete="current-password" />
+                                <div class="form-group">
+                                    <div class="form-group mb-4">
+                                        <label for="password">Senha</label>
+
+                                        <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2">
+                                                    <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+
+                                            <input type="password"
+                                                   name="password"
+                                                   placeholder="Senha"
+                                                   class="form-control"
+                                                   id="password" required
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-top mb-4">
+                                        <div class="form-check">
+                                            <label for="remember_me" class="flex items-center">
+                                                <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
+                                                <label class="form-check-label mb-0" for="remember">
+                                                    Lembrar senha
+                                                </label>
+                                            </label>
+                                        </div>
+
+                                        <div>
+                                            @if (Route::has('password.request'))
+                                                <a href="{{ route('password.request') }}" class="small text-right">Esqueceu sua senha?</a>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="block mt-4">
-                                <label for="remember_me" class="flex items-center">
-                                    <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
-                                    <span class="ml-2 text-sm text-gray-600">{{ __('Lembrar senha') }}</span>
-                                </label>
-                            </div>
-
-                            <div class="flex items-center justify-end mt-4">
-                                @if (Route::has('password.request'))
-                                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                                        {{ __('Esqueceu sua senha?') }}
-                                    </a>
-                                @endif
-
-                                <x-jet-button class="ml-4 btn btn-primary">
-                                    {{ __('Login') }}
-                                </x-jet-button>
-                            </div>
-                        </form>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-gray-800">Login</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="col-2"></div>
             </div>
-        </div>
-
-    </x-jet-authentication-card>
+        </section>
+    </main>
 </x-guest-layout>

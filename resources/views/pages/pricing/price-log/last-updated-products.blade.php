@@ -1,23 +1,21 @@
 <x-layout>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
+    <x-slot name="navbar">
+        <x-pricing.price-list.navbar :selected="$store->slug()"/>
+    </x-slot>
 
-                <div class="d-flex justify-content-between">
-                    <h2>Histórico de Atualizações - {{ $store->name() }}</h2>
-                </div>
-            </div>
-        </div>
+    <x-slot name="breadcrumb">
+        <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
+    </x-slot>
 
-        <div class="row">
-            <div class="col-md-12">
+    <div class="row">
+        <div class="col-12">
+            <x-template.card.card>
                 <div class="d-flex justify-content-between">
                     <x-pricing.price-log.table :products="$products"/>
                 </div>
 
                 <x-utils.paginator-links :paginator="$paginator"/>
-            </div>
+            </x-template.card.card>
         </div>
     </div>
 </x-layout>

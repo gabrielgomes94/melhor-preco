@@ -45,9 +45,9 @@
             id="product-{{ $price->id }}"
             value="{{ $productId }}" />
 
-        <input
-            type="submit"
-            class="btn btn-dark d-block w-100 mx-auto m-2"
-            value="Calcular" />
+
+        <div class="d-flex justify-content-center">
+            <x-template.buttons.submit label="Calcular" />
+        </div>
     </form>
 </div>
