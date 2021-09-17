@@ -5,35 +5,13 @@
         </h2>
     </x-slot>
 
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8">
-                <table class="table w-100">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="w-10">SKU</th>
-                            <th scope="col" class="w-10">Nome</th>
-                            <th scope="col" class="w-10">Profundidade</th>
-                            <th scope="col" class="w-10">Largura</th>
-                            <th scope="col" class="w-10">Altura</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($overDimensionProducts as $product)
-                            <tr>
-                                <td>{{ $product->sku() }}</td>
-                                <td>{{ $product->name() }}</td>
-                                <td>{{ $product->dimensions()->depth() }}</td>
-                                <td>{{ $product->dimensions()->width() }}</td>
-                                <td>{{ $product->dimensions()->height() }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-2"></div>
+    <div class="row">
+        <div class="col-12 mb-4">
+            <x-utils.alert-messages />
+
+            <x-template.card.card>
+                <x-products.reports.over-dimensions-table :products="$overDimensionProducts"/>
+            </x-template.card.card>
         </div>
     </div>
 </x-layout>

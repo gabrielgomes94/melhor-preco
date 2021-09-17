@@ -1,28 +1,35 @@
 @foreach($variations as $variation)
-    <tr>
-        <td></td>
-        <td> {{ $variation->sku() }} - {{ $variation->name() }} </td>
-        <td>R$ {{ $variation->price() }} </td>
-        <td>
+    <tr class="d-flex">
+        <td class="col-1"></td>
+
+        <td class="col-4">
+            {{ $variation->sku() }} - {{ $variation->name() }}
+        </td>
+
+        <td class="col-2">
+            R$ {{ $variation->price() }}
+        </td>
+
+        <td class="col-2">
             <x-pricing.products.utils.profit-text
                 preffix="R$"
                 value="{{ $variation->profit() }}"
             />
         </td>
-        <td>
+
+        <td class="col-2">
             <x-pricing.products.utils.profit-text
                 value="{{ $variation->margin() }}"
                 suffix="%"
             />
         </td>
-        <td>
-            <x-utils.navigation-button
-                :route="route('pricing.products.showByStore', [
-                            'store' => $store,
-                            'product_id' => $variation->sku()
-                        ])"
-                label="Calcular"
-            />
+
+        <td class="col-1">
+            <a  href="{{ route('pricing.products.showByStore', ['store' => $store, 'product_id' => $variation->sku()])}}"
+                role="button"
+            >
+                <x-layout.icons.calculator />
+            </a>
         </td>
     </tr>
 @endforeach

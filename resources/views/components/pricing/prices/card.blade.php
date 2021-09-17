@@ -1,6 +1,7 @@
-<div class="accordion">
-    <div class="accordion-item">
-        <x-pricing.prices.card.header :price="$price" />
-        <x-pricing.prices.card.body :price="$price" :productId="$productId" />
+<x-template.card.card>
+    <div class="d-flex justify-content-end w-100">
+        <h4>R$ {{ $price->value }}</h4>
     </div>
-</div>
+
+    <x-pricing.prices.calculator.calculator :productId="$productId" :price="$price"/>
+</x-template.card.card>

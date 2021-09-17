@@ -4,4 +4,9 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+
+    <div class="row">
+        <div class="col-12 mb-4">
+        </div>
+    </div>
 </x-layout>

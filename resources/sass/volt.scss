@@ -87,3 +87,24 @@
 @import "volt/forms";
 
 // write your custom styles here!
+.sidebar {
+    max-width: 320px;
+}
+.form-control input {
+    color: #0a0e17;
+}
+.table {
+    table-layout: fixed;
+}
+
+.table th, .table td {
+    overflow: hidden;
+}
+
+.header-navbar .nav-link:hover {
+    color: $blue;
+}
+.header-navbar .nav-link.active {
+    color: $blue;
+    border-bottom: $blue 1px solid;
+}

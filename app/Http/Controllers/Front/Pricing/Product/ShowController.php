@@ -55,7 +55,8 @@ class ShowController extends Controller
         return view('pages.pricing.products.show', [
             'breadcrumb' => $breadcrumb,
             'productInfo' => $productInfo,
-            'prices' => $prices
+            'prices' => $prices,
+            'store' => $store,
         ]);
     }
 }
