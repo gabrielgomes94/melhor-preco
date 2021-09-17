@@ -9,19 +9,20 @@
         </div>
 
         <div class="row">
-            <div class="col-md-10"></div>
-            <div class="col-md-2">
+            <div class="d-flex justify-content-end">
                 <x-products.price_costs.sku-search-bar :sku="$sku" />
             </div>
         </div>
 
-        <div class="row">
+        <div class="row my-3">
             <div class="col-md-12">
-                <x-products.price_costs.table :products="$products" />
+                <x-template.card.card>
+                    <x-products.price_costs.table :products="$products" />
 
-                <div class="d-flex justify-content-center">
-                    {!! $paginator->links() !!}
-                </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        {!! $paginator->links() !!}
+                    </div>
+                </x-template.card.card>
             </div>
         </div>
     </div>
