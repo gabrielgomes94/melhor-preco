@@ -28,9 +28,17 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <header class="header header-page ">
-                                    <div class="max-w-7xl mx-auto py-5">
-                                        {{ $header ?? ''}}
+                                <div class="mx-auto">
+                                    {{ $navbar ?? ''}}
+                                </div>
+
+                                <div class="mx-auto">
+                                    {{ $breadcrumb ?? '' }}
+                                </div>
+
+                                <header class="header header-page py-4">
+                                    <div class="mx-auto">
+                                        <h2 class="display-3    "> {{ $header ?? ''}}</h2>
                                     </div>
                                 </header>
                             </div>
@@ -46,7 +54,8 @@
             </div>
         </div>
     </div>
-    @stack('modals')
+
+    {{ $modals ?? 1 }}
 </body>
 
 

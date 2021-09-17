@@ -93,3 +93,9 @@
 .form-control input {
     color: #0a0e17;
 }
+
+.price-list-table { table-layout: fixed; }
+.price-list-table th, .price-list-table td { overflow: hidden; }
+.nav-link:hover, .nav-link.active, a:hover {
+    color: $blue;
+}

@@ -13,7 +13,7 @@
                 </x-layout.menu.menu-section>
 
                 <x-layout.menu.menu-section name="Calculadora de Preços" icon="calculator">
-                    <x-layout.menu.menu-item route="{{ route('pricing.priceList.index') }}" name="Preços" icon="price"/>
+                    <x-layout.menu.menu-item route="{{ route('pricing.priceList.byStore', 'magalu') }}" name="Preços" icon="price"/>
 
                     <x-layout.menu.menu-item route="{{ route('products.costs.edit') }}" name="Custos" icon="costs" />
                 </x-layout.menu.menu-section>

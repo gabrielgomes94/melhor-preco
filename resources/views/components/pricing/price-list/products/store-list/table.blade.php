@@ -1,5 +1,5 @@
-<table class="table table-bordered table-hover">
-    <thead>
+<table class="table table-hover w-100 px-2 price-list-table">
+    <thead >
         <x-pricing.price-list.products.store-list.table.header />
     </thead>
 
