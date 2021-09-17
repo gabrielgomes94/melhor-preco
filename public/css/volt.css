@@ -30216,3 +30216,29 @@ article .h6 {
   z-index: 9999;
 }
 
+.sidebar {
+  max-width: 320px;
+}
+
+.form-control input {
+  color: #0a0e17;
+}
+
+.table {
+  table-layout: fixed;
+}
+
+.table th,
+.table td {
+  overflow: hidden;
+}
+
+.header-navbar .nav-link:hover {
+  color: #2361ce;
+}
+
+.header-navbar .nav-link.active {
+  color: #2361ce;
+  border-bottom: #2361ce 1px solid;
+}
+

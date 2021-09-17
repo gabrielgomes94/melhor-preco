@@ -25397,7 +25397,7 @@ var generateQRCodeForm = function generateQRCodeForm() {
 
   function createTableRow() {
     var row = document.createElement('tr');
-    var skuCell = document.createElement('th');
+    var skuCell = document.createElement('td');
     var nameCell = document.createElement('td');
     var stock = document.createElement('td');
     var tableRowStructure = {
@@ -25412,9 +25412,9 @@ var generateQRCodeForm = function generateQRCodeForm() {
   }
 
   function updateTableRow(cells) {
-    cells.name.innerHTML = "<input type='text' name='products[" + i + "][name]' value='" + generateQRCode.input.name.value + "'>";
-    cells.sku.innerHTML = "<input type='number' name='products[" + i + "][sku]' value='" + generateQRCode.input.sku.value + "'>";
-    cells.stock.innerHTML = "<input type='number' name='products[" + i + "][stock]' value='" + generateQRCode.input.stockAmount.value + "'>";
+    cells.name.innerHTML = "<input type='text' class='form-control' readonly name='products[" + i + "][name]' value='" + generateQRCode.input.name.value + "'>";
+    cells.sku.innerHTML = "<input type='number' class='form-control' readonly name='products[" + i + "][sku]' value='" + generateQRCode.input.sku.value + "'>";
+    cells.stock.innerHTML = "<input type='number' class='form-control' name='products[" + i + "][stock]' value='" + generateQRCode.input.stockAmount.value + "'>";
     return cells;
   }
 
