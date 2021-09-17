@@ -32,15 +32,17 @@
                                     {{ $navbar ?? ''}}
                                 </div>
 
+                                @isset($header)
+                                    <header class="header header-page py-4">
+                                        <div class="mx-auto">
+                                            <h2 class="display-3    "> {{ $header ?? ''}}</h2>
+                                        </div>
+                                    </header>
+                                @endisset
+
                                 <div class="mx-auto">
                                     {{ $breadcrumb ?? '' }}
                                 </div>
-
-                                <header class="header header-page py-4">
-                                    <div class="mx-auto">
-                                        <h2 class="display-3    "> {{ $header ?? ''}}</h2>
-                                    </div>
-                                </header>
                             </div>
                         </div>
 

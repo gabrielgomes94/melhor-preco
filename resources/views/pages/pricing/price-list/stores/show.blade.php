@@ -1,14 +1,10 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-pricing.price-list.navbar />
+        <x-pricing.price-list.navbar :selected="$store->slug()"/>
     </x-slot>
 
     <x-slot name="breadcrumb">
         <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
-    </x-slot>
-
-    <x-slot name="header">
-        Precificação {{ $store->name() }}
     </x-slot>
 
     <x-slot name="modals">
