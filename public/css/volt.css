@@ -30220,6 +30220,12 @@ article .h6 {
   max-width: 320px;
 }
 
+@media (min-width: 992px) {
+  .content {
+    margin-left: 320px;
+  }
+}
+
 .form-control input {
   color: #0a0e17;
 }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg mb-3 border-bottom border-gray-400 header-navbar">
+<nav class="navbar navbar-expand mb-3 border-bottom border-gray-400">
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item px-2">
@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item px-2">
                 <a class="nav-link {{ $selected == 'simulation' ? 'active' : '' }}"
-                   href='#'  }}>Simulação (em breve)</a>
+                   href='#'  }}>Simulação <x-utils.badge>em breve</x-utils.badge></a>
             </li>
         </ul>
     </div>

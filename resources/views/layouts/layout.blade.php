@@ -16,50 +16,46 @@
     <script type="text/javascript" src="{{ URL::asset('js/volt.js') }}" defer></script>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body>
+    <x-layout.menu.menu />
+
+    <main class="content">
         <div class="row">
-            <div class="col-sm-2">
-                <x-layout.menu.menu />
+            <div class="col-12">
+                <div class="d-flex justify-content-start">
+                    <div class="d-block">
+                        {{--                        <x-layout.menu.menu-toggle />--}}
+                    </div>
+                    {{ $navbar ?? ''}}
+                </div>
             </div>
 
-            <div class="col-sm-10">
-                <main class="w-100">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mx-auto">
-                                    {{ $navbar ?? ''}}
-                                </div>
-
-                                @isset($header)
-                                    <header class="header header-page py-4">
-                                        <div class="mx-auto">
-                                            <h2 class="display-3    "> {{ $header ?? ''}}</h2>
-                                        </div>
-                                    </header>
-                                @endisset
-
-                                <div class="mx-auto">
-                                    {{ $breadcrumb ?? '' }}
-                                </div>
-                            </div>
+            <div class="col-12">
+                @isset($header)
+                    <header class="header header-page py-4">
+                        <div class="mx-auto">
+                            <h2 class="display-3    "> {{ $header ?? ''}}</h2>
                         </div>
+                    </header>
+                @endisset
+            </div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                {{ $slot }}
-                            </div>
-                        </div>
+            <div class="col-12">
+                <div class="mx-auto">
+                    {{ $breadcrumb ?? '' }}
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        {{ $slot }}
                     </div>
-                </main>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    {{ $modals ?? 1 }}
+    {{ $modals ?? '' }}
 </body>
-
 
 <script>
     @if (Auth::check())
