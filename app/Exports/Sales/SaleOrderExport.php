@@ -22,7 +22,8 @@ class SaleOrderExport implements FromArray
             'Loja',
             'Status',
             'Produtos',
-            'Valor',
+            'Valor Produtos',
+            'Valor Total',
             'Lucro',
         ];
 
@@ -34,6 +35,7 @@ class SaleOrderExport implements FromArray
                 $saleOrder['store'] ?? '',
                 $saleOrder['status'] ?? '',
                 implode('\n', $saleOrder['products'] ?? []),
+                $saleOrder['productsValue'] ?? '',
                 $saleOrder['value'] ?? '',
                 $saleOrder['profit'] ?? '',
             ];

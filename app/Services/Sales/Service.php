@@ -59,6 +59,7 @@ class Service
                 'status' => (string) $saleOrder->status(),
                 'products' => $products,
                 'value' => $saleOrder->saleValue()->totalValue(),
+                'productsValue' => $saleOrder->saleValue()->totalProducts(),
                 'profit' => $this->getProfit($saleOrder),
             ];
         }
