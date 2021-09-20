@@ -43,9 +43,5 @@ Route::middleware('auth')->group(function () {
                             Route::put('/{price_id}', [UpdateController::class, 'update'])->name('.update');
                         });
                 });
-
-            Route::prefix('campaigns')->name('.campaigns')->group(function () {
-                Route::post('/store', [CreateController::class, 'store'])->name('.store');
-            });
         });
 });
