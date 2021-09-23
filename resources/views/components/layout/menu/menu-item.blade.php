@@ -9,9 +9,11 @@
         <span class="sidebar-text">{{ $name }}</span>
 
         @isset ($badge)
-            <x-utils.badge>
-                {{ $badge }}
-            </x-utils.badge>
+                <span class="ms-1">
+                    <x-utils.badge>
+                        {{ $badge }}
+                    </x-utils.badge>
+                </span>
         @endisset
     </a>
 </li>
