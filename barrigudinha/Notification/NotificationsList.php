@@ -6,7 +6,6 @@ use Barrigudinha\Utils\BaseIterator;
 
 class NotificationsList extends BaseIterator
 {
-
     protected function build(array $data): array
     {
         foreach ($data as $notification) {
@@ -26,5 +25,10 @@ class NotificationsList extends BaseIterator
             return $notification->toArray();
 
         }, $this->objects);
+    }
+
+    public function get()
+    {
+        return $this->objects;
     }
 }

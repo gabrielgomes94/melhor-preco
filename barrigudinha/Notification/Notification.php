@@ -59,6 +59,11 @@ class Notification
         );
     }
 
+    public function createdAt(): Carbon
+    {
+        return $this->createdAt;
+    }
+
     public function toArray(): array
     {
         return [
