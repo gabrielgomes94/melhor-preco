@@ -2,27 +2,22 @@
 
 namespace App\View\Components\Notifications\Inbox\MessageList;
 
-use App\Models\Notification;
-use Illuminate\View\Component;
+use App\View\Components\Notifications\Notification\NotificationComponent;
 
-class Card extends Component
+class Card extends NotificationComponent
 {
-    private Notification $notification;
-
-    public function __construct(Notification $notification)
-    {
-        dd('oioi');
-        $this->notification = $notification;
-    }
-
-
+    /**
+     * @inheritDoc
+     */
     public function render()
     {
-        if ($this->notification->isReaded()) {
-            return view('componentes.noitifications.inbox.message-list.readed-card', ['notification' => $this->notification]);
-        }
+        $data = array_merge($this->notification->toArray(), [
+            'createdAt' => $this->notification->createdAt()->format('d/m/Y h:i')
+        ]);
 
-        return view('componentes.noitifications.inbox.message-list.unreaded-card', ['notification' => $this->notification]);
+        return view('components.notifications.inbox.message-list.card', [
+            'data' => $data,
+            'notification' => $this->notification,
+        ]);
     }
-
 }

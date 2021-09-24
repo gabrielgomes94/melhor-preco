@@ -1,33 +1,36 @@
-<div class="card hover-state border-bottom py-3">
-    <div class="card-body d-flex align-items-center flex-wrap flex-lg-nowrap py-0">
-        <div class="w-100 ">
-            @foreach ($notification['tags'] as $tag)
-                <x-utils.badge>
-                    {{ $tag }}
-                </x-utils.badge>
-            @endforeach
+<div class="my-2 mb-4">
+    <x-template.card.card>
+        <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-none">
+            <div class="col-12 mb-4 bg-blue-100">
+                <x-notifications.inbox.main-message.card :notification="$mainNotification" />
+            </div>
+            <div class="col-12">
+                <div class="message-wrapper border-0 bg-white shadow">
+                    @foreach ($notifications as $notification)
+                        <x-notifications.inbox.message-list.card :notification="$notification" />
+                    @endforeach
+                </div>
 
-            <div class="d-flex align-items-center justify-content-between">
-                <x-notifications.inbox.message-list.card :notification="$notification" />
-
-{{--                @if ($notification['wasReaded'])--}}
-{{--                    <div class="h6 mb-0">--}}
-{{--                        <a href="{{ route('notifications.list', ['main' => $notification['id']]) }}">--}}
-{{--                            {{ $notification['title'] }}--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                @else--}}
-{{--                    <div class="h6 mb-0 fw-extrabold">--}}
-{{--                        <a href="{{ route('notifications.list', ['main' => $notification['id']]) }}">--}}
-{{--                            {{ $notification['title'] }}--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                @endif--}}
-
-                <div>
-                    {{ $notification['createdAt'] }}
+                <div class="my-4">
+                    <x-utils.paginator-links :paginator="$paginator"/>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="row d-none d-sm-none d-md-none d-lg-none d-xl-flex">
+            <div class="col-xl-6">
+                <div class="message-wrapper border-0 bg-white shadow">
+                    <x-notifications.inbox.message-list.container :notifications="$notifications" />
+                </div>
+
+                <div class="mt-4">
+                    <x-utils.paginator-links :paginator="$paginator"/>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <x-notifications.inbox.main-message.card :notification="$mainNotification" />
+            </div>
+        </div>
+    </x-template.card.card>
 </div>
