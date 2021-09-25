@@ -10,7 +10,7 @@ class Notification
 {
     private Tags $tags;
     private bool $isSolved;
-    private bool $wasReaded;
+    private bool $isReaded;
     private string $id;
     private string $title;
     private string $content;
@@ -25,7 +25,7 @@ class Notification
         Type $type,
         Carbon $createdAt,
         bool $isSolved = false,
-        bool $wasReaded = false
+        bool $isReaded = false
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -34,7 +34,7 @@ class Notification
         $this->type = $type;
         $this->createdAt = $createdAt;
         $this->isSolved = $isSolved;
-        $this->wasReaded = $wasReaded;
+        $this->isReaded = $isReaded;
     }
 
     public static function fromArray(array $data): self
@@ -55,7 +55,7 @@ class Notification
             $type,
             $data['createdAt'],
             $data['isSolved'],
-            $data['wasReaded']
+            $data['isReaded'],
         );
     }
 
@@ -74,9 +74,9 @@ class Notification
         return $this->tags->get();
     }
 
-    public function wasReaded(): bool
+    public function isReaded(): bool
     {
-        return $this->wasReaded;
+        return $this->isReaded;
     }
 
     public function toArray(): array
@@ -88,7 +88,7 @@ class Notification
             'tags' => $this->tags->get(),
             'type' => (string) $this->type,
             'isSolved' => $this->isSolved,
-            'wasReaded' => $this->wasReaded,
+            'isReaded' => $this->isReaded,
             'createdAt' => (string) $this->createdAt,
         ];
     }

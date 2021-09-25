@@ -2,139 +2,76 @@
 
 namespace App\Repositories\Notifications;
 
+use App\Exceptions\Notification\NotificationNotFoundException;
+use App\Factories\Notification\Notification as NotificationFactory;
+use App\Models\Notification as NotificationModel;
+use App\Repositories\Notifications\Options\Options;
 use Barrigudinha\Notification\Notification;
 use Barrigudinha\Notification\NotificationsList;
-use Carbon\Carbon;
+use Barrigudinha\Notification\Repositories\Contracts\Repository as NotificationRepository;
 
-class Repository
+class Repository implements NotificationRepository
 {
-    public function get(?string $id): ?Notification
+    public function create(Notification $notification): bool
     {
-        $data = $this->getData();
+        $notificationModel = new NotificationModel();
+        $notificationModel->fill($notification->toArray());
 
-        foreach ($data as $notification) {
-            if ($id === $notification['id']) {
-                return Notification::fromArray($notification);
-            }
-        }
-
-        return null;
+        return $notificationModel->save();
     }
 
-    public function list(): NotificationsList
+    public function get(?string $id = null): ?Notification
     {
-        $data = $this->getData();
+        if (!$id) {
+            $notification = NotificationModel::where('is_solved', false)->first();
 
-        foreach ($data as $notification) {
-            $notifications[] = Notification::fromArray($notification);
+            return NotificationFactory::buildFromModel($notification);
         }
 
-        return new NotificationsList($notifications);
+        $notification = NotificationModel::find($id);
+
+        return NotificationFactory::buildFromModel($notification);
     }
 
-    private function getData(): array
+    public function list(Options $options): NotificationsList
     {
-        return [
-            [
-                'id' => '321',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => 'Os produtos foram sincronizados com o Bling com sucesso!',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => true,
-            ],
-            [
-                'id' => '417',
-                'title' => 'Produto 1231 está com prejuízo no Mercado Livre!',
-                'content' => 'Preço: R$ 100 | Lucro R$ 200',
-                'tags' => ['preço', 'prejuízo'],
-                'type' => 'alert',
-                'createdAt' => Carbon::now(),
-                'isSolved' => false,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '123',
-                'title' => 'Existem 120 produtos com menos de 3 imagens nas postagens!',
-                'content' => '',
-                'tags' => ['produtos'],
-                'type' => 'report',
-                'createdAt' => Carbon::now(),
-                'isSolved' => false,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '124',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => '',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '125',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => '',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '126',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => '',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '127',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => '',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '128',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => '',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '129',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => '',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => false,
-            ],
-            [
-                'id' => '130',
-                'title' => 'Produtos sincronizados com sucesso!',
-                'content' => '',
-                'tags' => ['sincronização', 'produtos'],
-                'type' => 'info',
-                'createdAt' => Carbon::now(),
-                'isSolved' => true,
-                'wasReaded' => false,
-            ],
-        ];
+        $notifications = NotificationModel::where('is_solved', false)
+            ->orderBy('id')
+            ->paginate(perPage: $options->perPage(), page: $options->page())
+            ->items();
+
+        foreach ($notifications as $notificationModel) {
+            $notificationsList[] = NotificationFactory::buildFromModel($notificationModel);
+        }
+
+        return new NotificationsList($notificationsList ?? []);
+    }
+
+    public function count(): int
+    {
+        return NotificationModel::where('is_solved', false)->count();
+    }
+
+    public function updateReadedStatus(string $id, bool $value): bool
+    {
+        return $this->update($id, ['is_readed' => $value]);
+    }
+
+    public function updateSolvedStatus(string $id, bool $value): bool
+    {
+        return $this->update($id, ['is_solved' => $value]);
+    }
+
+    private function update(string $id, array $data): bool
+    {
+        $notificationModel = NotificationModel::find($id);
+
+        if (!$notificationModel) {
+            throw new NotificationNotFoundException('Notificação não encontrada');
+        }
+
+        $notificationModel->fill($data);
+
+        return $notificationModel->save();
     }
 }

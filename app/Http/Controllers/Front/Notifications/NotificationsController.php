@@ -3,33 +3,36 @@
 namespace App\Http\Controllers\Front\Notifications;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Utils\Paginator;
-use App\Repositories\Notifications\Repository;
+use App\Repositories\Notifications\Options\Options;
+use App\Services\Notifications\ListNotifications;
 use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
-    private Paginator $paginator;
-    private Repository $repository;
+    private ListNotifications $service;
 
-    public function __construct(Paginator $paginator, Repository $repository)
+    public function __construct(ListNotifications $service)
     {
-        $this->paginator = $paginator;
-        $this->repository = $repository;
+        $this->service = $service;
     }
 
     public function list(Request $request)
     {
-        $data = $this->repository->list();
-        $main = $this->repository->get($request->input('main'));
+        $options = new Options(
+            [
+                'main' => $request->input('main'),
+                'path' => '/inbox',
+                'page' => $request->input('page') ?? 1,
+            ]
+        );
 
-        $paginator = $this->paginator->paginate($data, $request, 5, 25);
+        if ($options->main()) {
+            $this->service->markAsReaded($options->main(), false);
+        }
 
-        return view('pages.notifications.inbox', [
-            'notifications' => $data,
-            'mainNotification' => $main,
-            'paginator' => $paginator
-        ]);
+        $data = $this->service->list($options);
+
+        return view('pages.notifications.inbox', $data);
     }
 
     public function show(string $id)

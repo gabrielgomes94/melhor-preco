@@ -2,7 +2,7 @@
 
 namespace App\Services\Utils;
 
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Barrigudinha\Utils\Paginator\Contracts\Options;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Paginator
