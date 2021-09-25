@@ -9,5 +9,16 @@ class Notification extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'title',
+        'content',
+        'type',
+        'tags',
+        'is_solved',
+        'is_readed',
+    ];
 
+    protected $casts = [
+        'tags' => 'array',
+    ];
 }
