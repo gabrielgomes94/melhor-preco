@@ -21,9 +21,9 @@ class NotificationsController extends Controller
     public function list(Request $request)
     {
         $data = $this->repository->list();
-        $main = $this->repository->get();
+        $main = $this->repository->get($request->input('main'));
+
         $paginator = $this->paginator->paginate($data, $request, 5, 25);
-//        dd($paginator);
 
         return view('pages.notifications.inbox', [
             'notifications' => $data,

@@ -64,6 +64,21 @@ class Notification
         return $this->createdAt;
     }
 
+    public function isSolved(): bool
+    {
+        return $this->isSolved;
+    }
+
+    public function tags(): array
+    {
+        return $this->tags->get();
+    }
+
+    public function wasReaded(): bool
+    {
+        return $this->wasReaded;
+    }
+
     public function toArray(): array
     {
         return [
