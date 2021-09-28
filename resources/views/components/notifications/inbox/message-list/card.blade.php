@@ -1,4 +1,4 @@
-<div class="card hover-state border border-bottom py-3 my-2">
+<div class="card hover-state border border-bottom py-3 mb-2">
     <div class="card-body d-flex align-items-center flex-wrap flex-lg-nowrap py-0">
         <div class="w-100">
             <x-notifications.notification.tags :tags="$data['tags']" />
