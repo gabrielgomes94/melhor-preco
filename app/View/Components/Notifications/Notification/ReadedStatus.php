@@ -10,7 +10,7 @@ class ReadedStatus extends NotificationComponent
     {
         $path = self::COMPONENT_PATH;
 
-        if ($this->notification->wasReaded()) {
+        if ($this->notification->isRead()) {
             return view( "{$path}.readed", [
                 'notification' => $this->notification->toArray(),
             ]);

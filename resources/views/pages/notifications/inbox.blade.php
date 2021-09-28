@@ -4,10 +4,9 @@
     </x-slot>
 
     <x-notifications.inbox.card
-        :notifications="$notifications"
-        :mainNotification="$mainNotification"
-        :paginator="$paginator"
+        :notifications="$inbox->notifications()"
+        :mainNotification="$inbox->mainNotification()"
+        :paginator="$inbox->paginator()"
     >
-
     </x-notifications.inbox.card>
 </x-layout>
