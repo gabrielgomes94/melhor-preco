@@ -15,6 +15,7 @@ return [
 
     'paths' => [
         resource_path('views'),
+        'src\\notifications\\Presentations\\Resources\\Views'
     ],
 
     /*
@@ -32,5 +33,4 @@ return [
         'VIEW_COMPILED_PATH',
         realpath(storage_path('framework/views'))
     ),
-
 ];
