@@ -8,24 +8,24 @@
     <x-layout.icons.mini-menu />
 </a>
 
-<div class="dropdown-menu my-4">
+<div class="dropdown-menu dropdown-menu-end my-4 py-1">
     <div class="list-group list-group-flush">
         <x-template.forms.put
-            action="{{ route('notifications.updateReadedStatus', $notification->toArray()['id']) }}"
+            action="{{ route('notifications.updateReadedStatus', $notification->identifier()) }}"
         >
             <input type="hidden" name="readed" value="true">
 
-            <button class="btn" type="submit">
+            <button class="btn dropdown-item" type="submit">
                 Marcar como lido
             </button>
         </x-template.forms.put>
 
         <x-template.forms.put
-            action="{{ route('notifications.updateSolvedStatus', $notification->toArray()['id']) }}"
+            action="{{ route('notifications.updateSolvedStatus', $notification->identifier()) }}"
         >
             <input type="hidden" name="solved" value="true">
 
-            <button class="btn" type="submit">
+            <button class="btn dropdown-item" type="submit">
                 Marcar como resolvido
             </button>
         </x-template.forms.put>

@@ -13,7 +13,7 @@ class Card extends NotificationComponent
     {
         $path = self::COMPONENT_PATH;
 
-        if ($this->notification instanceof NullNotification) {
+        if ($this->notification === null) {
             return view("{$path}.empty-card");
         }
 

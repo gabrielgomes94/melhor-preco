@@ -6,7 +6,7 @@ class Timestamp extends NotificationComponent
 {
     private const COMPONENT_PATH = 'components.notifications.notification.timestamp';
 
-    public string $createdAt;
+    public ?string $createdAt;
 
     public function render()
     {
@@ -15,8 +15,8 @@ class Timestamp extends NotificationComponent
         return view(self::COMPONENT_PATH);
     }
 
-    private function getCreatedAt(): string
+    private function getCreatedAt(): ?string
     {
-        return $this->notification->createdAt()->format('d/m/Y h:i');
+        return $this->notification->createdAt()?->format('d/m/Y h:i');
     }
 }

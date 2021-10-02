@@ -3,10 +3,9 @@
         <x-notifications.navbar />
     </x-slot>
 
-    <x-notifications.inbox.card
-        :notifications="$inbox->notifications()"
-        :mainNotification="$inbox->mainNotification()"
-        :paginator="$inbox->paginator()"
+    <x-notifications.inbox.card.card
+        :inbox="$inbox"
+        :filter="$filter"
     >
-    </x-notifications.inbox.card>
+    </x-notifications.inbox.card.card>
 </x-layout>

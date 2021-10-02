@@ -4,7 +4,7 @@
         </x-notifications.inbox.main-message.card>
     </div>
     <div class="col-12">
-        <x-notifications.inbox.message-list.container :notifications="$paginator->items()" />
+        <x-notifications.inbox.message-list.container :notifications="$paginator->items()" :filter="$filter" />
     </div>
 
     <div class="my-4">

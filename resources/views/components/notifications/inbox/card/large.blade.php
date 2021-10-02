@@ -1,6 +1,6 @@
 <div class="row d-none d-sm-none d-md-none d-lg-none d-xl-flex">
     <div class="col-xl-6">
-        <x-notifications.inbox.message-list.container :notifications="$paginator->items()" />
+        <x-notifications.inbox.message-list.container :notifications="$paginator->items()" :filter="$filter" />
 
         <div class="mt-4">
             <x-utils.paginator-links :paginator="$paginator"/>
