@@ -2,9 +2,12 @@
 
 namespace App\Services\Notifications;
 
+use App\Models\Notification;
 use App\Repositories\Notifications\Options\Options;
 use App\Repositories\Notifications\Repository;
+use App\Services\Notifications\Transformers\Inbox;
 use App\Services\Utils\Paginator;
+use Barrigudinha\Notification\NullNotification;
 
 class ListNotifications
 {
@@ -17,30 +20,44 @@ class ListNotifications
         $this->repository = $repository;
     }
 
-    public function list(Options $options): array
+    private function getMainNotification(Options $options): ?Notification
+    {
+        if ($options->main()) {
+            return $this->repository->get($options->main());
+        }
+
+        if ($firstNotification = $this->repository->first($options)) {
+            return $firstNotification;
+        }
+
+        return null;
+    }
+
+    public function list(Options $options): Inbox
     {
         $notificationsList = $this->repository->list($options);
-        $main = $this->repository->get($options->main() ?? null);
+        $main = $this->getMainNotification($options);
 
-        $paginator = $this->paginator->paginate(
-            array: $notificationsList->get(),
-            options: $options,
-            count: $this->repository->count()
-        );
-
-        return [
-            'notifications' => $notificationsList,
-            'mainNotification' => $main,
-            'paginator' => $paginator
-        ];
+        return new Inbox($notificationsList, $main);
     }
 
-    public function markAsReaded(string $id, bool $value = true): string
+    public function toggleReadingStatus(string $id): string
     {
-        return $this->repository->updateReadedStatus($id, $value);
+        $notification = $this->repository->get($id);
+
+        if (!$notification) {
+            throw new \Exception();
+        }
+
+        if ($notification->isRead()) {
+
+            return $this->repository->updateReadedStatus($id, false);
+        }
+
+        return $this->repository->updateReadedStatus($id, true);
     }
 
-    public function markAsSolved(string $id, bool $value = true): string
+    public function toggleSolvedStatus(string $id, bool $value = true): string
     {
         return $this->repository->updateSolvedStatus($id, $value);
     }

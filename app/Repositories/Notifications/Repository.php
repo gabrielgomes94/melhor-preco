@@ -9,6 +9,7 @@ use App\Repositories\Notifications\Options\Options;
 use Barrigudinha\Notification\Notification;
 use Barrigudinha\Notification\NotificationsList;
 use Barrigudinha\Notification\Repositories\Contracts\Repository as NotificationRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Repository implements NotificationRepository
 {
@@ -20,46 +21,66 @@ class Repository implements NotificationRepository
         return $notificationModel->save();
     }
 
-    public function get(?string $id = null): ?Notification
+    public function first(Options $options): ?NotificationModel
     {
-        if (!$id) {
-            $notification = NotificationModel::where('is_solved', false)->first();
-
-            return NotificationFactory::buildFromModel($notification);
+        if ($options->onlySolved()) {
+            return NotificationModel::whereNotNull('solved_at')
+                ->orderBy('id')
+                ->first();
         }
 
-        $notification = NotificationModel::find($id);
-
-        return NotificationFactory::buildFromModel($notification);
+        return NotificationModel::whereNull('solved_at')
+            ->orderBy('id')
+            ->first();
     }
 
-    public function list(Options $options): NotificationsList
+    public function get(string $id): ?NotificationModel
     {
-        $notifications = NotificationModel::where('is_solved', false)
-            ->orderBy('id')
-            ->paginate(perPage: $options->perPage(), page: $options->page())
-            ->items();
-
-        foreach ($notifications as $notificationModel) {
-            $notificationsList[] = NotificationFactory::buildFromModel($notificationModel);
+        if (!$notification = NotificationModel::find($id)) {
+            return null;
         }
 
-        return new NotificationsList($notificationsList ?? []);
+        return $notification;
+    }
+
+    public function list(Options $options): LengthAwarePaginator
+    {
+        if ($options->onlySolved()) {
+            return $notifications = NotificationModel::whereNotNull('solved_at')
+                ->orderBy('id')
+                ->paginate(perPage: $options->perPage(), page: $options->page());
+        }
+
+        return $notifications = NotificationModel::whereNull('solved_at')
+            ->orderBy('id')
+            ->paginate(perPage: $options->perPage(), page: $options->page());
     }
 
     public function count(): int
     {
-        return NotificationModel::where('is_solved', false)->count();
+        return NotificationModel::where('solved_at', null)->count();
     }
 
     public function updateReadedStatus(string $id, bool $value): bool
     {
-        return $this->update($id, ['is_readed' => $value]);
+        $notificationModel = NotificationModel::find($id);
+
+        $value
+            ? $notificationModel->markAsRead()
+            : $notificationModel->markAsUnread();
+
+        return true;
     }
 
     public function updateSolvedStatus(string $id, bool $value): bool
     {
-        return $this->update($id, ['is_solved' => $value]);
+        $notificationModel = NotificationModel::find($id);
+
+        $value
+            ? $notificationModel->markAsSolved()
+            : $notificationModel->markAsUnsolved();
+
+        return true;
     }
 
     private function update(string $id, array $data): bool

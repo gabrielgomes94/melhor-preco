@@ -3,7 +3,6 @@
 namespace Barrigudinha\Notification;
 
 use Barrigudinha\Notification\ValueObjects\Tags;
-use Barrigudinha\Notification\ValueObjects\Type;
 use Carbon\Carbon;
 
 class Notification
@@ -14,27 +13,26 @@ class Notification
     private string $id;
     private string $title;
     private string $content;
-    private Type $type;
     private Carbon $createdAt;
+    private ?Carbon $readAt;
+    private ?Carbon $solvedAt;
 
     public function __construct(
         string $id,
         string $title,
         string $content,
         Tags $tags,
-        Type $type,
         Carbon $createdAt,
-        bool $isSolved = false,
-        bool $isReaded = false
+        ?Carbon $solvedAt,
+        ?Carbon $readAt
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->content = $content;
         $this->tags = $tags;
-        $this->type = $type;
         $this->createdAt = $createdAt;
-        $this->isSolved = $isSolved;
-        $this->isReaded = $isReaded;
+        $this->solvedAt = $solvedAt;
+        $this->readAt = $readAt;
     }
 
     public static function fromArray(array $data): self
@@ -43,19 +41,14 @@ class Notification
             ? $data['tags']
             : new Tags($data['tags']);
 
-        $type = $data['type'] instanceof Type
-            ? $data['type']
-            : new Type($data['type']);
-
         return new self(
             $data['id'],
             $data['title'],
             $data['content'],
             $tags,
-            $type,
             $data['createdAt'],
-            $data['isSolved'],
-            $data['isReaded'],
+            $data['solvedAt'],
+            $data['readAt'],
         );
     }
 
@@ -66,7 +59,7 @@ class Notification
 
     public function isSolved(): bool
     {
-        return $this->isSolved;
+        return (bool) $this->solvedAt;
     }
 
     public function tags(): array
@@ -74,9 +67,9 @@ class Notification
         return $this->tags->get();
     }
 
-    public function isReaded(): bool
+    public function isRead(): bool
     {
-        return $this->isReaded;
+        return (bool) $this->readAt;
     }
 
     public function toArray(): array
@@ -86,9 +79,8 @@ class Notification
             'title' => $this->title,
             'content' => $this->content,
             'tags' => $this->tags->get(),
-            'type' => (string) $this->type,
-            'isSolved' => $this->isSolved,
-            'isReaded' => $this->isReaded,
+            'isSolved' => $this->isSolved(),
+            'isReaded' => $this->isRead(),
             'createdAt' => (string) $this->createdAt,
         ];
     }

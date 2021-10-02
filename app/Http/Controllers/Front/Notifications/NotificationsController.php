@@ -21,18 +21,37 @@ class NotificationsController extends Controller
         $options = new Options(
             [
                 'main' => $request->input('main'),
-                'path' => '/inbox',
+                'path' => $request->fullUrl(),
                 'page' => $request->input('page') ?? 1,
+                'filter' => $request->input('filter'),
             ]
         );
 
         if ($options->main()) {
-            $this->service->markAsReaded($options->main(), false);
+            $this->service->toggleReadingStatus($options->main());
         }
 
-        $data = $this->service->list($options);
+        $inbox = $this->service->list($options);
 
-        return view('pages.notifications.inbox', $data);
+        return view('pages.notifications.inbox', [
+            'inbox' => $inbox,
+            'filter' => $options->filter(),
+        ]);
+    }
+
+    public function updateReadedStatus(Request $request, string $id)
+    {
+        $this->service->toggleReadingStatus($id);
+
+        return redirect()->route('notifications.list');
+    }
+
+    public function updateSolvedStatus(Request $request, string $id)
+    {
+        $solvedStatus = $request->input('solved') === 'true';
+        $this->service->toggleSolvedStatus($id, $solvedStatus);
+
+        return redirect()->route('notifications.list');
     }
 
     public function show(string $id)

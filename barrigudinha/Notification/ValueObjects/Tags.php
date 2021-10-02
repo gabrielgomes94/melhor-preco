@@ -4,7 +4,7 @@ namespace Barrigudinha\Notification\ValueObjects;
 
 class Tags
 {
-    private array $tags;
+    private array $tags = [];
 
     public function __construct(array $tags)
     {

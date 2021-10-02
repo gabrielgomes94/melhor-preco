@@ -2,23 +2,62 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use Illuminate\Notifications\DatabaseNotification;
 
-class Notification extends Model
+class Notification extends DatabaseNotification
 {
-    use HasFactory;
+    public function markAsSolved(): void
+    {
+        if (is_null($this->solved_at)) {
+            $this->forceFill(['solved_at' => $this->freshTimestamp()])->save();
+        }
+    }
 
-    public $fillable = [
-        'title',
-        'content',
-        'type',
-        'tags',
-        'is_solved',
-        'is_readed',
-    ];
+    public function markAsUnsolved(): void
+    {
+        if (! is_null($this->solved_at)) {
+            $this->forceFill(['solved_at' => null])->save();
+        }
+    }
 
-    protected $casts = [
-        'tags' => 'array',
-    ];
+    public function id(): ?string
+    {
+        return $this->id;
+    }
+
+    public function identifier(): ?string
+    {
+        return $this->id;
+    }
+
+    public function isRead(): bool
+    {
+        return (bool) $this->read_at;
+    }
+
+    public function isSolved(): bool
+    {
+        return (bool) $this->solved_at;
+    }
+
+    public function content(): string
+    {
+        return $this->data['content'] ?? '';
+    }
+
+    public function tags(): array
+    {
+        return $this->data['tags'] ?? [];
+    }
+
+    public function title(): string
+    {
+        return $this->data['title'] ?? '';
+    }
+
+    public function createdAt()
+    {
+        return $this->created_at;
+    }
 }
