@@ -9,7 +9,7 @@
                 >
                     <x-notifications.notification.title
                         :title="$notification->title()"
-                        :route="route('notifications.list', ['main' => $notification->id(), 'filter' => 'solved'])"
+                        :route="route('notifications.list', ['main' => $notification->id(), 'filter' => $filter])"
                     />
                 </x-notifications.notification.readed-status>
 

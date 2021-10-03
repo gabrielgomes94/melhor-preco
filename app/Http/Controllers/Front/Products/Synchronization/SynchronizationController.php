@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\Products\Synchronization;
 use App\Http\Controllers\Controller;
 use App\Jobs\SyncProducts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Src\Notifications\Domain\Notifications\Products\ProductsSynchronized;
 
 use function view;

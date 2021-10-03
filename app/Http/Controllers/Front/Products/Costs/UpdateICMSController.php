@@ -7,6 +7,8 @@ use App\Jobs\Products\Spreadsheets\UploadICMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Src\Notifications\Domain\Notifications\Products\ProductsICMSWasUpdated;
+use Src\Notifications\Domain\Notifications\Products\ProductsSynchronized;
 use function view;
 
 class UpdateICMSController extends Controller
@@ -16,6 +18,9 @@ class UpdateICMSController extends Controller
         return view('pages.products.costs.upload_icms');
     }
 
+    /**
+     * To Do: criar form request na camada de aplicação após refatorar os códigos de produtos. sssssss
+     */
     public function doUpdateICMS(Request $request)
     {
         try {
@@ -24,8 +29,8 @@ class UpdateICMSController extends Controller
             ]);
 
             UploadICMS::dispatch($this->getFileUrl($request));
-
             session()->flash('message', $this->successfulMessage());
+            $request->user()->notify(new ProductsICMSWasUpdated());
         } catch (ValidationException $e) {
             session()->flash('error', 'É necessário enviar um arquivo .xlsx ou .csv.');
         }

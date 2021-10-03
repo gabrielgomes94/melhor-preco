@@ -20,6 +20,12 @@ class UploadICMS implements ShouldQueue
         $this->file = $file;
     }
 
+    /**
+     * To Do: passar o usuário para dentro desse método handle a fim de notificar o usuário conforme o
+     * retorno do método execute.
+     *
+     * @param ImportICMS $importService
+     */
     public function handle(ImportICMS $importService)
     {
         $importService->execute($this->file);
