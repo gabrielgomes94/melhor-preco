@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/dashboard';
 
-    private const NOTIFICATIONS_DIR = 'src/notifications/Infraestructure/Routes/';
+    private const NOTIFICATIONS_DIR = 'src/notifications/Infrastructure/Routes/';
 
     /**
      * The controller namespace for the application.

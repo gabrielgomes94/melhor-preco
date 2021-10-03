@@ -6,7 +6,7 @@ use Src\Notifications\Domain\Contracts\Repository\Options;
 use Src\Notifications\Domain\Models\Notification;
 use Src\Notifications\Application\Presenters\Inbox;
 use App\Services\Utils\Paginator;
-use Src\Notifications\Infraestructure\Repositories\Repository;
+use Src\Notifications\Infrastructure\Repositories\Repository;
 
 class ListNotifications
 {

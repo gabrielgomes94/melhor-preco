@@ -5,7 +5,7 @@ namespace Src\Notifications\Application\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Src\Notifications\Application\Services\ListNotifications;
 use Illuminate\Http\Request;
-use Src\Notifications\Infraestructure\Repositories\Options;
+use Src\Notifications\Infrastructure\Repositories\Options;
 
 class NotificationsController extends Controller
 {
