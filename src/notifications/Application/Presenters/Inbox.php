@@ -2,10 +2,7 @@
 
 namespace Src\Notifications\Application\Presenters;
 
-//use Barrigudinha\Notification\Notification;
 use Src\Notifications\Domain\Models\Notification;
-use Barrigudinha\Notification\NotificationsList;
-use Barrigudinha\Notification\NullNotification;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Inbox
