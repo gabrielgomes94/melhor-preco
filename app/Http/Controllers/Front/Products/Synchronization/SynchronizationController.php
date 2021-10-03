@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front\Products\Synchronization;
 use App\Http\Controllers\Controller;
 use App\Jobs\SyncProducts;
 use Illuminate\Http\Request;
+use Src\Notifications\Domain\Notifications\Products\ProductsSynchronized;
+
 use function view;
 
 class SynchronizationController extends Controller
@@ -24,6 +26,7 @@ class SynchronizationController extends Controller
     public function doSync(Request $request)
     {
         SyncProducts::dispatch();
+        $request->user()->notify(new ProductsSynchronized());
 
         return view('pages.products.sync.sync');
     }
