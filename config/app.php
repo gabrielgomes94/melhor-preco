@@ -185,7 +185,11 @@ return [
         App\Providers\PricingServiceProvider::class,
         App\Providers\StoreServiceProvider::class,
 
-        Src\Notifications\Application\Providers\NotificationServiceProvider::class
+        /**
+         * Notifications' module Service Providers...
+         */
+        Src\Notifications\Application\Providers\NotificationServiceProvider::class,
+        Src\Notifications\Application\Providers\EventServiceProvider::class,
     ],
 
     /*

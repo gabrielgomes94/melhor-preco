@@ -2,6 +2,7 @@
 
 namespace Src\Notifications\Domain\Notifications\Products;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -55,9 +56,10 @@ class ProductsSynchronized extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Produtos sincronizados',
+            'title' => 'Produtos sincronizados em ' . (string) Carbon::now(),
             'content' => '',
             'type' => 'info',
+            'solved_at' => Carbon::now(),
             'tags' => ['produtos','sincronização'],
         ];
     }

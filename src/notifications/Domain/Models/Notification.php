@@ -57,6 +57,11 @@ class Notification extends DatabaseNotification implements NotificationInterface
         return $this->data['title'] ?? '';
     }
 
+    public function type(): string
+    {
+        return $this->data['type'] ?? '';
+    }
+
     public function createdAt(): Carbon
     {
         return $this->created_at;
