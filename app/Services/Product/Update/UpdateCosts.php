@@ -5,9 +5,9 @@ namespace App\Services\Product\Update;
 use App\Factories\Product\Costs;
 use App\Repositories\Product\GetDB;
 use App\Repositories\Product\Updator as ProductUpdator;
-use App\Services\Pricing\UpdatePrice\Exceptions\ProductNotFound;
-use App\Services\Pricing\UpdatePrice\Exceptions\UpdateDBException;
-use App\Services\Pricing\UpdatePrice\UpdateDB;
+use Src\Prices\Application\Services\UpdatePrice\Exceptions\ProductNotFound;
+use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdateDBException;
+use Src\Prices\Application\Services\UpdatePrice\UpdateDB;
 use Barrigudinha\Pricing\Price\Services\CalculateProduct;
 use Barrigudinha\Product\Entities\Product;
 

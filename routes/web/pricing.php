@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\Front\Pricing\Price\UpdateController;
-use App\Http\Controllers\Front\Pricing\PriceList\IndexController;
-use App\Http\Controllers\Front\Pricing\PriceList\ByStore\ExportController as ByStoreExportController;
-use App\Http\Controllers\Front\Pricing\PriceList\ByStore\ShowController as ByStoreShowController;
-use App\Http\Controllers\Front\Pricing\PriceLog\PriceLogController;
-use App\Http\Controllers\Front\Pricing\Product\ShowController as ProductShowController;
 use Illuminate\Support\Facades\Route;
+use Src\Prices\Application\Http\Controllers\Web\Price\UpdateController;
+use Src\Prices\Application\Http\Controllers\Web\PriceList\IndexController;
+use Src\Prices\Application\Http\Controllers\Web\PriceList\ShowController;
+use Src\Prices\Application\Http\Controllers\Web\PriceLog\PriceLogController;
+use Src\Prices\Application\Http\Controllers\Web\Product\ShowController as ProductShowController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('pricing')
@@ -16,22 +15,23 @@ Route::middleware('auth')->group(function () {
                 ->name('.priceList')
                 ->group(function () {
                     Route::get('/', [IndexController::class, 'index'])->name('.index');
-                    Route::get('/{store}', [ByStoreShowController::class, 'show'])->name('.byStore');
+                    Route::get('/{store}', [ShowController::class, 'show'])->name('.byStore');
                 });
 
             Route::prefix('/{store}/products')
                 ->name('.products')
                 ->group(function () {
-                    Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])->name('.showByStore');
-                    Route::post('/export', [ByStoreExportController::class, 'export'])->name('.export');
-
-
+                    Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])
+                        ->name('.showByStore');
                 });
 
             Route::prefix('/price_log')
                 ->name('.priceLog')
                 ->group(function () {
-                    Route::get('/{store}/last_updated_products', [PriceLogController::class, 'lastUpdatedProducts'])->name('.lastUpdatedProducts');
+                    Route::get(
+                        '/{store}/last_updated_products',
+                        [PriceLogController::class, 'lastUpdatedProducts']
+                    )->name('.lastUpdatedProducts');
                 });
 
             Route::prefix('/products')

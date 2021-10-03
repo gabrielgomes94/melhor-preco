@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front\Products\Costs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\EditCostsRequest;
 use App\Http\Requests\Product\UpdateCostsRequest;
-use App\Services\Pricing\UpdatePrice\Exceptions\UpdatePriceException;
+use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdatePriceException;
 use App\Services\Product\ListProducts;
 use App\Services\Product\Update\UpdateCosts;
 use function redirect;
