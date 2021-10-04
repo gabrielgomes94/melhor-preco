@@ -3,7 +3,7 @@
 namespace App\Repositories\Product;
 
 use App\Http\Requests\Utils\ProductOptions;
-use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
+use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Repositories\Contracts\ListProducts;
 use Barrigudinha\Product\Utils\Contracts\Options;
@@ -34,7 +34,7 @@ abstract class BaseList implements ListProducts
     private function filterProducts(ProductsCollection $products, Options $options): ProductsCollection
     {
         /**
-         * @var Filter $filter
+         * @var \Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter $filter
          */
         foreach ($this->filters as $filter) {
             $products = $filter::execute($products, $options);

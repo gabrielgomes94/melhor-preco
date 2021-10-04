@@ -4,8 +4,8 @@ namespace App\Repositories\Product;
 
 use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
-use App\Repositories\Pricing\Product\Filters\Active;
-use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
+use Src\Prices\Infrastructure\Repositories\Product\Filters\Active;
+use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
 use App\Repositories\Product\Queries\Products as QueryProducts;
 use App\Repositories\Product\Queries\ProductsBySku as QueryProductsBySku;
 use Barrigudinha\Product\Entities\ProductsCollection;

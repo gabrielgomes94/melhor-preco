@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Services\PriceLog;
 
-use App\Repositories\Pricing\PriceLog\ListDB;
+use Src\Prices\Infrastructure\Repositories\PriceLog\ListDB;
 use App\Services\Utils\Paginator;
 use Barrigudinha\Product\Utils\Contracts\Options;
 use Illuminate\Pagination\LengthAwarePaginator;

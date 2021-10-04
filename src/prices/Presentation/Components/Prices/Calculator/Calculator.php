@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Pricing\Prices\Calculator;
+namespace Src\Prices\Presentation\Components\Prices\Calculator;
 
 use App\Presenters\Pricing\Post\Contracts\HasSecondaryPrice;
 use App\Presenters\Pricing\Post\MagaluPost;

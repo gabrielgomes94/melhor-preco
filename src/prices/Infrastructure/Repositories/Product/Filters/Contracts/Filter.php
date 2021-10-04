@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Pricing\Product\Filters\Contracts;
+namespace Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts;
 
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Utils\Contracts\Options;

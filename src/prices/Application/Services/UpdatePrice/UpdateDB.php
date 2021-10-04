@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Services\UpdatePrice;
 
-use App\Repositories\Pricing\Price\Repository;
+use Src\Prices\Infrastructure\Repositories\Price\Repository;
 use Barrigudinha\Pricing\Services\UpdatePrice\Contracts\UpdateDB as UpdateDBInterface;
 use Barrigudinha\Product\Entities\Post;
 

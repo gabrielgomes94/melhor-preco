@@ -7,16 +7,16 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use Src\Prices\Application\Http\Requests\PriceLog\PriceLogRequest;
 use App\Presenters\Store\Presenter;
 use App\Presenters\Store\Store;
-use Src\Prices\Application\Services\ListProducts;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Prices\Application\Services\PriceLog\ListProducts;
 
 class PriceLogController extends Controller
 {
     private Breadcrumb $breadcrumb;
     private Presenter $storePresenter;
-    private \Src\Prices\Application\Services\ListProducts $listProductsService;
+    private ListProducts $listProductsService;
 
-    public function __construct(Breadcrumb $breadcrumb, Presenter $storePresenter, \Src\Prices\Application\Services\ListProducts $listProductsService)
+    public function __construct(Breadcrumb $breadcrumb, Presenter $storePresenter, ListProducts $listProductsService)
     {
         $this->breadcrumb = $breadcrumb;
         $this->storePresenter = $storePresenter;

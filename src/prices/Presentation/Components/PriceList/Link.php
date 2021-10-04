@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Pricing\PriceList;
+namespace Src\Prices\Presentation\Components\PriceList;
 
 use Illuminate\View\Component;
 

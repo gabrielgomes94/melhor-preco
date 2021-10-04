@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Pricing\Price;
+namespace Src\Prices\Infrastructure\Repositories\Price;
 
 use App\Models\Price;
 use Money\Currencies\ISOCurrencies;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Pricing\Forms\Checkbox;
+namespace Src\Prices\Presentation\Components\Forms\Checkbox;
 
 use Illuminate\View\Component;
 

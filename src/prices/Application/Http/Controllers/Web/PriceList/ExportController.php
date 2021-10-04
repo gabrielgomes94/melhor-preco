@@ -5,7 +5,7 @@ namespace Src\Prices\Application\Http\Controllers\Web\PriceList;
 
 use App\Exports\BlingPriceExport;
 use App\Http\Controllers\Controller;
-use App\Repositories\Pricing\Product\ListDB;
+use Src\Prices\Infrastructure\Repositories\Product\ListDB;
 use App\Repositories\Product\Options\Options;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;

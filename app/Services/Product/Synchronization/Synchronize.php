@@ -2,7 +2,7 @@
 
 namespace App\Services\Product\Synchronization;
 
-use App\Repositories\Pricing\Product\Creator;
+use Src\Prices\Infrastructure\Repositories\Product\Creator;
 use App\Repositories\Product\GetDB;
 use App\Services\Product\Update\UpdateProduct;
 use Integrations\Bling\Products\Repositories\Repository as BlingRepository;

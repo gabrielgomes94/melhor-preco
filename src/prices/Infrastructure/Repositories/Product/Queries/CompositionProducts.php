@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories\Pricing\Product\Queries;
+namespace Src\Prices\Infrastructure\Repositories\Product\Queries;
 
 use App\Models\Product;
 use Barrigudinha\Product\Repositories\Contracts\Query;
 use Barrigudinha\Product\Utils\Contracts\Options;
 use Illuminate\Database\Eloquent\Builder;
 
-class ProductsBySku implements Query
+class CompositionProducts implements Query
 {
     public static function count(Options $options): int
     {
@@ -23,25 +23,12 @@ class ProductsBySku implements Query
 
     public static function query(Options $options): Builder
     {
-        $store = $options?->store();
-        $sku = $options?->sku();
-
         return Product::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-            ->where('store', $store)
-            ->where('sku', $sku)
+            ->whereNull('parent_sku')
             ->where('is_active', true)
-            ->orWhere(function ($query) use ($sku, $store) {
-                $query->where('parent_sku', $sku)
-                    ->where('store', $store)
-                    ->where('is_active', true);
-            })
-            ->orWhere(function ($query) use ($sku, $store) {
-                $sku = '%"' . $sku .'"%';
-
-                $query->where('composition_products', 'like', $sku)
-                    ->where('store', $store)
-                    ->where('is_active', true);
-            })
+            ->whereNotNull('product_id')
+            ->whereNotIn('composition_products', ['[]'])
+            ->where('store', $options->store())
             ->orderBy('product_id');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Services\Products;
 
-use App\Repositories\Pricing\Product\ListDB;
+use Src\Prices\Infrastructure\Repositories\Product\ListDB;
 use App\Services\Utils\Paginator;
 use Barrigudinha\Product\Utils\Contracts\Options;
 use Illuminate\Pagination\LengthAwarePaginator;

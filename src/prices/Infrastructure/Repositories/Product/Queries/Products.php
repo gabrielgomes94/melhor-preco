@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories\Pricing\Product\Queries;
+namespace Src\Prices\Infrastructure\Repositories\Product\Queries;
 
 use App\Models\Product;
 use Barrigudinha\Product\Repositories\Contracts\Query;
 use Barrigudinha\Product\Utils\Contracts\Options;
 use Illuminate\Database\Eloquent\Builder;
 
-class CompositionProducts implements Query
+class Products implements Query
 {
     public static function count(Options $options): int
     {
@@ -17,18 +17,19 @@ class CompositionProducts implements Query
     public static function paginate(Options $options): array
     {
         return self::query($options)
+            ->orderBy('product_id')
             ->paginate(perPage: $options->perPage(), page: $options->page())
             ->items();
     }
 
     public static function query(Options $options): Builder
     {
+        $store = $options->store();
+
         return Product::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
             ->where('is_active', true)
             ->whereNotNull('product_id')
-            ->whereNotIn('composition_products', ['[]'])
-            ->where('store', $options->store())
-            ->orderBy('product_id');
+            ->where('store', $store);
     }
 }

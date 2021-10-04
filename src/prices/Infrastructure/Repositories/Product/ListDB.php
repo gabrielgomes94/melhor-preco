@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Pricing\Product;
+namespace Src\Prices\Infrastructure\Repositories\Product;
 
 use App\Factories\Product\Product as ProductFactory;
 use App\Models\Product as ProductModel;
-use App\Repositories\Pricing\Product\Filters\Active;
-use App\Repositories\Pricing\Product\Filters\Contracts\Filter;
-use App\Repositories\Pricing\Product\Filters\MarginRange;
-use App\Repositories\Pricing\Product\Queries\CompositionProducts as QueryCompositionProducts;
-use App\Repositories\Pricing\Product\Queries\Products as QueryProducts;
-use App\Repositories\Pricing\Product\Queries\ProductsBySku as QueryProductsBySku;
+use Src\Prices\Infrastructure\Repositories\Product\Filters\Active;
+use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
+use Src\Prices\Infrastructure\Repositories\Product\Filters\MarginRange;
+use Src\Prices\Infrastructure\Repositories\Product\Queries\CompositionProducts as QueryCompositionProducts;
+use Src\Prices\Infrastructure\Repositories\Product\Queries\Products as QueryProducts;
+use Src\Prices\Infrastructure\Repositories\Product\Queries\ProductsBySku as QueryProductsBySku;
 use App\Repositories\Product\BaseList;
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Utils\Contracts\Options;
@@ -17,7 +17,7 @@ use Barrigudinha\Product\Utils\Contracts\Options;
 class ListDB extends BaseList
 {
     /**
-     * @var Filter[] $filters
+     * @var \Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter[] $filters
      */
     protected array $filters = [
         Active::class,

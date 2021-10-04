@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Pricing\PriceLog;
+namespace Src\Prices\Infrastructure\Repositories\PriceLog;
 
 use App\Factories\Pricing\PriceLog\PriceLog;
 use App\Models\Product as ProductModel;

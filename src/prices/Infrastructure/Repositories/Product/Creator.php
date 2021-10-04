@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Pricing\Product;
+namespace Src\Prices\Infrastructure\Repositories\Product;
 
 use App\Models\Price as PriceModel;
 use App\Models\Product as ProductModel;
