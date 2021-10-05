@@ -8,7 +8,7 @@ use App\Repositories\Product\Updator as ProductUpdator;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\ProductNotFound;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdateDBException;
 use Src\Prices\Application\Services\UpdatePrice\UpdateDB;
-use Barrigudinha\Pricing\Price\Services\CalculateProduct;
+use Src\Prices\Domain\Price\Services\CalculateProduct;
 use Barrigudinha\Product\Entities\Product;
 
 class UpdateCosts

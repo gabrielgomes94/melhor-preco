@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Pricing\Show;
 
-use App\Models\Price as PriceModel;
+use Src\Prices\Domain\Price\Models\Price as PriceModel;
 
 class Price
 {

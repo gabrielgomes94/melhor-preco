@@ -3,7 +3,7 @@
 namespace App\Factories\Pricing\PriceLog;
 
 use App\Models\Product as ProductModel;
-use Barrigudinha\Pricing\PriceLog\Entities\Product;
+use Src\Prices\Domain\PriceLog\Product;
 
 class PriceLog
 {

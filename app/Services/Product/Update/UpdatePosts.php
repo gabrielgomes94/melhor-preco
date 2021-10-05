@@ -3,7 +3,7 @@
 namespace App\Services\Product\Update;
 
 use Src\Prices\Application\Services\UpdatePrice\Update;
-use Barrigudinha\Pricing\Price\Services\CalculatePrice;
+use Src\Prices\Domain\Price\Services\CalculatePrice;
 use Barrigudinha\Product\Entities\Product;
 use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Utils\Helpers;

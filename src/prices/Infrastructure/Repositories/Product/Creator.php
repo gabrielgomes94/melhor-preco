@@ -2,14 +2,9 @@
 
 namespace Src\Prices\Infrastructure\Repositories\Product;
 
-use App\Models\Price as PriceModel;
+use Src\Prices\Domain\Price\Models\Price as PriceModel;
 use App\Models\Product as ProductModel;
 use App\Repositories\Store\Store;
-use Barrigudinha\Product\Entities\Product;
-use Barrigudinha\Store\Repositories\StoreRepository;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
-use Money\Money;
 
 class Creator
 {

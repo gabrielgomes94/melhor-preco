@@ -4,7 +4,7 @@ namespace App\Services\Product;
 
 use App\Repositories\Product\ListDB;
 use App\Services\Product\Update\UpdatePosts;
-use Barrigudinha\Pricing\Price\Services\CalculateProduct;
+use Src\Prices\Domain\Price\Services\CalculateProduct;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;

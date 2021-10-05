@@ -54,7 +54,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Integrations\\": "integrations/",
-            "Src\\Notifications\\": "src/notifications"
+            "Src\\Notifications\\": "src/notifications",
+            "Src\\Prices\\": "src/prices"
         }
     },
     "autoload-dev": {

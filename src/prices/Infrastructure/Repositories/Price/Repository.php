@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Repositories\Price;
 
-use App\Models\Price;
+use Src\Prices\Domain\Price\Models\Price;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;

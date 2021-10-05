@@ -2,7 +2,7 @@
 
 namespace App\Factories\Product;
 
-use App\Models\Price;
+use Src\Prices\Domain\Price\Models\Price;
 use Barrigudinha\Product\Entities\Post as ProductPost;
 use Barrigudinha\Product\Data\Store;
 use Barrigudinha\Utils\Helpers;

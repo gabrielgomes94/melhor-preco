@@ -17,7 +17,7 @@ use Barrigudinha\Product\Utils\Contracts\Options;
 class ListDB extends BaseList
 {
     /**
-     * @var \Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter[] $filters
+     * @var Filter[] $filters
      */
     protected array $filters = [
         Active::class,

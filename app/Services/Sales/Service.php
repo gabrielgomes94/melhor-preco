@@ -4,7 +4,7 @@ namespace App\Services\Sales;
 
 use App\Repositories\Product\GetDB;
 use App\Repositories\Store\Store;
-use Barrigudinha\Pricing\Price\Services\CalculatePrice;
+use Src\Prices\Domain\Price\Services\CalculatePrice;
 use Barrigudinha\SaleOrder\Entities\SaleOrder;
 use Barrigudinha\SaleOrder\Entities\SaleOrdersCollection;
 use Barrigudinha\SaleOrder\ValueObjects\Item;

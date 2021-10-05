@@ -4,7 +4,7 @@ namespace App\Presenters\Pricing\Product;
 
 use App\Presenters\Pricing\Post\Factory as PostPresenterFactory;
 use App\Presenters\Pricing\Post\Post;
-use Barrigudinha\Pricing\Data\PostPriced\Factory;
+use Src\Prices\Domain\Factories\PostPriced\Factory;
 use Barrigudinha\Pricing\Data\PostPriced\PostPriced;
 use Barrigudinha\Product\Entities\Product as ProductData;
 use Barrigudinha\Product\Entities\ProductsCollection;
