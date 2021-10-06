@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Services\UpdatePrice;
 
-use Barrigudinha\Pricing\Services\UpdatePrice\Contracts\UpdateERP as UpdateERPInterface;
+use Src\Prices\Domain\Contracts\Services\UpdatePrice\UpdateERP as UpdateERPInterface;
 use Barrigudinha\Product\Entities\Post;
 use Integrations\Bling\Products\Clients\ProductStore;
 use Money\Currencies\ISOCurrencies;

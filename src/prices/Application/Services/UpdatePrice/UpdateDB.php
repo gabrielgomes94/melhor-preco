@@ -3,7 +3,7 @@
 namespace Src\Prices\Application\Services\UpdatePrice;
 
 use Src\Prices\Infrastructure\Repositories\Price\Repository;
-use Barrigudinha\Pricing\Services\UpdatePrice\Contracts\UpdateDB as UpdateDBInterface;
+use Src\Prices\Domain\Contracts\Services\UpdatePrice\UpdateDB as UpdateDBInterface;
 use Barrigudinha\Product\Entities\Post;
 
 class UpdateDB implements UpdateDBInterface

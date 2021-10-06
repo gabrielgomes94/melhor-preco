@@ -6,7 +6,7 @@ use Src\Prices\Application\Services\UpdatePrice\UpdateDB;
 use Src\Prices\Application\Services\UpdatePrice\UpdateERP;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdateDBException;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\SyncERPException;
-use Barrigudinha\Pricing\Services\UpdatePrice\Contracts\Update as UpdateInterface;
+use Src\Prices\Domain\Contracts\Services\UpdatePrice\Update as UpdateInterface;
 use Barrigudinha\Product\Entities\Post;
 
 class Update implements UpdateInterface
