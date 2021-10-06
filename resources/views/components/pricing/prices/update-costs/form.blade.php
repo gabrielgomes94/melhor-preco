@@ -1,5 +1,8 @@
 <x-template.card.card>
+
     <x-forms.form.put action="{{ route('products.costs.update', $productInfo->sku()) }}">
+        <h5 class="text-center mb-2">Atualizar custos</h5>
+
         <x-forms.input.money
             attribute="purchasePrice"
             componentId="purchasePrice-{{ $productInfo->sku() }}"
