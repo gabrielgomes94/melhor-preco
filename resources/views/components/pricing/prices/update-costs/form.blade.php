@@ -1,29 +1,29 @@
 <x-template.card.card>
 
-    <x-forms.form.put action="{{ route('products.costs.update', $productInfo->sku()) }}">
+    <x-forms.form.put action="{{ route('products.costs.update', $sku) }}">
         <h5 class="text-center mb-2">Atualizar custos</h5>
 
         <x-forms.input.money
             attribute="purchasePrice"
-            componentId="purchasePrice-{{ $productInfo->sku() }}"
+            componentId="purchasePrice-{{ $sku }}"
             label="Preço de Custo"
-            value="{{ $productInfo->purchasePrice() }}"
+            value="{{ $purchasePrice }}"
         >
         </x-forms.input.money>
 
         <x-forms.input.percentage
             attribute="taxICMS"
-            componentId="taxICMS-{{ $productInfo->sku() }}"
+            componentId="taxICMS-{{ $sku }}"
             label="Imposto ICMS"
-            value="{{ $productInfo->taxICMS() }}"
+            value="{{ $taxICMS }}"
         >
         </x-forms.input.percentage>
 
         <x-forms.input.money
             attribute="additionalCosts"
-            componentId="additionalCosts-{{ $productInfo->sku() }}"
+            componentId="additionalCosts-{{ $sku }}"
             label="Custos Adicionais"
-            value="{{ $productInfo->additionalCosts() }}"
+            value="{{ $additionalCosts }}"
         >
         </x-forms.input.money>
 

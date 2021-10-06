@@ -41,7 +41,10 @@
     <div class="row">
         <div class="col-12 mb-4">
             <x-template.card.card class="p-1">
-                <x-pricing.price-list.products.store-list.table :products="$products" :store="$store"/>
+                <x-pricing.price-list.products.store-list.table
+                    :products="$products"
+                    :store="$store"
+                />
 
                 <div class="my-4">
                     <x-utils.paginator-links :paginator="$paginator" />

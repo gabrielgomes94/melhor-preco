@@ -13,19 +13,19 @@
 
     <div class="row mb-4">
         <div class="mb-4">
-            <h3>{{ $productInfo->sku() }} - {{ $productInfo->name() }}</h3>
+            <h3>{{ $price->product()->sku() }} - {{ $price->product()->name() }}</h3>
         </div>
 
         <div class="col-4">
             <div class="mb-4">
-                <x-pricing.prices.calculator.card :price="$price" :productId="$productInfo->sku()" />
+                <x-pricing.prices.calculator.card :price="$price" :productId="$price->product()->sku()" />
             </div>
 
-            <x-pricing.prices.update-costs.form :productInfo="$productInfo" />
+            <x-pricing.prices.update-costs.form :product="$price->product()" />
         </div>
 
         <div class="col-8">
-            <x-pricing.prices.price.card :price="$price" :productId="$productInfo->sku()" />
+            <x-pricing.prices.price.card :price="$price" :productId="$price->product()->sku()" />
         </div>
     </div>
 </x-layout>

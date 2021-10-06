@@ -11,10 +11,12 @@
             />
 
             @if ($product->hasVariations())
-                <x-pricing.price-list.products.store-list.table.variations-row
-                    :variations="$product->variations()"
-                    :store="$store->slug()"
-                />
+                @foreach($product->variations() as $variation)
+                    <x-pricing.price-list.products.store-list.table.variations-row
+                        :product="$product->variations()"
+                        :store="$store->slug()"
+                    />
+                @endforeach
             @endif
         @endforeach
     </tbody>
