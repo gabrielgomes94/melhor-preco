@@ -12,7 +12,7 @@ interface Notification
 
     public function isSolved(): bool;
 
-    public function content(): string;
+    public function content();
 
     public function tags(): array;
 

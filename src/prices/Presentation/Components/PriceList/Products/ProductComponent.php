@@ -76,5 +76,4 @@ abstract class ProductComponent extends Component
 
         return round($margin, 2);
     }
-
 }

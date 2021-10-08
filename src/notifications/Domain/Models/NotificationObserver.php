@@ -1,14 +1,12 @@
 <?php
 
-namespace Src\Notifications\Domain\Models\Observers;
-
-use Src\Notifications\Domain\Models\Notification;
+namespace Src\Notifications\Domain\Models;
 
 class NotificationObserver
 {
     public function created(Notification $notification): void
     {
-        if ($notification->type() === 'info') {
+        if ($notification->category() === 'info') {
             $notification->markAsSolved();
         }
     }

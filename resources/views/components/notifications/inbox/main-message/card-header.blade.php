@@ -1,4 +1,4 @@
-<x-notifications.inbox.main-message.content>
+<div class="p-2">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex">
             <x-notifications.notification.timestamp :notification="$notification" />
@@ -16,4 +16,4 @@
             </ul>
         </div>
     </div>
-</x-notifications.inbox.main-message.content>
+</div>

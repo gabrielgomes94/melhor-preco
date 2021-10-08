@@ -42,9 +42,9 @@ class Notification extends DatabaseNotification implements NotificationInterface
         return (bool) $this->solved_at;
     }
 
-    public function content(): string
+    public function content()
     {
-        return $this->data['content'] ?? '';
+        return $this->data['content'] ?? [];
     }
 
     public function tags(): array
@@ -57,9 +57,14 @@ class Notification extends DatabaseNotification implements NotificationInterface
         return $this->data['title'] ?? '';
     }
 
-    public function type(): string
+    public function category(): string
     {
         return $this->data['type'] ?? '';
+    }
+
+    public function type(): string
+    {
+        return $this->type ?? '';
     }
 
     public function createdAt(): Carbon

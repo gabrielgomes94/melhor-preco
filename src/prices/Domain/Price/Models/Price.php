@@ -20,6 +20,26 @@ class Price extends Model
         'additional_costs',
     ];
 
+    public function getProductSku(): string
+    {
+        return $this->product_id;
+    }
+
+    public function getProfit(): float
+    {
+        return $this->profit;
+    }
+
+    public function getValue(): float
+    {
+        return $this->value;
+    }
+
+    public function isProfitable(): bool
+    {
+        return $this->profit > 0.0;
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

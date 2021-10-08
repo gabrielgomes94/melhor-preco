@@ -196,6 +196,7 @@ return [
          */
         Src\Prices\Application\Providers\PricingServiceProvider::class,
         Src\Prices\Application\Providers\RouteServiceProvider::class,
+        Src\Prices\Application\Providers\PricingEventServiceProvider::class,
     ],
 
     /*
