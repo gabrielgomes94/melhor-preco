@@ -2,16 +2,20 @@
 
 namespace Src\Notifications\Domain\Contracts\Repository;
 
-use Src\Notifications\Domain\Models\Notification as NotificationModel;
-use Barrigudinha\Notification\Notification;
+use ArrayAccess;
+use Src\Notifications\Domain\Models\Notification;
+use Src\Notifications\Domain\Models\NotificationsCollection;
+use Src\Notifications\Infrastructure\Repositories\Options\Options;
 
 interface Repository
 {
-//    public function create(Notification $notification): bool;
+    public function first(Options $options): ?Notification;
 
-    public function get(string $id): ?NotificationModel;
+    public function get(string $id): ?Notification;
 
-//    public function list(Options $options): NotificationsList;
+    public function list(Options $options): NotificationsCollection;
+
+    public function count(Options $options): int;
 
     public function updateReadedStatus(string $id, bool $value): bool;
 

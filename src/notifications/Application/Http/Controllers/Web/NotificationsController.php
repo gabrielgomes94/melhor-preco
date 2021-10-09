@@ -3,17 +3,20 @@
 namespace Src\Notifications\Application\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Src\Notifications\Application\Services\ListNotifications;
 use Illuminate\Http\Request;
-use Src\Notifications\Infrastructure\Repositories\Options;
+use Src\Notifications\Domain\Contracts\Services\ListNotifications;
+use Src\Notifications\Domain\Contracts\Services\UpdateStatus;
+use Src\Notifications\Infrastructure\Repositories\Options\Options;
 
 class NotificationsController extends Controller
 {
-    private ListNotifications $service;
+    private ListNotifications $listNotificationsService;
+    private UpdateStatus $updateStatusService;
 
-    public function __construct(ListNotifications $service)
+    public function __construct(ListNotifications $listNotificationsService, UpdateStatus $updateStatusService)
     {
-        $this->service = $service;
+        $this->listNotificationsService = $listNotificationsService;
+        $this->updateStatusService = $updateStatusService;
     }
 
     public function list(Request $request)
@@ -28,10 +31,10 @@ class NotificationsController extends Controller
         );
 
         if ($options->main()) {
-            $this->service->toggleReadingStatus($options->main());
+            $this->updateStatusService->toggleReadingStatus($options->main());
         }
 
-        $inbox = $this->service->list($options);
+        $inbox = $this->listNotificationsService->list($options);
 
         return view('pages.notifications.inbox', [
             'inbox' => $inbox,
@@ -41,7 +44,7 @@ class NotificationsController extends Controller
 
     public function updateReadedStatus(Request $request, string $id)
     {
-        $this->service->toggleReadingStatus($id);
+        $this->updateStatusService->toggleReadingStatus($id);
 
         return redirect()->route('notifications.list');
     }
@@ -49,13 +52,8 @@ class NotificationsController extends Controller
     public function updateSolvedStatus(Request $request, string $id)
     {
         $solvedStatus = $request->input('solved') === 'true';
-        $this->service->toggleSolvedStatus($id, $solvedStatus);
+        $this->updateStatusService->toggleSolvedStatus($id, $solvedStatus);
 
         return redirect()->route('notifications.list');
-    }
-
-    public function show(string $id)
-    {
-        return view('pages.notifications.inbox');
     }
 }

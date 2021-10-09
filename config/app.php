@@ -188,6 +188,7 @@ return [
         /**
          * Notifications' module Service Providers...
          */
+        Src\Notifications\Application\Providers\BladeServiceProvider::class,
         Src\Notifications\Application\Providers\NotificationServiceProvider::class,
         Src\Notifications\Application\Providers\EventServiceProvider::class,
 

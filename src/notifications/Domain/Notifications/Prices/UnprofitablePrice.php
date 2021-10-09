@@ -10,6 +10,7 @@ class UnprofitablePrice extends Notification
 {
     use Queueable;
 
+    private string $priceId;
     private string $productId;
     private string $productName;
     private float $profitValue;
@@ -24,6 +25,7 @@ class UnprofitablePrice extends Notification
      */
     public function __construct(array $data)
     {
+        $this->priceId = $data['priceId'];
         $this->productId = $data['productId'];
         $this->productName = $data['productName'];
         $this->profitValue = $data['profitValue'];
@@ -67,6 +69,8 @@ class UnprofitablePrice extends Notification
     {
         $title = "Produto {$this->productId} está dando prejuízo no {$this->store}";
         $content = [
+            'priceId' => $this->priceId,
+            'productId' => $this->productId,
             'productName' => $this->productName,
             'price' => $this->priceValue,
             'profit' => $this->profitValue,

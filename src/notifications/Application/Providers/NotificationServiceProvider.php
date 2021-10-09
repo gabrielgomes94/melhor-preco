@@ -2,15 +2,15 @@
 
 namespace Src\Notifications\Application\Providers;
 
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Src\Notifications\Presentation\Components\Inbox\MainMessage\Card as MainMessageCard;
-use Src\Notifications\Presentation\Components\Inbox\MainMessage\Content;
-use Src\Notifications\Presentation\Components\Inbox\MessageList\Card as MessageListCard;
-use Src\Notifications\Presentation\Components\Notification\NotificationComponent;
-use Src\Notifications\Presentation\Components\Notification\ReadedStatus;
-use Src\Notifications\Presentation\Components\Notification\SolvedBadge;
-use Src\Notifications\Presentation\Components\Notification\Timestamp;
+use Src\Notifications\Application\Services\CheckUnsolvedNotifications as CheckUnsolvedNotificationsImpl;
+use Src\Notifications\Application\Services\ListNotifications as ListNotificationsImpl;
+use Src\Notifications\Application\Services\UpdateStatus as UpdateStatusImpl;
+use Src\Notifications\Domain\Contracts\Repository\Repository;
+use Src\Notifications\Domain\Contracts\Services\CheckUnsolvedNotifications;
+use Src\Notifications\Domain\Contracts\Services\ListNotifications;
+use Src\Notifications\Domain\Contracts\Services\UpdateStatus;
+use Src\Notifications\Infrastructure\Repositories\Repository as RepositoryImpl;
 
 class NotificationServiceProvider extends ServiceProvider
 {
@@ -31,12 +31,17 @@ class NotificationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::component('notifications.inbox.main-message.card', MainMessageCard::class);
-        Blade::component('notifications.inbox.message-list.card', MessageListCard::class);
-        Blade::component('notifications.notification.notification-component', NotificationComponent::class);
-        Blade::component('notifications.notification.solved-badge', SolvedBadge::class);
-        Blade::component('notifications.notification.readed-status', ReadedStatus::class);
-        Blade::component('notifications.notification.timestamp', Timestamp::class);
-        Blade::component('notifications.inbox.main-message.content', Content::class);
+        /**
+         * Repositories
+         */
+        $this->app->bind(Repository::class, RepositoryImpl::class);
+
+        /*
+         * Services
+         */
+        $this->app->bind(CheckUnsolvedNotifications::class, CheckUnsolvedNotificationsImpl::class);
+        $this->app->bind(ListNotifications::class, ListNotificationsImpl::class);
+        $this->app->bind(UpdateStatus::class, UpdateStatusImpl::class);
+
     }
 }

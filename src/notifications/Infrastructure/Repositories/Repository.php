@@ -2,10 +2,10 @@
 
 namespace Src\Notifications\Infrastructure\Repositories;
 
-use App\Exceptions\Notification\NotificationNotFoundException;
+use Src\Notifications\Domain\Contracts\Repository\Options;
 use Src\Notifications\Domain\Models\Notification as NotificationModel;
 use Src\Notifications\Domain\Contracts\Repository\Repository as NotificationRepository;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Notifications\Domain\Models\NotificationsCollection;
 
 class Repository implements NotificationRepository
 {
@@ -31,20 +31,24 @@ class Repository implements NotificationRepository
         return $notification;
     }
 
-    public function list(Options $options): LengthAwarePaginator
+    public function list(Options $options): NotificationsCollection
     {
         if ($options->onlySolved()) {
-            return $notifications = NotificationModel::whereNotNull('solved_at')
+            $notifications = NotificationModel::whereNotNull('solved_at')
                 ->orderBy('id')
                 ->paginate(perPage: $options->perPage(), page: $options->page());
+
+            return new NotificationsCollection($notifications);
         }
 
-        return $notifications = NotificationModel::whereNull('solved_at')
+        $notifications = NotificationModel::whereNull('solved_at')
             ->orderBy('id')
             ->paginate(perPage: $options->perPage(), page: $options->page());
+
+        return new NotificationsCollection($notifications);
     }
 
-    public function count(): int
+    public function count(Options $options): int
     {
         return NotificationModel::where('solved_at', null)->count();
     }
@@ -69,18 +73,5 @@ class Repository implements NotificationRepository
             : $notificationModel->markAsUnsolved();
 
         return true;
-    }
-
-    private function update(string $id, array $data): bool
-    {
-        $notificationModel = NotificationModel::find($id);
-
-        if (!$notificationModel) {
-            throw new NotificationNotFoundException('Notificação não encontrada');
-        }
-
-        $notificationModel->fill($data);
-
-        return $notificationModel->save();
     }
 }

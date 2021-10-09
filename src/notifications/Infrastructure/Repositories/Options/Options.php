@@ -1,18 +1,18 @@
 <?php
 
-namespace Src\Notifications\Infrastructure\Repositories;
+namespace Src\Notifications\Infrastructure\Repositories\Options;
 
 use Src\Notifications\Domain\Contracts\Repository\Options as OptionsInterface;
 
 class Options implements OptionsInterface
 {
-    private ?string $filter;
-    private string $main;
-    private array $query;
-    private string $type;
-    private string $path;
-    private string $page;
-    private bool $onlySolved;
+    protected ?string $filter;
+    protected string $main;
+    protected array $query;
+    protected string $type;
+    protected string $path;
+    protected string $page;
+    protected bool $onlySolved;
 
     public function __construct(array $data)
     {

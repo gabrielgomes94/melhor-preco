@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::name('notifications')->group(function () {
         Route::get('/inbox', [NotificationsController::class, 'list'])->name('.list');
-        Route::get('/inbox/{id}', [NotificationsController::class, 'show'])->name('.show');
 
         Route::put('/inbox/{id}/readed_status', [NotificationsController::class, 'updateReadedStatus'])
             ->name('.updateReadedStatus');

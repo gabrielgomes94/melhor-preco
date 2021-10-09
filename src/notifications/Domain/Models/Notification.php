@@ -4,7 +4,7 @@ namespace Src\Notifications\Domain\Models;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\DatabaseNotification;
-use Src\Notifications\Domain\Contracts\Notification as NotificationInterface;
+use Src\Notifications\Domain\Contracts\Models\Notification as NotificationInterface;
 
 class Notification extends DatabaseNotification implements NotificationInterface
 {

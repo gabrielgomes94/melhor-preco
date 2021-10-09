@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Notifications\Domain\Contracts;
+namespace Src\Notifications\Domain\Contracts\Models;
 
 use Carbon\Carbon;
 
