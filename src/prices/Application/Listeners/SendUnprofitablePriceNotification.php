@@ -35,6 +35,7 @@ class SendUnprofitablePriceNotification implements ShouldQueue
         $storeName = $this->storeRepository->name($price->store);
 
         $user->notify(new UnprofitablePriceNotification([
+            'priceId' => $price->id,
             'productId' => $price->getProductSku(),
             'productName' => $product->name,
             'profitValue' => $price->getProfit(),
