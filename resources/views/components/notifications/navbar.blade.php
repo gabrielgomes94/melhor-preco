@@ -1,9 +1,11 @@
 <nav class="navbar navbar-expand mb-3 border-bottom border-gray-400 w-100">
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item px-2">
+            <li class="nav-item px-2 d-flex align-items-center">
                 <a class="nav-link"
                    href="{{ route('notifications.list') }}">Inbox</a>
+
+                <span class="notifications-badge-section"></span>
             </li>
 {{--            <li class="nav-item px-2">--}}
 {{--                <a class="nav-link"--}}
