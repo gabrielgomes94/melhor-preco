@@ -13,8 +13,7 @@ class NotificationsController extends Controller
     private ListNotifications $listNotificationsService;
     private UpdateStatus $updateStatusService;
 
-    public function __construct(ListNotifications $listNotificationsService, UpdateStatus $updateStatusService)
-    {
+    public function __construct(ListNotifications $listNotificationsService, UpdateStatus $updateStatusService) {
         $this->listNotificationsService = $listNotificationsService;
         $this->updateStatusService = $updateStatusService;
     }

@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/dashboard';
 
-    private const NOTIFICATIONS_DIR = 'src/notifications/Infrastructure/Routes/';
+
 
     /**
      * The controller namespace for the application.
@@ -49,10 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->prefix('notifications')
-                ->group(base_path(self::NOTIFICATIONS_DIR . 'web.php'));
+
         });
     }
 
