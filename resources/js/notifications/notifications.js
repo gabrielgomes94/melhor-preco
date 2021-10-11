@@ -3,7 +3,7 @@ let showNotificationsBadge = function () {
         let sections = document.querySelectorAll('.notifications-badge-section')
 
         sections.forEach(function (section) {
-            section.innerHTML = "<span class='badge badge-sm bg-danger m-1 p-2 text-white rounded-pill '>" + notificationsCount + "</span>"
+            section.innerHTML = "<span class='badge badge-sm bg-danger m-1 p-2 text-white rounded-circle '>" + notificationsCount + "</span>"
         })
     }
 
@@ -30,4 +30,32 @@ let showNotificationsBadge = function () {
     getNotificationsCount()
 }
 
+let highlightNavbarSection = function () {
+    function isInboxPage() {
+        return window.location.pathname === '/notifications/inbox' && window.location.search === ''
+    }
+
+    function isInboxSolvedPage() {
+        return window.location.search === '?filter=solved'
+    }
+
+    function getActiveSection() {
+        if (isInboxPage()) {
+            return document.querySelector('#inbox-nav-link')
+        } else if (isInboxSolvedPage()) {
+            return document.querySelector('#inbox-solved-nav-link')
+        }
+
+        return null
+    }
+
+    let section = getActiveSection()
+    if (section == null) {
+        return
+    }
+
+    section.style.borderBottom = '2px #2361ce solid'
+}
+
 showNotificationsBadge()
+highlightNavbarSection()
