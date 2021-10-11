@@ -2,8 +2,8 @@
 
 namespace App\Factories\Product;
 
-use Barrigudinha\Product\Data\Dimensions as DimensionsObject;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Data\Dimensions as DimensionsObject;
+use Src\Products\Domain\Entities\Product;
 
 class Dimensions
 {

@@ -40,7 +40,7 @@ class Service
 
             $products = [];
 
-            foreach($saleOrder->items() as $item) {
+            foreach ($saleOrder->items() as $item) {
                 if (!$product = $this->productRepository->get($item->sku())) {
                     continue;
                 }

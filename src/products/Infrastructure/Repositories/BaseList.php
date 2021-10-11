@@ -4,9 +4,9 @@ namespace Src\Products\Infrastructure\Repositories;
 
 use App\Http\Requests\Utils\ProductOptions;
 use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
-use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Repositories\Contracts\ListProducts;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Entities\ProductsCollection;
+use Src\Products\Domain\Contracts\Repositories\ListProducts;
+use Src\Products\Domain\Contracts\Utils\Options;
 
 abstract class BaseList implements ListProducts
 {

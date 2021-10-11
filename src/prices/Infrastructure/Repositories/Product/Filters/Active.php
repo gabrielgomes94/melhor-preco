@@ -3,8 +3,8 @@
 namespace Src\Prices\Infrastructure\Repositories\Product\Filters;
 
 use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
-use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Entities\ProductsCollection;
+use Src\Products\Domain\Contracts\Utils\Options;
 
 class Active implements Filter
 {

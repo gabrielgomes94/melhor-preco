@@ -5,7 +5,7 @@ namespace Src\Products\Application\Http\Requests\Product;
 use App\Http\Requests\Contracts\HasOptions;
 use App\Http\Requests\Contracts\HasSKU;
 use App\Http\Requests\Utils\ProductOptions;
-use Barrigudinha\Product\Utils\Contracts\Options as OptionsInterface;
+use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditCostsRequest extends FormRequest implements HasOptions, HasSku

@@ -4,7 +4,7 @@ namespace Src\Prices\Application\Services\UpdatePrice;
 
 use Src\Prices\Infrastructure\Repositories\Price\Repository;
 use Src\Prices\Domain\Contracts\Services\UpdatePrice\UpdateDB as UpdateDBInterface;
-use Barrigudinha\Product\Entities\Post;
+use Src\Products\Domain\Entities\Post;
 
 class UpdateDB implements UpdateDBInterface
 {

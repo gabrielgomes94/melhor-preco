@@ -2,7 +2,7 @@
 
 namespace App\Factories\Pricing\PriceLog;
 
-use App\Models\Product as ProductModel;
+use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Prices\Domain\PriceLog\Product;
 
 class PriceLog

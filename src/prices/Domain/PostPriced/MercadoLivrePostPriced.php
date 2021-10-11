@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Domain\PostPriced;
 
-use Barrigudinha\Product\Entities\Post;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Post;
+use Src\Products\Domain\Entities\Product;
 use Barrigudinha\Store\Store;
 use Barrigudinha\Utils\Helpers;
 use Src\Prices\Domain\PostPriced\Contracts\HasSecondaryPrice;

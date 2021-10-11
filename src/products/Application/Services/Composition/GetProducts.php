@@ -3,8 +3,8 @@
 namespace Src\Products\Application\Services\Composition;
 
 use Src\Products\Infrastructure\Repositories\GetDB;
-use Barrigudinha\Product\Data\Compositions\Composition;
-use Barrigudinha\Product\Entities\ProductsCollection;
+use Src\Products\Domain\Data\Compositions\Composition;
+use Src\Products\Domain\Entities\ProductsCollection;
 
 class GetProducts
 {

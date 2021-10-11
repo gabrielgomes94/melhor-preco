@@ -2,15 +2,15 @@
 
 namespace App\Factories\Product;
 
-use App\Models\Product as ProductModel;
-use Barrigudinha\Product\Data\Compositions\Composition;
-use Barrigudinha\Product\Data\Costs;
-use Barrigudinha\Product\Data\Dimensions;
-use Barrigudinha\Product\Data\Store;
-use Barrigudinha\Product\Entities\Product as ProductObject;
-use Barrigudinha\Product\Data\Variations\NoVariations;
-use Barrigudinha\Product\Data\Variations\Variations;
-use Barrigudinha\Product\Entities\ProductsCollection;
+use Src\Products\Domain\Models\Product as ProductModel;
+use Src\Products\Domain\Data\Compositions\Composition;
+use Src\Products\Domain\Data\Costs;
+use Src\Products\Domain\Data\Dimensions;
+use Src\Products\Domain\Data\Store;
+use Src\Products\Domain\Entities\Product as ProductObject;
+use Src\Products\Domain\Data\Variations\NoVariations;
+use Src\Products\Domain\Data\Variations\Variations;
+use Src\Products\Domain\Entities\ProductsCollection;
 use Barrigudinha\Utils\Helpers;
 
 class Product

@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Presentation\Components\Prices\UpdateCosts;
 
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Product;
 use Illuminate\View\Component;
 
 class Form extends Component

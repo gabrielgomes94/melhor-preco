@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Contracts;
 
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Contracts\Utils\Options;
 
 interface HasOptions
 {

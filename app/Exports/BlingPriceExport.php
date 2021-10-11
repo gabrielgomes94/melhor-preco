@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Product;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Money\Currencies\ISOCurrencies;

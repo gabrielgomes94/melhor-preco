@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Utils;
 
-use Barrigudinha\Product\Utils\Contracts\Options as OptionsInterface;
+use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
 
 class ProductOptions implements OptionsInterface
 {

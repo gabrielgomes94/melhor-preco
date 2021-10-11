@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Domain\Contracts\Services\PostPriced;
 
-use Barrigudinha\Product\Entities\Product;
-use Barrigudinha\Product\Data\Store;
+use Src\Products\Domain\Entities\Product;
+use Src\Products\Domain\Data\Store;
 use Money\Money;
 use Src\Prices\Domain\PostPriced\PostPriced;
 

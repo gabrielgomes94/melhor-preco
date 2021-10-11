@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Domain\Price\Models;
 
-use App\Models\Product;
+use Src\Products\Domain\Models\Product;
 use Barrigudinha\Utils\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

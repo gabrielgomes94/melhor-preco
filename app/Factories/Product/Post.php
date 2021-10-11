@@ -3,8 +3,8 @@
 namespace App\Factories\Product;
 
 use Src\Prices\Domain\Price\Models\Price;
-use Barrigudinha\Product\Entities\Post as ProductPost;
-use Barrigudinha\Product\Data\Store;
+use Src\Products\Domain\Entities\Post as ProductPost;
+use Src\Products\Domain\Data\Store;
 use Barrigudinha\Utils\Helpers;
 
 class Post

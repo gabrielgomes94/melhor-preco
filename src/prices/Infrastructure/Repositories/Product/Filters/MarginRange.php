@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Infrastructure\Repositories\Product\Filters;
 
-use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Entities\ProductsCollection;
+use Src\Products\Domain\Contracts\Utils\Options;
 
 class MarginRange
 {

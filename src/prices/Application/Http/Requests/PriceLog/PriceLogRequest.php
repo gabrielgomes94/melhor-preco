@@ -4,7 +4,7 @@ namespace Src\Prices\Application\Http\Requests\PriceLog;
 
 use App\Http\Requests\Contracts\HasOptions;
 use App\Http\Requests\Utils\ProductOptions;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Contracts\Utils\Options;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PriceLogRequest extends FormRequest implements HasOptions

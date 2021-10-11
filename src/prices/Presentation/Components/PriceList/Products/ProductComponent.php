@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Presentation\Components\PriceList\Products;
 
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Product;
 use Illuminate\View\Component;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

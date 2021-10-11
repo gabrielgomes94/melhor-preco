@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Domain\Contracts\Services\UpdatePrice;
 
-use Barrigudinha\Product\Entities\Post;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Post;
+use Src\Products\Domain\Entities\Product;
 
 // To Do: Refatorar o código para liberar os métodos comentados na interface e remover o execute()
 interface UpdateERP

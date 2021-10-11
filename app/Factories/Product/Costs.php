@@ -2,8 +2,8 @@
 
 namespace App\Factories\Product;
 
-use Barrigudinha\Product\Data\Costs as CostsObject;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Data\Costs as CostsObject;
+use Src\Products\Domain\Entities\Product;
 
 class Costs
 {

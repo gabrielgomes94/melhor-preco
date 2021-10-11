@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Domain\Contracts\Services\UpdatePrice;
 
-use Barrigudinha\Product\Entities\Post;
+use Src\Products\Domain\Entities\Post;
 
 interface Update
 {

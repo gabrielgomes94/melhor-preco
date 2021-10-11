@@ -3,7 +3,7 @@
 namespace Src\Prices\Application\Services\UpdatePrice;
 
 use Src\Prices\Domain\Contracts\Services\UpdatePrice\UpdateERP as UpdateERPInterface;
-use Barrigudinha\Product\Entities\Post;
+use Src\Products\Domain\Entities\Post;
 use Integrations\Bling\Products\Clients\ProductStore;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

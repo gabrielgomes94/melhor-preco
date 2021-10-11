@@ -9,7 +9,7 @@ use Src\Prices\Application\Services\UpdatePrice\Exceptions\ProductNotFound;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdateDBException;
 use Src\Prices\Application\Services\UpdatePrice\UpdateDB;
 use Src\Prices\Domain\Price\Services\CalculateProduct;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Product;
 
 class UpdateCosts
 {
@@ -53,7 +53,7 @@ class UpdateCosts
         return true;
     }
     /**
-     * @return Product[]
+     * @return \Src\Products\Domain\Entities\Product[]
      */
     private function getProducts(Product $product): array
     {

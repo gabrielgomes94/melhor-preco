@@ -4,8 +4,8 @@ namespace Src\Products\Application\Services\Update;
 
 use Src\Prices\Application\Services\UpdatePrice\Update;
 use Src\Prices\Domain\Price\Services\CalculatePrice;
-use Barrigudinha\Product\Entities\Product;
-use Barrigudinha\Product\Data\Store;
+use Src\Products\Domain\Entities\Product;
+use Src\Products\Domain\Data\Store;
 use Barrigudinha\Utils\Helpers;
 
 class UpdatePosts
@@ -39,7 +39,7 @@ class UpdatePosts
     }
 
     /**
-     * @return Product[]
+     * @return \Src\Products\Domain\Entities\Product[]
      */
     private function getProducts(Product $product): array
     {

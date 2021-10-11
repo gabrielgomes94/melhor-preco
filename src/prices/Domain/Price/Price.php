@@ -6,7 +6,7 @@ use Src\Prices\Domain\Price\Commission\Commission;
 use Src\Prices\Domain\Price\Commission\Factories\Factory as CommissionFactory;
 use Src\Prices\Domain\Price\Freight\BaseFreight;
 use Src\Prices\Domain\Price\Freight\Factories\Factory;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Product;
 use Barrigudinha\Utils\Helpers;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

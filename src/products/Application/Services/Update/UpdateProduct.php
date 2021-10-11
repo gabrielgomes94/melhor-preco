@@ -6,9 +6,9 @@ use App\Factories\Product\Dimensions;
 use App\Factories\Product\Post;
 use Src\Prices\Infrastructure\Repositories\Updator;
 use Src\Products\Application\Services\Composition\GetProducts;
-use Barrigudinha\Product\Data\Compositions\Composition;
-use Barrigudinha\Product\Data\Dimensions as DimensionsObject;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Data\Compositions\Composition;
+use Src\Products\Domain\Data\Dimensions as DimensionsObject;
+use Src\Products\Domain\Entities\Product;
 use Src\Products\Application\Services\Update\UpdatePosts;
 
 class UpdateProduct

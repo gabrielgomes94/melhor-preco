@@ -6,8 +6,8 @@ use Src\Prices\Domain\Contracts\Services\PostPriced\CreatePostPricedService;
 use Src\Prices\Domain\PostPriced\Factory;
 use Src\Prices\Domain\PostPriced\PostPriced;
 use Src\Prices\Domain\Price\Services\CalculatePrice;
-use Barrigudinha\Product\Entities\Product;
-use Barrigudinha\Product\Data\Store;
+use Src\Products\Domain\Entities\Product;
+use Src\Products\Domain\Data\Store;
 use Money\Money;
 
 class CreatePostPriced implements CreatePostPricedService
@@ -30,7 +30,7 @@ class CreatePostPriced implements CreatePostPricedService
 
     /**
      * @param Product $product
-     * @param Store[] $stores
+     * @param \Src\Products\Domain\Data\Store[] $stores
      * @return PostPriced[]
      */
     public function createList(Product $product, array $stores): array

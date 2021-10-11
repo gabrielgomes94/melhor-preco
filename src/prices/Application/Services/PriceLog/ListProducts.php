@@ -4,7 +4,7 @@ namespace Src\Prices\Application\Services\PriceLog;
 
 use Src\Prices\Infrastructure\Repositories\PriceLog\ListDB;
 use App\Services\Utils\Paginator;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Contracts\Utils\Options;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ListProducts

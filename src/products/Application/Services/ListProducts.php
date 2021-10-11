@@ -4,7 +4,7 @@ namespace Src\Products\Application\Services;
 
 use Src\Products\Infrastructure\Repositories\ListDB;
 use App\Services\Utils\Paginator;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Contracts\Utils\Options;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ListProducts

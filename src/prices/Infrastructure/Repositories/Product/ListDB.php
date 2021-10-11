@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Repositories\Product;
 
 use App\Factories\Product\Product as ProductFactory;
-use App\Models\Product as ProductModel;
+use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Prices\Infrastructure\Repositories\Product\Filters\Active;
 use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
 use Src\Prices\Infrastructure\Repositories\Product\Filters\MarginRange;
@@ -11,8 +11,8 @@ use Src\Prices\Infrastructure\Repositories\Product\Queries\CompositionProducts a
 use Src\Prices\Infrastructure\Repositories\Product\Queries\Products as QueryProducts;
 use Src\Prices\Infrastructure\Repositories\Product\Queries\ProductsBySku as QueryProductsBySku;
 use Src\Products\Infrastructure\Repositories\BaseList;
-use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Entities\ProductsCollection;
+use Src\Products\Domain\Contracts\Utils\Options;
 
 class ListDB extends BaseList
 {

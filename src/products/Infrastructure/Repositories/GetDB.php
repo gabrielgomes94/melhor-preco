@@ -3,8 +3,8 @@
 namespace Src\Products\Infrastructure\Repositories;
 
 use App\Factories\Product\Product as ProductFactory;
-use App\Models\Product as ProductModel;
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Models\Product as ProductModel;
+use Src\Products\Domain\Entities\Product;
 
 class GetDB
 {

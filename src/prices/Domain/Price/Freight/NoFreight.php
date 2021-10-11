@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Domain\Price\Freight;
 
-use Barrigudinha\Product\Data\Dimensions;
+use Src\Products\Domain\Data\Dimensions;
 use Money\Money;
 
 class NoFreight extends BaseFreight

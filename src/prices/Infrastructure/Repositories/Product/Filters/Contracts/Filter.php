@@ -2,10 +2,10 @@
 
 namespace Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts;
 
-use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Entities\ProductsCollection;
+use Src\Products\Domain\Contracts\Utils\Options;
 
 interface Filter
 {
-    public static function execute(ProductsCollection $productsCollection, Options $options): ProductsCollection;
+    public static function execute(ProductsCollection $productsCollection, \Src\Products\Domain\Contracts\Utils\Options $options): ProductsCollection;
 }

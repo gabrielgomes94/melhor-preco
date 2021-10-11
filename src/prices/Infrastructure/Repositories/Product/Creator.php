@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Repositories\Product;
 
 use Src\Prices\Domain\Price\Models\Price as PriceModel;
-use App\Models\Product as ProductModel;
+use Src\Products\Domain\Models\Product as ProductModel;
 use App\Repositories\Store\Store;
 
 class Creator

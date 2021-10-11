@@ -3,10 +3,10 @@
 namespace Src\Prices\Infrastructure\Repositories\PriceLog;
 
 use App\Factories\Pricing\PriceLog\PriceLog;
-use App\Models\Product as ProductModel;
+use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Products\Infrastructure\Repositories\BaseList;
-use Barrigudinha\Product\Entities\ProductsCollection;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Entities\ProductsCollection;
+use Src\Products\Domain\Contracts\Utils\Options;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListDB extends BaseList

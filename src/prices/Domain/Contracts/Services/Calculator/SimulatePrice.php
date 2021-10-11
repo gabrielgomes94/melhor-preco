@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Domain\Contracts\Services\Calculator;
 
-use Barrigudinha\Product\Entities\Product;
+use Src\Products\Domain\Entities\Product;
 
 interface SimulatePrice
 {

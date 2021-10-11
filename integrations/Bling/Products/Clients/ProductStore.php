@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\Products\Clients;
 
-use Barrigudinha\Product\Clients\Contracts\ProductStore as ProductStoreInterface;
+use Src\Products\Domain\Contracts\Clients\ProductStore as ProductStoreInterface;
 use Exception;
 use GuzzleHttp\Exception\ConnectException;
 use Integrations\Bling\Products\Requests\GetRequest;

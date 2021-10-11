@@ -2,9 +2,9 @@
 
 namespace Src\Prices\Infrastructure\Repositories\Product\Queries;
 
-use App\Models\Product;
-use Barrigudinha\Product\Repositories\Contracts\Query;
-use Barrigudinha\Product\Utils\Contracts\Options;
+use Src\Products\Domain\Models\Product;
+use Src\Products\Domain\Contracts\Repositories\Query;
+use Src\Products\Domain\Contracts\Utils\Options;
 use Illuminate\Database\Eloquent\Builder;
 
 class Products implements Query
