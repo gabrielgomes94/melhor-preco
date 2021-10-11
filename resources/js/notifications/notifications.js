@@ -57,5 +57,17 @@ let highlightNavbarSection = function () {
     section.style.borderBottom = '2px #2361ce solid'
 }
 
+let highlightNotification = function () {
+    let mainNotificationId = document.querySelector('.main-notification-card')
+    let cards = document.querySelectorAll('.notification-card')
+
+    cards.forEach(function (card) {
+        if (card.dataset.notificationId === mainNotificationId.dataset.mainNotificationId) {
+            card.style.backgroundColor = '#e5e7eb';
+        }
+    })
+}
+
 showNotificationsBadge()
 highlightNavbarSection()
+highlightNotification()
