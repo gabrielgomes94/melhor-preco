@@ -25124,7 +25124,7 @@ var showNotificationsBadge = function showNotificationsBadge() {
   function setBadge(notificationsCount) {
     var sections = document.querySelectorAll('.notifications-badge-section');
     sections.forEach(function (section) {
-      section.innerHTML = "<span class='badge badge-sm bg-danger m-1 p-2 text-white rounded-pill '>" + notificationsCount + "</span>";
+      section.innerHTML = "<span class='badge badge-sm bg-danger m-1 p-2 text-white rounded-circle '>" + notificationsCount + "</span>";
     });
   }
 
@@ -25167,7 +25167,47 @@ var showNotificationsBadge = function showNotificationsBadge() {
   getNotificationsCount();
 };
 
+var highlightNavbarSection = function highlightNavbarSection() {
+  function isInboxPage() {
+    return window.location.pathname === '/notifications/inbox' && window.location.search === '';
+  }
+
+  function isInboxSolvedPage() {
+    return window.location.search === '?filter=solved';
+  }
+
+  function getActiveSection() {
+    if (isInboxPage()) {
+      return document.querySelector('#inbox-nav-link');
+    } else if (isInboxSolvedPage()) {
+      return document.querySelector('#inbox-solved-nav-link');
+    }
+
+    return null;
+  }
+
+  var section = getActiveSection();
+
+  if (section == null) {
+    return;
+  }
+
+  section.style.borderBottom = '2px #2361ce solid';
+};
+
+var highlightNotification = function highlightNotification() {
+  var mainNotificationId = document.querySelector('.main-notification-card');
+  var cards = document.querySelectorAll('.notification-card');
+  cards.forEach(function (card) {
+    if (card.dataset.notificationId === mainNotificationId.dataset.mainNotificationId) {
+      card.style.backgroundColor = '#e5e7eb';
+    }
+  });
+};
+
 showNotificationsBadge();
+highlightNavbarSection();
+highlightNotification();
 
 /***/ }),
 
