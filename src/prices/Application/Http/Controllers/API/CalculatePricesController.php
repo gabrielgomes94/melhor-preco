@@ -3,7 +3,7 @@
 namespace Src\Prices\Application\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Product\GetDB;
+use Src\Products\Infrastructure\Repositories\GetDB;
 use Barrigudinha\Utils\Helpers;
 use Illuminate\Http\Request;
 use Src\Prices\Application\Http\Transformer\PriceTransformer;

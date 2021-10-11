@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Product\RecalculateProfit as RecalculateProfitService;
+use Src\Products\Application\Services\Price\RecalculateProfit as RecalculateProfitService;
 use Illuminate\Console\Command;
 
 class RecalculateProfit extends Command

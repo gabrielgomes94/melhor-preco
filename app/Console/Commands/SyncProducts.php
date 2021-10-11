@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SyncProducts as SyncProductsJob;
+use Src\Products\Application\Jobs\SyncProducts as SyncProductsJob;
 use Illuminate\Console\Command;
 
 class SyncProducts extends Command

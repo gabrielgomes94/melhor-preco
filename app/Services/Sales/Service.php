@@ -2,7 +2,7 @@
 
 namespace App\Services\Sales;
 
-use App\Repositories\Product\GetDB;
+use Src\Products\Infrastructure\Repositories\GetDB;
 use App\Repositories\Store\Store;
 use Src\Prices\Domain\Price\Services\CalculatePrice;
 use Barrigudinha\SaleOrder\Entities\SaleOrder;

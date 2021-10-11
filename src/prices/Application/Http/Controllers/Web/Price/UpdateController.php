@@ -4,8 +4,8 @@ namespace Src\Prices\Application\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
 use Src\Prices\Application\Http\Requests\Price\UpdatePrice;
-use App\Repositories\Product\GetDB;
-use App\Services\Product\Update\UpdatePosts as UpdatePriceService;
+use Src\Products\Infrastructure\Repositories\GetDB;
+use Src\Products\Application\Services\Update\UpdatePosts as UpdatePriceService;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdatePriceException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;

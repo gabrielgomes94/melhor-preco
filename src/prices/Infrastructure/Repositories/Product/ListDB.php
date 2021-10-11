@@ -10,7 +10,7 @@ use Src\Prices\Infrastructure\Repositories\Product\Filters\MarginRange;
 use Src\Prices\Infrastructure\Repositories\Product\Queries\CompositionProducts as QueryCompositionProducts;
 use Src\Prices\Infrastructure\Repositories\Product\Queries\Products as QueryProducts;
 use Src\Prices\Infrastructure\Repositories\Product\Queries\ProductsBySku as QueryProductsBySku;
-use App\Repositories\Product\BaseList;
+use Src\Products\Infrastructure\Repositories\BaseList;
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Utils\Contracts\Options;
 

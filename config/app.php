@@ -199,6 +199,12 @@ return [
         Src\Prices\Application\Providers\PricingServiceProvider::class,
         Src\Prices\Application\Providers\RouteServiceProvider::class,
         Src\Prices\Application\Providers\PricingEventServiceProvider::class,
+
+        /**
+         * Products' module Service Providers...
+         */
+        Src\Products\Application\Providers\ProductServiceProvider::class,
+        Src\Products\Application\Providers\RouteServiceProvider::class,
     ],
 
     /*

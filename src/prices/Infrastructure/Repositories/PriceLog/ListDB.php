@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Repositories\PriceLog;
 
 use App\Factories\Pricing\PriceLog\PriceLog;
 use App\Models\Product as ProductModel;
-use App\Repositories\Product\BaseList;
+use Src\Products\Infrastructure\Repositories\BaseList;
 use Barrigudinha\Product\Entities\ProductsCollection;
 use Barrigudinha\Product\Utils\Contracts\Options;
 use Illuminate\Database\Eloquent\Builder;

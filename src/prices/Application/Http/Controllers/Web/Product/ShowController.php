@@ -4,7 +4,7 @@ namespace Src\Prices\Application\Http\Controllers\Web\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\Breadcrumb;
-use App\Repositories\Product\GetDB;
+use Src\Products\Infrastructure\Repositories\GetDB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
