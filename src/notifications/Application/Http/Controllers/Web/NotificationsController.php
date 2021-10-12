@@ -23,7 +23,7 @@ class NotificationsController extends Controller
         $options = new Options(
             [
                 'main' => $request->input('main'),
-                'path' => $request->fullUrl(),
+                'path' => $request->fullUrlWithQuery($request->query()),
                 'page' => $request->input('page') ?? 1,
                 'filter' => $request->input('filter'),
             ]

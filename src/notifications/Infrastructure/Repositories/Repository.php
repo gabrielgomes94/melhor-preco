@@ -35,14 +35,14 @@ class Repository implements NotificationRepository
     {
         if ($options->onlySolved()) {
             $notifications = NotificationModel::whereNotNull('solved_at')
-                ->orderBy('created_at')
+                ->orderBy('created_at', 'desc')
                 ->paginate(perPage: $options->perPage(), page: $options->page());
 
             return new NotificationsCollection($notifications);
         }
 
         $notifications = NotificationModel::whereNull('solved_at')
-            ->orderBy('created_at')
+            ->orderBy('created_at', 'desc')
             ->paginate(perPage: $options->perPage(), page: $options->page());
 
         return new NotificationsCollection($notifications);
@@ -50,6 +50,10 @@ class Repository implements NotificationRepository
 
     public function count(Options $options): int
     {
+        if ($options->onlySolved()) {
+            return NotificationModel::whereNotNull('solved_at', null)->count();
+        }
+
         return NotificationModel::where('solved_at', null)->count();
     }
 

@@ -2,6 +2,7 @@
 
 namespace Src\Notifications\Application\Services;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Notifications\Domain\Contracts\Repository\Options;
 use Src\Notifications\Domain\Contracts\Services\ListNotifications as ListNotificationsInterface;
 use Src\Notifications\Domain\Models\Notification;
@@ -25,7 +26,18 @@ class ListNotifications implements ListNotificationsInterface
         $notificationsList = $this->repository->list($options);
         $main = $this->getMainNotification($options);
 
-        return new Inbox($notificationsList->paginator(), $main);
+        $paginator = new LengthAwarePaginator(
+            $notificationsList->list(),
+            $this->repository->count($options),
+            $options->perPage(),
+            $options->page(),
+            [
+                'path' => $options->url(),
+                'query' => $options->query(),
+            ]
+        );
+
+        return new Inbox($paginator, $main);
     }
 
     private function getMainNotification(Options $options): ?Notification
