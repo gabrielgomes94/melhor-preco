@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Http\Controllers\Web\PriceList;
 
-use App\Exports\BlingPriceExport;
+use Src\Products\Application\Exports\BlingPriceExport;
 use App\Http\Controllers\Controller;
 use Src\Prices\Infrastructure\Repositories\Product\ListDB;
 use Src\Prices\Infrastructure\Repositories\Options\Options;

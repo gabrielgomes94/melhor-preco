@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Repositories\PriceLog;
 
-use App\Factories\Pricing\PriceLog\PriceLog;
+use Src\Prices\Application\Factories\PriceLog\PriceLog;
 use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Products\Infrastructure\Repositories\BaseList;
 use Src\Products\Domain\Entities\ProductsCollection;
