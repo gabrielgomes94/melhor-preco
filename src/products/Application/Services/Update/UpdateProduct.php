@@ -4,7 +4,7 @@ namespace Src\Products\Application\Services\Update;
 
 use Src\Products\Application\Factories\Dimensions;
 use Src\Products\Application\Factories\Post;
-use Src\Prices\Infrastructure\Repositories\Updator;
+use Src\Products\Infrastructure\Repositories\Updator;
 use Src\Products\Application\Services\Composition\GetProducts;
 use Src\Products\Domain\Data\Compositions\Composition;
 use Src\Products\Domain\Data\Dimensions as DimensionsObject;

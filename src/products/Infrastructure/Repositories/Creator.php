@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Repositories\Product;
+namespace Src\Products\Infrastructure\Repositories;
 
 use Src\Prices\Domain\Price\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Product as ProductModel;

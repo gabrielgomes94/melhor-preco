@@ -4,7 +4,7 @@ namespace Src\Products\Application\Services\Update;
 
 use Src\Products\Application\Factories\Costs;
 use Src\Products\Infrastructure\Repositories\GetDB;
-use Src\Prices\Infrastructure\Repositories\Updator as ProductUpdator;
+use Src\Products\Infrastructure\Repositories\Updator as ProductUpdator;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\ProductNotFound;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdateDBException;
 use Src\Prices\Application\Services\UpdatePrice\UpdateDB;

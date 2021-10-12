@@ -3,7 +3,7 @@
 namespace Src\Products\Application\Services\Synchronization;
 
 use Illuminate\Support\Facades\Log;
-use Src\Prices\Infrastructure\Repositories\Product\Creator;
+use Src\Products\Infrastructure\Repositories\Creator;
 use Src\Products\Domain\Events\ProductsSynchronized;
 use Src\Products\Infrastructure\Repositories\GetDB;
 use Src\Products\Application\Services\Update\UpdateProduct;

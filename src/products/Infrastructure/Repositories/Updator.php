@@ -1,12 +1,11 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Repositories;
+namespace Src\Products\Infrastructure\Repositories;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Products\Domain\Entities\Product;
-use Src\Products\Infrastructure\Repositories\GetDB;
 
 class Updator
 {
