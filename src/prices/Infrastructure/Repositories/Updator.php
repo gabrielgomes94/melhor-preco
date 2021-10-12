@@ -2,6 +2,8 @@
 
 namespace Src\Prices\Infrastructure\Repositories;
 
+use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
 use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Products\Domain\Entities\Product;
 use Src\Products\Infrastructure\Repositories\GetDB;
@@ -40,6 +42,19 @@ class Updator
 
         $model->composition_products = $composition;
         $model->is_active = $product->isActive();
+
+        foreach ($model->prices as $price) {
+            $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
+
+            if (!$post = $product->getPost($price->store)) {
+                continue;
+            }
+
+            $value = $post->price();
+
+            $price->value = (float) $formatter->format($value);
+            $price->save();
+        }
 
         return $model->save();
     }
