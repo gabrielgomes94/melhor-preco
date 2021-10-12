@@ -49,9 +49,9 @@ class Updator
                 continue;
             }
 
-            $value = $post->price();
+            $price->value = (float) $formatter->format($post->price());
+            $price->profit = (float) $formatter->format($post->profit());
 
-            $price->value = (float) $formatter->format($value);
             $price->save();
         }
 

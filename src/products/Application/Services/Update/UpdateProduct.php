@@ -2,6 +2,7 @@
 
 namespace Src\Products\Application\Services\Update;
 
+use Src\Prices\Domain\Price\Services\CalculateProduct;
 use Src\Products\Application\Factories\Dimensions;
 use Src\Products\Application\Factories\Post;
 use Src\Products\Infrastructure\Repositories\Updator;
@@ -9,19 +10,20 @@ use Src\Products\Application\Services\Composition\GetProducts;
 use Src\Products\Domain\Data\Compositions\Composition;
 use Src\Products\Domain\Data\Dimensions as DimensionsObject;
 use Src\Products\Domain\Entities\Product;
-use Src\Products\Application\Services\Update\UpdatePosts;
 
 class UpdateProduct
 {
     private GetProducts $getCompositionProducts;
     private UpdatePosts $updatePosts;
     private Updator $productUpdator;
+    private CalculateProduct $calculateProductService;
 
-    public function __construct(GetProducts $getCompositionProducts, UpdatePosts $updatePosts, Updator $productUpdator)
+    public function __construct(GetProducts $getCompositionProducts, UpdatePosts $updatePosts, Updator $productUpdator, CalculateProduct $calculateProductService)
     {
         $this->getCompositionProducts = $getCompositionProducts;
         $this->updatePosts = $updatePosts;
         $this->productUpdator = $productUpdator;
+        $this->calculateProductService = $calculateProductService;
     }
 
     public function execute(Product $product, array $data): bool
@@ -31,6 +33,8 @@ class UpdateProduct
 
         $posts = $this->getPosts($product, $data['stores']);
         $product->setPosts($posts);
+
+        $product = $this->calculateProductService->recalculate($product);
 
         $compositions = $this->getCompositionProducts($data);
         $product->setCompositionProducts($compositions);
