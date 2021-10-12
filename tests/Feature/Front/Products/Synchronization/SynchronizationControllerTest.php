@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Front\Products\Synchronization;
 
-use App\Jobs\Products\Spreadsheets\UploadICMS;
-use App\Jobs\SyncProducts;
+use Src\Products\Application\Jobs\Spreadsheets\UploadICMS;
+use Src\Products\Application\Jobs\SyncProducts;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;

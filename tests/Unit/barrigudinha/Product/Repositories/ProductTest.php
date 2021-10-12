@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Barrigudinha\Product\Repositories;
 
-use Barrigudinha\Product\Entities\Product as ProductData;
+use Src\Products\Domain\Entities\Product as ProductData;
 use Barrigudinha\Product\Repositories\Product;
 use Integrations\Bling\Products\Client;
 use Mockery as m;
