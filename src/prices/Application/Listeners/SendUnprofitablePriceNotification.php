@@ -41,10 +41,7 @@ class SendUnprofitablePriceNotification implements ShouldQueue
             'profitValue' => $price->getProfit(),
             'priceValue' => $price->getValue(),
             'store' => $storeName,
-            'link' => route('pricing.products.showByStore', [
-                'store' => $price->store,
-                'product_id' => $price->getProductSku(),
-            ]),
+            'storeSlug' => $price->store,
         ]));
     }
 }

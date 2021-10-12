@@ -5,7 +5,10 @@
     <h6>Prejuízo: R$ {{ $notification->content()['profit'] }}</h6>
     <h6>Marketplace: {{ $notification->content()['store'] ?? "" }}</h6>
 
-    <a href="{{ $notification->content()['link'] }}"
+    <a href="{{ route('pricing.products.showByStore', [
+                'store' => $notification->content()['storeSlug'],
+                'product_id' => $notification->content()['productId'],
+            ]) }}"
         class="text-info"
     >
         Link para calculadora

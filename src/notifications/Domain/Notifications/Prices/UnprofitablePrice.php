@@ -16,7 +16,7 @@ class UnprofitablePrice extends Notification
     private float $profitValue;
     private float $priceValue;
     private string $store;
-    private string $link;
+    private string $storeSlug;
 
     /**
      * Create a new notification instance.
@@ -31,7 +31,7 @@ class UnprofitablePrice extends Notification
         $this->profitValue = $data['profitValue'];
         $this->priceValue = $data['priceValue'];
         $this->store = $data['store'];
-        $this->link = $data['link'];
+        $this->storeSlug = $data['storeSlug'];
     }
 
     /**
@@ -75,7 +75,7 @@ class UnprofitablePrice extends Notification
             'price' => $this->priceValue,
             'profit' => $this->profitValue,
             'store' => $this->store,
-            'link' => $this->link,
+            'storeSlug' => $this->storeSlug,
         ];
 
         return [
