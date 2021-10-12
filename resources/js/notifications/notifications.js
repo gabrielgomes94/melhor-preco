@@ -36,7 +36,7 @@ let highlightNavbarSection = function () {
     }
 
     function isInboxSolvedPage() {
-        return window.location.search === '?filter=solved'
+        return window.location.search.includes('filter=solved')
     }
 
     function getActiveSection() {
