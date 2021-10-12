@@ -203,6 +203,7 @@ return [
         /**
          * Products' module Service Providers...
          */
+        Src\Products\Application\Providers\EventServiceProvider::class,
         Src\Products\Application\Providers\ProductServiceProvider::class,
         Src\Products\Application\Providers\RouteServiceProvider::class,
     ],

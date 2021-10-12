@@ -4,6 +4,7 @@ namespace Src\Products\Application\Services\Synchronization;
 
 use Illuminate\Support\Facades\Log;
 use Src\Prices\Infrastructure\Repositories\Product\Creator;
+use Src\Products\Domain\Events\ProductsSynchronized;
 use Src\Products\Infrastructure\Repositories\GetDB;
 use Src\Products\Application\Services\Update\UpdateProduct;
 use Integrations\Bling\Products\Repositories\Repository as BlingRepository;
@@ -48,6 +49,8 @@ class Synchronize
             ++$updatedCount;
         }
 
-        Log::info("Os produtos foram sincronizados com sucesso. {$createdCount} novos produtos foram criados e {$updatedCount} foram atualizados");
+        $userId = 1;
+
+        event(new ProductsSynchronized($userId, $createdCount, $updatedCount));
     }
 }

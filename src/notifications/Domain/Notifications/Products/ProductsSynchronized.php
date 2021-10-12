@@ -12,14 +12,18 @@ class ProductsSynchronized extends Notification
 {
     use Queueable;
 
+    private int $createdCount;
+    private int $updatedCount;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(int $createdCount, int $updatedCount)
     {
-        //
+        $this->createdCount = $createdCount;
+        $this->updatedCount = $updatedCount;
     }
 
     /**
@@ -57,7 +61,10 @@ class ProductsSynchronized extends Notification
     {
         return [
             'title' => 'Produtos sincronizados em ' . (string) Carbon::now(),
-            'content' => '',
+            'content' => [
+                'created' => $this->createdCount,
+                'updated' => $this->updatedCount,
+            ],
             'type' => 'info',
             'solved_at' => Carbon::now(),
             'tags' => ['produtos','sincronização'],
