@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Models;
 
 use App\Exceptions\Store\InvalidStoreException;
-use App\Factories\Product\Product as ProductFactory;
+use Src\Products\Application\Factories\Product as ProductFactory;
 use Src\Products\Domain\Entities\Product as ProductEntity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

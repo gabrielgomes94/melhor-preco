@@ -2,8 +2,8 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use App\Factories\Product\Dimensions;
-use App\Factories\Product\Post;
+use Src\Products\Application\Factories\Dimensions;
+use Src\Products\Application\Factories\Post;
 use Src\Prices\Infrastructure\Repositories\Updator;
 use Src\Products\Application\Services\Composition\GetProducts;
 use Src\Products\Domain\Data\Compositions\Composition;

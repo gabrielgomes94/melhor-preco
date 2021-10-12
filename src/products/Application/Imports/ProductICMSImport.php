@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports;
+namespace Src\Products\Application\Imports;
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;

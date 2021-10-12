@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports;
+namespace Src\Products\Application\Exports;
 
 use Src\Products\Domain\Entities\Product;
 use Maatwebsite\Excel\Concerns\FromArray;

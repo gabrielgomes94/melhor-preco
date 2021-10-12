@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Src\Products\Application\Console\Commands;
 
 use Src\Products\Application\Services\Price\RecalculateProfit as RecalculateProfitService;
 use Illuminate\Console\Command;

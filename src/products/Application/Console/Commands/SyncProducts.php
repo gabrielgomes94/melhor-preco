@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Src\Products\Application\Console\Commands;
 
 use Src\Products\Application\Jobs\SyncProducts as SyncProductsJob;
 use Illuminate\Console\Command;

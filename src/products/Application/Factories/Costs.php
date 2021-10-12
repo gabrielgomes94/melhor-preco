@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Factories\Product;
+namespace Src\Products\Application\Factories;
 
 use Src\Products\Domain\Data\Costs as CostsObject;
 use Src\Products\Domain\Entities\Product;

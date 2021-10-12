@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use App\Factories\Product\Costs;
+use Src\Products\Application\Factories\Costs;
 use Src\Products\Infrastructure\Repositories\GetDB;
 use Src\Prices\Infrastructure\Repositories\Updator as ProductUpdator;
 use Src\Prices\Application\Services\UpdatePrice\Exceptions\ProductNotFound;

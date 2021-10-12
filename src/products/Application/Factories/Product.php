@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Factories\Product;
+namespace Src\Products\Application\Factories;
 
+use Src\Products\Application\Factories\Post;
 use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Products\Domain\Data\Compositions\Composition;
 use Src\Products\Domain\Data\Costs;

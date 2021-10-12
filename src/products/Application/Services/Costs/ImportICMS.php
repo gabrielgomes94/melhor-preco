@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\Services\Costs;
 
-use App\Imports\ProductICMSImport;
+use Src\Products\Application\Imports\ProductICMSImport;
 use Src\Products\Infrastructure\Repositories\GetDB;
 use Src\Products\Application\Services\Update\UpdateCosts;
 use Illuminate\Http\UploadedFile;

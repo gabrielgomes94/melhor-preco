@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Factories\Product;
+namespace Src\Products\Application\Factories;
 
 use Src\Prices\Domain\Price\Models\Price;
 use Src\Products\Domain\Entities\Post as ProductPost;

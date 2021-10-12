@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Repositories;
 
-use App\Factories\Product\Product as ProductFactory;
+use Src\Products\Application\Factories\Product as ProductFactory;
 use Src\Products\Domain\Models\Product as ProductModel;
 use Src\Products\Domain\Entities\Product;
 

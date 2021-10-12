@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Factories\Product;
+namespace Src\Products\Application\Factories;
 
 use Src\Products\Domain\Data\Dimensions as DimensionsObject;
 use Src\Products\Domain\Entities\Product;
