@@ -3,7 +3,7 @@
 namespace Src\Prices\Application\Http\Requests\PriceLog;
 
 use App\Http\Requests\Contracts\HasOptions;
-use App\Http\Requests\Utils\ProductOptions;
+use Src\Products\Infrastructure\Repositories\Options\Options;
 use Src\Products\Domain\Contracts\Utils\Options;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,6 +26,6 @@ class PriceLogRequest extends FormRequest implements HasOptions
             'sku' => $this->input('sku') ?? null,
         ];
 
-        return new ProductOptions($data);
+        return new Options($data);
     }
 }

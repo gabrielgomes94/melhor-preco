@@ -4,7 +4,7 @@ namespace Src\Products\Application\Http\Requests\Product;
 
 use App\Http\Requests\Contracts\HasOptions;
 use App\Http\Requests\Contracts\HasSKU;
-use App\Http\Requests\Utils\ProductOptions;
+use Src\Products\Infrastructure\Repositories\Options\Options;
 use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class EditCostsRequest extends FormRequest implements HasOptions, HasSku
     {
         $perPage = 40;
 
-        return new ProductOptions([
+        return new Options([
             'page' => $this->input('page') ?? 1,
             'perPage' => $perPage,
             'sku' => $this->input('sku') ?? null,

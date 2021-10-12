@@ -2,6 +2,7 @@
 
 namespace Src\Products\Application\Services\Synchronization;
 
+use Illuminate\Support\Facades\Log;
 use Src\Prices\Infrastructure\Repositories\Product\Creator;
 use Src\Products\Infrastructure\Repositories\GetDB;
 use Src\Products\Application\Services\Update\UpdateProduct;
@@ -29,6 +30,8 @@ class Synchronize
     public function sync(): void
     {
         $products = $this->erpRepository->all();
+        $updatedCount = 0;
+        $createdCount = 0;
 
         foreach ($products->data() as $erpProduct) {
             $product = $this->dbRepository->get($erpProduct->sku());
@@ -36,11 +39,15 @@ class Synchronize
 
             if (!$product) {
                 $this->creator->createFromArray($data);
+                ++$createdCount;
 
                 continue;
             }
 
             $this->productUpdator->execute($product, $data);
+            ++$updatedCount;
         }
+
+        Log::info("Os produtos foram sincronizados com sucesso. {$createdCount} novos produtos foram criados e {$updatedCount} foram atualizados");
     }
 }

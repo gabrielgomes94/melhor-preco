@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Requests\Utils;
+namespace Src\Products\Infrastructure\Repositories\Options;
 
 use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
 
-class ProductOptions implements OptionsInterface
+class Options implements OptionsInterface
 {
     private const INFINITE = 100000000000000000;
     public array $extra;
     public array $query;
-    private bool $kits;
-    private string $path;
-    private ?int $page = null;
-    private ?int $perPage = 40;
-    private ?float $minimumProfit;
-    private ?float $maximumProfit;
-    private ?string $store;
-    private ?string $sku;
+    protected bool $kits;
+    protected string $path;
+    protected ?int $page = null;
+    protected ?int $perPage = 40;
+    protected ?float $minimumProfit;
+    protected ?float $maximumProfit;
+    protected ?string $store;
+    protected ?string $sku;
 
     public function __construct(array $data)
     {

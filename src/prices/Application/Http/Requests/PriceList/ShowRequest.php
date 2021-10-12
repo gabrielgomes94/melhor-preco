@@ -3,7 +3,7 @@
 namespace Src\Prices\Application\Http\Requests\PriceList;
 
 use App\Http\Requests\Contracts\HasOptions;
-use App\Http\Requests\Utils\ProductOptions;
+use Src\Products\Infrastructure\Repositories\Options\Options;
 use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,6 +29,6 @@ class ShowRequest extends FormRequest implements HasOptions
             'sku' => $this->input('sku') ?? null,
         ];
 
-        return new ProductOptions($data);
+        return new Options($data);
     }
 }

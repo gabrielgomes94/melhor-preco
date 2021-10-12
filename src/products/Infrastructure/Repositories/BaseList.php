@@ -2,11 +2,10 @@
 
 namespace Src\Products\Infrastructure\Repositories;
 
-use App\Http\Requests\Utils\ProductOptions;
-use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
 use Src\Products\Domain\Entities\ProductsCollection;
 use Src\Products\Domain\Contracts\Repositories\ListProducts;
 use Src\Products\Domain\Contracts\Utils\Options;
+use Src\Products\Infrastructure\Repositories\Options\NullOptions;
 
 abstract class BaseList implements ListProducts
 {
@@ -18,7 +17,7 @@ abstract class BaseList implements ListProducts
 
     public function all(): ProductsCollection
     {
-        $options = new ProductOptions([]);
+        $options = new NullOptions();
         $products = $this->get($options);
 
         return $this->map($products, $options);
