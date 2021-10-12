@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Models\Product;
 
-use App\Models\Product;
+use Src\Products\Domain\Models\Product;
 use Tests\Data\Models\Product\Contracts\ProductFactory;
 
 class VariationProduct implements ProductFactory

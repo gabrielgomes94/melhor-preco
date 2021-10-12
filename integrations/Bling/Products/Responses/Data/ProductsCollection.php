@@ -29,6 +29,11 @@ class ProductsCollection
         }
     }
 
+    public function count(): int
+    {
+        return count($this->products);
+    }
+
     public function toArray(): array
     {
         return $this->products;

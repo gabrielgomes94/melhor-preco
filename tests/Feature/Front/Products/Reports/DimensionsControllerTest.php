@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Front\Products\Reports;
 
-use App\Models\Product;
+use Src\Products\Domain\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Data\Models\ProductDataFactory;

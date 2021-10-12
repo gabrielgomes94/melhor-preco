@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Front\Products\Costs;
 
-use App\Jobs\Products\Spreadsheets\UploadICMS;
+use Src\Products\Application\Jobs\Spreadsheets\UploadICMS;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;

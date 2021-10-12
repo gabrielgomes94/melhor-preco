@@ -53,7 +53,11 @@
             "Barrigudinha\\": "barrigudinha/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Integrations\\": "integrations/"
+            "Integrations\\": "integrations/",
+            "Src\\": "src/",
+            "Src\\Notifications\\": "src/notifications",
+            "Src\\Prices\\": "src/prices",
+            "Src\\Products\\": "src/products"
         }
     },
     "autoload-dev": {

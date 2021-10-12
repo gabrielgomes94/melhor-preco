@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Barrigudinha\Product\Clients\Contracts\Product as ProductInterface;
-use Barrigudinha\Product\Clients\Contracts\ProductStore as ProductStoreInterface;
+use Src\Products\Domain\Contracts\Clients\Product as ProductInterface;
+use Src\Products\Domain\Contracts\Clients\ProductStore as ProductStoreInterface;
 use Integrations\Bling\Products\Clients\Product;
 use Integrations\Bling\Products\Clients\ProductStore;
 

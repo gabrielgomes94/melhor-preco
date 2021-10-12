@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-include 'web/pricing.php';
-include 'web/product.php';
 include 'web/sales.php';
 
 Route::middleware('auth')->group(function () {

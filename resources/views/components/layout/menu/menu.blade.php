@@ -14,6 +14,8 @@
     <div class="sidebar-inner px-4 pt-3">
         <ul class="nav d-flex flex-column pt-3 pt-md-0">
             <div class="p-2 bd-highlight">
+                <x-layout.menu.menu-item-inbox route="{{ route('notifications.list') }}" name="Inbox" badge="beta" icon="mail" />
+
                 <x-layout.menu.menu-section name="Gestão de Produtos" icon="product-box">
                     <x-layout.menu.menu-item route="{{ route('product.images.upload_form') }}" name="Upload de Imagens" icon="upload" />
 

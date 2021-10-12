@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Barrigudinha\Product;
 
-use Barrigudinha\Product\Data\Dimensions;
+use Src\Products\Domain\Data\Dimensions;
 use Tests\TestCase;
 
 class DimensionsTest extends TestCase

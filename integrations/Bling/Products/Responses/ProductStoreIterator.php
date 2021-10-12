@@ -2,7 +2,8 @@
 
 namespace Integrations\Bling\Products\Responses;
 
-use Barrigudinha\Product\Entities\Product as ProductData;
+use Src\Products\Domain\Entities\Product as ProductData;
+use Src\Products\Domain\Entities\Product;
 
 class ProductStoreIterator extends BaseResponse
 {

@@ -2,9 +2,9 @@
 
 namespace App\Services\Sales;
 
-use App\Repositories\Product\GetDB;
+use Src\Products\Infrastructure\Repositories\GetDB;
 use App\Repositories\Store\Store;
-use Barrigudinha\Pricing\Price\Services\CalculatePrice;
+use Src\Prices\Domain\Price\Services\CalculatePrice;
 use Barrigudinha\SaleOrder\Entities\SaleOrder;
 use Barrigudinha\SaleOrder\Entities\SaleOrdersCollection;
 use Barrigudinha\SaleOrder\ValueObjects\Item;
@@ -40,7 +40,7 @@ class Service
 
             $products = [];
 
-            foreach($saleOrder->items() as $item) {
+            foreach ($saleOrder->items() as $item) {
                 if (!$product = $this->productRepository->get($item->sku())) {
                     continue;
                 }
