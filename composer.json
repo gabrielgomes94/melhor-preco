@@ -57,6 +57,9 @@
             "Src\\": "src/",
             "Src\\Notifications\\": "src/notifications",
             "Src\\Prices\\": "src/prices",
+            "Src\\Prices\\Price\\": "src/prices/price",
+            "Src\\Prices\\Calculator\\": "src/prices/calculator",
+            "Src\\Prices\\PriceList\\": "src/prices/price_list",
             "Src\\Products\\": "src/products"
         }
     },
@@ -65,7 +68,8 @@
             "Tests\\": "tests/",
             "Tests\\Unit\\App\\": "tests/Unit/app/",
             "Tests\\Unit\\Barrigudinha\\": "tests/Unit/barrigudinha/",
-            "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/"
+            "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/",
+            "Tests\\Unit\\Src\\Products\\": "tests/Unit/src/products/"
         }
     },
     "minimum-stability": "dev",
