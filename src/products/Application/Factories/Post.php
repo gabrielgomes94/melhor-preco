@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\Factories;
 
-use Src\Prices\Domain\Price\Models\Price;
+use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Domain\Entities\Post as ProductPost;
 use Src\Products\Domain\Data\Store;
 use Barrigudinha\Utils\Helpers;

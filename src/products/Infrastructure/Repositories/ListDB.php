@@ -4,10 +4,10 @@ namespace Src\Products\Infrastructure\Repositories;
 
 use Src\Products\Application\Factories\Product as ProductFactory;
 use Src\Products\Domain\Models\Product as ProductModel;
-use Src\Prices\Infrastructure\Repositories\Product\Filters\Active;
-use Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
-use Src\Prices\Infrastructure\Repositories\Queries\Products as QueryProducts;
-use Src\Prices\Infrastructure\Repositories\Queries\ProductsBySku as QueryProductsBySku;
+use Src\Prices\PriceList\Infrastructure\Repositories\Product\Filters\Active;
+use Src\Prices\PriceList\Infrastructure\Repositories\Product\Filters\Contracts\Filter;
+use Src\Products\Infrastructure\Repositories\Queries\Products as QueryProducts;
+use Src\Products\Infrastructure\Repositories\Queries\ProductsBySku as QueryProductsBySku;
 use Src\Products\Domain\Entities\ProductsCollection;
 use Src\Products\Domain\Contracts\Utils\Options;
 use Src\Products\Infrastructure\Repositories\BaseList;
@@ -15,7 +15,7 @@ use Src\Products\Infrastructure\Repositories\BaseList;
 class ListDB extends BaseList
 {
     /**
-     * @var Filter[] $filters
+     * @var \Src\Prices\PriceList\Infrastructure\Repositories\Product\Filters\Contracts\Filter[] $filters
      */
     protected array $filters = [
         Active::class,

@@ -2,8 +2,8 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use Src\Prices\Application\Services\UpdatePrice\Update;
-use Src\Prices\Domain\Price\Services\CalculatePrice;
+use Src\Prices\Price\Application\Services\Update;
+use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Entities\Product;
 use Src\Products\Domain\Data\Store;
 use Barrigudinha\Utils\Helpers;

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Src\Prices\Domain\Price\Models\Price;
+use Src\Prices\Price\Domain\Models\Price;
 
 class Product extends Model
 {
@@ -42,7 +42,7 @@ class Product extends Model
 
     public function prices(): HasMany
     {
-        return $this->hasMany(Price::class);
+        return $this->hasMany(\Src\Prices\Price\Domain\Models\Price::class);
     }
 
     public function compositionProducts(): array

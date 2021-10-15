@@ -3,7 +3,7 @@
 namespace Src\Products\Application\Http\Controllers\Web\Costs;
 
 use App\Http\Controllers\Controller;
-use Src\Prices\Application\Services\UpdatePrice\Exceptions\UpdatePriceException;
+use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
 use Src\Products\Application\Http\Requests\Product\EditCostsRequest;
 use Src\Products\Application\Http\Requests\Product\UpdateCostsRequest;
 use Src\Products\Application\Services\ListProducts;

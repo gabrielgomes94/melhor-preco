@@ -33,7 +33,7 @@ abstract class BaseList implements ListProducts
     private function filterProducts(ProductsCollection $products, Options $options): ProductsCollection
     {
         /**
-         * @var \Src\Prices\Infrastructure\Repositories\Product\Filters\Contracts\Filter $filter
+         * @var \Src\Prices\PriceList\Infrastructure\Repositories\Product\Filters\Contracts\Filter $filter
          */
         foreach ($this->filters as $filter) {
             $products = $filter::execute($products, $options);

@@ -4,7 +4,7 @@ namespace Src\Products\Application\Services\Price;
 
 use Src\Products\Infrastructure\Repositories\ListDB;
 use Src\Products\Application\Services\Update\UpdatePosts;
-use Src\Prices\Domain\Price\Services\CalculateProduct;
+use Src\Prices\Calculator\Domain\Services\CalculateProduct;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;

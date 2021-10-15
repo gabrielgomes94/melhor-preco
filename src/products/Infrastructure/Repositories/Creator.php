@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Repositories;
 
-use Src\Prices\Domain\Price\Models\Price as PriceModel;
+use Src\Prices\Price\Domain\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Product as ProductModel;
 use App\Repositories\Store\Store;
 
