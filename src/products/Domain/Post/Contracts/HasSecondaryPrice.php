@@ -6,9 +6,9 @@ use Src\Prices\Calculator\Domain\Price\Price;
 
 interface HasSecondaryPrice
 {
-    public function getSecondaryPrice();
+    public function getSecondaryPrice(): Price;
 
-    public function getSecondaryProfit();
+//    public function getSecondaryProfit();
 
     public function setSecondaryPrice(Price $secondaryPrice): void;
 }
