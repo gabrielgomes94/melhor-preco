@@ -8,7 +8,7 @@ use Src\Products\Infrastructure\Repositories\Updator as ProductUpdator;
 use Src\Prices\Price\Application\Services\Exceptions\ProductNotFound;
 use Src\Prices\Price\Application\Services\Exceptions\UpdateDBException;
 use Src\Prices\Price\Application\Services\UpdateDB;
-use Src\Prices\Calculator\Domain\Services\CalculateProduct;
+use Src\Prices\Calculator\Domain\Services\V1\CalculateProduct;
 use Src\Products\Domain\Entities\Product;
 
 class UpdateCosts

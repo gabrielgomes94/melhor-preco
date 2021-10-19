@@ -2,10 +2,6 @@
 
 namespace Src\Prices\Calculator\Presentation\Components\Forms;
 
-use Illuminate\View\Component;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
-use Src\Prices\Calculator\Domain\PostPriced\PostPriced;
 use Src\Prices\Calculator\Presentation\Components\PricesComponent;
 
 class Calculator extends PricesComponent
@@ -15,6 +11,8 @@ class Calculator extends PricesComponent
      */
     public function render()
     {
-        return view('components.pricing.prices.calculator.forms.calculator');
+        return view('components.pricing.prices.calculator.forms.calculator', [
+            'data' => $this->getData(),
+        ]);
     }
 }

@@ -5,9 +5,9 @@ namespace Src\Prices\Calculator\Application\Http\Transformer;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
-use Src\Prices\Calculator\Domain\PostPriced\Contracts\HasSecondaryPrice;
-use Src\Prices\Calculator\Domain\PostPriced\PostPriced;
 use Src\Prices\Calculator\Domain\Price\Price;
+use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
+use Src\Products\Domain\Product\Contracts\Models\Post;
 
 class PriceTransformer
 {
@@ -18,15 +18,15 @@ class PriceTransformer
         $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
     }
 
-    public function transform(PostPriced $postPriced): array
+    public function transform(Post $post): array
     {
         $data = [
-            'price' => $this->setData($postPriced->price()),
+            'price' => $this->setData($post->getPrice()),
             'secondaryPrice' => [],
         ];
 
-        if ($postPriced instanceof HasSecondaryPrice) {
-            $data['secondaryPrice'] = $this->setData($postPriced->secondaryPrice());
+        if ($post instanceof HasSecondaryPrice) {
+            $data['secondaryPrice'] = $this->setData($post->getSecondaryPrice());
         }
 
         return $data;
@@ -36,14 +36,14 @@ class PriceTransformer
     {
         return [
             'suggestedPrice' => $this->format($price->get()),
-            'costs' => $this->format($price->costs()),
-            'commission' => $this->format($price->commission()),
-            'freight' => $this->format($price->freight()),
-            'taxSimplesNacional' => $this->format($price->simplesNacional()),
-            'differenceICMS' => $this->format($price->differenceICMS()),
-            'profit' => $this->format($price->profit()),
-            'purchasePrice' => $this->format($price->purchasePrice()),
-            'margin' => $price->margin()
+            'costs' => $this->format($price->getCosts()),
+            'commission' => $this->format($price->getCommission()->get()),
+            'freight' => $this->format($price->getFreight()->get()),
+            'taxSimplesNacional' => $this->format($price->getSimplesNacional()),
+            'differenceICMS' => $this->format($price->getDifferenceICMS()),
+            'profit' => $this->format($price->getProfit()),
+            'purchasePrice' => $this->format($price->getPurchasePrice()),
+            'margin' => $price->getMargin()
         ];
     }
 

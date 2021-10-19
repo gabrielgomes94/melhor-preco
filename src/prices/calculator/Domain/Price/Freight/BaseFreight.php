@@ -2,9 +2,9 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
-use Src\Products\Domain\Data\Dimensions;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
+use Src\Products\Domain\Product\Contracts\Models\Data\Dimensions\Dimensions;
 
 abstract class BaseFreight
 {

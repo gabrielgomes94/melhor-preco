@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Calculator\Domain\Contracts\Services;
+namespace Src\Prices\Calculator\Domain\Contracts\Services\V1;
 
 use Src\Products\Domain\Entities\Product;
 

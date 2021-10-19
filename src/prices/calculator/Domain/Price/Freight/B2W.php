@@ -3,9 +3,9 @@
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
 use Src\Prices\Calculator\Domain\Price\Freight\BaseFreight;
-use Src\Products\Domain\Data\Dimensions;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
+use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 use function config;
 
 class B2W extends BaseFreight

@@ -3,7 +3,7 @@
 namespace Src\Products\Application\Services\Update;
 
 use Src\Prices\Price\Application\Services\Update;
-use Src\Prices\Calculator\Domain\Services\CalculatePrice;
+use Src\Prices\Calculator\Domain\Services\V1\CalculatePrice;
 use Src\Products\Domain\Entities\Product;
 use Src\Products\Domain\Data\Store;
 use Barrigudinha\Utils\Helpers;

@@ -196,14 +196,15 @@ return [
         /**
          * Prices' module Service Providers...
          */
-        \Src\Prices\Price\Application\Providers\PriceServiceProvider::class,
-        \Src\Prices\Price\Application\Providers\RouteServiceProvider::class,
-        \Src\Prices\Price\Application\Providers\EventServiceProvider::class,
+        Src\Prices\Price\Application\Providers\PriceServiceProvider::class,
+        Src\Prices\Price\Application\Providers\RouteServiceProvider::class,
+        Src\Prices\Price\Application\Providers\EventServiceProvider::class,
 
         /**
          * Prices' Calculator module Services Providers...
          */
         Src\Prices\Calculator\Application\Providers\RouteServiceProvider::class,
+        Src\Prices\Calculator\Application\Providers\CalculatorServiceProvider::class,
 
         /**
          * Price Lists module Services Providers....

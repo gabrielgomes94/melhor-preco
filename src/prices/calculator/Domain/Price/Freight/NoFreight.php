@@ -3,8 +3,8 @@
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
 use Src\Prices\Calculator\Domain\Price\Freight\BaseFreight;
-use Src\Products\Domain\Data\Dimensions;
 use Money\Money;
+use Src\Products\Domain\Product\Contracts\Models\Data\Dimensions\Dimensions;
 
 class NoFreight extends BaseFreight
 {

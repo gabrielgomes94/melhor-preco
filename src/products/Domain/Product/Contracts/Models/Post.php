@@ -2,17 +2,17 @@
 
 namespace Src\Products\Domain\Product\Contracts\Models;
 
+use Src\Prices\Calculator\Domain\Price\Price;
+use Src\Products\Domain\Post\Identifiers\Identifiers;
 use Src\Products\Domain\Store\Store;
 
 interface Post
 {
     public function getId(): string;
 
-    public function getCommission(): float;
+    public function getIdentifiers(): Identifiers;
 
-    public function getPrice(): float;
-
-    public function getProfit(): float;
+    public function getPrice(): Price;
 
     public function getStore(): Store;
 }

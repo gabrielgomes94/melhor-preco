@@ -10,6 +10,7 @@ use Src\Products\Domain\Product\Contracts\Models\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Product\Contracts\Models\Data\Identifiers\Identifiers;
 use Src\Products\Domain\Product\Contracts\Models\Data\Product as ProductInterface;
 use Src\Products\Domain\Product\Contracts\Models\Data\Variations\Variations;
+use Src\Products\Domain\Store\Store;
 
 class Product implements ProductInterface
 {
@@ -80,9 +81,9 @@ class Product implements ProductInterface
 
     public function getPost(string $storeSlug): ?Post
     {
-        foreach ($this->posts as $price) {
-            if ($price->store()->slug() === $storeSlug) {
-                return $price;
+        foreach ($this->posts as $post) {
+            if ($post->getStore()->getSlug() === $storeSlug) {
+                return $post;
             }
         }
 
@@ -94,9 +95,20 @@ class Product implements ProductInterface
         return $this->posts;
     }
 
-    public function getStore(string $storeSlug): ?\Src\Products\Domain\Product\Contracts\Models\Data\Store\Store
+    public function getSku(): string
     {
-        // TODO: Implement getStore() method.
+        return $this->identifiers->getSku();
+    }
+
+    public function getStore(string $storeSlug): ?Store
+    {
+        foreach ($this->posts as $post) {
+            if ($post->getStore()->getSlug() === $storeSlug) {
+                return $post->getStore();
+            }
+        }
+
+        return null;
     }
 
     public function getStores(): array

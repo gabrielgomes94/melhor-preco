@@ -1,16 +1,17 @@
 <?php
 
-namespace Src\Prices\Calculator\Domain\Services;
+namespace Src\Prices\Calculator\Domain\Services\V1;
 
-use Src\Prices\Calculator\Domain\Services\CalculatePrice;
-use Src\Prices\Calculator\Domain\Contracts\Services\CalculateProduct as CalculateProductInterface;
+use Src\Prices\Calculator\Domain\Services\V1;
+use Src\Prices\Calculator\Domain\Services\V1\CalculatePrice;
+use Src\Prices\Calculator\Domain\Contracts\Services\V1\CalculateProduct as CalculateProductInterface;
 use Src\Products\Domain\Entities\Product;
 
 class CalculateProduct implements CalculateProductInterface
 {
-    private \Src\Prices\Calculator\Domain\Services\CalculatePrice $calculatePrice;
+    private V1\CalculatePrice $calculatePrice;
 
-    public function __construct(\Src\Prices\Calculator\Domain\Services\CalculatePrice $calculatePrice)
+    public function __construct(V1\CalculatePrice $calculatePrice)
     {
         $this->calculatePrice = $calculatePrice;
     }

@@ -5,20 +5,25 @@ namespace Src\Prices\Calculator\Presentation\Components;
 use Illuminate\View\Component;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
-use Src\Prices\Calculator\Domain\PostPriced\Contracts\HasSecondaryPrice;
-use Src\Prices\Calculator\Domain\PostPriced\PostPriced;
+use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
+use Src\Products\Domain\Product\Contracts\Models\Post;
+use Src\Products\Domain\Product\Models\Data\Product;
 
 abstract class PricesComponent extends Component
 {
     public string $productId;
+    public Post $post;
+    public Product $product;
     public array $price;
-    protected PostPriced $postPriced;
 
-    public function __construct(PostPriced $price, string $productId)
+    public function __construct(Post $post, Product $product)
     {
-        $this->postPriced = $price;
-        $this->productId = $productId;
-        $this->price = array_merge($this->getData(), $this->getSecondaryData());
+        $this->post = $post;
+        $this->product = $product;
+        $this->productId = $product->getSku();
+
+        $this->price = $this->getData();
     }
 
     /**
@@ -26,38 +31,36 @@ abstract class PricesComponent extends Component
      */
     abstract public function render();
 
-    private function getData(): array
+    protected function getData(): array
     {
         $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
-        return [
-            'name' => $this->postPriced->product()->name(),
-            'sku' => $this->postPriced->product()->sku(),
-            'id' => $this->postPriced->post()->id(),
-            'store' => $this->postPriced->post()->store()->name(),
-            'storeSlug' => $this->postPriced->post()->store()->slug(),
-            'value' => $moneyFormatter->format($this->postPriced->post()->price()),
-            'profit' => $moneyFormatter->format($this->postPriced->price()->profit()),
-            'margin' => $this->postPriced->price()->margin(),
-            'commission' => $this->postPriced->post()->store()->commission(),
-            'additionalCosts' => $moneyFormatter->format($this->postPriced->price()->additionalCosts()),
-        ];
-    }
-
-    private function getSecondaryData(): array
-    {
-        if (!$this->postPriced instanceof HasSecondaryPrice) {
-            return [];
-        }
-
-        $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
-
-        return [
-            'secondaryPrice' => [
-                'price' => $moneyFormatter->format($this->postPriced->secondaryPrice()->get()),
-                'profit' => $moneyFormatter->format($this->postPriced->secondaryPrice()->profit()),
-                'margin' => $this->postPriced->secondaryPrice()->margin(),
+        $data = [
+            'name' => $this->product->getDetails()->getName(),
+            'sku' => $this->product->getSku(),
+            'id' => $this->post->getId(),
+            'store' => $this->post->getStore()->getName(),
+            'storeSlug' => $this->post->getStore()->getSlug(),
+            'mainPrice' => [
+                'value' => MoneyTransformer::toFloat($this->post->getPrice()->get()),
+                'profit' => MoneyTransformer::toFloat($this->post->getPrice()->getProfit()),
+                'margin' => $this->post->getPrice()->getMargin(),
+                'commission' => MoneyTransformer::toFloat($this->post->getPrice()->getCommission()->get()),
             ],
         ];
+
+        if ($this->post instanceof HasSecondaryPrice) {
+            $secondaryPrice = [
+                'secondaryPrice' => [
+                    'value' => $moneyFormatter->format($this->post->getSecondaryPrice()->get()),
+                    'profit' => $moneyFormatter->format($this->post->getSecondaryPrice()->getProfit()),
+                    'margin' => $this->post->getSecondaryPrice()->getMargin(),
+                ],
+            ];
+
+            return array_merge($data, $secondaryPrice);
+        }
+
+        return $data;
     }
 }

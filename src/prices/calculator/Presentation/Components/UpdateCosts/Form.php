@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Calculator\Presentation\Components\UpdateCosts;
 
-use Src\Products\Domain\Entities\Product;
 use Illuminate\View\Component;
+use Src\Products\Domain\Product\Models\Data\Product;
 
 class Form extends Component
 {
@@ -20,10 +20,10 @@ class Form extends Component
     public function render()
     {
         return view('components.pricing.prices.update-costs.form', [
-            'sku' => $this->product->sku(),
-            'purchasePrice' => $this->product->costs()->purchasePrice(),
-            'taxICMS' => $this->product->costs()->taxICMS(),
-            'additionalCosts' => $this->product->costs()->additionalCosts(),
+            'sku' => $this->product->getSku(),
+            'purchasePrice' => $this->product->getCosts()->purchasePrice(),
+            'taxICMS' => $this->product->getCosts()->taxICMS(),
+            'additionalCosts' => $this->product->getCosts()->additionalCosts(),
         ]);
     }
 }

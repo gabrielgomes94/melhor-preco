@@ -3,42 +3,33 @@
 namespace Src\Prices\Calculator\Application\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Src\Products\Infrastructure\Repositories\GetDB;
-use Barrigudinha\Utils\Helpers;
 use Illuminate\Http\Request;
+use Src\Prices\Calculator\Application\Http\Requests\SimulatePriceRequest;
 use Src\Prices\Calculator\Application\Http\Transformer\PriceTransformer;
-use Src\Prices\Calculator\Domain\PostPriced\Services\CreatePostPriced;
+use Src\Prices\Calculator\Domain\Contracts\Services\SimulatePost;
 
 class CalculatePricesController extends Controller
 {
-    private GetDB $repository;
+    private SimulatePost $service;
     private PriceTransformer $transformer;
-    private CreatePostPriced $createPostPriced;
 
-    public function __construct(GetDB $repository, PriceTransformer $transformer, CreatePostPriced $createPostPriced)
+    public function __construct(SimulatePost $service, PriceTransformer $transformer)
     {
-        $this->repository = $repository;
+        $this->service = $service;
         $this->transformer = $transformer;
-        $this->createPostPriced = $createPostPriced;
     }
 
-    public function calculate(string $productId, string $priceId, Request $request)
+    public function calculate(string $productId, string $priceId, SimulatePriceRequest $request)
     {
-        if (!$product = $this->repository->get($productId)) {
-            abort(404);
-        }
+        $post = $this->service->calculate(
+            $productId,
+            $request->input('store'),
+            (float) $request->input('desiredPrice'),
+            (float) $request->input('commission'),
+            []
+        );
 
-        if (!$store = $product->getStore($request->input('store'))) {
-            // To Do: show errors
-        }
-        $desiredPrice = Helpers::floatToMoney($request->input('desiredPrice'));
-
-        $postPriced = $this->createPostPriced->create($product, $store, $desiredPrice, [
-            'commission' => $request->input('commission'),
-            'discount' => $request->input('discount'),
-        ]);
-
-        $price = $this->transformer->transform($postPriced);
+        $price = $this->transformer->transform($post);
 
         return response()->json($price);
     }

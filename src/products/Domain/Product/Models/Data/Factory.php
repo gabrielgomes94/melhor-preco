@@ -11,25 +11,32 @@ use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Product\Models\Data\Identifiers\Identifiers;
 use Src\Products\Domain\Product\Models\Data\Product as ProductObject;
 use Src\Products\Domain\Product\Models\Data\Variations\Variations;
-use Src\Products\Domain\Post\Factory as PostFactory;
+use Src\Products\Domain\Post\Factories\Factory as PostFactory;
 
 class Factory implements FactoryInterface
 {
     public static function make(array $data): Product
     {
+        $costs = new Costs(
+            purchasePrice: $data['purchase_price'],
+            additionalCosts: $data['additional_costs'],
+            taxICMS: $data['tax_icms']
+        );
+
+        $dimensions = new Dimensions($data['depth'], $data['height'], $data['width'], $data['weight']);
+
         foreach($data['prices'] as $price) {
-            $posts[] = PostFactory::make($price);
+            $posts[] = PostFactory::make(array_merge($price, [
+                'costs' => $costs,
+                'dimensions' => $dimensions,
+            ]));
         }
 
         return new ProductObject(
             identifiers: new Identifiers($data['sku'], $data['erp_id']),
-            costs: new Costs(
-                purchasePrice: $data['purchase_price'],
-                additionalCosts: $data['additional_costs'],
-                taxICMS: $data['tax_icms']
-            ),
+            costs: $costs,
             details: new Details($data['name'], $data['brand'], $data['images'] ?? []),
-            dimensions: new Dimensions($data['depth'], $data['height'], $data['width'], $data['weight']),
+            dimensions: $dimensions,
             variations: new Variations($data['parent_sku'], $data['variations']),
             composition: new Composition($data['composition_products']),
             posts: $posts ?? [],

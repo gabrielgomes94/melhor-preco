@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use Src\Prices\Calculator\Domain\Services\CalculateProduct;
+use Src\Prices\Calculator\Domain\Services\V1\CalculateProduct;
 use Src\Products\Application\Factories\Dimensions;
 use Src\Products\Application\Factories\Post;
 use Src\Products\Infrastructure\Repositories\Updator;

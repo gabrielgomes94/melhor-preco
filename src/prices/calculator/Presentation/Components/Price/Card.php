@@ -2,9 +2,9 @@
 
 namespace Src\Prices\Calculator\Presentation\Components\Price;
 
-use Src\Prices\Calculator\Domain\PostPriced\MagaluPostPriced;
-use Src\Prices\Calculator\Domain\PostPriced\MercadoLivrePostPriced;
 use Src\Prices\Calculator\Presentation\Components\PricesComponent;
+use Src\Products\Domain\Post\MagaluPost;
+use Src\Products\Domain\Post\MercadoLivrePost;
 
 class Card extends PricesComponent
 {
@@ -13,11 +13,11 @@ class Card extends PricesComponent
      */
     public function render()
     {
-        if ($this->postPriced instanceof MagaluPostPriced) {
+        if ($this->post instanceof MagaluPost) {
             return view('components.pricing.prices.price.magalu-card');
         }
 
-        if ($this->postPriced instanceof MercadoLivrePostPriced) {
+        if ($this->post instanceof MercadoLivrePost) {
             return view('components.pricing.prices.price.mercado-livre-card');
         }
 

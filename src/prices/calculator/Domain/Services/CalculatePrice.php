@@ -2,41 +2,31 @@
 
 namespace Src\Prices\Calculator\Domain\Services;
 
-use Src\Prices\Calculator\Domain\Contracts\Services\CalculatePrice as CalculatePriceInterface;
-use Src\Products\Domain\Entities\Product;
-use Src\Products\Domain\Data\Store;
-use Barrigudinha\Utils\Helpers;
-use Money\Money;
+use Src\Prices\Calculator\Domain\Contracts\Models\ProductData;
 use Src\Prices\Calculator\Domain\Price\Price;
+use Src\Products\Domain\Store\Store;
 
-class CalculatePrice implements CalculatePriceInterface
+class CalculatePrice
 {
+    private array $availableOptions = [
+        'commission',
+        'ignoreFreight',
+        'discountRate',
+    ];
+
     public function calculate(
-        Product $product,
+        ProductData $productData,
         Store $store,
-        Money $desiredPrice,
+        float $value,
+        ?float $commission,
         array $options = []
     ): Price {
-        $commission = Helpers::percentage($options['commission'] ?? $store->commission());
-        $discount = Helpers::percentage($options['discount'] ?? 0.0);
-
-        $price = new Price(
-            product: $product,
-            value: $desiredPrice,
-            store: $store->slug(),
-            commission: $commission,
-            discountRate:  $discount
+        return new Price(
+            product: $productData,
+            store: $store,
+            value: $value,
+            commission: $commission ?? $store->getDefaultCommission(),
+            options: $options
         );
-
-        return $price;
-    }
-
-    public function recalculate(
-        Product $product,
-        Store $store,
-    ): Price {
-        $post = $product->getPost($store->slug());
-
-        return $this->calculate($product, $store, $post->price());
     }
 }
