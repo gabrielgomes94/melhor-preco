@@ -1,31 +1,31 @@
 <div class="form-group">
     <form
         method="post"
-        action="{{ route('pricing.products.prices.calculate', [$productId, $price['id']]) }}"
-        data-price-id="{{ $price['id'] }}"
+        action="{{ route('pricing.products.prices.calculate', [$productId, $data['id']]) }}"
+        data-price-id="{{ $data['id'] }}"
         class="price-calculator-form"
         enctype="multipart/form-data">
         @csrf
 
         <x-forms.input.read-only
             attribute="store"
-            componentId="store-{{ $price['id'] }}"
+            componentId="store-{{ $data['id'] }}"
             label="Marketplace"
-            value="{{ $price['storeSlug'] }}"
+            value="{{ $data['storeSlug'] }}"
         >
         </x-forms.input.read-only>
 
         <x-forms.input.percentage
             attribute="commission"
-            componentId="commission-{{ $price['id'] }}"
+            componentId="commission-{{ $data['id'] }}"
             label="Comissão"
-            value="{{ $price['commission'] }}"
+            value="{{ $data['mainPrice']['commission'] }}"
         >
         </x-forms.input.percentage>
 
         <x-forms.input.percentage
             attribute="discount"
-            componentId="discount-{{ $price['id'] }}"
+            componentId="discount-{{ $data['id'] }}"
             label="Desconto"
             value=""
         >
@@ -33,16 +33,16 @@
 
         <x-forms.input.percentage
             attribute="desiredPrice"
-            componentId="desiredPrice-{{ $price['id'] }}"
+            componentId="desiredPrice-{{ $data['id'] }}"
             label="Preço desejado"
-            value="{{ $price['value'] }}"
+            value="{{ $data['mainPrice']['value'] }}"
         >
         </x-forms.input.percentage>
 
         <input
             type="hidden"
             name="product"
-            id="product-{{ $price['id'] }}"
+            id="product-{{ $data['id'] }}"
             value="{{ $productId }}" />
 
 

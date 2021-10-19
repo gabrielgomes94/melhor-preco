@@ -26,7 +26,7 @@
     </td>
 
     <td class="col-1">
-        <a  href="{{ route('pricing.products.showByStore', ['store' => $store, 'product_id' => $sku])}}"
+        <a  href="{{ route('pricing.products.showByStore', ['store_slug' => $store, 'product_id' => $sku])}}"
             role="button"
         >
             <x-layout.icons.calculator />

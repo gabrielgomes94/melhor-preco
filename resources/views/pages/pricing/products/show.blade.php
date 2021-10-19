@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-pricing.price-list.navbar :selected="$store->slug()"/>
+        <x-pricing.price-list.navbar :selected="$store->getSlug()"/>
     </x-slot>
 
     <x-slot name="breadcrumb">
@@ -13,19 +13,19 @@
 
     <div class="row mb-4">
         <div class="mb-4">
-            <h3>{{ $price->product()->sku() }} - {{ $price->product()->name() }}</h3>
+            <h3>{{ $product->getSku() }} - {{ $product->getDetails()->getName() }}</h3>
         </div>
 
         <div class="col-4">
             <div class="mb-4">
-                <x-pricing.prices.calculator.card :price="$price" :productId="$price->product()->sku()" />
+                <x-pricing.prices.calculator.card :post="$post" :product="$product" />
             </div>
 
-            <x-pricing.prices.update-costs.form :product="$price->product()" />
+            <x-pricing.prices.update-costs.form :product="$product" />
         </div>
 
         <div class="col-8">
-            <x-pricing.prices.price.card :price="$price" :productId="$price->product()->sku()" />
+            <x-pricing.prices.price.card :post="$post" :product="$product"  />
         </div>
     </div>
 </x-layout>

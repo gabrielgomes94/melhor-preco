@@ -3,7 +3,7 @@
         attribute="value"
         label="Preço "
         componentId="discounted-price-{{ $price['id'] }}-value"
-        value="{{ $price['secondaryPrice']['price'] }}"
+        value="{{ $price['secondaryPrice']['value'] }}"
     >
     </x-forms.input.read-only>
 
