@@ -18,7 +18,6 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->prefix('notifications')
             ->group(base_path(self::ROUTES_DIR . 'web.php'));
     }
 }
