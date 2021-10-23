@@ -64,4 +64,9 @@ class Price extends Model
 
         return $minimumProfit <= $this->margin() && $this->margin() <= $maximumProfit;
     }
+
+    public static function listProducts(string $storeSlug)
+    {
+
+    }
 }
