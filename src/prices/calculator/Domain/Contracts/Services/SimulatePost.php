@@ -3,8 +3,7 @@
 
 namespace Src\Prices\Calculator\Domain\Contracts\Services;
 
-
-use Src\Products\Domain\Post\Post;
+use Src\Products\Domain\Product\Contracts\Models\Post;
 
 interface SimulatePost
 {

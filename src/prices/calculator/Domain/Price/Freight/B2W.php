@@ -2,7 +2,6 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
-use Src\Prices\Calculator\Domain\Price\Freight\BaseFreight;
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
 use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;

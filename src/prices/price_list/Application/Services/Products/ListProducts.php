@@ -2,30 +2,32 @@
 
 namespace Src\Prices\PriceList\Application\Services\Products;
 
-use Src\Prices\PriceList\Infrastructure\Repositories\Product\ListDB;
-use App\Services\Utils\Paginator;
 use Src\Products\Domain\Contracts\Utils\Options;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Products\Domain\Product\Models\Product;
 
 class ListProducts
 {
-    private ListDB $repository;
-    private Paginator $paginator;
-
-    public function __construct(ListDB $repository, Paginator $paginator)
-    {
-        $this->repository = $repository;
-        $this->paginator = $paginator;
-    }
-
     public function listPaginate(Options $options): LengthAwarePaginator
     {
-        $products = $this->repository->list($options);
+        $page = $options->page();
+        $store = $options->store();
 
-        return $this->paginator->paginate(
-            array: $products,
-            options: $options,
-            count: $this->repository->count($options)
-        );
+        if ($options->sku()) {
+            return Product::listProductsBySku(
+                $store,
+                $options->sku(),
+                $page
+            );
+        }
+
+        if ($options->shouldFilterKits()) {
+            return Product::listCompositionProducts(
+                $store,
+                $page
+            );
+        }
+
+        return Product::listProducts($store, $page);
     }
 }

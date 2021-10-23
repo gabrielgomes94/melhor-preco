@@ -13,7 +13,8 @@ class RouteServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Route::middleware('api')
+        Route::prefix('api')
+            ->middleware('api')
             ->group(base_path(self::ROUTES_DIR . 'api.php'));
     }
 }

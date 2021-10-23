@@ -4,7 +4,6 @@ namespace Src\Prices\Calculator\Domain\Price\Commission;
 
 use Barrigudinha\Utils\Helpers;
 use Money\Money;
-use Src\Prices\Calculator\Domain\Price\Commission\Commission;
 
 class MercadoLivre extends Commission
 {

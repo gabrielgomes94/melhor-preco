@@ -27,7 +27,7 @@ class Store implements Rule
     {
         $stores = array_keys(config('stores'));
 
-        return !in_array($value, $stores);
+        return in_array($value, $stores);
     }
 
     /**

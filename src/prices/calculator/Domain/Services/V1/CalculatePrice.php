@@ -9,7 +9,7 @@ use Barrigudinha\Utils\Helpers;
 use Money\Money;
 use Src\Prices\Calculator\Domain\Price\V1\Price;
 
-class CalculatePrice implements \Src\Prices\Calculator\Domain\Contracts\Services\V1\CalculatePriceInterface
+class CalculatePrice implements \Src\Prices\Calculator\Domain\Contracts\Services\V1\CalculatePrice
 {
     public function calculate(
         Product $product,

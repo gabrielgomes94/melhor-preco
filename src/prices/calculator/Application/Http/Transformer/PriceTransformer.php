@@ -5,6 +5,7 @@ namespace Src\Prices\Calculator\Application\Http\Transformer;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
+use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Product\Contracts\Models\Post;
@@ -35,14 +36,14 @@ class PriceTransformer
     private function setData(Price $price): array
     {
         return [
-            'suggestedPrice' => $this->format($price->get()),
-            'costs' => $this->format($price->getCosts()),
-            'commission' => $this->format($price->getCommission()->get()),
-            'freight' => $this->format($price->getFreight()->get()),
-            'taxSimplesNacional' => $this->format($price->getSimplesNacional()),
-            'differenceICMS' => $this->format($price->getDifferenceICMS()),
-            'profit' => $this->format($price->getProfit()),
-            'purchasePrice' => $this->format($price->getPurchasePrice()),
+            'suggestedPrice' => MoneyTransformer::toString($price->get()),
+            'costs' => MoneyTransformer::toString($price->getCosts()),
+            'commission' => MoneyTransformer::toString($price->getCommission()->get()),
+            'freight' => MoneyTransformer::toString($price->getFreight()->get()),
+            'taxSimplesNacional' => MoneyTransformer::toString($price->getSimplesNacional()),
+            'differenceICMS' => MoneyTransformer::toString($price->getDifferenceICMS()),
+            'profit' => MoneyTransformer::toString($price->getProfit()),
+            'purchasePrice' => MoneyTransformer::toString($price->getPurchasePrice()),
             'margin' => $price->getMargin()
         ];
     }

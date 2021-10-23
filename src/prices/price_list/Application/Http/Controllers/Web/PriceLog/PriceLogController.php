@@ -3,64 +3,32 @@
 namespace Src\Prices\PriceList\Application\Http\Controllers\Web\PriceLog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Utils\Breadcrumb;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Src\Prices\PriceList\Application\Http\Requests\PriceLog\PriceLogRequest;
-use App\Presenters\Store\Presenter;
-use App\Presenters\Store\Store;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Prices\PriceList\Application\Services\PriceLog\ListProducts;
+use Src\Prices\PriceList\Presentation\Presenters\PriceLogPresenter;
 
 class PriceLogController extends Controller
 {
-    private Breadcrumb $breadcrumb;
-    private Presenter $storePresenter;
-    private \Src\Prices\PriceList\Application\Services\PriceLog\ListProducts $listProductsService;
+    private ListProducts $listProductsService;
+    private PriceLogPresenter $listPresenter;
 
-    public function __construct(Breadcrumb $breadcrumb, Presenter $storePresenter, ListProducts $listProductsService)
+    public function __construct(ListProducts $listProductsService, PriceLogPresenter $listPresenter)
     {
-        $this->breadcrumb = $breadcrumb;
-        $this->storePresenter = $storePresenter;
         $this->listProductsService = $listProductsService;
+        $this->listPresenter = $listPresenter;
     }
 
     /**
-     * To Do: refactor get Options
-     * @param string $storeSlug
-     * @param PriceLogRequest $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function lastUpdatedProducts(string $storeSlug, \Src\Prices\PriceList\Application\Http\Requests\PriceLog\PriceLogRequest $request)
+    public function lastUpdatedProducts(string $storeSlug, PriceLogRequest $request)
     {
-        $options = $request->getOptions();
-        $options->setStore($storeSlug);
+        $products = $this->listProductsService->listPaginate($storeSlug, (int) $request->input('page') ?? 1);
+        $data = $this->listPresenter->list($products, $storeSlug);
 
-        $products = $this->listProductsService->listPaginate($options);
-
-        return view('pages.pricing.price-log.last-updated-products', $this->viewData($storeSlug, $products));
-    }
-
-    private function getBreadcrumb(Store $store): array
-    {
-        return $this->breadcrumb->generate(
-            Breadcrumb::priceListIndex(),
-            Breadcrumb::priceListByStore($store->name(), $store->slug()),
-            [
-                'link' => '',
-                'name' => 'Histórico de Atualizações',
-            ]
-        );
-    }
-
-    private function viewData(string $storeSlug, LengthAwarePaginator $paginator): array
-    {
-        $store = $this->storePresenter->present($storeSlug);
-        $breadcrumb = $this->getBreadcrumb($store);
-
-        return [
-            'breadcrumb' => $breadcrumb,
-            'products' => $paginator->items(),
-            'paginator' => $paginator,
-            'store' => $store,
-        ];
+        return view('pages.pricing.price-log.last-updated-products', $data);
     }
 }

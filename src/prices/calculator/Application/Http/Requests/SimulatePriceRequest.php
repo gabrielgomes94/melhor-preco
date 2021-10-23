@@ -2,7 +2,6 @@
 
 namespace Src\Prices\Calculator\Application\Http\Requests;
 
-//use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Prices\Calculator\Application\Rules\Store;
 

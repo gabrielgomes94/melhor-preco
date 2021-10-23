@@ -2,11 +2,14 @@
 
 namespace Src\Prices\PriceList\Presentation\Components\Products;
 
-use Src\Products\Domain\Entities\Product;
+//use Src\Products\Domain\Entities\Product;
 use Illuminate\View\Component;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\MoneyFormatter;
+use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Products\Domain\Product\Contracts\Models\Product;
+use Src\Products\Domain\Product\Models\Data\Product as ProductData;
 
 abstract class ProductComponent extends Component
 {
@@ -32,47 +35,53 @@ abstract class ProductComponent extends Component
 
     private function setData(): void
     {
+        $data = $this->product->data();
+
         $this->data = [
-            'sku' => $this->product->sku(),
-            'name' => $this->product->name(),
-            'price' => $this->getPrice(),
-            'profit' => $this->getProfit(),
-            'margin' => $this->getMargin(),
+            'sku' => $data->getSku(),
+            'name' => $data->getDetails()->getName(),
+            'price' => $this->getPrice($data),
+            'profit' => $this->getProfit($data),
+            'margin' => $this->getMargin($data),
             'store' => $this->store,
         ];
     }
 
-    private function getPrice(): string
+    private function getPrice(ProductData $productData): string
     {
-        if (!$post = $this->product->getPost($this->store)) {
+        if (!$post = $productData->getPost($this->store)) {
+
             return '';
         }
 
-        return $this->moneyFormatter->format($post->price());
+        return MoneyTransformer::toString($post->getPrice()->get());
     }
 
-    private function getProfit(): string
+    private function getProfit(ProductData $productData): string
     {
-        if (!$post = $this->product->getPost($this->store)) {
+        if (!$post = $productData->getPost($this->store)) {
             return '';
         }
 
-        return $this->moneyFormatter->format($post->profit());
+        return MoneyTransformer::toString($post->getPrice()->getProfit());
     }
 
-    private function getMargin(): string
+    private function getMargin(ProductData $productData): string
     {
-        $post = $this->product->getPost($store ?? $this->store);
+        $post = $productData->getPost($store ?? $this->store);
 
         if (!$post) {
             return '';
         }
 
-        if ($post->price()->isZero()) {
+        $price = $post->getPrice();
+
+        if ($price->get()->isZero()) {
             return '0.0';
         }
 
-        $margin = $post->profit()->ratioOf($post->price()) * 100;
+
+        $margin = $price->getProfit()->ratioOf($price->get()) * 100;
 
         return round($margin, 2);
     }

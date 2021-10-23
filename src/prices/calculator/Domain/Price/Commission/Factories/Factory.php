@@ -7,6 +7,11 @@ use Barrigudinha\Store\Store;
 use Money\Money;
 use Src\Prices\Calculator\Domain\Price\Commission\Commission;
 
+/**
+ * To Do: Store para seu próprio contexto
+ * Class Factory
+ * @package Src\Prices\Calculator\Domain\Price\Commission\Factories
+ */
 class Factory
 {
     public static function make(string $store, Money $price, float $commissionRate): Commission

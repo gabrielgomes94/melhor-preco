@@ -5,6 +5,7 @@ namespace Src\Prices\Calculator\Domain\Services;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
+use Src\Products\Domain\Post\Post;
 use Src\Products\Domain\Store\Factory as StoreFactory;
 
 class CalculatePost
@@ -16,7 +17,7 @@ class CalculatePost
         $this->service = $service;
     }
 
-    public function calculate(array $data, array $options = []): Price
+    public function calculate(array|Post $data, array $options = []): Price
     {
         return $this->service->calculate(
             productData: new ProductData($data['costs'], $data['dimensions']),

@@ -9,6 +9,11 @@ use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
 use Src\Products\Infrastructure\Repositories\V2\Repository;
 
+/**
+ * To Do: talvez valha a pena colocar esse controller no contexto do Calculator
+ * Class ShowController
+ * @package Src\Prices\PriceList\Application\Http\Controllers\Web\Product
+ */
 class ShowController extends Controller
 {
     private Repository $repository;

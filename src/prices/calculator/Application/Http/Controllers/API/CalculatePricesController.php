@@ -3,7 +3,6 @@
 namespace Src\Prices\Calculator\Application\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Src\Prices\Calculator\Application\Http\Requests\SimulatePriceRequest;
 use Src\Prices\Calculator\Application\Http\Transformer\PriceTransformer;
 use Src\Prices\Calculator\Domain\Contracts\Services\SimulatePost;

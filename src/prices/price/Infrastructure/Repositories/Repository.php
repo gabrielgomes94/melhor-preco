@@ -21,6 +21,7 @@ class Repository
         return Price::find($id);
     }
 
+    // ToDo: receber commisao por parametro também
     public function update(Price $model, Money $price, Money $profit): bool
     {
         $model->value = $this->formatValue($price);
