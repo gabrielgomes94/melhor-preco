@@ -4,7 +4,7 @@ namespace Src\Products\Application\Services\Synchronization;
 
 use Src\Products\Domain\Product\Models\Product;
 use Src\Products\Infrastructure\Repositories\Creator;
-use Src\Products\Domain\Events\ProductsSynchronized;
+use Src\Products\Domain\Product\Events\ProductsSynchronized;
 use Src\Products\Application\Services\Update\UpdateProduct;
 use Integrations\Bling\Products\Repositories\Repository as BlingRepository;
 

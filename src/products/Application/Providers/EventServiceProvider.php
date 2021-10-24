@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Src\Products\Application\Listeners\LogProductsSynchronized;
 use Src\Products\Application\Listeners\SendProductsSynchronizedNotification;
-use Src\Products\Domain\Events\ProductsSynchronized;
+use Src\Products\Domain\Product\Events\ProductsSynchronized;
 
 class EventServiceProvider extends ServiceProvider
 {

@@ -6,7 +6,6 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use App\Presenters\Store\Presenter as StorePresenter;
 use App\Presenters\Store\Store;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Products\Domain\Entities\ProductsCollection;
 
 class PriceListPresenter
 {
@@ -24,12 +23,11 @@ class PriceListPresenter
     public function list(LengthAwarePaginator $paginator, string $store, array $parameters)
     {
         $store = $this->storePresenter->present($store);
-        $productsCollection = new ProductsCollection($paginator->items());
 
         return [
             'breadcrumb' => $this->getBreadcrumb($store),
             'paginator' => $paginator,
-            'products' => $productsCollection,
+            'products' => $paginator->items(),
             'minimumProfit' => $parameters['minProfit'] ?? null,
             'maximumProfit' => $parameters['maxProfit'] ?? null,
             'sku' => $parameters['sku'] ?? null,

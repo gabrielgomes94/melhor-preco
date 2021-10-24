@@ -2,9 +2,9 @@
 
 namespace Src\Products\Domain\Product\Models\Data\Composition;
 
-use Src\Products\Domain\Data\Costs;
 use Src\Products\Domain\Product\Contracts\Models\Data\Composition\Composition as CompositionInterface;
 use Src\Products\Domain\Product\Contracts\Models\Data\Product;
+use Src\Products\Domain\Product\Models\Data\Costs\Costs;
 
 class Composition implements CompositionInterface
 {
