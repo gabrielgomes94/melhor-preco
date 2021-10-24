@@ -2,12 +2,10 @@
 
 namespace Src\Prices\Price\Application\Services\Products;
 
-use Src\Prices\Price\Application\Services\Products\UpdateDB;
-use Src\Prices\Price\Application\Services\Products\UpdateERP;
 use Src\Prices\Price\Application\Services\Exceptions\UpdateDBException;
 use Src\Prices\Price\Application\Services\Exceptions\SyncERPException;
 use Src\Prices\Price\Domain\Contracts\Services\Update as UpdateInterface;
-use Src\Products\Domain\Entities\Post;
+use Src\Products\Domain\Product\Contracts\Models\Post;
 
 class Update implements UpdateInterface
 {

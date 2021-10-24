@@ -7,18 +7,15 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
-use Src\Products\Infrastructure\Repositories\V2\Repository;
+use Src\Products\Domain\Product\Models\Product;
 
 class ShowController extends Controller
 {
-    private Repository $repository;
     private Breadcrumb $breadcrumb;
 
     public function __construct(
-        Repository $repository,
         Breadcrumb $breadcrumb
     ) {
-        $this->repository = $repository;
         $this->breadcrumb = $breadcrumb;
     }
 
@@ -27,7 +24,7 @@ class ShowController extends Controller
      */
     public function showByStore(string $storeSlug, string $productId)
     {
-        $product = $this->repository->get($productId);
+        $product = Product::find($productId);
 
         if (!$product) {
             abort(404);

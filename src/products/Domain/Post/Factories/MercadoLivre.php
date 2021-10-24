@@ -11,6 +11,8 @@ use Src\Products\Domain\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Post\MercadoLivrePost;
 use Src\Products\Domain\Post\Post;
+use Src\Products\Domain\Product\Models\Data\Costs\Costs;
+use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Store\Factory as StoreFactory;
 
 class MercadoLivre implements FactoryInterface
@@ -24,30 +26,30 @@ class MercadoLivre implements FactoryInterface
             StoreFactory::make($data['store']),
             price: $service->calculate($data)
         );
-        $secondaryPrice = self::getSecondaryPrice($post, $data);
+        $secondaryPrice = self::getSecondaryPrice($post, $data['costs'], $data['dimensions']);
         $post->setSecondaryPrice($secondaryPrice);
 
         return $post;
     }
 
-    public static function updatePrice(Post $post, Price $price, array $data): Post
+    public static function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
     {
         $post = new MercadoLivrePost(
             identifiers: $post->getIdentifiers(),
             store: $post->getStore(),
             price: $price,
         );
-        $post->setSecondaryPrice(self::getSecondaryPrice($post, $data));
+        $post->setSecondaryPrice(self::getSecondaryPrice($post, $costs, $dimensions));
 
         return $post;
     }
 
-    private static function getSecondaryPrice(Post $post, array $data): Price
+    private static function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
     {
         $service = app(CalculatePrice::class);
 
         return $service->calculate(
-            productData: new ProductData($data['costs'], $data['dimensions']),
+            productData: new ProductData($costs, $dimensions),
             store: $post->getStore(),
             value: MoneyTransformer::toFloat($post->getPrice()->get()),
             commission: $post->getPrice()->getCommission()->getCommissionRate(),

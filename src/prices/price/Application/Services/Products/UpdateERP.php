@@ -2,8 +2,9 @@
 
 namespace Src\Prices\Price\Application\Services\Products;
 
+use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
 use Src\Prices\Price\Domain\Contracts\Services\UpdateERP as UpdateERPInterface;
-use Src\Products\Domain\Entities\Post;
+use Src\Products\Domain\Product\Contracts\Models\Post;
 use Integrations\Bling\Products\Clients\ProductStore;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -28,8 +29,8 @@ class UpdateERP implements UpdateERPInterface
 
         $response = $this->client->updatePrice(
             $sku,
-            $post->store()->slug(),
-            $post->store()->storeSkuId(),
+            $post->getStore()->getSlug(),
+            $post->getIdentifiers()->getStoreSkuId(),
             $this->getPrice($post),
         );
 
@@ -42,6 +43,6 @@ class UpdateERP implements UpdateERPInterface
 
     private function getPrice(Post $post): string
     {
-        return $this->formatter->format($post->price());
+        return MoneyTransformer::toString($post->getPrice()->get());
     }
 }

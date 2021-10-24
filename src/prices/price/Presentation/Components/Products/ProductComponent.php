@@ -9,7 +9,7 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Money\MoneyFormatter;
 use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
 use Src\Products\Domain\Product\Contracts\Models\Product;
-use Src\Products\Domain\Product\Models\Data\Product as ProductData;
+use Src\Products\Domain\Product\Models\Data\ProductData as ProductData;
 
 abstract class ProductComponent extends Component
 {

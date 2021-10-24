@@ -7,9 +7,9 @@ use Src\Products\Domain\Product\Contracts\Models\Data\Variations\Variations as V
 class Variations implements VariationsInterface
 {
     protected array $products;
-    protected string $parentSku;
+    protected ?string $parentSku;
 
-    public function __construct(string $parentSku = '', array $products = [])
+    public function __construct(?string $parentSku = null, array $products = [])
     {
         $this->parentSku = $parentSku;
         $this->products = $products;
@@ -20,8 +20,8 @@ class Variations implements VariationsInterface
         return $this->products;
     }
 
-    public function getParentSku(): string
+    public function getParentSku(): ?string
     {
-        return $this->parentSku;
+        return $this->parentSku ?? null;
     }
 }

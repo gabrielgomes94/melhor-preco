@@ -4,7 +4,7 @@ namespace Src\Prices\Price\Application\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
 use Src\Prices\Price\Application\Http\Requests\Price\UpdatePriceRequest;
-use Src\Products\Infrastructure\Repositories\GetDB;
+use Src\Products\Domain\Product\Models\Product;
 use Src\Products\Application\Services\Update\UpdatePosts as UpdatePriceService;
 use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
 use Illuminate\Http\RedirectResponse;
@@ -12,12 +12,10 @@ use Illuminate\Routing\Redirector;
 
 class UpdateController extends Controller
 {
-    private GetDB $repository;
     private UpdatePriceService $updatePriceService;
 
-    public function __construct(GetDB $repository, UpdatePriceService $updatePriceService)
+    public function __construct(UpdatePriceService $updatePriceService)
     {
-        $this->repository = $repository;
         $this->updatePriceService = $updatePriceService;
     }
 
@@ -28,20 +26,20 @@ class UpdateController extends Controller
     {
         $data = $request->validated();
 
-        if (!$product = $this->repository->get($productId)) {
+        if (!$product = Product::find($productId)) {
             session()->flash('error', 'Produto não encontrado.');
 
             return redirect()->back();
         }
 
-        if (!$store = $product->getStore($data['storeSlug'])) {
+        if (!$store = $product->data()->getStore($data['storeSlug'])) {
             session()->flash('error', 'Loja inválida.');
 
             return redirect()->back();
         }
 
         try {
-            $this->updatePriceService->updatePrice($product, $store, $data['value']);
+            $this->updatePriceService->updatePrice($product->data(), $store, $data['value']);
             session()->flash('message', 'Preço atualizado com sucesso.');
         } catch (UpdatePriceException $exception) {
             session()->flash('error', $exception->getMessage());

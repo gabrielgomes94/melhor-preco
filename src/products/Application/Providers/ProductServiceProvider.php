@@ -3,8 +3,6 @@
 namespace Src\Products\Application\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Products\Domain\Product\Contracts\Repositories\Repository;
-use Src\Products\Infrastructure\Repositories\V2\Repository as RepositoryImpl;
 
 class ProductServiceProvider extends ServiceProvider
 {
@@ -25,7 +23,6 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(Repository::class, RepositoryImpl::class);
         //
     }
 }

@@ -2,23 +2,24 @@
 
 namespace Src\Products\Application\Services\Reports;
 
-use Src\Products\Infrastructure\Repositories\ListDB;
+
+use Src\Products\Application\Services\ListProducts;
 
 class FilterProducts
 {
-    private ListDB $repository;
+    private ListProducts $listProductsService;
 
-    public function __construct(ListDB $repository)
+    public function __construct(ListProducts $listProductsService)
     {
-        $this->repository = $repository;
+        $this->listProductsService = $listProductsService;
     }
 
     public function getOverDimensions(): array
     {
-        $products = $this->repository->all();
+        $products = $this->listProductsService->all();
 
         foreach ($products as $product) {
-            $dimension = $product->dimensions();
+            $dimension = $product->data()->getDimensions();
 
             if (
                 $dimension->depth() > 90 ||

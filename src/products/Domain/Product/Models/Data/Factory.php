@@ -9,7 +9,7 @@ use Src\Products\Domain\Product\Models\Data\Costs\Costs;
 use Src\Products\Domain\Product\Models\Data\Details\Details;
 use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Product\Models\Data\Identifiers\Identifiers;
-use Src\Products\Domain\Product\Models\Data\Product as ProductObject;
+use Src\Products\Domain\Product\Models\Data\ProductData as ProductObject;
 use Src\Products\Domain\Product\Models\Data\Variations\Variations;
 use Src\Products\Domain\Post\Factories\Factory as PostFactory;
 
@@ -43,5 +43,13 @@ class Factory implements FactoryInterface
             isActive: $data['is_active'],
             stock: $data['stock']
         );
+    }
+
+    public static function update(ProductObject $product, array $data): Product
+    {
+        $data = $product->toArray();
+
+
+
     }
 }

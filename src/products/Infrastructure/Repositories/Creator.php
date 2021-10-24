@@ -3,18 +3,13 @@
 namespace Src\Products\Infrastructure\Repositories;
 
 use Src\Prices\Price\Domain\Models\Price as PriceModel;
-use Src\Products\Domain\Models\Product as ProductModel;
-use App\Repositories\Store\Store;
+use Src\Products\Domain\Product\Models\Product as ProductModel;
+use Src\Products\Domain\Store\Factory;
+
+//use App\Repositories\Store\Store;
 
 class Creator
 {
-    private Store $storeRepository;
-
-    public function __construct(Store $storeRepository)
-    {
-        $this->storeRepository = $storeRepository;
-    }
-
     public function createFromArray(array $data)
     {
         $model = new ProductModel([
@@ -42,7 +37,7 @@ class Creator
                 'store' => $store['slug'],
                 'store_sku_id' => $store['storeSkuId'],
                 'value' => $store['price'],
-                'commission' => $this->storeRepository->commission($store['slug']),
+                'commission' => $this->getCommission($store['slug']),
                 'profit' => 0.0,
             ]);
 
@@ -50,5 +45,12 @@ class Creator
         }
 
         return $model;
+    }
+
+    private function getCommission(string $storeSlug): float
+    {
+        $store = Factory::make($storeSlug);
+
+        return $store->getDefaultCommission();
     }
 }

@@ -12,7 +12,7 @@ use Src\Products\Domain\Product\Contracts\Models\Data\Product as ProductInterfac
 use Src\Products\Domain\Product\Contracts\Models\Data\Variations\Variations;
 use Src\Products\Domain\Store\Store;
 
-class Product implements ProductInterface
+class ProductData implements ProductInterface
 {
     private ?int $stock;
 
@@ -128,11 +128,18 @@ class Product implements ProductInterface
 
     public function hasVariations(): bool
     {
-        return (bool) count($this->variations);
+        return (bool) count($this->variations->get());
     }
 
     public function isActive(): bool
     {
         return $this->isActive && count($this->posts) > 0;
+    }
+
+    public function toArray(): array
+    {
+        return [
+
+        ];
     }
 }

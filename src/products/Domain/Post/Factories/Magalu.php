@@ -11,6 +11,8 @@ use Src\Products\Domain\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Post\MagaluPost;
 use Src\Products\Domain\Post\Post;
+use Src\Products\Domain\Product\Models\Data\Costs\Costs;
+use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Store\Factory as StoreFactory;
 
 class Magalu implements FactoryInterface
@@ -31,28 +33,28 @@ class Magalu implements FactoryInterface
         return $post;
     }
 
-    public static function updatePrice(Post $post, Price $price, array $data): Post
+    public static function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
     {
         $post = new MagaluPost(
             identifiers: $post->getIdentifiers(),
             store: $post->getStore(),
             price: $price,
         );
-        $post->setSecondaryPrice(self::getSecondaryPrice($post, $data));
+        $post->setSecondaryPrice(self::getSecondaryPrice($post, $costs, $dimensions));
 
         return $post;
     }
 
-    private static function getSecondaryPrice(Post $post, array $data): Price
+    private static function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
     {
         $service = app(CalculatePrice::class);
 
         return $service->calculate(
-            new ProductData($data['costs'], $data['dimensions']),
-            $post->getStore(),
-            MoneyTransformer::toFloat($post->getPrice()->get()),
-            $post->getPrice()->getCommission()->getCommissionRate(),
-            ['discountRate' => 0.05]
+            productData: new ProductData($costs, $dimensions),
+            store: $post->getStore(),
+            value: MoneyTransformer::toFloat($post->getPrice()->get()),
+            commission: $post->getPrice()->getCommission()->getCommissionRate(),
+            options: ['discountRate' => 0.05]
         );
     }
 }

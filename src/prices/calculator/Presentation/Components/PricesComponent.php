@@ -8,16 +8,16 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
 use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Product\Contracts\Models\Post;
-use Src\Products\Domain\Product\Models\Data\Product;
+use Src\Products\Domain\Product\Models\Data\ProductData;
 
 abstract class PricesComponent extends Component
 {
     public string $productId;
     public Post $post;
-    public Product $product;
+    public ProductData $product;
     public array $price;
 
-    public function __construct(Post $post, Product $product)
+    public function __construct(Post $post, ProductData $product)
     {
         $this->post = $post;
         $this->product = $product;

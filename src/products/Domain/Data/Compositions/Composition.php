@@ -8,16 +8,16 @@ use Src\Products\Domain\Entities\ProductsCollection;
 
 class Composition
 {
-    private ProductsCollection $compositionProducts;
+    private array $compositionProducts;
 
-    public function __construct(ProductsCollection $compositionProducts)
+    public function __construct(array $compositionProducts)
     {
         $this->compositionProducts = $compositionProducts;
     }
 
     public function hasCompositions(): bool
     {
-        return $this->compositionProducts->count() !== 0;
+        return count($this->compositionProducts) !== 0;
     }
 
     public function getSkus(): array
@@ -36,9 +36,9 @@ class Composition
         $taxICMS = 0.0;
 
         foreach ($this->compositionProducts as $product) {
-            $purchasePrice += $product->costs()->purchasePrice();
-            $additionalCosts += $product->costs()->additionalCosts();
-            $taxes[] = $product->costs()->taxICMS();
+            $purchasePrice += $product->data()->getCosts()->purchasePrice();
+            $additionalCosts += $product->data()->getCosts()->additionalCosts();
+            $taxes[] = $product->data()->getCosts()->taxICMS();
         }
 
         return new Costs($purchasePrice, $additionalCosts, $taxICMS);

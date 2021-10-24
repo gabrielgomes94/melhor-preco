@@ -2,9 +2,11 @@
 
 namespace Src\Prices\Price\Application\Services\Products;
 
+use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Price\Domain\Models\Price;
 use Src\Prices\Price\Infrastructure\Repositories\Repository;
 use Src\Prices\Price\Domain\Contracts\Services\UpdateDB as UpdateDBInterface;
-use Src\Products\Domain\Entities\Post;
+use Src\Products\Domain\Product\Contracts\Models\Post;
 
 class UpdateDB implements UpdateDBInterface
 {
@@ -17,10 +19,17 @@ class UpdateDB implements UpdateDBInterface
 
     public function execute(Post $post): bool
     {
-        if (!$priceModel = $this->priceRepository->get($post->id())) {
+        $priceModel = Price::find($post->getId());
+
+        if (!$priceModel) {
             return false;
         }
 
-        return $this->priceRepository->update($priceModel, $post->price(), $post->profit());
+        $price = $post->getPrice();
+        $priceModel->value = MoneyTransformer::toFloat($price->get());
+        $priceModel->profit = MoneyTransformer::toFloat($price->getProfit());
+        $priceModel->commission = $price->getCommission()->getCommissionRate();
+
+        return $priceModel->save();
     }
 }

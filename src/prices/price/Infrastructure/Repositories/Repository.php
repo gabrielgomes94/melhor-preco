@@ -22,6 +22,8 @@ class Repository
     }
 
     // ToDo: receber commisao por parametro também
+
+    // ToDo: simplicar a interfadce e receber floats ao invés de Money
     public function update(Price $model, Money $price, Money $profit): bool
     {
         $model->value = $this->formatValue($price);

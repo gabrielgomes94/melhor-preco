@@ -2,11 +2,11 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use Src\Prices\Price\Application\Services\Update;
-use Src\Prices\Calculator\Domain\Services\V1\CalculatePrice;
-use Src\Products\Domain\Entities\Product;
-use Src\Products\Domain\Data\Store;
-use Barrigudinha\Utils\Helpers;
+use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
+use Src\Prices\Calculator\Domain\Services\CalculatePrice;
+use Src\Prices\Price\Application\Services\Products\Update;
+use Src\Products\Domain\Post\Factories\Factory;
+use Src\Products\Domain\Store\Store;
 
 class UpdatePosts
 {
@@ -19,33 +19,38 @@ class UpdatePosts
         $this->updatePriceService = $updatePriceService;
     }
 
-    public function updatePrice(Product $product, Store $store, float $priceValue): bool
+    public function updatePrice(ProductData $product, Store $store, float $priceValue): bool
     {
-        $priceValue = Helpers::floatToMoney($priceValue);
         $products = $this->getProducts($product);
 
         foreach ($products as $product) {
-            if (!$post = $product->getPost($store->slug())) {
+            if (!$post = $product->getPost($store->getSlug())) {
                 return false;
             }
 
-            $price = $this->calculatePrice->calculate($product, $store, $priceValue);
-            $post->setPrice($price->get(), $price->profit());
+            $price = $this->calculatePrice->calculate(
+                new ProductData($product->getCosts(), $product->getDimensions()),
+                $store,
+                $priceValue,
+                $post->getPrice()->getCommission()->getCommissionRate()
+            );
 
-            $this->updatePriceService->execute($product->sku(), $post);
+            $post = Factory::updatePrice($product, $post, $price);
+
+            $this->updatePriceService->execute($product->getSku(), $post);
         }
 
         return true;
     }
 
     /**
-     * @return \Src\Products\Domain\Entities\Product[]
+     * @return ProductData[]
      */
-    private function getProducts(Product $product): array
+    private function getProducts(ProductData $product): array
     {
         $products[] = $product;
 
-        foreach ($product->variations()->get() as $variation) {
+        foreach ($product->getVariations()->get() as $variation) {
             $products[] = $variation;
         }
 

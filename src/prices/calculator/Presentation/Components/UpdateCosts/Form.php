@@ -3,13 +3,13 @@
 namespace Src\Prices\Calculator\Presentation\Components\UpdateCosts;
 
 use Illuminate\View\Component;
-use Src\Products\Domain\Product\Models\Data\Product;
+use Src\Products\Domain\Product\Models\Data\ProductData;
 
 class Form extends Component
 {
-    private Product $product;
+    private ProductData $product;
 
-    public function __construct(Product $product)
+    public function __construct(ProductData $product)
     {
         $this->product = $product;
     }

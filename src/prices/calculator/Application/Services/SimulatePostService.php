@@ -7,18 +7,16 @@ use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Product\Contracts\Models\Post;
-use Src\Products\Domain\Product\Contracts\Repositories\Repository;
+use Src\Products\Domain\Product\Models\Product;
 use Src\Products\Domain\Store\Factory as StoreFactory;
 use Src\Products\Domain\Post\Factories\Factory as PostFactory;
 
 class SimulatePostService implements SimulatePost
 {
-    private Repository $repository;
     private CalculatePrice $calculatePrice;
 
-    public function __construct(Repository $repository, CalculatePrice $calculatePrice)
+    public function __construct(CalculatePrice $calculatePrice)
     {
-        $this->repository = $repository;
         $this->calculatePrice = $calculatePrice;
     }
 
@@ -29,7 +27,7 @@ class SimulatePostService implements SimulatePost
         float $commission,
         array $options = []
     ): Post {
-        if (!$product = $this->repository->get($productId)) {
+        if (!$product = Product::find($productId)) {
             throw new ProductNotFoundException($productId);
         }
 
@@ -43,12 +41,7 @@ class SimulatePostService implements SimulatePost
 
         $post = $product->data()->getPost($storeSlug);
 
-        return PostFactory::updatePrice($post, $price, [
-            'store' => $post->getStore()->getSlug(),
-            'costs' => $product->data()->getCosts(),
-            'dimensions' => $product->data()->getDimensions(),
-            'value'
-        ]);
+        return PostFactory::updatePrice($product->data(), $post, $price);
     }
 
 }

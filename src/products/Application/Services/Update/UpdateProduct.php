@@ -2,28 +2,20 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use Src\Prices\Calculator\Domain\Services\V1\CalculateProduct;
 use Src\Products\Application\Factories\Dimensions;
-use Src\Products\Application\Factories\Post;
-use Src\Products\Infrastructure\Repositories\Updator;
-use Src\Products\Application\Services\Composition\GetProducts;
-use Src\Products\Domain\Data\Compositions\Composition;
-use Src\Products\Domain\Data\Dimensions as DimensionsObject;
-use Src\Products\Domain\Entities\Product;
+use Src\Products\Domain\Product\Models\Data\Costs\Costs;
+use Src\Products\Domain\Product\Models\Data\Details\Details;
+use Src\Products\Domain\Product\Models\Data\Variations\Variations;
+use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Product\Models\Data\Composition\Composition;
+use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions as DimensionsObject;
 
 class UpdateProduct
 {
-    private GetProducts $getCompositionProducts;
     private UpdatePosts $updatePosts;
-    private Updator $productUpdator;
-    private CalculateProduct $calculateProductService;
 
-    public function __construct(GetProducts $getCompositionProducts, UpdatePosts $updatePosts, Updator $productUpdator, CalculateProduct $calculateProductService)
-    {
-        $this->getCompositionProducts = $getCompositionProducts;
+    public function __construct(UpdatePosts $updatePosts) {
         $this->updatePosts = $updatePosts;
-        $this->productUpdator = $productUpdator;
-        $this->calculateProductService = $calculateProductService;
     }
 
     public function execute(Product $product, array $data): bool
@@ -31,41 +23,43 @@ class UpdateProduct
         $dimensions = $this->getDimensions($product, $data);
         $product->setDimensions($dimensions);
 
-        $posts = $this->getPosts($product, $data['stores']);
-        $product->setPosts($posts);
-
-        $product = $this->calculateProductService->recalculate($product);
-
         $compositions = $this->getCompositionProducts($data);
         $product->setCompositionProducts($compositions);
 
-        $product->setName($data['name']);
-        $product->setActive($data['is_active']);
-        $product->setBrand($data['brand']);
+        $product->setCosts(
+            new Costs(
+                purchasePrice: $data['purchase_price'],
+                additionalCosts: $data['additional_costs'] ?? 0.0,
+                taxICMS: $data['tax_icms'] ?? 0.0
+            )
+        );
 
-        return $this->productUpdator->update($product);
+        $product->setDetails(
+            new Details(
+                name: $data['name'],
+                brand: $data['brand'],
+                images: $data['images'] ?? []
+            )
+        );
+
+        $product->setVariations(new Variations($data['parent_sku'], $data['variations'] ?? []));
+
+        $product->setActive($data['is_active']);
+
+        return $product->save();
     }
 
     private function getCompositionProducts(array $data): Composition
     {
-        return $this->getCompositionProducts->execute($data['composition_products']);
+        foreach ($data['composition_products'] as $compositionProduct) {
+            $products[] = Product::find($compositionProduct);
+        }
+
+        return new Composition($products ?? []);
     }
 
     private function getDimensions(Product $product, array $data): DimensionsObject
     {
         return Dimensions::make($data, $product);
-    }
-
-    private function getPosts(Product $product, array $stores): array
-    {
-        foreach ($stores as $store) {
-            if (!$post = $product->getPost($store['slug'])) {
-                $post = Post::build($store);
-            }
-
-            $posts[]  = $post;
-        }
-
-        return $posts ?? [];
     }
 }

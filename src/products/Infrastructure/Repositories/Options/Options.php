@@ -3,12 +3,14 @@
 namespace Src\Products\Infrastructure\Repositories\Options;
 
 use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
+use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 
 class Options implements OptionsInterface
 {
     private const INFINITE = 100000000000000000;
     public array $extra;
     public array $query;
+    protected array $dimensions;
     protected bool $kits;
     protected string $path;
     protected ?int $page = null;
@@ -37,6 +39,8 @@ class Options implements OptionsInterface
         // Gambeta: fix this
         $this->path = $data['path'] ?? '';
         $this->query = $data['query'] ?? [];
+
+        $this->dimensions = $data['dimensions'] ?? [];
     }
 
     public function hasPagination(): bool
@@ -97,5 +101,20 @@ class Options implements OptionsInterface
     public function setStore(string $store): void
     {
         $this->store = $store;
+    }
+
+    public function hasDimensionsFilters(): bool
+    {
+        return !empty($this->dimensions);
+    }
+
+    public function getDimensions(): Dimensions
+    {
+        return new Dimensions(
+            $this->dimensions['dimensions']['depth'],
+            $this->dimensions['dimensions']['height'],
+            $this->dimensions['dimensions']['width'],
+            $this->dimensions['dimensions']['weight']
+        );
     }
 }
