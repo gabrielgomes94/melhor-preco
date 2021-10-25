@@ -15,9 +15,11 @@ class GenerateQRCode
         foreach ($products as $product) {
             for ($i = 0; $i < $product['stock']; $i++) {
                 $productLink = route('products.reports.show', ['sku' => $product['sku']]);
+                $svg = QrCode::generate($productLink);
+                $qrCode = '<img src="data:image/svg+xml;base64,' . base64_encode($svg) . '"/>';
 
                 $qrCodes[] = [
-                    'qrCode' => QrCode::generate($productLink),
+                    'qrCode' => $qrCode,
                     'stock' => $product['stock'],
                     'sku' => $product['sku'],
                     'name' => $product['name'],

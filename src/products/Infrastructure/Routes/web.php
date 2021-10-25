@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
                 ->name('.stock_tags')
                 ->group(function () {
                     Route::get('/', [StockTagController::class, 'createQrCode'])->name('.index');
+
                     Route::post('/generate', [StockTagController::class, 'generateQrCode'])->name('.generate');
                 });
 

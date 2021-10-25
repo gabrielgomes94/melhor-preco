@@ -206,6 +206,8 @@ return [
         Src\Products\Application\Providers\EventServiceProvider::class,
         Src\Products\Application\Providers\ProductServiceProvider::class,
         Src\Products\Application\Providers\RouteServiceProvider::class,
+
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -262,5 +264,6 @@ return [
          * Custom Facades
          */
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 ];
