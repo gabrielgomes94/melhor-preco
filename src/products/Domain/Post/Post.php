@@ -2,8 +2,8 @@
 
 namespace Src\Products\Domain\Post;
 
-use Barrigudinha\Utils\Helpers;
-use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Products\Domain\Post\Identifiers\Identifiers;
 //use Src\Products\Domain\Product\Contracts\Models\Data\Price\Price;
@@ -46,8 +46,8 @@ class Post implements PostInterface
 
     public function isInMarginRange(float $minimumProfit, float $maximumProfit)
     {
-        $minimumProfit = Helpers::percentage($minimumProfit);
-        $maximumProfit = Helpers::percentage($maximumProfit);
+        $minimumProfit = PercentageTransformer::toPercentage($minimumProfit);
+        $maximumProfit = PercentageTransformer::toPercentage($maximumProfit);
         $margin = $this->getPrice()->getMargin();
 
         return $minimumProfit <= $margin && $margin <= $maximumProfit;

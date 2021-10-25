@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Contracts\Utils;
 
-use Barrigudinha\Utils\Paginator\Contracts\Options as PaginatorOptions;
+use App\Options\Contracts\Options as PaginatorOptions;
 use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 
 interface Options extends PaginatorOptions

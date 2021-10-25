@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Post\Concerns;
 
-use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
 
 trait SecondaryPrice
