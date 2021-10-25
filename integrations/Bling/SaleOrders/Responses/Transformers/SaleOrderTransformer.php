@@ -2,8 +2,8 @@
 
 namespace Integrations\Bling\SaleOrders\Responses\Transformers;
 
-use Barrigudinha\SaleOrder\Entities\SaleOrder;
-use Barrigudinha\SaleOrder\Factories\SaleOrder as SaleOrderFactory;
+use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Application\Factories\SaleOrder as SaleOrderFactory;
 use Carbon\Carbon;
 
 class SaleOrderTransformer

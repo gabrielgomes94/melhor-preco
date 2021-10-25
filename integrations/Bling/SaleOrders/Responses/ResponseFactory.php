@@ -2,7 +2,7 @@
 
 namespace Integrations\Bling\SaleOrders\Responses;
 
-use Barrigudinha\SaleOrder\Entities\SaleOrdersCollection;
+use Src\Sales\Domain\Models\SaleOrdersCollection;
 use Illuminate\Http\Client\Response;
 use Integrations\Bling\Base\Responses\Factories\BaseFactory;
 use Integrations\Bling\SaleOrders\Responses\Response as SaleOrderResponse;
