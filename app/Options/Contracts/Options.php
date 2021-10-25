@@ -1,6 +1,6 @@
 <?php
 
-namespace Barrigudinha\Utils\Paginator\Contracts;
+namespace App\Options\Contracts;
 
 interface Options
 {

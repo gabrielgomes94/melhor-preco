@@ -2,7 +2,7 @@
 
 namespace Src\Notifications\Domain\Contracts\Repository;
 
-use Barrigudinha\Utils\Paginator\Contracts\Options as PaginatorOptions;
+use App\Options\Contracts\Options as PaginatorOptions;
 
 interface Options extends PaginatorOptions
 {
