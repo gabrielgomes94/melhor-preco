@@ -5,10 +5,10 @@
 
     <tbody>
     @foreach($products as $product)
-        <x-products.price_costs.product-row :product="$product" />
+        <x-products.price_costs.product-row :product="$product->data()" />
 
         @if ($product->hasVariations())
-            <x-products.price_costs.variations-row :variations="$product->variations()->get()" />
+            <x-products.price_costs.variations-row :variations="$product->data()->getVariations()->get()" />
         @endif
     @endforeach
     </tbody>

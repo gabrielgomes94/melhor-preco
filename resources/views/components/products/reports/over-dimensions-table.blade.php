@@ -12,11 +12,11 @@
     <tbody>
     @foreach($products as $product)
         <tr>
-            <td>{{ $product->sku() }}</td>
-            <td>{{ $product->name() }}</td>
-            <td>{{ $product->dimensions()->depth() }}</td>
-            <td>{{ $product->dimensions()->width() }}</td>
-            <td>{{ $product->dimensions()->height() }}</td>
+            <td>{{ $product->data()->getSku() }}</td>
+            <td>{{ $product->data()->getDetails()->getName() }}</td>
+            <td>{{ $product->data()->getDimensions()->depth() }}</td>
+            <td>{{ $product->data()->getDimensions()->width() }}</td>
+            <td>{{ $product->data()->getDimensions()->height() }}</td>
         </tr>
     @endforeach
     </tbody>
