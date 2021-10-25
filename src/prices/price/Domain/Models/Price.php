@@ -2,10 +2,11 @@
 
 namespace Src\Prices\Price\Domain\Models;
 
-use Src\Products\Domain\Models\Product;
-use Barrigudinha\Utils\Helpers;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Src\Products\Domain\Product\Models\Product;
 
 class Price extends Model
 {
@@ -47,8 +48,8 @@ class Price extends Model
 
     public function margin(): float
     {
-        $profit = Helpers::floatToMoney($this->profit);
-        $value = Helpers::floatToMoney($this->value);
+        $profit = MoneyTransformer::toMoney($this->profit);
+        $value = MoneyTransformer::toMoney($this->value);
 
         if ($value->isZero()) {
             return 0.0;
@@ -59,8 +60,8 @@ class Price extends Model
 
     public function isProfitMarginInRange(float $minimumProfit, float $maximumProfit): bool
     {
-        $minimumProfit = Helpers::percentage($minimumProfit);
-        $maximumProfit = Helpers::percentage($maximumProfit);
+        $minimumProfit = PercentageTransformer::toPercentage($minimumProfit);
+        $maximumProfit = PercentageTransformer::toPercentage($maximumProfit);
 
         return $minimumProfit <= $this->margin() && $this->margin() <= $maximumProfit;
     }

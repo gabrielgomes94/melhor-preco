@@ -2,8 +2,9 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
-use Barrigudinha\Utils\Helpers;
+use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Freight\BaseFreight;
 use function config;
 
@@ -26,7 +27,7 @@ class MercadoLivre extends BaseFreight
 
     private function getFreightTable(): array
     {
-        $freeMinValue = Helpers::floatToMoney(self::FREE_MIN_VALUE);
+        $freeMinValue = MoneyTransformer::toMoney(self::FREE_MIN_VALUE);
 
         if ($this->price->lessThanOrEqual($freeMinValue)) {
             return config('freight_tables.mercado_livre.free_freight_table_1');

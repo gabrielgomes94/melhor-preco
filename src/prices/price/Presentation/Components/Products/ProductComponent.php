@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\MoneyFormatter;
-use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Products\Domain\Product\Contracts\Models\Product;
 use Src\Products\Domain\Product\Models\Data\ProductData as ProductData;
 

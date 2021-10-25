@@ -2,8 +2,9 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
-use Barrigudinha\Utils\Helpers;
+use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 use function config;
 
@@ -18,11 +19,11 @@ class B2W extends BaseFreight
     {
         $this->rules = [
             'subsidy' => [
-                'min' => Helpers::floatToMoney(self::SUBSIDY_MIN_VALUE),
-                'max' => Helpers::floatToMoney(self::SUBSIDY_MAX_VALUE),
+                'min' => MoneyTransformer::toMoney(self::SUBSIDY_MIN_VALUE),
+                'max' => MoneyTransformer::toMoney(self::SUBSIDY_MAX_VALUE),
             ],
             'free' => [
-                'min' => Helpers::floatToMoney(self::FREE_MIN_VALUE),
+                'min' => MoneyTransformer::toMoney(self::FREE_MIN_VALUE),
             ],
         ];
 
@@ -40,7 +41,7 @@ class B2W extends BaseFreight
         if ($this->isSubsidy()) {
             $freightValue = config('freight_tables.b2w.subsidy_freight.value');
             $discount_percentage = $this->getDiscountPercentage();
-            $freight = Helpers::floatToMoney($freightValue);
+            $freight = MoneyTransformer::toMoney($freightValue);
 
             return $freight->multiply(1 - $discount_percentage);
         }
@@ -84,6 +85,6 @@ class B2W extends BaseFreight
             }
         }
 
-        return Helpers::percentage($discount ?? 0.0);
+        return PercentageTransformer::toPercentage($discount ?? 0.0);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Price\Application\Services\Products;
 
-use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Prices\Price\Infrastructure\Repositories\Repository;
 use Src\Prices\Price\Domain\Contracts\Services\UpdateDB as UpdateDBInterface;

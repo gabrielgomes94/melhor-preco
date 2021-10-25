@@ -2,23 +2,13 @@
 
 namespace Src\Prices\Calculator\Application\Http\Transformer;
 
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
-use Money\Money;
-use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Product\Contracts\Models\Post;
 
 class PriceTransformer
 {
-    private DecimalMoneyFormatter $moneyFormatter;
-
-    public function __construct()
-    {
-        $this->moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
-    }
-
     public function transform(Post $post): array
     {
         $data = [
@@ -46,10 +36,5 @@ class PriceTransformer
             'purchasePrice' => MoneyTransformer::toString($price->getPurchasePrice()),
             'margin' => $price->getMargin()
         ];
-    }
-
-    private function format(Money $value): string
-    {
-        return $this->moneyFormatter->format($value);
     }
 }

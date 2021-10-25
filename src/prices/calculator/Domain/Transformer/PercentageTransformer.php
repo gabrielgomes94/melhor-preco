@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Prices\Price\Domain\Transformer;
+namespace Src\Prices\Calculator\Domain\Transformer;
 
-class Helpers
+class PercentageTransformer
 {
-    public static function percentage(float $value): float
+    public static function toPercentage(float $value): float
     {
         return $value / 100;
     }

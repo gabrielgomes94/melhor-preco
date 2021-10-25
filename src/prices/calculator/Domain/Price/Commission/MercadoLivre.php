@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Commission;
 
-use Barrigudinha\Utils\Helpers;
 use Money\Money;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 
 class MercadoLivre extends Commission
 {
@@ -14,8 +14,8 @@ class MercadoLivre extends Commission
     {
         $this->value = $price->multiply($commissionRate);
 
-        if ($price->lessThan(Helpers::floatToMoney(self::MINIMUM_PRICE))) {
-            $this->value = $this->value->add(Helpers::floatToMoney(self::EXTRA_COMMISSION));
+        if ($price->lessThan(MoneyTransformer::toMoney(self::MINIMUM_PRICE))) {
+            $this->value = $this->value->add(MoneyTransformer::toMoney(self::EXTRA_COMMISSION));
 
             return;
         }

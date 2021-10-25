@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
-use Barrigudinha\Utils\Helpers;
 use Money\Money;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Products\Domain\Product\Contracts\Models\Data\Dimensions\Dimensions;
 
 abstract class BaseFreight
@@ -43,7 +43,7 @@ abstract class BaseFreight
     {
         foreach ($freightTable as $row) {
             if ($row['interval'][0] <= $weight && $weight <= $row['interval'][1]) {
-                $freight = Helpers::floatToMoney($row['value']);
+                $freight = MoneyTransformer::toMoney($row['value']);
             }
         }
 

@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Costs;
 
-use Barrigudinha\Utils\Helpers;
+use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
 
 class CostPrice
@@ -17,7 +17,7 @@ class CostPrice
         $this->purchasePrice = $purchasePrice;
         $this->taxICMSOutterState = $taxICMSOutterState;
         $this->additionalCosts = $additionalCosts;
-        $this->taxICMSInnerState = Helpers::percentage(config('taxes.ICMS.MG'));
+        $this->taxICMSInnerState = PercentageTransformer::toPercentage(config('taxes.ICMS.MG'));
     }
 
     public function get(): Money

@@ -2,9 +2,9 @@
 
 namespace Src\Prices\Calculator\Domain\Price;
 
-use Barrigudinha\Utils\Helpers;
+use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
-use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Contracts\Models\ProductData;
 use Src\Prices\Calculator\Domain\Price\Commission\Commission;
 use Src\Prices\Calculator\Domain\Price\Commission\Factories\Factory as CommissionFactory;
@@ -138,7 +138,7 @@ class Price implements \Src\Prices\Calculator\Domain\Contracts\Models\Price
         $this->costPrice = new CostPrice(
             MoneyTransformer::toMoney($product->getCosts()->purchasePrice()),
             MoneyTransformer::toMoney($product->getCosts()->additionalCosts()),
-            Helpers::percentage($product->getCosts()->taxICMS())
+            PercentageTransformer::toPercentage($product->getCosts()->taxICMS())
         );
     }
 
@@ -156,6 +156,6 @@ class Price implements \Src\Prices\Calculator\Domain\Contracts\Models\Price
 
     private function taxSimplesNacional(): float
     {
-        return Helpers::percentage(config('taxes.simples_nacional'));
+        return PercentageTransformer::toPercentage(config('taxes.simples_nacional'));
     }
 }

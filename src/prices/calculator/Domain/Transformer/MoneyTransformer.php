@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Calculator\Application\Transformer;
+namespace Src\Prices\Calculator\Domain\Transformer;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

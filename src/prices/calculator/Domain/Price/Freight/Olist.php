@@ -2,9 +2,9 @@
 
 namespace Src\Prices\Calculator\Domain\Price\Freight;
 
-use Barrigudinha\Utils\Helpers;
+use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
-use Src\Prices\Calculator\Domain\Price\Freight\BaseFreight;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use function config;
 
 class Olist extends BaseFreight
@@ -16,7 +16,7 @@ class Olist extends BaseFreight
     {
         $this->rules = [
             'free' => [
-                'min' => Helpers::floatToMoney(self::FREE_MIN_VALUE),
+                'min' => MoneyTransformer::toMoney(self::FREE_MIN_VALUE),
             ],
         ];
 
@@ -36,7 +36,7 @@ class Olist extends BaseFreight
 
         $customerFreightValue = config('freight_tables.olist.customer_freight_value');
 
-        return Helpers::floatToMoney($customerFreightValue);
+        return MoneyTransformer::toMoney($customerFreightValue);
     }
 
     private function isFree(): bool
@@ -48,6 +48,6 @@ class Olist extends BaseFreight
     {
         $discount = config('freight_tables.olist.free_freight_discount');
 
-        return Helpers::percentage($discount ?? 0.0);
+        return PercentageTransformer::toPercentage($discount ?? 0.0);
     }
 }
