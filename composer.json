@@ -60,7 +60,8 @@
             "Src\\Prices\\Price\\": "src/prices/price",
             "Src\\Prices\\Calculator\\": "src/prices/calculator",
             "Src\\Prices\\PriceList\\": "src/prices/price_list",
-            "Src\\Products\\": "src/products"
+            "Src\\Products\\": "src/products",
+            "Src\\Sales\\": "src/sales"
         }
     },
     "autoload-dev": {
