@@ -8,24 +8,23 @@ use Integrations\Bling\Products\Responses\Contracts\Response;
 use Integrations\Bling\Products\Responses\Data\ProductsCollection;
 use Integrations\Bling\Products\Responses\Factories\ProductResponse;
 use Integrations\Bling\Products\Responses\ProductIterator;
-use Src\Notifications\Infrastructure\Repositories\Options\NoOptions;
-use Src\Products\Infrastructure\Repositories\ListDB;
+use Src\Products\Application\Services\ListProducts;
 use Src\Products\Infrastructure\Repositories\Options\NullOptions;
 
 class Repository implements RepositoryInterface
 {
-    private ListDB $dbRepository;
+    private ListProducts $listProductsService;
     private ProductStore $client;
     private ProductResponse $productResponse;
 
     public function __construct(
+        ListProducts $listProductsService,
         ProductStore $client,
-        ProductResponse $productResponse,
-        ListDB $dbRepository
+        ProductResponse $productResponse
     ) {
         $this->client = $client;
         $this->productResponse = $productResponse;
-        $this->dbRepository = $dbRepository;
+        $this->listProductsService = $listProductsService;
     }
 
     public function all(array $stores = []): ProductIterator
@@ -53,7 +52,7 @@ class Repository implements RepositoryInterface
         $page = 0;
         $productsCollection = new ProductsCollection();
 
-        $totalCount = $this->dbRepository->count(new NullOptions());
+        $totalCount = $this->listProductsService->count(new NullOptions());
 
         do {
             $stores = $stores ?: array_keys(config('stores_code'));
