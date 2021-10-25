@@ -4,8 +4,8 @@ namespace Src\Products\Application\Http\Controllers\Web\Reports;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Integrations\Bling\Products\Repositories\Repository;
-use Integrations\Bling\Products\Responses\Error;
+use Src\Integrations\Bling\Products\Repositories\Repository;
+use Src\Integrations\Bling\Products\Responses\Error;
 
 class ProductController extends Controller
 {

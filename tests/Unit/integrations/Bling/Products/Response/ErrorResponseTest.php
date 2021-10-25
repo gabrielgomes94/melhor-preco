@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Integrations\Bling\Products\Response;
 
-use Integrations\Bling\Products\Responses\Error;
+use Src\Integrations\Bling\Products\Responses\Error;
 use Tests\TestCase;
 
 class ErrorResponseTest extends TestCase

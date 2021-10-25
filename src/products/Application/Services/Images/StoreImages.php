@@ -3,8 +3,8 @@
 namespace Src\Products\Application\Services\Images;
 
 use Illuminate\Support\Facades\Storage;
-use Integrations\Bling\Products\Clients\ProductStore;
-use Integrations\Bling\Products\Responses\Error as ErrorResponse;
+use Src\Integrations\Bling\Products\Clients\ProductStore;
+use Src\Integrations\Bling\Products\Responses\Error as ErrorResponse;
 use SimpleXMLElement;
 
 class StoreImages

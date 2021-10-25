@@ -5,7 +5,7 @@ namespace Src\Prices\Price\Application\Services\Products;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Price\Domain\Contracts\Services\UpdateERP as UpdateERPInterface;
 use Src\Products\Domain\Product\Contracts\Models\Post;
-use Integrations\Bling\Products\Clients\ProductStore;
+use Src\Integrations\Bling\Products\Clients\ProductStore;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 

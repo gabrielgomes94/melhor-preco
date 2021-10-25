@@ -5,8 +5,8 @@ namespace Src\Sales\Application\Http\Controllers\Web;
 use Src\Sales\Application\Exports\SaleOrderExport;
 use App\Http\Controllers\Controller;
 use Src\Sales\Application\Services\Service;
-use Integrations\Bling\Base\Responses\ErrorResponse;
-use Integrations\Bling\SaleOrders\Repository;
+use Src\Integrations\Bling\Base\Responses\ErrorResponse;
+use Src\Integrations\Bling\SaleOrders\Repository;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ListController extends Controller

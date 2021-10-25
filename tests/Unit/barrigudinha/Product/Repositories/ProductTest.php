@@ -7,7 +7,7 @@ use Barrigudinha\Product\Repositories\Product;
 use Integrations\Bling\Products\Client;
 use Mockery as m;
 use Tests\TestCase;
-use Integrations\Bling\Products\Responses\Product as ProductResponse;
+use Src\Integrations\Bling\Products\Responses\Product as ProductResponse;
 
 /**
  * @deprecated

@@ -6,7 +6,7 @@ use Src\Products\Domain\Product\Models\Product;
 use Src\Products\Infrastructure\Repositories\Creator;
 use Src\Products\Domain\Product\Events\ProductsSynchronized;
 use Src\Products\Application\Services\Update\UpdateProduct;
-use Integrations\Bling\Products\Repositories\Repository as BlingRepository;
+use Src\Integrations\Bling\Products\Repositories\Repository as BlingRepository;
 
 class Synchronize
 {
