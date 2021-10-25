@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Presenters\Store;
+namespace Src\Prices\Price\Presentation\Presenters;
 
-class Store
+class StorePresenter
 {
     private string $name;
     private string $slug;

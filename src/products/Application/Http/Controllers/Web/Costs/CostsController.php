@@ -33,7 +33,7 @@ class CostsController extends Controller
         return view('pages.products.price_costs.edit', [
             'paginator' => $paginator,
             'products' => $paginator->items(),
-            'sku' => $request->getSku(),
+            'sku' => $request->getOptions()->sku(),
         ]);
     }
 

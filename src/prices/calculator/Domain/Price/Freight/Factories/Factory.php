@@ -4,7 +4,7 @@ namespace Src\Prices\Calculator\Domain\Price\Freight\Factories;
 
 use Src\Prices\Calculator\Domain\Price\Freight\MercadoLivre;
 use Src\Prices\Calculator\Domain\Price\Freight\NoFreight;
-use Barrigudinha\Store\Store;
+use Src\Products\Domain\Product\Store;
 use Money\Money;
 use Src\Prices\Calculator\Domain\Price\Freight\B2W;
 use Src\Prices\Calculator\Domain\Price\Freight\BaseFreight;

@@ -15,4 +15,22 @@ class Factory
             defaultCommission: $data['commission']
         );
     }
+
+    public static function makeFromErpCode(string $erpCode): ?Store
+    {
+        $stores = config('stores');
+
+        foreach ($stores as $store) {
+            if ($store['erpCode'] === $erpCode) {
+                return new Store(
+                    slug: $store['slug'],
+                    name: $store['name'],
+                    erpCode: $store['erpCode'],
+                    defaultCommission: $store['commission']
+                );
+            }
+        }
+
+        return null;
+    }
 }

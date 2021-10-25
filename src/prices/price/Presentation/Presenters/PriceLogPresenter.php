@@ -3,24 +3,24 @@
 namespace Src\Prices\Price\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
-use App\Presenters\Store\Presenter as StorePresenter;
-use App\Presenters\Store\Store;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Products\Domain\Store\Factory;
 
 class PriceLogPresenter
 {
     private Breadcrumb $breadcrumb;
-    private StorePresenter $storePresenter;
 
-    public function __construct(Breadcrumb $breadcrumb, StorePresenter $storePresenter)
+    public function __construct(Breadcrumb $breadcrumb)
     {
         $this->breadcrumb = $breadcrumb;
-        $this->storePresenter = $storePresenter;
     }
 
     public function list(LengthAwarePaginator $paginator, string $storeSlug): array
     {
-        $store = $this->storePresenter->present($storeSlug);
+        $store = new StorePresenter(
+            name: Factory::make($storeSlug)->getName(),
+            slug: $storeSlug
+        );
         $products = $this->present($paginator->items());
 
         return [
@@ -31,7 +31,7 @@ class PriceLogPresenter
         ];
     }
 
-    private function getBreadcrumb(Store $store): array
+    private function getBreadcrumb(StorePresenter $store): array
     {
         return $this->breadcrumb->generate(
             Breadcrumb::priceListIndex(),

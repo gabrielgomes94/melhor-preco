@@ -2,27 +2,23 @@
 
 namespace App\Services\Sales;
 
-use Src\Products\Infrastructure\Repositories\GetDB;
-use App\Repositories\Store\Store;
-use Src\Prices\Calculator\Domain\Services\V1\CalculatePrice;
+use Src\Prices\Calculator\Application\Transformer\MoneyTransformer;
+use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
+use Src\Prices\Calculator\Domain\Services\CalculatePrice;
+use Src\Products\Domain\Product\Models\Product;
 use Barrigudinha\SaleOrder\Entities\SaleOrder;
 use Barrigudinha\SaleOrder\Entities\SaleOrdersCollection;
 use Barrigudinha\SaleOrder\ValueObjects\Item;
 use Barrigudinha\Utils\Helpers;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
+use Src\Products\Domain\Store\Factory;
 
 class Service
 {
-    private GetDB $productRepository;
-    private Store $storeRepository;
     private CalculatePrice $calculatePrice;
 
-    public function __construct(GetDB $productRepository, Store $storeRepository, CalculatePrice $calculatePrice)
+    public function __construct(CalculatePrice $calculatePrice)
     {
-        $this->productRepository = $productRepository;
-        $this->storeRepository = $storeRepository;
         $this->calculatePrice = $calculatePrice;
     }
 
@@ -41,11 +37,13 @@ class Service
             $products = [];
 
             foreach ($saleOrder->items() as $item) {
-                if (!$product = $this->productRepository->get($item->sku())) {
+                if (!$product = Product::find($item->sku())) {
                     continue;
                 }
 
-                $products[] = "{$product->sku()} - {$product->name()}";
+                $product = $product->data();
+
+                $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
             }
 
             $saleOrdersTransformed[] = [
@@ -53,9 +51,7 @@ class Service
                 'purchaseSaleOrderId' => $saleOrder->identifiers()->purchaseSaleOrderId(),
                 'storeSaleOrderId' => $saleOrder->identifiers()->storeSaleOrderId(),
                 'selledAt' => $saleOrder->saleDates()->selledAt()->format('d-m-Y'),
-                'store' => $this->storeRepository->getNameFromCode(
-                    $saleOrder->identifiers()->storeId()
-                ),
+                'store' => Factory::makeFromErpCode($saleOrder->identifiers()->storeId())->getName(),
                 'status' => (string) $saleOrder->status(),
                 'products' => $products,
                 'value' => $saleOrder->saleValue()->totalValue(),
@@ -80,21 +76,21 @@ class Service
          * @var Item $item
          */
         foreach ($saleOrder->items() as $item) {
-            $product = $this->productRepository->get($item->sku());
+            $product = Product::find($item->sku());
 
             if (!$product) {
                 continue;
             }
 
-            $slug = $this->storeRepository->getSlugFromCode(
-                $saleOrder->identifiers()->storeId()
-            );
+            $product = $product->data();
 
-            if (!$slug) {
+            $store = Factory::makeFromErpCode($saleOrder->identifiers()->storeId());
+
+            if (!$slug = $store->getSlug()) {
                 continue;
             }
 
-            $store = $product->getPost($slug)?->store();
+            $store = $product->getPost($slug)?->getStore();
 
             if (!$store) {
                 continue;
@@ -102,19 +98,22 @@ class Service
 
             $unitValue = Helpers::floatToMoney($item->unitValue());
             $discount = Helpers::floatToMoney($item->discount());
+            $commission = $product->getPost($slug)->getPrice()->getCommission()->getCommissionRate();
 
             $value = $unitValue->subtract($discount);
-            $price = $this->calculatePrice->calculate($product, $store, $value);
+            $price = $this->calculatePrice->calculate(
+                new ProductData(costs: $product->getCosts(), dimensions: $product->getDimensions()),
+                $store,
+                MoneyTransformer::toFloat($value),
+                $commission
+            );
+
             $profit = $profit->add(
-                $price->profit()->multiply(
-                    $item->quantity()
-                )
+                $price->getProfit()->multiply($item->quantity())
             );
         }
 
-        $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
-
-        return (float) $moneyFormatter->format($profit);
+        return MoneyTransformer::toFloat($profit);
     }
 
     private function getTotalValues(array $saleOrders): array
@@ -127,11 +126,9 @@ class Service
             $totalProfit = $totalProfit->add(Helpers::floatToMoney($saleOrder['profit']));
         }
 
-        $moneyFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
-
         return [
-            'value' => (float) $moneyFormatter->format($totalValue),
-            'profit' => (float) $moneyFormatter->format($totalProfit),
+            'value' => MoneyTransformer::toFloat($totalValue),
+            'profit' => MoneyTransformer::toFloat($totalProfit),
         ];
     }
 }

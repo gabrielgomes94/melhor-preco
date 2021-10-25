@@ -1,6 +1,6 @@
 <?php
 
-namespace Barrigudinha\Store;
+namespace Src\Products\Domain\Product;
 
 interface Store
 {

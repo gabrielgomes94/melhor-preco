@@ -2,13 +2,12 @@
 
 namespace Src\Products\Application\Http\Requests\Product;
 
-use App\Http\Requests\Contracts\HasOptions;
-use App\Http\Requests\Contracts\HasSKU;
+use Src\Products\Application\Http\Requests\Product\Contracts\HasOptions;
 use Src\Products\Infrastructure\Repositories\Options\Options;
 use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditCostsRequest extends FormRequest implements HasOptions, HasSku
+class EditCostsRequest extends FormRequest implements HasOptions
 {
     public function authorize(): bool
     {
@@ -31,10 +30,5 @@ class EditCostsRequest extends FormRequest implements HasOptions, HasSku
             'path' => $this->url(),
             'query' => $this->query(),
         ]);
-    }
-
-    public function getSku(): ?string
-    {
-        return $this->input('sku') ?? null;
     }
 }

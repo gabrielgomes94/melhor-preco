@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Price\Application\Http\Requests\PriceList;
 
-use App\Http\Requests\Contracts\HasOptions;
+use Src\Products\Application\Http\Requests\Product\Contracts\HasOptions;
 use Src\Products\Infrastructure\Repositories\Options\Options;
 use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
