@@ -5,12 +5,11 @@ namespace Src\Integrations\Bling\Products\Responses\Factories;
 use Src\Integrations\Bling\Products\Responses\BaseResponse;
 use Src\Integrations\Bling\Products\Responses\ProductIterator;
 use Src\Integrations\Bling\Products\Responses\Transformers\ProductsCollection;
-use Psr\Http\Message\ResponseInterface;
-use Src\Integrations\Bling\Products\Responses\Factories\BaseFactory;
+use Illuminate\Http\Client\Response;
 
 class ProductCollectionResponse extends BaseFactory
 {
-    public function make(ResponseInterface $productsResponse): BaseResponse
+    public function make(Response $productsResponse): BaseResponse
     {
         $data = $this->getData($productsResponse);
 
@@ -23,7 +22,7 @@ class ProductCollectionResponse extends BaseFactory
         return new ProductIterator(data: $products);
     }
 
-    public function makeWithStore(ResponseInterface $productsResponse, string $store): BaseResponse
+    public function makeWithStore(Response $productsResponse, string $store): BaseResponse
     {
         $data = $this->getData($productsResponse);
 
@@ -36,7 +35,7 @@ class ProductCollectionResponse extends BaseFactory
         return new ProductIterator(data: $products);
     }
 
-    private function getData(ResponseInterface $response): array
+    private function getData(Response $response): array
     {
         $data = json_decode((string) $response->getBody(), true);
         $data = $this->sanitizer->sanitizeMultiple($data);

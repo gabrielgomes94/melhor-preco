@@ -2,13 +2,13 @@
 
 namespace Src\Integrations\Bling\Products\Responses\Sanitizers;
 
-use Psr\Http\Message\ResponseInterface;
+use Illuminate\Http\Client\Response;
 
 class Sanitizer
 {
-    public function sanitize(ResponseInterface $response): array
+    public function sanitize(Response $response): array
     {
-        $data = json_decode((string) $response->getBody(), true);
+        $data = json_decode($response->body(), true);
 
         if (isset($data['retorno']['erros'])) {
             $error = array_shift($data['retorno']['erros']);

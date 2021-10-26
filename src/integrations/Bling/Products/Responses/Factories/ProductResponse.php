@@ -6,15 +6,11 @@ use Src\Integrations\Bling\Products\Responses\BaseResponse;
 use Src\Integrations\Bling\Products\Responses\Data\Product as ProductData;
 use Src\Integrations\Bling\Products\Responses\Product;
 use Src\Integrations\Bling\Products\Responses\Transformers\Product as ProductTransformer;
-use Psr\Http\Message\ResponseInterface;
-use Src\Integrations\Bling\Products\Responses\Factories\BaseFactory;
+use Illuminate\Http\Client\Response;
 
 class ProductResponse extends BaseFactory
 {
-    /**
-     * @param array<string, ResponseInterface> $stores
-     */
-    public function make(ResponseInterface $productResponse, ?string $store = null): BaseResponse
+    public function make(Response $productResponse, ?string $store = null): BaseResponse
     {
         $data = $this->sanitizer->sanitize($productResponse);
 
