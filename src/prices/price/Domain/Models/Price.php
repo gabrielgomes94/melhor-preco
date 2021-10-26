@@ -38,7 +38,9 @@ class Price extends Model
 
     public function isProfitable(): bool
     {
-        return $this->profit > 0.0;
+        $product = $this->product->data();
+
+        return $product->getPost($this->store)->isProfitable();
     }
 
     public function product()

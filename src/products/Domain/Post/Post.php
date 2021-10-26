@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Post;
 
+use Money\Money;
 use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
@@ -43,6 +44,12 @@ class Post implements PostInterface
     {
         return $this->price;
     }
+
+    public function isProfitable(): bool
+    {
+        return $this->price->getProfit()->greaterThanOrEqual(Money::BRL(0));
+    }
+
 
     public function isInMarginRange(float $minimumProfit, float $maximumProfit)
     {
