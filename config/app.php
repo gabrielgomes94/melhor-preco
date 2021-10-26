@@ -183,8 +183,6 @@ return [
          */
         App\Providers\BlingServiceProvider::class,
 
-        App\Providers\StoreServiceProvider::class,
-
         /**
          * Notifications' module Service Providers...
          */
@@ -196,9 +194,20 @@ return [
         /**
          * Prices' module Service Providers...
          */
-        Src\Prices\Application\Providers\PricingServiceProvider::class,
-        Src\Prices\Application\Providers\RouteServiceProvider::class,
-        Src\Prices\Application\Providers\PricingEventServiceProvider::class,
+//        Src\Prices\Price\Application\Providers\PriceServiceProvider::class,
+        Src\Prices\Price\Application\Providers\RouteServiceProvider::class,
+        Src\Prices\Price\Application\Providers\EventServiceProvider::class,
+
+        /**
+         * Prices' Calculator module Services Providers...
+         */
+        Src\Prices\Calculator\Application\Providers\RouteServiceProvider::class,
+        Src\Prices\Calculator\Application\Providers\CalculatorServiceProvider::class,
+
+        /**
+         * Price Lists module Services Providers....
+         */
+        \Src\Prices\Price\Application\Providers\BladeServiceProvider::class,
 
         /**
          * Products' module Service Providers...

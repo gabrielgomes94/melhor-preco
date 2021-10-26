@@ -12,18 +12,18 @@
         <tbody>
             @foreach ($products as $product)
                 <tr class="d-flex">
-                    <th class="col-1">{{ $product->toArray()['sku'] }}</th>
+                    <th class="col-1">{{ $product['sku'] }}</th>
                     <td
                         class="col-4"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
-                        title="{{ $product->toArray()['name'] }}"
+                        title="{{ $product['name'] }}"
                     >
-                        {{ $product->toArray()['name'] }}
+                        {{ $product['name'] }}
                     </td>
-                    <td class="col-2">{{ $product->toArray()['price'] }}</td>
-                    <td class="col-2">{{ $product->toArray()['profit'] }}</td>
-                    <td class="col-3">{{ $product->toArray()['updatedAt'] }}</td>
+                    <td class="col-2">R$ {{ $product['value'] }}</td>
+                    <td class="col-2">R$ {{ $product['profit'] }}</td>
+                    <td class="col-3">{{ $product['updated_at'] }}</td>
                 </tr>
             @endforeach
         </tbody>

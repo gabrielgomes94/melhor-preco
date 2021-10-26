@@ -11,9 +11,9 @@
             />
 
             @if ($product->hasVariations())
-                @foreach($product->variations() as $variation)
+                @foreach($product->data()->getVariations() as $variation)
                     <x-pricing.price-list.products.store-list.table.variations-row
-                        :product="$product->variations()"
+                        :product="$variation"
                         :store="$store->slug()"
                     />
                 @endforeach

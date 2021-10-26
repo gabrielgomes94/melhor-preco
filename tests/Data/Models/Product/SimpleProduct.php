@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Models\Product;
 
-use Src\Prices\Domain\Price\Models\Price;
+use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Domain\Models\Product;
 use Tests\Data\Models\Product\Contracts\ProductFactory;
 

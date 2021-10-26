@@ -2,7 +2,6 @@
 
 namespace Src\Products\Application\Http\Requests\Product;
 
-use Src\Products\Domain\Data\Costs;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCostsRequest extends FormRequest

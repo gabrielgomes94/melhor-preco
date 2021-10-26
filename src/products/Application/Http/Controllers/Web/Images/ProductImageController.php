@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\Http\Controllers\Web\Images;
 
-use App\Http\Requests\ImageUploaderRequest;
+use Src\Products\Application\Http\Requests\Product\ImageUploaderRequest;
 use Src\Products\Application\Services\Images\StoreImages;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;

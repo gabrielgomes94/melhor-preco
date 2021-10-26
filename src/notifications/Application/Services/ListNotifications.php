@@ -7,17 +7,14 @@ use Src\Notifications\Domain\Contracts\Repository\Options;
 use Src\Notifications\Domain\Contracts\Services\ListNotifications as ListNotificationsInterface;
 use Src\Notifications\Domain\Models\Notification;
 use Src\Notifications\Application\Presenters\Inbox;
-use App\Services\Utils\Paginator;
 use Src\Notifications\Infrastructure\Repositories\Repository;
 
 class ListNotifications implements ListNotificationsInterface
 {
-    private Paginator $paginator;
     private Repository $repository;
 
-    public function __construct(Paginator $paginator, Repository $repository)
+    public function __construct(Repository $repository)
     {
-        $this->paginator = $paginator;
         $this->repository = $repository;
     }
 

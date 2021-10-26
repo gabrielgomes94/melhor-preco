@@ -54,11 +54,15 @@
             "Barrigudinha\\": "barrigudinha/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Integrations\\": "integrations/",
             "Src\\": "src/",
+            "Src\\Integrations\\": "src/integrations",
             "Src\\Notifications\\": "src/notifications",
             "Src\\Prices\\": "src/prices",
-            "Src\\Products\\": "src/products"
+            "Src\\Prices\\Price\\": "src/prices/price",
+            "Src\\Prices\\Calculator\\": "src/prices/calculator",
+            "Src\\Prices\\PriceList\\": "src/prices/price_list",
+            "Src\\Products\\": "src/products",
+            "Src\\Sales\\": "src/sales"
         }
     },
     "autoload-dev": {
@@ -66,7 +70,8 @@
             "Tests\\": "tests/",
             "Tests\\Unit\\App\\": "tests/Unit/app/",
             "Tests\\Unit\\Barrigudinha\\": "tests/Unit/barrigudinha/",
-            "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/"
+            "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/",
+            "Tests\\Unit\\Src\\Products\\": "tests/Unit/src/products/"
         }
     },
     "minimum-stability": "dev",

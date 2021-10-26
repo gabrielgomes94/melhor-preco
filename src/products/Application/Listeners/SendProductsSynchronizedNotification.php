@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Src\Notifications\Domain\Notifications\Products\ProductsSynchronized as ProductsSynchronizedNotification;
-use Src\Products\Domain\Events\ProductsSynchronized;
+use Src\Products\Domain\Product\Events\ProductsSynchronized;
 
 class SendProductsSynchronizedNotification implements ShouldQueue
 {
@@ -23,7 +23,7 @@ class SendProductsSynchronizedNotification implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  ProductsSynchronized  $event
+     * @param  \Src\Products\Domain\Product\Events\ProductsSynchronized  $event
      * @return void
      */
     public function handle(ProductsSynchronized $event)

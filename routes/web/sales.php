@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Front\Sales\ListController;
+use Src\Sales\Application\Http\Controllers\Web\ListController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {

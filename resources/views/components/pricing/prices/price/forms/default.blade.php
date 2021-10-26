@@ -6,7 +6,7 @@
             attribute="value"
             label="Preço"
             componentId="update-price-{{ $price['id'] }}-value"
-            value="{{ $price['value'] }}"
+            value="{{ $price['mainPrice']['value'] }}"
         >
         </x-forms.input.read-only>
 
@@ -54,7 +54,7 @@
             attribute="profit"
             label="Lucro"
             componentId="update-price-{{ $price['id'] }}-profit"
-            value="{{ $price['profit'] }}"
+            value="{{ $price['mainPrice']['profit'] }}"
         >
         </x-forms.input.read-only>
 
@@ -62,7 +62,7 @@
             attribute="margin"
             label="Margem"
             componentId="update-price-{{ $price['id'] }}-margin"
-            value="{{ $price['margin'] }}"
+            value="{{ $price['mainPrice']['margin'] }}"
         >
         </x-forms.input.read-only>
 
