@@ -6,7 +6,7 @@
     <h6>Marketplace: {{ $notification->content()['store'] ?? "" }}</h6>
 
     <a href="{{ route('pricing.products.showByStore', [
-                'store' => $notification->content()['storeSlug'],
+                'store_slug' => $notification->content()['storeSlug'],
                 'product_id' => $notification->content()['productId'],
             ]) }}"
         class="text-info"
