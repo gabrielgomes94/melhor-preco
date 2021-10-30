@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Models;
+namespace Src\Sales\Domain\Models\Data;
 
 use Countable;
 use Iterator;

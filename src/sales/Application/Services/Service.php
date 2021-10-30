@@ -6,13 +6,14 @@ use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Product\Models\Product;
-use Src\Sales\Domain\Models\SaleOrder;
-use Src\Sales\Domain\Models\SaleOrdersCollection;
-use Src\Sales\Domain\Models\Data\Item;
+use Src\Sales\Domain\Models\Data\SaleOrder;
+use Src\Sales\Domain\Models\Data\SaleOrdersCollection;
+use Src\Sales\Domain\Models\Data\Items\Item;
 use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
 use Src\Products\Domain\Store\Factory;
 
+// ToDo: Mover esse service para o namespace de UseCases
 class Service
 {
     private CalculatePrice $calculatePrice;
@@ -27,7 +28,7 @@ class Service
         $sales = [];
 
         /**
-         * @var \Src\Sales\Domain\Models\SaleOrder $saleOrder
+         * @var \Src\Sales\Domain\Models\Data\SaleOrder $saleOrder
          */
         foreach ($saleOrdersCollection as $saleOrder) {
             if (!$saleOrder->identifiers()->storeId()) {
@@ -73,7 +74,7 @@ class Service
         $profit = Money::BRL(0);
 
         /**
-         * @var \Src\Sales\Domain\Models\Data\Item $item
+         * @var \Src\Sales\Domain\Models\Data\Items\Item $item
          */
         foreach ($saleOrder->items() as $item) {
             $product = Product::find($item->sku());

@@ -2,22 +2,22 @@
 
 namespace Src\Sales\Application\Factories;
 
-use Src\Sales\Domain\Models\Customer;
-use Src\Sales\Domain\Models\SaleOrder as SaleOrderEntity;
+use Src\Sales\Domain\Models\Data\Customer\Customer;
+use Src\Sales\Domain\Models\Data\SaleOrder as SaleOrderEntity;
 use Src\Sales\Domain\Models\Data\Address\Address;
-use Src\Sales\Domain\Models\Data\Identifiers;
+use Src\Sales\Domain\Models\Data\Identifiers\Identifiers;
 use Src\Sales\Domain\Models\Data\Invoice\NullInvoice;
 use Src\Sales\Domain\Models\Data\Payment\Installment;
 use Src\Sales\Domain\Models\Data\Invoice\Invoice;
-use Src\Sales\Domain\Models\Data\Item;
-use Src\Sales\Domain\Models\Data\Items;
+use Src\Sales\Domain\Models\Data\Items\Item;
+use Src\Sales\Domain\Models\Data\Items\Items;
 use Src\Sales\Domain\Models\Data\Payment\NullPayment;
 use Src\Sales\Domain\Models\Data\Payment\Payment;
-use Src\Sales\Domain\Models\Data\SaleDates;
-use Src\Sales\Domain\Models\Data\SaleValue;
+use Src\Sales\Domain\Models\Data\Sale\SaleDates;
+use Src\Sales\Domain\Models\Data\Sale\SaleValue;
 use Src\Sales\Domain\Models\Data\Shipment\NullShipment;
 use Src\Sales\Domain\Models\Data\Shipment\Shipment;
-use Src\Sales\Domain\Models\Data\Status;
+use Src\Sales\Domain\Models\Data\Status\Status;
 
 class SaleOrder
 {

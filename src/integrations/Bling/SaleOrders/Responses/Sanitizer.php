@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Integrations\Bling\SaleOrders\Responses\Sanitizers;
+namespace Src\Integrations\Bling\SaleOrders\Responses;
 
 use Illuminate\Http\Client\Response;
 use Src\Integrations\Bling\Base\Responses\Sanitizer\BaseSanitizer;

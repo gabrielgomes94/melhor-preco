@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Models\Data;
+namespace Src\Sales\Domain\Models\Data\Identifiers;
 
 class Identifiers
 {

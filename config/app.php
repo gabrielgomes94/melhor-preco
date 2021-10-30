@@ -194,7 +194,7 @@ return [
         /**
          * Prices' module Service Providers...
          */
-//        Src\Prices\Price\Application\Providers\PriceServiceProvider::class,
+        Src\Prices\Price\Application\Providers\BladeServiceProvider::class,
         Src\Prices\Price\Application\Providers\RouteServiceProvider::class,
         Src\Prices\Price\Application\Providers\EventServiceProvider::class,
 
@@ -205,17 +205,20 @@ return [
         Src\Prices\Calculator\Application\Providers\CalculatorServiceProvider::class,
 
         /**
-         * Price Lists module Services Providers....
-         */
-        \Src\Prices\Price\Application\Providers\BladeServiceProvider::class,
-
-        /**
          * Products' module Service Providers...
          */
         Src\Products\Application\Providers\EventServiceProvider::class,
         Src\Products\Application\Providers\ProductServiceProvider::class,
         Src\Products\Application\Providers\RouteServiceProvider::class,
 
+        /**
+         * Sales' module Service Providers...
+         */
+        Src\Sales\Application\Providers\SalesServiceProvider::class,
+
+        /**
+         * PDF Generator Service Provider...
+         */
         Barryvdh\DomPDF\ServiceProvider::class,
     ],
 

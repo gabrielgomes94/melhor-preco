@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Sales\Domain\Models\Data;
+namespace Src\Sales\Domain\Models\Data\Items;
 
-use Src\Sales\Domain\Models\Data\Item;
-use Src\Sales\Domain\Models\BaseIterator;
+use Src\Sales\Domain\Models\Data\Items\Item;
+use Src\Sales\Domain\Models\Data\BaseIterator;
 
 class Items extends BaseIterator
 {

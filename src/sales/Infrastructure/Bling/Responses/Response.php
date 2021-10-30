@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Integrations\Bling\SaleOrders\Responses;
+namespace Src\Sales\Infrastructure\Bling\Responses;
 
-use Src\Sales\Domain\Models\SaleOrdersCollection;
+use Src\Sales\Domain\Models\Data\SaleOrdersCollection;
 use Src\Integrations\Bling\Base\Responses\BaseResponse;
 
-class Response extends \Src\Integrations\Bling\Base\Responses\BaseResponse
+class Response extends BaseResponse
 {
     private SaleOrdersCollection $saleOrder;
 
