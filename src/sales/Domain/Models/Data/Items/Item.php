@@ -39,6 +39,11 @@ class Item
         return $this->discount;
     }
 
+    public function name(): string
+    {
+        return $this->name;
+    }
+
     public function quantity(): float
     {
         return $this->quantity;

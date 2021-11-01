@@ -17,6 +17,16 @@ class SaleDates
         $this->expectedArrivalAt = $expectedArrivalAt;
     }
 
+    public function dispatchedAt(): ?Carbon
+    {
+        return $this->dispatchedAt;
+    }
+
+    public function expectedArrivalAt(): ?Carbon
+    {
+        return $this->expectedArrivalAt;
+    }
+
     public function selledAt(): Carbon
     {
         return $this->selledAt;

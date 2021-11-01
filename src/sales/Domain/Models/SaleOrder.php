@@ -3,6 +3,9 @@
 namespace Src\Sales\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SaleOrder extends Model
 {
@@ -22,27 +25,27 @@ class SaleOrder extends Model
         'total_value',
     ];
 
-    public function customer()
+    public function customer(): BelongsTo
     {
-        return $this->hasOne(Customer::class);
+        return $this->belongsTo(Customer::class);
     }
 
-    public function invoice()
+    public function invoice(): HasOne
     {
         return $this->hasOne(Invoice::class);
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class);
     }
 
-    public function payment()
+    public function payment(): HasMany
     {
         return $this->hasMany(PaymentInstallment::class);
     }
 
-    public function shipment()
+    public function shipment(): HasOne
     {
         return $this->hasOne(Shipment::class);
     }

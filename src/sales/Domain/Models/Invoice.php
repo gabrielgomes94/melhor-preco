@@ -3,6 +3,7 @@
 namespace Src\Sales\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invoice extends Model
 {
@@ -15,7 +16,9 @@ class Invoice extends Model
         'access_key',
     ];
 
-    public function saleOrder()
+    protected $table = 'sales_invoice';
+
+    public function saleOrder(): BelongsTo
     {
         return $this->belongsTo(SaleOrder::class);
     }

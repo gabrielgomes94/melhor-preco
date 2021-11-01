@@ -2,7 +2,6 @@
 
 namespace Src\Sales\Domain\Models\Data;
 
-use Src\Sales\Domain\Models\Data;
 use Src\Sales\Domain\Models\Data\Customer\Customer;
 use Src\Sales\Domain\Models\Data\Identifiers\Identifiers;
 use Src\Sales\Domain\Models\Data\Invoice\Invoice;
@@ -17,32 +16,33 @@ class SaleOrder
 {
     private Customer $customer;
     private Identifiers $identifiers;
-    private Invoice $invoice;
     private Items $items;
-    private Payment $payment;
     private SaleDates $saleDates;
     private SaleValue $saleValue;
-    private Shipment $shipment;
     private Status $status;
+
+    private ?Invoice $invoice;
+    private ?Payment $payment;
+    private ?Shipment $shipment;
 
     public function __construct(
         Identifiers $identifiers,
         SaleValue $saleValue,
         SaleDates $saleDates,
         Status $status,
-        Customer\Customer $customer,
-        Invoice $invoice,
         Items $items,
-        Payment $payment,
-        Shipment $shipment
+        Customer $customer,
+        ?Invoice $invoice,
+        ?Payment $payment,
+        ?Shipment $shipment
     ) {
         $this->identifiers = $identifiers;
         $this->saleValue = $saleValue;
         $this->saleDates = $saleDates;
         $this->status = $status;
+        $this->items = $items;
         $this->customer = $customer;
         $this->invoice = $invoice;
-        $this->items = $items;
         $this->payment = $payment;
         $this->shipment = $shipment;
     }
@@ -55,16 +55,36 @@ class SaleOrder
             'saleDates' => $this->saleDates->toArray(),
             'status' => (string) $this->status,
             'customer' => $this->customer->toArray(),
-            'invoice' => $this->invoice->toArray(),
+            'invoice' => $this->invoice?->toArray() ?? [],
             'items' => $this->items->toArray(),
-            'payment' => $this->payment->toArray(),
-            'shipment' => $this->shipment->toArray(),
+            'payment' => $this->payment?->toArray() ?? [],
+            'shipment' => $this->shipment?->toArray() ?? [],
         ];
+    }
+
+    public function customer(): Customer
+    {
+        return $this->customer;
     }
 
     public function identifiers(): Identifiers
     {
         return $this->identifiers;
+    }
+
+    public function invoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    public function items(): Items
+    {
+        return $this->items;
+    }
+
+    public function payment(): ?Payment
+    {
+        return $this->payment;
     }
 
     public function saleDates(): SaleDates
@@ -77,9 +97,9 @@ class SaleOrder
         return $this->saleValue;
     }
 
-    public function items(): Items
+    public function shipment(): ?Shipment
     {
-        return $this->items;
+        return $this->shipment;
     }
 
     public function status(): Status

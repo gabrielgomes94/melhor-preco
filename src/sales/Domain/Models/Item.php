@@ -14,4 +14,5 @@ class Item extends Model
         'discount',
     ];
 
+    protected $table = 'sales_items';
 }

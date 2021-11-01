@@ -17,6 +17,16 @@ class SaleValue
         $this->totalValue = $totalValue;
     }
 
+    public function discount(): float
+    {
+        return $this->discount;
+    }
+
+    public function freight(): float
+    {
+        return $this->freight;
+    }
+
     public function totalValue(): float
     {
         return $this->totalValue;

@@ -13,5 +13,4 @@ class PaymentInstallment extends Model
         'observation',
         'destination',
     ];
-
 }

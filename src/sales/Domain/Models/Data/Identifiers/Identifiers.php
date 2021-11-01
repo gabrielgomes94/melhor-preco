@@ -29,6 +29,11 @@ class Identifiers
         return $this->id;
     }
 
+    public function integration(): ?string
+    {
+        return $this->integration;
+    }
+
     public function purchaseSaleOrderId(): string
     {
         return $this->purchaseOrderId;

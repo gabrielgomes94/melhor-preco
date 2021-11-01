@@ -2,8 +2,6 @@
 
 namespace Src\Sales\Domain\Models\Data\Payment;
 
-use Src\Sales\Domain\Models\Data\Payment\Installment;
-
 class Payment
 {
     private array $installments;
@@ -20,10 +18,10 @@ class Payment
         }, $this->installments);
     }
 
-    private function build(array $installments)
+    private function build(array $installments): void
     {
         foreach ($installments as $installment) {
-            if ($installment instanceof \Src\Sales\Domain\Models\Data\Payment\Installment) {
+            if ($installment instanceof Installment) {
                 $this->installments[] = $installment;
             }
         }

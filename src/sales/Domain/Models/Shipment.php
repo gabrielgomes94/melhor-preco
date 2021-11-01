@@ -3,6 +3,7 @@
 namespace Src\Sales\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Shipment extends Model
 {
@@ -10,8 +11,10 @@ class Shipment extends Model
         'name',
     ];
 
-    public function address()
+    protected $table = 'sales_shipments';
+
+    public function address(): MorphOne
     {
-        return $this->hasOne(Address::class);
+        return $this->morphOne(Address::class, 'addressable');
     }
 }
