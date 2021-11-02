@@ -6,9 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
+use Src\Sales\Domain\Models\Data\SaleOrder as SaleOrderData;
 
 class SaleOrder extends Model
 {
+    protected $casts = [
+        'selled_at' => 'datetime',
+        'dispatched_at' => 'datetime',
+        'expected_arrival_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'sale_order_id',
         'purchase_order_id',
@@ -48,5 +56,15 @@ class SaleOrder extends Model
     public function shipment(): HasOne
     {
         return $this->hasOne(Shipment::class);
+    }
+
+    public function scopeValid($query)
+    {
+        return $query->where('status', '<>', 'Cancelado');
+    }
+
+    public function data(): SaleOrderData
+    {
+        return SaleOrderFactory::make($this);
     }
 }

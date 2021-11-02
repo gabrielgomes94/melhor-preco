@@ -1,15 +1,24 @@
 <?php
 
-
 namespace Src\Sales\Domain\Factories;
-
 
 use Src\Sales\Domain\Models\Customer as CustomerModel;
 use Src\Sales\Domain\Models\Data\Customer\Customer as CustomerData;
 
 class Customer
 {
-    public static function make(CustomerData $customer)
+    public static function make(CustomerModel $model)
+    {
+        return new CustomerData(
+            name: $model->name,
+            fiscalId: $model->fiscal_id ,
+            phones: $model->phones,
+            address: Address::make($model->address),
+            documentNumber: $model->document_number,
+        );
+    }
+
+    public static function makeModel(CustomerData $customer)
     {
         return new CustomerModel([
             'name' => $customer->getName(),

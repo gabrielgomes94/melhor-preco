@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invoice extends Model
 {
+    protected $casts = [
+        'issued_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'series',
         'number',
