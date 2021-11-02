@@ -17,7 +17,6 @@ class ResponseFactory extends BaseFactory
             $saleOrders[] = Transformer::transform($saleOrder);
         }
 
-
-        return $saleOrders ?? [];
+        return new Response($saleOrders);
     }
 }

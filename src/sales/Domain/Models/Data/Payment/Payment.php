@@ -11,6 +11,11 @@ class Payment
         $this->build($installments);
     }
 
+    public function get(): array
+    {
+        return $this->installments ?? [];
+    }
+
     public function toArray(): array
     {
         return array_map(function (Installment $installment) {

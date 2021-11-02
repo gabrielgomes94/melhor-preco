@@ -7,14 +7,14 @@ use Src\Integrations\Bling\Base\Responses\BaseResponse;
 
 class Response extends BaseResponse
 {
-    private SaleOrdersCollection $saleOrder;
+    private array $saleOrders;
 
-    public function __construct(SaleOrdersCollection $data) {
-        $this->saleOrder = $data;
+    public function __construct(array $data) {
+        $this->saleOrders = $data;
     }
 
-    public function data(): SaleOrdersCollection
+    public function data(): array
     {
-        return $this->saleOrder;
+        return $this->saleOrders;
     }
 }

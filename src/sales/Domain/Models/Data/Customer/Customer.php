@@ -11,8 +11,6 @@ class Customer
     private array $phones;
     private Address $address;
     private ?string $documentNumber;
-    private ?string $email;
-    private ?string $stateRegistration;
 
     public function __construct(
         string $name,
@@ -20,14 +18,10 @@ class Customer
         array $phones,
         Address $address,
         ?string $documentNumber = null,
-        ?string $email = null,
-        ?string $stateRegistration = null
     ) {
         $this->name = $name;
         $this->fiscalId = $fiscalId;
-        $this->stateRegistration = $stateRegistration;
         $this->documentNumber = $documentNumber;
-        $this->email = $email;
         $this->phones = $phones;
         $this->address = $address;
     }
@@ -40,11 +34,6 @@ class Customer
     public function getDocumentNumber(): ?string
     {
         return $this->documentNumber;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
     }
 
     public function getFiscalId(): string
@@ -62,19 +51,12 @@ class Customer
         return $this->phones;
     }
 
-    public function getStateRegistration(): ?string
-    {
-        return $this->stateRegistration;
-    }
-
     public function toArray(): array
     {
         return [
             'name' => $this->name,
             'fiscalId' => $this->fiscalId,
-            'stateRegistration' => $this->stateRegistration,
             'documentNumber' => $this->documentNumber,
-            'email' => $this->email,
             'phones' => $this->phones,
             'address' => $this->address,
         ];

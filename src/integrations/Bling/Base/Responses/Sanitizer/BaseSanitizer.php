@@ -26,6 +26,6 @@ abstract class BaseSanitizer
             return ['error' => $error];
         }
 
-        return ['error' => $error['erro']['msg']];
+        return ['error' => $error['erro']['msg'] ?? ''];
     }
 }
