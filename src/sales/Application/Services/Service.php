@@ -23,14 +23,16 @@ class Service
         $this->calculatePrice = $calculatePrice;
     }
 
-    public function listSaleOrder(SaleOrdersCollection $saleOrdersCollection): array
+    public function listSaleOrder(array $saleOrders): array
     {
         $sales = [];
 
         /**
          * @var \Src\Sales\Domain\Models\Data\SaleOrder $saleOrder
          */
-        foreach ($saleOrdersCollection as $saleOrder) {
+        foreach ($saleOrders as $saleOrder) {
+            $saleOrder = $saleOrder->data();
+
             if (!$saleOrder->identifiers()->storeId()) {
                 continue;
             }

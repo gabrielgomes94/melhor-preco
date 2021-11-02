@@ -50,33 +50,33 @@ class SyncSales implements SyncSalesInterface
     {
         $customer = $this->getCustomer($saleOrder->customer());
 
-        $saleOrderModel = SaleOrderFactory::make($saleOrder);
+        $saleOrderModel = SaleOrderFactory::makeModel($saleOrder);
         $customer->save();
         $saleOrderModel->customer()->associate($customer);
         $saleOrderModel->save();
 
         if ($saleOrder->payment()) {
             foreach ($saleOrder->payment()->get() as $installment) {
-                $payment = PaymentInstallmentFactory::make($installment);
+                $payment = PaymentInstallmentFactory::makeModel($installment);
                 $saleOrderModel->payment()->save($payment);
             }
         }
 
         if ($saleOrder->invoice()) {
-            $invoice = InvoiceFactory::make($saleOrder->invoice());
+            $invoice = InvoiceFactory::makeModel($saleOrder->invoice());
             $saleOrderModel->invoice()->save($invoice);
         }
 
         if ($saleOrder->shipment()) {
-            $shipment = Shipment::make($saleOrder->shipment());
+            $shipment = Shipment::makeModel($saleOrder->shipment());
             $saleOrderModel->shipment()->save($shipment);
 
-            $shipmentAddress = AddressFactory::make($saleOrder->shipment()->getDeliveryAddress());
+            $shipmentAddress = AddressFactory::makeModel($saleOrder->shipment()->getDeliveryAddress());
             $shipment->address()->save($shipmentAddress);
         }
 
         foreach ($saleOrder->items() as $item) {
-            $itemModel = Item::make($item);
+            $itemModel = Item::makeModel($item);
 
             $saleOrderModel->items()->save($itemModel);
         }
@@ -91,8 +91,8 @@ class SyncSales implements SyncSalesInterface
     private function getCustomer(Customer $customer): CustomerModel
     {
         if (!$customerModel = CustomerModel::where('fiscal_id', $customer->getFiscalId())->first()) {
-            $address = AddressFactory::make($customer->getAddress());
-            $customerModel = CustomerFactory::make($customer);
+            $address = AddressFactory::makeModel($customer->getAddress());
+            $customerModel = CustomerFactory::makeModel($customer);
             $customerModel->save();
             $customerModel->address()->save($address);
         }
