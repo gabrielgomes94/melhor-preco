@@ -106,6 +106,7 @@ class ProductStore implements ProductStoreInterface
             $response = Http::withOptions([
                 'base_uri' => 'https://bling.com.br/Api/v2/produto/',
                 'query' => [
+                    'apikey' => env('BLING_API_KEY'),
                     'xml' => $xml,
                 ],
                 'headers' => [
