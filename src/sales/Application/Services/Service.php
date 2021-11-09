@@ -2,12 +2,13 @@
 
 namespace Src\Sales\Application\Services;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Product\Models\Product;
 use Src\Sales\Domain\Models\Data\SaleOrder;
-use Src\Sales\Domain\Models\Data\SaleOrdersCollection;
+//use Src\Sales\Domain\Models\Data\SaleOrdersCollection;
 use Src\Sales\Domain\Models\Data\Items\Item;
 use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
@@ -23,14 +24,14 @@ class Service
         $this->calculatePrice = $calculatePrice;
     }
 
-    public function listSaleOrder(array $saleOrders): array
+    public function listSaleOrder(LengthAwarePaginator $saleOrders): array
     {
         $sales = [];
 
         /**
          * @var \Src\Sales\Domain\Models\Data\SaleOrder $saleOrder
          */
-        foreach ($saleOrders as $saleOrder) {
+        foreach ($saleOrders->items() as $saleOrder) {
             $saleOrder = $saleOrder->data();
 
             if (!$saleOrder->identifiers()->storeId()) {
@@ -66,6 +67,7 @@ class Service
         $sales = [
             'saleOrders' => $saleOrdersTransformed,
             'total' => $this->getTotalValues($saleOrdersTransformed),
+            'paginator' => $saleOrders,
         ];
 
         return $sales ?? [];

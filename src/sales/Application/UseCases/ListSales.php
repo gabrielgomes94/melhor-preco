@@ -20,8 +20,11 @@ class ListSales implements ListSalesInterface
 
     public function list(int $page = 1): array
     {
-        $sales = SaleOrder::valid()->paginate(page: $page);
+        $sales = SaleOrder::valid()
+            ->orderBy('selled_at', 'desc')
+            ->orderBy('sale_order_id', 'desc')
+            ->paginate(page: $page, perPage: 40);
 
-        return $this->service->listSaleOrder($sales->items());
+        return $this->service->listSaleOrder($sales);
     }
 }

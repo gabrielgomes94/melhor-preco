@@ -10,8 +10,6 @@ use Src\Products\Domain\Product\Models\Product;
 
 class Price extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'commission',
         'profit',
@@ -19,6 +17,7 @@ class Price extends Model
         'store_sku_id',
         'value',
         'additional_costs',
+        'product_id',
     ];
 
     public function getProductSku(): string
@@ -40,12 +39,16 @@ class Price extends Model
     {
         $product = $this->product->data();
 
-        return $product->getPost($this->store)->isProfitable();
+        if (!$post = $product->getPost($this->store)) {
+            return false;
+        }
+
+        return $post->isProfitable();
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id', 'sku');
     }
 
     public function margin(): float
@@ -66,10 +69,5 @@ class Price extends Model
         $maximumProfit = PercentageTransformer::toPercentage($maximumProfit);
 
         return $minimumProfit <= $this->margin() && $this->margin() <= $maximumProfit;
-    }
-
-    public static function listProducts(string $storeSlug)
-    {
-
     }
 }

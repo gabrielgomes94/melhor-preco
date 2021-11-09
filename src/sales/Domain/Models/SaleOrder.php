@@ -12,6 +12,7 @@ use Src\Sales\Domain\Models\Data\SaleOrder as SaleOrderData;
 class SaleOrder extends Model
 {
     protected $casts = [
+        'sale_order_id' => 'integer',
         'selled_at' => 'datetime',
         'dispatched_at' => 'datetime',
         'expected_arrival_at' => 'datetime',
@@ -66,5 +67,10 @@ class SaleOrder extends Model
     public function data(): SaleOrderData
     {
         return SaleOrderFactory::make($this);
+    }
+
+    public function isFromStore()
+    {
+
     }
 }

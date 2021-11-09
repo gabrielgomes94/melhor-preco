@@ -5,9 +5,10 @@ namespace Src\Prices\Calculator\Domain\Price\ProductData;
 use Src\Prices\Calculator\Domain\Contracts\Models\ProductData as ProductDataInterface;
 use Src\Products\Domain\Product\Contracts\Models\Data\Costs\Costs;
 use Src\Products\Domain\Product\Contracts\Models\Data\Dimensions\Dimensions;
+use Src\Products\Domain\Product\Models\Data\Costs\Factory as CostsFactory;
+use Src\Products\Domain\Product\Models\Data\Dimensions\Factory as DimensionsFactory;
+use Src\Products\Domain\Product\Models\Product;
 
-//use Src\Products\Domain\Product\Models\Data\Costs\Costs;
-//use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 
 class ProductData implements ProductDataInterface
 {
@@ -18,6 +19,14 @@ class ProductData implements ProductDataInterface
     {
         $this->costs = $costs;
         $this->dimensions = $dimensions;
+    }
+
+    public static function fromModel(Product $product): self
+    {
+        return new self(
+            CostsFactory::make($product),
+            DimensionsFactory::make($product)
+        );
     }
 
     public function getCosts(): Costs

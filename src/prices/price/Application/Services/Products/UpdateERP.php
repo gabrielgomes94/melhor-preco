@@ -2,21 +2,24 @@
 
 namespace Src\Prices\Price\Application\Services\Products;
 
+use Src\Integrations\Bling\Products\Client;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Price\Domain\Contracts\Services\UpdateERP as UpdateERPInterface;
 use Src\Products\Domain\Product\Contracts\Models\Post;
-use Src\Integrations\Bling\Products\Clients\ProductStore;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
+use Src\Products\Infrastructure\Bling\Responses\Product\Factory;
 
 class UpdateERP implements UpdateERPInterface
 {
     private DecimalMoneyFormatter $formatter;
-    private ProductStore $client;
+    private Client $client;
+    private Factory $factory;
 
-    public function __construct(ProductStore $client)
+    public function __construct(Client $client, Factory $factory)
     {
         $this->client = $client;
+        $this->factory = $factory;
         $this->formatter = new DecimalMoneyFormatter(new ISOCurrencies());
     }
 
@@ -33,6 +36,7 @@ class UpdateERP implements UpdateERPInterface
             $post->getIdentifiers()->getStoreSkuId(),
             $this->getPrice($post),
         );
+        $response = $this->factory->make($response);
 
         if ($response->hasErrors()) {
             return false;

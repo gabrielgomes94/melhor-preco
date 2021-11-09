@@ -3,6 +3,7 @@
 namespace Src\Sales\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Src\Products\Domain\Product\Models\Product;
 
 class Item extends Model
 {
@@ -15,4 +16,9 @@ class Item extends Model
     ];
 
     protected $table = 'sales_items';
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'sku', 'sku');
+    }
 }

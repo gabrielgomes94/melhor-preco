@@ -4,5 +4,5 @@ namespace Src\Sales\Domain\Contracts\UseCases;
 
 interface ListSales
 {
-    public function list(): array;
+    public function list(int $page): array;
 }
