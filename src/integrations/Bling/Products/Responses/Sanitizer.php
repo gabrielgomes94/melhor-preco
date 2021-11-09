@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Integrations\Bling\Products\Responses\Sanitizers;
+namespace Src\Integrations\Bling\Products\Responses;
 
 use Illuminate\Http\Client\Response;
 
@@ -13,37 +13,37 @@ class Sanitizer
         if (isset($data['retorno']['erros'])) {
             $error = array_shift($data['retorno']['erros']);
 
-            if (is_string($error)) {
-                return ['error' => $error];
-            }
-
-            return ['error' => $error['erro']['msg']];
+            return ['error' => $error['msg']];
         }
 
         if (isset($data['retorno']['produtos'])) {
             $productData = array_shift($data['retorno']['produtos']);
-            $product = $productData['produto'];
 
-            return $product;
+            return $productData;
         }
 
         if (isset($data['retorno']['produtosLoja'])) {
             $productData = array_shift($data['retorno']['produtosLoja']);
             $productData = array_shift($productData);
-            $product = $productData['produtoLoja'];
 
-            return $product;
+            return $productData;
         }
 
         return [];
     }
 
-    public function sanitizeMultiple(array $data): array
+    public function sanitizeMultiple(Response $response): array
     {
+        $data = json_decode($response->body(), true);
+
         if (isset($data['retorno']['erros'])) {
             $error = array_shift($data['retorno']['erros']);
 
-            return ['error' => $error['erro']['msg']];
+            if (isset($error['erro'])) {
+                return ['error' => $error['erro']['msg']];
+            }
+
+            return ['error' => $error['msg']] ;
         }
 
         if (isset($data['retorno']['produtos'])) {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Integrations\Bling\Products\Requests\Transformers;
+namespace Src\Integrations\Bling\Products\Requests;
 
 use SimpleXMLElement;
 
-class ProductStore
+class PriceTransformer
 {
     public static function generateXML(string $productStoreSku, string $priceValue): string
     {
