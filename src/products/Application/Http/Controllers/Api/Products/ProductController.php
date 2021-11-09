@@ -5,10 +5,8 @@ namespace Src\Products\Application\Http\Controllers\Api\Products;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use Src\Integrations\Bling\Products\Repositories\Repository;
-use Src\Integrations\Bling\Products\Responses\Error;
-
-use function response;
+use Src\Integrations\Bling\Base\Responses\ErrorResponse;
+use Src\Products\Infrastructure\Bling\Repository;
 
 class ProductController extends BaseController
 {
@@ -19,16 +17,23 @@ class ProductController extends BaseController
         $this->erpRepository = $erpRepository;
     }
 
+    /**
+     * @TODO: Mover a lógica para uma classe de UseCase
+     * @param Request $request
+     * @param $sku
+     * @return JsonResponse
+     */
     public function get(Request $request, $sku): JsonResponse
     {
         $response = $this->erpRepository->get($sku);
 
-        if ($response instanceof Error) {
+        if ($response instanceof ErrorResponse) {
             $errors = $this->transformErrors($response->errors());
+
             return response()->json(compact('errors'), 404);
         }
 
-        $product = $this->transform($response->data()->toArray());
+        $product = $this->transform($response->data()[0]->toArray());
 
         return response()->json(compact('product'));
     }

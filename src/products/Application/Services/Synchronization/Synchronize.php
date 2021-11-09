@@ -2,51 +2,22 @@
 
 namespace Src\Products\Application\Services\Synchronization;
 
-use Src\Products\Domain\Product\Models\Product;
-use Src\Products\Infrastructure\Repositories\Creator;
-use Src\Products\Domain\Product\Events\ProductsSynchronized;
-use Src\Products\Application\Services\Update\UpdateProduct;
-use Src\Integrations\Bling\Products\Repositories\Repository as BlingRepository;
-
 class Synchronize
 {
-    private BlingRepository $erpRepository;
-    private Creator $creator;
-    private UpdateProduct $productUpdator;
+    private SynchronizePrices $sinchronizePrices;
+    private SynchronizeProducts $sinchronizeProducts;
 
     public function __construct(
-        BlingRepository $erpRepository,
-        Creator $creator,
-        UpdateProduct $productUpdator
+        SynchronizePrices $sinchronizePrices,
+        SynchronizeProducts $sinchronizeProducts,
     ) {
-        $this->erpRepository = $erpRepository;
-        $this->creator = $creator;
-        $this->productUpdator = $productUpdator;
+        $this->sinchronizePrices = $sinchronizePrices;
+        $this->sinchronizeProducts = $sinchronizeProducts;
     }
 
     public function sync(): void
     {
-        $products = $this->erpRepository->all();
-        $updatedCount = 0;
-        $createdCount = 0;
-
-        foreach ($products->data() as $erpProduct) {
-            $product = Product::find($erpProduct->sku());
-            $data = $erpProduct->toArray();
-
-            if (!$product) {
-                $this->creator->createFromArray($data);
-                ++$createdCount;
-
-                continue;
-            }
-
-            $this->productUpdator->execute($product, $data);
-            ++$updatedCount;
-        }
-
-        $userId = 1;
-
-        event(new ProductsSynchronized($userId, $createdCount, $updatedCount));
+        $this->sinchronizeProducts->sync();
+        $this->sinchronizePrices->sync();
     }
 }

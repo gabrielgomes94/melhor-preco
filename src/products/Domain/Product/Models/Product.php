@@ -19,6 +19,8 @@ class Product extends Model implements ProductInterface
 {
     private const PER_PAGE = 15;
 
+    private const PURCHASE_PRICE = 'purchase_price';
+
     public $incrementing = false;
 
     protected $fillable = [
@@ -29,6 +31,7 @@ class Product extends Model implements ProductInterface
         'brand',
         'purchase_price',
         'tax_icms',
+        'images',
         'additional_costs',
         'depth',
         'height',
@@ -44,6 +47,8 @@ class Product extends Model implements ProductInterface
         'composition_products' => 'array',
     ];
 
+    protected $primaryKey = 'sku';
+
     public function prices(): HasMany
     {
         return $this->hasMany(Price::class, 'product_id', 'sku');
@@ -51,7 +56,7 @@ class Product extends Model implements ProductInterface
 
     public function data(): ProductData
     {
-        return Factory::make(
+        $data = Factory::make(
             array_merge($this->toArray(), [
                 'prices' => $this->prices->toArray(),
                 'parent_sku' => $this->parent_sku ?? '',
@@ -60,6 +65,13 @@ class Product extends Model implements ProductInterface
                 'composition' => $this->getComposition(),
             ])
         );
+
+        return $data;
+    }
+
+    public function getSku(): string
+    {
+        return $this->sku;
     }
 
     public function hasVariations(): bool
@@ -127,15 +139,17 @@ class Product extends Model implements ProductInterface
     private function getComposition(): array
     {
         foreach ($this->composition_products as $product) {
-            $compositionProducts[] = $this->where('sku', $product)->first()->data();
+            if(!$compositionProducts = $this->where('sku', $product)->first()) {
+                continue;
+            }
+
+            $compositionProducts[] = $compositionProducts->data();
         }
 
         return $compositionProducts ?? [];
     }
 
     // Mover essas lógicas pra Model de Prices
-
-
     public static function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
     {
         return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')

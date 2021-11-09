@@ -15,7 +15,8 @@ class Repository
     private Factory $factory;
     private PriceFactory $priceFactory;
 
-    public function __construct(Client $client, Factory $factory, PriceFactory $priceFactory) {
+    public function __construct(Client $client, Factory $factory, PriceFactory $priceFactory)
+    {
         $this->client = $client;
         $this->factory = $factory;
         $this->priceFactory = $priceFactory;

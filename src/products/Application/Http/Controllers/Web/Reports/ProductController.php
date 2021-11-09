@@ -4,8 +4,8 @@ namespace Src\Products\Application\Http\Controllers\Web\Reports;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Integrations\Bling\Products\Repositories\Repository;
-use Src\Integrations\Bling\Products\Responses\Error;
+use Src\Integrations\Bling\Base\Responses\ErrorResponse;
+use Src\Products\Infrastructure\Bling\Repository;
 
 class ProductController extends Controller
 {
@@ -20,7 +20,7 @@ class ProductController extends Controller
     {
         $response = $this->erpRepository->get($sku);
 
-        if ($response instanceof Error) {
+        if ($response instanceof ErrorResponse) {
             $errors = $this->transformErrors($response->errors());
 
             return view('pages.products.reports.get_with_stock', ['errors' => $errors]);
