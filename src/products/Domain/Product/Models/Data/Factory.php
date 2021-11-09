@@ -18,9 +18,9 @@ class Factory implements FactoryInterface
     public static function make(array $data): Product
     {
         $costs = new Costs(
-            purchasePrice: $data['purchase_price'],
-            additionalCosts: $data['additional_costs'],
-            taxICMS: $data['tax_icms']
+            purchasePrice: $data['purchase_price'] ?? 0.0,
+            additionalCosts: $data['additional_costs'] ?? 0.0,
+            taxICMS: $data['tax_icms'] ?? 0.0
         );
 
         $dimensions = new Dimensions($data['depth'], $data['height'], $data['width'], $data['weight']);
@@ -40,7 +40,7 @@ class Factory implements FactoryInterface
             variations: new Variations($data['parent_sku'], $data['variations']),
             composition: new Composition($data['composition_products']),
             posts: $posts ?? [],
-            isActive: $data['is_active'],
+            isActive: $data['is_active'] ?? true,
             stock: $data['stock']
         );
     }

@@ -2,8 +2,6 @@
 
 namespace Src\Integrations\Bling\Base\Responses;
 
-use Src\Integrations\Bling\Products\Responses\Data\Product as ProductData;
-
 abstract class BaseResponse
 {
     protected array $errors = [];

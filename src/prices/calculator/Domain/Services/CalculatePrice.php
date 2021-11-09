@@ -8,11 +8,11 @@ use Src\Products\Domain\Store\Store;
 
 class CalculatePrice
 {
-    private array $availableOptions = [
-        'commission',
-        'ignoreFreight',
-        'discountRate',
-    ];
+//    private array $availableOptions = [
+//        'commission',
+//        'ignoreFreight',
+//        'discountRate',
+//    ];
 
     public function calculate(
         ProductData $productData,

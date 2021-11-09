@@ -9,6 +9,6 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/list', [ListController::class, 'list'])->name('.list');
 
-            Route::get('/export', [ListController::class, 'export'])->name('.export');
+//            Route::get('/export', [ListController::class, 'export'])->name('.export');
         });
 });

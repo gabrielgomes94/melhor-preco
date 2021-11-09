@@ -15,6 +15,16 @@ class Shipment
         $this->name = $name;
     }
 
+    public function getDeliveryAddress(): Address
+    {
+        return $this->deliveryAddress;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
     public function toArray(): array
     {
         return [

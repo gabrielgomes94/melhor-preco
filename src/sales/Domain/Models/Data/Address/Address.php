@@ -30,6 +30,41 @@ class Address
         $this->complement = $complement;
     }
 
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    public function getComplement(): ?string
+    {
+        return $this->complement;
+    }
+
+    public function getDistrict(): string
+    {
+        return $this->district;
+    }
+
+    public function getNumber(): string
+    {
+        return $this->number;
+    }
+
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
+    public function getStreet(): string
+    {
+        return $this->street;
+    }
+
+    public function getZipcode(): string
+    {
+        return $this->zipcode;
+    }
+
     public function toArray(): array
     {
         return [

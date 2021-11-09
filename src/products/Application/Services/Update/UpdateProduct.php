@@ -44,7 +44,7 @@ class UpdateProduct
 
         $product->setVariations(new Variations($data['parent_sku'], $data['variations'] ?? []));
 
-        $product->setActive($data['is_active']);
+        $product->setActive($data['is_active'] ?? false);
 
         return $product->save();
     }

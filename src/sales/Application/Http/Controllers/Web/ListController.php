@@ -2,50 +2,44 @@
 
 namespace Src\Sales\Application\Http\Controllers\Web;
 
+use Illuminate\Http\Request;
 use Src\Sales\Application\Exports\SaleOrderExport;
 use App\Http\Controllers\Controller;
-use Src\Sales\Application\Services\Service;
 use Src\Integrations\Bling\Base\Responses\ErrorResponse;
-use Src\Integrations\Bling\SaleOrders\Repository;
 use Maatwebsite\Excel\Facades\Excel;
+use Src\Sales\Domain\Contracts\UseCases\ListSales;
 
 class ListController extends Controller
 {
-    private Service $service;
-    private Repository $repository;
+    private ListSales $listSales;
 
-    public function __construct(Service $service, Repository $repository)
+    public function __construct(ListSales $listSales)
     {
-        $this->service = $service;
-        $this->repository = $repository;
+        $this->listSales = $listSales;
     }
 
-    public function list()
+    public function list(Request $request)
     {
-        $response = $this->repository->list();
-
-        if ($response instanceof ErrorResponse) {
-            abort(404);
-        }
-
-        $saleOrders = $this->service->listSaleOrder($response->data());
+        $page = (int) $request->input('page') ?? 1;
+        $saleOrders = $this->listSales->list($page);
 
         return view('pages.sales.list', [
             'saleOrders' => $saleOrders['saleOrders'],
             'total' => $saleOrders['total'],
+            'paginator' => $saleOrders['paginator'],
         ]);
     }
 
-    public function export()
-    {
-        $response = $this->repository->list();
-
-        if ($response instanceof ErrorResponse) {
-            abort(404);
-        }
-
-        $saleOrders = $this->service->listSaleOrder($response->data());
-
-        return Excel::download(new SaleOrderExport($saleOrders), 'sales.xlsx');
-    }
+//    public function export()
+//    {
+//        $response = $this->repository->list();
+//
+//        if ($response instanceof ErrorResponse) {
+//            abort(404);
+//        }
+//
+//        $saleOrders = $this->service->listSaleOrder($response->data());
+//
+//        return Excel::download(new SaleOrderExport($saleOrders), 'sales.xlsx');
+//    }
 }

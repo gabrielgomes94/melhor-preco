@@ -29,6 +29,36 @@ class Invoice
         $this->accessKey = $accessKey;
     }
 
+    public function number(): string
+    {
+        return $this->number;
+    }
+
+    public function issuedAt(): Carbon
+    {
+        return $this->issuedAt;
+    }
+
+    public function series(): string
+    {
+        return $this->series;
+    }
+
+    public function status(): string
+    {
+        return $this->status;
+    }
+
+    public function value(): float
+    {
+        return $this->value;
+    }
+
+    public function accessKey(): string
+    {
+        return $this->accessKey;
+    }
+
     public function toArray(): array
     {
         return [

@@ -3,17 +3,20 @@
 namespace Src\Products\Application\Services\Images;
 
 use Illuminate\Support\Facades\Storage;
-use Src\Integrations\Bling\Products\Clients\ProductStore;
-use Src\Integrations\Bling\Products\Responses\Error as ErrorResponse;
 use SimpleXMLElement;
+use Src\Integrations\Bling\Base\Responses\ErrorResponse;
+use Src\Integrations\Bling\Products\Client;
+use Src\Products\Infrastructure\Bling\Responses\Product\Factory;
 
 class StoreImages
 {
-    private ProductStore $client;
+    private Client $client;
+    private Factory $factory;
 
-    public function __construct(ProductStore $client)
+    public function __construct(Client $client, Factory $factory)
     {
         $this->client = $client;
+        $this->factory = $factory;
     }
 
     public function execute(string $sku, string $name, string $brand, array $images): bool
@@ -22,6 +25,7 @@ class StoreImages
         $urls = $this->storeImages($path, $images);
 
         $updateResponse = $this->client->update($sku, $this->getXML($urls));
+        $updateResponse = $this->factory->make($updateResponse);
 
         if ($updateResponse instanceof ErrorResponse) {
             throw new \Exception("Erro: produto não foi enviado para o Bling.");

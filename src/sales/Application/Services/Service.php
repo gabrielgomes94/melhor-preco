@@ -2,17 +2,19 @@
 
 namespace Src\Sales\Application\Services;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Product\Models\Product;
-use Src\Sales\Domain\Models\SaleOrder;
-use Src\Sales\Domain\Models\SaleOrdersCollection;
-use Src\Sales\Domain\Models\Data\Item;
+use Src\Sales\Domain\Models\Data\SaleOrder;
+//use Src\Sales\Domain\Models\Data\SaleOrdersCollection;
+use Src\Sales\Domain\Models\Data\Items\Item;
 use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
 use Src\Products\Domain\Store\Factory;
 
+// ToDo: Mover esse service para o namespace de UseCases
 class Service
 {
     private CalculatePrice $calculatePrice;
@@ -22,14 +24,16 @@ class Service
         $this->calculatePrice = $calculatePrice;
     }
 
-    public function listSaleOrder(SaleOrdersCollection $saleOrdersCollection): array
+    public function listSaleOrder(LengthAwarePaginator $saleOrders): array
     {
         $sales = [];
 
         /**
-         * @var \Src\Sales\Domain\Models\SaleOrder $saleOrder
+         * @var \Src\Sales\Domain\Models\Data\SaleOrder $saleOrder
          */
-        foreach ($saleOrdersCollection as $saleOrder) {
+        foreach ($saleOrders->items() as $saleOrder) {
+            $saleOrder = $saleOrder->data();
+
             if (!$saleOrder->identifiers()->storeId()) {
                 continue;
             }
@@ -63,6 +67,7 @@ class Service
         $sales = [
             'saleOrders' => $saleOrdersTransformed,
             'total' => $this->getTotalValues($saleOrdersTransformed),
+            'paginator' => $saleOrders,
         ];
 
         return $sales ?? [];
@@ -73,7 +78,7 @@ class Service
         $profit = Money::BRL(0);
 
         /**
-         * @var \Src\Sales\Domain\Models\Data\Item $item
+         * @var \Src\Sales\Domain\Models\Data\Items\Item $item
          */
         foreach ($saleOrder->items() as $item) {
             $product = Product::find($item->sku());

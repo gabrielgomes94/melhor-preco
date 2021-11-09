@@ -2,46 +2,32 @@
 
 namespace Src\Sales\Domain\Models;
 
-use Src\Sales\Domain\Models\Data\Address\Address;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class Customer
+class Customer extends Model
 {
-    private string $name;
-    private string $fiscalId;
-    private string $stateRegistration;
-    private string $documentNumber;
-    private array $phones;
-    private Address $address;
-    private ?string $email;
+    protected $fillable = [
+        'name',
+        'fiscal_id',
+        'document_number',
+        'phones',
+    ];
 
-    public function __construct(
-        string $name,
-        string $fiscalId,
-        string $stateRegistration,
-        string $documentNumber,
-        array $phones,
-        Address $address,
-        ?string $email = null
-    ) {
-        $this->name = $name;
-        $this->fiscalId = $fiscalId;
-        $this->stateRegistration = $stateRegistration;
-        $this->documentNumber = $documentNumber;
-        $this->email = $email;
-        $this->phones = $phones;
-        $this->address = $address;
+    protected $casts = [
+        'phones' => 'array',
+    ];
+
+    protected $table = 'customers';
+
+    public function address(): MorphOne
+    {
+        return $this->morphOne(related: Address::class, name: 'addressable');
     }
 
-    public function toArray(): array
+    public function saleOrders(): HasMany
     {
-        return [
-            'name' => $this->name,
-            'fiscalId' => $this->fiscalId,
-            'stateRegistration' => $this->stateRegistration,
-            'documentNumber' => $this->documentNumber,
-            'email' => $this->email,
-            'phones' => $this->phones,
-            'address' => $this->address,
-        ];
+        return $this->hasMany(SaleOrder::class);
     }
 }
