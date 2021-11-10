@@ -43,6 +43,7 @@ class Product extends Model implements ProductInterface
 
     protected $casts = [
         'composition_products' => 'array',
+        'images' => 'array',
     ];
 
     protected $primaryKey = 'sku';
