@@ -26,10 +26,10 @@ class CalculateProfit
      */
     public function fromModel(Price $price): float
     {
-        $product = Product::where('sku', $price->product_id)->get()->first();
+        $product = Product::where('sku', $price->product_sku)->get()->first();
 
         if (!$product) {
-            throw new ProductNotFoundException($price->product_id);
+            throw new ProductNotFoundException($price->product_sku);
         }
 
         $price = $this->calculatePrice->calculate(

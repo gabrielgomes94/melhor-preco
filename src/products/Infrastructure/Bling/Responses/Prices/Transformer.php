@@ -22,7 +22,7 @@ class Transformer
             'value' => (float) $product['produtoLoja']['preco']['preco'] ?? 0.0,
             'created_at' => $product['produtoLoja']['dataInclusao'] ?? '',
             'updated_at' => $product['produtoLoja']['dataAlteracao'] ?? '',
-            'product_id' => $product['codigo'],
+            'product_sku' => $product['codigo'],
         ]);
     }
 }

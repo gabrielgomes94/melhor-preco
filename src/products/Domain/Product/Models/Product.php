@@ -19,8 +19,6 @@ class Product extends Model implements ProductInterface
 {
     private const PER_PAGE = 15;
 
-    private const PURCHASE_PRICE = 'purchase_price';
-
     public $incrementing = false;
 
     protected $fillable = [
@@ -139,11 +137,11 @@ class Product extends Model implements ProductInterface
     private function getComposition(): array
     {
         foreach ($this->composition_products as $product) {
-            if(!$compositionProducts = $this->where('sku', $product)->first()) {
+            if(!$compositionProduct = $this->where('sku', $product)->first()) {
                 continue;
             }
 
-            $compositionProducts[] = $compositionProducts->data();
+            $compositionProducts[] = $compositionProduct->data();
         }
 
         return $compositionProducts ?? [];
@@ -152,7 +150,7 @@ class Product extends Model implements ProductInterface
     // Mover essas lógicas pra Model de Prices
     public static function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
     {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+        return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
             ->whereNull('parent_sku')
             ->where('is_active', true)
             ->whereNotNull('product_id')
@@ -164,7 +162,7 @@ class Product extends Model implements ProductInterface
 
     public static function listPricesLog(string $storeSlug, int $page = 1): LengthAwarePaginator
     {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+        return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
             ->whereNull('parent_sku')
             ->where('is_active', true)
             ->where('prices.store', $storeSlug)
@@ -174,7 +172,7 @@ class Product extends Model implements ProductInterface
 
     public static function listProducts(string $storeSlug, int $page = 1)
     {
-        return self::join('prices', 'prices.product_id', '=', 'products.id')
+        return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->whereNull('parent_sku')
             ->where('is_active', true)
             ->whereNotNull('product_id')
@@ -185,7 +183,7 @@ class Product extends Model implements ProductInterface
 
     public static function listProductsBySku(string $storeSlug, string $sku, int $page = 1)
     {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')
+        return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
             ->where('store', $storeSlug)
             ->where('sku', $sku)
             ->where('is_active', true)

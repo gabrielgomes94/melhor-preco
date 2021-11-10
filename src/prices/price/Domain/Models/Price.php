@@ -4,7 +4,6 @@ namespace Src\Prices\Price\Domain\Models;
 
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Src\Products\Domain\Product\Models\Product;
 
@@ -17,12 +16,17 @@ class Price extends Model
         'store_sku_id',
         'value',
         'additional_costs',
-        'product_id',
+        'product_sku',
+    ];
+
+    protected $casts = [
+        'product_sku' => 'string',
+
     ];
 
     public function getProductSku(): string
     {
-        return $this->product_id;
+        return $this->product_sku;
     }
 
     public function getProfit(): float
@@ -48,7 +52,7 @@ class Price extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id', 'sku');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function margin(): float
