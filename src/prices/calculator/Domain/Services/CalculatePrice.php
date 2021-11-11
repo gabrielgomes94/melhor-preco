@@ -6,14 +6,8 @@ use Src\Prices\Calculator\Domain\Contracts\Models\ProductData;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Products\Domain\Store\Store;
 
-class CalculatePrice
+class CalculatePrice implements CalculatorOptions
 {
-//    private array $availableOptions = [
-//        'commission',
-//        'ignoreFreight',
-//        'discountRate',
-//    ];
-
     public function calculate(
         ProductData $productData,
         Store $store,

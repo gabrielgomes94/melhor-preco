@@ -2,20 +2,20 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use Src\Prices\Calculator\Domain\Services\CalculateProduct;
 use Src\Products\Application\Factories\Costs;
+use Src\Products\Domain\Product\Events\ProductCostsUpdated;
 use Src\Products\Domain\Product\Models\Product;
 use Src\Prices\Price\Application\Services\Exceptions\ProductNotFound;
 use Src\Prices\Price\Application\Services\Products\UpdateDB;
 
 class UpdateCosts
 {
-    private CalculateProduct $calculateProduct;
+
     private UpdateDB $updatePriceService;
 
-    public function __construct(CalculateProduct $calculateProduct, UpdateDB $updatePriceService)
+    public function __construct(UpdateDB $updatePriceService)
     {
-        $this->calculateProduct = $calculateProduct;
+
         $this->updatePriceService = $updatePriceService;
     }
 
@@ -32,7 +32,7 @@ class UpdateCosts
             $product->setCosts($costs);
             $product->save();
 
-            $this->calculateProduct->recalculateProfit($product);
+            event(new ProductCostsUpdated($product));
         }
 
         return true;

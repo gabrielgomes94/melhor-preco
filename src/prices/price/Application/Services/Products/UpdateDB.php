@@ -2,19 +2,18 @@
 
 namespace Src\Prices\Price\Application\Services\Products;
 
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Prices\Price\Application\Services\UpdatePrice;
 use Src\Prices\Price\Domain\Models\Price;
-use Src\Prices\Price\Infrastructure\Repositories\Repository;
 use Src\Prices\Price\Domain\Contracts\Services\UpdateDB as UpdateDBInterface;
 use Src\Products\Domain\Product\Contracts\Models\Post;
 
 class UpdateDB implements UpdateDBInterface
 {
-    private Repository $priceRepository;
+    private UpdatePrice $updatePrice;
 
-    public function __construct(Repository $priceRepository)
+    public function __construct(UpdatePrice $updatePrice)
     {
-        $this->priceRepository = $priceRepository;
+        $this->updatePrice = $updatePrice;
     }
 
     public function execute(Post $post): bool
@@ -26,10 +25,7 @@ class UpdateDB implements UpdateDBInterface
         }
 
         $price = $post->getPrice();
-        $priceModel->value = MoneyTransformer::toFloat($price->get());
-        $priceModel->profit = MoneyTransformer::toFloat($price->getProfit());
-        $priceModel->commission = $price->getCommission()->getCommissionRate();
 
-        return $priceModel->save();
+        return $this->updatePrice->execute($priceModel, $price);
     }
 }

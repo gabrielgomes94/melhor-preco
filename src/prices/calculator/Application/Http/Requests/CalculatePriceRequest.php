@@ -5,7 +5,7 @@ namespace Src\Prices\Calculator\Application\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Prices\Calculator\Application\Rules\Store;
 
-class SimulatePriceRequest extends FormRequest
+class CalculatePriceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,6 +27,8 @@ class SimulatePriceRequest extends FormRequest
         return [
             'desiredPrice' => 'numeric',
             'commission' => 'numeric',
+            'discount' => 'numeric|nullable',
+            'product' => 'string',
             'store' => [new Store()],
         ];
     }

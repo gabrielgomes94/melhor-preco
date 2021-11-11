@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Prices\Calculator\Application\Http\Transformer;
+namespace Src\Prices\Calculator\Presentation\Presenters;
 
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Product\Contracts\Models\Post;
 
-class PriceTransformer
+class PricePresenter
 {
     public function transform(Post $post): array
     {

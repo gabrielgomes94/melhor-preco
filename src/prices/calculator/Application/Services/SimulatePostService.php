@@ -20,28 +20,25 @@ class SimulatePostService implements SimulatePost
         $this->calculatePrice = $calculatePrice;
     }
 
-    public function calculate(
-        string $productId,
-        string $storeSlug,
-        float $price,
-        float $commission,
-        array $options = []
-    ): Post {
-        if (!$product = Product::find($productId)) {
-            throw new ProductNotFoundException($productId);
+    public function calculate(array $data): Post
+    {
+        if (!$product = Product::find($data['productId'])) {
+            throw new ProductNotFoundException($data['productId']);
         }
 
         $price = $this->calculatePrice->calculate(
-            new ProductData($product->data()->getCosts(), $product->data()->getDimensions()),
-            StoreFactory::make($storeSlug),
-            $price,
-            $commission,
-            $options
+            new ProductData(
+                $product->data()->getCosts(),
+                $product->data()->getDimensions()
+            ),
+            StoreFactory::make($data['storeSlug']),
+            $data['price'],
+            $data['commission'],
+            $data['options']
         );
 
-        $post = $product->data()->getPost($storeSlug);
+        $post = $product->data()->getPost($data['storeSlug']);
 
         return PostFactory::updatePrice($product->data(), $post, $price);
     }
-
 }

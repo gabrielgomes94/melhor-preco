@@ -3,32 +3,25 @@
 namespace Src\Prices\Calculator\Application\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Src\Prices\Calculator\Application\Http\Requests\SimulatePriceRequest;
-use Src\Prices\Calculator\Application\Http\Transformer\PriceTransformer;
-use Src\Prices\Calculator\Domain\Contracts\Services\SimulatePost;
+use Src\Prices\Calculator\Application\Http\Requests\CalculatePriceRequest;
+use Src\Prices\Calculator\Application\Http\Transformers\CalculatePriceTransformer;
+use Src\Prices\Calculator\Application\UseCases\CalculatePrice;
 
 class CalculatePricesController extends Controller
 {
-    private SimulatePost $service;
-    private PriceTransformer $transformer;
+    private CalculatePriceTransformer $transformer;
+    private CalculatePrice $calculatePrice;
 
-    public function __construct(SimulatePost $service, PriceTransformer $transformer)
+    public function __construct(CalculatePriceTransformer $transformer, CalculatePrice $calculatePrice)
     {
-        $this->service = $service;
         $this->transformer = $transformer;
+        $this->calculatePrice = $calculatePrice;
     }
 
-    public function calculate(string $productId, string $priceId, SimulatePriceRequest $request)
+    public function calculate(CalculatePriceRequest $request)
     {
-        $post = $this->service->calculate(
-            $productId,
-            $request->input('store'),
-            (float) $request->input('desiredPrice'),
-            (float) $request->input('commission'),
-            []
-        );
-
-        $price = $this->transformer->transform($post);
+        $data = $this->transformer->transform($request);
+        $price = $this->calculatePrice->calculate($data);
 
         return response()->json($price);
     }
