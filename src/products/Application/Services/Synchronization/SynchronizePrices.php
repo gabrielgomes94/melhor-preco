@@ -8,6 +8,7 @@ use Src\Prices\Calculator\Application\UseCases\CalculateProfit;
 use Src\Prices\Calculator\Application\UseCases\GetCommission;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Product\Models\Product;
 use Src\Products\Infrastructure\Bling\Repository as BlingRepository;
 use TypeError;
 
@@ -38,17 +39,11 @@ class SynchronizePrices
         }
     }
 
-    private function updateCommissionAndProfit(Price $price): Price
-    {
-        $price->commission = $this->getCommission->get($price->getProductSku(), $price->store);
-        $price->profit = $this->calculateProfit->fromModel($price);
-
-        return $price;
-    }
-
     private function insertPrice(Price $price): void
     {
+        $product = Product::where('sku', $price->product_sku)->get()->first();
         $price = $this->updateCommissionAndProfit($price);
+        $price->product()->associate($product);
 
         $price->save();
     }
@@ -65,7 +60,7 @@ class SynchronizePrices
     {
         return Price::where('store', $price->store)
             ->where('store_sku_id', $price->store_sku_id)
-            ->where('product_id', $price->product_id)
+            ->where('product_sku', $price->product_sku)
             ->get();
     }
 
@@ -80,9 +75,9 @@ class SynchronizePrices
     private function savePrices(array $prices): void
     {
         foreach ($prices as $price) {
+
             try {
                 $priceModels = $this->getPrices($price);
-
                 if ($priceModels->count() === 0) {
                     $this->insertPrice($price);
 
@@ -93,16 +88,33 @@ class SynchronizePrices
                     $this->updatePrice($priceModel, $price->value);
                 }
             } catch (ProductNotFoundException $exception) {
+
                 continue;
-            } catch (\Exception $exception) {
+            }
+            catch (\Exception $exception) {
                 $this->logErrors($exception->getMessage(), $price->toArray());
 
                 continue;
-            } catch (TypeError $error) {
+            }
+
+            catch (TypeError $error) {
                 $this->logErrors($error->getMessage(), $price->toArray());
 
                 continue;
             }
         }
+    }
+
+    private function updateCommissionAndProfit(Price $price): Price
+    {
+        $commission = $this->getCommission->get($price->getProductSku(), $price->store);
+        $profit = $this->calculateProfit->fromModel($price);
+
+        $price->fill([
+            'commission' => $commission,
+            'profit' => $profit,
+        ]);
+
+        return $price;
     }
 }

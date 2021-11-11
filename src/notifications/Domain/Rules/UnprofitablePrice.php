@@ -3,21 +3,14 @@
 namespace Src\Notifications\Domain\Rules;
 
 use Src\Notifications\Domain\Contracts\Rules\Rule;
-use Src\Prices\Price\Infrastructure\Repositories\Repository as PriceRepository;
+use Src\Prices\Price\Domain\Models\Price;
 
 class UnprofitablePrice implements Rule
 {
-    private PriceRepository $repository;
-
-    public function __construct(PriceRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function isSolved(array $data): bool
     {
         $priceId = $data['content']['priceId'];
-        $price = $this->repository->get($priceId);
+        $price = Price::find($priceId);
 
         return $price->isProfitable();
     }

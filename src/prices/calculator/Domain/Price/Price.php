@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Calculator\Domain\Price;
 
+use Src\Prices\Calculator\Domain\Services\CalculatorOptions;
 use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
@@ -113,7 +114,13 @@ class Price implements \Src\Prices\Calculator\Domain\Contracts\Models\Price
         $this->profit = $this->value->subtract($this->costs);
     }
 
-    private function setParameters(ProductData $product, Store $store, float $value, float $commission, array $options = []): void
+    private function setParameters(
+        ProductData $product,
+        Store $store,
+        float $value,
+        float $commission,
+        array $options = []
+    ): void
     {
         $this->product = $product;
         $this->store = $store;
@@ -123,7 +130,7 @@ class Price implements \Src\Prices\Calculator\Domain\Contracts\Models\Price
         $this->setValue($value, $options);
         $this->setCommission($store->getSlug());
 
-        $ignoreFreight = $options['ignoreFreight'] ?? false;
+        $ignoreFreight = $options[CalculatorOptions::IGNORE_FREIGHT] ?? false;
         $this->setFreight($product, $store->getSlug(), $ignoreFreight);
     }
 

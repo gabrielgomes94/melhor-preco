@@ -88,7 +88,7 @@ class Repository
                 --$page;
                 continue;
             }
-        } while (!empty($prices?->data() ?? []) || $page == 0);
+        } while (!isset($prices) || !empty($prices->data()));
 
         return $pricesCollection;
     }

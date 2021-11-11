@@ -20,7 +20,6 @@ class Factory extends BaseFactory
             if (!$price = Transformer::transform($storeSlug, $product['produto'])) {
                 continue;
             }
-
             $prices[] = $price;
         }
 
