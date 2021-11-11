@@ -184,7 +184,7 @@ class Product extends Model implements ProductInterface
 
     public static function listProductsBySku(string $storeSlug, string $sku, int $page = 1)
     {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
+        return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')
             ->where('store', $storeSlug)
             ->where('sku', $sku)
             ->where('is_active', true)
