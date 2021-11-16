@@ -10,17 +10,13 @@
     </div>
 
     <div class="row">
-        <div class="d-flex justify-content-end">
-            <div class="m-1">
-                <x-template.forms.get :action="route('sales.export')">
-                    <div class="py-2">
-                        <x-template.buttons.submit label="Exportar planilha" />
-                    </div>
-                </x-template.forms.get>
+        <div class="d-inline-flex justify-content-end m-1">
+            <div class="mx-1">
+                <x-sales.sales-list.sync />
             </div>
 
-            <div class="m-1">
-                <x-sales.sales-list.filter></x-sales.sales-list.filter>
+            <div class="mx-1">
+                <x-sales.sales-list.filter />
             </div>
         </div>
     </div>
