@@ -2,11 +2,13 @@
 
 namespace Src\Sales\Domain\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
+use Src\Sales\Domain\Models\Data\Items\Items;
 use Src\Sales\Domain\Models\Data\SaleOrder as SaleOrderData;
 
 class SaleOrder extends Model
@@ -67,6 +69,11 @@ class SaleOrder extends Model
     public function data(): SaleOrderData
     {
         return SaleOrderFactory::make($this);
+    }
+
+    public function getItems(): Collection
+    {
+        return $this->items;
     }
 
     public function isFromStore()

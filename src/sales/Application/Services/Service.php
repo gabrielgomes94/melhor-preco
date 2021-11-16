@@ -65,8 +65,8 @@ class Service
         }
 
         $sales = [
-            'saleOrders' => $saleOrdersTransformed,
-            'total' => $this->getTotalValues($saleOrdersTransformed),
+            'saleOrders' => $saleOrdersTransformed ?? [],
+            'total' => $this->getTotalValues($saleOrdersTransformed ?? []),
             'paginator' => $saleOrders,
         ];
 
@@ -121,7 +121,7 @@ class Service
         return MoneyTransformer::toFloat($profit);
     }
 
-    private function getTotalValues(array $saleOrders): array
+    private function getTotalValues(array $saleOrders = []): array
     {
         $totalValue = Money::BRL(0);
         $totalProfit = Money::BRL(0);
