@@ -5,12 +5,11 @@
     </head>
 
     <body>
-        <x-layout.menu.menu />
-
-        <x-layout.content.content :navbar="$navbar ?? null"
-                                  :header="$header ?? null"
-                                  :breadcrumb="$breadcrumb ?? null"
-                                  >
+        <x-layout.content.content
+            :navbar="$navbar ?? null"
+            :header="$header ?? null"
+            :breadcrumb="$breadcrumb ?? null"
+        >
             {{ $slot }}
         </x-layout.content.content>
 
