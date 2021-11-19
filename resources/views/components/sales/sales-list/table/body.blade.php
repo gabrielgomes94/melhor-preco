@@ -1,11 +1,20 @@
 @foreach ($saleOrders as $saleOrder)
     <tr>
-        <td>{{ $saleOrder['saleOrderCode'] }}</td>
-        <td>{{ $saleOrder['selledAt'] }}</td>
+        <td>
+            <x-template.links.link :saleOrderId="123">
+                {{ $saleOrder['saleOrderCode'] }}
+            </x-template.links.link>
+        </td>
+
+        <td>
+            {{ $saleOrder['selledAt'] }}
+        </td>
+
         <td class="text-break"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
             title="{{ implode(';', $saleOrder['products']) }}"
+            colspan="4"
         >
             @foreach ($saleOrder['products'] as $product)
                 {{ $product }} <br>
@@ -16,6 +25,7 @@
         <td>
             R$ {{ $saleOrder['value'] }}
         </td>
+
         <td>
             R$ {{ $saleOrder['profit'] }}
         </td>
