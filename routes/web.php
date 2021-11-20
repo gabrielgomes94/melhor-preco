@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-include 'web/sales.php';
+include 'sales/web.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
