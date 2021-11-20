@@ -2,8 +2,8 @@
 
 namespace Src\Sales\Domain\Factories;
 
-use Src\Sales\Domain\Models\Data\Shipment\NullShipment;
-use Src\Sales\Domain\Models\Data\Shipment\Shipment as ShipmentData;
+use Src\Sales\Domain\Models\ValueObjects\Shipment\NullShipment;
+use Src\Sales\Domain\Models\ValueObjects\Shipment\Shipment as ShipmentData;
 use Src\Sales\Domain\Models\Shipment as ShipmentModel;
 
 class Shipment

@@ -2,27 +2,29 @@
 
 namespace Src\Sales\Application\UseCases;
 
-use Src\Sales\Domain\Contracts\Repository\ErpRepository;
-use Src\Sales\Domain\Contracts\UseCases\SyncSales as SyncSalesInterface;
-use Src\Sales\Domain\Factories\Address as AddressFactory;
-use Src\Sales\Domain\Factories\Customer as CustomerFactory;
-use Src\Sales\Domain\Factories\Invoice as InvoiceFactory;
-use Src\Sales\Domain\Factories\Item;
-use Src\Sales\Domain\Factories\PaymentInstallment as PaymentInstallmentFactory;
-use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
-use Src\Sales\Domain\Factories\Shipment;
-use Src\Sales\Domain\Models\Customer as CustomerModel;
-use Src\Sales\Domain\Models\Data\Customer\Customer;
-use Src\Sales\Domain\Models\Data\SaleOrder as SaleOrderData;
+use Exception;
+use Src\Prices\Calculator\Domain\Services\CalculatePrice;
+use Src\Sales\Application\Services\CalculateTotalProfit;
+use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
+use Src\Sales\Domain\UseCases\Contracts\SyncSales as SyncSalesInterface;
 use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Infrastructure\Eloquent\Repository;
+use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 
 class SyncSales implements SyncSalesInterface
 {
     private ErpRepository $erpRepository;
+    private CalculatePrice $calculatePrice;
+    private CalculateTotalProfit $calculateTotalProfit;
 
-    public function __construct(ErpRepository $erpRepository)
-    {
+    public function __construct(
+        ErpRepository $erpRepository,
+        CalculatePrice $calculatePrice,
+        CalculateTotalProfit $calculateTotalProfit
+    ) {
         $this->erpRepository = $erpRepository;
+        $this->calculatePrice = $calculatePrice;
+        $this->calculateTotalProfit = $calculateTotalProfit;
     }
 
     public function sync(): void
@@ -30,73 +32,46 @@ class SyncSales implements SyncSalesInterface
         $data = $this->erpRepository->list();
 
         foreach ($data as $saleOrder) {
-            if (!$saleOrderModel = SaleOrder::where('sale_order_id', $saleOrder->identifiers()->id())->first()) {
-                try {
-                    $this->insertSaleOrder($saleOrder);
-                } catch (\Exception $exception) {
-                }
+            if (!$saleOrderModel = SaleOrder::where('sale_order_id', $saleOrder->getIdentifiers()->id())->first()) {
+                $this->insertSaleOrder($saleOrder);
 
                 continue;
             }
 
-            try {
-                $this->updateSaleOrder($saleOrderModel, $saleOrder);
-            } catch (\Exception $exception) {
-            }
+            $this->updateSaleOrder($saleOrderModel, $saleOrder);
         }
     }
 
-    private function insertSaleOrder(SaleOrderData $saleOrder)
+    private function insertSaleOrder(SaleOrderInterface $externalSaleOrder)
     {
-        $customer = $this->getCustomer($saleOrder->customer());
+        try {
+            $saleOrderModel = Repository::insert($externalSaleOrder);
 
-        $saleOrderModel = SaleOrderFactory::makeModel($saleOrder);
-        $customer->save();
-        $saleOrderModel->customer()->associate($customer);
-        $saleOrderModel->save();
+            Repository::syncInvoice($saleOrderModel, $externalSaleOrder);
+            Repository::syncPayment($saleOrderModel, $externalSaleOrder);
+            Repository::syncShipment($saleOrderModel, $externalSaleOrder);
+            Repository::syncItems($saleOrderModel, $externalSaleOrder);
 
-        if ($saleOrder->payment()) {
-            foreach ($saleOrder->payment()->get() as $installment) {
-                $payment = PaymentInstallmentFactory::makeModel($installment);
-                $saleOrderModel->payment()->save($payment);
-            }
-        }
+            $profit = $this->calculateTotalProfit->execute($saleOrderModel);
+            Repository::updateProfit($saleOrderModel, $profit);
 
-        if ($saleOrder->invoice()) {
-            $invoice = InvoiceFactory::makeModel($saleOrder->invoice());
-            $saleOrderModel->invoice()->save($invoice);
-        }
-
-        if ($saleOrder->shipment()) {
-            $shipment = Shipment::makeModel($saleOrder->shipment());
-            $saleOrderModel->shipment()->save($shipment);
-
-            $shipmentAddress = AddressFactory::makeModel($saleOrder->shipment()->getDeliveryAddress());
-            $shipment->address()->save($shipmentAddress);
-        }
-
-        foreach ($saleOrder->items() as $item) {
-            $itemModel = Item::makeModel($item);
-
-            $saleOrderModel->items()->save($itemModel);
+        } catch (Exception $exception) {
+            return;
         }
     }
 
-    private function updateSaleOrder(SaleOrder $model, SaleOrderData $saleOrder)
+    private function updateSaleOrder(SaleOrder $model, SaleOrderInterface $externalSaleOrder)
     {
-        $model->status = (string) $saleOrder->status();
-        $model->save();
-    }
+        try {
+            Repository::syncPayment($model, $externalSaleOrder);
+            Repository::syncItems($model, $externalSaleOrder);
+            $profit = $this->calculateTotalProfit->execute($model);
+            Repository::updateProfit($model, $profit);
 
-    private function getCustomer(Customer $customer): CustomerModel
-    {
-        if (!$customerModel = CustomerModel::where('fiscal_id', $customer->getFiscalId())->first()) {
-            $address = AddressFactory::makeModel($customer->getAddress());
-            $customerModel = CustomerFactory::makeModel($customer);
-            $customerModel->save();
-            $customerModel->address()->save($address);
+            $model->status = (string) $externalSaleOrder->getStatus();
+            $model->save();
+        } catch (Exception $exception) {
+            return;
         }
-
-        return $customerModel;
     }
 }

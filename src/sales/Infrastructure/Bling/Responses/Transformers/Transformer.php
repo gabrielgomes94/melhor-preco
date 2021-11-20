@@ -3,19 +3,19 @@
 namespace Src\Sales\Infrastructure\Bling\Responses\Transformers;
 
 use Carbon\Carbon;
-use Src\Sales\Domain\Models\Data\Address\Address;
-use Src\Sales\Domain\Models\Data\Customer\Customer;
-use Src\Sales\Domain\Models\Data\Identifiers\Identifiers;
-use Src\Sales\Domain\Models\Data\Invoice\Invoice;
-use Src\Sales\Domain\Models\Data\Items\Item;
-use Src\Sales\Domain\Models\Data\Items\Items;
-use Src\Sales\Domain\Models\Data\Payment\Installment;
-use Src\Sales\Domain\Models\Data\Payment\Payment;
-use Src\Sales\Domain\Models\Data\Sale\SaleDates;
-use Src\Sales\Domain\Models\Data\Sale\SaleValue;
-use Src\Sales\Domain\Models\Data\SaleOrder;
-use Src\Sales\Domain\Models\Data\Shipment\Shipment;
-use Src\Sales\Domain\Models\Data\Status\Status;
+use Src\Sales\Domain\Models\ValueObjects\Address\Address;
+use Src\Sales\Domain\Models\ValueObjects\Customer\Customer;
+use Src\Sales\Domain\Models\ValueObjects\Identifiers\Identifiers;
+use Src\Sales\Domain\Models\ValueObjects\Invoice\Invoice;
+use Src\Sales\Domain\Models\ValueObjects\Items\Item;
+use Src\Sales\Domain\Models\ValueObjects\Items\Items;
+use Src\Sales\Domain\Models\ValueObjects\Payment\Installment;
+use Src\Sales\Domain\Models\ValueObjects\Payment\Payment;
+use Src\Sales\Domain\Models\ValueObjects\Sale\SaleDates;
+use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
+use Src\Sales\Infrastructure\Bling\Data\SaleOrder;
+use Src\Sales\Domain\Models\ValueObjects\Shipment\Shipment;
+use Src\Sales\Domain\Models\ValueObjects\Status\Status;
 
 class Transformer
 {
@@ -125,12 +125,14 @@ class Transformer
     private static function makeItems(array $data)
     {
         $items = array_map(function (array $item) {
+            $item = $item['item'];
+
             return new Item(
-                sku: $item['item']['codigo'] ?? '',
-                name: $item['item']['descricao'],
-                quantity: $item['item']['quantidade'],
-                unitValue: $item['item']['valorunidade'],
-                discount: $item['item']['descontoItem']
+                sku: $item['codigo'] ?? '',
+                name: $item['descricao'],
+                quantity: $item['quantidade'],
+                unitValue: $item['valorunidade'],
+                discount: $item['descontoItem']
             );
         }, $data['itens']);
 

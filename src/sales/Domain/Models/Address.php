@@ -5,7 +5,7 @@ namespace Src\Sales\Domain\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Src\Sales\Domain\Factories\Address as AddressFactory;
-use Src\Sales\Domain\Models\Data\Address\Address as AddressData;
+use Src\Sales\Domain\Models\ValueObjects\Address\Address as AddressData;
 
 class Address extends Model
 {

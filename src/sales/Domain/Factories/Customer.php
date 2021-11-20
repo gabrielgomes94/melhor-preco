@@ -3,11 +3,11 @@
 namespace Src\Sales\Domain\Factories;
 
 use Src\Sales\Domain\Models\Customer as CustomerModel;
-use Src\Sales\Domain\Models\Data\Customer\Customer as CustomerData;
+use Src\Sales\Domain\Models\ValueObjects\Customer\Customer as CustomerData;
 
 class Customer
 {
-    public static function make(CustomerModel $model)
+    public static function make(CustomerModel $model): CustomerData
     {
         return new CustomerData(
             name: $model->name,
