@@ -3,6 +3,12 @@
 namespace Src\Sales\Infrastructure\Eloquent;
 
 use DateTime;
+use Src\Sales\Domain\Events\CustomerSynchronized;
+use Src\Sales\Domain\Events\InvoiceSynchronized;
+use Src\Sales\Domain\Events\ItemSynchronized;
+use Src\Sales\Domain\Events\PaymentSynchronized;
+use Src\Sales\Domain\Events\SaleSynchronized;
+use Src\Sales\Domain\Events\ShipmentSynchronized;
 use Src\Sales\Domain\Factories\Address as AddressFactory;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
 use Src\Sales\Domain\Factories\Invoice as InvoiceFactory;
@@ -20,55 +26,77 @@ class Repository implements RepositoryInterface
 {
     public static function insert(SaleOrderInterface $externalSaleOrder): SaleOrder
     {
-        $customer = self::getCustomer($externalSaleOrder->getCustomer());
+        $customer = self::getOrCreateCustomer($externalSaleOrder->getCustomer());
         $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
         $internalSaleOrder->customer()->associate($customer);
+        $result = $internalSaleOrder->save();
 
-        $internalSaleOrder->save();
+        if ($result) {
+            event(new CustomerSynchronized($internalSaleOrder->customer->getId()));
+        }
 
         return $internalSaleOrder;
     }
 
     public static function syncInvoice(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
-        if (!$externalSaleOrder->getInvoice()) {
+        if (!$invoice = $externalSaleOrder->getInvoice()) {
             return;
         }
 
-        $invoice = InvoiceFactory::makeModel($externalSaleOrder->getInvoice());
-        $internalSaleOrder->invoice()->save($invoice);
+        $invoice = InvoiceFactory::makeModel($invoice);
+        $result = $internalSaleOrder->invoice()->save($invoice);
+
+        if ($result) {
+            event(new InvoiceSynchronized($invoice->id));
+        }
     }
 
     public static function syncPayment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
-        if (!$externalSaleOrder->getPayment()) {
+        if (!$payment = $externalSaleOrder->getPayment()) {
             return;
         }
 
-        foreach ($externalSaleOrder->getPayment()->get() as $installment) {
-            $payment = PaymentInstallmentFactory::makeModel($installment);
-            $internalSaleOrder->payment()->save($payment);
+        foreach ($payment->get() as $installment) {
+            $installmentModel = PaymentInstallmentFactory::makeModel($installment);
+
+            $result = $internalSaleOrder->payment()->save(
+                $installmentModel
+            );
+
+            if ($result)  {
+                event(new PaymentSynchronized($installmentModel->id));
+            }
         }
     }
 
     public static function syncShipment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
-        if (!$externalSaleOrder->getShipment()) {
+        if (!$shipment = $externalSaleOrder->getShipment()) {
             return;
         }
 
-        $shipment = Shipment::makeModel($externalSaleOrder->getShipment());
-        $internalSaleOrder->shipment()->save($shipment);
+        $shipmentModel = Shipment::makeModel($shipment);
 
-        $shipmentAddress = AddressFactory::makeModel($externalSaleOrder->getShipment()->getDeliveryAddress());
-        $shipment->address()->save($shipmentAddress);
+        $internalSaleOrder->shipment()->save($shipmentModel);
+        $shipmentAddress = AddressFactory::makeModel($shipment->getDeliveryAddress());
+        $result = $shipmentModel->address()->save($shipmentAddress);
+
+        if ($result) {
+            event(new ShipmentSynchronized($shipmentModel->id));
+        }
     }
 
     public static function syncItems(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         foreach ($externalSaleOrder->getItems() as $item) {
             $itemModel = Item::makeModel($item);
-            $internalSaleOrder->items()->save($itemModel);
+            $result = $internalSaleOrder->items()->save($itemModel);
+
+            if ($result) {
+                event(new ItemSynchronized($itemModel->id));
+            }
         }
     }
 
@@ -96,17 +124,35 @@ class Repository implements RepositoryInterface
     public static function updateProfit(SaleOrder $saleOrder, float $profit): void
     {
         $saleOrder->total_profit = $profit;
-        $saleOrder->save();
+        $result = $saleOrder->save();
+
+        if ($result) {
+            event(new SaleSynchronized($saleOrder->id));
+        }
     }
 
-    private static function getCustomer(Customer $customer): CustomerModel
+    private static function getOrCreateCustomer(Customer $customer): CustomerModel
     {
-        if (!$customerModel = CustomerModel::where('fiscal_id', $customer->getFiscalId())->first()) {
-            $address = AddressFactory::makeModel($customer->getAddress());
-            $customerModel = CustomerFactory::makeModel($customer);
-            $customerModel->save();
-            $customerModel->address()->save($address);
+        $fiscalId = $customer->getFiscalId();
+        $customerModel = CustomerModel::where('fiscal_id', $fiscalId)->first();
+
+        if ($customerModel) {
+            return $customerModel;
         }
+
+        $customerModel = self::createCustomer($customer);
+        event(new CustomerSynchronized($customerModel->id));
+
+        return $customerModel;
+    }
+
+    private static function createCustomer(Customer $customer): CustomerModel
+    {
+        $address = AddressFactory::makeModel($customer->getAddress());
+        $customerModel = CustomerFactory::makeModel($customer);
+        $customerModel->save();
+
+        $customerModel->address()->save($address);
 
         return $customerModel;
     }

@@ -3,7 +3,6 @@
 namespace Src\Sales\Application\Services;
 
 use Money\Money;
-
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;

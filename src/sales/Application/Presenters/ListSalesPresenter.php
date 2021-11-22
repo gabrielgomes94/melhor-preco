@@ -41,25 +41,18 @@ class ListSalesPresenter
             ];
         }
 
-//        dd($presented);
-
         return $presented ?? [];
     }
 
     private function presentProducts(SaleOrder $saleOrder): array
     {
-//        dd($saleOrder->getItems());
         foreach ($saleOrder->getItems() as $item) {
             if (!$product = Product::find($item->getSku())) {
-//                dd($product);
                 continue;
             }
 
-//            dd('oi', $product);
-
             $product = $product->data();
             $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
-//            dd($products);
         }
 
         return $products ?? [];
