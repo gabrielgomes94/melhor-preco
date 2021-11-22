@@ -21,4 +21,9 @@ class Item extends Model
     {
         return $this->belongsTo(Product::class, 'sku', 'sku');
     }
+
+    public function getSku(): ?string
+    {
+        return $this->sku;
+    }
 }

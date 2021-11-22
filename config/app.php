@@ -215,6 +215,7 @@ return [
          * Sales' module Service Providers...
          */
         Src\Sales\Application\Providers\SalesServiceProvider::class,
+        Src\Sales\Application\Providers\EventServiceProvider::class,
 
         /**
          * PDF Generator Service Provider...

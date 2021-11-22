@@ -2,8 +2,8 @@
 
 namespace Src\Sales\Domain\Factories;
 
-use Src\Sales\Domain\Models\Data\Invoice\Invoice as InvoiceData;
-use Src\Sales\Domain\Models\Data\Invoice\NullInvoice;
+use Src\Sales\Domain\Models\ValueObjects\Invoice\Invoice as InvoiceData;
+use Src\Sales\Domain\Models\ValueObjects\Invoice\NullInvoice;
 use Src\Sales\Domain\Models\Invoice as InvoiceModel;
 
 class Invoice

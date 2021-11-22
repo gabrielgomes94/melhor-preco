@@ -2,13 +2,14 @@
 
 namespace Src\Sales\Domain\Factories;
 
-use Src\Sales\Domain\Models\Data\Identifiers\Identifiers;
-use Src\Sales\Domain\Models\Data\Items\Items;
-use Src\Sales\Domain\Models\Data\Payment\Payment;
-use Src\Sales\Domain\Models\Data\Sale\SaleDates;
-use Src\Sales\Domain\Models\Data\Sale\SaleValue;
-use Src\Sales\Domain\Models\Data\SaleOrder as SaleOrderData;
-use Src\Sales\Domain\Models\Data\Status\Status;
+use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
+use Src\Sales\Domain\Models\ValueObjects\Identifiers\Identifiers;
+use Src\Sales\Domain\Models\ValueObjects\Items\Items;
+use Src\Sales\Domain\Models\ValueObjects\Payment\Payment;
+use Src\Sales\Domain\Models\ValueObjects\Sale\SaleDates;
+use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
+use Src\Sales\Infrastructure\Bling\Data\SaleOrder as SaleOrderData;
+use Src\Sales\Domain\Models\ValueObjects\Status\Status;
 use Src\Sales\Domain\Models\SaleOrder as SaleOrderModel;
 
 class SaleOrder
@@ -52,11 +53,11 @@ class SaleOrder
     }
 
 
-    public static function makeModel(SaleOrderData $saleOrder)
+    public static function makeModel(SaleOrderInterface $saleOrder)
     {
-        $identifiers = $saleOrder->identifiers();
-        $saleDates = $saleOrder->saleDates();
-        $saleValue = $saleOrder->saleValue();
+        $identifiers = $saleOrder->getIdentifiers();
+        $saleDates = $saleOrder->getSaleDates();
+        $saleValue = $saleOrder->getSaleValue();
 
         return new SaleOrderModel([
             'sale_order_id' => $identifiers->id(),
@@ -69,7 +70,7 @@ class SaleOrder
             'expected_arrival_at' => $saleDates->expectedArrivalAt(),
             'discount' => $saleValue->discount(),
             'freight' => $saleValue->freight(),
-            'status' => (string) $saleOrder->status(),
+            'status' => (string) $saleOrder->getStatus(),
             'total_products' => $saleValue->totalProducts(),
             'total_value' => $saleValue->totalValue(),
         ]);

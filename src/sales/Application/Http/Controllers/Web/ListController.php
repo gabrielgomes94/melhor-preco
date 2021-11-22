@@ -4,7 +4,7 @@ namespace Src\Sales\Application\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Src\Sales\Domain\Contracts\UseCases\ListSales;
+use Src\Sales\Domain\UseCases\Contracts\ListSales;
 
 class ListController extends Controller
 {
@@ -22,7 +22,7 @@ class ListController extends Controller
 
         return view('pages.sales.list', [
             'saleOrders' => $saleOrders['saleOrders'],
-            'total' => $saleOrders['total'],
+            'total' => $saleOrders['meta'],
             'paginator' => $saleOrders['paginator'],
         ]);
     }

@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\Factories;
 
 use Src\Sales\Domain\Models\Address as AddressModel;
-use Src\Sales\Domain\Models\Data\Address\Address as AddressData;
+use Src\Sales\Domain\Models\ValueObjects\Address\Address as AddressData;
 
 class Address
 {

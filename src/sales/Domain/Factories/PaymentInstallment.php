@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Domain\Factories;
 
-use Src\Sales\Domain\Models\Data\Payment\Installment as InstallmentData;
+use Src\Sales\Domain\Models\ValueObjects\Payment\Installment as InstallmentData;
 use Src\Sales\Domain\Models\PaymentInstallment as PaymentModel;
 
 class PaymentInstallment
