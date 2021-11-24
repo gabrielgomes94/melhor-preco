@@ -4,7 +4,7 @@ namespace Src\Sales\Application\Services;
 
 use Money\Money;
 use Src\Math\Percentage;
-use Src\Prices\Calculator\Domain\Price\ProductData\ProductData as PriceProductData;
+use Src\Prices\Calculator\Domain\Models\Product\ProductData as PriceProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Products\Domain\Product\Models\Data\ProductData;

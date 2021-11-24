@@ -3,8 +3,8 @@
 namespace Src\Prices\Calculator\Application\Services;
 
 use Src\Math\Percentage;
-use Src\Prices\Calculator\Domain\Contracts\Services\SimulatePost;
-use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
+use Src\Prices\Calculator\Domain\Services\Contracts\SimulatePost;
+use Src\Prices\Calculator\Domain\Models\Product\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Product\Contracts\Models\Post;
@@ -28,13 +28,10 @@ class SimulatePostService implements SimulatePost
         }
 
         $price = $this->calculatePrice->calculate(
-            new ProductData(
-                $product->data()->getCosts(),
-                $product->data()->getDimensions()
-            ),
+            ProductData::fromModel($product),
             StoreFactory::make($data['storeSlug']),
             $data['price'],
-            Percentage::fromPercentage($data['commission']),
+            $data['commission'],
             $data['options']
         );
 

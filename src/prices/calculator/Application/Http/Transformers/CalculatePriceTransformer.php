@@ -2,9 +2,9 @@
 
 namespace Src\Prices\Calculator\Application\Http\Transformers;
 
+use Src\Math\Percentage;
 use Src\Prices\Calculator\Application\Http\Requests\CalculatePriceRequest;
-use Src\Prices\Calculator\Domain\Services\CalculatorOptions;
-use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
+use Src\Prices\Calculator\Domain\Services\Contracts\CalculatorOptions;
 
 class CalculatePriceTransformer
 {
@@ -16,17 +16,10 @@ class CalculatePriceTransformer
             'productId' => $data['product'],
             'storeSlug' => $data['store'],
             'price' => (float) $data['desiredPrice'],
-            'commission' => (float) $data['commission'],
+            'commission' => Percentage::fromPercentage($data['commission']),
             'options' => [
-                CalculatorOptions::DISCOUNT_RATE => $this->getDiscount($data)
+                CalculatorOptions::DISCOUNT_RATE => Percentage::fromPercentage($data['discount'])
             ]
         ];
-    }
-
-    private function getDiscount(array $data): float
-    {
-        return PercentageTransformer::toPercentage(
-            (float) $data['discount'] ?? null
-        );
     }
 }

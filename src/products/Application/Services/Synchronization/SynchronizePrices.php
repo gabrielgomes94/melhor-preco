@@ -4,8 +4,8 @@ namespace Src\Products\Application\Services\Synchronization;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Src\Prices\Calculator\Application\UseCases\CalculateProfit;
-use Src\Prices\Calculator\Application\UseCases\GetCommission;
+use Src\Prices\Calculator\Application\Services\CalculateProfit;
+use Src\Prices\Calculator\Application\Services\GetCommission;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Product\Models\Product;

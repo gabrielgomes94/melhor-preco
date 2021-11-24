@@ -4,8 +4,8 @@ namespace Src\Prices\Calculator\Domain\Services;
 
 use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Prices\Calculator\Domain\Price\Price;
-use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
+use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Prices\Calculator\Domain\Models\Product\ProductData;
 use Src\Products\Domain\Post\Post;
 use Src\Products\Domain\Store\Factory as StoreFactory;
 
@@ -36,7 +36,7 @@ class CalculatePost
         }
 
         return $this->service->calculate(
-            productData: new ProductData($data['costs'], $data['dimensions']),
+            productData: ProductData::fromArray($data),
             store: StoreFactory::make($data['store']),
             value: $data['value'],
             commission: Percentage::fromPercentage($data['commission']),

@@ -3,7 +3,7 @@
 namespace Src\Prices\Calculator\Presentation\Presenters;
 
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Prices\Calculator\Domain\Price\Price;
+use Src\Prices\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Product\Contracts\Models\Post;
 

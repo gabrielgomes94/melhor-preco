@@ -3,9 +3,10 @@
 namespace Src\Products\Domain\Post\Factories;
 
 use Src\Math\Percentage;
+use Src\Prices\Calculator\Domain\Services\Contracts\CalculatorOptions;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Prices\Calculator\Domain\Price\Price;
-use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
+use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Prices\Calculator\Domain\Models\Product\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePost;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Post\Contracts\Factory as FactoryInterface;
@@ -62,7 +63,9 @@ class Magalu implements FactoryInterface
             store: $post->getStore(),
             value: MoneyTransformer::toFloat($post->getPrice()->get()),
             commission: Percentage::fromFraction($post->getPrice()->getCommission()->getCommissionRate()),
-            options: ['discountRate' => 0.05]
+            options: [
+                CalculatorOptions::DISCOUNT_RATE => Percentage::fromPercentage(5),
+            ]
         );
     }
 }

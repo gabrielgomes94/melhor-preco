@@ -4,15 +4,18 @@ namespace Src\Prices\Calculator\Application\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Src\Prices\Calculator\Application\Services\SimulatePostService;
-use Src\Prices\Calculator\Domain\Contracts\Services\SimulatePost;
+use Src\Prices\Calculator\Application\UseCases\CalculatePrice;
+use Src\Prices\Calculator\Domain\Services\Contracts\SimulatePost as SimulatePostInterface;
+use Src\Prices\Calculator\Domain\UseCases\Contracts\CalculatePrice as CalculatePriceInterface;
 
 class CalculatorServiceProvider extends ServiceProvider
 {
-    /**
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
-        $this->app->bind(SimulatePost::class, SimulatePostService::class);
+        // Services
+        $this->app->bind(SimulatePostInterface::class, SimulatePostService::class);
+
+        // Use Cases
+        $this->app->bind(CalculatePriceInterface::class, CalculatePrice::class);
     }
 }

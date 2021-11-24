@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Post\Factories;
 
 use Illuminate\Container\Container;
-use Src\Prices\Calculator\Domain\Price\Price;
+use Src\Prices\Calculator\Domain\Models\Price\Price;
 use Src\Prices\Calculator\Domain\Services\CalculatePost;
 use Src\Products\Domain\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Post\Identifiers\Identifiers as PostIdentifiers;
