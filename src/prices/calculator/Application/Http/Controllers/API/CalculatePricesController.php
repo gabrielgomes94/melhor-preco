@@ -21,6 +21,7 @@ class CalculatePricesController extends Controller
     public function calculate(CalculatePriceRequest $request)
     {
         $data = $this->transformer->transform($request);
+
         $price = $this->calculatePrice->calculate($data);
 
         return response()->json($price);

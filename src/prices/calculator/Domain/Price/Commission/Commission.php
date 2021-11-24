@@ -11,7 +11,7 @@ class Commission
 
     public function __construct(Money $price, float $commissionRate)
     {
-        $this->commissionRate = $commissionRate = 0.0;
+        $this->commissionRate = $commissionRate ?? 0.0;
 
         $this->fill($price, $commissionRate);
     }

@@ -3,9 +3,11 @@
 namespace Src\Sales\Application\Services;
 
 use Money\Money;
-use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
+use Src\Math\Percentage;
+use Src\Prices\Calculator\Domain\Price\ProductData\ProductData as PriceProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Products\Domain\Product\Models\Data\ProductData;
 use Src\Products\Domain\Product\Models\Product;
 use Src\Products\Domain\Store\Factory;
 use Src\Products\Domain\Store\Store;
@@ -25,9 +27,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
     public function execute(SaleOrder $saleOrder): float
     {
         foreach ($saleOrder->getItems() as $item) {
-            $product = Product::find($item->sku());
-
-            if (!$product) {
+            if (!$product = Product::find($item->sku())) {
                 continue;
             }
 
@@ -52,18 +52,19 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         return MoneyTransformer::toFloat($profit ?? Money::BRL(0));
     }
 
-    // To Do: Refatorar esse método para usar a model ao invés desse Data
-    private function getCommission(\Src\Products\Domain\Product\Models\Data\ProductData $product, Store $store)
+    private function getCommission(ProductData $product, Store $store): Percentage
     {
-        return $product->getPost($store->getSlug())
+        return Percentage::fromFraction(
+            $product->getPost($store->getSlug())
             ->getPrice()
             ->getCommission()
-            ->getCommissionRate();
+            ->getCommissionRate()
+        );
     }
 
-    private function getProductData($product): ProductData
+    private function getProductData($product): PriceProductData
     {
-        return new ProductData(
+        return new PriceProductData(
             costs: $product->getCosts(),
             dimensions: $product->getDimensions()
         );

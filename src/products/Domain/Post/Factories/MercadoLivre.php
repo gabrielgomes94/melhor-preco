@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Post\Factories;
 
+use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
@@ -17,14 +18,21 @@ use Src\Products\Domain\Store\Factory as StoreFactory;
 
 class MercadoLivre implements FactoryInterface
 {
-    public static function make(array $data): Post
-    {
-        $service = app(CalculatePost::class);
+    private CalculatePrice $calculatePriceService;
+    private CalculatePost $calculatePostService;
 
+    public function __construct(CalculatePrice $calculatePriceService, CalculatePost $calculatePostService)
+    {
+        $this->calculatePriceService = $calculatePriceService;
+        $this->calculatePostService = $calculatePostService;
+    }
+
+    public function make(array $data): Post
+    {
         $post = new MercadoLivrePost(
             new PostIdentifiers($data['id'], $data['store_sku_id']),
             StoreFactory::make($data['store']),
-            price: $service->calculate($data)
+            price: $this->calculatePostService->calculate($data)
         );
         $secondaryPrice = self::getSecondaryPrice($post, $data['costs'], $data['dimensions']);
         $post->setSecondaryPrice($secondaryPrice);
@@ -32,7 +40,7 @@ class MercadoLivre implements FactoryInterface
         return $post;
     }
 
-    public static function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
+    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
     {
         $post = new MercadoLivrePost(
             identifiers: $post->getIdentifiers(),
@@ -44,15 +52,13 @@ class MercadoLivre implements FactoryInterface
         return $post;
     }
 
-    private static function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
+    private function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
     {
-        $service = app(CalculatePrice::class);
-
-        return $service->calculate(
+        return $this->calculatePriceService->calculate(
             productData: new ProductData($costs, $dimensions),
             store: $post->getStore(),
             value: MoneyTransformer::toFloat($post->getPrice()->get()),
-            commission: $post->getPrice()->getCommission()->getCommissionRate(),
+            commission: Percentage::fromFraction($post->getPrice()->getCommission()->getCommissionRate()),
             options: ['ignoreFreight' => true]
         );
     }

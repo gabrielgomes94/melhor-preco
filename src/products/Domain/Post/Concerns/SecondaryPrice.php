@@ -14,11 +14,6 @@ trait SecondaryPrice
         return $this->secondaryPrice;
     }
 
-//    public function getSecondaryProfit(): float
-//    {
-//        return MoneyTransformer::toFloat($this->secondaryPrice->getProfit());
-//    }
-
     public function setSecondaryPrice(Price $secondaryPrice): void
     {
         $this->secondaryPrice = $secondaryPrice;

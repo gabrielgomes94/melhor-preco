@@ -11,7 +11,7 @@ use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
 
 interface Factory
 {
-    public static function make(array $data): Post;
+    public function make(array $data): Post;
 
-    public static function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post;
+    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post;
 }

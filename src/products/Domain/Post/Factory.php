@@ -10,6 +10,7 @@ use Src\Products\Domain\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Store\Factory as StoreFactory;
 
 /**
+ * @deprecated
  * To Do: mover essa classe pra camada de aplicação e fazer o make criar um objeto especializado quando for mercado livre.
  *  Criar interface para Factory e deixar ela na camada de domínio
  *

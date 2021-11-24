@@ -2,8 +2,10 @@
 
 namespace Src\Products\Domain\Post\Factories;
 
+use Illuminate\Container\Container;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Prices\Calculator\Domain\Services\CalculatePost;
+use Src\Products\Domain\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Post\Post as PostObject;
 use Src\Products\Domain\Product\Contracts\Models\Post;
@@ -25,14 +27,16 @@ class Factory
 
     public static function make(array $data): Post
     {
+        $applicationContainer = Container::getInstance();
+
         if (in_array($data['store'], array_keys(self::$mapper))) {
             $class = self::$mapper[$data['store']];
+            $factory = $applicationContainer->make($class);
 
-            return $class::make($data);
+            return $factory->make($data);
         }
 
         $service = app(CalculatePost::class);
-
         $price = $service->calculate($data);
 
         return new PostObject(
@@ -45,10 +49,13 @@ class Factory
     public static function updatePrice(ProductData $product, Post $post, Price $price): Post
     {
         $store = $post->getStore()->getSlug();
+        $applicationContainer = Container::getInstance();
+
         if (in_array($store, array_keys(self::$mapper))) {
             $class = self::$mapper[$store];
+            $factory = $applicationContainer->make($class);
 
-            return $class::updatePrice($post, $price, $product->getCosts(), $product->getDimensions());
+            return $factory->updatePrice($post, $price, $product->getCosts(), $product->getDimensions());
         }
 
         return new PostObject(

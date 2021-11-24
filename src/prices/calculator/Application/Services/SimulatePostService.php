@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Calculator\Application\Services;
 
+use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Contracts\Services\SimulatePost;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
@@ -33,7 +34,7 @@ class SimulatePostService implements SimulatePost
             ),
             StoreFactory::make($data['storeSlug']),
             $data['price'],
-            $data['commission'],
+            Percentage::fromPercentage($data['commission']),
             $data['options']
         );
 

@@ -2,10 +2,12 @@
 
 namespace Src\Products\Application\Services\Update;
 
+use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Price\Application\Services\Products\Update;
 use Src\Products\Domain\Post\Factories\Factory;
+use Src\Products\Domain\Post\Post;
 use Src\Products\Domain\Store\Store;
 
 class UpdatePosts
@@ -32,7 +34,7 @@ class UpdatePosts
                 new ProductData($product->getCosts(), $product->getDimensions()),
                 $store,
                 $priceValue,
-                $post->getPrice()->getCommission()->getCommissionRate()
+                Percentage::fromFraction($this->getCommissionRate($post))
             );
 
             $post = Factory::updatePrice($product, $post, $price);
@@ -55,5 +57,10 @@ class UpdatePosts
         }
 
         return $products;
+    }
+
+    protected function getCommissionRate(Post $post): float
+    {
+        return $post->getPrice()->getCommission()->getCommissionRate();
     }
 }

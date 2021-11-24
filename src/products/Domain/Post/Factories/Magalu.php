@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Post\Factories;
 
+use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Price\Price;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
@@ -17,43 +18,50 @@ use Src\Products\Domain\Store\Factory as StoreFactory;
 
 class Magalu implements FactoryInterface
 {
-    public static function make(array $data): Post
-    {
-        $service = app(CalculatePost::class);
+    private CalculatePrice $calculatePriceService;
+    private CalculatePost $calculatePostService;
 
-        $price = $service->calculate($data);
+    public function __construct(CalculatePrice $calculatePriceService, CalculatePost $calculatePostService)
+    {
+        $this->calculatePriceService = $calculatePriceService;
+        $this->calculatePostService = $calculatePostService;
+    }
+
+    public function make(array $data): Post
+    {
+        $price = $this->calculatePostService->calculate($data);
+
         $post = new MagaluPost(
             identifiers: new PostIdentifiers($data['id'], $data['store_sku_id']),
             store: StoreFactory::make($data['store']),
             price: $price,
         );
-        $secondaryPrice = $service->calculate($data, ['discountRate' => 0.05]);
+
+        $secondaryPrice = $this->calculatePostService->calculate($data, ['discountRate' => 0.05]);
         $post->setSecondaryPrice($secondaryPrice);
 
         return $post;
     }
 
-    public static function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
+    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
     {
         $post = new MagaluPost(
             identifiers: $post->getIdentifiers(),
             store: $post->getStore(),
             price: $price,
         );
-        $post->setSecondaryPrice(self::getSecondaryPrice($post, $costs, $dimensions));
+        $post->setSecondaryPrice($this->getSecondaryPrice($post, $costs, $dimensions));
 
         return $post;
     }
 
-    private static function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
+    private function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
     {
-        $service = app(CalculatePrice::class);
-
-        return $service->calculate(
+        return $this->calculatePriceService->calculate(
             productData: new ProductData($costs, $dimensions),
             store: $post->getStore(),
             value: MoneyTransformer::toFloat($post->getPrice()->get()),
-            commission: $post->getPrice()->getCommission()->getCommissionRate(),
+            commission: Percentage::fromFraction($post->getPrice()->getCommission()->getCommissionRate()),
             options: ['discountRate' => 0.05]
         );
     }

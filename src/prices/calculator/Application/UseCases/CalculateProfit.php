@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Calculator\Application\UseCases;
 
+use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
@@ -36,7 +37,7 @@ class CalculateProfit
             ProductData::fromModel($product),
             Factory::make($price->store),
             $price->value,
-            $price->commission,
+            Percentage::fromPercentage($price->commission),
         );
 
         return MoneyTransformer::toFloat($price->getProfit());
