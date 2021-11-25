@@ -18,7 +18,7 @@ class CalculatePriceTransformer
             'price' => (float) $data['desiredPrice'],
             'commission' => Percentage::fromPercentage($data['commission']),
             'options' => [
-                CalculatorOptions::DISCOUNT_RATE => Percentage::fromPercentage($data['discount'])
+                CalculatorOptions::DISCOUNT_RATE => Percentage::fromPercentage($data['discount'] ?? 0)
             ]
         ];
     }

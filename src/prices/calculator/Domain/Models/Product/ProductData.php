@@ -3,11 +3,11 @@
 namespace Src\Prices\Calculator\Domain\Models\Product;
 
 use Src\Prices\Calculator\Domain\Models\Product\Contracts\ProductData as ProductDataInterface;
-use Src\Products\Domain\Product\Contracts\Models\Data\Costs\Costs;
-use Src\Products\Domain\Product\Contracts\Models\Data\Dimensions\Dimensions;
-use Src\Products\Domain\Product\Models\Data\Costs\Factory as CostsFactory;
-use Src\Products\Domain\Product\Models\Data\Dimensions\Factory as DimensionsFactory;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Data\Costs\Costs;
+use Src\Products\Domain\Models\Product\Data\Costs\Factory as CostsFactory;
+use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
+use Src\Products\Domain\Models\Product\Data\Dimensions\Factory as DimensionsFactory;
+use Src\Products\Domain\Models\Product\Product;
 
 class ProductData implements ProductDataInterface
 {
@@ -30,11 +30,11 @@ class ProductData implements ProductDataInterface
 
     public static function fromArray(array $data): self
     {
-        if (!$data['costs'] instanceof \Src\Products\Domain\Product\Models\Data\Costs\Costs) {
+        if (!$data['costs'] instanceof Costs) {
             throw new \Exception('Invalid costs attribute type');
         }
 
-        if (!$data['dimensions'] instanceof \Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions) {
+        if (!$data['dimensions'] instanceof Dimensions) {
             throw new \Exception('Invalid dimensions attribute type');
         }
 

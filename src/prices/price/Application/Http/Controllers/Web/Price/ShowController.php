@@ -7,7 +7,7 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 
 class ShowController extends Controller
 {
@@ -30,20 +30,20 @@ class ShowController extends Controller
             abort(404);
         }
 
-        $post = $product->data()->getPost($storeSlug);
-        $store = $product->data()->getStore($storeSlug);
+        $post = $product->getPost($storeSlug);
+        $store = $product->getStore($storeSlug);
 
         $breadcrumb = $this->breadcrumb->generate(
             Breadcrumb::priceListIndex(),
             Breadcrumb::priceListByStore($store->getName(), $store->getSlug()),
-            Breadcrumb::product($product->data()->getDetails()->getName()),
+            Breadcrumb::product($product->getDetails()->getName()),
         );
 
         return view('pages.pricing.products.show', [
             'breadcrumb' => $breadcrumb,
             'store' => $store,
             'post' => $post,
-            'product' => $product->data(),
+            'product' => $product,
         ]);
     }
 }

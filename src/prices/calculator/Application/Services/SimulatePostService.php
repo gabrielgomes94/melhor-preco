@@ -2,15 +2,14 @@
 
 namespace Src\Prices\Calculator\Application\Services;
 
-use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Services\Contracts\SimulatePost;
 use Src\Prices\Calculator\Domain\Models\Product\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Product\Contracts\Models\Post;
-use Src\Products\Domain\Product\Models\Product;
-use Src\Products\Domain\Store\Factory as StoreFactory;
-use Src\Products\Domain\Post\Factories\Factory as PostFactory;
+use Src\Products\Domain\Models\Product\Contracts\Post;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Store\Factory as StoreFactory;
+use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 
 class SimulatePostService implements SimulatePost
 {
@@ -35,8 +34,8 @@ class SimulatePostService implements SimulatePost
             $data['options']
         );
 
-        $post = $product->data()->getPost($data['storeSlug']);
+        $post = $product->getPost($data['storeSlug']);
 
-        return PostFactory::updatePrice($product->data(), $post, $price);
+        return PostFactory::updatePrice($product, $post, $price);
     }
 }

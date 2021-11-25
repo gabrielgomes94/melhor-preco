@@ -5,7 +5,7 @@ namespace Src\Prices\Price\Application\Services\Products;
 use Src\Prices\Price\Application\Services\Exceptions\UpdateDBException;
 use Src\Prices\Price\Application\Services\Exceptions\SyncERPException;
 use Src\Prices\Price\Domain\Contracts\Services\Update as UpdateInterface;
-use Src\Products\Domain\Product\Contracts\Models\Post;
+use Src\Products\Domain\Models\Product\Contracts\Post;
 
 class Update implements UpdateInterface
 {

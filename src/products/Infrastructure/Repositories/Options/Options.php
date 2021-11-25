@@ -2,8 +2,8 @@
 
 namespace Src\Products\Infrastructure\Repositories\Options;
 
-use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
-use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions;
+use Src\Products\Domain\Utils\Contracts\Options as OptionsInterface;
+use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 
 class Options implements OptionsInterface
 {

@@ -2,7 +2,6 @@
 
 namespace Src\Products\Application\Services\Reports;
 
-
 use Src\Products\Application\Services\ListProducts;
 
 class FilterProducts
@@ -19,7 +18,7 @@ class FilterProducts
         $products = $this->listProductsService->all();
 
         foreach ($products as $product) {
-            $dimension = $product->data()->getDimensions();
+            $dimension = $product->getDimensions();
 
             if (
                 $dimension->depth() > 90 ||

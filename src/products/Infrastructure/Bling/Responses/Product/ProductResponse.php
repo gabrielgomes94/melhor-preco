@@ -3,7 +3,7 @@
 namespace Src\Products\Infrastructure\Bling\Responses\Product;
 
 use Src\Integrations\Bling\Base\Responses\BaseResponse;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 
 class ProductResponse extends BaseResponse
 {

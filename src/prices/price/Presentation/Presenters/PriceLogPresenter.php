@@ -4,7 +4,7 @@ namespace Src\Prices\Price\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Products\Domain\Store\Factory;
+use Src\Products\Domain\Models\Store\Factory;
 
 class PriceLogPresenter
 {

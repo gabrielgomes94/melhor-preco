@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Src\Notifications\Domain\Notifications\Prices\UnprofitablePrice as UnprofitablePriceNotification;
 use Src\Prices\Price\Domain\Events\UnprofitablePrice;
-use Src\Products\Domain\Store\Factory;
+use Src\Products\Domain\Models\Store\Factory;
 
 class SendUnprofitablePriceNotification implements ShouldQueue
 {

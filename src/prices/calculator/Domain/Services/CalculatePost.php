@@ -3,11 +3,10 @@
 namespace Src\Prices\Calculator\Domain\Services;
 
 use Src\Math\Percentage;
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Models\Price\Price;
 use Src\Prices\Calculator\Domain\Models\Product\ProductData;
-use Src\Products\Domain\Post\Post;
-use Src\Products\Domain\Store\Factory as StoreFactory;
+use Src\Products\Domain\Models\Post\Post;
+use Src\Products\Domain\Models\Store\Factory as StoreFactory;
 
 class CalculatePost
 {
@@ -20,21 +19,6 @@ class CalculatePost
 
     public function calculate(array|Post $data, array $options = []): Price
     {
-        if ($data instanceof Post) {
-            $price = $data->getPrice();
-            $commission = Percentage::fromFraction(
-                $price->getCommission()->getCommissionRate()
-            );
-
-            return $this->service->calculate(
-                productData: $price->getProductData(),
-                store: $data->getStore(),
-                value: MoneyTransformer::toFloat($price->get()),
-                commission: $commission,
-                options: $options
-            );
-        }
-
         return $this->service->calculate(
             productData: ProductData::fromArray($data),
             store: StoreFactory::make($data['store']),
@@ -43,5 +27,4 @@ class CalculatePost
             options: $options
         );
     }
-
 }

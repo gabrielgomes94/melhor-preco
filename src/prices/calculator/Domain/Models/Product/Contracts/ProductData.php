@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Calculator\Domain\Models\Product\Contracts;
 
-use Src\Products\Domain\Product\Contracts\Models\Data\Costs\Costs;
-use Src\Products\Domain\Product\Contracts\Models\Data\Dimensions\Dimensions;
+use Src\Products\Domain\Models\Product\Data\Costs\Costs;
+use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 
 interface ProductData
 {

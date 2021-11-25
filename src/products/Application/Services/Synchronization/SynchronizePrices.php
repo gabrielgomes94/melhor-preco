@@ -8,7 +8,7 @@ use Src\Prices\Calculator\Application\Services\CalculateProfit;
 use Src\Prices\Calculator\Application\Services\GetCommission;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Bling\Repository as BlingRepository;
 use TypeError;
 

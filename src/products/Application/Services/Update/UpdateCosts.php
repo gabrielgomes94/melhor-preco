@@ -3,8 +3,8 @@
 namespace Src\Products\Application\Services\Update;
 
 use Src\Products\Application\Factories\Costs;
-use Src\Products\Domain\Product\Events\ProductCostsUpdated;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Events\Product\ProductCostsUpdated;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Prices\Price\Application\Services\Exceptions\ProductNotFound;
 use Src\Prices\Price\Application\Services\Products\UpdateDB;
 
@@ -28,7 +28,7 @@ class UpdateCosts
         $products = $this->getProducts($product);
 
         foreach ($products as $product) {
-            $costs = Costs::make($data, $product->data());
+            $costs = Costs::make($data, $product);
             $product->setCosts($costs);
             $product->save();
 
@@ -42,7 +42,7 @@ class UpdateCosts
     {
         $products[] = $product;
 
-        foreach ($product->data()->getVariations()->get() as $variation) {
+        foreach ($product->getVariations()->get() as $variation) {
             $variationModel = Product::find($variation->getSku());
             $products[] = $variationModel;
         }

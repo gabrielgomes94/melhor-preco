@@ -7,7 +7,7 @@ use Src\Prices\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Prices\Calculator\Domain\Models\Price\Commission\Commission;
 use Src\Prices\Calculator\Domain\Models\Price\Costs\CostPrice;
 use Src\Prices\Calculator\Domain\Models\Price\Freight\BaseFreight;
-use Src\Products\Domain\Store\Store;
+use Src\Products\Domain\Models\Store\Store;
 
 interface Price
 {

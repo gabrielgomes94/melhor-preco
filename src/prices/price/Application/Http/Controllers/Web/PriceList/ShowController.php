@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Src\Prices\Price\Application\Http\Requests\PriceList\ShowRequest;
 use Src\Prices\Price\Application\Services\Products\ListProducts;
 use Src\Prices\Price\Presentation\Presenters\PriceListPresenter;
-use Src\Products\Domain\Contracts\Utils\Options;
+use Src\Products\Domain\Utils\Contracts\Options;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

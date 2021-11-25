@@ -4,8 +4,8 @@ namespace Src\Prices\Calculator\Presentation\Presenters;
 
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Models\Price\Price;
-use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
-use Src\Products\Domain\Product\Contracts\Models\Post;
+use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
+use Src\Products\Domain\Models\Product\Contracts\Post;
 
 class PricePresenter
 {

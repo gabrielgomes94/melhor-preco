@@ -6,18 +6,18 @@ use Illuminate\View\Component;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Products\Domain\Post\Contracts\HasSecondaryPrice;
-use Src\Products\Domain\Product\Contracts\Models\Post;
-use Src\Products\Domain\Product\Models\Data\ProductData;
+use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
+use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Products\Domain\Models\Product\Contracts\Post;
 
 abstract class PricesComponent extends Component
 {
     public string $productId;
     public Post $post;
-    public ProductData $product;
+    public Product $product;
     public array $price;
 
-    public function __construct(Post $post, ProductData $product)
+    public function __construct(Post $post, Product $product)
     {
         $this->post = $post;
         $this->product = $product;

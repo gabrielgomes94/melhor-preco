@@ -7,10 +7,9 @@ use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Models\Product\ProductData as PriceProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Products\Domain\Product\Models\Data\ProductData;
-use Src\Products\Domain\Product\Models\Product;
-use Src\Products\Domain\Store\Factory;
-use Src\Products\Domain\Store\Store;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Store\Factory;
+use Src\Products\Domain\Models\Store\Store;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Services\Contracts\CalculateTotalProfit as CalculateTotalProfitInterface;
@@ -35,8 +34,6 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
                 continue;
             }
 
-            $product = $product->data();
-
             $price = $this->calculatePrice->calculate(
                 $this->getProductData($product),
                 $store,
@@ -52,7 +49,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         return MoneyTransformer::toFloat($profit ?? Money::BRL(0));
     }
 
-    private function getCommission(ProductData $product, Store $store): Percentage
+    private function getCommission(Product $product, Store $store): Percentage
     {
         return Percentage::fromFraction(
             $product->getPost($store->getSlug())
@@ -84,9 +81,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             return null;
         }
 
-        $store = $product->data()
-            ->getPost($slug)
-            ?->getStore();
+        $store = $product->getPost($slug)?->getStore();
 
         if (!$store) {
             return null;

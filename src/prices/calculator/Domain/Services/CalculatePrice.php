@@ -6,7 +6,7 @@ use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Prices\Calculator\Domain\Models\Price\Price;
 use Src\Prices\Calculator\Domain\Services\Contracts\CalculatePrices;
-use Src\Products\Domain\Store\Store;
+use Src\Products\Domain\Models\Store\Store;
 
 class CalculatePrice implements CalculatePrices
 {

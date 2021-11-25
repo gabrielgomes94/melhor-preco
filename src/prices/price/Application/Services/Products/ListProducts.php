@@ -2,9 +2,9 @@
 
 namespace Src\Prices\Price\Application\Services\Products;
 
-use Src\Products\Domain\Contracts\Utils\Options;
+use Src\Products\Domain\Utils\Contracts\Options;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 
 class ListProducts
 {

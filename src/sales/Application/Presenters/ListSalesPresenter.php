@@ -3,8 +3,8 @@
 namespace Src\Sales\Application\Presenters;
 
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
-use Src\Products\Domain\Product\Models\Product;
-use Src\Products\Domain\Store\Factory;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Store\Factory;
 use Src\Sales\Domain\Models\SaleOrder;
 
 class ListSalesPresenter
@@ -18,8 +18,7 @@ class ListSalesPresenter
 
     public function listSaleOrder(array $saleOrders): array
     {
-        foreach ($saleOrders as $saleOrder)
-        {
+        foreach ($saleOrders as $saleOrder) {
             $identifiers = $saleOrder->getIdentifiers();
             $saleValue = $saleOrder->getSaleValue();
 
@@ -51,7 +50,6 @@ class ListSalesPresenter
                 continue;
             }
 
-            $product = $product->data();
             $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
         }
 

@@ -13,7 +13,7 @@ use Src\Prices\Calculator\Domain\Models\Price\Commission\Factories\Factory as Co
 use Src\Prices\Calculator\Domain\Models\Price\Costs\CostPrice;
 use Src\Prices\Calculator\Domain\Models\Price\Freight\BaseFreight;
 use Src\Prices\Calculator\Domain\Models\Price\Freight\Factories\Factory;
-use Src\Products\Domain\Store\Store;
+use Src\Products\Domain\Models\Store\Store;
 
 class Price implements Contracts\Price
 {
@@ -121,8 +121,7 @@ class Price implements Contracts\Price
         float $value,
         float $commission,
         array $options = []
-    ): void
-    {
+    ): void {
         $this->product = $product;
         $this->store = $store;
         $this->commissionRate = $commission;
@@ -158,7 +157,7 @@ class Price implements Contracts\Price
         $this->freight = Factory::make($store, $product->getDimensions(), $this->value, $ignoreFreight);
     }
 
-    private function setValue(float $value, Percentage $discount)
+    private function setValue(float $value, $discount)
     {
         $discountRate = $discount->get();
 

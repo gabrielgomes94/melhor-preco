@@ -8,10 +8,9 @@ use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Product\Models\Product;
-use Src\Products\Domain\Store\Factory;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Store\Factory;
 
-// @todo: Mover pra Services
 class CalculateProfit
 {
     private CalculatePrice $calculatePrice;

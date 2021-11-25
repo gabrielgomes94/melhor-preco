@@ -5,7 +5,7 @@ namespace Src\Products\Application\Listeners;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
-use Src\Products\Domain\Product\Events\ProductsSynchronized;
+use Src\Products\Domain\Events\Product\ProductsSynchronized;
 
 class LogProductsSynchronized
 {
@@ -22,7 +22,7 @@ class LogProductsSynchronized
     /**
      * Handle the event.
      *
-     * @param  \Src\Products\Domain\Product\Events\ProductsSynchronized  $event
+     * @param  \Src\Products\Domain\Events\Product\ProductsSynchronized  $event
      * @return void
      */
     public function handle(ProductsSynchronized $event)

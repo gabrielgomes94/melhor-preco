@@ -5,7 +5,7 @@ namespace Src\Prices\Calculator\Domain\Models\Price\Commission\Factories;
 use Src\Prices\Calculator\Domain\Models\Price\Commission\MercadoLivre;
 use Money\Money;
 use Src\Prices\Calculator\Domain\Models\Price\Commission\Commission;
-use Src\Products\Domain\Store\Store;
+use Src\Products\Domain\Models\Store\Store;
 
 class Factory
 {

@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Price\Domain\Contracts\Services;
 
-use Src\Products\Domain\Product\Contracts\Models\Post;
+use Src\Products\Domain\Models\Product\Contracts\Post;
 
 interface Update
 {

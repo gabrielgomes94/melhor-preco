@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Calculator\Application\Services;
 
-use Src\Products\Domain\Store\Factory;
+use Src\Products\Domain\Models\Store\Factory;
 
 // To Do: Retornar instância de Percentage. Talvez definir uma interface aqui
 class GetCommission

@@ -3,27 +3,26 @@
 namespace Src\Prices\Calculator\Presentation\Components\UpdateCosts;
 
 use Illuminate\View\Component;
-use Src\Products\Domain\Product\Models\Data\ProductData;
+use Src\Products\Domain\Models\Product\Product;
 
 class Form extends Component
 {
-    private ProductData $product;
+    private Product $product;
 
-    public function __construct(ProductData $product)
+    public function __construct(Product $product)
     {
         $this->product = $product;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function render()
     {
+        $costs = $this->product->getCosts();
+
         return view('components.pricing.prices.update-costs.form', [
             'sku' => $this->product->getSku(),
-            'purchasePrice' => $this->product->getCosts()->purchasePrice(),
-            'taxICMS' => $this->product->getCosts()->taxICMS(),
-            'additionalCosts' => $this->product->getCosts()->additionalCosts(),
+            'purchasePrice' => $costs->purchasePrice(),
+            'taxICMS' => $costs->taxICMS(),
+            'additionalCosts' => $costs->additionalCosts(),
         ]);
     }
 }
