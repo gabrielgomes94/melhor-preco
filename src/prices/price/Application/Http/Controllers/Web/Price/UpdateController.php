@@ -4,7 +4,7 @@ namespace Src\Prices\Price\Application\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
 use Src\Prices\Price\Application\Http\Requests\Price\UpdatePriceRequest;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Application\Services\Update\UpdatePosts as UpdatePriceService;
 use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
 use Illuminate\Http\RedirectResponse;
@@ -32,14 +32,14 @@ class UpdateController extends Controller
             return redirect()->back();
         }
 
-        if (!$store = $product->data()->getStore($data['storeSlug'])) {
+        if (!$store = $product->getStore($data['storeSlug'])) {
             session()->flash('error', 'Loja inválida.');
 
             return redirect()->back();
         }
 
         try {
-            $this->updatePriceService->updatePrice($product->data(), $store, $data['value']);
+            $this->updatePriceService->updatePrice($product, $store, $data['value']);
             session()->flash('message', 'Preço atualizado com sucesso.');
         } catch (UpdatePriceException $exception) {
             session()->flash('error', $exception->getMessage());

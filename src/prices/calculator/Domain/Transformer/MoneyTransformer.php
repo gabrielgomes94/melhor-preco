@@ -5,7 +5,7 @@ namespace Src\Prices\Calculator\Domain\Transformer;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
-use Src\Prices\Calculator\Domain\Contracts\Transformer\MoneyTransformer as MoneyTransformerInterface;
+use Src\Prices\Calculator\Domain\Transformer\Contracts\MoneyTransformer as MoneyTransformerInterface;
 
 class MoneyTransformer implements MoneyTransformerInterface
 {

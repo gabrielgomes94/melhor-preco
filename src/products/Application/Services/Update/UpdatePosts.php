@@ -2,11 +2,14 @@
 
 namespace Src\Products\Application\Services\Update;
 
-use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
+use Src\Math\Percentage;
+use Src\Prices\Calculator\Domain\Models\Product\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Price\Application\Services\Products\Update;
-use Src\Products\Domain\Post\Factories\Factory;
-use Src\Products\Domain\Store\Store;
+use Src\Products\Domain\Models\Post\Factories\Factory;
+use Src\Products\Domain\Models\Post\Post;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Store\Store;
 
 class UpdatePosts
 {
@@ -19,7 +22,7 @@ class UpdatePosts
         $this->updatePriceService = $updatePriceService;
     }
 
-    public function updatePrice(ProductData $product, Store $store, float $priceValue): bool
+    public function updatePrice(Product $product, Store $store, float $priceValue): bool
     {
         $products = $this->getProducts($product);
 
@@ -29,14 +32,13 @@ class UpdatePosts
             }
 
             $price = $this->calculatePrice->calculate(
-                new ProductData($product->getCosts(), $product->getDimensions()),
+                ProductData::fromModel($product),
                 $store,
                 $priceValue,
-                $post->getPrice()->getCommission()->getCommissionRate()
+                Percentage::fromFraction($this->getCommissionRate($post))
             );
 
             $post = Factory::updatePrice($product, $post, $price);
-
             $this->updatePriceService->execute($product->getSku(), $post);
         }
 
@@ -44,9 +46,9 @@ class UpdatePosts
     }
 
     /**
-     * @return ProductData[]
+     * @return Product[]
      */
-    private function getProducts(ProductData $product): array
+    private function getProducts(Product $product): array
     {
         $products[] = $product;
 
@@ -55,5 +57,10 @@ class UpdatePosts
         }
 
         return $products;
+    }
+
+    protected function getCommissionRate(Post $post): float
+    {
+        return $post->getPrice()->getCommission()->getCommissionRate();
     }
 }

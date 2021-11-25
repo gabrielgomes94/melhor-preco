@@ -4,7 +4,7 @@ namespace Src\Products\Application\Http\Requests\Product;
 
 use Src\Products\Application\Http\Requests\Product\Contracts\HasOptions;
 use Src\Products\Infrastructure\Repositories\Options\Options;
-use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
+use Src\Products\Domain\Utils\Contracts\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditCostsRequest extends FormRequest implements HasOptions

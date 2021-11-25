@@ -3,8 +3,8 @@
 namespace Src\Prices\Calculator\Presentation\Components\Price;
 
 use Src\Prices\Calculator\Presentation\Components\PricesComponent;
-use Src\Products\Domain\Post\MagaluPost;
-use Src\Products\Domain\Post\MercadoLivrePost;
+use Src\Products\Domain\Models\Post\MagaluPost;
+use Src\Products\Domain\Models\Post\MercadoLivrePost;
 
 class Card extends PricesComponent
 {

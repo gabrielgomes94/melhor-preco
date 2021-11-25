@@ -3,7 +3,7 @@
 namespace Src\Prices\Price\Application\Services\PriceLog;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 
 class ListProducts
 {

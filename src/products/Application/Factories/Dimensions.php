@@ -2,15 +2,13 @@
 
 namespace Src\Products\Application\Factories;
 
-use Src\Products\Domain\Product\Models\Product;
-use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions as DimensionsObject;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions as DimensionsObject;
 
 class Dimensions
 {
     public static function make(array $data, Product $product): DimensionsObject
     {
-        $product = $product->data();
-
         return new DimensionsObject(
             depth: $data['depth'] ?? $product->getDimensions()->depth(),
             height: $data['height'] ?? $product->getDimensions()->height(),

@@ -24,6 +24,9 @@ return [
                 'headers' => [
                     'Content-Type' => 'text/xml',
                 ],
+                'query' => [
+                    'apikey' => env('BLING_API_KEY'),
+                ],
             ],
         ],
     ],

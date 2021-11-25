@@ -4,7 +4,7 @@ namespace Src\Prices\Price\Application\Http\Requests\PriceList;
 
 use Src\Products\Application\Http\Requests\Product\Contracts\HasOptions;
 use Src\Products\Infrastructure\Repositories\Options\Options;
-use Src\Products\Domain\Contracts\Utils\Options as OptionsInterface;
+use Src\Products\Domain\Utils\Contracts\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowRequest extends FormRequest implements HasOptions

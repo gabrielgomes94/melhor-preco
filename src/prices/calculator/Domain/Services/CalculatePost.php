@@ -2,11 +2,11 @@
 
 namespace Src\Prices\Calculator\Domain\Services;
 
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Prices\Calculator\Domain\Price\Price;
-use Src\Prices\Calculator\Domain\Price\ProductData\ProductData;
-use Src\Products\Domain\Post\Post;
-use Src\Products\Domain\Store\Factory as StoreFactory;
+use Src\Math\Percentage;
+use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Prices\Calculator\Domain\Models\Product\ProductData;
+use Src\Products\Domain\Models\Post\Post;
+use Src\Products\Domain\Models\Store\Factory as StoreFactory;
 
 class CalculatePost
 {
@@ -19,23 +19,12 @@ class CalculatePost
 
     public function calculate(array|Post $data, array $options = []): Price
     {
-        if ($data instanceof Post) {
-            return $this->service->calculate(
-                productData: $data->getPrice()->getProductData(),
-                store: $data->getStore(),
-                value: MoneyTransformer::toFloat($data->getPrice()->get()),
-                commission: $data->getPrice()->getCommission()->getCommissionRate(),
-                options: $options
-            );
-        }
-
         return $this->service->calculate(
-            productData: new ProductData($data['costs'], $data['dimensions']),
+            productData: ProductData::fromArray($data),
             store: StoreFactory::make($data['store']),
             value: $data['value'],
-            commission: $data['commission'],
+            commission: Percentage::fromPercentage($data['commission']),
             options: $options
         );
     }
-
 }

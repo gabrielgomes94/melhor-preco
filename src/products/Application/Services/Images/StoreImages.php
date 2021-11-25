@@ -2,6 +2,7 @@
 
 namespace Src\Products\Application\Services\Images;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use SimpleXMLElement;
 use Src\Integrations\Bling\Base\Responses\ErrorResponse;
@@ -28,6 +29,9 @@ class StoreImages
         $updateResponse = $this->factory->make($updateResponse);
 
         if ($updateResponse instanceof ErrorResponse) {
+
+            Log::error('Produto: Imagens não foram enviadas para o Bling', $updateResponse->errors());
+
             throw new \Exception("Erro: produto não foi enviado para o Bling.");
         }
 

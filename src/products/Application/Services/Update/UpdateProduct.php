@@ -3,12 +3,12 @@
 namespace Src\Products\Application\Services\Update;
 
 use Src\Products\Application\Factories\Dimensions;
-use Src\Products\Domain\Product\Models\Data\Costs\Costs;
-use Src\Products\Domain\Product\Models\Data\Details\Details;
-use Src\Products\Domain\Product\Models\Data\Variations\Variations;
-use Src\Products\Domain\Product\Models\Product;
-use Src\Products\Domain\Product\Models\Data\Composition\Composition;
-use Src\Products\Domain\Product\Models\Data\Dimensions\Dimensions as DimensionsObject;
+use Src\Products\Domain\Models\Product\Data\Costs\Costs;
+use Src\Products\Domain\Models\Product\Data\Details\Details;
+use Src\Products\Domain\Models\Product\Data\Variations\Variations;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product\Data\Composition\Composition;
+use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions as DimensionsObject;
 
 class UpdateProduct
 {

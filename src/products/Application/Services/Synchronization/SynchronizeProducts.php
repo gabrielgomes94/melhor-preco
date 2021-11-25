@@ -2,8 +2,8 @@
 
 namespace Src\Products\Application\Services\Synchronization;
 
-use Src\Products\Domain\Product\Events\ProductsSynchronized;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Events\Product\ProductsSynchronized;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Bling\Repository as BlingRepository;
 
 class SynchronizeProducts

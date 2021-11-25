@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Src\Products\Domain\Product\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 
 class Item extends Model
 {

@@ -2,25 +2,42 @@
 
 namespace Src\Prices\Calculator\Domain\Services;
 
-use Src\Prices\Calculator\Domain\Contracts\Models\ProductData;
-use Src\Prices\Calculator\Domain\Price\Price;
-use Src\Products\Domain\Store\Store;
+use Src\Math\Percentage;
+use Src\Prices\Calculator\Domain\Models\Product\Contracts\ProductData;
+use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Prices\Calculator\Domain\Services\Contracts\CalculatePrices;
+use Src\Products\Domain\Models\Store\Store;
 
-class CalculatePrice implements CalculatorOptions
+class CalculatePrice implements CalculatePrices
 {
     public function calculate(
         ProductData $productData,
         Store $store,
         float $value,
-        ?float $commission,
+        ?Percentage $commission,
         array $options = []
     ): Price {
         return new Price(
             product: $productData,
             store: $store,
             value: $value,
-            commission: $commission ?? $store->getDefaultCommission(),
-            options: $options
+            commission: $this->getCommission($store, $commission),
+            options: $this->getOptions($options)
         );
+    }
+
+    private function getCommission(Store $store, ?Percentage $commission): float
+    {
+        return $commission
+            ? $commission->get()
+            : $store->getDefaultCommission();
+    }
+
+    private function getOptions(array $options): array
+    {
+        return [
+            self::IGNORE_FREIGHT => $options[self::IGNORE_FREIGHT] ?? false,
+            self::DISCOUNT_RATE => $options[self::DISCOUNT_RATE] ?? Percentage::fromPercentage(0),
+        ];
     }
 }
