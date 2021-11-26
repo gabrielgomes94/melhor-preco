@@ -7,15 +7,16 @@ use Src\Products\Application\Jobs\SyncProducts;
 use Illuminate\Http\Request;
 use Src\Notifications\Domain\Notifications\Products\ProductsSynchronized;
 
+use Src\Products\Application\UseCases\SynchronizeProducts;
 use function view;
 
 class SynchronizationController extends Controller
 {
-    private SyncProducts $job;
+    private SynchronizeProducts $synchronizeProducts;
 
-    public function __construct(SyncProducts $job)
+    public function __construct(SynchronizeProducts $synchronizeProducts)
     {
-        $this->job = $job;
+        $this->synchronizeProducts = $synchronizeProducts;
     }
 
     public function sync(Request $request)
@@ -25,8 +26,7 @@ class SynchronizationController extends Controller
 
     public function doSync(Request $request)
     {
-        SyncProducts::dispatch();
-
+        $this->synchronizeProducts->sync();
 
         return view('pages.products.sync.sync');
     }

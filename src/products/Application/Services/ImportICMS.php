@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Products\Application\Services\Costs;
+namespace Src\Products\Application\Services;
 
 use Exception;
 use Src\Products\Application\Imports\ProductICMSImport;
-use Src\Products\Application\Services\Update\UpdateCosts;
+use Src\Products\Application\UseCases\UpdateCosts;
 
 class ImportICMS
 {

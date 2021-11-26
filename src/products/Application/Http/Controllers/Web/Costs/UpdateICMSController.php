@@ -3,34 +3,32 @@
 namespace Src\Products\Application\Http\Controllers\Web\Costs;
 
 use App\Http\Controllers\Controller;
-use Src\Products\Application\Jobs\Spreadsheets\UploadICMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
-use Src\Notifications\Domain\Notifications\Products\ProductsICMSWasUpdated;
-
-use function view;
+use Src\Products\Application\Http\Requests\UploadSpreadsheetRequest;
+use Src\Products\Application\UseCases\UploadSpreadsheet;
 
 class UpdateICMSController extends Controller
 {
+    private UploadSpreadsheet $uploadSpreadsheet;
+
+    public function __construct(UploadSpreadsheet $uploadSpreadsheet)
+    {
+        $this->uploadSpreadsheet = $uploadSpreadsheet;
+    }
+
     public function updateICMS()
     {
         return view('pages.products.costs.upload_icms');
     }
 
-    /**
-     * To Do: criar form request na camada de aplicação após refatorar os códigos de produtos. sssssss
-     */
-    public function doUpdateICMS(Request $request)
+    public function doUpdateICMS(UploadSpreadsheetRequest $request)
     {
         try {
-            $request->validate([
-                'file' => 'required|file|mimes:csv,txt,xlsx',
-            ]);
+            $this->uploadSpreadsheet->upload($this->getFileUrl($request), $request->user()->id);
 
-            UploadICMS::dispatch($this->getFileUrl($request));
             session()->flash('message', $this->successfulMessage());
-            $request->user()->notify(new ProductsICMSWasUpdated());
         } catch (ValidationException $e) {
             session()->flash('error', 'É necessário enviar um arquivo .xlsx ou .csv.');
         }

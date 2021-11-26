@@ -1,16 +1,16 @@
 <?php
 
-namespace Src\Products\Application\Services\Update;
+namespace Src\Products\Application\UseCases;
 
 use Src\Products\Application\Factories\Costs;
 use Src\Products\Domain\Events\Product\ProductCostsUpdated;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Prices\Price\Application\Services\Exceptions\ProductNotFound;
 use Src\Prices\Price\Application\Services\Products\UpdateDB;
+use Src\Products\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
 
-class UpdateCosts
+class UpdateCosts implements UpdateCostsInterface
 {
-
     private UpdateDB $updatePriceService;
 
     public function __construct(UpdateDB $updatePriceService)

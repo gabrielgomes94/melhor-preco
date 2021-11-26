@@ -4,12 +4,12 @@ namespace Src\Products\Application\Http\Controllers\Web\StockTag;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Products\Application\Services\StockTag\GenerateQRCode;
+use Src\Products\Application\UseCases\GenerateQRCode;
 use Src\Products\Presentation\Presenters\StockTags\PdfPresenter;
 
 class StockTagController extends Controller
 {
-    private GenerateQRCode $generateQRCodeService;
+    private \Src\Products\Application\UseCases\GenerateQRCode $generateQRCodeService;
     private PdfPresenter $pdfPresenter;
 
     public function __construct(GenerateQRCode $generateQRCodeService, PdfPresenter $pdfPresenter)

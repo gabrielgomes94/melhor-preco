@@ -6,35 +6,27 @@ use App\Http\Controllers\Controller;
 use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
 use Src\Products\Application\Http\Requests\Product\EditCostsRequest;
 use Src\Products\Application\Http\Requests\Product\UpdateCostsRequest;
-use Src\Products\Application\Services\ListProducts;
-use Src\Products\Application\Services\Update\UpdateCosts;
-
-use function redirect;
-use function session;
-use function view;
+use Src\Products\Application\UseCases\ListProducts;
+use Src\Products\Application\UseCases\UpdateCosts;
 
 class CostsController extends Controller
 {
     private UpdateCosts $updateService;
-    private ListProducts $listProductsService;
+    private ListProducts $listProducts;
 
     public function __construct(
         UpdateCosts $updateService,
-        ListProducts $listProductsService
+        ListProducts $listProducts
     ) {
         $this->updateService = $updateService;
-        $this->listProductsService = $listProductsService;
+        $this->listProducts =  $listProducts;
     }
 
     public function edit(EditCostsRequest $request)
     {
-        $paginator = $this->listProductsService->listPaginate($request->getOptions());
+        $data = $this->listProducts->list($request->getOptions());
 
-        return view('pages.products.price_costs.edit', [
-            'paginator' => $paginator,
-            'products' => $paginator->items(),
-            'sku' => $request->getOptions()->sku(),
-        ]);
+        return view('pages.products.price_costs.edit', $data);
     }
 
     public function update(string $productId, UpdateCostsRequest $request)

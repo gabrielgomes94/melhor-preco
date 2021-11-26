@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\Jobs\Spreadsheets;
 
-use Src\Products\Application\Services\Costs\ImportICMS;
+use Src\Products\Application\Services\ImportICMS;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -27,7 +27,7 @@ class UploadICMS implements ShouldQueue
      * To Do: passar o usuário para dentro desse método handle a fim de notificar o usuário conforme o
      * retorno do método execute.
      *
-     * @param \Src\Products\Application\Services\Costs\ImportICMS $importService
+     * @param \Src\Products\Application\Services\ImportICMS $importService
      */
     public function handle(ImportICMS $importService)
     {

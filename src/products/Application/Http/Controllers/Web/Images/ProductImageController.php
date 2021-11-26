@@ -3,18 +3,15 @@
 namespace Src\Products\Application\Http\Controllers\Web\Images;
 
 use Src\Products\Application\Http\Requests\Product\ImageUploaderRequest;
-use Src\Products\Application\Services\Images\StoreImages;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-
-use function session;
-use function view;
+use Src\Products\Application\UseCases\UploadSpreadsheet;
 
 class ProductImageController extends BaseController
 {
-    private StoreImages $storeImages;
+    private UploadSpreadsheet $storeImages;
 
-    public function __construct(StoreImages $storeImages)
+    public function __construct(UploadSpreadsheet $storeImages)
     {
         $this->storeImages = $storeImages;
     }
@@ -28,6 +25,7 @@ class ProductImageController extends BaseController
                 $request->validated()['brand'],
                 $request->validated()['images'],
             );
+
             session()->flash('message', 'Fotos atualizadas com sucesso.');
         } catch (\Exception $e) {
             session()->flash('error', $e->getMessage());
