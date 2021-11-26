@@ -5,7 +5,7 @@ namespace Src\Prices\Price\Application\Http\Controllers\Web\Price;
 use App\Http\Controllers\Controller;
 use Src\Prices\Price\Application\Http\Requests\Price\UpdatePriceRequest;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Prices\Price\Application\UseCases\UpdatePosts as UpdatePriceService;
+use Src\Prices\Price\Application\UseCases\UpdatePrice as UpdatePriceService;
 use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;

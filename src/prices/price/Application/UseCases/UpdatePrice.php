@@ -6,12 +6,13 @@ use Src\Math\Percentage;
 use Src\Prices\Calculator\Domain\Models\Product\ProductData;
 use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Price\Application\Services\Products\Update;
+use Src\Prices\Price\Domain\UseCases\Contracts\UpdatePrice as UpdatePriceInterface;
 use Src\Products\Domain\Models\Post\Factories\Factory;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Models\Store\Store;
 
-class UpdatePosts
+class UpdatePrice implements UpdatePriceInterface
 {
     private CalculatePrice $calculatePrice;
     private Update $updatePriceService;
