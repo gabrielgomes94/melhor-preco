@@ -114,14 +114,20 @@ class Repository implements RepositoryInterface
             ->paginate(page: $page, perPage: 40);
     }
 
-    public static function getTotalValueSum(?DateTime $beginDate = null, ?DateTime $endDate = null)
+    public static function getTotalValueSum(?Carbon $beginDate = null, ?Carbon $endDate = null)
     {
-        return SaleOrder::valid()->sum('total_value');
+        return SaleOrder::valid()
+            ->where('selled_at', '>=', $beginDate)
+            ->where('selled_at', '<=', $endDate)
+            ->sum('total_value');
     }
 
-    public static function getTotalProfitSum(?DateTime $beginDate = null, ?DateTime $endDate = null)
+    public static function getTotalProfitSum(?Carbon $beginDate = null, ?Carbon $endDate = null)
     {
-        return SaleOrder::valid()->sum('total_profit');
+        return SaleOrder::valid()
+            ->where('selled_at', '>=', $beginDate)
+            ->where('selled_at', '<=', $endDate)
+            ->sum('total_profit');
     }
 
     public static function updateProfit(SaleOrder $saleOrder, float $profit): void

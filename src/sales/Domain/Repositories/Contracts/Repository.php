@@ -21,13 +21,13 @@ interface Repository
     );
 
     public static function getTotalValueSum(
-        ?\DateTime $beginDate = null,
-        ?\DateTime $endDate = null
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
     );
 
     public static function getTotalProfitSum(
-        ?\DateTime $beginDate = null,
-        ?\DateTime $endDate = null
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
     );
 
     public static function syncPayment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;

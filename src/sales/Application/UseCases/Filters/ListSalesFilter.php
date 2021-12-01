@@ -15,8 +15,8 @@ class ListSalesFilter implements ListSalesFilterInterface
 
     public function __construct(array $options = [])
     {
-        $this->beginDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['beginDate']);
-        $this->endDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['endDate']);
+        $this->beginDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['beginDate'] ?? '01/01/1970');
+        $this->endDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['endDate'] ?? '31/12/9999');
         $this->page = $options['page'] ?? 1;
     }
 

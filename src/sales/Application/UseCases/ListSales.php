@@ -21,13 +21,17 @@ class ListSales implements ListSalesInterface
 
     public function list(ListSalesFilter $options): array
     {
+        $beginDate = $options->getBeginDate();
+        $endDate = $options->getEndDate();
+
         $sales = Repository::listPaginate(
             page: $options->getPage(),
-            beginDate: $options->getBeginDate(),
-            endDate: $options->getEndDate(),
+            beginDate: $beginDate,
+            endDate: $endDate,
         );
-        $totalValue = Repository::getTotalValueSum();
-        $totalProfit = Repository::getTotalProfitSum();
+
+        $totalValue = Repository::getTotalValueSum($beginDate, $endDate);
+        $totalProfit = Repository::getTotalProfitSum($beginDate, $endDate);
         $saleOrders = $this->presenter->listSaleOrder($sales->items());
 
         return [
