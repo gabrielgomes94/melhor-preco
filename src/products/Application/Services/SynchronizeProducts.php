@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\Services\Synchronization;
+namespace Src\Products\Application\Services;
 
 use Src\Products\Domain\Events\Product\ProductsSynchronized;
 use Src\Products\Domain\Models\Product\Product;

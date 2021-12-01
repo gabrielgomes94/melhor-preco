@@ -3,26 +3,25 @@
 namespace Src\Products\Application\Http\Controllers\Web\Reports;
 
 use App\Http\Controllers\Controller;
-use Src\Products\Application\Services\Reports\FilterProducts;
+use Src\Products\Application\UseCases\ReportOverDimensionProducts;
 use Illuminate\Http\Request;
 
 use function view;
 
 class DimensionsController extends Controller
 {
-    private FilterProducts $filterProductsService;
+    private ReportOverDimensionProducts $filterProductsService;
 
-    public function __construct(FilterProducts $filterProductsService)
+    public function __construct(ReportOverDimensionProducts $filterProductsService)
     {
         $this->filterProductsService = $filterProductsService;
     }
 
     public function overDimension(Request $request)
     {
-        $overDimensionProducts = $this->filterProductsService->getOverDimensions();
+        $data = $this->filterProductsService
+            ->getOverDimensions(90, 90, 90, 200);
 
-        return view('pages.products.reports.over_dimension', [
-            'overDimensionProducts' => $overDimensionProducts
-        ]);
+        return view('pages.products.reports.over_dimension', $data);
     }
 }

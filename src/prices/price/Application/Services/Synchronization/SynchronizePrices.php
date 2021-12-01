@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\Services\Synchronization;
+namespace Src\Prices\Price\Application\Services\Synchronization;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;

@@ -1,14 +1,15 @@
 <?php
 
-namespace Src\Products\Application\Services\StockTag;
+namespace Src\Products\Application\UseCases;
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
+use Src\Products\Domain\UseCases\Contracts\GenerateStockTags;
 use function route;
 
-class GenerateQRCode
+class GenerateQRCode implements GenerateStockTags
 {
-    public function generate(array $products)
+    public function generate(array $products): array
     {
         $qrCodes = [];
 

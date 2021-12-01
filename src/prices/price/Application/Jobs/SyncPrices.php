@@ -1,22 +1,23 @@
 <?php
 
-namespace Src\Products\Application\Jobs;
+
+namespace Src\Prices\Price\Application\Jobs;
+
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Src\Products\Application\Services\SynchronizeProducts;
+use Src\Prices\Price\Application\Services\Synchronization\SynchronizePrices;
 
-class SyncProducts implements ShouldQueue
+class SyncPrices
 {
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
 
-    public function handle(SynchronizeProducts $syncService): void
+    public function handle(SynchronizePrices $syncService): void
     {
         $syncService->sync();
     }
