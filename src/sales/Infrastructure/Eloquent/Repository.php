@@ -2,6 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Eloquent;
 
+use Carbon\Carbon;
 use DateTime;
 use Src\Sales\Domain\Events\CustomerSynchronized;
 use Src\Sales\Domain\Events\InvoiceSynchronized;
@@ -103,10 +104,12 @@ class Repository implements RepositoryInterface
     public static function listPaginate(
         int $page,
         int $perPage = RepositoryInterface::PER_PAGE,
-        ?DateTime $beginDate = null,
-        ?DateTime $endDate = null
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
     ) {
         return SaleOrder::valid()
+            ->where('selled_at', '>=', $beginDate)
+            ->where('selled_at', '<=', $endDate)
             ->defaultOrder()
             ->paginate(page: $page, perPage: 40);
     }

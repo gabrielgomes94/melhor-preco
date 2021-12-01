@@ -4,6 +4,7 @@ namespace Src\Sales\Application\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Src\Sales\Application\UseCases\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\ListSales;
 
 class ListController extends Controller
@@ -17,8 +18,15 @@ class ListController extends Controller
 
     public function list(Request $request)
     {
-        $page = (int) $request->input('page') ?? 1;
-        $saleOrders = $this->listSales->list($page);
+        $options = new ListSalesFilter(
+            [
+                'beginDate' => $request->input('beginDate'),
+                'endDate' => $request->input('endDate'),
+                'page' => $page = (int) $request->input('page') ?? 1,
+            ]
+        );
+
+        $saleOrders = $this->listSales->list($options);
 
         return view('pages.sales.list', [
             'saleOrders' => $saleOrders['saleOrders'],

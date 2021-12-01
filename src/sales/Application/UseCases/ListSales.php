@@ -3,6 +3,7 @@
 namespace Src\Sales\Application\UseCases;
 
 use Src\Sales\Application\Presenters\ListSalesPresenter;
+use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\ListSales as ListSalesInterface;
 use Src\Sales\Infrastructure\Bling\Repository as ErpRepository;
 use Src\Sales\Infrastructure\Eloquent\Repository;
@@ -18,9 +19,13 @@ class ListSales implements ListSalesInterface
         $this->repository = $repository;
     }
 
-    public function list(int $page = 1): array
+    public function list(ListSalesFilter $options): array
     {
-        $sales = Repository::listPaginate(page: $page);
+        $sales = Repository::listPaginate(
+            page: $options->getPage(),
+            beginDate: $options->getBeginDate(),
+            endDate: $options->getEndDate(),
+        );
         $totalValue = Repository::getTotalValueSum();
         $totalProfit = Repository::getTotalProfitSum();
         $saleOrders = $this->presenter->listSaleOrder($sales->items());
