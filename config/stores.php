@@ -62,8 +62,8 @@ return [
 //        ],
     ],
     'via_varejo' => [
-        'name' => 'Shopee',
-        'slug' => 'shopee',
+        'name' => 'Via Varejo',
+        'slug' => 'via_varejo',
         'erpCode' => '203626895',
         'commission' => 16.0,
 //        'extra_costs' => [
