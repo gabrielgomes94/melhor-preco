@@ -5,13 +5,13 @@ namespace Src\Products\Application\Http\Controllers\Web\Images;
 use Src\Products\Application\Http\Requests\Product\ImageUploaderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Src\Products\Application\UseCases\UploadSpreadsheet;
+use Src\Products\Application\UseCases\UploadImages;
 
 class ProductImageController extends BaseController
 {
-    private UploadSpreadsheet $storeImages;
+    private UploadImages $storeImages;
 
-    public function __construct(UploadSpreadsheet $storeImages)
+    public function __construct(UploadImages $storeImages)
     {
         $this->storeImages = $storeImages;
     }
