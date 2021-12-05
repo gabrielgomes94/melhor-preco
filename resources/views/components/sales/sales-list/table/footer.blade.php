@@ -1,36 +1,28 @@
 <tr>
     <td colspan="2">
-        <h6>Período</h6>
-
-        <span>
-            <b>Início: </b> 01/11/2021 <br>
-        </span>
-        <span>
-            <b>Fim</b> 31/11/2021
-        </span>
+        <x-sales.sales-list.table.footer.period
+            :beginDate="$total['beginDate']"
+            :endDate="$total['endDate']"
+        />
     </td>
 
     <td colspan="2">
-        <h6>Total</h6>
-
-        <b>Vendas:</b> 123 <br>
-        <b>Produtos:</b> 150
+        <x-sales.sales-list.table.footer.sales-count
+            :salesCount="$total['salesCount']"
+            :productsCount="$total['productsCount']"
+        />
     </td>
 
     <td colspan="3">
-        <h6>Vendas por Loja</h6>
-
-        <b>B2W:</b> 98 <br>
-        <b>Magalu:</b> 123 <br>
-        <b>Olist:</b> 321 <br>
-        <b>Mercado Livre:</b> 222 <br>
-        <b>Shopee:</b> 111
+        <x-sales.sales-list.table.footer.stores-count
+            :stores="$total['storesCount']"
+        />
     </td>
 
     <td colspan="3">
-        <h6>Receita</h6>
-
-        <b>Faturamento:</b> R$ {{ $total['value'] }} <br>
-        <b>Lucro:</b> R$ {{ $total['profit'] }}
+        <x-sales.sales-list.table.footer.revenue
+            :value="$total['value']"
+            :profit="$total['profit']"
+        />
     </td>
 </tr>

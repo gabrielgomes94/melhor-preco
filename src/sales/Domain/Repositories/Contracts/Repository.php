@@ -2,6 +2,7 @@
 
 namespace Src\Sales\Domain\Repositories\Contracts;
 
+use Carbon\Carbon;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Infrastructure\Bling\Data\SaleOrder as SaleOrderData;
 use Src\Sales\Domain\Models\SaleOrder;
@@ -15,18 +16,18 @@ interface Repository
     public static function listPaginate(
         int $page,
         int $perPage = self::PER_PAGE,
-        ?\DateTime $beginDate = null,
-        ?\DateTime $endDate = null
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
     );
 
     public static function getTotalValueSum(
-        ?\DateTime $beginDate = null,
-        ?\DateTime $endDate = null
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
     );
 
     public static function getTotalProfitSum(
-        ?\DateTime $beginDate = null,
-        ?\DateTime $endDate = null
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
     );
 
     public static function syncPayment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;

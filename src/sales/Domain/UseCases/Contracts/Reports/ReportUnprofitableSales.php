@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\UseCases\Contracts;
+namespace Src\Sales\Domain\UseCases\Contracts\Reports;
 
 interface ReportUnprofitableSales
 {

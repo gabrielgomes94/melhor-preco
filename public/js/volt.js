@@ -14552,7 +14552,8 @@ d.addEventListener("DOMContentLoaded", function (event) {
   var datepickers = [].slice.call(d.querySelectorAll('[data-datepicker]'));
   var datepickersList = datepickers.map(function (el) {
     return new vanillajs_datepicker_js_Datepicker__WEBPACK_IMPORTED_MODULE_1__["default"](el, {
-      buttonClass: 'btn'
+      buttonClass: 'btn',
+      format: 'dd/mm/yyyy'
     });
   });
 

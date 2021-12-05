@@ -2,7 +2,8 @@
 
 namespace Src\Sales\Infrastructure\Eloquent;
 
-use DateTime;
+use Carbon\Carbon;
+use Src\Products\Infrastructure\Config\StoreRepository;
 use Src\Sales\Domain\Events\CustomerSynchronized;
 use Src\Sales\Domain\Events\InvoiceSynchronized;
 use Src\Sales\Domain\Events\ItemSynchronized;
@@ -103,22 +104,60 @@ class Repository implements RepositoryInterface
     public static function listPaginate(
         int $page,
         int $perPage = RepositoryInterface::PER_PAGE,
-        ?DateTime $beginDate = null,
-        ?DateTime $endDate = null
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
     ) {
         return SaleOrder::valid()
+            ->inDateInterval($beginDate, $endDate)
             ->defaultOrder()
             ->paginate(page: $page, perPage: 40);
     }
 
-    public static function getTotalValueSum(?DateTime $beginDate = null, ?DateTime $endDate = null)
+    public static function getTotalValueSum(?Carbon $beginDate = null, ?Carbon $endDate = null)
     {
-        return SaleOrder::valid()->sum('total_value');
+        return SaleOrder::valid()
+            ->inDateInterval($beginDate, $endDate)
+            ->sum('total_value');
     }
 
-    public static function getTotalProfitSum(?DateTime $beginDate = null, ?DateTime $endDate = null)
+    public static function getTotalProfitSum(?Carbon $beginDate = null, ?Carbon $endDate = null)
     {
-        return SaleOrder::valid()->sum('total_profit');
+        return SaleOrder::valid()
+            ->inDateInterval($beginDate, $endDate)
+            ->sum('total_profit');
+    }
+
+    public static function getTotalSalesCount(Carbon $beginDate, Carbon $endDate)
+    {
+        return SaleOrder::valid()
+            ->inDateInterval($beginDate, $endDate)
+            ->count();
+    }
+
+    public static function getTotalProductsCount(Carbon $beginDate, Carbon $endDate)
+    {
+        return SaleOrder::withCount('items')
+            ->inDateInterval($beginDate, $endDate)
+            ->count();
+    }
+
+    public static function getTotalStoresCount(Carbon $beginDate, Carbon $endDate)
+    {
+        $stores = StoreRepository::all();
+
+        foreach ($stores as $store) {
+            $slug = $store->getSlug();
+
+            $storeList[$slug] = [
+                'count' => SaleOrder::valid()
+                    ->inDateInterval($beginDate, $endDate)
+                    ->where('store_id', $store->getErpCode())
+                    ->count(),
+                'name' => $store->getName(),
+            ];
+        }
+
+        return $storeList ?? [];
     }
 
     public static function updateProfit(SaleOrder $saleOrder, float $profit): void

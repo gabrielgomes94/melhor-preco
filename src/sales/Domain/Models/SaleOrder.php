@@ -165,6 +165,12 @@ class SaleOrder extends Model implements SaleOrderInterface
         return $query->where('status', '<>', 'Cancelado');
     }
 
+    public function scopeInDateInterval($query, $beginDate, $endDate)
+    {
+        return $query->where('selled_at', '>=', $beginDate)
+            ->where('selled_at', '<=', $endDate);
+    }
+
     public function scopeDefaultOrder($query)
     {
         return $query->orderBy('selled_at', 'desc')

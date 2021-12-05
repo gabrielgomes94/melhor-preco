@@ -11,8 +11,8 @@
                id="{{ $id }}"
                form="{{ $formId }}"
                type="text"
+               name="{{ $inputName }}"
                placeholder="dd/mm/aaaaa"
-               required
         >
     </div>
 </div>
