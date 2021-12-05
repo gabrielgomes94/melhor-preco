@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+include 'notifications/web.php';
+include 'products/web.php';
+include 'prices/price/web.php';
 include 'sales/web.php';
 
 Route::middleware('auth')->group(function () {

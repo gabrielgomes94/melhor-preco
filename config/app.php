@@ -188,20 +188,17 @@ return [
          */
         Src\Notifications\Application\Providers\BladeServiceProvider::class,
         Src\Notifications\Application\Providers\NotificationServiceProvider::class,
-        Src\Notifications\Application\Providers\RouteServiceProvider::class,
         Src\Notifications\Application\Providers\EventServiceProvider::class,
 
         /**
          * Prices' module Service Providers...
          */
         Src\Prices\Price\Application\Providers\BladeServiceProvider::class,
-        Src\Prices\Price\Application\Providers\RouteServiceProvider::class,
         Src\Prices\Price\Application\Providers\EventServiceProvider::class,
 
         /**
          * Prices' Calculator module Services Providers...
          */
-        Src\Prices\Calculator\Application\Providers\RouteServiceProvider::class,
         Src\Prices\Calculator\Application\Providers\CalculatorServiceProvider::class,
 
         /**
@@ -209,7 +206,6 @@ return [
          */
         Src\Products\Application\Providers\EventServiceProvider::class,
         Src\Products\Application\Providers\ProductServiceProvider::class,
-        Src\Products\Application\Providers\RouteServiceProvider::class,
 
         /**
          * Sales' module Service Providers...
