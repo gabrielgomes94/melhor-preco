@@ -9,19 +9,23 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Src\Sales\Application\Services\CalculateTotalProfit;
-use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
 use Src\Sales\Infrastructure\Eloquent\Repository;
+use Src\Sales\Infrastructure\Eloquent\SyncRepository;
 
 class SyncSales implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     private CalculateTotalProfit $calculateTotalProfit;
 
-    public function handle(ErpRepository $erpRepository, CalculateTotalProfit $calculateTotalProfit): void {
+    public function handle(ErpRepository $erpRepository, CalculateTotalProfit $calculateTotalProfit): void
+    {
         $data = $erpRepository->list();
 
         foreach ($data as $saleOrder) {
@@ -37,9 +41,10 @@ class SyncSales implements ShouldQueue
 
     private function getSaleOrder(SaleOrderInterface $saleOrder): ?SaleOrder
     {
-        $saleOrderId = $saleOrder->getIdentifiers()->id();
-
-        return SaleOrder::where('sale_order_id', $saleOrderId)->first();
+        return SaleOrder::where(
+            'sale_order_id',
+            $saleOrder->getIdentifiers()->id()
+        )->first();
     }
 
     private function insertSaleOrder(
@@ -47,36 +52,35 @@ class SyncSales implements ShouldQueue
         CalculateTotalProfit $calculateTotalProfit
     ): void {
         try {
-            $saleOrderModel = Repository::insert($externalSaleOrder);
+            $saleOrderModel = SyncRepository::insert($externalSaleOrder);
+            SyncRepository::syncInvoice($saleOrderModel, $externalSaleOrder);
+            SyncRepository::syncPayment($saleOrderModel, $externalSaleOrder);
+            SyncRepository::syncShipment($saleOrderModel, $externalSaleOrder);
+            SyncRepository::syncItems($saleOrderModel, $externalSaleOrder);
 
-            Repository::syncInvoice($saleOrderModel, $externalSaleOrder);
-            Repository::syncPayment($saleOrderModel, $externalSaleOrder);
-            Repository::syncShipment($saleOrderModel, $externalSaleOrder);
-            Repository::syncItems($saleOrderModel, $externalSaleOrder);
-
-            $profit = $calculateTotalProfit->execute($saleOrderModel);
-            Repository::updateProfit($saleOrderModel, $profit);
-
-            event(new SaleSynchronized($saleOrderModel->id));
-
+            Repository::update(
+                saleOrder: $saleOrderModel,
+                profit: $calculateTotalProfit->execute($saleOrderModel)
+            );
         } catch (Exception $exception) {
             return;
         }
     }
 
     private function updateSaleOrder(
-        SaleOrder $model,
+        SaleOrder $saleOrder,
         SaleOrderInterface $externalSaleOrder,
         CalculateTotalProfit $calculateTotalProfit
     ): void {
         try {
-            Repository::syncPayment($model, $externalSaleOrder);
-            Repository::syncItems($model, $externalSaleOrder);
-            $profit = $calculateTotalProfit->execute($model);
-            Repository::updateProfit($model, $profit);
+            SyncRepository::syncPayment($saleOrder, $externalSaleOrder);
+            SyncRepository::syncItems($saleOrder, $externalSaleOrder);
 
-            $model->status = (string) $externalSaleOrder->getStatus();
-            $model->save();
+            Repository::update(
+                saleOrder: $saleOrder,
+                profit: $calculateTotalProfit->execute($saleOrder),
+                status: (string) $externalSaleOrder->getStatus()
+            );
         } catch (Exception $exception) {
             return;
         }
