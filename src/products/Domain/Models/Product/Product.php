@@ -133,7 +133,7 @@ class Product extends Model implements ProductModelInterface
     {
         return new Details(
             name: $this->name,
-            brand: $this->brand,
+            brand: $this->brand ?? '',
             images: $this->images ?? []
         );
     }
