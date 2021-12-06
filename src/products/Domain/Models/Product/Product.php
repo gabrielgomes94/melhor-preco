@@ -3,6 +3,8 @@
 namespace Src\Products\Domain\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Prices\Price\Domain\Models\Price;
@@ -16,6 +18,7 @@ use Src\Products\Domain\Models\Product\Data\Variations\Variations;
 use Src\Products\Domain\Models\Product\Contracts\Product as ProductModelInterface;
 use Src\Products\Domain\Models\Store\Contracts\Store;
 use Src\Products\Domain\Models\Post\Post;
+use Src\Sales\Domain\Models\Item;
 
 class Product extends Model implements ProductModelInterface
 {
@@ -46,6 +49,7 @@ class Product extends Model implements ProductModelInterface
     protected $casts = [
         'composition_products' => 'array',
         'images' => 'array',
+        'sku' => 'string',
     ];
 
     protected $primaryKey = 'sku';
@@ -53,6 +57,13 @@ class Product extends Model implements ProductModelInterface
     public function prices(): HasMany
     {
         return $this->hasMany(Price::class, 'product_id', 'sku');
+    }
+
+    // @todo: definir relacionamento com collection de items. has many
+
+    public function items(): BelongsTo
+    {
+        return $this->belongsTo(Item::class, 'product_id', 'sku');
     }
 
 //    public function data(): ProductData

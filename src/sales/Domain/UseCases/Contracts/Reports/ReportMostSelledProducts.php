@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Domain\UseCases\Contracts\Reports;
 
-interface ReportMostSelled
+interface ReportMostSelledProducts
 {
     public function report();
 }

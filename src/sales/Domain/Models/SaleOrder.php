@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Src\Products\Domain\Models\Store\Factory;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
 use Src\Sales\Domain\Factories\Invoice;
 use Src\Sales\Domain\Factories\PaymentInstallment;
@@ -147,6 +148,12 @@ class SaleOrder extends Model implements SaleOrderInterface
     public function getShipment(): ShipmentData
     {
         return ShipmentFactory::make($this->shipment);
+    }
+
+    public function getStore()
+    {
+        return Factory::makeFromErpCode($this->store_id ?? '');
+
     }
 
     public function getStatus(): Status
