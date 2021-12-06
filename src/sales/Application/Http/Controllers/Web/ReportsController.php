@@ -17,8 +17,8 @@ class ReportsController extends Controller
 
     public function mostSelledProducts(Request $request)
     {
-        $this->reportMostSelledProducts->report();
-        dd('oi');
+        $data = $this->reportMostSelledProducts->report();
 
+        return view('pages.sales.reports.most-selled-products', ['products' => $data]);
     }
 }

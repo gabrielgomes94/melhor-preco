@@ -8,7 +8,7 @@ use Src\Sales\Domain\Repositories\Contracts\ItemRepository as ItemRepositoryRepo
 
 class ItemRepository implements ItemRepositoryRepository
 {
-    public static function groupSaleItemsByProduct(): Collection
+    public static function  groupSaleItemsByProduct(): Collection
     {
         return Item::with('product')
             ->get()

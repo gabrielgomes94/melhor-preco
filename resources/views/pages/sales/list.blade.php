@@ -17,5 +17,11 @@
         </div>
     </div>
 
-    <x-sales.sales-list.card :paginator="$paginator" :saleOrders="$saleOrders" :total="$total" />
+    <x-sales.sales-list.card>
+        <div class="mb-2">
+            <x-sales.sales-list.filter.form />
+
+            <x-sales.sales-list.table.table :saleOrders="$saleOrders" :total="$total" :paginator="$paginator"/>
+        </div>
+    </x-sales.sales-list.card>
 </x-layout>

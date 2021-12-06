@@ -50,6 +50,10 @@ class ReportMostSelledProducts implements ReportMostSelledProductsAlias
                 ];
             });
 
+        $items = $items->filter(function ($item) {
+            return !empty($item);
+        });
+
         return $items;
     }
 
