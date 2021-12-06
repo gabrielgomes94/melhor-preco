@@ -33,6 +33,8 @@
                 </x-layout.menu.menu-section>
 
                 <x-layout.menu.menu-item route="{{ route('sales.list') }}" name="Gestão de Vendas" badge="beta" icon="currency" />
+                <x-layout.menu.menu-item route="{{ route('sales.reports.mostSelledProducts') }}" name="Produtos mais vendidos" badge="beta" icon="currency" />
+
                 <x-layout.menu.menu-item route="{{ route('home') }}" name="Configurações" badge="em breve" icon="settings" />
 
                 <x-utils.logout />
