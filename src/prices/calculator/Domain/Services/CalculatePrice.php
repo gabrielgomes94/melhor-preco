@@ -8,6 +8,7 @@ use Src\Prices\Calculator\Domain\Models\Price\Price;
 use Src\Prices\Calculator\Domain\Services\Contracts\CalculatePrices;
 use Src\Products\Domain\Models\Store\Store;
 
+// @todo: Talvez seja interessante disponibilizar uma classe CalculateProduct
 class CalculatePrice implements CalculatePrices
 {
     public function calculate(

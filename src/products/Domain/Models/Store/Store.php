@@ -9,6 +9,7 @@ class Store implements StoreInterface
 {
     private array $validStores = [
         'b2w',
+        'barrigudinha',
         'magalu',
         'mercado_livre',
         'olist',

@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Models\Store;
 
+// @todo: talvez seja interessante unir essa factory ao objeto Store
 class Factory
 {
     public static function make(string $slug): Store
@@ -31,6 +32,13 @@ class Factory
             }
         }
 
-        return null;
+        return new Store(
+            slug: 'barrigudinha',
+            name: 'Loja Física',
+            erpCode: '000000',
+            defaultCommission: 0.0
+        );
+
+//        return null;
     }
 }

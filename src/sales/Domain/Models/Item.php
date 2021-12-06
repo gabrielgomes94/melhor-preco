@@ -15,15 +15,29 @@ class Item extends Model
         'discount',
     ];
 
+    protected $casts = [
+        'sku' => 'string',
+    ];
+
     protected $table = 'sales_items';
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'sku', 'sku');
+        return $this->hasOne(Product::class, 'sku', 'sku');
+    }
+
+    public function saleOrder()
+    {
+        return $this->belongsTo(SaleOrder::class);
     }
 
     public function getSku(): ?string
     {
         return $this->sku;
+    }
+
+    public function getTotalValue(): float
+    {
+        return ($this->unit_value - $this->discount) * $this->quantity;
     }
 }

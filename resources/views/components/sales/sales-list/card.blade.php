@@ -1,11 +1,7 @@
 <div class="row my-2">
     <div class="col-12">
         <x-template.card.card>
-            <div class="mb-2">
-                <x-sales.sales-list.filter.form />
-
-                <x-sales.sales-list.table.table :saleOrders="$saleOrders" :total="$total" :paginator="$paginator"/>
-            </div>
+            {{ $slot }}
         </x-template.card.card>
     </div>
 </div>
