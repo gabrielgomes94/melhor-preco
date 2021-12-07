@@ -6,12 +6,15 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Prices\Calculator\Application\Services\CalculateProfit;
 use Src\Prices\Calculator\Application\Services\GetCommission;
+use Src\Prices\Price\Domain\Events\PriceSynchronized;
+use Src\Prices\Price\Domain\Events\PriceWasNotSynchronized;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Bling\Repository as BlingRepository;
 use TypeError;
 
+// @todo: criar um UseCase para Sincronização de Preços e separar melhor as responsabilidades
 class SynchronizePrices
 {
     private BlingRepository $erpRepository;
@@ -45,7 +48,14 @@ class SynchronizePrices
         $price = $this->updateCommissionAndProfit($price);
         $price->product()->associate($product);
 
-        $price->save();
+        $this->savePrice($price);
+    }
+
+    private function savePrice(Price $price)
+    {
+        $price->save()
+            ? event(new PriceSynchronized($price))
+            : event(new PriceWasNotSynchronized($price));
     }
 
     private function updatePrice(Price $price, float $value): void
@@ -53,7 +63,7 @@ class SynchronizePrices
         $price->value = $value;
         $price = $this->updateCommissionAndProfit($price);
 
-        $price->save();
+        $this->savePrice($price);
     }
 
    private function getPrices(Price $price): Collection
@@ -75,7 +85,6 @@ class SynchronizePrices
     private function savePrices(array $prices): void
     {
         foreach ($prices as $price) {
-
             try {
                 $priceModels = $this->getPrices($price);
                 if ($priceModels->count() === 0) {
@@ -88,6 +97,7 @@ class SynchronizePrices
                     $this->updatePrice($priceModel, $price->value);
                 }
             } catch (ProductNotFoundException $exception) {
+                $this->logErrors($exception->getMessage(), $price->toArray());
 
                 continue;
             }

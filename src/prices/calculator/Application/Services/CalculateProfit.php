@@ -37,7 +37,7 @@ class CalculateProfit
             ProductData::fromModel($product),
             Factory::make($price->store),
             $price->value,
-            Percentage::fromPercentage($price->commission),
+            Percentage::fromPercentage($price->commission ?? 0.0),
         );
 
         return MoneyTransformer::toFloat($price->getProfit());

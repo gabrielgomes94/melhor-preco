@@ -21,7 +21,6 @@ class Price extends Model
 
     protected $casts = [
         'product_sku' => 'string',
-
     ];
 
     public function getProductSku(): string
@@ -32,6 +31,11 @@ class Price extends Model
     public function getProfit(): float
     {
         return $this->profit;
+    }
+
+    public function getStore(): string
+    {
+        return $this->store;
     }
 
     public function getValue(): float

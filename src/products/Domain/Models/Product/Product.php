@@ -59,27 +59,10 @@ class Product extends Model implements ProductModelInterface
         return $this->hasMany(Price::class, 'product_id', 'sku');
     }
 
-    // @todo: definir relacionamento com collection de items. has many
-
     public function items(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'product_id', 'sku');
     }
-
-//    public function data(): ProductData
-//    {
-//        $data = Factory::make(
-//            array_merge($this->toArray(), [
-//                'prices' => $this->prices->toArray(),
-//                'parent_sku' => $this->parent_sku ?? '',
-//                'stock' => $this->stock ?? 0,
-//                'variations' => $this->getVariations(),
-//                'composition' => $this->getComposition(),
-//            ])
-//        );
-//
-//        return $data;
-//    }
 
     public function getSku(): string
     {
@@ -197,6 +180,7 @@ class Product extends Model implements ProductModelInterface
         $this->is_active = $status;
     }
 
+    // @deprecated
     public function setDetails(Details $details)
     {
         $this->name = $details->getName();
