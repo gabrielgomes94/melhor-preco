@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Src\Sales\Domain\Models\ValueObjects\Customer\Customer;
 use Src\Sales\Domain\Models\ValueObjects\Identifiers\Identifiers;
 use Src\Sales\Domain\Models\ValueObjects\Invoice\Invoice as InvoiceData;
+use Src\Sales\Domain\Models\ValueObjects\Items\Items;
 use Src\Sales\Domain\Models\ValueObjects\Payment\Payment;
 use Src\Sales\Domain\Models\ValueObjects\Sale\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
@@ -23,7 +24,7 @@ interface SaleOrder
     /**
      * @return Collection<Item>
      */
-    public function getItems(): Collection;
+    public function getItems(): Items;
 
     public function getInvoice(): ?InvoiceData;
 

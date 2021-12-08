@@ -5,7 +5,7 @@ namespace Src\Sales\Application\UseCases;
 use Src\Sales\Application\Presenters\ListSalesPresenter;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\ListSales as ListSalesInterface;
-use Src\Sales\Infrastructure\Eloquent\Repository;
+use Src\Sales\Infrastructure\Eloquent\Repositories\Repository;
 
 class ListSales implements ListSalesInterface
 {

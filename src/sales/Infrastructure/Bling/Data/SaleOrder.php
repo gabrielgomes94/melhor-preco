@@ -22,7 +22,6 @@ class SaleOrder implements SaleOrderInterface
     private SaleDates $saleDates;
     private SaleValue $saleValue;
     private Status $status;
-
     private ?Invoice $invoice;
     private ?Payment $payment;
     private ?Shipment $shipment;
@@ -74,9 +73,9 @@ class SaleOrder implements SaleOrderInterface
         return $this->identifiers;
     }
 
-    public function getItems(): Collection
+    public function getItems(): Items
     {
-        return collect($this->items->get());
+        return $this->items;
     }
 
     public function getInvoice(): ?Invoice

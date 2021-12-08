@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Src\Sales\Domain\Events\Contracts\ModelSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
 
-class SaleSynchronized implements ModelSynchronized
+class SaleSynchronized ///implements ModelSynchronized
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -23,7 +23,7 @@ class SaleSynchronized implements ModelSynchronized
         $this->saleOrderId = $saleOrderId;
     }
 
-    public function getModel(): SaleOrder
+    public function getModel(): ?SaleOrder
     {
         return SaleOrder::find($this->saleOrderId);
     }

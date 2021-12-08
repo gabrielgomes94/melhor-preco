@@ -4,6 +4,8 @@ namespace Src\Sales\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Src\Products\Domain\Models\Product\Product;
+use Src\Sales\Domain\Models\Item as ItemModel;
+use Src\Sales\Domain\Models\ValueObjects\Items\Item as ItemData;
 
 class Item extends Model
 {
@@ -39,5 +41,16 @@ class Item extends Model
     public function getTotalValue(): float
     {
         return ($this->unit_value - $this->discount) * $this->quantity;
+    }
+
+    public static function fromValueObject(ItemData $item): self
+    {
+        return new self([
+            'sku' => $item->sku(),
+            'name' => $item->name(),
+            'quantity' => $item->quantity(),
+            'unit_value' => $item->unitValue(),
+            'discount' => $item->discount(),
+        ]);
     }
 }

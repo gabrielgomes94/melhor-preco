@@ -1,12 +1,13 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Eloquent;
+namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Carbon\Carbon;
 use Src\Products\Infrastructure\Config\StoreRepository;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
+use function event;
 
 class Repository implements RepositoryInterface
 {

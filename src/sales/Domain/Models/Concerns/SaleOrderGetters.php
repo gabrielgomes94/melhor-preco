@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Src\Products\Domain\Models\Store\Factory;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
 use Src\Sales\Domain\Factories\Invoice;
+use Src\Sales\Domain\Factories\Item;
 use Src\Sales\Domain\Factories\PaymentInstallment;
 use Src\Sales\Domain\Factories\Shipment as ShipmentFactory;
 use Src\Sales\Domain\Models\ValueObjects\Customer\Customer as CustomerData;
 use Src\Sales\Domain\Models\ValueObjects\Identifiers\Identifiers;
 use Src\Sales\Domain\Models\ValueObjects\Invoice\Invoice as InvoiceObject;
+use Src\Sales\Domain\Models\ValueObjects\Items\Items;
 use Src\Sales\Domain\Models\ValueObjects\Payment\Payment;
 use Src\Sales\Domain\Models\ValueObjects\Sale\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
@@ -34,9 +36,13 @@ trait SaleOrderGetters
             storeSaleOrderId: $this->store_sale_order_id);
     }
 
-    public function getItems(): Collection
+    public function getItems(): Items
     {
-        return $this->items;
+        foreach ($this->items as $item) {
+            $items[] = Item::make($item);
+        }
+
+        return new Items($items ?? []);
     }
 
     public function getInvoice(): InvoiceObject

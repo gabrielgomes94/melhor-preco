@@ -15,8 +15,7 @@ class ResponseFactory extends BaseFactory
         }
 
         foreach ($data as $saleOrder) {
-            Log::debug('Sale Order: ', $saleOrder);
-            $saleOrders[] = $s = Transformer::transform($saleOrder);
+            $saleOrders[] = Transformer::transform($saleOrder);
         }
 
         return new Response($saleOrders);

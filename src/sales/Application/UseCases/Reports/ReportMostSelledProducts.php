@@ -7,7 +7,7 @@ use Src\Prices\Calculator\Domain\Services\CalculateItem;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\UseCases\Contracts\Reports\ReportMostSelledProducts as ReportMostSelledProductsAlias;
-use Src\Sales\Infrastructure\Eloquent\ItemRepository;
+use Src\Sales\Infrastructure\Eloquent\Repositories\ItemsRepository;
 
 class ReportMostSelledProducts implements ReportMostSelledProductsAlias
 {
@@ -20,7 +20,7 @@ class ReportMostSelledProducts implements ReportMostSelledProductsAlias
 
     public function report()
     {
-        $items = ItemRepository::groupSaleItemsByProduct();
+        $items = ItemsRepository::groupSaleItemsByProduct();
 
         $items = $items->transform(function (Collection $collection) {
                 $product = $collection->first()->product;
