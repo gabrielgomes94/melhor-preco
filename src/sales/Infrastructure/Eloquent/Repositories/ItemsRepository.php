@@ -8,18 +8,18 @@ use Src\Sales\Domain\Events\ItemWasNotSynchronized;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Models\ValueObjects\Items\Items;
-use Src\Sales\Domain\Repositories\Contracts\ItemRepository as ItemRepositoryRepository;
+use Src\Sales\Domain\Repositories\Contracts\ItemsRepository as ItemRepositoryRepository;
 
 class ItemsRepository implements ItemRepositoryRepository
 {
-    public static function groupSaleItemsByProduct(): Collection
+    public function groupSaleItemsByProduct(): Collection
     {
         return Item::with('product')
             ->get()
             ->groupBy('sku');
     }
 
-    public static function insert(
+    public function insert(
         SaleOrder $internalSaleOrder,
         Items $items
     ): void {

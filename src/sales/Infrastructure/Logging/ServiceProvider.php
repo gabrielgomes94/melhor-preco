@@ -4,6 +4,8 @@ namespace Src\Sales\Infrastructure\Logging;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
+use Src\Sales\Infrastructure\Logging\Listeners\LogException;
 use Src\Sales\Infrastructure\Logging\Listeners\LogNotSynchronizedItem;
 use Src\Sales\Infrastructure\Logging\Listeners\LogSynchronizedItem;
 use Src\Sales\Infrastructure\Logging\Listeners\LogSynchronizedSales;
@@ -26,5 +28,9 @@ class ServiceProvider extends BaseServiceProvider
         Event::listen([
             ItemWasNotSynchronized::class,
         ], LogNotSynchronizedItem::class);
+
+        Event::listen([
+            SaleOrderWasNotSynchronized::class,
+        ], LogException::class);
     }
 }

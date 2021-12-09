@@ -20,7 +20,7 @@ interface Repository
         int $perPage = self::PER_PAGE,
     );
 
-    public static function update(
+    public function update(
         SaleOrder $saleOrder,
         ?float $profit = null,
         ?string $status = null

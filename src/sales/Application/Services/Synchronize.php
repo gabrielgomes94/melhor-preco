@@ -3,27 +3,29 @@
 namespace Src\Sales\Application\Services;
 
 use Exception;
-use Illuminate\Support\Facades\Log;
+use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\SaleOrder;
-use Src\Sales\Domain\Repositories\Contracts\ItemRepository;
+use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
-use Src\Sales\Infrastructure\Eloquent\Repositories\Repository;
+use Src\Sales\Domain\Repositories\Contracts\Repository;
 
-// @todo: Fazer inversão de controle dos repositórios
 class Synchronize
 {
     private CalculateTotalProfit $calculateTotalProfit;
-    private ItemRepository $itemsRepository;
+    private ItemsRepository $itemsRepository;
+    private Repository $repository;
     private SynchronizationRepository $syncRepository;
 
     public function __construct(
         CalculateTotalProfit $calculateTotalProfit,
-        ItemRepository $itemRepository,
+        ItemsRepository $itemRepository,
+        Repository $repository,
         SynchronizationRepository $syncRepository
     ) {
         $this->calculateTotalProfit = $calculateTotalProfit;
         $this->itemsRepository = $itemRepository;
+        $this->repository = $repository;
         $this->syncRepository = $syncRepository;
     }
 
@@ -38,25 +40,25 @@ class Synchronize
 
                 $this->updateSaleOrder($saleOrderModel, $saleOrder);
             } catch (Exception $exception) {
-                Log::error($exception->getMessage());
+                event(new SaleOrderWasNotSynchronized($exception->getMessage()));
             }
         }
     }
 
     private function getSaleOrder(SaleOrderInterface $saleOrder): ?SaleOrder
     {
-        return SaleOrder::where(
-            'sale_order_id',
-            $saleOrder->getIdentifiers()->id()
-        )->first();
+        $id = $saleOrder->getIdentifiers()->id();
+
+        return SaleOrder::where('sale_order_id', $id)->first();
     }
 
     private function insertSaleOrder(SaleOrderInterface $externalSaleOrder): void
     {
         $saleOrderModel = $this->syncRepository->insert($externalSaleOrder);
+
         $this->itemsRepository->insert($saleOrderModel, $externalSaleOrder->getItems());
 
-        Repository::update(
+        $this->repository->update(
             saleOrder: $saleOrderModel,
             profit: $this->calculateTotalProfit->execute($saleOrderModel)
         );
@@ -64,7 +66,7 @@ class Synchronize
 
     private function updateSaleOrder(SaleOrder $saleOrder, SaleOrderInterface $externalSaleOrder): void
     {
-        Repository::update(
+        $this->repository->update(
             saleOrder: $saleOrder,
             profit: $this->calculateTotalProfit->execute($saleOrder),
             status: (string) $externalSaleOrder->getStatus()

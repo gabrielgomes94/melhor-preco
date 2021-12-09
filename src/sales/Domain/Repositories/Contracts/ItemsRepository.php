@@ -5,11 +5,11 @@ namespace Src\Sales\Domain\Repositories\Contracts;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Models\ValueObjects\Items\Items;
 
-interface ItemRepository
+interface ItemsRepository
 {
-    public static function groupSaleItemsByProduct();
+    public function groupSaleItemsByProduct();
 
-    public static function insert(
+    public function insert(
         SaleOrder $internalSaleOrder,
         Items $items
     ): void;

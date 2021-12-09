@@ -70,7 +70,7 @@ class Repository implements RepositoryInterface
         return $storeList ?? [];
     }
 
-    public static function update(SaleOrder $saleOrder, ?float $profit = null, ?string $status = null): void
+    public function update(SaleOrder $saleOrder, ?float $profit = null, ?string $status = null): void
     {
         if (isset($profit)) {
             $saleOrder->total_profit = $profit;

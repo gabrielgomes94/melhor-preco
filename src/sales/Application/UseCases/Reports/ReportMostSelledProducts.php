@@ -6,21 +6,23 @@ use Illuminate\Database\Eloquent\Collection;
 use Src\Prices\Calculator\Domain\Services\CalculateItem;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Sales\Domain\Models\Item;
+use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\UseCases\Contracts\Reports\ReportMostSelledProducts as ReportMostSelledProductsAlias;
-use Src\Sales\Infrastructure\Eloquent\Repositories\ItemsRepository;
 
 class ReportMostSelledProducts implements ReportMostSelledProductsAlias
 {
     private CalculateItem $calculateItem;
+    private ItemsRepository $itemsRepository;
 
-    public function __construct(CalculateItem $calculateItem)
+    public function __construct(CalculateItem $calculateItem, ItemsRepository $itemsRepository)
     {
         $this->calculateItem = $calculateItem;
+        $this->itemsRepository = $itemsRepository;
     }
 
     public function report()
     {
-        $items = ItemsRepository::groupSaleItemsByProduct();
+        $items = $this->itemsRepository->groupSaleItemsByProduct();
 
         $items = $items->transform(function (Collection $collection) {
                 $product = $collection->first()->product;
