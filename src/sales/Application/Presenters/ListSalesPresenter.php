@@ -2,20 +2,12 @@
 
 namespace Src\Sales\Application\Presenters;
 
-use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Models\Store\Factory;
 use Src\Sales\Domain\Models\SaleOrder;
 
 class ListSalesPresenter
 {
-    private CalculatePrice $calculatePrice;
-
-    public function __construct(CalculatePrice $calculatePrice)
-    {
-        $this->calculatePrice = $calculatePrice;
-    }
-
     public function listSaleOrder(array $saleOrders): array
     {
         foreach ($saleOrders as $saleOrder) {
