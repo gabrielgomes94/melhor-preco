@@ -33,6 +33,11 @@ class Item extends Model
         return $this->belongsTo(SaleOrder::class);
     }
 
+    public function getQuantity(): float
+    {
+        return $this->quantity;
+    }
+
     public function getSku(): ?string
     {
         return $this->sku;

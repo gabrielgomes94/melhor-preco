@@ -42,7 +42,9 @@ class ListSalesPresenter
                 continue;
             }
 
-            $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
+            for ($i = 0; $i < $item->getQuantity(); $i++) {
+                $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
+            }
         }
 
         return $products ?? [];
