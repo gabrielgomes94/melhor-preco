@@ -26,7 +26,8 @@
         "predis/predis": "~1.0",
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/data-transfer-object": "^2.8",
-        "squizlabs/php_codesniffer": "^3.5.8"
+        "squizlabs/php_codesniffer": "^3.5.8",
+        "ext-intl": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.7",
