@@ -206,6 +206,7 @@ return [
          */
         Src\Products\Application\Providers\EventServiceProvider::class,
         Src\Products\Application\Providers\ProductServiceProvider::class,
+        Src\Products\Infrastructure\Eloquent\ServiceProvider::class,
 
         /**
          * Sales' module Service Providers...
