@@ -29,6 +29,12 @@ class AddTotalProfitColumnOnSaleOrdersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('sale_orders', function (Blueprint $table) {
+            $table->dropColumn('total_profit');
+            $table->dropColumn('total_products');
+            $table->dropColumn('total_value');
+            $table->dropColumn('freight');
+            $table->dropColumn('discount');
+        });
     }
 }

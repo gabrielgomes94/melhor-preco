@@ -14,7 +14,6 @@ class ChangeSaleItemsSaleOrderIdColumnType extends Migration
     public function up()
     {
         Schema::table('sales_items', function (Blueprint $table) {
-            $table->dropForeign('sale_order_id');
             $table->string('sale_order_id')->change();
         });
     }
@@ -26,6 +25,8 @@ class ChangeSaleItemsSaleOrderIdColumnType extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('sales_items', function (Blueprint $table) {
+            $table->dropColumn('sale_order_id');
+        });
     }
 }
