@@ -24,7 +24,7 @@ class ShipmentSynchronized implements ModelSynchronized
         $this->shipmentId = $shipmentId;
     }
 
-    public function getModel(): Model
+    public function getModel(): ?Model
     {
         return Shipment::find($this->shipmentId);
     }

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 interface ModelSynchronized
 {
-    public function getModel(): Model;
+    public function getModel(): ?Model;
 }

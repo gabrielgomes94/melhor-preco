@@ -3,17 +3,19 @@
 namespace Src\Sales\Application\UseCases;
 
 use Src\Sales\Application\Presenters\ListSalesPresenter;
+use Src\Sales\Domain\Repositories\Contracts\Repository;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\ListSales as ListSalesInterface;
-use Src\Sales\Infrastructure\Eloquent\Repository;
 
 class ListSales implements ListSalesInterface
 {
     private ListSalesPresenter $presenter;
+    private Repository $repository;
 
-    public function __construct(ListSalesPresenter $presenter)
+    public function __construct(ListSalesPresenter $presenter, Repository $repository)
     {
         $this->presenter = $presenter;
+        $this->repository = $repository;
     }
 
     public function list(ListSalesFilter $options): array
@@ -21,17 +23,17 @@ class ListSales implements ListSalesInterface
         $beginDate = $options->getBeginDate();
         $endDate = $options->getEndDate();
 
-        $sales = Repository::listPaginate(
+        $sales = $this->repository->listPaginate(
             beginDate: $beginDate,
             endDate: $endDate,
             page: $options->getPage(),
         );
 
-        $totalValue = Repository::getTotalValueSum($beginDate, $endDate);
-        $totalProfit = Repository::getTotalProfitSum($beginDate, $endDate);
-        $salesCount = Repository::getTotalSalesCount($beginDate, $endDate);
-        $productsCount = Repository::getTotalProductsCount($beginDate, $endDate);
-        $storesCount = Repository::getTotalStoresCount($beginDate, $endDate);
+        $totalValue = $this->repository->getTotalValueSum($beginDate, $endDate);
+        $totalProfit = $this->repository->getTotalProfitSum($beginDate, $endDate);
+        $salesCount = $this->repository->getTotalSalesCount($beginDate, $endDate);
+        $productsCount = $this->repository->getTotalProductsCount($beginDate, $endDate);
+        $storesCount = $this->repository->getTotalStoresCount($beginDate, $endDate);
 
         $saleOrders = $this->presenter->listSaleOrder($sales->items());
 

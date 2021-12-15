@@ -20,7 +20,7 @@ class ItemSynchronized implements ModelSynchronized
         $this->itemId = $itemId;
     }
 
-    public function getModel(): Model
+    public function getModel(): ?Model
     {
         return Item::find($this->itemId);
     }

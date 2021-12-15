@@ -30,4 +30,9 @@ class Customer extends Model
     {
         return $this->hasMany(SaleOrder::class);
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
 }

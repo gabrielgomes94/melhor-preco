@@ -20,7 +20,7 @@ class CustomerSynchronized implements ModelSynchronized
         $this->customerId = $customerId;
     }
 
-    public function getModel(): Model
+    public function getModel(): ?Model
     {
         return Customer::find($this->customerId);
     }

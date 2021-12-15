@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-end">
     <x-template.forms.get
-        action="{{ route('sales.list') }}"
+        action="{{ $route }}"
         formId="filter-sales-list"
     >
         <div class="d-inline-flex">

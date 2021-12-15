@@ -18,7 +18,7 @@ class SendUnprofitablePriceNotification implements ShouldQueue
      */
     public function handle(UnprofitablePrice $event)
     {
-        $user = User::find(1);
+        $user = User::first();
         $price = $event->getPrice();
         $product = $price->product()->get()->first();
         $storeName = Factory::make($price->store)->getName();

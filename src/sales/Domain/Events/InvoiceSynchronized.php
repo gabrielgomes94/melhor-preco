@@ -29,7 +29,7 @@ class InvoiceSynchronized implements ModelSynchronized
         $this->invoiceId = $invoiceId;
     }
 
-    public function getModel(): Model
+    public function getModel(): ?Model
     {
         return Invoice::find($this->invoiceId);
     }

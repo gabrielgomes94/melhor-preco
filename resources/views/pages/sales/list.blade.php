@@ -19,7 +19,7 @@
 
     <x-sales.sales-list.card>
         <div class="mb-2">
-            <x-sales.sales-list.filter.form />
+            <x-sales.sales-list.filter.form :route="route('sales.list')"/>
 
             <x-sales.sales-list.table.table :saleOrders="$saleOrders" :total="$total" :paginator="$paginator"/>
         </div>

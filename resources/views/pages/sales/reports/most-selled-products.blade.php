@@ -11,8 +11,7 @@
 
     <x-sales.sales-list.card>
         <div class="mb-2">
-            <x-sales.sales-list.filter.form />
-
+            <x-sales.sales-list.filter.form :route="route('sales.reports.mostSelledProducts')" />
 
             <x-sales.reports.most-selled-products :products="$products" />
         </div>

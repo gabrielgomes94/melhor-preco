@@ -12,11 +12,11 @@
         <td>{{ $product['average_price'] }}</td>
 
         <td>
-            R$ {{ $product['average_profit'] }}
+            {{ $product['average_profit'] }}
         </td>
 
         <td>
-            R$ {{ $product['average_margin'] }}
+            {{ $product['average_margin'] }}
         </td>
 
         <td>

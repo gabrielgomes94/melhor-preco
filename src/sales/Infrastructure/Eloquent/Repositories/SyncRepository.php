@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Eloquent;
+namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Src\Sales\Domain\Events\CustomerSynchronized;
 use Src\Sales\Domain\Events\InvoiceSynchronized;
@@ -17,20 +17,16 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\Customer as CustomerModel;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
+use function event;
 
 class SyncRepository implements SynchronizationRepository
 {
-    public static function insert(SaleOrderInterface $externalSaleOrder): SaleOrder
+    public function insert(SaleOrderInterface $externalSaleOrder): SaleOrder
     {
-        $customer = $externalSaleOrder->getCustomer();
-        $fiscalId = $customer->getFiscalId();
-
-        if (!$customerModel = CustomerModel::where('fiscal_id', $fiscalId)->first()) {
-            $customerModel = CustomerRepository::create($customer);
-        }
-
         $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
-        $internalSaleOrder->customer()->associate($customerModel);
+        $internalSaleOrder->customer()->associate(
+            $this->getCustomerModel($externalSaleOrder)
+        );
 
         if ($internalSaleOrder->save()) {
             event(new CustomerSynchronized($internalSaleOrder->customer->getId()));
@@ -39,6 +35,9 @@ class SyncRepository implements SynchronizationRepository
         return $internalSaleOrder;
     }
 
+    /**
+     * @deprecated
+     */
     public static function syncPayment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         if (!$payment = $externalSaleOrder->getPayment()) {
@@ -54,6 +53,9 @@ class SyncRepository implements SynchronizationRepository
         }
     }
 
+    /**
+     * @deprecated
+     */
     public static function syncShipment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         if (!$shipment = $externalSaleOrder->getShipment()) {
@@ -71,6 +73,9 @@ class SyncRepository implements SynchronizationRepository
         }
     }
 
+    /**
+     * @deprecated
+     */
     public static function syncInvoice(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         if (!$invoice = $externalSaleOrder->getInvoice()) {
@@ -84,6 +89,9 @@ class SyncRepository implements SynchronizationRepository
         }
     }
 
+    /**
+     * @deprecated
+     */
     public static function syncItems(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         foreach ($externalSaleOrder->getItems() as $item) {
@@ -93,5 +101,16 @@ class SyncRepository implements SynchronizationRepository
                 event(new ItemSynchronized($itemModel->id));
             }
         }
+    }
+
+    private function getCustomerModel(SaleOrderInterface $externalSaleOrder): CustomerModel
+    {
+        $customer = $externalSaleOrder->getCustomer();
+        $fiscalId = $customer->getFiscalId();
+
+        if (!$customerModel = CustomerModel::where('fiscal_id', $fiscalId)->first()) {
+            $customerModel = CustomerRepository::create($customer);
+        }
+        return $customerModel;
     }
 }

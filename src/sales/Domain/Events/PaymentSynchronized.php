@@ -24,7 +24,7 @@ class PaymentSynchronized implements ModelSynchronized
         $this->paymentId = $paymentId;
     }
 
-    public function getModel(): Model
+    public function getModel(): ?Model
     {
         return PaymentInstallment::find($this->paymentId);
     }

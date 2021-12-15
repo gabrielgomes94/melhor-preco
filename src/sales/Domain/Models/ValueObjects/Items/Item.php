@@ -49,6 +49,11 @@ class Item
         return $this->quantity;
     }
 
+    public function getQuantity(): float
+    {
+        return $this->quantity;
+    }
+
     public function toArray(): array
     {
         return [

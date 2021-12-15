@@ -2,20 +2,12 @@
 
 namespace Src\Sales\Application\Presenters;
 
-use Src\Prices\Calculator\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Models\Store\Factory;
 use Src\Sales\Domain\Models\SaleOrder;
 
 class ListSalesPresenter
 {
-    private CalculatePrice $calculatePrice;
-
-    public function __construct(CalculatePrice $calculatePrice)
-    {
-        $this->calculatePrice = $calculatePrice;
-    }
-
     public function listSaleOrder(array $saleOrders): array
     {
         foreach ($saleOrders as $saleOrder) {
@@ -45,12 +37,14 @@ class ListSalesPresenter
 
     private function presentProducts(SaleOrder $saleOrder): array
     {
-        foreach ($saleOrder->getItems() as $item) {
-            if (!$product = Product::find($item->getSku())) {
+        foreach ($saleOrder->getItems()->get() as $item) {
+            if (!$product = Product::where('sku', $item->sku())->first()) {
                 continue;
             }
 
-            $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
+            for ($i = 0; $i < $item->getQuantity(); $i++) {
+                $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
+            }
         }
 
         return $products ?? [];
