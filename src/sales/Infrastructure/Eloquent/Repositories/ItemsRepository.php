@@ -9,12 +9,24 @@ use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Models\ValueObjects\Items\Items;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository as ItemRepositoryRepository;
+use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 
 class ItemsRepository implements ItemRepositoryRepository
 {
-    public function groupSaleItemsByProduct(): Collection
+    public function groupSaleItemsByProduct(ListSalesFilter $options): Collection
     {
-        return Item::with('product')
+        $beginDate = $options->getBeginDate();
+        $endDate = $options->getEndDate();
+
+        return Item::with(['product', 'saleOrder'])
+            ->join(
+                'sale_orders',
+                'sale_orders.sale_order_id',
+                '=',
+                'sales_items.sale_order_id'
+            )
+            ->where('selled_at', '>=', $beginDate)
+            ->where('selled_at', '<=', $endDate)
             ->get()
             ->groupBy('sku');
     }

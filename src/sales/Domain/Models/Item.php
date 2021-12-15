@@ -30,7 +30,7 @@ class Item extends Model
 
     public function saleOrder()
     {
-        return $this->belongsTo(SaleOrder::class);
+        return $this->belongsTo(SaleOrder::class, 'sale_order_id', 'sale_order_id');
     }
 
     public function getQuantity(): float

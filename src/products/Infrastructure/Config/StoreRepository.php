@@ -21,4 +21,14 @@ class StoreRepository
 
         return $storeList ?? [];
     }
+
+    public static function getDefault(): Store
+    {
+        return new Store(
+            slug: 'barrigudinha',
+            name: 'Barrigudinha',
+            erpCode: '0000011111',
+            defaultCommission: '0'
+        );
+    }
 }

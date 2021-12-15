@@ -10,6 +10,7 @@ use Src\Prices\Calculator\Domain\Services\CalculateItem;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
+use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\Reports\ReportMostSelledProducts as ReportMostSelledProductsAlias;
 
 class ReportMostSelledProducts implements ReportMostSelledProductsAlias
@@ -23,12 +24,17 @@ class ReportMostSelledProducts implements ReportMostSelledProductsAlias
         $this->itemsRepository = $itemsRepository;
     }
 
-    public function report()
+    public function report(ListSalesFilter $options)
     {
-        $items = $this->itemsRepository->groupSaleItemsByProduct();
-
-        $items = $items->transform($this->getItem())
-            ->filter($this->hasItem())
+        $items = $this->itemsRepository->groupSaleItemsByProduct($options);
+        $items = $items->transform(
+                /**
+                 * @var $collection Collection<Item>
+                 */
+                function (Collection $collection) {
+                    return $this->transformItem($collection);
+                }
+            )->filter($this->hasItem())
             ->sortByDesc('count');
 
         return $items;
@@ -91,13 +97,6 @@ class ReportMostSelledProducts implements ReportMostSelledProductsAlias
         }
 
         return $totalRevenue;
-    }
-
-    private function getItem(): Closure
-    {
-        return function (Collection $collection) {
-            return $this->transformItem($collection);
-        };
     }
 
     private function hasItem(): Closure
