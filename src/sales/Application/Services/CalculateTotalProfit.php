@@ -61,12 +61,12 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
 
     private function getCommission(Product $product, Store $store): Percentage
     {
-        return Percentage::fromFraction(
-            $product->getPost($store->getSlug())
+        $comissionRate = $product?->getPost($store->getSlug())
             ->getPrice()
             ->getCommission()
-            ->getCommissionRate()
-        );
+            ->getCommissionRate();
+
+        return Percentage::fromFraction($comissionRate ?? 0.0);
     }
 
     private function getProductData($product): PriceProductData
