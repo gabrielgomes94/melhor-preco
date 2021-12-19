@@ -18,11 +18,13 @@ class ReportsController extends Controller
 
     public function mostSelledProducts(Request $request)
     {
+
         $options = new ListSalesFilter(
             [
                 'beginDate' => $request->input('beginDate'),
                 'endDate' => $request->input('endDate'),
                 'page' => $page = (int) $request->input('page') ?? 1,
+                'sortOption' => $request->input('sortOption') ?? null,
             ]
         );
 

@@ -12,11 +12,13 @@ class ListSalesFilter implements ListSalesFilterInterface
     private Carbon $beginDate;
     private Carbon $endDate;
     private int $page;
+    private ?string $sortOption;
 
     public function __construct(array $options = [])
     {
-        $this->beginDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['beginDate'] ?? '01/01/1970');
-        $this->endDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['endDate'] ?? '31/12/9999');
+        $this->beginDate = $this->getDate($options['beginDate'] ?? '01/01/1970');
+        $this->endDate = $this->getDate($options['endDate'] ?? '31/12/9999');
+        $this->sortOption = $options['sortOption'] ?? null;
         $this->page = $options['page'] ?? 1;
     }
 
@@ -33,6 +35,16 @@ class ListSalesFilter implements ListSalesFilterInterface
     public function getPage(): int
     {
         return $this->page;
+    }
+
+    public function getSortOption(): string
+    {
+
+    }
+
+    private function getDate(string $date): Carbon
+    {
+        return Carbon::createFromFormat(self::DATE_FORMAT, $date);
     }
 }
 

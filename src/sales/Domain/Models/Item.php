@@ -48,6 +48,23 @@ class Item extends Model
         return ($this->unit_value - $this->discount) * $this->quantity;
     }
 
+    public function scopeJoinSaleOrders($query, $beginDate, $endDate)
+    {
+        $query->join(
+            'sale_orders',
+            'sale_orders.sale_order_id',
+            '=',
+            'sales_items.sale_order_id'
+        )
+            ->where('selled_at', '>=', $beginDate)
+            ->where('selled_at', '<=', $endDate);
+    }
+
+    public function scopeOrderByName($query)
+    {
+        $query->orderBy('name');
+    }
+
     public static function fromValueObject(ItemData $item): self
     {
         return new self([

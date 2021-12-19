@@ -34,8 +34,8 @@ class ReportMostSelledProducts implements ReportMostSelledProductsAlias
                 function (Collection $collection) {
                     return $this->transformItem($collection);
                 }
-            )->filter($this->hasItem())
-            ->sortByDesc('count');
+            )->filter($this->hasItem());
+//            ->sortByDesc('count');
 
         return $items;
     }

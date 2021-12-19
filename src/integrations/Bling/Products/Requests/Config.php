@@ -48,6 +48,21 @@ class Config
         );
     }
 
+    public static function listSupplierProducts(string $status = self::ACTIVE, ?string $storeCode = null): array
+    {
+//        $status = self::transformStatus($status);
+
+        return array_merge_recursive(
+            config('integrations.bling.endpoints.productsSupplier.list'),
+            [
+                'query' => [
+//                    'loja' => $storeCode,
+//                    'filters' => "situacao[{$status}]",
+                ],
+            ]
+        );
+    }
+
     public static function updateProduct(string $xml): array
     {
         return array_merge_recursive(

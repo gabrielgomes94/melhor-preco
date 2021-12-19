@@ -18,17 +18,23 @@ class ItemsRepository implements ItemRepositoryRepository
         $beginDate = $options->getBeginDate();
         $endDate = $options->getEndDate();
 
-        return Item::with(['product', 'saleOrder'])
-            ->join(
-                'sale_orders',
-                'sale_orders.sale_order_id',
-                '=',
-                'sales_items.sale_order_id'
-            )
-            ->where('selled_at', '>=', $beginDate)
-            ->where('selled_at', '<=', $endDate)
+//        $sortOption = $options
+
+        $items = Item::with(['product', 'saleOrder'])
+            ->joinSaleOrders($beginDate, $endDate)
+            ->orderByName()
             ->get()
             ->groupBy('sku');
+//            ->sortKeys();
+//            ->sortBy(function ($query) {
+//                $query->
+//            });
+
+//        dd($items);
+
+//        dd($items);
+
+        return $items;
     }
 
     public function insert(
