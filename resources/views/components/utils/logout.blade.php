@@ -2,7 +2,7 @@
     <a class="nav-link" href="{{ route('logout') }}"
        onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
         <span class="sidebar-icon">
-            <x-layout.icons.icon icon="logout" />
+            <x-app.base.icons.icon icon="logout" />
         </span>
 
         Logout

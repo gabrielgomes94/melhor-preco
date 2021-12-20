@@ -3,7 +3,7 @@
         <button class="btn btn-primary" type="submit">
             Sincronizar
 
-            <x-layout.icons.icon icon="sync" />
+            <x-app.base.icons.icon icon="sync" />
         </button>
     </x-forms.form.post>
 </div>

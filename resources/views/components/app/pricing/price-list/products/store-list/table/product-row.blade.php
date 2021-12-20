@@ -29,7 +29,7 @@
         <a  href="{{ route('pricing.products.showByStore', ['store_slug' => $store, 'product_id' => $sku])}}"
             role="button"
         >
-            <x-layout.icons.calculator />
+            <x-app.base.icons.calculator />
         </a>
     </td>
 </tr>

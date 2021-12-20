@@ -3,7 +3,7 @@
 
     <div class="input-group">
         <span class="input-group-text">
-            <x-layout.icons.calendar />
+            <x-app.base.icons.calendar />
         </span>
 
         <input data-datepicker=""

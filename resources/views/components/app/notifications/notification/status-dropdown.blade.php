@@ -5,7 +5,7 @@
    data-bs-display="static"
    aria-expanded="false"
 >
-    <x-layout.icons.mini-menu />
+    <x-app.base.icons.mini-menu />
 </a>
 
 <div class="dropdown-menu dropdown-menu-end my-4 py-1">

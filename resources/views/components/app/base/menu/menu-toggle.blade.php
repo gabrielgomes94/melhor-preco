@@ -6,7 +6,7 @@
                 data-bs-target="#sidebarMenu"
                 aria-expanded="false"
                 aria-controls="sidebarMenu">
-            <x-layout.icons.menu />
+            <x-app.base.icons.menu />
         </button>
     </div>
 </div>

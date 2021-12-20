@@ -47,7 +47,7 @@
 
         <td class="col-1">
             <x-template.buttons.submit-with-icon>
-                <x-layout.icons.save />
+                <x-app.base.icons.save />
             </x-template.buttons.submit-with-icon>
         </td>
     </tr>

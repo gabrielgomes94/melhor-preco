@@ -3,7 +3,7 @@
         <span>
             @isset ($icon)
                 <span class="sidebar-icon">
-                    <x-layout.icons.icon icon="{{ $icon }}" />
+                    <x-app.base.icons.icon icon="{{ $icon }}" />
                 </span>
             @endisset
 
