@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="breadcrumb">
-        <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
+        <x-template.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
     </x-slot>
 
     <x-slot name="modals">
@@ -47,7 +47,7 @@
                 />
 
                 <div class="my-4">
-                    <x-utils.paginator-links :paginator="$paginator" />
+                    <x-template.paginator.paginator-links :paginator="$paginator" />
                 </div>
             </x-template.card.card>
         </div>

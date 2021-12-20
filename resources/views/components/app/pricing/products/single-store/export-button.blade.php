@@ -1,9 +1,9 @@
-<x-forms.form.post
+<x-template.forms.post
     :action="route('pricing.products.export', $store->slug())"
 >
-    <x-forms.submit
+    <x-template.input.submit
         label="Exportar planilha"
         width="20"
     >
-    </x-forms.submit>
-</x-forms.form.post>
+    </x-template.input.submit>
+</x-template.forms.post>

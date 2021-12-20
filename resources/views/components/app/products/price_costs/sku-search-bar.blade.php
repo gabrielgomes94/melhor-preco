@@ -1,8 +1,8 @@
-<x-forms.form.get
+<x-template.forms.get
     :action="route('products.costs.edit')"
 >
     <div class="d-flex justify-content-around">
-        <x-forms.input.text
+        <x-template.input.text
             attribute="sku"
             label="SKU"
             visibleComponentId="sku"
@@ -13,4 +13,4 @@
             <x-template.buttons.submit label="Filtrar" />
         </div>
     </div>
-</x-forms.form.get>
+</x-template.forms.get>

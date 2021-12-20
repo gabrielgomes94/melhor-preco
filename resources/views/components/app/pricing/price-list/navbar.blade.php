@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item px-2">
                 <a class="nav-link {{ $selected == 'simulation' ? 'active' : '' }}"
-                   href='#'  }}>Simulação <x-utils.badge>em breve</x-utils.badge></a>
+                   href='#'  }}>Simulação <x-template.badge.badge>em breve</x-template.badge.badge></a>
             </li>
         </ul>
     </div>

@@ -1,5 +1,5 @@
 @foreach ($tags as $tag)
-    <x-utils.badge>
+    <x-template.badge.badge>
         {{ $tag }}
-    </x-utils.badge>
+    </x-template.badge.badge>
 @endforeach

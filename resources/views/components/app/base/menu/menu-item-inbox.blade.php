@@ -10,9 +10,9 @@
 
         @isset ($badge)
             <span class="ms-1">
-                <x-utils.badge>
+                <x-template.badge.badge>
                     {{ $badge }}
-                </x-utils.badge>
+                </x-template.badge.badge>
             </span>
         @endisset
 

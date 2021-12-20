@@ -18,7 +18,7 @@
     @endforeach
     <td>
         <div class="d-inline-flex justify-content-end">
-            <x-utils.navigation-button
+            <x-template.navigation.navigation-button
                 :route="route('pricing.priceList.custom.product.show', [
                             'price_list_id' => $priceList->id(),
                             'product_id' => $product->sku()

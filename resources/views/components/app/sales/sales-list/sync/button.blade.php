@@ -1,9 +1,9 @@
 <div class="py-2">
-    <x-forms.form.post action="{{ route('sales.sync') }}">
+    <x-template.forms.post action="{{ route('sales.sync') }}">
         <button class="btn btn-primary" type="submit">
             Sincronizar
 
             <x-app.base.icons.icon icon="sync" />
         </button>
-    </x-forms.form.post>
+    </x-template.forms.post>
 </div>

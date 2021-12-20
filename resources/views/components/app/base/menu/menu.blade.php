@@ -37,7 +37,7 @@
 
                 <x-app.base.menu.menu-item route="{{ route('home') }}" name="Configurações" badge="em breve" icon="settings" />
 
-                <x-utils.logout />
+                <x-app.base.menu.logout />
             </div>
         </ul>
     </div>

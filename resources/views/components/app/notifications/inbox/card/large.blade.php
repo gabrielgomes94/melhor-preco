@@ -3,7 +3,7 @@
         <x-app.notifications.inbox.message-list.container :notifications="$paginator->items()" :filter="$filter" />
 
         <div class="mt-4">
-            <x-utils.paginator-links :paginator="$paginator"/>
+            <x-template.paginator.paginator-links :paginator="$paginator"/>
         </div>
     </div>
 

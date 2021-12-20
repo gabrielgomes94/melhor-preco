@@ -11,6 +11,6 @@ class ErrorBox extends Component
      */
     public function render()
     {
-        return view('components.utils.error-box');
+        return view('components.template.error-box.error-box');
     }
 }

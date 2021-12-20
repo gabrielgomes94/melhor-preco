@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="row">
-            <x-utils.alert-messages />
+            <x-template.alert-messages.alert-messages />
         </div>
 
         <div class="row">

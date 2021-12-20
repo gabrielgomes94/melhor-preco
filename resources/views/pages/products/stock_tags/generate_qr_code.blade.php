@@ -14,7 +14,7 @@
                             <p id="error-box-message" class="text-danger"></p>
                         </div>
 
-                        <x-utils.alert-messages />
+                        <x-template.alert-messages.alert-messages />
                     </div>
 
                     <x-template.card.card>

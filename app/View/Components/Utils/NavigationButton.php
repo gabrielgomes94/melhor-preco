@@ -25,6 +25,6 @@ class NavigationButton extends Component
      */
     public function render()
     {
-        return view('components.utils.navigation-button');
+        return view('components.template.navigation.navigation-button');
     }
 }

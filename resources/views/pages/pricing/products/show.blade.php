@@ -4,11 +4,11 @@
     </x-slot>
 
     <x-slot name="breadcrumb">
-        <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
+        <x-template.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
     </x-slot>
 
     <div class="row">
-        <x-utils.alert-messages />
+        <x-template.alert-messages.alert-messages />
     </div>
 
     <div class="row mb-4">

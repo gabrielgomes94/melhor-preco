@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="breadcrumb">
-        <x-utils.breadcrumb :breadcrumb="$breadcrumb"/>
+        <x-template.breadcrumb.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
     </x-slot>
 
     <div class="row">
@@ -14,7 +14,7 @@
                     <x-app.pricing.price-log.table :products="$products"/>
                 </div>
 
-                <x-utils.paginator-links :paginator="$paginator"/>
+                <x-template.paginator.paginator-links :paginator="$paginator"/>
             </x-template.card.card>
         </div>
     </div>

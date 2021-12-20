@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-12 mb-4">
-            <x-utils.alert-messages />
+            <x-template.alert-messages.alert-messages />
 
             <x-template.card.card>
                 <x-app.products.images.upload-form />
