@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-costs.navbar />
+        <x-app-costs.navbar />
     </x-slot>
 
     <x-slot name="header">
@@ -14,7 +14,7 @@
 
         <div class="row mt-4">
             <div class="col-12">
-{{--                <x-costs.purchase-invoices.table :data="$data" />--}}
+{{--                <x-app.costs.purchase-invoices.table :data="$data" />--}}
             </div>
         </div>
     </div>

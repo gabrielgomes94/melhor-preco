@@ -10,14 +10,14 @@
 
         <div class="row">
             <div class="d-flex justify-content-end">
-                <x-products.price_costs.sku-search-bar :sku="$sku" />
+                <x-app.products.price_costs.sku-search-bar :sku="$sku" />
             </div>
         </div>
 
         <div class="row my-3">
             <div class="col-md-12">
                 <x-template.card.card>
-                    <x-products.price_costs.table :products="$products" />
+                    <x-app.products.price_costs.table :products="$products" />
 
                     <div class="d-flex justify-content-center mt-4">
                         {!! $paginator->links() !!}

@@ -18,9 +18,9 @@
                     </div>
 
                     <x-template.card.card>
-                        <x-products.stock_tags.forms.list-tags />
+                        <x-app.products.stock_tags.forms.list-tags />
 
-                        <x-products.stock_tags.forms.generate-tags />
+                        <x-app.products.stock_tags.forms.generate-tags />
                     </x-template.card.card>
                 </div>
             </div>

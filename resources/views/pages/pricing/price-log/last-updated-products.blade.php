@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-pricing.price-list.navbar :selected="$store->slug()"/>
+        <x-app.pricing.price-list.navbar :selected="$store->slug()"/>
     </x-slot>
 
     <x-slot name="breadcrumb">
@@ -11,7 +11,7 @@
         <div class="col-12">
             <x-template.card.card>
                 <div class="d-flex justify-content-between">
-                    <x-pricing.price-log.table :products="$products"/>
+                    <x-app.pricing.price-log.table :products="$products"/>
                 </div>
 
                 <x-utils.paginator-links :paginator="$paginator"/>

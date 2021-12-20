@@ -10,7 +10,7 @@
             <x-utils.alert-messages />
 
             <x-template.card.card>
-                <x-products.images.upload-form />
+                <x-app.products.images.upload-form />
             </x-template.card.card>
         </div>
     </div>

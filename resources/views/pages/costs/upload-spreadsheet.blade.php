@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-costs.navbar />
+        <x-app-costs.navbar />
     </x-slot>
 
     <x-slot name="header">
