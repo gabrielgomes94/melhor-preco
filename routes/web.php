@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+include 'costs/web.php';
 include 'notifications/web.php';
 include 'products/web.php';
 include 'prices/price/web.php';

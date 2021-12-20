@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\UseCases\Contracts;
+namespace Src\Costs\Domain\UseCases\Contracts;
 
 interface UpdateCosts
 {

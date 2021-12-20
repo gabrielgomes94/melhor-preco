@@ -4,7 +4,7 @@ namespace Src\Products\Application\Services;
 
 use Exception;
 use Src\Products\Application\Imports\ProductICMSImport;
-use Src\Products\Application\UseCases\UpdateCosts;
+use Src\Costs\Application\UseCases\UpdateCosts;
 
 class ImportICMS
 {

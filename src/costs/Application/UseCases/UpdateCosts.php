@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Products\Application\UseCases;
+namespace Src\Costs\Application\UseCases;
 
 use Src\Products\Application\Factories\Costs;
 use Src\Products\Domain\Events\Product\ProductCostsUpdated;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Prices\Price\Application\Services\Exceptions\ProductNotFound;
 use Src\Prices\Price\Application\Services\Products\UpdateDB;
-use Src\Products\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
+use Src\Costs\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
 
 class UpdateCosts implements UpdateCostsInterface
 {
@@ -15,7 +15,6 @@ class UpdateCosts implements UpdateCostsInterface
 
     public function __construct(UpdateDB $updatePriceService)
     {
-
         $this->updatePriceService = $updatePriceService;
     }
 

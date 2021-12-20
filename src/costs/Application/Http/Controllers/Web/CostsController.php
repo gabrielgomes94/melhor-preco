@@ -1,13 +1,14 @@
 <?php
 
-namespace Src\Products\Application\Http\Controllers\Web\Costs;
+namespace Src\Costs\Application\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Src\Costs\Domain\UseCases\Contracts\UpdateCosts;
 use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
 use Src\Products\Application\Http\Requests\Product\EditCostsRequest;
 use Src\Products\Application\Http\Requests\Product\UpdateCostsRequest;
 use Src\Products\Application\UseCases\ListProducts;
-use Src\Products\Application\UseCases\UpdateCosts;
 
 class CostsController extends Controller
 {
@@ -26,8 +27,11 @@ class CostsController extends Controller
     {
         $data = $this->listProducts->list($request->getOptions());
 
-        return view('pages.products.price_costs.edit', $data);
+        return view('pages.costs.edit', $data);
     }
+
+    // @todo: mover esse mótodo para um controller proprio ded PurchaseInvoices
+
 
     public function update(string $productId, UpdateCostsRequest $request)
     {
