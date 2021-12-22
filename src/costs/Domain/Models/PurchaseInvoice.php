@@ -1,8 +1,9 @@
 <?php
 
-namespace Src\costs\Domain\Models;
+namespace Src\Costs\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class PurchaseInvoice extends Model
 {
@@ -16,6 +17,7 @@ class PurchaseInvoice extends Model
         'situation',
         'value',
         'xml',
+        'link_danfe'
     ];
 
     protected $casts = [
@@ -46,5 +48,25 @@ class PurchaseInvoice extends Model
     public function getXmlUrl(): string
     {
         return $this->xml;
+    }
+
+    public function getContactName(): string
+    {
+        return $this->contact_name;
+    }
+
+    public function getIssuedAt(): Carbon
+    {
+        return $this->issued_at;
+    }
+
+    public function getValue(): float
+    {
+        return $this->value;
+    }
+
+    public function getSituation(): string
+    {
+        return $this->situation;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\costs\Domain\UseCases;
+namespace Src\Costs\Domain\UseCases;
 
 interface SyncPurchaseInvoices
 {
     public function sync(): void;
 
-    public function syncPurchaseItems(): void;
+//    public function syncPurchaseItems(): void;
 }

@@ -2,9 +2,9 @@
 
 namespace Src\Costs\Application\UseCases;
 
-use Src\costs\Domain\Models\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseInvoice;
 use Src\Costs\Domain\Repositories\ErpRepository;
-use Src\costs\Domain\UseCases\SyncPurchaseInvoices;
+use Src\Costs\Domain\UseCases\SyncPurchaseInvoices;
 
 class SynchronizePurchaseInvoices implements SyncPurchaseInvoices
 {

@@ -13,6 +13,7 @@ abstract class BaseResponse
         $this->errors[] = $error;
     }
 
+    // @todo: criar um método getError(): string
     public function errors(): array
     {
         return $this->errors;

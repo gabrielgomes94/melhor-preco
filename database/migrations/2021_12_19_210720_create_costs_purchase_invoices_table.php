@@ -19,6 +19,7 @@ class CreateCostsPurchaseInvoicesTable extends Migration
             $table->string('number');
             $table->string('access_key');
             $table->string('xml');
+            $table->string('link_danfe');
             $table->string('fiscal_id');
             $table->string('contact_name');
             $table->decimal('value');

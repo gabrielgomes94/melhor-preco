@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Src\costs\Domain\UseCases;
+namespace Src\Costs\Domain\UseCases;
 
 
 interface GetFreight

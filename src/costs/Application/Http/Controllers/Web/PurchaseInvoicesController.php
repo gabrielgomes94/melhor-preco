@@ -19,6 +19,18 @@ class PurchaseInvoicesController extends Controller
     {
         $data = $this->repository->listPurchaseInvoice();
 
-        return view('pages.costs.purchase-invoices', $data->all());
+        $data = $data->transform(function($model) {
+            return [
+                'seriesNumber' => "{$model->getSeries()} - {$model->getNumber()}",
+                'issuedAt' => $model->getIssuedAt()->format('d/m/Y'),
+                'contactName' => $model->getContactName(),
+                'value' => 'R$ ' . $model->getValue(),
+                'status' => $model->getSituation(),
+            ];
+        });
+
+        return view('pages.costs.purchase-invoices', [
+            'data' => $data->all()
+        ]);
     }
 }

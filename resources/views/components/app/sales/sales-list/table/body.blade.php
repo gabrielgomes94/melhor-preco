@@ -1,7 +1,7 @@
 @foreach ($saleOrders as $saleOrder)
     <tr>
         <td>
-            <x-template.links.link :saleOrderId="123">
+            <x-template.links.link :route="route('sales.show', $saleOrderId)">
                 {{ $saleOrder['saleOrderCode'] }}
             </x-template.links.link>
         </td>

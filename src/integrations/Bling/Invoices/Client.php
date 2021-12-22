@@ -7,8 +7,6 @@ namespace Src\Integrations\Bling\Invoices;
 use Illuminate\Support\Facades\Http;
 use Src\Integrations\Bling\Invoices\Responses\Sanitizer;
 
-//use Src\Integrations\Bling\Products\Requests\Config;
-
 class Client
 {
     private Sanitizer $sanitizer;

@@ -3,47 +3,33 @@
 namespace Src\Costs\Infrastructure\Bling;
 
 use Carbon\Carbon;
+use Exception;
 use Src\costs\Domain\Models\PurchaseInvoice;
 use Src\Costs\Domain\Repositories\ErpRepository;
+use Src\Costs\Infrastructure\Bling\Responses\Factory;
+use Src\Integrations\Bling\Base\Responses\ErrorResponse;
 use Src\Integrations\Bling\Invoices\Client;
 
 class BlingRepository implements ErpRepository
 {
     private Client $client;
+    private Factory $responseFactory;
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, Factory $responseFactory)
     {
         $this->client = $client;
+        $this->responseFactory = $responseFactory;
     }
 
     public function listPurchaseInvoice(): array
     {
         $data = $this->client->list();
-        $invoices = [];
+        $response = $this->responseFactory->make($data);
 
-        foreach ($data as $invoice) {
-            $invoice = $invoice['notafiscal'];
-
-            if ($invoice['loja'] === '0') {
-                $invoices[] = $this->getPurchaseInvoice($invoice);
-            }
+        if ($response instanceof ErrorResponse) {
+            throw new Exception($response->getErrorMessage());
         }
 
-        return $invoices;
-    }
-
-    private function getPurchaseInvoice(array $invoice): PurchaseInvoice
-    {
-        return new PurchaseInvoice([
-            'access_key' => $invoice['chaveAcesso'],
-            'contact_name' => $invoice['contato'],
-            'fiscal_id' => $invoice['cnpj'],
-            'issued_at' => Carbon::createFromFormat('Y-m-d H:i:s', $invoice['dataEmissao']),
-            'number' => $invoice['numero'],
-            'series' => $invoice['serie'],
-            'situation' => $invoice['situacao'],
-            'value' => $invoice['valorNota'],
-            'xml' => $invoice,
-        ]);
+        return $response->data();
     }
 }
