@@ -1,8 +1,9 @@
 <?php
 
-namespace App\View\Components\Forms;
+namespace App\View\Components\Template\Input;
 
 use Illuminate\View\Component;
+use function view;
 
 class Submit extends Component
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\View\Components\Layout\Icons;
+namespace App\View\Components\App\Base\Icons;
 
 use Illuminate\View\Component;
+use function view;
 
 class Icon  extends Component
 {
@@ -15,6 +16,6 @@ class Icon  extends Component
 
     public function render()
     {
-        return view("components.layout.icons.{$this->icon}");
+        return view("components.app.base.icons.{$this->icon}");
     }
 }

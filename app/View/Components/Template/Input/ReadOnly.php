@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Forms\Input;
+namespace App\View\Components\Template\Input;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
