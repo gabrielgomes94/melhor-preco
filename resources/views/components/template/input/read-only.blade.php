@@ -7,7 +7,7 @@
         type="text"
         class="form-control w-100"
         id="{{ $componentId }}"
-        name="{{ $attribute }}"
+        name="{{ $attribute ?? '' }}"
         value="{{ $value }}"
         readonly
     >
