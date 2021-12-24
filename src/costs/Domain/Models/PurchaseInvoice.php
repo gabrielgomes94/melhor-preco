@@ -60,6 +60,11 @@ class PurchaseInvoice extends Model
         return $this->issued_at;
     }
 
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
     public function getValue(): float
     {
         return $this->value;
