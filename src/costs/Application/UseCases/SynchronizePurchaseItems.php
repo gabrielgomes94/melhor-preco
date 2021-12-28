@@ -3,6 +3,7 @@
 namespace Src\Costs\Application\UseCases;
 
 use Illuminate\Support\Facades\Log;
+use Src\costs\Domain\Models\PurchaseItems;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Domain\UseCases\SyncPurchaseItems;
 
@@ -19,6 +20,7 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
     {
         $data = $this->repository->listPurchaseInvoice();
 
+        // @todo: attachar o item ao invoice
         foreach ($data as $purchaseInvoice) {
             $xml = $this->repository->getXml($purchaseInvoice);
 
@@ -39,6 +41,7 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
                 $purchaseItem[] = [
                     'name' => $name,
                     'unit_price' => $price,
+                    'unit_cost' => 0.0,
                     'quantity' => $quantity,
                     'purchase_invoice_uuid' => $purchaseInvoice->getUuid(),
                     'freight_value' => $freightValue,
@@ -50,27 +53,30 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
             }
 
             foreach ($items as $product) {
-                $name = $this->getName($product['prod']['xProd']);
+                $name = $this->getName($product);
                 $price = (float) $product['prod']['vUnCom'];
                 $quantity = (float) $product['prod']['qTrib'];
-                $freightValue = $this->getFreightValue($items['prod']['vFrete']);
+                $freightValue = $this->getFreightValue($items);
                 $insuranceValue = (float) $items['prod']['vSeg'] ?? 0.0;
                 $discount = (float) $items['prod']['vDesc'] ?? 0.0;
 
                 $purchaseItem[] = [
                     'name' => $name,
                     'unit_price' => $price,
+                    'unit_cost' => 0.0,
                     'quantity' => $quantity,
                     'purchase_invoice_uuid' => $purchaseInvoice->getUuid(),
                     'freight_value' => $freightValue,
                     'insurance_value' => $insuranceValue,
                     'discount' => $discount,
                 ];
-                continue;
             }
         }
 
-        dump($purchaseItem[880]);
+        foreach ($purchaseItem ?? [] as $item) {
+            $purchaseItem = new PurchaseItems($item);
+            $purchaseInvoice->items()->save($purchaseItem);
+        }
     }
 
     private function getPrice(array $data): float

@@ -26,4 +26,9 @@ class Repository implements DbRepository
 
         return new SimpleXMLElement($data->body());
     }
+
+    public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice
+    {
+        return PurchaseInvoice::where('uuid', $uuid)->first();
+    }
 }

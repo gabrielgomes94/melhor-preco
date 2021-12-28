@@ -10,6 +10,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/costs')
         ->name('costs')
         ->group(function () {
+            Route::get('/purchase-invoice/{uuid}', [PurchaseInvoicesController::class, 'showPurchaseInvoices'])
+                ->name('.showPurchaseInvoices');
+
             Route::get('/purchase-invoices', [PurchaseInvoicesController::class, 'listPurchaseInvoices'])
                 ->name('.listPurchaseInvoices');
 

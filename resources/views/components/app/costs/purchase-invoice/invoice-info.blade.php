@@ -66,21 +66,21 @@
         />
     </div>
 
-    <div class="col-4">
-        <x-template.input.read-only
-            componentId="attributeFreightValue"
-            label="Valor do Frete"
-            attribute="freightValue"
-            value="{{ $data['freightValue'] }}"
-        />
-    </div>
+        <div class="col-4">
+            <x-template.input.read-only
+                componentId="attributeFreightValue"
+                label="Valor do Frete"
+                attribute="freightValue"
+                value="{{ $data['freightValue'] }}"
+            />
+        </div>
 
-    <div class="col-4">
-        <x-template.input.read-only
-            componentId="attributeInsurancePrice"
-            label="Valor do Seguro"
-            attribute="insuranceValue"
-            value="{{ $data['insuranceValue'] }}"
-        />
-    </div>
+        <div class="col-4">
+            <x-template.input.read-only
+                componentId="attributeInsurancePrice"
+                label="Valor do Seguro"
+                attribute="insuranceValue"
+                value="{{ $data['insuranceValue'] }}"
+            />
+        </div>
 </div>

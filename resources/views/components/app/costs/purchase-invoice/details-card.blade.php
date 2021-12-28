@@ -11,6 +11,5 @@
 
             <x-template.buttons.submit label="Vincular SKUs"/>
         </div>
-
     </div>
 </x-template.card.card>

@@ -1,7 +1,7 @@
 @foreach ($items as $model)
     <tr>
         <td>
-            {{ $model['product'] }}
+            {{ $model['name'] }}
         </td>
 
         <td>
@@ -17,9 +17,9 @@
         </td>
 
         <td>
-            Frete: {{ $model['additionalCosts']['freightValue'] }} <br>
-            Impostos {{ $model['additionalCosts']['taxesValue'] }} <br>
-            Seguro {{ $model['additionalCosts']['insuranceValue'] }} <br>
+            Frete: {{ $model['additionalCosts']['freightValue'] ?? 0.0 }} <br>
+            Impostos {{ $model['additionalCosts']['taxesValue'] ?? 0.0 }} <br>
+            Seguro {{ $model['additionalCosts']['insuranceValue'] ?? 0.0 }} <br>
         </td>
 
         <td>

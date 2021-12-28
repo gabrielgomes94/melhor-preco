@@ -3,6 +3,7 @@
 namespace Src\Costs\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 class PurchaseInvoice extends Model
@@ -30,9 +31,19 @@ class PurchaseInvoice extends Model
 
     protected $table = 'costs_purchase_invoices';
 
+    public function items(): HasMany
+    {
+        return $this->hasMany(PurchaseItems::class, 'purchase_invoice_uuid', 'uuid');
+    }
+
     public function getAccessKey(): string
     {
         return $this->access_key;
+    }
+
+    public function getFiscalId(): string
+    {
+        return $this->fiscal_id;
     }
 
     public function getNumber(): string
