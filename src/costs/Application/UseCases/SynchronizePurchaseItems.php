@@ -2,100 +2,97 @@
 
 namespace Src\Costs\Application\UseCases;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Src\costs\Domain\Models\PurchaseItems;
+use Src\Costs\Domain\Models\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseItems;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Domain\UseCases\SyncPurchaseItems;
+use Src\Costs\Infrastructure\NFe\Reader;
+use Throwable;
 
 class SynchronizePurchaseItems implements SyncPurchaseItems
 {
     private DbRepository $repository;
+    private Reader $nfeReader;
 
-    public function __construct(DbRepository $repository)
+    public function __construct(DbRepository $repository, Reader $nfeReader)
     {
         $this->repository = $repository;
+        $this->nfeReader = $nfeReader;
     }
 
     public function sync(): void
     {
         $data = $this->repository->listPurchaseInvoice();
+        $this->execute($data);
+    }
 
-        // @todo: attachar o item ao invoice
+    private function execute(Collection $data): void
+    {
         foreach ($data as $purchaseInvoice) {
             $xml = $this->repository->getXml($purchaseInvoice);
+            $items = $this->nfeReader->getItems($xml);
 
-            $data = json_encode($xml, true);
-            $data = json_decode($data, true);
-
-            $items = $data['NFe']['infNFe']['det'];
-            Log::debug('xml de nota fiscal', ['xml' => $data['NFe']]);
-
-            if (is_array($items) and isset($items['@attributes'])) {
-                $name = $this->getName($items);
-                $price = $this->getPrice($items);
-                $quantity = $this->getQuantity($items);
-                $freightValue = $this->getFreightValue($items);
-                $insuranceValue = (float) $items['prod']['vSeg'] ?? 0.0;
-                $discount = (float) $items['prod']['vDesc'] ?? 0.0;
-
-                $purchaseItem[] = [
-                    'name' => $name,
-                    'unit_price' => $price,
-                    'unit_cost' => 0.0,
-                    'quantity' => $quantity,
-                    'purchase_invoice_uuid' => $purchaseInvoice->getUuid(),
-                    'freight_value' => $freightValue,
-                    'insurance_value' => $insuranceValue,
-                    'discount' => $discount,
-                ];
+            if ($this->nfeReader->hasSingleItem($items)) {
+                $product = $this->nfeReader->getProductData($items);
+                $this->savePurchaseItem($this->getItem($product), $purchaseInvoice);
 
                 continue;
             }
 
             foreach ($items as $product) {
-                $name = $this->getName($product);
-                $price = (float) $product['prod']['vUnCom'];
-                $quantity = (float) $product['prod']['qTrib'];
-                $freightValue = $this->getFreightValue($items);
-                $insuranceValue = (float) $items['prod']['vSeg'] ?? 0.0;
-                $discount = (float) $items['prod']['vDesc'] ?? 0.0;
+                if (empty($product)) {
+                    continue;
+                }
 
-                $purchaseItem[] = [
-                    'name' => $name,
-                    'unit_price' => $price,
-                    'unit_cost' => 0.0,
-                    'quantity' => $quantity,
-                    'purchase_invoice_uuid' => $purchaseInvoice->getUuid(),
-                    'freight_value' => $freightValue,
-                    'insurance_value' => $insuranceValue,
-                    'discount' => $discount,
-                ];
+                $this->savePurchaseItem($this->getItem($product), $purchaseInvoice);
             }
         }
+    }
 
-        foreach ($purchaseItem ?? [] as $item) {
-            $purchaseItem = new PurchaseItems($item);
+    private function getItem(array $product): array
+    {
+        $name = $this->nfeReader->getName($product);
+        $price = $this->nfeReader->getPrice($product);
+        $quantity = $this->nfeReader->getQuantity($product);
+        $freightValue = $this->nfeReader->getFreightValue($product);
+        $insuranceValue = $this->nfeReader->getInsuranceValue($product);
+        $discount = $this->nfeReader->getDiscount($product);
+
+        return [
+            'name' => $name,
+            'unit_price' => $price,
+            'unit_cost' => 0.0,
+            'quantity' => $quantity,
+            'freight_cost' => $freightValue,
+            'insurance_cost' => $insuranceValue,
+            'discount' => $discount,
+            'taxes_cost' => 0.0,
+        ];
+    }
+
+    private function savePurchaseItem(array $item, PurchaseInvoice $purchaseInvoice): bool
+    {
+        $purchaseItem = new PurchaseItems($item);
+
+        try {
             $purchaseInvoice->items()->save($purchaseItem);
+
+            Log::info('[CUSTOS] Sucesso na sincronização de items: ', [
+                'invoice' => $purchaseInvoice->getUuid(),
+                'item' => $item,
+            ]);
+        } catch (Throwable $exception) {
+            Log::error('[CUSTOS] Erro na sincronização de items: ', [
+                'invoice' => $purchaseInvoice->getUuid(),
+                'exception' => get_class($exception),
+                'message' => $exception->getMessage(),
+                'item' => $item,
+                'items' => $purchaseItem,
+            ]);
         }
-    }
 
-    private function getPrice(array $data): float
-    {
-        return (float) $data['prod']['vUnCom'] ?? $data['prod']['vUnTrib'];
-    }
-
-    private function getName(array $data): string
-    {
-        return $data['prod']['xProd'];
-    }
-
-    private function getQuantity(array $data): float
-    {
-        return (float) $data['prod']['qCom'] ?? $data['prod']['qTrib'];
-    }
-
-    private function getFreightValue($data): float
-    {
-        return (float) $data['prod']['vFrete'] ?? 0.0;
+        return false;
     }
 }

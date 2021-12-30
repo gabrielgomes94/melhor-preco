@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\costs\Domain\Models;
+namespace Src\Costs\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,10 +11,10 @@ class PurchaseItems extends Model
         'insurance_cost',
         'name',
         'quantity',
+        'discount',
         'unit_cost',
         'unit_price',
         'taxes_cost',
-//        'uuid',
     ];
 
 //    protected $casts = [
