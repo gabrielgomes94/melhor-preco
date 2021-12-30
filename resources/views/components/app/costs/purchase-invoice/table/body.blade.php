@@ -1,6 +1,6 @@
 @foreach ($items as $model)
     <tr>
-        <td>
+        <td colspan="4">
             {{ $model['name'] }}
         </td>
 

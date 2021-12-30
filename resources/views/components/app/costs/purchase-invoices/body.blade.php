@@ -10,7 +10,7 @@
             {{ $invoice['issuedAt'] }}
         </td>
 
-        <td>
+        <td colspan="6">
             {{ $invoice['contactName'] }}
         </td>
 
