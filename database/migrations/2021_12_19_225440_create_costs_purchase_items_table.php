@@ -23,6 +23,7 @@ class CreateCostsPurchaseItemsTable extends Migration
             $table->decimal('taxes_cost')->default(0.0);
             $table->decimal('freight_cost')->default(0.0);
             $table->decimal('insurance_cost')->default(0.0);
+            $table->decimal('discount')->default(0.0);
             $table->float('quantity')->default(1.0);
             $table->foreignUuid('purchase_invoice_uuid');
 
