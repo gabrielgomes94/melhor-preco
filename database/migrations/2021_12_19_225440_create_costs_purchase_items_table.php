@@ -20,7 +20,7 @@ class CreateCostsPurchaseItemsTable extends Migration
             $table->string('name');
             $table->decimal('unit_cost');
             $table->decimal('unit_price');
-            $table->decimal('taxes_cost')->default(0.0);
+            $table->json('taxes')->default(0.0);
             $table->decimal('freight_cost')->default(0.0);
             $table->decimal('insurance_cost')->default(0.0);
             $table->decimal('discount')->default(0.0);
