@@ -4,19 +4,20 @@ namespace Src\Costs\Application\UseCases;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use SimpleXMLElement;
 use Src\Costs\Domain\Models\PurchaseInvoice;
 use Src\Costs\Domain\Models\PurchaseItems;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Domain\UseCases\SyncPurchaseItems;
-use Src\Costs\Infrastructure\NFe\Reader;
+use Src\Costs\Infrastructure\NFe\XmlReader;
 use Throwable;
 
 class SynchronizePurchaseItems implements SyncPurchaseItems
 {
     private DbRepository $repository;
-    private Reader $nfeReader;
+    private XmlReader $nfeReader;
 
-    public function __construct(DbRepository $repository, Reader $nfeReader)
+    public function __construct(DbRepository $repository, XmlReader $nfeReader)
     {
         $this->repository = $repository;
         $this->nfeReader = $nfeReader;
@@ -28,25 +29,22 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
         $this->execute($data);
     }
 
+    // @todo: bloquear natOp Entrada de mercadoria (devolucao de mercadoria fora estado)
     private function execute(Collection $data): void
     {
+        $i = 0;
         foreach ($data as $purchaseInvoice) {
             $xml = $this->repository->getXml($purchaseInvoice);
             $items = $this->nfeReader->getItems($xml);
-
-            if ($this->nfeReader->hasSingleItem($items)) {
-                $product = $this->nfeReader->getProductData($items);
-                $this->savePurchaseItem($this->getItem($product), $purchaseInvoice);
-
-                continue;
-            }
 
             foreach ($items as $product) {
                 if (empty($product)) {
                     continue;
                 }
 
-                $this->savePurchaseItem($this->getItem($product), $purchaseInvoice);
+
+                $item = $this->getItem($product);
+                $this->savePurchaseItem($item, $purchaseInvoice);
             }
         }
     }
@@ -59,6 +57,7 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
         $freightValue = $this->nfeReader->getFreightValue($product);
         $insuranceValue = $this->nfeReader->getInsuranceValue($product);
         $discount = $this->nfeReader->getDiscount($product);
+        $taxes = $this->nfeReader->getTaxes($product);
 
         return [
             'name' => $name,
@@ -69,6 +68,7 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
             'insurance_cost' => $insuranceValue,
             'discount' => $discount,
             'taxes_cost' => 0.0,
+            'taxes' => $taxes,
         ];
     }
 

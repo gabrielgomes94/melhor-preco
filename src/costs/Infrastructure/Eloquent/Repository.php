@@ -12,7 +12,6 @@ class Repository implements DbRepository
 {
     public function __construct()
     {
-
     }
 
     public function listPurchaseInvoice(): Collection

@@ -15,11 +15,13 @@ class PurchaseItems extends Model
         'unit_cost',
         'unit_price',
         'taxes_cost',
+        'taxes'
     ];
 
-//    protected $casts = [
+    protected $casts = [
+        'taxes' => 'json',
 //        'issued_at' => 'datetime',
-//    ];
+    ];
 
     protected $keyType = 'string';
 
