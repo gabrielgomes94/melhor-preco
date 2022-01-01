@@ -27,7 +27,8 @@
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/data-transfer-object": "^2.8",
         "squizlabs/php_codesniffer": "^3.5.8",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.7",
