@@ -37,37 +37,42 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
             $xml = $this->repository->getXml($purchaseInvoice);
             $items = $this->nfeReader->getItems($xml);
 
-            foreach ($items as $product) {
-                if (empty($product)) {
+            foreach ($items as $item) {
+                if (empty($item)) {
                     continue;
                 }
 
 
-                $item = $this->getItem($product);
+                $item = $this->transformItem($item);
                 $this->savePurchaseItem($item, $purchaseInvoice);
             }
         }
     }
 
-    private function getItem(array $product): array
+    private function transformItem(array $item): array
     {
+        $product = $this->nfeReader->getProductData($item);
+
         $name = $this->nfeReader->getName($product);
         $price = $this->nfeReader->getPrice($product);
         $quantity = $this->nfeReader->getQuantity($product);
         $freightValue = $this->nfeReader->getFreightValue($product);
         $insuranceValue = $this->nfeReader->getInsuranceValue($product);
         $discount = $this->nfeReader->getDiscount($product);
-        $taxes = $this->nfeReader->getTaxes($product);
+
+        $taxes = $this->nfeReader->getTaxes($item);
+
+        $totalTaxes = $taxes['totalTaxes'] ?? 0.0;
+        $unitCost = $price + $freightValue + $insuranceValue - $discount + $totalTaxes;
 
         return [
             'name' => $name,
             'unit_price' => $price,
-            'unit_cost' => 0.0,
+            'unit_cost' => $unitCost,
             'quantity' => $quantity,
             'freight_cost' => $freightValue,
             'insurance_cost' => $insuranceValue,
             'discount' => $discount,
-            'taxes_cost' => 0.0,
             'taxes' => $taxes,
         ];
     }

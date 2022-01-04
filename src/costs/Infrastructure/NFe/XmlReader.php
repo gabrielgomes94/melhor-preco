@@ -15,8 +15,6 @@ class XmlReader
             return [$items['det']];
         }
 
-//        dd((array) $xml->NFe->infNFe->det);
-
         return $items['det'];
     }
 
@@ -75,6 +73,8 @@ class XmlReader
             'totalTaxes' => $items['imposto']['vTotTrib'] ?? 0.0,
             'ipi' => Taxes::getIPI($items['imposto']),
             'icms' => Taxes::getICMS($items['imposto']),
+            'pis' => Taxes::getPIS($items['imposto']),
+            'cofins' => Taxes::getCOFINS($items['imposto'])
         ];
     }
 }

@@ -40,15 +40,15 @@ class PurchaseInvoicesController extends Controller
             'items' => $data->items->map(function (PurchaseItems $item) {
                 return [
                     'name' => $item->name,
-                    'purchasePrice' => $item->unit_cost,
+                    'purchasePrice' => $item->unit_price,
                     'additionalCosts' => [
-                        'freightValue' => 0.0,
-                        'taxesValue' => 0.0,
-                        'insuranceValue' => 0.0,
+                        'freightValue' => $item->freight_cost ?? 0.0,
+                        'taxesValue' => $item->taxes['totalTaxes'] ?? 0.0,
+                        'insuranceValue' => $item->insurance_cost ?? 0.0,
                     ],
-                    'unitValue' => $item->unit_price,
+                    'unitValue' => $item->unit_cost,
                     'quantity' => $item->quantity,
-                    'totalValue' => 0.0,
+                    'totalValue' => $item->unit_cost * $item->quantity,
                     'purchaseItemUuid' => $item->uuid,
                     'productSku' => $item->sku ?? '',
                 ];

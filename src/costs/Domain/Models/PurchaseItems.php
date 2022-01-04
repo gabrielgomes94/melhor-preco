@@ -4,6 +4,7 @@ namespace Src\Costs\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// @todo: adicionar métodos getters e encapsular lógica de cálculo de custos nesse objeto
 class PurchaseItems extends Model
 {
     protected $fillable = [
@@ -14,13 +15,11 @@ class PurchaseItems extends Model
         'discount',
         'unit_cost',
         'unit_price',
-        'taxes_cost',
         'taxes'
     ];
 
     protected $casts = [
         'taxes' => 'json',
-//        'issued_at' => 'datetime',
     ];
 
     protected $keyType = 'string';

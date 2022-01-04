@@ -24,5 +24,7 @@ class SyncController extends Controller
     {
         $this->syncPurchaseInvoices->sync();
         $this->syncPurchaseItems->sync();
+
+        return redirect()->route('costs.listPurchaseInvoices');
     }
 }
