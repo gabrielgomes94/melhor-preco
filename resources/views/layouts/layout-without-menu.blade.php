@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <x-layout.head.head />
+        <x-app.base.head.head />
     </head>
 
     <body>
-        <x-layout.content.content
+        <x-app.base.content.content
             :navbar="$navbar ?? null"
             :header="$header ?? null"
             :breadcrumb="$breadcrumb ?? null"
         >
             {{ $slot }}
-        </x-layout.content.content>
+        </x-app.base.content.content>
 
         {{ $modals ?? '' }}
     </body>
 
-    <x-layout.js.api-token />
+    <x-app.base.js.api-token />
 </html>

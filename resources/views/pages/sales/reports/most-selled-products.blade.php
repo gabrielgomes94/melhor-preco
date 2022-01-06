@@ -5,15 +5,15 @@
 
     <div class="container">
         <div class="row">
-            <x-utils.alert-messages />
+            <x-template.alert-messages.alert-messages />
         </div>
     </div>
 
-    <x-sales.sales-list.card>
+    <x-app.sales.sales-list.card>
         <div class="mb-2">
-            <x-sales.sales-list.filter.form :route="route('sales.reports.mostSelledProducts')" />
+            <x-app.sales.sales-list.filter.form :route="route('sales.reports.mostSelledProducts')" />
 
-            <x-sales.reports.most-selled-products :products="$products" />
+            <x-app.sales.reports.most-selled-products :products="$products" />
         </div>
-    </x-sales.sales-list.card>
+    </x-app.sales.sales-list.card>
 </x-layout>

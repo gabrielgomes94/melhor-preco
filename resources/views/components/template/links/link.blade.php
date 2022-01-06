@@ -1,3 +1,3 @@
-<a href="{{ route('sales.show', $saleOrderId) }}" class="link">
+<a href="{{ $route ?? '' }}" class="link">
     {{ $slot }}
 </a>
