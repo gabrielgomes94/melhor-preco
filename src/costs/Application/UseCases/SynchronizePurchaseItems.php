@@ -32,20 +32,31 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
     // @todo: bloquear natOp Entrada de mercadoria (devolucao de mercadoria fora estado)
     private function execute(Collection $data): void
     {
-        $i = 0;
         foreach ($data as $purchaseInvoice) {
-            $xml = $this->repository->getXml($purchaseInvoice);
-            $items = $this->nfeReader->getItems($xml);
-
-            foreach ($items as $item) {
-                if (empty($item)) {
-                    continue;
-                }
-
-
-                $item = $this->transformItem($item);
-                $this->savePurchaseItem($item, $purchaseInvoice);
+            if ($purchaseInvoice->hasItems()) {
+                continue;
             }
+
+            $this->insertItems($purchaseInvoice, $this->getItems($purchaseInvoice));
+        }
+    }
+
+    private function getItems(PurchaseInvoice $purchaseInvoice): array
+    {
+        $xml = $this->repository->getXml($purchaseInvoice);
+
+        return $this->nfeReader->getItems($xml);
+    }
+
+    private function insertItems(PurchaseInvoice $purchaseInvoice, array $items): void
+    {
+        foreach ($items as $item) {
+            if (empty($item)) {
+                continue;
+            }
+
+            $item = $this->transformItem($item);
+            $this->repository->insertPurchaseItem($purchaseInvoice, $item);
         }
     }
 
@@ -59,10 +70,9 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
         $freightValue = $this->nfeReader->getFreightValue($product);
         $insuranceValue = $this->nfeReader->getInsuranceValue($product);
         $discount = $this->nfeReader->getDiscount($product);
-
         $taxes = $this->nfeReader->getTaxes($item);
-
         $totalTaxes = $taxes['totalTaxes'] ?? 0.0;
+
         $unitCost = $price + $freightValue + $insuranceValue - $discount + $totalTaxes;
 
         return [
@@ -75,29 +85,4 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
             'discount' => $discount,
             'taxes' => $taxes,
         ];
-    }
-
-    private function savePurchaseItem(array $item, PurchaseInvoice $purchaseInvoice): bool
-    {
-        $purchaseItem = new PurchaseItems($item);
-
-        try {
-            $purchaseInvoice->items()->save($purchaseItem);
-
-            Log::info('[CUSTOS] Sucesso na sincronização de items: ', [
-                'invoice' => $purchaseInvoice->getUuid(),
-                'item' => $item,
-            ]);
-        } catch (Throwable $exception) {
-            Log::error('[CUSTOS] Erro na sincronização de items: ', [
-                'invoice' => $purchaseInvoice->getUuid(),
-                'exception' => get_class($exception),
-                'message' => $exception->getMessage(),
-                'item' => $item,
-                'items' => $purchaseItem,
-            ]);
-        }
-
-        return false;
-    }
-}
+    }}

@@ -4,7 +4,7 @@ namespace Src\Costs\Application\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Costs\Application\UseCases\LinkProductToPurchaseItem;
+use Src\Costs\Domain\UseCases\LinkProductToPurchaseItem;
 
 class PurchaseItemsController extends Controller
 {

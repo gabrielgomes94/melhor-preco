@@ -85,4 +85,9 @@ class PurchaseInvoice extends Model
     {
         return $this->situation;
     }
+
+    public function hasItems(): bool
+    {
+        return $this->items->count() > 0;
+    }
 }

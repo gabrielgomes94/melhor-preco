@@ -3,11 +3,27 @@
 namespace Src\Costs\Application\UseCases;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
-use Src\Costs\Domain\Models\PurchaseItems;
+use Src\Costs\Domain\Repositories\DbRepository;
+use Src\Costs\Domain\UseCases\LinkProductToPurchaseItem as LinkProductToPurchaseItemInterface;
 
-class LinkProductToPurchaseItem
+class LinkProductToPurchaseItem implements LinkProductToPurchaseItemInterface
 {
+    private DbRepository $repository;
+
+    public function __construct(DbRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function link(string $itemUuid, string $productSku): void
+    {
+        if (!$item = $this->repository->getPurchaseItem($itemUuid)) {
+            return;
+        }
+
+        $this->repository->linkItemToProduct($item, $productSku);
+    }
+
     public function linkManyProducts(Collection $data): void
     {
         foreach ($data as $itemUuid => $sku) {
@@ -17,21 +33,5 @@ class LinkProductToPurchaseItem
 
             $this->link($itemUuid, $sku);
         }
-    }
-
-    public function link(string $itemUuid, string $productSku): void
-    {
-        $item = PurchaseItems::where('uuid', $itemUuid)->first();
-        if (!$item) {
-            return;
-        }
-
-        $item->product_sku = $productSku;
-        $item->save();
-
-        Log::info('[CUSTOS] Produto vinculado à nota fiscal', [
-            'sku' => $productSku,
-            'itemUuid' => $item->getUuid(),
-        ]);
     }
 }
