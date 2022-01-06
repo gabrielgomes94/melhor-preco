@@ -15,7 +15,8 @@ class PurchaseItems extends Model
         'discount',
         'unit_cost',
         'unit_price',
-        'taxes'
+        'taxes',
+        'product_sku',
     ];
 
     protected $casts = [
@@ -69,6 +70,11 @@ class PurchaseItems extends Model
     }
 
     public function getPurchaseItemUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function getUuid(): string
     {
         return $this->uuid;
     }

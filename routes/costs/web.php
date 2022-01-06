@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Src\Costs\Application\Http\Controllers\Web\CostsController;
 use Src\Costs\Application\Http\Controllers\Web\PurchaseInvoicesController;
+use Src\Costs\Application\Http\Controllers\Web\PurchaseItemsController;
 use Src\Costs\Application\Http\Controllers\Web\SyncController;
 use Src\Costs\Application\Http\Controllers\Web\UploadSpreadsheet;
 
@@ -27,5 +28,8 @@ Route::middleware('auth')->group(function () {
 
             Route::put('/price_cost/update/{product_id}', [CostsController::class, 'update'])
                 ->name('.update');
+
+            Route::put('/purchase-item/link', [PurchaseItemsController::class, 'linkProduct'])
+                ->name('.linkProduct');
     });
 });

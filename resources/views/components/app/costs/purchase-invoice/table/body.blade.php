@@ -6,7 +6,7 @@
 
         <td>
             <x-template.input.text
-                attribute="sku[]"
+                attribute="products[{{ $model['purchaseItemUuid'] }}]"
                 visibleComponentId="{{ 'inputSku-' . $model['purchaseItemUuid'] ?? '' }}"
                 :value="$model['productSku']"
             />
