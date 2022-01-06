@@ -14,13 +14,13 @@
                             <p id="error-box-message" class="text-danger"></p>
                         </div>
 
-                        <x-utils.alert-messages />
+                        <x-template.alert-messages.alert-messages />
                     </div>
 
                     <x-template.card.card>
-                        <x-products.stock_tags.forms.list-tags />
+                        <x-app.products.stock_tags.forms.list-tags />
 
-                        <x-products.stock_tags.forms.generate-tags />
+                        <x-app.products.stock_tags.forms.generate-tags />
                     </x-template.card.card>
                 </div>
             </div>

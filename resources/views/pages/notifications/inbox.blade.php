@@ -1,11 +1,11 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-notifications.navbar />
+        <x-app.notifications.navbar />
     </x-slot>
 
-    <x-notifications.inbox.card.card
+    <x-app.notifications.inbox.card.card
         :inbox="$inbox"
         :filter="$filter"
     >
-    </x-notifications.inbox.card.card>
+    </x-app.notifications.inbox.card.card>
 </x-layout>

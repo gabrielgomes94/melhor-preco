@@ -183,6 +183,13 @@ return [
          */
         App\Providers\BlingServiceProvider::class,
 
+
+        /**
+         * Costs' module Service Providers...
+         */
+        Src\Costs\Application\Providers\UseCasesServiceProviders::class,
+        Src\Costs\Infrastructure\ServiceProvider::class,
+
         /**
          * Notifications' module Service Providers...
          */

@@ -8,13 +8,13 @@
     <div class="row">
         <div class="col-6">
             <x-template.card.card class="h-100">
-                <x-products.sync.sync-products-card />
+                <x-app.products.sync.sync-products-card />
             </x-template.card.card>
         </div>
 
         <div class="col-6">
             <x-template.card.card>
-                <x-products.sync.upload-spreadsheet-card />
+                <x-app.products.sync.upload-spreadsheet-card />
             </x-template.card.card>
         </div>
     </div>

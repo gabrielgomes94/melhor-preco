@@ -27,7 +27,8 @@
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/data-transfer-object": "^2.8",
         "squizlabs/php_codesniffer": "^3.5.8",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.7",
@@ -44,7 +45,11 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "phpro/grumphp": true
+        }
     },
     "extra": {
         "laravel": {
@@ -58,6 +63,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Src\\": "src/",
+            "Src\\Costs\\": "src/costs",
             "Src\\Integrations\\": "src/integrations",
             "Src\\Notifications\\": "src/notifications",
             "Src\\Math\\": "src/math",
