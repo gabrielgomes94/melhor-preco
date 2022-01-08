@@ -31,8 +31,6 @@ class CostsController extends Controller
     }
 
     // @todo: mover esse mótodo para um controller proprio ded PurchaseInvoices
-
-
     public function update(string $productId, UpdateCostsRequest $request)
     {
         try {
@@ -44,5 +42,10 @@ class CostsController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function sync()
+    {
+
     }
 }

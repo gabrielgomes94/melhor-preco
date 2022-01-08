@@ -59,12 +59,19 @@ class PurchaseItems extends Model
 
     public function getTotalTaxesCosts(): float
     {
-        return $this->taxes['totalTaxes'] ?? 0.0;
+        $totalTaxes = $this->taxes['totalTaxes'] ?: $this->getIpiValue();
+
+        return  $totalTaxes ?: 0.0;
     }
 
     public function getInsuranceCosts(): float
     {
         return $this->insurance_cost ?? 0.0;
+    }
+
+    public function getIpiValue(): float
+    {
+        return ($this->taxes['ipi']['value'] / $this->quantity) ?: 0.0;
     }
 
     public function getUnitCost(): float

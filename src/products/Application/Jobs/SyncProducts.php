@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Src\Products\Application\Services\SynchronizeProducts;
+use Src\Products\Application\UseCases\SynchronizeProducts;
 
 class SyncProducts implements ShouldQueue
 {
@@ -16,8 +16,8 @@ class SyncProducts implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function handle(SynchronizeProducts $syncService): void
+    public function handle(SynchronizeProducts $synchronizeProducts): void
     {
-        $syncService->sync();
+        $synchronizeProducts->sync();
     }
 }

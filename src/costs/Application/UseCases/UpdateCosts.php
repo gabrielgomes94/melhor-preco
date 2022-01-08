@@ -37,6 +37,11 @@ class UpdateCosts implements UpdateCostsInterface
         return true;
     }
 
+    public function syncFromInvoice(string $sku)
+    {
+
+    }
+
     private function getProducts(Product $product): array
     {
         $products[] = $product;

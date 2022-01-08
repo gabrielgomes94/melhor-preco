@@ -220,6 +220,11 @@ class Product extends Model implements ProductModelInterface
         $this->has_variations = $this->hasVariations();
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
     // Mover essas lógicas pra Model de Prices
     public static function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
     {

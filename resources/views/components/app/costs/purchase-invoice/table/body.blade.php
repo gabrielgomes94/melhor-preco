@@ -13,17 +13,17 @@
         </td>
 
         <td>
-            {{ $model['purchasePrice'] }}
+            R$ {{ $model['purchasePrice'] }}
         </td>
 
         <td>
-            Frete: {{ $model['additionalCosts']['freightValue'] ?? 0.0 }} <br>
-            Impostos {{ $model['additionalCosts']['taxesValue'] ?? 0.0 }} <br>
-            Seguro {{ $model['additionalCosts']['insuranceValue'] ?? 0.0 }} <br>
+            Frete: R$ {{ $model['additionalCosts']['freightValue'] ?? 0.0 }} <br>
+            Impostos: R$ {{ $model['additionalCosts']['taxesValue'] ?? 0.0 }} <br>
+            Seguro: R$ {{ $model['additionalCosts']['insuranceValue'] ?? 0.0 }} <br>
         </td>
 
         <td>
-            {{ $model['unitValue'] }}
+            R$ {{ $model['unitValue'] }}
         </td>
 
         <td>
@@ -31,7 +31,7 @@
         </td>
 
         <td>
-            {{ $model['totalValue'] }}
+            R$ {{ $model['totalValue'] }}
         </td>
     </tr>
 @endforeach
