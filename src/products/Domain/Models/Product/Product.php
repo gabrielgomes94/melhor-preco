@@ -2,11 +2,13 @@
 
 namespace Src\Products\Domain\Models\Product;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Costs\Domain\Models\PurchaseItems;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
@@ -30,6 +32,7 @@ class Product extends Model implements ProductModelInterface
         'id',
         'erp_id',
         'sku',
+        'ean',
         'name',
         'brand',
         'purchase_price',
@@ -62,6 +65,40 @@ class Product extends Model implements ProductModelInterface
     public function items(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'product_id', 'sku');
+    }
+
+    public function itemsCosts(): HasMany
+    {
+        return $this->hasMany(PurchaseItems::class, 'ean', 'ean');
+    }
+
+    public function getLatestPurchaseItem(): ?PurchaseItems
+    {
+        return $this->getPurchaseItem(Carbon::now());
+    }
+
+    public function getPurchaseItem(Carbon $date): ?PurchaseItems
+    {
+        $items = $this->itemsCosts;
+
+        $items = $items->map(function ($item) use ($date) {
+            $interval = $item->getIssuedAt()->diffInDays($date, false);
+
+            return [
+                'interval' => $interval,
+                'model' => $item,
+                'issuedAt' => (string) $item->getIssuedAt(),
+            ];
+        });
+
+        $items = $items->filter(function ($item) {
+            return $item['interval'] >= 0;
+        });
+
+        $minimumInterval = $items->min('interval');
+        $item = $items->where('interval', $minimumInterval)->first()['model'] ?? null;
+
+        return $item;
     }
 
     public function getSku(): string
@@ -211,6 +248,11 @@ class Product extends Model implements ProductModelInterface
     {
         $this->parent_sku = $variations->getParentSku();
         $this->has_variations = $this->hasVariations();
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 
     // Mover essas lógicas pra Model de Prices

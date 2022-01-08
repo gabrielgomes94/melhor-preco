@@ -60,10 +60,11 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
         }
     }
 
+    // @todo: move to services
     private function transformItem(array $item): array
     {
         $product = $this->nfeReader->getProductData($item);
-
+        $ean = $this->nfeReader->getEan($product);
         $name = $this->nfeReader->getName($product);
         $price = $this->nfeReader->getPrice($product);
         $quantity = $this->nfeReader->getQuantity($product);
@@ -72,8 +73,8 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
         $discount = $this->nfeReader->getDiscount($product);
         $taxes = $this->nfeReader->getTaxes($item);
         $totalTaxes = $taxes['totalTaxes'] ?? 0.0;
-
-        $unitCost = $price + $freightValue + $insuranceValue - $discount + $totalTaxes;
+        $ipiValue = $taxes['ipi']['value'] / $quantity;
+        $unitCost = $price + $freightValue + $insuranceValue - $discount + $totalTaxes + $ipiValue;
 
         return [
             'name' => $name,
@@ -84,5 +85,6 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
             'insurance_cost' => $insuranceValue,
             'discount' => $discount,
             'taxes' => $taxes,
+            'ean' => $ean,
         ];
     }}

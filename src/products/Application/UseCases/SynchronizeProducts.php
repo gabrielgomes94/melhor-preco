@@ -2,15 +2,31 @@
 
 namespace Src\Products\Application\UseCases;
 
-use Src\Prices\Price\Application\Jobs\SyncPrices;
-use Src\Products\Application\Jobs\SyncProducts;
+use Src\Prices\Price\Application\Services\Synchronization\SynchronizePrices;
+use Src\Products\Application\Services\SynchronizeProductCosts;
+use Src\Products\Application\Services\SynchronizeProducts as SynchronizeProductsService;
 use Src\Products\Domain\UseCases\Contracts\SyncProducts as SyncProductsInterface;
 
 class SynchronizeProducts implements SyncProductsInterface
 {
+    private SynchronizePrices $syncPricesService;
+    private SynchronizeProductCosts $syncCostsService;
+    private SynchronizeProductsService $syncProductsService;
+
+    public function __construct(
+        SynchronizePrices $syncPricesService,
+        SynchronizeProductCosts $syncCostsService,
+        SynchronizeProductsService $syncProductsService
+    ) {
+        $this->syncPricesService = $syncPricesService;
+        $this->syncCostsService = $syncCostsService;
+        $this->syncProductsService = $syncProductsService;
+    }
+
     public function sync(): void
     {
-        SyncProducts::dispatch();
-        SyncPrices::dispatch();
+        $this->syncProductsService->sync();
+        $this->syncCostsService->sync();
+        $this->syncPricesService->sync();
     }
 }

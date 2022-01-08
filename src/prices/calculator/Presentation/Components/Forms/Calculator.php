@@ -11,7 +11,7 @@ class Calculator extends PricesComponent
      */
     public function render()
     {
-        return view('components.pricing.prices.calculator.forms.calculator', [
+        return view('components.app.pricing.prices.calculator.forms.calculator', [
             'data' => $this->getData(),
         ]);
     }

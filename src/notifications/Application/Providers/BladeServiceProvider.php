@@ -31,12 +31,12 @@ class BladeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::component('notifications.inbox.main-message.card', MainMessageCard::class);
-        Blade::component('notifications.inbox.message-list.card', MessageListCard::class);
-        Blade::component('notifications.notification.notification-component', NotificationComponent::class);
-        Blade::component('notifications.notification.solved-badge', SolvedBadge::class);
-        Blade::component('notifications.notification.readed-status', ReadedStatus::class);
-        Blade::component('notifications.notification.timestamp', Timestamp::class);
-        Blade::component('notifications.inbox.main-message.content', Content::class);
+        Blade::component('app.notifications.inbox.main-message.card', MainMessageCard::class);
+        Blade::component('app.notifications.inbox.message-list.card', MessageListCard::class);
+        Blade::component('app.notifications.notification.notification-component', NotificationComponent::class);
+        Blade::component('app.notifications.notification.solved-badge', SolvedBadge::class);
+        Blade::component('app.notifications.notification.readed-status', ReadedStatus::class);
+        Blade::component('app.notifications.notification.timestamp', Timestamp::class);
+        Blade::component('app.notifications.inbox.main-message.content', Content::class);
     }
 }

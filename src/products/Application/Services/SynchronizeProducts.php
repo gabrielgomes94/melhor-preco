@@ -20,7 +20,6 @@ class SynchronizeProducts
     public function sync(): void
     {
         $updatedCount = $createdCount = 0;
-        Log::info('oi');
         $products = $this->erpRepository->all();
 
         foreach ($products as $erpProduct) {

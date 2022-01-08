@@ -18,7 +18,7 @@ class Form extends Component
     {
         $costs = $this->product->getCosts();
 
-        return view('components.pricing.prices.update-costs.form', [
+        return view('components.app.pricing.prices.update-costs.form', [
             'sku' => $this->product->getSku(),
             'purchasePrice' => $costs->purchasePrice(),
             'taxICMS' => $costs->taxICMS(),

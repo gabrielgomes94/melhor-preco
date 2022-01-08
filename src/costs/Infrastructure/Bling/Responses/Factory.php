@@ -14,9 +14,9 @@ class Factory extends BaseFactory
         }
 
         foreach ($data as $invoice) {
-            $invoice = $invoice['notafiscal'];
+            $invoice = $invoice['notafiscal'] ?? null;
 
-            if (!isset($invoice)) {
+            if (!$invoice) {
                 continue;
             }
 

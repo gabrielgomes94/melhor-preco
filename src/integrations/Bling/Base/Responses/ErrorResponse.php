@@ -6,7 +6,7 @@ use Src\Integrations\Bling\Base\Responses\BaseResponse;
 
 class ErrorResponse extends BaseResponse
 {
-    public function __construct(string $error = null)
+    public function __construct(?string $error = null)
     {
         $this->error= $error;
         if (isset($error)) {

@@ -14,13 +14,13 @@ class Card extends PricesComponent
     public function render()
     {
         if ($this->post instanceof MagaluPost) {
-            return view('components.pricing.prices.price.magalu-card');
+            return view('components.app.pricing.prices.price.magalu-card');
         }
 
         if ($this->post instanceof MercadoLivrePost) {
-            return view('components.pricing.prices.price.mercado-livre-card');
+            return view('components.app.pricing.prices.price.mercado-livre-card');
         }
 
-        return view('components.pricing.prices.price.card');
+        return view('components.app.pricing.prices.price.card');
     }
 }
