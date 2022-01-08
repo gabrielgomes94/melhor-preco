@@ -13,9 +13,6 @@
         </div>
 
         <div class="col-6">
-            <x-template.card.card>
-                <x-app.products.sync.upload-spreadsheet-card />
-            </x-template.card.card>
         </div>
     </div>
 </x-layout>
