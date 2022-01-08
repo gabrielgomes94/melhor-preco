@@ -7,7 +7,7 @@
         <x-app.products.price_costs.sku-search-bar :sku="$sku" />
     </div>
 
-    <x-app.products.price_costs.table :products="$products" />
+    <x-app.costs.product-costs.table.table :products="$products" />
 
     <div class="d-flex justify-content-center mt-4">
         {!! $paginator->links() !!}
