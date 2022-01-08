@@ -18,12 +18,12 @@ class BladeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::component('pricing.price-list.link', Link::class);
-        Blade::component('pricing.price-list.products.store-list.table.product-row', ProductRow::class);
-        Blade::component('pricing.price-list.products.store-list.table.variations-row', VariationsRow::class);
+        Blade::component('app.pricing.price-list.link', Link::class);
+        Blade::component('app.pricing.price-list.products.store-list.table.product-row', ProductRow::class);
+        Blade::component('app.pricing.price-list.products.store-list.table.variations-row', VariationsRow::class);
 
-        Blade::component('pricing.prices.calculator.forms.calculator', Calculator::class);
-        Blade::component('pricing.prices.price.card', Card::class);
-        Blade::component('pricing.prices.update-costs.form', Form::class);
+        Blade::component('app.pricing.prices.calculator.forms.calculator', Calculator::class);
+        Blade::component('app.pricing.prices.price.card', Card::class);
+        Blade::component('app.pricing.prices.update-costs.form', Form::class);
     }
 }

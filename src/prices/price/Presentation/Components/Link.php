@@ -24,6 +24,6 @@ class Link extends Component
      */
     public function render()
     {
-        return view('components.pricing.price-list.link');
+        return view('components.app.pricing.price-list.link');
     }
 }

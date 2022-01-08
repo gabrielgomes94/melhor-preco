@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Models\Product;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -69,6 +70,35 @@ class Product extends Model implements ProductModelInterface
     public function itemsCosts(): HasMany
     {
         return $this->hasMany(PurchaseItems::class, 'ean', 'ean');
+    }
+
+    public function getLatestPurchaseItem(): ?PurchaseItems
+    {
+        return $this->getPurchaseItem(Carbon::now());
+    }
+
+    public function getPurchaseItem(Carbon $date): ?PurchaseItems
+    {
+        $items = $this->itemsCosts;
+
+        $items = $items->map(function ($item) use ($date) {
+            $interval = $item->getIssuedAt()->diffInDays($date, false);
+
+            return [
+                'interval' => $interval,
+                'model' => $item,
+                'issuedAt' => (string) $item->getIssuedAt(),
+            ];
+        });
+
+        $items = $items->filter(function ($item) {
+            return $item['interval'] >= 0;
+        });
+
+        $minimumInterval = $items->min('interval');
+        $item = $items->where('interval', $minimumInterval)->first()['model'] ?? null;
+
+        return $item;
     }
 
     public function getSku(): string

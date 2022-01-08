@@ -4,6 +4,7 @@ namespace Src\Costs\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Src\Products\Domain\Models\Product\Product;
 
 // @todo: adicionar métodos getters e encapsular lógica de cálculo de custos nesse objeto
@@ -102,5 +103,15 @@ class PurchaseItems extends Model
     public function getProductSku(): ?string
     {
         return $this->sku ?? null;
+    }
+
+    public function getIssuedAt(): Carbon
+    {
+        return $this->invoice->getIssuedAt();
+    }
+
+    public function getICMSPercentage(): float
+    {
+        return $this->taxes['icms'][' percentage'] ?? 0.0;
     }
 }
