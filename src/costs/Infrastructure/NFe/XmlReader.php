@@ -33,6 +33,11 @@ class XmlReader
         return $product['vDesc'] ?? 0.0;
     }
 
+    public function getEan(array $product): string
+    {
+        return $product['cEAN'] ?? '';
+    }
+
     public function getPrice(array $product): float
     {
         return $product['vUnCom'] ?? $product['vUnTrib'] ?? 0.0;

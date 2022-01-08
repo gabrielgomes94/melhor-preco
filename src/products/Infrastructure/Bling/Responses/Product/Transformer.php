@@ -10,6 +10,7 @@ class Transformer
     {
         return new Product([
             'erp_id' => $data['id'],
+            'ean' => $data['gtin'] ?? $data['gtinEmbalagem'],
             'sku' => $data['codigo'],
             'name' => $data['descricao'],
             'brand' => $data['marca'],

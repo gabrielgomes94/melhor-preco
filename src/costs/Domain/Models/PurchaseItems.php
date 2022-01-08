@@ -3,6 +3,8 @@
 namespace Src\Costs\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Src\Products\Domain\Models\Product\Product;
 
 // @todo: adicionar métodos getters e encapsular lógica de cálculo de custos nesse objeto
 class PurchaseItems extends Model
@@ -17,6 +19,7 @@ class PurchaseItems extends Model
         'unit_price',
         'taxes',
         'product_sku',
+        'ean',
     ];
 
     protected $casts = [
@@ -28,6 +31,16 @@ class PurchaseItems extends Model
     protected $primaryKey = 'uuid';
 
     protected $table = 'costs_purchase_items';
+
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(PurchaseInvoice::class, 'purchase_invoice_uuid', 'uuid');
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'ean', 'ean');
+    }
 
     public function getName(): string
     {

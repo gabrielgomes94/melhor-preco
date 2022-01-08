@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Costs\Domain\Models\PurchaseItems;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
@@ -30,6 +31,7 @@ class Product extends Model implements ProductModelInterface
         'id',
         'erp_id',
         'sku',
+        'ean',
         'name',
         'brand',
         'purchase_price',
@@ -62,6 +64,11 @@ class Product extends Model implements ProductModelInterface
     public function items(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'product_id', 'sku');
+    }
+
+    public function itemsCosts(): HasMany
+    {
+        return $this->hasMany(PurchaseItems::class, 'ean', 'ean');
     }
 
     public function getSku(): string
