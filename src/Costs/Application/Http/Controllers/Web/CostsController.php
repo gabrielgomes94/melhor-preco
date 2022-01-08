@@ -27,7 +27,7 @@ class CostsController extends Controller
     {
         $data = $this->listProducts->list($request->getOptions());
 
-        return view('pages.costs.edit', $data);
+        return view('pages.Costs.edit', $data);
     }
 
     // @todo: mover esse mótodo para um controller proprio ded PurchaseInvoices

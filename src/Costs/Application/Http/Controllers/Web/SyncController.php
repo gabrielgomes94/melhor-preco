@@ -12,6 +12,6 @@ class SyncController extends Controller
     {
         SyncCosts::dispatch();
 
-        return redirect()->route('costs.listPurchaseInvoices');
+        return redirect()->route('Costs.listPurchaseInvoices');
     }
 }

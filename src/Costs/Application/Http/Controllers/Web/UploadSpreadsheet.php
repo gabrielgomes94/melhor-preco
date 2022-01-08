@@ -9,6 +9,6 @@ class UploadSpreadsheet extends Controller
 {
     public function show(Request $request)
     {
-        return view('pages.costs.upload-spreadsheet');
+        return view('pages.Costs.upload-spreadsheet');
     }
 }

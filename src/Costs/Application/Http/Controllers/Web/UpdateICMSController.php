@@ -20,7 +20,7 @@ class UpdateICMSController extends Controller
 
     public function updateICMS()
     {
-        return view('pages.products.costs.upload_icms');
+        return view('pages.products.Costs.upload_icms');
     }
 
     public function doUpdateICMS(UploadSpreadsheetRequest $request)
@@ -33,7 +33,7 @@ class UpdateICMSController extends Controller
             session()->flash('error', 'É necessário enviar um arquivo .xlsx ou .csv.');
         }
 
-        return view('pages.products.costs.upload_icms');
+        return view('pages.products.Costs.upload_icms');
     }
 
     private function getFileUrl(Request $request): string
