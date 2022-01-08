@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Src\Products\Domain\Models\Product\Product;
 
-// @todo: adicionar métodos getters e encapsular lógica de cálculo de custos nesse objeto
-class PurchaseItems extends Model
+class PurchaseItem extends Model
 {
     protected $fillable = [
         'freight_cost',
@@ -43,26 +42,14 @@ class PurchaseItems extends Model
         return $this->belongsTo(Product::class, 'ean', 'ean');
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getUnitPrice(): float
-    {
-        return $this->unit_price;
-    }
-
     public function getFreightCosts(): float
     {
         return $this->freight_cost ?? 0.0;
     }
 
-    public function getTotalTaxesCosts(): float
+    public function getICMSPercentage(): float
     {
-        $totalTaxes = $this->taxes['totalTaxes'] ?: $this->getIpiValue();
-
-        return  $totalTaxes ?: 0.0;
+        return $this->taxes['icms'][' percentage'] ?? 0.0;
     }
 
     public function getInsuranceCosts(): float
@@ -75,29 +62,14 @@ class PurchaseItems extends Model
         return ($this->taxes['ipi']['value'] / $this->quantity) ?: 0.0;
     }
 
-    public function getUnitCost(): float
+    public function getIssuedAt(): Carbon
     {
-        return $this->unit_cost;
+        return $this->invoice->getIssuedAt();
     }
 
-    public function getQuantity(): float
+    public function getName(): string
     {
-        return $this->quantity;
-    }
-
-    public function getTotalValue(): float
-    {
-        return $this->unit_cost * $this->quantity;
-    }
-
-    public function getPurchaseItemUuid(): string
-    {
-        return $this->uuid;
-    }
-
-    public function getUuid(): string
-    {
-        return $this->uuid;
+        return $this->name;
     }
 
     public function getProductSku(): ?string
@@ -105,13 +77,40 @@ class PurchaseItems extends Model
         return $this->sku ?? null;
     }
 
-    public function getIssuedAt(): Carbon
+    public function getPurchaseItemUuid(): string
     {
-        return $this->invoice->getIssuedAt();
+        return $this->uuid;
     }
 
-    public function getICMSPercentage(): float
+    public function getQuantity(): float
     {
-        return $this->taxes['icms'][' percentage'] ?? 0.0;
+        return $this->quantity;
+    }
+
+    public function getTotalTaxesCosts(): float
+    {
+        $totalTaxes = $this->taxes['totalTaxes'] ?: $this->getIpiValue();
+
+        return  $totalTaxes / $this->quantity ?: 0.0;
+    }
+
+    public function getTotalValue(): float
+    {
+        return $this->unit_cost * $this->quantity;
+    }
+
+    public function getUnitPrice(): float
+    {
+        return $this->unit_price;
+    }
+
+    public function getUnitCost(): float
+    {
+        return $this->unit_cost;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
     }
 }

@@ -4,12 +4,12 @@ namespace Src\Costs\Infrastructure\Logging;
 
 use Illuminate\Support\Facades\Log;
 use Src\Costs\Domain\Models\PurchaseInvoice;
-use Src\Costs\Domain\Models\PurchaseItems;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Throwable;
 
 class Logging
 {
-    public static function logSuccessfulItemSync(PurchaseItems $item, PurchaseInvoice $invoice): void
+    public static function logSuccessfulItemSync(PurchaseItem $item, PurchaseInvoice $invoice): void
     {
         Log::info('[CUSTOS] Sucesso na sincronização de items: ', [
             'invoice' => $invoice->toArray(),
@@ -17,7 +17,7 @@ class Logging
         ]);
     }
 
-    public static function logSuccessfulItemToProductLink(PurchaseItems $item, string $productSku): void
+    public static function logSuccessfulItemToProductLink(PurchaseItem $item, string $productSku): void
     {
         Log::info('[CUSTOS] Produto vinculado à nota fiscal', [
             'sku' => $productSku,
@@ -25,7 +25,7 @@ class Logging
         ]);
     }
 
-    public static function logFailedItemSync(PurchaseItems $item, PurchaseInvoice $invoice, Throwable $exception): void
+    public static function logFailedItemSync(PurchaseItem $item, PurchaseInvoice $invoice, Throwable $exception): void
     {
         Log::error('[CUSTOS] Erro na sincronização de items: ', [
             'invoice' => $invoice->toArray(),
@@ -35,7 +35,7 @@ class Logging
         ]);
     }
 
-    public static function logFailedItemToProductLink(PurchaseItems $item, string $productSku): void
+    public static function logFailedItemToProductLink(PurchaseItem $item, string $productSku): void
     {
         Log::info('[CUSTOS] Produto não foi vinculado à nota fiscal', [
             'sku' => $productSku,

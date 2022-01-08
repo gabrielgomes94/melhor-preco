@@ -33,7 +33,7 @@ class PurchaseInvoice extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(PurchaseItems::class, 'purchase_invoice_uuid', 'uuid');
+        return $this->hasMany(PurchaseItem::class, 'purchase_invoice_uuid', 'uuid');
     }
 
     public function getAccessKey(): string

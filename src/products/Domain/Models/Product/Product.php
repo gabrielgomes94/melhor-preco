@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Costs\Domain\Models\PurchaseItems;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Prices\Price\Domain\Models\Price;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
@@ -69,15 +69,15 @@ class Product extends Model implements ProductModelInterface
 
     public function itemsCosts(): HasMany
     {
-        return $this->hasMany(PurchaseItems::class, 'ean', 'ean');
+        return $this->hasMany(PurchaseItem::class, 'ean', 'ean');
     }
 
-    public function getLatestPurchaseItem(): ?PurchaseItems
+    public function getLatestPurchaseItem(): ?PurchaseItem
     {
         return $this->getPurchaseItem(Carbon::now());
     }
 
-    public function getPurchaseItem(Carbon $date): ?PurchaseItems
+    public function getPurchaseItem(Carbon $date): ?PurchaseItem
     {
         $items = $this->itemsCosts;
 

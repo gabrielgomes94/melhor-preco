@@ -4,7 +4,7 @@ namespace Src\Costs\Presentation\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Costs\Domain\UseCases\Contracts\UpdateCosts;
+use Src\Costs\Domain\UseCases\UpdateCosts;
 use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
 use Src\Products\Application\Http\Requests\Product\EditCostsRequest;
 use Src\Products\Application\Http\Requests\Product\UpdateCostsRequest;
@@ -42,10 +42,5 @@ class CostsController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    public function sync()
-    {
-
     }
 }

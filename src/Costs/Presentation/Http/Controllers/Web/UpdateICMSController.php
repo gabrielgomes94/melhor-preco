@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use Src\Products\Application\Http\Requests\UploadSpreadsheetRequest;
 use Src\Products\Application\UseCases\UploadSpreadsheet;
 
+// @deprecated
 class UpdateICMSController extends Controller
 {
     private UploadSpreadsheet $uploadSpreadsheet;

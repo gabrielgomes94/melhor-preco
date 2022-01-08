@@ -7,7 +7,7 @@ use Src\Products\Domain\Events\Product\ProductCostsUpdated;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Prices\Price\Application\Services\Exceptions\ProductNotFound;
 use Src\Prices\Price\Application\Services\Products\UpdateDB;
-use Src\Costs\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
+use Src\Costs\Domain\UseCases\UpdateCosts as UpdateCostsInterface;
 
 class UpdateCosts implements UpdateCostsInterface
 {

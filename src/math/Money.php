@@ -46,6 +46,6 @@ class Money
 
     public function toFloat(): float
     {
-        return (float) $this->toString();
+        return (float) ((string) $this);
     }
 }

@@ -3,7 +3,7 @@
 namespace Src\Costs\Domain\Models\Observers;
 
 use Ramsey\Uuid\Uuid;
-use Src\costs\Domain\Models\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseInvoice;
 
 class PurchaseInvoiceObserver
 {

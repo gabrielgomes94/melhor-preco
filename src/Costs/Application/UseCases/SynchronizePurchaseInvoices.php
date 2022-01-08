@@ -2,7 +2,6 @@
 
 namespace Src\Costs\Application\UseCases;
 
-use Src\Costs\Domain\Models\PurchaseInvoice;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Domain\Repositories\ErpRepository;
 use Src\Costs\Domain\UseCases\SyncPurchaseInvoices;

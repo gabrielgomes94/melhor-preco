@@ -5,7 +5,7 @@ namespace Src\Costs\Presentation\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Src\Costs\Presentation\Presenters\PurchaseInvoicePresenter;
-use Src\costs\Domain\Models\PurchaseItems;
+use Src\costs\Domain\Models\PurchaseItem;
 use Src\Costs\Domain\Repositories\DbRepository;
 
 class PurchaseInvoicesController extends Controller

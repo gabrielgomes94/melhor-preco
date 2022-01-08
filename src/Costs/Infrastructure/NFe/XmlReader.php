@@ -3,11 +3,12 @@
 namespace Src\Costs\Infrastructure\NFe;
 
 use SimpleXMLElement;
+use Src\Costs\Domain\Models\Tax;
+use Src\Costs\Domain\Repositories\NFeRepository;
 
-class XmlReader
+class XmlReader implements NFeRepository
 {
-
-    public function getItems(SimpleXMLElement $xml): array|SimpleXMLElement
+    public function getItems(SimpleXMLElement $xml): array
     {
         $items = json_decode(json_encode((array) $xml->NFe->infNFe), true);
 
@@ -63,10 +64,6 @@ class XmlReader
         return $product['vSeg'] ?? 0.0;
     }
 
-    /**
-     * @todo: montar uma estrutura para salvar todos os dados de imposto
-     * @todo: salvar os campos de imposto num formato json
-     */
     public function getTaxes(array $items): array
     {
 
@@ -75,11 +72,11 @@ class XmlReader
         }
 
         return [
-            'totalTaxes' => $items['imposto']['vTotTrib'] ?? 0.0,
-            'ipi' => Taxes::getIPI($items['imposto']),
-            'icms' => Taxes::getICMS($items['imposto']),
-            'pis' => Taxes::getPIS($items['imposto']),
-            'cofins' => Taxes::getCOFINS($items['imposto'])
+            Tax::TOTAL_TAXES => $items['imposto']['vTotTrib'] ?? 0.0,
+            Tax::IPI => Taxes::getIPI($items['imposto']),
+            TAX::ICMS => Taxes::getICMS($items['imposto']),
+            TAX::PIS => Taxes::getPIS($items['imposto']),
+            TAX::COFINS => Taxes::getCOFINS($items['imposto'])
         ];
     }
 }

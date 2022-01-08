@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
 use Src\costs\Domain\Models\PurchaseInvoice;
-use Src\Costs\Domain\Models\PurchaseItems;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Infrastructure\Logging\Logging;
 use Throwable;
@@ -30,14 +30,14 @@ class Repository implements DbRepository
         return PurchaseInvoice::where('uuid', $uuid)->first();
     }
 
-    public function getPurchaseItem(string $uuid): ?PurchaseItems
+    public function getPurchaseItem(string $uuid): ?PurchaseItem
     {
-        return PurchaseItems::where('uuid', $uuid)->first();
+        return PurchaseItem::where('uuid', $uuid)->first();
     }
 
     public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, array $item): bool
     {
-        $purchaseItem = new PurchaseItems($item);
+        $purchaseItem = new PurchaseItem($item);
 
         try {
             $purchaseInvoice->items()->save($purchaseItem);
@@ -51,7 +51,7 @@ class Repository implements DbRepository
         return false;
     }
 
-    public function linkItemToProduct(PurchaseItems $item, string $productSku): bool
+    public function linkItemToProduct(PurchaseItem $item, string $productSku): bool
     {
         $item->product_sku = $productSku;
         $result = $item->save();

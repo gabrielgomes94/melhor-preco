@@ -4,7 +4,7 @@ namespace Src\Costs\Presentation\Presenters;
 
 use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\PurchaseInvoice;
-use Src\Costs\Domain\Models\PurchaseItems;
+use Src\Costs\Domain\Models\PurchaseItem;
 
 class PurchaseInvoicePresenter
 {
@@ -23,7 +23,7 @@ class PurchaseInvoicePresenter
             'status' => $invoice->getSituation(),
             'freightValue' => 0.0,
             'insuranceValue' => 0.0,
-            'items' => $invoice->items->map(function (PurchaseItems $item) {
+            'items' => $invoice->items->map(function (PurchaseItem $item) {
                 return PurchaseItemsPresenter::present($item);
             }),
         ];

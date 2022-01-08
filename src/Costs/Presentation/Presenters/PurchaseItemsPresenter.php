@@ -2,11 +2,11 @@
 
 namespace Src\Costs\Presentation\Presenters;
 
-use Src\Costs\Domain\Models\PurchaseItems;
+use Src\Costs\Domain\Models\PurchaseItem;
 
 class PurchaseItemsPresenter
 {
-    public static function present(PurchaseItems $item)
+    public static function present(PurchaseItem $item)
     {
         return [
             'name' => $item->getName(),

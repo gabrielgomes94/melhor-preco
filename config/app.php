@@ -187,8 +187,8 @@ return [
         /**
          * Costs' module Service Providers...
          */
-        Src\Costs\Application\Providers\UseCasesServiceProviders::class,
-        Src\Costs\Infrastructure\ServiceProvider::class,
+        \Src\Costs\Infrastructure\Container\UseCasesServiceProviders::class,
+        \Src\Costs\Infrastructure\Container\ServiceProvider::class,
 
         /**
          * Notifications' module Service Providers...
