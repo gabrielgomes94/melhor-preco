@@ -1,4 +1,4 @@
-<x-template.forms.put :action="route('products.costs.update', $product->getSku())">
+<x-template.forms.put :action="route('costs.update', $product->getSku())">
     <tr class="d-flex">
         <td class="col-1">
             {{ $product->getSku() }}

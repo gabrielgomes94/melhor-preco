@@ -1,5 +1,5 @@
 @foreach ($variations as $variation)
-    <x-template.forms.put :action="route('products.costs.update', $variation->getSku())">
+    <x-template.forms.put :action="route('costs.update', $variation->getSku())">
         <tr class="d-flex">
             <td class="col-1">
                 <x-template.input.hidden

@@ -20,9 +20,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit', [CostsController::class, 'edit'])
                 ->name('.edit');
 
-            Route::get('/upload_spreadsheet', [UploadSpreadsheet::class, 'show'])
-                ->name('.uploadSpreadsheet');
-
             Route::post('/sync', [SyncController::class, 'sync'])
                 ->name('.sync');
 

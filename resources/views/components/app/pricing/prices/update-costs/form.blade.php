@@ -1,5 +1,5 @@
 <x-template.card.card>
-    <x-template.forms.put action="{{ route('products.costs.update', $sku) }}">
+    <x-template.forms.put action="{{ route('costs.update', $sku) }}">
         <h5 class="text-center mb-2">Atualizar custos</h5>
 
         <x-template.input.money
