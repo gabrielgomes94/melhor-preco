@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Costs\Application\Http\Controllers\Web;
+namespace Src\Costs\Presentation\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Costs\Application\Presenters\PurchaseInvoicePresenter;
+use Src\Costs\Presentation\Presenters\PurchaseInvoicePresenter;
 use Src\costs\Domain\Models\PurchaseItems;
 use Src\Costs\Domain\Repositories\DbRepository;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Costs\Application\Presenters;
+namespace Src\Costs\Presentation\Presenters;
 
 use Src\Costs\Domain\Models\PurchaseItems;
 

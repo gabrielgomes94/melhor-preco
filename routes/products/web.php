@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Costs\Application\Http\Controllers\Web\CostsController;
-use Src\Costs\Application\Http\Controllers\Web\UpdateICMSController;
+use Src\Costs\Presentation\Http\Controllers\Web\CostsController;
+use Src\Costs\Presentation\Http\Controllers\Web\UpdateICMSController;
 use Src\Products\Application\Http\Controllers\Web\Images\ProductImageController;
 use Src\Products\Application\Http\Controllers\Web\Reports\DimensionsController;
 use Src\Products\Application\Http\Controllers\Web\Reports\ProductController;

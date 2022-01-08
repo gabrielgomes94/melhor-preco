@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Costs\Application\Http\Controllers\Web\CostsController;
-use Src\Costs\Application\Http\Controllers\Web\PurchaseInvoicesController;
-use Src\Costs\Application\Http\Controllers\Web\PurchaseItemsController;
-use Src\Costs\Application\Http\Controllers\Web\SyncController;
-use Src\Costs\Application\Http\Controllers\Web\UploadSpreadsheet;
+use Src\Costs\Presentation\Http\Controllers\Web\CostsController;
+use Src\Costs\Presentation\Http\Controllers\Web\PurchaseInvoicesController;
+use Src\Costs\Presentation\Http\Controllers\Web\PurchaseItemsController;
+use Src\Costs\Presentation\Http\Controllers\Web\SyncController;
+use Src\Costs\Presentation\Http\Controllers\Web\UploadSpreadsheet;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/costs')
