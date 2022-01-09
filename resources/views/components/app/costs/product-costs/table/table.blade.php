@@ -1,4 +1,4 @@
-<table class="table w-100">
+<table class="table">
     <thead>
         <x-app.costs.product-costs.table.table-header />
     </thead>

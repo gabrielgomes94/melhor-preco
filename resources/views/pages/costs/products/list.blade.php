@@ -7,9 +7,9 @@
         <x-template.alert-messages.alert-messages />
     </div>
 
-    <div class="row mt-4">
+    <div class="row m-4">
         <div class="col-12">
-            <x-app.costs.purchase-invoices.card :data="$data" />
+            <x-app.costs.product-costs.card :paginator="$paginator" :products="$products" :sku="$sku" />
         </div>
     </div>
 </x-layout>

@@ -27,7 +27,7 @@ class PurchaseInvoicesController extends Controller
 
         $data = PurchaseInvoicePresenter::present($data);
 
-        return view('pages.costs.purchase-invoice-details', ['data' => $data]);
+        return view('pages.costs.invoices.show', ['data' => $data]);
     }
 
     public function listPurchaseInvoices(Request $request)
@@ -35,7 +35,7 @@ class PurchaseInvoicesController extends Controller
         $data = $this->repository->listPurchaseInvoice();
         $data = PurchaseInvoicePresenter::presentList($data);
 
-        return view('pages.costs.purchase-invoices', [
+        return view('pages.costs.invoices.list', [
             'data' => $data
         ]);
     }

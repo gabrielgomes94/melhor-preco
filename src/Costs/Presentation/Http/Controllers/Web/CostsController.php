@@ -32,7 +32,7 @@ class CostsController extends Controller
     {
         $data = $this->listProducts->list($request->getOptions());
 
-        return view('pages.costs.edit', $data);
+        return view('pages.costs.products.list', $data);
     }
 
     // @todo: mover esse mótodo para um controller proprio ded PurchaseInvoices
@@ -53,6 +53,6 @@ class CostsController extends Controller
     {
         $data = $this->showProductCosts->show($sku);
 
-        return view('pages.costs.show', ['data' => $data]);
+        return view('pages.costs.products.show', ['data' => $data]);
     }
 }
