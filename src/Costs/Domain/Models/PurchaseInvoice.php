@@ -61,6 +61,11 @@ class PurchaseInvoice extends Model
         return $this->xml;
     }
 
+    public function getSupplierName(): string
+    {
+        return $this->getContactName();
+    }
+
     public function getContactName(): string
     {
         return $this->contact_name;

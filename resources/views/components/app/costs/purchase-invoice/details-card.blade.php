@@ -1,4 +1,8 @@
 <x-template.card.card>
+    <div class="d-inline-flex justify-content-between align-items-center m-1">
+        <h2>Nota fiscal</h2>
+    </div>
+
     <x-app.costs.purchase-invoice.invoice-info :data="$data" />
 
     <div class="m-1 w-100">

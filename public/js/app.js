@@ -5770,6 +5770,8 @@ try {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(/*! ./costs/navbar */ "./resources/js/costs/navbar.js");
+
 __webpack_require__(/*! ./product/product */ "./resources/js/product/product.js");
 
 __webpack_require__(/*! ./product/upload_image */ "./resources/js/product/upload_image.js");
@@ -5781,6 +5783,46 @@ __webpack_require__(/*! ./pricing/inputs */ "./resources/js/pricing/inputs.js");
 __webpack_require__(/*! ./pricing/calculator_forms */ "./resources/js/pricing/calculator_forms.js");
 
 __webpack_require__(/*! ./notifications/notifications */ "./resources/js/notifications/notifications.js");
+
+/***/ }),
+
+/***/ "./resources/js/costs/navbar.js":
+/*!**************************************!*\
+  !*** ./resources/js/costs/navbar.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var highlightNavbarSection = function highlightNavbarSection() {
+  function isProductCostsPage() {
+    return window.location.pathname.includes('custos/produtos');
+  }
+
+  function isInvoicePage() {
+    return window.location.pathname.includes('custos/notas-fiscais');
+  }
+
+  function getActiveSection() {
+    if (isProductCostsPage()) {
+      return document.querySelector('#nav-product-costs');
+    } else if (isInvoicePage()) {
+      return document.querySelector('#nav-invoice-costs');
+    }
+
+    return null;
+  }
+
+  var section = getActiveSection();
+
+  if (section == null) {
+    return;
+  }
+
+  section.querySelector('.nav-link').style.color = '#fff';
+  section.style.backgroundColor = '#1F2937';
+};
+
+highlightNavbarSection();
 
 /***/ }),
 

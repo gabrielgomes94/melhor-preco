@@ -1,7 +1,10 @@
-<x-template.forms.put :action="route('products.costs.update', $product->getSku())">
-    <tr class="d-flex">
-        <td class="col-1">
-            {{ $product->getSku() }}
+<x-template.forms.put :action="route('costs.product.update', $product->getSku())">
+    <tr>
+        <td colspan="1">
+            <x-template.links.link :route="route('costs.product.show', $product->getSku())">
+                {{ $product->getSku() }}
+            </x-template.links.link>
+
             <x-template.input.hidden
                 attribute="sku"
                 componentId="sku-{{ $product->getSku() }}"
@@ -10,7 +13,7 @@
             </x-template.input.hidden>
         </td>
 
-        <td class="col-4"
+        <td colspan="4"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
             title="{{ $product->getDetails()->getName() }}"
@@ -18,7 +21,7 @@
             {{ $product->getDetails()->getName() }}
         </td>
 
-        <td class="col-2">
+        <td colspan="2">
             <x-template.input.money
                 attribute="purchasePrice"
                 componentId="purchasePrice-{{ $product->getSku() }}"
@@ -27,16 +30,7 @@
             </x-template.input.money>
         </td>
 
-        <td class="col-2">
-            <x-template.input.percentage
-                attribute="taxICMS"
-                componentId="taxICMS-{{ $product->getSku() }}"
-                value="{{ $product->getCosts()->taxICMS() }}"
-            >
-            </x-template.input.percentage>
-        </td>
-
-        <td class="col-2">
+        <td colspan="2">
             <x-template.input.money
                 attribute="additionalCosts"
                 componentId="additionalCosts-{{ $product->getSku() }}"
@@ -45,7 +39,7 @@
             </x-template.input.money>
         </td>
 
-        <td class="col-1">
+        <td colspan="1">
             <x-template.buttons.submit-with-icon>
                 <x-app.base.icons.save />
             </x-template.buttons.submit-with-icon>

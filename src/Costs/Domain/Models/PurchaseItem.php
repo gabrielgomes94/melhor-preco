@@ -49,7 +49,7 @@ class PurchaseItem extends Model
 
     public function getICMSPercentage(): float
     {
-        return $this->taxes['icms'][' percentage'] ?? 0.0;
+        return $this->taxes['icms']['percentage'] ?? 0.0;
     }
 
     public function getInsuranceCosts(): float
@@ -87,11 +87,21 @@ class PurchaseItem extends Model
         return $this->quantity;
     }
 
+    public function getSupplierName(): string
+    {
+        return $this->invoice->getSupplierName();
+    }
+
+    public function getSupplierFiscalId(): string
+    {
+        return $this->invoice->getFiscalId();
+    }
+
     public function getTotalTaxesCosts(): float
     {
         $totalTaxes = $this->taxes['totalTaxes'] ?: $this->getIpiValue();
 
-        return  $totalTaxes / $this->quantity ?: 0.0;
+        return  $totalTaxes ?: 0.0;
     }
 
     public function getTotalValue(): float

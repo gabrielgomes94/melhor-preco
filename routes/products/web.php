@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Costs\Presentation\Http\Controllers\Web\CostsController;
-use Src\Costs\Presentation\Http\Controllers\Web\UpdateICMSController;
 use Src\Products\Application\Http\Controllers\Web\Images\ProductImageController;
 use Src\Products\Application\Http\Controllers\Web\Reports\DimensionsController;
 use Src\Products\Application\Http\Controllers\Web\Reports\ProductController;
@@ -23,8 +21,6 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/sync', [SynchronizationController::class, 'sync'])->name('.sync');
             Route::put('/sync', [SynchronizationController::class, 'doSync'])->name('.doSync');
-            Route::get('/update_icms', [UpdateICMSController::class, 'updateICMS'])->name('.updateICMS');
-            Route::put('/update_icms/spreadsheet', [UpdateICMSController::class, 'doUpdateICMS'])->name('.doUpdateICMS');
 
             Route::prefix('/stock_tags')
                 ->name('.stock_tags')
@@ -41,14 +37,6 @@ Route::middleware('auth')->group(function () {
 
                     Route::get('/over_dimension', [DimensionsController::class, 'overDimension'])
                         ->name('.overDimension');
-                });
-
-            Route::prefix('/costs')
-                ->name('.costs')
-                ->group(function () {
-                    Route::get('/edit', [CostsController::class, 'edit'])->name('.edit');
-
-                    Route::put('/price_cost/update/{product_id}', [CostsController::class, 'update'])->name('.update');
                 });
         });
 });

@@ -8,28 +8,35 @@ use Src\Costs\Presentation\Http\Controllers\Web\SyncController;
 use Src\Costs\Presentation\Http\Controllers\Web\UploadSpreadsheet;
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('/costs')
+    Route::prefix('/custos')
         ->name('costs')
         ->group(function () {
-            Route::get('/purchase-invoice/{uuid}', [PurchaseInvoicesController::class, 'showPurchaseInvoices'])
-                ->name('.showPurchaseInvoices');
+            Route::prefix('/produtos')
+                ->name('.product')
+                ->group(function() {
+                    Route::get('/lista', [CostsController::class, 'list'])
+                        ->name('.list');
 
-            Route::get('/purchase-invoices', [PurchaseInvoicesController::class, 'listPurchaseInvoices'])
-                ->name('.listPurchaseInvoices');
+                    Route::get('/detalhes/{sku}', [CostsController::class, 'show'])
+                        ->name('.show');
 
-            Route::get('/edit', [CostsController::class, 'edit'])
-                ->name('.edit');
+                    Route::put('/atualizar/{product_id}', [CostsController::class, 'update'])
+                        ->name('.update');
+            });
 
-            Route::get('/upload_spreadsheet', [UploadSpreadsheet::class, 'show'])
-                ->name('.uploadSpreadsheet');
+            Route::prefix('/notas-fiscais')
+                ->group(function() {
+                    Route::get('/detalhes/{uuid}', [PurchaseInvoicesController::class, 'showPurchaseInvoices'])
+                        ->name('.showPurchaseInvoices');
 
-            Route::post('/sync', [SyncController::class, 'sync'])
+                    Route::get('/lista', [PurchaseInvoicesController::class, 'listPurchaseInvoices'])
+                        ->name('.listPurchaseInvoices');
+
+                    Route::put('/vincular-item', [PurchaseItemsController::class, 'linkProduct'])
+                        ->name('.linkProduct');
+                });
+
+            Route::post('/sincronizar', [SyncController::class, 'sync'])
                 ->name('.sync');
-
-            Route::put('/price_cost/update/{product_id}', [CostsController::class, 'update'])
-                ->name('.update');
-
-            Route::put('/purchase-item/link', [PurchaseItemsController::class, 'linkProduct'])
-                ->name('.linkProduct');
-    });
+        });
 });
