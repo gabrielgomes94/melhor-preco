@@ -202,6 +202,16 @@ class Product extends Model implements ProductModelInterface
         return null;
     }
 
+    public function getCreationDate(): Carbon
+    {
+        return $this->created_at;
+    }
+
+    public function getLastUpdate(): Carbon
+    {
+        return $this->updated_at;
+    }
+
     public function hasCompositionProducts(): bool
     {
         return $this->getComposition()->hasCompositions();

@@ -2,12 +2,17 @@
 
 namespace Src\Costs\Domain\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\PurchaseInvoice;
 use Src\Costs\Domain\Models\PurchaseItem;
 
 interface DbRepository
 {
+    public function countPurchaseInvoices(): int;
+
+    public function getLastSynchronizationDateTime(): Carbon;
+
     public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice;
 
     public function getPurchaseItem(string $uuid): ?PurchaseItem;

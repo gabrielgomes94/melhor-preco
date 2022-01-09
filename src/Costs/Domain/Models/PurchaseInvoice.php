@@ -91,6 +91,11 @@ class PurchaseInvoice extends Model
         return $this->situation;
     }
 
+    public function getLastUpdate(): Carbon
+    {
+        return $this->updated_at;
+    }
+
     public function hasItems(): bool
     {
         return $this->items->count() > 0;

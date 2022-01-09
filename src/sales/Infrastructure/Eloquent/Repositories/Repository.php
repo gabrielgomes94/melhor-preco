@@ -3,6 +3,7 @@
 namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Carbon\Carbon;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Config\StoreRepository;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
@@ -83,5 +84,17 @@ class Repository implements RepositoryInterface
         if ($saleOrder->save()) {
             event(new SaleSynchronized($saleOrder->id));
         }
+    }
+
+    public function countSales(): int
+    {
+        return SaleOrder::count();
+    }
+
+    public function getLastSaleDateTime(): ?Carbon
+    {
+        $lastUpdatedProduct = SaleOrder::query()->orderBy('selled_at')->first();
+
+        return $lastUpdatedProduct?->getLastUpdate();
     }
 }

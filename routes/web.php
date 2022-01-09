@@ -1,6 +1,8 @@
 <?php
 
+use Src\Dashboard\Presentation\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use Src\Dashboard\Presentation\Http\Controllers\SynchronizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +22,9 @@ include 'prices/price/web.php';
 include 'sales/web.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('pages.dashboard');
-    })->name('home');
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
+
+    Route::post('/sync', [SynchronizationController::class, 'sync'])->name('dashboard.sync');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

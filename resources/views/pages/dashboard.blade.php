@@ -6,7 +6,11 @@
     </x-slot>
 
     <div class="row">
-        <div class="col-12 mb-4">
+        <div class="col-6 mb-4">
+            <x-app.dashboard.sync-card :data="$data" />
+        </div>
+
+        <div class="col-6 mb-4">
         </div>
     </div>
 </x-layout>
