@@ -14,6 +14,8 @@
     <div class="sidebar-inner px-4 pt-3">
         <ul class="nav d-flex flex-column pt-3 pt-md-0">
             <div class="p-2 bd-highlight">
+                <x-app.base.menu.menu-item-inbox route="{{ route('home') }}" name="Dashboard" badge="beta" icon="dashboard" />
+
                 <x-app.base.menu.menu-item-inbox route="{{ route('notifications.list') }}" name="Inbox" badge="beta" icon="mail" />
 
                 <x-app.base.menu.menu-section name="Gestão de Produtos" icon="product-box">

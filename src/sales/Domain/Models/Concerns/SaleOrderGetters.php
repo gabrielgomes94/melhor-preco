@@ -2,6 +2,7 @@
 
 namespace Src\Sales\Domain\Models\Concerns;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Src\Products\Domain\Models\Store\Factory;
 use Src\Products\Domain\Models\Store\Store;
@@ -101,5 +102,10 @@ trait SaleOrderGetters
     public function getStatus(): Status
     {
         return new Status($this->status);
+    }
+
+    public function getLastUpdate(): Carbon
+    {
+        return $this->getSaleDates()->selledAt();
     }
 }

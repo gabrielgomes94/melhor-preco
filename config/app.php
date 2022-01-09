@@ -191,6 +191,11 @@ return [
         \Src\Costs\Infrastructure\Container\ServiceProvider::class,
 
         /**
+         * Dashboard module Service Provier
+         */
+        \Src\Dashboard\Infrastructure\Container\UseCasesServiceProvider::class,
+
+        /**
          * Notifications' module Service Providers...
          */
         Src\Notifications\Application\Providers\BladeServiceProvider::class,

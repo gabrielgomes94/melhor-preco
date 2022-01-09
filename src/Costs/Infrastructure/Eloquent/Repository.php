@@ -2,6 +2,7 @@
 
 namespace Src\Costs\Infrastructure\Eloquent;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
@@ -70,5 +71,15 @@ class Repository implements DbRepository
             'number' => $purchaseInvoice->getNumber(),
             'series' => $purchaseInvoice->getSeries(),
         ])->first();
+    }
+
+    public function countPurchaseInvoices(): int
+    {
+        return PurchaseInvoice::count();
+    }
+
+    public function getLastSynchronizationDateTime(): ?Carbon
+    {
+        return PurchaseInvoice::query()->orderByDesc('updated_at')->first()?->getLastUpdate();
     }
 }

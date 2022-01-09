@@ -2,6 +2,7 @@
 
 namespace Src\Products\Infrastructure\Eloquent\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Products\Domain\Models\Product\Product;
@@ -27,5 +28,22 @@ class ProductRepository implements ProductRepositoryInterface
         }
 
         return $product;
+    }
+
+    public function getLastSynchronizationDateTime(): ?Carbon
+    {
+        $lastUpdatedProduct = Product::query()->orderByDesc('updated_at')->first();
+
+        return $lastUpdatedProduct?->getLastUpdate();
+    }
+
+    public function count(): int
+    {
+        return Product::query()->count();
+    }
+
+    public function countActives(): int
+    {
+        return Product::active()->count();
     }
 }

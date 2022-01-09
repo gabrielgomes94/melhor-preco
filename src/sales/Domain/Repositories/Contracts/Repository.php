@@ -25,4 +25,8 @@ interface Repository
         ?float $profit = null,
         ?string $status = null
     ): void;
+
+    public function countSales(): int;
+
+    public function getLastSaleDateTime(): ?Carbon;
 }
