@@ -17,8 +17,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/purchase-invoices', [PurchaseInvoicesController::class, 'listPurchaseInvoices'])
                 ->name('.listPurchaseInvoices');
 
+            // @todo: rename to /list
             Route::get('/edit', [CostsController::class, 'edit'])
                 ->name('.edit');
+
+            Route::get('/product/{sku}', [CostsController::class, 'show'])
+                ->name('.show');
 
             Route::post('/sync', [SyncController::class, 'sync'])
                 ->name('.sync');

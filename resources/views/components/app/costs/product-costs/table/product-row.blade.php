@@ -1,7 +1,10 @@
 <x-template.forms.put :action="route('costs.update', $product->getSku())">
     <tr>
         <td colspan="1">
-            {{ $product->getSku() }}
+            <x-template.links.link :route="route('costs.show', $product->getSku())">
+                {{ $product->getSku() }}
+            </x-template.links.link>
+
             <x-template.input.hidden
                 attribute="sku"
                 componentId="sku-{{ $product->getSku() }}"
