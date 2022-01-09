@@ -18,8 +18,8 @@ Route::middleware('auth')->group(function () {
                 ->name('.listPurchaseInvoices');
 
             // @todo: rename to /list
-            Route::get('/edit', [CostsController::class, 'edit'])
-                ->name('.edit');
+            Route::get('/list', [CostsController::class, 'list'])
+                ->name('.list');
 
             Route::get('/product/{sku}', [CostsController::class, 'show'])
                 ->name('.show');

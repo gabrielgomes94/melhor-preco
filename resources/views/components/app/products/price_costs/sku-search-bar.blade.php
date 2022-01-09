@@ -1,5 +1,5 @@
 <x-template.forms.get
-    :action="route('costs.edit')"
+    :action="route('costs.list')"
 >
     <div class="d-flex justify-content-around">
         <x-template.input.text

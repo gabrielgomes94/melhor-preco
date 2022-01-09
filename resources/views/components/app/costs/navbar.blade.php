@@ -3,7 +3,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item px-2">
                 <a class="nav-link"
-                   href={{ route('costs.edit')  }}
+                   href={{ route('costs.list')  }}
                 >
                     Custos de produtos
                 </a>

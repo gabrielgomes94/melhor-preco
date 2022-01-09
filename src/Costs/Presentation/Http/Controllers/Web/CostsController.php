@@ -28,7 +28,7 @@ class CostsController extends Controller
         $this->showProductCosts = $showProductCosts;
     }
 
-    public function edit(EditCostsRequest $request)
+    public function list(EditCostsRequest $request)
     {
         $data = $this->listProducts->list($request->getOptions());
 
