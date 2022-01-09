@@ -13,6 +13,8 @@ class GetSynchronizationInfo implements GetSynchronizationInfoInterface
     private ProductRepository $repository;
     private DbRepository $costsRepository;
 
+    private const DATE_FORMAT = 'd-m-Y H:i:s';
+
     public function __construct(
         ProductRepository $repository,
         DbRepository $costsRepository,
@@ -27,13 +29,13 @@ class GetSynchronizationInfo implements GetSynchronizationInfoInterface
     {
         $syncedProducts = $this->repository->count();
         $activeProducts = $this->repository->countActives();
-        $lastUpdatedAt = $this->repository->getLastSynchronizationDateTime()->format('d-m-Y H:i:s');
+        $lastUpdatedAt = $this->repository->getLastSynchronizationDateTime()->format(self::DATE_FORMAT);
 
         $syncedInvoicesQuantity = $this->costsRepository->countPurchaseInvoices();
-        $lastUpdatedInvoices = $this->costsRepository->getLastSynchronizationDateTime()->format('d-m-Y H:i:s');
+        $lastUpdatedInvoices = $this->costsRepository->getLastSynchronizationDateTime()->format(self::DATE_FORMAT);
 
         $syncedSalesQuantity = $this->salesRepository->countSales();
-        $lastUpdatedSales = $this->salesRepository->getLastSaleDateTime();
+        $lastUpdatedSales = $this->salesRepository->getLastSaleDateTime()->format(self::DATE_FORMAT);
 
         return [
             'products' => [

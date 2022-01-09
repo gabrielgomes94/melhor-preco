@@ -93,7 +93,7 @@ class Repository implements RepositoryInterface
 
     public function getLastSaleDateTime(): ?Carbon
     {
-        $lastUpdatedProduct = SaleOrder::query()->orderBy('selled_at')->first();
+        $lastUpdatedProduct = SaleOrder::query()->orderByDesc('selled_at')->first();
 
         return $lastUpdatedProduct?->getLastUpdate();
     }

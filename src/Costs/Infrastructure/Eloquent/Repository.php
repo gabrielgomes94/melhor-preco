@@ -80,6 +80,6 @@ class Repository implements DbRepository
 
     public function getLastSynchronizationDateTime(): Carbon
     {
-        return PurchaseInvoice::query()->orderBy('updated_at')->first()->getLastUpdate();
+        return PurchaseInvoice::query()->orderByDesc('updated_at')->first()->getLastUpdate();
     }
 }
