@@ -78,8 +78,8 @@ class Repository implements DbRepository
         return PurchaseInvoice::count();
     }
 
-    public function getLastSynchronizationDateTime(): Carbon
+    public function getLastSynchronizationDateTime(): ?Carbon
     {
-        return PurchaseInvoice::query()->orderByDesc('updated_at')->first()->getLastUpdate();
+        return PurchaseInvoice::query()->orderByDesc('updated_at')->first()?->getLastUpdate();
     }
 }

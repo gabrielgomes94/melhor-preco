@@ -30,11 +30,11 @@ class ProductRepository implements ProductRepositoryInterface
         return $product;
     }
 
-    public function getLastSynchronizationDateTime(): Carbon
+    public function getLastSynchronizationDateTime(): ?Carbon
     {
         $lastUpdatedProduct = Product::query()->orderByDesc('updated_at')->first();
 
-        return $lastUpdatedProduct->getLastUpdate();
+        return $lastUpdatedProduct?->getLastUpdate();
     }
 
     public function count(): int

@@ -14,7 +14,7 @@ interface ProductRepository
 
     public function get(string $sku): ?Product;
 
-    public function getLastSynchronizationDateTime(): Carbon;
+    public function getLastSynchronizationDateTime(): ?Carbon;
 
     public function all(): Collection;
 }

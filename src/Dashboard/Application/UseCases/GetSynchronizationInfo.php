@@ -2,6 +2,7 @@
 
 namespace Src\Dashboard\Application\UseCases;
 
+use Carbon\Carbon;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Dashboard\Domain\UseCases\GetSynchronizationInfo as GetSynchronizationInfoInterface;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
@@ -27,30 +28,31 @@ class GetSynchronizationInfo implements GetSynchronizationInfoInterface
 
     public function get(): array
     {
-        $syncedProducts = $this->repository->count();
-        $activeProducts = $this->repository->countActives();
-        $lastUpdatedAt = $this->repository->getLastSynchronizationDateTime()->format(self::DATE_FORMAT);
-
-        $syncedInvoicesQuantity = $this->costsRepository->countPurchaseInvoices();
-        $lastUpdatedInvoices = $this->costsRepository->getLastSynchronizationDateTime()->format(self::DATE_FORMAT);
-
-        $syncedSalesQuantity = $this->salesRepository->countSales();
-        $lastUpdatedSales = $this->salesRepository->getLastSaleDateTime()->format(self::DATE_FORMAT);
-
         return [
             'products' => [
-                'syncedQuantity' => $syncedProducts,
-                'activeQuantity' => $activeProducts,
-                'lastUpdatedAt' => $lastUpdatedAt,
+                'syncedQuantity' => $this->repository->count(),
+                'activeQuantity' => $this->repository->countActives(),
+                'lastUpdatedAt' => $this->formatDate(
+                    $this->costsRepository->getLastSynchronizationDateTime()
+                ),
             ],
             'invoices' => [
-                'syncedQuantity' => $syncedInvoicesQuantity,
-                'lastUpdatedAt' => $lastUpdatedInvoices,
+                'syncedQuantity' => $this->costsRepository->countPurchaseInvoices(),
+                'lastUpdatedAt' => $this->formatDate(
+                    $this->costsRepository->getLastSynchronizationDateTime()
+                ),
             ],
             'sales' => [
-                'syncedQuantity' => $syncedSalesQuantity,
-                'lastUpdatedAt' => $lastUpdatedSales,
+                'syncedQuantity' => $this->salesRepository->countSales(),
+                'lastUpdatedAt' => $this->formatDate(
+                    $this->salesRepository->getLastSaleDateTime()
+                ),
             ],
         ];
+    }
+
+    private function formatDate(?Carbon $date): string
+    {
+        return $date?->format(self::DATE_FORMAT) ?? '';
     }
 }

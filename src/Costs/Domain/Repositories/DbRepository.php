@@ -11,7 +11,7 @@ interface DbRepository
 {
     public function countPurchaseInvoices(): int;
 
-    public function getLastSynchronizationDateTime(): Carbon;
+    public function getLastSynchronizationDateTime(): ?Carbon;
 
     public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice;
 

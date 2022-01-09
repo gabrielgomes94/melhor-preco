@@ -48,7 +48,7 @@
     <div class="d-flex justify-content-around my-1">
         <x-template.forms.post action="{{ route('dashboard.sync') }}">
             <button class="btn btn-primary" type="submit">
-                Sincronizar custos
+                Sincronizar dados
 
                 <x-app.base.icons.icon icon="sync" />
             </button>
