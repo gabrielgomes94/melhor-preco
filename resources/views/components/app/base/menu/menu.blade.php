@@ -29,7 +29,7 @@
                 <x-app.base.menu.menu-section name="Calculadora de Preços" icon="calculator">
                     <x-app.base.menu.menu-item route="{{ route('pricing.priceList.byStore', 'magalu') }}" name="Preços" icon="price"/>
 
-                    <x-app.base.menu.menu-item route="{{ route('costs.list') }}" name="Custos" icon="costs" />
+                    <x-app.base.menu.menu-item route="{{ route('costs.product.list') }}" name="Custos" icon="costs" />
                 </x-app.base.menu.menu-section>
 
                 <x-app.base.menu.menu-item route="{{ route('sales.list') }}" name="Gestão de Vendas" badge="beta" icon="currency" />

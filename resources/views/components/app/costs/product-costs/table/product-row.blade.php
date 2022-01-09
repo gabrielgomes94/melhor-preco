@@ -1,7 +1,7 @@
-<x-template.forms.put :action="route('costs.update', $product->getSku())">
+<x-template.forms.put :action="route('costs.product.update', $product->getSku())">
     <tr>
         <td colspan="1">
-            <x-template.links.link :route="route('costs.show', $product->getSku())">
+            <x-template.links.link :route="route('costs.product.show', $product->getSku())">
                 {{ $product->getSku() }}
             </x-template.links.link>
 

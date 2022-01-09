@@ -26,5 +26,4 @@ let highlightNavbarSection = function () {
     section.style.backgroundColor = '#1F2937'
 }
 
-
 highlightNavbarSection()
