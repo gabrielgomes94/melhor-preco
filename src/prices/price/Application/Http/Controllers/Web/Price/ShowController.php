@@ -29,13 +29,10 @@ class ShowController extends Controller
         }
 
         if (!$post = $product->getPost($storeSlug)) {
-            abort(404);
+            return view('pages.pricing.products.not-integrated');
         }
 
-        if (!$store = $product->getStore($storeSlug)) {
-            abort(404);
-        }
-
+        $store = $product->getStore($storeSlug);
         $breadcrumb = $this->breadcrumb->generate(
             Breadcrumb::priceListIndex(),
             Breadcrumb::priceListByStore($store->getName(), $store->getSlug()),
