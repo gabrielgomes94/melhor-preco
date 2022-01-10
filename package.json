@@ -1,4 +1,8 @@
 {
+    "name": "barrigudinha-backoffice",
+    "engines": {
+        "node": "15.x"
+    },
     "private": true,
     "scripts": {
         "dev": "npm run development",
