@@ -24,14 +24,17 @@ class ShowController extends Controller
      */
     public function showByStore(string $storeSlug, string $productId)
     {
-        $product = Product::find($productId);
-
-        if (!$product) {
+        if (!$product = Product::find($productId)) {
             abort(404);
         }
 
-        $post = $product->getPost($storeSlug);
-        $store = $product->getStore($storeSlug);
+        if (!$post = $product->getPost($storeSlug)) {
+            abort(404);
+        }
+
+        if (!$store = $product->getStore($storeSlug)) {
+            abort(404);
+        }
 
         $breadcrumb = $this->breadcrumb->generate(
             Breadcrumb::priceListIndex(),
