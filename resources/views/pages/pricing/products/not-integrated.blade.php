@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-app.pricing.price-list.navbar :selected="$store->getSlug()"/>
+        <x-app.pricing.price-list.navbar/>
     </x-slot>
 
     <div class="row">
