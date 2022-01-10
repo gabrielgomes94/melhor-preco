@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-app.pricing.price-list.navbar/>
+        <x-app.pricing.price-list.navbar selected=""/>
     </x-slot>
 
     <div class="row">
