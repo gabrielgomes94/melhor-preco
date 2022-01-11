@@ -5,6 +5,7 @@ namespace Src\Costs\Application\Services;
 use Src\Costs\Domain\Repositories\NFeRepository;
 use Src\Costs\Infrastructure\NFe\XmlReader;
 use Src\Math\Money;
+use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 
 class CalculateUnitCost
 {
@@ -32,7 +33,7 @@ class CalculateUnitCost
             ->add($ipiValue)
             ->subtract($discount);
 
-        return Money::fromMoneyPHP($unitCost)->toFloat();
+        return MoneyTransformer::toFloat($unitCost);
     }
 
     private function getMoney(float $value): \Money\Money

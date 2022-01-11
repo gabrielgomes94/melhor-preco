@@ -7,6 +7,7 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Src\Prices\Calculator\Domain\Transformer\Contracts\MoneyTransformer as MoneyTransformerInterface;
 
+// @todo: Move this class to Math context and use it
 class MoneyTransformer implements MoneyTransformerInterface
 {
     public static function toFloat(Money $value): float
