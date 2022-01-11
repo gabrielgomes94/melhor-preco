@@ -3,6 +3,7 @@
 namespace Src\Products\Domain\Repositories\Contracts;
 
 use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Product\Product;
 
@@ -17,4 +18,6 @@ interface ProductRepository
     public function getLastSynchronizationDateTime(): ?Carbon;
 
     public function all(): Collection;
+
+    public function listProductsBySku(string $storeSlug, string $sku, int $page = 1): LengthAwarePaginator;
 }

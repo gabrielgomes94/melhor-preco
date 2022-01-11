@@ -42,22 +42,30 @@ class CalculateUnitCost
 
     private function getPrice(array $product): \Money\Money
     {
-        return $this->getMoney($this->nfeReader->getPrice($product));
+        return $this->getMoney(
+            $this->nfeReader->getPrice($product)
+        );
     }
 
     private function getFreightValue(array $product): \Money\Money
     {
-        return $this->getMoney($this->nfeReader->getFreightValue($product));
+        return $this->getMoney(
+            $this->nfeReader->getFreightValue($product)
+        );
     }
 
     private function getInsuranceValue(array $product): \Money\Money
     {
-        return $this->getMoney($this->nfeReader->getInsuranceValue($product));
+        return $this->getMoney(
+            $this->nfeReader->getInsuranceValue($product)
+        );
     }
 
     private function getDiscount(array $product): \Money\Money
     {
-        return $this->getMoney($this->nfeReader->getDiscount($product));
+        return $this->getMoney(
+            $this->nfeReader->getDiscount($product)
+        );
     }
 
     private function getQuantity(array $product): float

@@ -29,7 +29,10 @@ class ShowController extends Controller
      */
     public function show(string $store, ShowRequest $request)
     {
-        $paginator = $this->listProductsService->listPaginate($this->getOptions($store, $request));
+        $paginator = $this->listProductsService->listPaginate(
+            $this->getOptions($store, $request)
+        );
+
         $data = $this->priceListPresenter->list($paginator, $store, $request->all());
 
         return view('pages.pricing.price-list.stores.show', $data);

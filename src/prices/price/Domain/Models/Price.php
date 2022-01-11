@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Price\Domain\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,11 @@ class Price extends Model
     protected $casts = [
         'product_sku' => 'string',
     ];
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_sku', 'sku');
+    }
 
     public function getProductSku(): string
     {
@@ -52,10 +58,10 @@ class Price extends Model
         return $post->isProfitable();
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'product_id');
-    }
+//    public function product()
+//    {
+//        return $this->belongsTo(Product::class, 'product_id');
+//    }
 
     public function margin(): float
     {
