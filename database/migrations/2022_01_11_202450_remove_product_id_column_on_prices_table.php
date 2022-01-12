@@ -14,7 +14,7 @@ class RemoveProductIdColumnOnPricesTable extends Migration
     public function up()
     {
         Schema::table('prices', function (Blueprint $table) {
-            $table->removeColumn('product_id');
+            $table->dropColumn('product_id');
         });
     }
 
@@ -25,6 +25,11 @@ class RemoveProductIdColumnOnPricesTable extends Migration
      */
     public function down()
     {
+        if (Schema::hasColumn('prices', 'product_id'))
+        {
+            return;
+        }
+
         Schema::table('prices', function (Blueprint $table) {
             $table->bigInteger('product_id');
         });
