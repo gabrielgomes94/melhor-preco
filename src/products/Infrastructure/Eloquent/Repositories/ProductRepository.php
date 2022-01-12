@@ -60,7 +60,7 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             ])
             ->active()
-            ->orderByRaw('sku::int', 'desc')
+            ->orderBy('name')
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
@@ -83,7 +83,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $query->where('composition_products', 'like', $sku)
                     ->where('is_active', true);
             })
-            ->orderByRaw('sku::int', 'desc')
+            ->orderBy('name')
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
@@ -97,7 +97,7 @@ class ProductRepository implements ProductRepositoryInterface
             ->active()
             ->whereNull('parent_sku')
             ->whereNotIn('composition_products', ['[]'])
-            ->orderByRaw('sku::int', 'desc')
+            ->orderBy('name')
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 }
