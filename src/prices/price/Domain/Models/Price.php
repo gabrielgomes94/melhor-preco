@@ -24,6 +24,8 @@ class Price extends Model
         'product_sku' => 'string',
     ];
 
+    public $keyType = 'string';
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_sku', 'sku');

@@ -57,9 +57,11 @@ class Product extends Model implements ProductModelInterface
 
     protected $primaryKey = 'sku';
 
+    public $keyType = 'string';
+
     public function prices(): HasMany
     {
-        return $this->hasMany(Price::class, 'product_id', 'sku');
+        return $this->hasMany(Price::class, 'product_sku', 'sku');
     }
 
     public function items(): BelongsTo
@@ -266,6 +268,7 @@ class Product extends Model implements ProductModelInterface
     }
 
     // Mover essas lógicas pra Model de Prices
+    // @todo: criar método no repositoru para isso
     public static function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
     {
         return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
@@ -278,6 +281,7 @@ class Product extends Model implements ProductModelInterface
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
+    // @todo: criar método no repositoru para isso
     public static function listPricesLog(string $storeSlug, int $page = 1): LengthAwarePaginator
     {
         return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
@@ -285,39 +289,6 @@ class Product extends Model implements ProductModelInterface
             ->where('is_active', true)
             ->where('prices.store', $storeSlug)
             ->orderBy('prices.updated_at', 'desc')
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    public static function listProducts(string $storeSlug, int $page = 1)
-    {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-            ->whereNull('parent_sku')
-            ->where('is_active', true)
-            ->whereNotNull('product_id')
-            ->where('store', $storeSlug)
-            ->orderBy('product_id')
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    public static function listProductsBySku(string $storeSlug, string $sku, int $page = 1)
-    {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.id')
-            ->where('store', $storeSlug)
-            ->where('sku', $sku)
-            ->where('is_active', true)
-            ->orWhere(function ($query) use ($sku, $storeSlug) {
-                $query->where('parent_sku', $sku)
-                    ->where('store', $storeSlug)
-                    ->where('is_active', true);
-            })
-            ->orWhere(function ($query) use ($sku, $storeSlug) {
-                $sku = '%"' . $sku . '"%';
-
-                $query->where('composition_products', 'like', $sku)
-                    ->where('store', $storeSlug)
-                    ->where('is_active', true);
-            })
-            ->orderBy('product_id')
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 }

@@ -21,7 +21,7 @@ class ListProducts
         $store = $options->store();
 
         if ($options->sku()) {
-            $this->repository->listProductsBySku(
+            return $this->repository->listProductsBySku(
                 $store,
                 $options->sku(),
                 $page
@@ -35,6 +35,6 @@ class ListProducts
             );
         }
 
-        return Product::listProducts($store, $page);
+        return $this->repository->listProducts($store, $page);
     }
 }
