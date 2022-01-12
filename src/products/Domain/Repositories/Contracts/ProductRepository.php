@@ -9,6 +9,8 @@ use Src\Products\Domain\Models\Product\Product;
 
 interface ProductRepository
 {
+    public function all(): Collection;
+
     public function count(): int;
 
     public function countActives(): int;
@@ -17,7 +19,9 @@ interface ProductRepository
 
     public function getLastSynchronizationDateTime(): ?Carbon;
 
-    public function all(): Collection;
+    public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator;
 
     public function listProductsBySku(string $storeSlug, string $sku, int $page = 1): LengthAwarePaginator;
+
+    public function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator;
 }

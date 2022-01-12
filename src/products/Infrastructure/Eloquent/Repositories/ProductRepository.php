@@ -51,13 +51,26 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::active()->count();
     }
 
-    public function listProductsBySku(string $storeSlug, string $sku, int $page = 1): LengthAwarePaginator
+    public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator
     {
-        return Product::with([
+        return Product::with(
+            [
                 'prices' => function ($query) use ($storeSlug) {
                     $query->where('store', '=', $storeSlug);
                 }
             ])
+            ->active()
+            ->orderByRaw('sku::int', 'desc')
+            ->paginate(perPage: self::PER_PAGE, page: $page);
+    }
+
+    public function listProductsBySku(string $storeSlug, string $sku, int $page = 1): LengthAwarePaginator
+    {
+        return Product::with([
+            'prices' => function ($query) use ($storeSlug) {
+                $query->where('store', '=', $storeSlug);
+            }
+        ])
             ->active()
             ->where('sku', $sku)
             ->orWhere(function ($query) use ($sku, $storeSlug) {
@@ -70,20 +83,21 @@ class ProductRepository implements ProductRepositoryInterface
                 $query->where('composition_products', 'like', $sku)
                     ->where('is_active', true);
             })
-            ->orderBy('sku')
+            ->orderByRaw('sku::int', 'desc')
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
-    public function listProducts(string $storeSlug, int $page = 1)
+    public function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
     {
-        return Product::with(
-            [
-                'prices' => function ($query) use ($storeSlug) {
-                    $query->where('store', '=', $storeSlug);
-                }
-            ])
+        return Product::with([
+            'prices' => function ($query) use ($storeSlug) {
+                $query->where('store', '=', $storeSlug);
+            }
+        ])
             ->active()
-            ->orderBy('sku')
+            ->whereNull('parent_sku')
+            ->whereNotIn('composition_products', ['[]'])
+            ->orderByRaw('sku::int', 'desc')
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 }
