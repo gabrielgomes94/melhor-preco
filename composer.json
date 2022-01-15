@@ -69,10 +69,7 @@
             "Src\\Integrations\\": "src/integrations",
             "Src\\Notifications\\": "src/notifications",
             "Src\\Math\\": "src/math",
-            "Src\\Prices\\": "src/prices",
-            "Src\\Prices\\Price\\": "src/prices/price",
-            "Src\\Prices\\Calculator\\": "src/prices/calculator",
-            "Src\\Prices\\PriceList\\": "src/prices/price_list",
+            "Src\\Prices\\": "src/Prices",
             "Src\\Products\\": "src/products",
             "Src\\Sales\\": "src/sales"
         }

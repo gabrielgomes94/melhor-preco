@@ -3,7 +3,7 @@
 namespace Src\Notifications\Domain\Rules;
 
 use Src\Notifications\Domain\Contracts\Rules\Rule;
-use Src\Prices\Price\Domain\Models\Price;
+use Src\Prices\Domain\Models\Price;
 
 class UnprofitablePrice implements Rule
 {

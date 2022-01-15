@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Prices\Price\Application\Http\Controllers\Web\Price\UpdateController;
-use Src\Prices\Price\Application\Http\Controllers\Web\PriceList\IndexController;
-use Src\Prices\Price\Application\Http\Controllers\Web\PriceList\ShowController;
-use Src\Prices\Price\Application\Http\Controllers\Web\PriceLog\PriceLogController;
-use Src\Prices\Price\Application\Http\Controllers\Web\Price\ShowController as ProductShowController;
+use Src\Prices\Application\Http\Controllers\Web\Price\UpdateController;
+use Src\Prices\Application\Http\Controllers\Web\PriceList\IndexController;
+use Src\Prices\Application\Http\Controllers\Web\PriceList\ShowController;
+use Src\Prices\Application\Http\Controllers\Web\PriceLog\PriceLogController;
+use Src\Prices\Application\Http\Controllers\Web\Price\ShowController as ProductShowController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('pricing')

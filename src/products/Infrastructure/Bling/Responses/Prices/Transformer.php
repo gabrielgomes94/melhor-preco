@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Bling\Responses\Prices;
 
-use Src\Prices\Price\Domain\Models\Price;
+use Src\Prices\Domain\Models\Price;
 
 class Transformer
 {

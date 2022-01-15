@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Src\Costs\Application\UseCases\ShowProductCosts;
 use Src\Costs\Domain\UseCases\UpdateCosts;
-use Src\Prices\Price\Application\Services\Exceptions\UpdatePriceException;
+use Src\Prices\Application\Services\Exceptions\UpdatePriceException;
 use Src\Products\Application\Http\Requests\Product\EditCostsRequest;
 use Src\Products\Application\Http\Requests\Product\UpdateCostsRequest;
 use Src\Products\Application\UseCases\ListProducts;

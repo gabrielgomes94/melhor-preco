@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Costs\Domain\Models\PurchaseItem;
-use Src\Prices\Price\Domain\Models\Price;
+use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;

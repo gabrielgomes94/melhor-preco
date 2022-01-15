@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    private const ROUTES_DIR = 'src/prices/calculator/Infrastructure/Routes/';
+    private const ROUTES_DIR = 'src/Prices/calculator/Infrastructure/Routes/';
 
     public function boot()
     {
