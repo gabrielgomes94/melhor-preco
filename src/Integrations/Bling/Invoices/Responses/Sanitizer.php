@@ -3,23 +3,20 @@
 namespace Src\Integrations\Bling\Invoices\Responses;
 
 use Illuminate\Http\Client\Response;
+use Src\Integrations\Bling\Base\Responses\Sanitizer\BaseSanitizer;
 
-class Sanitizer
+class Sanitizer extends BaseSanitizer
 {
     public function sanitize(Response $response): array
     {
-        $data = json_decode($response->body(), true);
+        $data = $this->decode($response);
 
-        if (isset($data['retorno']['erros'])) {
-            $error = array_shift($data['retorno']['erros']);
-
-            return ['error' => $error['erro']['msg'] ?? null];
+        if ($this->hasError($data)) {
+            return $this->sanitizeError($data);
         }
 
-        if (isset($data['retorno']['notasfiscais'])) {
-            $invoices = array_shift($data['retorno']['notasfiscais']);
-
-            return $invoices['notafiscal'];
+        if ($this->hasInvoices($data)) {
+            return $this->sanitizeInvoice($data);
         }
 
         return [];
@@ -27,19 +24,33 @@ class Sanitizer
 
     public function sanitizeMultiple(Response $response): array
     {
-        $data = json_decode($response->body(), true);
+        $data = $this->decode($response);
 
-        if (isset($data['retorno']['erros'])) {
-            $error = array_shift($data['retorno']['erros']);
-            $message = $error['erro']['msg'] ?? '';
-
-            return ['error' => $message];
+        if ($this->hasError($data)) {
+            return $this->sanitizeError($data);
         }
 
-        if (isset($data['retorno']['notasfiscais'])) {
-            return $data['retorno']['notasfiscais'];
+        if ($this->hasInvoices($data)) {
+            return $this->sanitizeInvoicesCollection($data);
         }
 
         return [];
+    }
+
+    private function hasInvoices($data): bool
+    {
+        return isset($data['retorno']['notasfiscais']);
+    }
+
+    private function sanitizeInvoice($data): array
+    {
+        $invoices = array_shift($data['retorno']['notasfiscais']);
+
+        return $invoices['notafiscal'] ?? [];
+    }
+
+    private function sanitizeInvoicesCollection($data): array
+    {
+        return $data['retorno']['notasfiscais'] ?? [];
     }
 }

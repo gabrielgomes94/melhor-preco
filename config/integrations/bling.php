@@ -1,7 +1,18 @@
 <?php
 
 return [
+    'auth' => [
+        'apikey' => env('BLING_API_KEY')
+    ],
     'endpoints' => [
+        'categories' => [
+            'list' => [
+                'base_uri' => 'https://Bling.com.br/Api/v2/categorias/',
+                'query' => [
+                    'apikey' => env('BLING_API_KEY'),
+                ],
+            ],
+        ],
         'products' => [
             'get' => [
                 'base_uri' => 'https://Bling.com.br/Api/v2/produto/',
