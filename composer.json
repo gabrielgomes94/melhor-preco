@@ -68,7 +68,7 @@
             "Src\\Dashboard\\": "src/Dashboard",
             "Src\\Integrations\\": "src/Integrations",
             "Src\\Notifications\\": "src/notifications",
-            "Src\\Math\\": "src/math",
+            "Src\\Math\\": "src/Math",
             "Src\\Prices\\": "src/Prices",
             "Src\\Products\\": "src/products",
             "Src\\Sales\\": "src/sales"
