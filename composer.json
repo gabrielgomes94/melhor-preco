@@ -71,7 +71,7 @@
             "Src\\Math\\": "src/Math",
             "Src\\Prices\\": "src/Prices",
             "Src\\Products\\": "src/Products",
-            "Src\\Sales\\": "src/sales"
+            "Src\\Sales\\": "src/Sales"
         }
     },
     "autoload-dev": {
