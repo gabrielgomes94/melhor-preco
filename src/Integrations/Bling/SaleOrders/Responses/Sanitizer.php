@@ -15,14 +15,24 @@ class Sanitizer extends BaseSanitizer
             return $this->sanitizeError($data);
         }
 
-        if (isset($data['retorno']['pedidos'])) {
-            $saleOrders = $data['retorno']['pedidos'];
-
-            return array_map(function (array $saleOrder) {
-                return $saleOrder['pedido'] ?? [];
-            }, $saleOrders);
+        if ($this->hasSaleOrders($data)) {
+            return $this->sanitizeSaleOrders($data['retorno']['pedidos']);
         }
 
         return [];
+    }
+
+    private function hasSaleOrders(mixed $data): bool
+    {
+        return isset($data['retorno']['pedidos']);
+    }
+
+    private function sanitizeSaleOrders($pedidos): array
+    {
+        $saleOrders = $pedidos;
+
+        return array_map(function (array $saleOrder) {
+            return $saleOrder['pedido'] ?? [];
+        }, $saleOrders);
     }
 }
