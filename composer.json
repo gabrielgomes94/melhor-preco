@@ -70,7 +70,7 @@
             "Src\\Notifications\\": "src/Notifications",
             "Src\\Math\\": "src/Math",
             "Src\\Prices\\": "src/Prices",
-            "Src\\Products\\": "src/products",
+            "Src\\Products\\": "src/Products",
             "Src\\Sales\\": "src/sales"
         }
     },
