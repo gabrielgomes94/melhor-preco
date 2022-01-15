@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Models\Product\Contracts;
 
-use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
 use Src\Products\Domain\Models\Store\Store;
 

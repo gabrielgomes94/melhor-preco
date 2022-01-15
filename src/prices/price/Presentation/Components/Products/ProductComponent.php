@@ -3,7 +3,7 @@
 namespace Src\Prices\Price\Presentation\Components\Products;
 
 use Illuminate\View\Component;
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Products\Domain\Models\Product\Product;
 
 abstract class ProductComponent extends Component

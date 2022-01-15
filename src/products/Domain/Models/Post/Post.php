@@ -3,9 +3,9 @@
 namespace Src\Products\Domain\Models\Post;
 
 use Money\Money;
-use Src\Prices\Calculator\Domain\Transformer\PercentageTransformer;
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Calculator\Domain\Transformer\PercentageTransformer;
+use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
 //use Src\Products\Domain\Product\Contracts\Models\Data\Price\Price;
 use Src\Products\Domain\Models\Product\Contracts\Post as PostInterface;

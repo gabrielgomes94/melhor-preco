@@ -4,9 +4,9 @@ namespace Src\Prices\Price\Application\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Src\Prices\Calculator\Presentation\Components\Forms\Calculator;
-use Src\Prices\Calculator\Presentation\Components\Price\Card;
-use Src\Prices\Calculator\Presentation\Components\UpdateCosts\Form;
+use Src\Calculator\Presentation\Components\Forms\Calculator;
+use Src\Calculator\Presentation\Components\Price\Card;
+use Src\Calculator\Presentation\Components\UpdateCosts\Form;
 use Src\Prices\Price\Presentation\Components\Link;
 use Src\Prices\Price\Presentation\Components\Products\Table\ProductRow;
 use Src\Prices\Price\Presentation\Components\Products\Table\VariationsRow;

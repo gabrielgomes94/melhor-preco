@@ -2,8 +2,8 @@
 
 namespace Src\Products\Domain\Models\Post\Concerns;
 
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
-use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Calculator\Domain\Models\Price\Price;
 
 trait SecondaryPrice
 {

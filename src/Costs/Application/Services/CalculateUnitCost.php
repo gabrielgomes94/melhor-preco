@@ -5,7 +5,7 @@ namespace Src\Costs\Application\Services;
 use Src\Costs\Domain\Repositories\NFeRepository;
 use Src\Costs\Infrastructure\NFe\XmlReader;
 use Src\Math\Money;
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Calculator\Domain\Transformer\MoneyTransformer;
 
 class CalculateUnitCost
 {

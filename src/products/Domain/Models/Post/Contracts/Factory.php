@@ -4,7 +4,7 @@
 namespace Src\Products\Domain\Models\Post\Contracts;
 
 
-use Src\Prices\Calculator\Domain\Models\Price\Price;
+use Src\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;

@@ -4,8 +4,8 @@ namespace Src\Prices\Price\Application\Services\Synchronization;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Src\Prices\Calculator\Application\Services\CalculateProfit;
-use Src\Prices\Calculator\Application\Services\GetCommission;
+use Src\Calculator\Application\Services\CalculateProfit;
+use Src\Calculator\Application\Services\GetCommission;
 use Src\Prices\Price\Domain\Events\PriceSynchronized;
 use Src\Prices\Price\Domain\Events\PriceWasNotSynchronized;
 use Src\Prices\Price\Domain\Models\Price;

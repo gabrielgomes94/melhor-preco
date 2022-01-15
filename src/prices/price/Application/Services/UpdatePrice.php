@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Price\Application\Services;
 
-use Src\Prices\Calculator\Domain\Models\Price\Price as CalculatedPrice;
-use Src\Prices\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
+use Src\Calculator\Domain\Transformer\MoneyTransformer;
 use Src\Prices\Price\Domain\Models\Price;
 
 class UpdatePrice

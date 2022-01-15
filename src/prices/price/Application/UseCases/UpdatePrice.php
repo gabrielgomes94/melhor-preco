@@ -3,8 +3,8 @@
 namespace Src\Prices\Price\Application\UseCases;
 
 use Src\Math\Percentage;
-use Src\Prices\Calculator\Domain\Models\Product\ProductData;
-use Src\Prices\Calculator\Domain\Services\CalculatePrice;
+use Src\Calculator\Domain\Models\Product\ProductData;
+use Src\Calculator\Domain\Services\CalculatePrice;
 use Src\Prices\Price\Application\Services\Products\Update;
 use Src\Prices\Price\Domain\UseCases\Contracts\UpdatePrice as UpdatePriceInterface;
 use Src\Products\Domain\Models\Post\Factories\Factory;
