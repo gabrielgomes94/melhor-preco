@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Prices\Domain\Models\Price;
+use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
@@ -58,6 +59,12 @@ class Product extends Model implements ProductModelInterface
     protected $primaryKey = 'sku';
 
     public $keyType = 'string';
+
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
 
     public function prices(): HasMany
     {

@@ -25,8 +25,7 @@ class RemoveProductIdColumnOnPricesTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('prices', 'product_id'))
-        {
+        if (Schema::hasColumn('prices', 'product_id')) {
             return;
         }
 
