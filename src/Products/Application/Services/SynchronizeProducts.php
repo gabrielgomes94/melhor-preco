@@ -7,7 +7,7 @@ use Src\Products\Domain\Events\Product\ProductsSynchronized;
 use Src\Products\Domain\Events\Product\ProductSynchronized;
 use Src\Products\Domain\Events\Product\ProductWasNotSynchronized;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Infrastructure\Bling\Repository as BlingRepository;
+use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 
 class SynchronizeProducts
 {

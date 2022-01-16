@@ -11,7 +11,7 @@ use Src\Prices\Domain\Events\PriceWasNotSynchronized;
 use Src\Prices\Domain\Models\Price;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Infrastructure\Bling\Repository as BlingRepository;
+use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use TypeError;
 
 // @todo: criar um UseCase para Sincronização de Preços e separar melhor as responsabilidades

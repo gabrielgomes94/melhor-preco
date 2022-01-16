@@ -7,7 +7,7 @@ use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculateItem as CalculateItemInterface;
 use Src\Products\Domain\Models\Store\Store;
-use Src\Products\Infrastructure\Config\StoreRepository;
+use Src\Products\Infrastructure\Laravel\Config\StoreRepository;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Models\SaleOrder;
 
