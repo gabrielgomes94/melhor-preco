@@ -100,4 +100,17 @@ class ProductRepository implements ProductRepositoryInterface
             ->orderBy('name')
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
+
+    public function listProductsByCategory(string $storeSlug, string $categoryId, int $page = 1): LengthAwarePaginator
+    {
+        return Product::with([
+            'prices' => function ($query) use ($storeSlug) {
+                $query->where('store', '=', $storeSlug);
+            }
+        ])
+            ->active()
+            ->where('category_id', $categoryId)
+            ->orderBy('name')
+            ->paginate(perPage: self::PER_PAGE, page: $page);
+    }
 }

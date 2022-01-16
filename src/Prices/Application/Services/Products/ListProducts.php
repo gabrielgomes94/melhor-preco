@@ -20,6 +20,14 @@ class ListProducts
         $page = $options->page();
         $store = $options->store();
 
+        if ($options->hasCategories()) {
+            return $this->repository->listProductsByCategory(
+                $store,
+                $options->getCategoryId(),
+                $page
+            );
+        }
+
         if ($options->sku()) {
             return $this->repository->listProductsBySku(
                 $store,
