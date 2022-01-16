@@ -27,6 +27,7 @@ class Transformer
             'has_variations' => isset($data['variacoes']),
             'composition_products' => self::getCompositionProducts($data),
             'is_active' => self::isActive($data['situacao'] ?? '') ?? false,
+            'category_id' => $data['categoria']['id'] ?? null,
         ]);
     }
 
