@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Src\Costs\Application\UseCases\ShowProductCosts;
 use Src\Costs\Domain\UseCases\UpdateCosts;
 use Src\Prices\Application\Services\Exceptions\UpdatePriceException;
-use Src\Products\Application\Http\Requests\Product\EditCostsRequest;
-use Src\Products\Application\Http\Requests\Product\UpdateCostsRequest;
+use Src\Products\Presentation\Http\Requests\Product\EditCostsRequest;
+use Src\Products\Presentation\Http\Requests\Product\UpdateCostsRequest;
 use Src\Products\Application\UseCases\ListProducts;
 use Src\Products\Domain\Models\Product\Product;
 

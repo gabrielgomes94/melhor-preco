@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Src\Products\Application\Console\Commands\SyncProducts;
+use Src\Products\Presentation\Console\Commands\SyncProducts;
 
 class Kernel extends ConsoleKernel
 {

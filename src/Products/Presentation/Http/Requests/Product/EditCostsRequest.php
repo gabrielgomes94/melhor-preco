@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Prices\Application\Http\Requests\PriceList;
+namespace Src\Products\Presentation\Http\Requests\Product;
 
 use Src\Products\Presentation\Http\Requests\Product\Contracts\HasOptions;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 use Src\Products\Domain\Utils\Contracts\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowRequest extends FormRequest implements HasOptions
+class EditCostsRequest extends FormRequest implements HasOptions
 {
     public function authorize(): bool
     {
@@ -21,14 +21,14 @@ class ShowRequest extends FormRequest implements HasOptions
 
     public function getOptions(): OptionsInterface
     {
-        $data = [
-            'minimumProfit' => $this->input('minProfit') ?? null,
-            'maximumProfit' => $this->input('maxProfit') ?? null,
-            'filterKits' => (bool) $this->input('filterKits') ?? false,
-            'page' => $this->input('page') ?? 1,
-            'sku' => $this->input('sku') ?? null,
-        ];
+        $perPage = 40;
 
-        return new Options($data);
+        return new Options([
+            'page' => $this->input('page') ?? 1,
+            'perPage' => $perPage,
+            'sku' => $this->input('sku') ?? null,
+            'path' => $this->url(),
+            'query' => $this->query(),
+        ]);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Products\Application\Http\Controllers\Web\Images\ProductImageController;
-use Src\Products\Application\Http\Controllers\Web\Reports\DimensionsController;
-use Src\Products\Application\Http\Controllers\Web\Reports\ProductController;
-use Src\Products\Application\Http\Controllers\Web\StockTag\StockTagController;
-use Src\Products\Application\Http\Controllers\Web\Synchronization\SynchronizationController;
+use Src\Products\Presentation\Http\Controllers\Web\Images\ProductImageController;
+use Src\Products\Presentation\Http\Controllers\Web\Reports\DimensionsController;
+use Src\Products\Presentation\Http\Controllers\Web\Reports\ProductController;
+use Src\Products\Presentation\Http\Controllers\Web\StockTag\StockTagController;
+use Src\Products\Presentation\Http\Controllers\Web\Synchronization\SynchronizationController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {

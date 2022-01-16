@@ -3,7 +3,7 @@
 namespace Src\Products\Application\UseCases;
 
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
-use Src\Products\Domain\Repositories\Contracts\ErpCategoryRepository;
+use Src\Products\Domain\Repositories\Contracts\Erp\ErpCategoryRepository;
 use Src\Products\Domain\UseCases\Contracts\SyncCategories;
 
 class SynchronizeCategories implements SyncCategories

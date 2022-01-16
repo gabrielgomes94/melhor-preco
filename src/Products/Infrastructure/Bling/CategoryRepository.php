@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Bling;
 
 use Src\Integrations\Bling\Categories\Client;
 use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\ErpCategoryRepository;
+use Src\Products\Domain\Repositories\Contracts\Erp\ErpCategoryRepository;
 
 class CategoryRepository implements ErpCategoryRepository
 {

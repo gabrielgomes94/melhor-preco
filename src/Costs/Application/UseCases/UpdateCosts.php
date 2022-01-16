@@ -2,8 +2,9 @@
 
 namespace Src\Costs\Application\UseCases;
 
-use Src\Products\Application\Factories\Costs;
+//use Src\Products\Application\Factories\Costs;
 use Src\Products\Domain\Events\Product\ProductCostsUpdated;
+use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Prices\Application\Services\Exceptions\ProductNotFound;
 use Src\Prices\Application\Services\Products\UpdateDB;

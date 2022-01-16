@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Carbon\Carbon;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Infrastructure\Config\StoreRepository;
+use Src\Products\Infrastructure\Laravel\Config\StoreRepository;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
