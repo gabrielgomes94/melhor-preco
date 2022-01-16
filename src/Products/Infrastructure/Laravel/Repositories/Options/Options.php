@@ -19,6 +19,7 @@ class Options implements OptionsInterface
     protected ?float $maximumProfit;
     protected ?string $store;
     protected ?string $sku;
+    private ?string $categoryId;
 
     public function __construct(array $data)
     {
@@ -35,6 +36,7 @@ class Options implements OptionsInterface
         $this->page = $data['page'] ?? null;
         $this->store = $data['store'] ?? null;
         $this->sku = $data['sku'] ?? null;
+        $this->categoryId = $data['categoryId'] ?? null;
 
         // Gambeta: fix this
         $this->path = $data['path'] ?? '';
@@ -108,6 +110,11 @@ class Options implements OptionsInterface
         return !empty($this->dimensions);
     }
 
+    public function getCategoryId(): ?string
+    {
+        return $this->categoryId;
+    }
+
     public function getDimensions(): Dimensions
     {
         return new Dimensions(
@@ -116,5 +123,10 @@ class Options implements OptionsInterface
             $this->dimensions['dimensions']['width'],
             $this->dimensions['dimensions']['weight']
         );
+    }
+
+    public function hasCategories(): bool
+    {
+        return (bool) $this->categoryId;
     }
 }

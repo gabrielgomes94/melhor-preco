@@ -27,6 +27,7 @@ class ShowRequest extends FormRequest implements HasOptions
             'filterKits' => (bool) $this->input('filterKits') ?? false,
             'page' => $this->input('page') ?? 1,
             'sku' => $this->input('sku') ?? null,
+            'categoryId' => $this->input('category') ?? null,
         ];
 
         return new Options($data);

@@ -37,11 +37,31 @@ class Category extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id', 'parent_category_id');
+        return $this->belongsTo(Category::class, 'parent_category_id', 'category_id');
     }
 
     public function getCategoryId(): string
     {
         return $this->category_id;
+    }
+
+    public function getFullName(): string
+    {
+        $parentModel = $this->parent;
+        $parentNames[] = $this->name;
+
+        do {
+            if ($parentModel?->name) {
+                $parentNames[] = $parentModel?->name;
+            }
+
+            $parentModel = $parentModel?->parent;
+        } while ($parentModel);
+
+        if (count($parentNames) == 1) {
+            return implode('', $parentNames);
+        }
+
+        return implode(' / ', array_reverse($parentNames));
     }
 }

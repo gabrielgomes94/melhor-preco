@@ -20,6 +20,7 @@
                 :maximumProfit="$maximumProfit"
                 :sku="$sku"
                 formId="filter-products-form"
+                :filter="$filter"
             />
         </x-template.modals.modal>
     </x-slot>

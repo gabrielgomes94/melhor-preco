@@ -8,8 +8,10 @@ use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 interface Options extends PaginatorOptions
 {
     public function hasDimensionsFilters(): bool;
+    public function getCategoryId(): ?string;
     public function getDimensions(): Dimensions;
 
+    public function hasCategories(): bool;
     public function hasPagination(): bool;
     public function hasProfitFilters(): bool;
     public function maximumProfit(): float;
