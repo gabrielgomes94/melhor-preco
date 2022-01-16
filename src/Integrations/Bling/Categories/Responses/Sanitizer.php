@@ -12,9 +12,25 @@ class Sanitizer extends BaseSanitizer
         $data = $this->decode($response);
 
         if ($this->hasError($data)) {
-            return $this->sanitizeError($data);
+            // @todo: Log Errors
+            return [];
         }
 
-        return $data['retorno']['categorias'] ?? [];
+        return $this->sanitizeCategories($data);
+    }
+
+    private function sanitizeCategories(mixed $data): array
+    {
+        $data = $data['retorno']['categorias'] ?? [];
+
+        foreach ($data as $category) {
+            $categories[] = $category['categoria'];
+        }
+
+        return $categories ?? [];
+    }
+
+    private function informationNotFound()
+    {
     }
 }

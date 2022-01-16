@@ -15,7 +15,7 @@ use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
 use Src\Calculator\Domain\Models\Price\Freight\Factories\Factory;
 use Src\Products\Domain\Models\Store\Store;
 
-class Price implements Src\Calculator\Domain\Models\Price\Contracts\Price
+class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
 {
     private float $commissionRate;
     private BaseFreight $freight;

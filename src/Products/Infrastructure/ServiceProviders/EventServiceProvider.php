@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\Providers;
+namespace Src\Products\Infrastructure\ServiceProviders;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
