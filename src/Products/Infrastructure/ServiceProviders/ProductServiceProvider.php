@@ -1,8 +1,10 @@
 <?php
 
-namespace Src\Products\Application\Providers;
+namespace Src\Products\Infrastructure\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
+use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Domain\Models\Categories\CategoryObserver;
 
 class ProductServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,6 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Category::observe(CategoryObserver::class);
     }
 }

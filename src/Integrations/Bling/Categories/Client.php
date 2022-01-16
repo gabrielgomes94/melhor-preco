@@ -19,7 +19,7 @@ class Client
     {
         $response = Http::withOptions(
             Config::listProducts()
-        )->get('/json/');
+        )->get("page={$page}/json/");
 
         return $this->sanitizer->sanitize($response);
     }

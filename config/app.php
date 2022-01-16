@@ -216,9 +216,10 @@ return [
         /**
          * Products' module Service Providers...
          */
-        Src\Products\Application\Providers\EventServiceProvider::class,
-        Src\Products\Application\Providers\ProductServiceProvider::class,
-        Src\Products\Infrastructure\Eloquent\ServiceProvider::class,
+        Src\Products\Infrastructure\ServiceProviders\EventServiceProvider::class,
+        Src\Products\Infrastructure\ServiceProviders\ProductServiceProvider::class,
+        Src\Products\Infrastructure\ServiceProviders\UseCasesServiceProvider::class,
+        Src\Products\Infrastructure\ServiceProviders\RepositoryServiceProvider::class,
 
         /**
          * Sales' module Service Providers...
