@@ -15,6 +15,7 @@ class SynchronizationController extends Controller
 
     public function doSync(Request $request)
     {
+        SyncCategories::dispatch();
         SyncProducts::dispatch();
 
         return view('pages.products.sync.sync');
