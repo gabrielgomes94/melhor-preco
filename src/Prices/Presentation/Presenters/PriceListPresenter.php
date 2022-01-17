@@ -38,7 +38,7 @@ class PriceListPresenter
 
         return [
             'breadcrumb' => $this->getBreadcrumb($store),
-            'paginator' => $paginator->appends('category', $parameters['category']),
+            'paginator' => $paginator->appends('category', $parameters['category'] ?? null),
             'products' => $paginator->items(),
             'minimumProfit' => $parameters['minProfit'] ?? null,
             'maximumProfit' => $parameters['maxProfit'] ?? null,
