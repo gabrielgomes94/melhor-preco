@@ -4,8 +4,8 @@ namespace Src\Products\Presentation\Http\Controllers\Web\Synchronization;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Src\Products\Application\Jobs\SyncCategories;
 use Src\Products\Application\Jobs\SyncProducts;
-use Src\Products\Domain\UseCases\Contracts\SyncCategories;
 
 class SynchronizationController extends Controller
 {
