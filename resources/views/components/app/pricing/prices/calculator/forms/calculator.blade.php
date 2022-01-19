@@ -1,31 +1,31 @@
 <div class="form-group">
     <form
         method="post"
-        action="{{ route('pricing.products.prices.calculate', [$productId, $data['id']]) }}"
-        data-price-id="{{ $data['id'] }}"
+        action="{{ route('pricing.products.prices.calculate', [$productId, $price['id']]) }}"
+        data-price-id="{{ $price['id'] }}"
         class="price-calculator-form"
         enctype="multipart/form-data">
         @csrf
 
         <x-template.input.read-only
             attribute="store"
-            componentId="store-{{ $data['id'] }}"
+            componentId="store-{{ $price['id'] }}"
             label="Marketplace"
-            value="{{ $data['storeSlug'] }}"
+            value="{{ $price['storeSlug'] }}"
         >
         </x-template.input.read-only>
 
         <x-template.input.percentage
             attribute="commission"
-            componentId="commission-{{ $data['id'] }}"
+            componentId="commission-{{ $price['id'] }}"
             label="Comissão"
-            value="{{ $data['mainPrice']['commission'] }}"
+            value="{{ $price['mainPrice']['commission'] }}"
         >
         </x-template.input.percentage>
 
         <x-template.input.percentage
             attribute="discount"
-            componentId="discount-{{ $data['id'] }}"
+            componentId="discount-{{ $price['id'] }}"
             label="Desconto"
             value=""
         >
@@ -33,16 +33,16 @@
 
         <x-template.input.percentage
             attribute="desiredPrice"
-            componentId="desiredPrice-{{ $data['id'] }}"
+            componentId="desiredPrice-{{ $price['id'] }}"
             label="Preço desejado"
-            value="{{ $data['mainPrice']['value'] }}"
+            value="{{ $price['mainPrice']['value'] }}"
         >
         </x-template.input.percentage>
 
         <input
             type="hidden"
             name="product"
-            id="product-{{ $data['id'] }}"
+            id="product-{{ $price['id'] }}"
             value="{{ $productId }}" />
 
 

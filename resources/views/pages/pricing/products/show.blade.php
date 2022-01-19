@@ -13,19 +13,42 @@
 
     <div class="row mb-4">
         <div class="mb-4">
-            <h3>{{ $product->getSku() }} - {{ $product->getDetails()->getName() }}</h3>
+            <h3>{{ $productHeader }}</h3>
         </div>
 
         <div class="col-4">
             <div class="mb-4">
-                <x-app.pricing.prices.calculator.card :post="$post" :product="$product" />
+                <x-app.pricing.prices.calculator.card
+                    :price="$price"
+                    :product="$product"
+                    :store="$store"
+                />
             </div>
 
             <x-app.pricing.prices.update-costs.form :product="$product" />
         </div>
 
         <div class="col-8">
-            <x-app.pricing.prices.price.card :post="$post" :product="$product"  />
+            @if ($store->getSlug() === 'magalu')
+                <x-app.pricing.prices.price.magalu-card
+                    :price="$price"
+                    :productId="$productId"
+                    :store="$store"
+                />
+            @elseif ($store->getSlug() === 'mercado_livre')
+                <x-app.pricing.prices.price.mercado-livre-card
+                    :price="$price"
+                    :productId="$productId"
+                    :store="$store"
+                />
+            @else
+                <x-app.pricing.prices.price.card
+                    :price="$price"
+                    :product="$product"
+                    :productId="$productId"
+                    :store="$store"
+                />
+            @endif
         </div>
     </div>
 </x-layout>

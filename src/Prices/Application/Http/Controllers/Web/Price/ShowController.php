@@ -7,16 +7,20 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
+use Src\Prices\Presentation\Presenters\PricePresenter;
 use Src\Products\Domain\Models\Product\Product;
 
 class ShowController extends Controller
 {
     private Breadcrumb $breadcrumb;
+    private PricePresenter $pricePresenter;
 
     public function __construct(
-        Breadcrumb $breadcrumb
+        Breadcrumb $breadcrumb,
+        PricePresenter $pricePresenter
     ) {
         $this->breadcrumb = $breadcrumb;
+        $this->pricePresenter = $pricePresenter;
     }
 
     /**
@@ -42,8 +46,10 @@ class ShowController extends Controller
         return view('pages.pricing.products.show', [
             'breadcrumb' => $breadcrumb,
             'store' => $store,
-            'post' => $post,
+            'price' => $this->pricePresenter->present($product, $post),
             'product' => $product,
+            'productId' => $product->getSku(),
+            'productHeader' => $product->getSku() . '-' . $product->getDetails()->getName(),
         ]);
     }
 }

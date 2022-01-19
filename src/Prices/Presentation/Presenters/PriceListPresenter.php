@@ -46,7 +46,7 @@ class PriceListPresenter
             'store' => $store,
             'filter' => [
                 'categories' => $categories->toArray(),
-            ]
+            ],
         ];
     }
 
