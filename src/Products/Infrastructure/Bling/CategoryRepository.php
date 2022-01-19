@@ -4,9 +4,9 @@ namespace Src\Products\Infrastructure\Bling;
 
 use Src\Integrations\Bling\Categories\Client;
 use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\Erp\ErpCategoryRepository;
+use Src\Products\Domain\Repositories\Contracts\Erp\CategoryRepository as CategoryRepositoryInterface;
 
-class CategoryRepository implements ErpCategoryRepository
+class CategoryRepository implements CategoryRepositoryInterface
 {
     private Client $client;
 

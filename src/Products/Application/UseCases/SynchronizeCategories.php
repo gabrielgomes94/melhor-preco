@@ -3,15 +3,15 @@
 namespace Src\Products\Application\UseCases;
 
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
-use Src\Products\Domain\Repositories\Contracts\Erp\ErpCategoryRepository;
+use Src\Products\Domain\Repositories\Contracts\Erp\CategoryRepository;
 use Src\Products\Domain\UseCases\Contracts\SyncCategories;
 
 class SynchronizeCategories implements SyncCategories
 {
     private CategoryRepository $categoryRepository;
-    private ErpCategoryRepository $erpCategoryRepository;
+    private CategoryRepository $erpCategoryRepository;
 
-    public function __construct(CategoryRepository $categoryRepository, ErpCategoryRepository $erpCategoryRepository)
+    public function __construct(CategoryRepository $categoryRepository, CategoryRepository $erpCategoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
         $this->erpCategoryRepository = $erpCategoryRepository;
