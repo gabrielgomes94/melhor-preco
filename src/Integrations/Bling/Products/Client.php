@@ -64,4 +64,20 @@ class Client
 
         return $this->sanitizer->sanitize($response);
     }
+
+    public function getPrice(string $sku, string $storeCode): array
+    {
+        $response = Http::withOptions(
+            [
+                'base_uri' => 'https://bling.com.br/Api/v2/produto/',
+                'query' => [
+                    'apikey' => env('BLING_API_KEY'),
+                    'loja' => $storeCode,
+                ],
+            ]
+        )->get("{$sku}/json");
+
+
+        return $this->sanitizer->sanitize($response);
+    }
 }
