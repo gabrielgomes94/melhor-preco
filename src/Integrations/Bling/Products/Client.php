@@ -60,7 +60,7 @@ class Client
 
         $response = Http::withOptions(
             Config::updateProduct($xml)
-        )->put("{$storeCode}/{$sku}/json");
+        )->post("{$storeCode}/{$sku}/json/");
 
         return $this->sanitizer->sanitize($response);
     }

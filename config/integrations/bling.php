@@ -31,7 +31,7 @@ return [
                 ],
             ],
             'update' => [
-                'base_uri' => 'https://bling.com.br/Api/v2/produto/',
+                'base_uri' => 'https://bling.com.br/Api/v2/produtoLoja/',
                 'headers' => [
                     'Content-Type' => 'text/xml',
                 ],

@@ -32,7 +32,7 @@ class UpdateERP implements UpdateERPInterface
 
         $response = $this->client->updatePrice(
             $sku,
-            $post->getStore()->getSlug(),
+            $post->getStore()->getErpCode(),
             $post->getIdentifiers()->getStoreSkuId(),
             $this->getPrice($post),
         );
