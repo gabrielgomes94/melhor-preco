@@ -4,7 +4,7 @@ namespace Src\Products\Domain\Models\Post;
 
 use Money\Money;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
 //use Src\Products\Domain\Product\Contracts\Models\Data\Price\Price;

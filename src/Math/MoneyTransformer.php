@@ -1,14 +1,12 @@
 <?php
 
-namespace Src\Calculator\Domain\Transformer;
+namespace Src\Math;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
-use Src\Calculator\Domain\Transformer\Contracts\MoneyTransformer as MoneyTransformerInterface;
 
-// @todo: Move this class to Math context and use it
-class MoneyTransformer implements MoneyTransformerInterface
+class MoneyTransformer
 {
     public static function toFloat(Money $value): float
     {

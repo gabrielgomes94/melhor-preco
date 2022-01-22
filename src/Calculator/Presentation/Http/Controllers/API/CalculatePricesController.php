@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Calculator\Application\Http\Controllers\API;
+namespace Src\Calculator\Presentation\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Src\Calculator\Application\Http\Requests\CalculatePriceRequest;
-use Src\Calculator\Application\Http\Transformers\CalculatePriceTransformer;
+use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
+use Src\Calculator\Presentation\Http\Transformers\CalculatePriceTransformer;
 use Src\Calculator\Domain\UseCases\Contracts\CalculatePrice;
 
 class CalculatePricesController extends Controller

@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Calculator\Application\Http\Transformers;
+namespace Src\Calculator\Presentation\Http\Transformers;
 
 use Src\Math\Percentage;
-use Src\Calculator\Application\Http\Requests\CalculatePriceRequest;
+use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
 
 class CalculatePriceTransformer

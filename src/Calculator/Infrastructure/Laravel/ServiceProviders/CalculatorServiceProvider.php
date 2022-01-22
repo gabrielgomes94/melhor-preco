@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Calculator\Application\Providers;
+namespace Src\Calculator\Infrastructure\Laravel\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
 use Src\Calculator\Application\Services\SimulatePostService;

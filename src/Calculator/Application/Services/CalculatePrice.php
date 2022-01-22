@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Calculator\Domain\Services;
+namespace Src\Calculator\Application\Services;
 
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;

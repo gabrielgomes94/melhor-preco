@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Src\Calculator\Application\Providers;
+namespace Src\Calculator\Infrastructure\Laravel\ServiceProviders;
 
 
 use Illuminate\Support\Facades\Route;

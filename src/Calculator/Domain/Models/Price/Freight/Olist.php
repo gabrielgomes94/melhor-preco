@@ -4,7 +4,7 @@ namespace Src\Calculator\Domain\Models\Price\Freight;
 
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use function config;
 
 class Olist extends BaseFreight

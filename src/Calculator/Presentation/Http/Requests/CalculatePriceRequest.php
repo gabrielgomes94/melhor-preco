@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Calculator\Application\Http\Requests;
+namespace Src\Calculator\Presentation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Src\Calculator\Application\Rules\Store;
+use Src\Calculator\Presentation\Rules\Store;
 
 class CalculatePriceRequest extends FormRequest
 {
