@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Integrations\Bling\Invoices;
+namespace Src\Integrations\Bling\Invoices\Requests;
 
 class Config
 {

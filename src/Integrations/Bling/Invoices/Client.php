@@ -5,6 +5,7 @@ namespace Src\Integrations\Bling\Invoices;
 
 
 use Illuminate\Support\Facades\Http;
+use Src\Integrations\Bling\Invoices\Requests\Config;
 use Src\Integrations\Bling\Invoices\Responses\Sanitizer;
 
 class Client
