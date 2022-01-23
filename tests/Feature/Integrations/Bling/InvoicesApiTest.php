@@ -7,7 +7,7 @@ use Src\Integrations\Bling\Invoices\Client;
 use Src\Integrations\Bling\Invoices\Responses\Sanitizer;
 use Tests\TestCase;
 
-class InvoicesApiTests extends TestCase
+class InvoicesApiTest extends TestCase
 {
     public function test_should_get_invoice_from_bling(): void
     {

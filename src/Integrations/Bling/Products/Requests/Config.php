@@ -12,7 +12,7 @@ class Config
         $status = self::transformStatus($status);
 
         return [
-            'base_uri' => config('integrations.bling.products.get.base_uri'),
+            'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
                 'apikey' => config('integrations.bling.auth.apikey'),
                 'estoque' => 'S',
@@ -28,7 +28,7 @@ class Config
         $status = self::transformStatus($status);
 
         return [
-            'base_uri' => config('integrations.bling.products.get.base_uri'),
+            'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
                 'apikey' => config('integrations.bling.auth.apikey'),
                 'filters' => "situacao[$status]",
@@ -38,17 +38,34 @@ class Config
         ];
     }
 
-    public static function listProducts(string $status = self::ACTIVE, ?string $storeCode = null): array
+
+
+    public static function listProducts(string $status = self::ACTIVE): array
     {
         $status = self::transformStatus($status);
 
         return [
-            'base_uri' => config('integrations.bling.products.list.base_uri'),
+            'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
                 'apikey' => config('integrations.bling.auth.apikey'),
                 'estoque' => 'S',
                 'filters' => "situacao[$status]",
-                'imagem' => 'S',
+                'imagem' => 'S'
+            ],
+        ];
+    }
+
+
+
+    public static function listPrices(string $status = self::ACTIVE, ?string $storeCode = null): array
+    {
+        $status = self::transformStatus($status);
+
+        return [
+            'base_uri' => config('integrations.bling.base_uri'),
+            'query' => [
+                'apikey' => config('integrations.bling.auth.apikey'),
+                'filters' => "situacao[$status]",
                 'loja' => $storeCode,
             ],
         ];
@@ -57,7 +74,7 @@ class Config
     public static function updatePrice(string $xml): array
     {
         return [
-            'base_uri' => config('integrations.bling.products.updatePrice.base_uri'),
+            'base_uri' => config('integrations.bling.base_uri'),
             'headers' => [
                 'Content-Type' => 'text/xml',
             ],
@@ -71,7 +88,7 @@ class Config
     public static function updateProduct(string $xml): array
     {
         return [
-            'base_uri' => config('integrations.bling.products.updateProduct.base_uri'),
+            'base_uri' => config('integrations.bling.base_uri'),
             'headers' => [
                 'Content-Type' => 'text/xml',
             ],

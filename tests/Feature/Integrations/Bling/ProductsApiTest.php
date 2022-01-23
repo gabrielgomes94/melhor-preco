@@ -7,7 +7,7 @@ use Src\Integrations\Bling\Products\Client;
 use Src\Integrations\Bling\Products\Responses\Sanitizer;
 use Tests\TestCase;
 
-class ProductsApiTests extends TestCase
+class ProductsApiTest extends TestCase
 {
     public function test_should_get_product(): void
     {

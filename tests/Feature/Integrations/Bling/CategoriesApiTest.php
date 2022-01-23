@@ -7,7 +7,7 @@ use Src\Integrations\Bling\Categories\Client;
 use Src\Integrations\Bling\Categories\Responses\Sanitizer;
 use Tests\TestCase;
 
-class CategoriesApiTests extends TestCase
+class CategoriesApiTest extends TestCase
 {
     public function test_should_list_categories_from_bling(): void
     {

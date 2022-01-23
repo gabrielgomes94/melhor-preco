@@ -7,7 +7,7 @@ use Src\Integrations\Bling\SaleOrders\Client;
 use Src\Integrations\Bling\SaleOrders\Responses\Sanitizer;
 use Tests\TestCase;
 
-class SaleOrderApiTests extends TestCase
+class SaleOrderApiTest extends TestCase
 {
     public function test_should_list_sale_orders_from_bling(): void
     {

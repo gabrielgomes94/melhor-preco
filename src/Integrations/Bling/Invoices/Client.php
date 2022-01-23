@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Src\Integrations\Bling\Invoices;
-
 
 use Illuminate\Support\Facades\Http;
 use Src\Integrations\Bling\Invoices\Requests\Config;
@@ -17,20 +15,24 @@ class Client
         $this->sanitizer = $sanitizer;
     }
 
-    public function get(string $number, string $series)
+    public function get(string $number, string $series): array
     {
         $response = Http::withOptions(
-            Config::getPurchaseInvoice()
-        )->get("$number/{$series}/json/");
+            Config::getPurchaseInvoiceOptions()
+        )->get(
+            Config::getPurchaseInvoiceUrl($number, $series)
+        );
 
         return $this->sanitizer->sanitize($response);
     }
 
-    public function list(int $page = 1)
+    public function list(int $page = 1): array
     {
         $response = Http::withOptions(
-            Config::listPurchaseInvoices()
-        )->get("page={$page}/json/");
+            Config::listPurchaseInvoicesOptions()
+        )->get(
+            Config::listPurchaseInvoicesUrl($page)
+        );
 
         return $this->sanitizer->sanitizeMultiple($response);
     }

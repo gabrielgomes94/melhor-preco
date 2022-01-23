@@ -4,13 +4,18 @@ namespace Src\Integrations\Bling\SaleOrders\Requests;
 
 class Config
 {
-    public static function listSales(): array
+    public static function listSalesOptions(): array
     {
         return [
-            'base_uri' => 'https://bling.com.br/Api/v2/pedidos/',
+            'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => env('BLING_API_KEY'),
+                'apikey' => config('integrations.bling.auth.apikey'),
             ],
         ];
+    }
+
+    public static function listSalesUrl(int $page): string
+    {
+        return "pedidos/page={$page}/json/";
     }
 }
