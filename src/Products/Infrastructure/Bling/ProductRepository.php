@@ -34,13 +34,6 @@ class ProductRepository implements ErpProductRepositoryInterface
         return $this->factory->make([$response]);
     }
 
-    public function getOnStore(string $sku, string $store): BaseResponse
-    {
-        $response = $this->client->get($sku, Config::ACTIVE, $store);
-
-        return $this->factory->make($response);
-    }
-
     public function all()
     {
         $activeProductsCollection = $this->listProducts(Config::ACTIVE);

@@ -10,7 +10,5 @@ interface ProductRepository
 
     public function get(string $sku);
 
-    public function getOnStore(string $sku, string $store);
-
     public function uploadImages(string $sku, string $path, array $images);
 }

@@ -1,0 +1,200 @@
+{
+    "retorno": {
+        "produtos": [
+            {
+                "produto": {
+                    "id": "9811833249",
+                    "codigo": "1211",
+                    "descricao": "Carrinho Veneto Aviador Azul",
+                    "tipo": "P",
+                    "situacao": "Ativo",
+                    "unidade": "",
+                    "preco": "459.9000000000",
+                    "precoCusto": null,
+                    "descricaoCurta": "Detalhes do produto",
+                    "descricaoComplementar": "",
+                    "dataInclusao": "2020-10-14",
+                    "dataAlteracao": "2021-02-18",
+                    "imageThumbnail": null,
+                    "urlVideo": "",
+                    "nomeFornecedor": "",
+                    "codigoFabricante": "",
+                    "marca": "Galzerano",
+                    "class_fiscal": "",
+                    "cest": "28.059.00",
+                    "origem": "0",
+                    "idGrupoProduto": "0",
+                    "linkExterno": "",
+                    "observacoes": "",
+                    "grupoProduto": null,
+                    "garantia": null,
+                    "descricaoFornecedor": null,
+                    "idFabricante": "",
+                    "categoria": {
+                        "id": "2005047",
+                        "descricao": "Carrinhos"
+                    },
+                    "pesoLiq": "7.23500",
+                    "pesoBruto": "7.40000",
+                    "estoqueMinimo": "0.00",
+                    "estoqueMaximo": "0.00",
+                    "gtin": "7898089221217",
+                    "gtinEmbalagem": "7898089221217",
+                    "larguraProduto": "40.00",
+                    "alturaProduto": "80.00",
+                    "profundidadeProduto": "25.00",
+                    "unidadeMedida": "Cent\u00edmetros",
+                    "itensPorCaixa": 1,
+                    "volumes": 1,
+                    "localizacao": "",
+                    "crossdocking": "0",
+                    "condicao": "Novo",
+                    "freteGratis": "N",
+                    "producao": "T",
+                    "dataValidade": "0000-00-00",
+                    "spedTipoItem": "00",
+                    "imagem": [
+                        {
+                            "link": "https:\/\/barrigudinha-fotos-v2.s3.sa-east-1.amazonaws.com\/Galzerano%2F1211+-+Carrinho+Veneto+Aviador+Azul%2F1243824160_1GG.jpg",
+                            "validade": "S\/ Validade",
+                            "tipoArmazenamento": "externo"
+                        },
+                        {
+                            "link": "https:\/\/barrigudinha-fotos-v2.s3.sa-east-1.amazonaws.com\/Galzerano%2F1211+-+Carrinho+Veneto+Aviador+Azul%2F1243824160_2GG.jpg",
+                            "validade": "S\/ Validade",
+                            "tipoArmazenamento": "externo"
+                        }
+                    ],
+                    "camposCustomizados": {
+                        "tipoDeCarrinho": "De passeio",
+                        "marca": "Galzerano",
+                        "modelo": "Veneto",
+                        "corPrincipal": "Azul",
+                        "capacidadeDoCarrinho": "1",
+                        "alturaAbertocm": "103",
+                        "larguraAbertocm": "51",
+                        "profundidadeAbertocm": "78",
+                        "pesoMaximoSuportadokg": "15",
+                        "eReclinavel": "true",
+                        "quantidadeDePosicoesDeReclinado": "3",
+                        "incluiTravelSystem": "false",
+                        "e3Em1": "false"
+                    },
+                    "estoqueAtual": 0,
+                    "depositos": [
+                        {
+                            "deposito": {
+                                "id": "8589125692",
+                                "nome": "Loja Digital",
+                                "saldo": "0.0000000000",
+                                "desconsiderar": "N",
+                                "saldoVirtual": "0.0000000000"
+                            }
+                        },
+                        {
+                            "deposito": {
+                                "id": "9382052847",
+                                "nome": "Loja F\u00edsica",
+                                "saldo": 0,
+                                "desconsiderar": "N",
+                                "saldoVirtual": 0
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "produto": {
+                    "id": "9014464515",
+                    "codigo": "344",
+                    "descricao": "Beb\u00ea Conforto Cocoon - Preto Cinza - Galzerano",
+                    "tipo": "P",
+                    "situacao": "Ativo",
+                    "unidade": "UN",
+                    "preco": "489.9900000000",
+                    "precoCusto": "230.6500000000",
+                    "descricaoCurta": "<p>Beb\u00ea Conforto Galzerano Cocoon - para Crian\u00e7as at\u00e9 13Kg<br \/><br \/>O Beb\u00ea Conforto Cocoon \u00e9 ideal para voc\u00ea que procura conforto e seguran\u00e7a para seu pequeno Feito com materiais de \u00f3tima qualidade e resist\u00eancia garantindo assim maior durabilidade ao produto.<br \/><br \/>Dispositivo de reten\u00e7\u00e3o para crian\u00e7as do grupo 0+: de 0 a 13 Kg<br \/>Cinto de seguran\u00e7a de 3 pontos com protetores de ombro<br \/>Capota remov\u00edvel com sistema dupla face<br \/>Estrutura em pl\u00e1stico resistente com base arredondada para balan\u00e7ar<br \/>Acolchoado do encosto e do assento remov\u00edvel com sistema dupla face<br \/>Tecido remov\u00edvel e lav\u00e1vel<br \/>Pr\u00e1tico para transportar o beb\u00ea<br \/><br \/>Produto Certificado NBR 14400<br \/><br \/>Medidas Do Produto:<br \/>Peso: 2,60 kg<br \/>Altura: 56 cm<br \/>Largura: 43 cm<br \/>Comprimento: 64 cm<br \/><br \/>Medidas Da Embalagem:<br \/>Peso: 3,18 kg<br \/>Altura: 70 cm<br \/>Largura: 31 cm<br \/>Comprimento: 43 cm<\/p>",
+                    "descricaoComplementar": "",
+                    "dataInclusao": "2020-08-03",
+                    "dataAlteracao": "2022-01-13",
+                    "imageThumbnail": null,
+                    "urlVideo": "https:\/\/youtu.be\/d9vT_RFUjUs",
+                    "nomeFornecedor": "GALZERANO INDUSTRIA DE CARRINHOS E BERCOS LTDA",
+                    "codigoFabricante": "8181PC",
+                    "marca": "Galzerano",
+                    "class_fiscal": "9401.80.00",
+                    "cest": "28.064.00",
+                    "origem": "5",
+                    "idGrupoProduto": "0",
+                    "linkExterno": "",
+                    "observacoes": "Manual do Produto:\nhttps:\/\/www.galzerano.com.br\/wp-content\/uploads\/2016\/11\/Manual-Instrucao-Cocoon.pdf",
+                    "grupoProduto": null,
+                    "garantia": "0",
+                    "descricaoFornecedor": "DRC COCOON PRETO CINZA PC",
+                    "idFabricante": "9014464271",
+                    "categoria": {
+                        "id": "3658248",
+                        "descricao": "Cadeira para Carro"
+                    },
+                    "pesoLiq": "30.00000",
+                    "pesoBruto": "3.67600",
+                    "estoqueMinimo": "0.00",
+                    "estoqueMaximo": "0.00",
+                    "gtin": "7908200101226",
+                    "gtinEmbalagem": "7908200101226",
+                    "larguraProduto": "70",
+                    "alturaProduto": "42",
+                    "profundidadeProduto": "32",
+                    "unidadeMedida": "Cent\u00edmetros",
+                    "itensPorCaixa": 0,
+                    "volumes": 0,
+                    "localizacao": "",
+                    "crossdocking": "1",
+                    "condicao": "Novo",
+                    "freteGratis": "N",
+                    "producao": "T",
+                    "dataValidade": "0000-00-00",
+                    "spedTipoItem": "00",
+                    "imagem": [
+                        {
+                            "link": "https:\/\/barrigudinha-fotos-v2.s3.sa-east-1.amazonaws.com\/Galzerano%2F344+-+Beb%C3%AA+Conforto+Cocoon+-+Preto+Cinza+-+Galzerano%2Fsite7+%281%29+-+Copia.jpg",
+                            "validade": "S\/ Validade",
+                            "tipoArmazenamento": "externo"
+                        }
+                    ],
+                    "camposCustomizados": {
+                        "marca": "Galzerano",
+                        "modelo": "Cocoon",
+                        "corPrincipal": "Preto",
+                        "tipoDaCadeira": "Beb\u00ea conforto",
+                        "garantia": "12 meses pelo fabricante",
+                        "comAlmofodaRedutora": "false",
+                        "comTirasAjustaveis": "false",
+                        "comApoioDeCabecaAjustavel": "false"
+                    },
+                    "estoqueAtual": 4,
+                    "depositos": [
+                        {
+                            "deposito": {
+                                "id": "8589125692",
+                                "nome": "Loja Digital",
+                                "saldo": "4.0000000000",
+                                "desconsiderar": "N",
+                                "saldoVirtual": "4.0000000000"
+                            }
+                        },
+                        {
+                            "deposito": {
+                                "id": "9382052847",
+                                "nome": "Loja F\u00edsica",
+                                "saldo": 0,
+                                "desconsiderar": "N",
+                                "saldoVirtual": 0
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

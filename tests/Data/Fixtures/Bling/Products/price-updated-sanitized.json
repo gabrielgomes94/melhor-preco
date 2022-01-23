@@ -1,0 +1,12 @@
+{
+    "produtoLoja": {
+        "idLojaVirtual": "9014464515",
+        "preco": {
+            "preco": "439,00000000",
+            "precoPromocional": "439,00000000"
+        },
+        "idFornecedor": "0",
+        "idMarca": "0",
+        "categoriasLoja": []
+    }
+}

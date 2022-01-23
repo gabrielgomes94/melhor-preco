@@ -12,6 +12,24 @@ return [
             'base_uri' => 'https://Bling.com.br/Api/v2/notasfiscais/',
         ]
     ],
+    'products' => [
+        'get' => [
+            'base_uri' => 'https://Bling.com.br/Api/v2/produto/',
+        ],
+        'list' => [
+            'base_uri' => 'https://Bling.com.br/Api/v2/produtos/',
+        ],
+        'updatePrice' => [
+            'base_uri' => 'https://bling.com.br/Api/v2/produtoLoja/',
+            'headers' => [
+                'Content-Type' => 'text/xml',
+            ],
+        ],
+        'updateProduct' => [
+            'base_uri' => 'https://bling.com.br/Api/v2/produto/',
+        ]
+
+    ],
     'endpoints' => [
         'categories' => [
             'list' => [

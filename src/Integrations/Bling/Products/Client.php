@@ -16,13 +16,20 @@ class Client
         $this->sanitizer = $sanitizer;
     }
 
-    public function get(string $sku, string $status = Config::ACTIVE, ?string $store = null): array
+    public function get(string $sku, string $status = Config::ACTIVE): array
     {
-        $storeCode = config("stores_code.{$store}");
-
         $response = Http::withOptions(
-            Config::getProduct($status, $storeCode)
+            Config::getProduct($status)
         )->get("$sku/json");
+
+        return $this->sanitizer->sanitize($response);
+    }
+
+    public function getPrice(string $sku, string $storeCode, string $status = Config::ACTIVE): array
+    {
+        $response = Http::withOptions(
+            Config::getPrice($storeCode, $status)
+        )->get("{$sku}/json");
 
         return $this->sanitizer->sanitize($response);
     }
@@ -59,24 +66,8 @@ class Client
         $xml = ProductStoreTransformer::generateXML($productStoreSku, $priceValue);
 
         $response = Http::withOptions(
-            Config::updateProduct($xml)
+            Config::updatePrice($xml)
         )->post("{$storeCode}/{$sku}/json/");
-
-        return $this->sanitizer->sanitize($response);
-    }
-
-    public function getPrice(string $sku, string $storeCode): array
-    {
-        $response = Http::withOptions(
-            [
-                'base_uri' => 'https://bling.com.br/Api/v2/produto/',
-                'query' => [
-                    'apikey' => env('BLING_API_KEY'),
-                    'loja' => $storeCode,
-                ],
-            ]
-        )->get("{$sku}/json");
-
 
         return $this->sanitizer->sanitize($response);
     }
