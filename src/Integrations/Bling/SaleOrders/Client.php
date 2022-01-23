@@ -8,8 +8,6 @@ use Src\Integrations\Bling\SaleOrders\Responses\Sanitizer;
 
 class Client
 {
-
-
     private Sanitizer $sanitizer;
 
     public function __construct(Sanitizer $sanitizer)

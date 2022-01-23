@@ -16,10 +16,10 @@ class CategoriesApiTests extends TestCase
         $this->fakeBlingApiRequest();
         $expected = $this->getJsonFixture('Bling/Categories/list-categories-sanitized.json');
 
-        // Actions
+        // Act
         $result = $client->list();
 
-        // Assertions
+        // Assert
         $this->assertSame($expected, $result);
     }
 
@@ -28,7 +28,7 @@ class CategoriesApiTests extends TestCase
         $body = $this->getJsonFixture('Bling/Categories/list-categories.json');
 
         Http::fake([
-            'bling.com.br/Api/v2/categorias/*' => Http::response($body, 200),
+            'bling.com.br/Api/v2/categorias/*' => Http::response($body),
         ]);
     }
 

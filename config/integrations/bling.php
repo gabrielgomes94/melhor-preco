@@ -4,6 +4,11 @@ return [
     'auth' => [
         'apikey' => env('BLING_API_KEY')
     ],
+    'base_uri' => 'https://Bling.com.br/Api/v2/',
+    'apis' => [
+
+    ],
+//
     'categories' => [
         'base_uri' => 'https://Bling.com.br/Api/v2/categorias/'
     ],
@@ -32,4 +37,9 @@ return [
             'base_uri' => 'https://bling.com.br/Api/v2/produto/',
         ],
     ],
+    'sale_orders' => [
+        'list' => [
+            'base_uri' => 'https://bling.com.br/Api/v2/pedidos/',
+        ]
+    ]
 ];
