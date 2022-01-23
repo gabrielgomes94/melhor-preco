@@ -4,6 +4,14 @@ return [
     'auth' => [
         'apikey' => env('BLING_API_KEY')
     ],
+    'invoices' => [
+        'get' => [
+            'base_uri' => 'https://Bling.com.br/Api/v2/notafiscal/',
+        ],
+        'list' => [
+            'base_uri' => 'https://Bling.com.br/Api/v2/notasfiscais/',
+        ]
+    ],
     'endpoints' => [
         'categories' => [
             'list' => [

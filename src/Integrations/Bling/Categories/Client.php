@@ -18,7 +18,7 @@ class Client
     public function list(int $page = 1): array
     {
         $response = Http::withOptions(
-            Config::listProducts()
+            Config::listCategories()
         )->get("page={$page}/json/");
 
         return $this->sanitizer->sanitize($response);

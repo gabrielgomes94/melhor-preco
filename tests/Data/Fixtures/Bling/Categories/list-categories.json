@@ -1,0 +1,41 @@
+{
+    "retorno": {
+        "categorias": [
+            {
+                "categoria": {
+                    "id": "3465216",
+                    "descricao": "Bebês",
+                    "idCategoriaPai": "0"
+                }
+            },
+            {
+                "categoria": {
+                    "id": "3658125",
+                    "descricao": "Alimentação e Amamentação",
+                    "idCategoriaPai": "3465216"
+                }
+            },
+            {
+                "categoria": {
+                    "id": "3658128",
+                    "descricao": "Mamadeiras",
+                    "idCategoriaPai": "3658125"
+                }
+            },
+            {
+                "categoria": {
+                    "id": "3658146",
+                    "descricao": "Extrator de Leite",
+                    "idCategoriaPai": "3658125"
+                }
+            },
+            {
+                "categoria": {
+                    "id": "3658148",
+                    "descricao": "Babadores",
+                    "idCategoriaPai": "3658125"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,252 @@
+[
+    {
+        "notafiscal": {
+            "id": "14134542590",
+            "serie": "1",
+            "numero": "001005",
+            "loja": "203476906",
+            "numeroPedidoLoja": null,
+            "tipo": "E",
+            "situacao": "Pendente",
+            "cliente": {
+                "nome": "Rafael Iori Gasqus Iori Gasques (rafaeliorigasqusiorigasques",
+                "cnpj": "22134923873",
+                "ie": "",
+                "rg": "",
+                "endereco": "Biritiba Mirim",
+                "numero": "39",
+                "complemento": "casa A",
+                "cidade": "Barueri",
+                "bairro": "Jardim Calif\u00f3rnia",
+                "cep": "06.409-110",
+                "uf": "SP",
+                "email": "rioriga.c586dd+2-ogq3tsmrrgeytanjr@mail.mercadolivre.com",
+                "fone": ""
+            },
+            "contato": "Rafael Iori Gasqus Iori Gasques (rafaeliorigasqusiorigasques",
+            "cnpj": "22134923873",
+            "vendedor": "",
+            "dataEmissao": "2021-08-16 19:26:38",
+            "valorNota": "189.90",
+            "chaveAcesso": null,
+            "xml": null,
+            "linkDanfe": "https:\/\/bling.com.br\/doc.view.php?id=ec37c521ea366260b6b714478d4258d4",
+            "codigosRastreamento": [],
+            "cfops": [
+                "2202"
+            ],
+            "transporte": {
+                "enderecoEntrega": {
+                    "nome": "Rafael Iori Gasques Iori Gasques",
+                    "endereco": "Rua Biritiba Mirim",
+                    "numero": "39",
+                    "complemento": "Casa A",
+                    "cidade": "Barueri",
+                    "bairro": "Jardim Calif\u00f3rnia",
+                    "cep": "06.409-110",
+                    "uf": "SP"
+                }
+            }
+        }
+    },
+    {
+        "notafiscal": {
+            "id": "15772866400",
+            "serie": "1",
+            "numero": "001328",
+            "loja": "203476906",
+            "numeroPedidoLoja": null,
+            "tipo": "E",
+            "situacao": "Autorizada",
+            "cliente": {
+                "nome": "Ana Paula Barreto Teixeira Paula (anapaulabarretoteixeirapau",
+                "cnpj": "32364775809",
+                "ie": "",
+                "rg": "",
+                "endereco": "Rua Gruta Das Princesas",
+                "numero": "399",
+                "complemento": "",
+                "cidade": "S\u00e3o Paulo",
+                "bairro": "Vila Itaim",
+                "cep": "08.190-460",
+                "uf": "SP",
+                "email": "apaula.lm97fm+2-oguytamjvg44tombq@mail.mercadolivre.com",
+                "fone": ""
+            },
+            "contato": "Ana Paula Barreto Teixeira Paula (anapaulabarretoteixeirapau",
+            "cnpj": "32364775809",
+            "vendedor": "",
+            "dataEmissao": "2022-01-08 08:27:07",
+            "valorNota": "599.90",
+            "chaveAcesso": "31220111927457000162550010000013281728664007",
+            "xml": "https:\/\/bling.com.br\/relatorios\/nfe.xml.php?s&chaveAcesso=31220111927457000162550010000013281728664007",
+            "linkDanfe": "https:\/\/bling.com.br\/doc.view.php?id=8d56402f7d6f287f8b38ee6e01c0ccce",
+            "codigosRastreamento": [],
+            "cfops": [
+                "2202"
+            ],
+            "transporte": {
+                "enderecoEntrega": {
+                    "nome": "M\u00e1rcia Regina Barreto Teixeira",
+                    "endereco": "Rua Tiradentes",
+                    "numero": "37",
+                    "complemento": "casa Referencia: ao lado da pousada bico Verde",
+                    "cidade": "S\u00e3o Sebasti\u00e3o",
+                    "bairro": "Juquehy",
+                    "cep": "11.623-247",
+                    "uf": "SP"
+                }
+            }
+        }
+    },
+    {
+        "notafiscal": {
+            "id": "15772876692",
+            "serie": "1",
+            "numero": "001329",
+            "loja": "203476906",
+            "numeroPedidoLoja": null,
+            "tipo": "E",
+            "situacao": "Autorizada",
+            "cliente": {
+                "nome": "Mislene Cristiane De Oliveira (mislenecristianedeoliveira)",
+                "cnpj": "12566429758",
+                "ie": "",
+                "rg": "",
+                "endereco": "Rua Gericin\u00f3",
+                "numero": "4",
+                "complemento": "proximo ao condominio do bosque",
+                "cidade": "Duque de Caxias",
+                "bairro": "Vila Santa Cruz",
+                "cep": "25.240-170",
+                "uf": "RJ",
+                "email": "mcristi.g0dl10s+2-oguytamjtgeztkobw@mail.mercadolivre.com",
+                "fone": ""
+            },
+            "contato": "Mislene Cristiane De Oliveira (mislenecristianedeoliveira)",
+            "cnpj": "12566429758",
+            "vendedor": "",
+            "dataEmissao": "2022-01-08 08:31:09",
+            "valorNota": "599.90",
+            "chaveAcesso": "31220111927457000162550010000013291728766923",
+            "xml": "https:\/\/bling.com.br\/relatorios\/nfe.xml.php?s&chaveAcesso=31220111927457000162550010000013291728766923",
+            "linkDanfe": "https:\/\/bling.com.br\/doc.view.php?id=1e91d3f288af7ea22066d6d8a16bd2e6",
+            "codigosRastreamento": [],
+            "cfops": [
+                "2202"
+            ],
+            "transporte": {
+                "enderecoEntrega": {
+                    "nome": "Mislene oliveira",
+                    "endereco": "Rua Gericin\u00f3",
+                    "numero": "4",
+                    "complemento": "Cs.3 - Frente.",
+                    "cidade": "Duque de Caxias",
+                    "bairro": "Vila Santa Cruz",
+                    "cep": "25.240-170",
+                    "uf": "RJ"
+                }
+            }
+        }
+    },
+    {
+        "notafiscal": {
+            "id": "15808552405",
+            "serie": "1",
+            "numero": "001340",
+            "loja": "203454036",
+            "numeroPedidoLoja": null,
+            "tipo": "E",
+            "situacao": "Autorizada",
+            "cliente": {
+                "nome": "Rosimere souza Santos",
+                "cnpj": "05373045500",
+                "ie": "",
+                "rg": "",
+                "endereco": "QUADRA 6 RUA D",
+                "numero": "casa",
+                "complemento": "Brazlandia",
+                "cidade": "Bras\u00edlia",
+                "bairro": "SETOR NORTE (BRAZLANDIA)",
+                "cep": "72.710-060",
+                "uf": "DF",
+                "email": "LU-1087570484832168@alias.integracommerce.com.br",
+                "fone": ""
+            },
+            "contato": "Rosimere souza Santos",
+            "cnpj": "05373045500",
+            "vendedor": "",
+            "dataEmissao": "2022-01-12 15:28:24",
+            "valorNota": "62.64",
+            "chaveAcesso": "31220111927457000162550010000013401085524059",
+            "xml": "https:\/\/bling.com.br\/relatorios\/nfe.xml.php?s&chaveAcesso=31220111927457000162550010000013401085524059",
+            "linkDanfe": "https:\/\/bling.com.br\/doc.view.php?id=e13755c69e841ba2b20c01e80ae84e1f",
+            "codigosRastreamento": [],
+            "cfops": [
+                "2202"
+            ],
+            "transporte": {
+                "enderecoEntrega": {
+                    "nome": "Rosimere souza Santos",
+                    "endereco": "QUADRA 6 RUA D",
+                    "numero": "casa",
+                    "complemento": "Brazlandia",
+                    "cidade": "Bras\u00edlia",
+                    "bairro": "SETOR NORTE (BRAZLANDIA)",
+                    "cep": "72.710-060",
+                    "uf": "DF"
+                }
+            }
+        }
+    },
+    {
+        "notafiscal": {
+            "id": "10663520470",
+            "serie": "1",
+            "numero": "000103",
+            "loja": "203454036",
+            "numeroPedidoLoja": null,
+            "tipo": "E",
+            "situacao": "Emitida DANFE",
+            "cliente": {
+                "nome": "INOCENCIO PEDRO DE OLIVEIRA NETO",
+                "cnpj": "04329935171",
+                "ie": "",
+                "rg": "",
+                "endereco": "Rua B",
+                "numero": "08",
+                "complemento": "SOBRADO ACIMA PANIF.",
+                "cidade": "Itumbiara",
+                "bairro": "Vila S\u00e3o Sebasti\u00e3o",
+                "cep": "75.515-020",
+                "uf": "GO",
+                "email": "LU-8906500835487631@alias.integracommerce.com.br",
+                "fone": "64996637582"
+            },
+            "contato": "INOCENCIO PEDRO DE OLIVEIRA NETO",
+            "cnpj": "04329935171",
+            "vendedor": "",
+            "dataEmissao": "2021-01-06 17:05:00",
+            "valorNota": "159.00",
+            "chaveAcesso": "31210111927457000162550010000001031635204700",
+            "xml": "https:\/\/bling.com.br\/relatorios\/nfe.xml.php?s&chaveAcesso=31210111927457000162550010000001031635204700",
+            "linkDanfe": "https:\/\/bling.com.br\/doc.view.php?id=28a488f85dcfdc9398c6c36d4c385a46",
+            "codigosRastreamento": [],
+            "cfops": [
+                "2949"
+            ],
+            "transporte": {
+                "enderecoEntrega": {
+                    "nome": "INOCENCIO PEDRO DE OLIVEIRA NETO",
+                    "endereco": "B",
+                    "numero": "08",
+                    "complemento": "SOBRADO ACIMA PANIF.",
+                    "cidade": "Itumbiara",
+                    "bairro": "VILA SAO SEBASTIAO",
+                    "cep": "75.515-020",
+                    "uf": "GO"
+                }
+            }
+        }
+    }
+]

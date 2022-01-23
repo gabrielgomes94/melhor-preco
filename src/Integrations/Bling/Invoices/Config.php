@@ -7,9 +7,9 @@ class Config
     public static function getPurchaseInvoice(): array
     {
         return [
-            'base_uri' => 'https://Bling.com.br/Api/v2/notafiscal/',
+            'base_uri' => config('integrations.bling.invoices.get.base_uri'),
             'query' => [
-                'apikey' => env('BLING_API_KEY'),
+                'apikey' => config('integrations.bling.auth.apikey'),
                 'filters' => 'tipo[E]',
             ],
         ];
@@ -18,9 +18,9 @@ class Config
     public static function listPurchaseInvoices(): array
     {
         return [
-            'base_uri' => 'https://Bling.com.br/Api/v2/notasfiscais/',
+            'base_uri' => config('integrations.bling.invoices.list.base_uri'),
             'query' => [
-                'apikey' => env('BLING_API_KEY'),
+                'apikey' => config('integrations.bling.auth.apikey'),
                 'filters' => 'tipo[E]',
             ],
         ];
