@@ -8,17 +8,18 @@
         <div class="border-top my-2 py-2">
             <x-app.pricing.products.single-store.filter-by-profit
                 :store="$store"
-                :minimumProfit="$minimumProfit"
-                :maximumProfit="$maximumProfit"
-                :sku="$sku"
+                :minimumProfit="$filter['minimumProfit'] ?? null"
+                :maximumProfit="$filter['maximumProfit'] ?? null"
+                :sku="$filter['sku'] ?? null"
                 :formId="$formId"
             />
         </div>
 
         <div class="mb-4">
             <label class="my-1 me-2" for="country">Categoria</label>
-            <select class="form-select" name="category" id="country" aria-label="Default select example">
-                @foreach ($filter['categories'] as $category)
+            <select class="form-select" name="category" id="country" aria-label="Seleciona uma categoria">
+                <option value=""></option>
+                @foreach ($filter['categories'] ?? [] as $category)
                     <option value="{{ $category['category_id'] }}">{{ $category['name'] }}</option>
                 @endforeach
             </select>

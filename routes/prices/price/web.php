@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Src\Prices\Presentation\Http\Controllers\Web\Price\CalculatorController;
 use Src\Prices\Presentation\Http\Controllers\Web\Price\UpdateController;
 use Src\Prices\Presentation\Http\Controllers\Web\PriceList\IndexController;
 use Src\Prices\Presentation\Http\Controllers\Web\PriceList\ShowController;
@@ -11,6 +12,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('pricing')
         ->name('pricing')
         ->group(function () {
+            Route::prefix('/calculator')
+                ->name('.calculator')
+                ->group(function () {
+                    Route::get('/{$store}', [CalculatorController::class, 'massCalculation'])
+                        ->name('.massCalculation');
+
+                });
+
             Route::prefix('/price_list')
                 ->name('.priceList')
                 ->group(function () {
