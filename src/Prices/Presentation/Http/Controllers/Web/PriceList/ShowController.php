@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Prices\Application\Http\Controllers\Web\PriceList;
+namespace Src\Prices\Presentation\Http\Controllers\Web\PriceList;
 
 use App\Http\Controllers\Controller;
-use Src\Prices\Application\Http\Requests\PriceList\ShowRequest;
+use Src\Prices\Presentation\Http\Requests\PriceList\ShowRequest;
 use Src\Prices\Application\Services\Products\ListProducts;
 use Src\Prices\Presentation\Presenters\PriceListPresenter;
 use Src\Products\Domain\Utils\Contracts\Options;

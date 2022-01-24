@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Application\Listeners;
+namespace Src\Prices\Infrastructure\Laravel\Logging\Listeners;
 
 use Illuminate\Support\Facades\Log;
 use Src\Prices\Domain\Events\PriceWasNotSynchronized;

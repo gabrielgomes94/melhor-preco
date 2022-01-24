@@ -1,12 +1,12 @@
 <?php
 
-namespace Src\Prices\Application\Http\Controllers\Web\PriceLog;
+namespace Src\Prices\Presentation\Http\Controllers\Web\PriceLog;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Src\Prices\Application\Http\Requests\PriceLog\PriceLogRequest;
+use Src\Prices\Presentation\Http\Requests\PriceLog\PriceLogRequest;
 use Src\Prices\Application\Services\PriceLog\ListProducts;
 use Src\Prices\Presentation\Presenters\PriceLogPresenter;
 

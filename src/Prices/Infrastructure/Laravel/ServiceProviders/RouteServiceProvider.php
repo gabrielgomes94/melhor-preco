@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Application\Providers;
+namespace Src\Prices\Infrastructure\Laravel\ServiceProviders;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;

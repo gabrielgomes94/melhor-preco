@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Prices\Application\Http\Controllers\Web\Price;
+namespace Src\Prices\Presentation\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
-use Src\Prices\Application\Http\Requests\Price\UpdatePriceRequest;
+use Src\Prices\Presentation\Http\Requests\Price\UpdatePriceRequest;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Prices\Application\UseCases\UpdatePrice as UpdatePriceService;
 use Src\Prices\Application\Services\Exceptions\UpdatePriceException;
