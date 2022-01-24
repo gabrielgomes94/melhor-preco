@@ -3,6 +3,7 @@
 namespace Src\Integrations\Bling\Products;
 
 use Illuminate\Support\Facades\Http;
+use Src\Integrations\Bling\Products\Requests\Endpoint;
 use Src\Integrations\Bling\Products\Requests\PriceTransformer as ProductStoreTransformer;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Integrations\Bling\Products\Responses\Sanitizer;
@@ -16,13 +17,24 @@ class Client
         $this->sanitizer = $sanitizer;
     }
 
-    public function get(string $sku, string $status = Config::ACTIVE, ?string $store = null): array
+    public function get(string $sku, string $status = Config::ACTIVE): array
     {
-        $storeCode = config("stores_code.{$store}");
-
         $response = Http::withOptions(
-            Config::getProduct($status, $storeCode)
-        )->get("$sku/json");
+            Config::getProduct($status)
+        )->get(
+            Endpoint::product($sku)
+        );
+
+        return $this->sanitizer->sanitize($response);
+    }
+
+    public function getPrice(string $sku, string $storeCode, string $status = Config::ACTIVE): array
+    {
+        $response = Http::withOptions(
+            Config::getPrice($storeCode, $status)
+        )->get(
+            Endpoint::product($sku)
+        );
 
         return $this->sanitizer->sanitize($response);
     }
@@ -31,7 +43,9 @@ class Client
     {
         $response = Http::withOptions(
             Config::listProducts($status)
-        )->get("page={$page}/json/");
+        )->get(
+            Endpoint::products($page)
+        );
 
         return $this->sanitizer->sanitizeMultiple($response);
     }
@@ -39,8 +53,10 @@ class Client
     public function listPrice(string $storeCode, int $page = 1, string $status = Config::ACTIVE): array
     {
         $response = Http::withOptions(
-            Config::listProducts($status, $storeCode)
-        )->get("page={$page}/json/");
+            Config::listPrices($status, $storeCode)
+        )->get(
+            Endpoint::products($page)
+        );
 
         return $this->sanitizer->sanitizeMultiple($response);
     }
@@ -49,7 +65,9 @@ class Client
     {
         $response = Http::withOptions(
             Config::updateProduct($xml)
-        )->post("{$sku}/json");
+        )->post(
+            Endpoint::product($sku)
+        );
 
         return $this->sanitizer->sanitize($response);
     }
@@ -57,26 +75,11 @@ class Client
     public function updatePrice(string $sku, string $storeCode, string $productStoreSku, string $priceValue): array
     {
         $xml = ProductStoreTransformer::generateXML($productStoreSku, $priceValue);
-
         $response = Http::withOptions(
-            Config::updateProduct($xml)
-        )->post("{$storeCode}/{$sku}/json/");
-
-        return $this->sanitizer->sanitize($response);
-    }
-
-    public function getPrice(string $sku, string $storeCode): array
-    {
-        $response = Http::withOptions(
-            [
-                'base_uri' => 'https://bling.com.br/Api/v2/produto/',
-                'query' => [
-                    'apikey' => env('BLING_API_KEY'),
-                    'loja' => $storeCode,
-                ],
-            ]
-        )->get("{$sku}/json");
-
+            Config::updatePrice($xml)
+        )->post(
+            Endpoint::productStore($sku, $storeCode)
+        );
 
         return $this->sanitizer->sanitize($response);
     }

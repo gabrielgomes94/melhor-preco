@@ -1,0 +1,53 @@
+{
+    "retorno": {
+        "notasfiscais": [
+            {
+                "notafiscal": {
+                    "id": "15855825316",
+                    "serie": "1",
+                    "numero": "282534",
+                    "loja": "0",
+                    "numeroPedidoLoja": null,
+                    "tipo": "E",
+                    "situacao": "Registrada",
+                    "cliente": {
+                        "nome": "COMPANHIA DOREL BRASIL PRODUTOS INFANTIS",
+                        "cnpj": "10659948000107",
+                        "ie": "78774592",
+                        "rg": "",
+                        "endereco": "AVENIDA NILO PECANHA",
+                        "numero": "1516",
+                        "complemento": "1516\/1582",
+                        "cidade": "Campos dos Goytacazes",
+                        "bairro": "PQ. DOS RODOVIARIOS",
+                        "cep": "28.030-035",
+                        "uf": "RJ",
+                        "email": null,
+                        "fone": "2221018600"
+                    },
+                    "contato": "COMPANHIA DOREL BRASIL PRODUTOS INFANTIS",
+                    "cnpj": "10659948000107",
+                    "vendedor": "",
+                    "dataEmissao": "2022-01-11 18:43:00",
+                    "valorNota": "9213.18",
+                    "chaveAcesso": "33220110659948000107550010002825341255215982",
+                    "xml": "https:\/\/bling.com.br\/relatorios\/nfe.xml.php?s&chaveAcesso=33220110659948000107550010002825341255215982",
+                    "linkDanfe": "https:\/\/bling.com.br\/doc.view.php?id=d38f8f4335e096e8dbcbc602a4540dd6",
+                    "codigosRastreamento": [],
+                    "cfops": [
+                        "6101",
+                        "6101",
+                        "6101",
+                        "6101",
+                        "6101"
+                    ],
+                    "transporte": {
+                        "transportadora": "JAMEF TRANSPORTES LIMITADA",
+                        "cnpj": "20147617001113",
+                        "tipo_frete": "R"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -4,7 +4,7 @@ namespace Src\Products\Domain\Models\Post\Factories;
 
 use Illuminate\Container\Container;
 use Src\Calculator\Domain\Models\Price\Price;
-use Src\Calculator\Domain\Services\CalculatePost;
+use Src\Calculator\Application\Services\CalculatePost;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Models\Post\Post as PostObject;
 use Src\Products\Domain\Models\Product\Contracts\Post;

@@ -2,7 +2,7 @@
 
 namespace Src\Calculator\Presentation\Presenters;
 
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Models\Product\Contracts\Post;

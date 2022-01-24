@@ -211,7 +211,7 @@ return [
         /**
          * Prices' Calculator module Services Providers...
          */
-        Src\Calculator\Application\Providers\CalculatorServiceProvider::class,
+        Src\Calculator\Infrastructure\Laravel\ServiceProviders\CalculatorServiceProvider::class,
 
         /**
          * Products' module Service Providers...

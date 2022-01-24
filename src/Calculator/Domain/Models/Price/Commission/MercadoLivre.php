@@ -3,7 +3,7 @@
 namespace Src\Calculator\Domain\Models\Price\Commission;
 
 use Money\Money;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 
 class MercadoLivre extends Commission
 {

@@ -6,7 +6,7 @@ use Src\Math\Percentage;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Models\Price\Commission\Commission;
 use Src\Calculator\Domain\Models\Price\Commission\Factories\Factory as CommissionFactory;

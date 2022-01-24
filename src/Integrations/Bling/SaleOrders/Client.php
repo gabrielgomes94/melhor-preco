@@ -8,8 +8,6 @@ use Src\Integrations\Bling\SaleOrders\Responses\Sanitizer;
 
 class Client
 {
-
-
     private Sanitizer $sanitizer;
 
     public function __construct(Sanitizer $sanitizer)
@@ -19,8 +17,11 @@ class Client
 
     public function list(int $page = 1): array
     {
-        $response = Http::withOptions(Config::listSales())
-            ->get("page={$page}/json/");
+        $response = Http::withOptions(
+            Config::listSalesOptions()
+        )->get(
+            Config::listSalesUrl($page)
+        );
 
         return $this->sanitizer->sanitize($response);
     }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Calculator\Application\Http\Controllers\API\CalculatePricesController;
+use Src\Calculator\Presentation\Http\Controllers\API\CalculatePricesController;
 
 /*
 |--------------------------------------------------------------------------

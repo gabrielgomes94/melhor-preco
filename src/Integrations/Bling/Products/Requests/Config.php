@@ -7,57 +7,96 @@ class Config
     public const ACTIVE = 'active';
     public const INACTIVE = 'inactive';
 
-    public static function getProduct(string $status = self::ACTIVE, ?string $storeCode = null): array
+    public static function getPrice(string $storeCode, string $status = self::ACTIVE): array
     {
         $status = self::transformStatus($status);
 
-        if (!$storeCode) {
-            return array_merge_recursive(
-                config('integrations.bling.endpoints.products.get'),
-                [
-                    'query' => [
-                        'filters' => "situacao[{$status}]",
-                    ],
-                ]
-            );
-        }
-
-        return array_merge_recursive(
-            config('integrations.bling.endpoints.products.get'),
-            [
-                'query' => [
-                    'loja' => $storeCode,
-                    'filters' => "situacao[{$status}]",
-                ],
-            ]
-        );
+        return [
+            'base_uri' => config('integrations.bling.base_uri'),
+            'query' => [
+                'apikey' => config('integrations.bling.auth.apikey'),
+                'estoque' => 'S',
+                'filters' => "situacao[$status]",
+                'imagem' => 'S',
+                'loja' => $storeCode,
+            ],
+        ];
     }
 
-    public static function listProducts(string $status = self::ACTIVE, ?string $storeCode = null): array
+    public static function getProduct(string $status = self::ACTIVE): array
     {
         $status = self::transformStatus($status);
 
-        return array_merge_recursive(
-            config('integrations.bling.endpoints.products.list'),
-            [
-                'query' => [
-                    'loja' => $storeCode,
-                    'filters' => "situacao[{$status}]",
-                ],
-            ]
-        );
+        return [
+            'base_uri' => config('integrations.bling.base_uri'),
+            'query' => [
+                'apikey' => config('integrations.bling.auth.apikey'),
+                'filters' => "situacao[$status]",
+                'estoque' => 'S',
+                'imagem' => 'S',
+            ],
+        ];
+    }
+
+
+
+    public static function listProducts(string $status = self::ACTIVE): array
+    {
+        $status = self::transformStatus($status);
+
+        return [
+            'base_uri' => config('integrations.bling.base_uri'),
+            'query' => [
+                'apikey' => config('integrations.bling.auth.apikey'),
+                'estoque' => 'S',
+                'filters' => "situacao[$status]",
+                'imagem' => 'S'
+            ],
+        ];
+    }
+
+
+
+    public static function listPrices(string $status = self::ACTIVE, ?string $storeCode = null): array
+    {
+        $status = self::transformStatus($status);
+
+        return [
+            'base_uri' => config('integrations.bling.base_uri'),
+            'query' => [
+                'apikey' => config('integrations.bling.auth.apikey'),
+                'filters' => "situacao[$status]",
+                'loja' => $storeCode,
+            ],
+        ];
+    }
+
+    public static function updatePrice(string $xml): array
+    {
+        return [
+            'base_uri' => config('integrations.bling.base_uri'),
+            'headers' => [
+                'Content-Type' => 'text/xml',
+            ],
+            'query' => [
+                'apikey' => config('integrations.bling.auth.apikey'),
+                'xml' => $xml,
+            ],
+        ];
     }
 
     public static function updateProduct(string $xml): array
     {
-        return array_merge_recursive(
-            config('integrations.bling.endpoints.products.update'),
-            [
-                'query' => [
-                    'xml' => $xml,
-                ],
-            ]
-        );
+        return [
+            'base_uri' => config('integrations.bling.base_uri'),
+            'headers' => [
+                'Content-Type' => 'text/xml',
+            ],
+            'query' => [
+                'apikey' => config('integrations.bling.auth.apikey'),
+                'xml' => $xml,
+            ],
+        ];
     }
 
     private static function transformStatus(string $status): string

@@ -3,7 +3,7 @@
 namespace Src\Prices\Application\Services\Products;
 
 use Src\Integrations\Bling\Products\Client;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\Contracts\Services\UpdateERP as UpdateERPInterface;
 use Src\Products\Domain\Models\Product\Contracts\Post;
 use Money\Currencies\ISOCurrencies;

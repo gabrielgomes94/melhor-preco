@@ -3,7 +3,7 @@
 namespace Src\Prices\Application\Services;
 
 use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\Models\Price;
 
 class UpdatePrice

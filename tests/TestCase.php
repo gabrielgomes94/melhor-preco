@@ -8,7 +8,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected const TESTS_FIXTURES_PATH = 'tests/Unit/fixtures';
+    protected const TESTS_FIXTURES_PATH = 'tests/Data/Fixtures';
 
     protected function fixturePath(string $path = ''): string
     {

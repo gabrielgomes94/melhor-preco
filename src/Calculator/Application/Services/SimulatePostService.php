@@ -4,7 +4,7 @@ namespace Src\Calculator\Application\Services;
 
 use Src\Calculator\Domain\Services\Contracts\SimulatePost;
 use Src\Calculator\Domain\Models\Product\ProductData;
-use Src\Calculator\Domain\Services\CalculatePrice;
+use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Contracts\Post;
 use Src\Products\Domain\Models\Product\Product;

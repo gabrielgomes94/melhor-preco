@@ -3,7 +3,8 @@
 namespace Tests\Data\Models\Product;
 
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Domain\Models\Product;
+//use Src\Products\Domain\Models\Product;
+use Src\Products\Domain\Models\Product\Product;
 use Tests\Data\Models\Product\Contracts\ProductFactory;
 
 class SimpleProduct implements ProductFactory

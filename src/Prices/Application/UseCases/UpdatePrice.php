@@ -4,7 +4,7 @@ namespace Src\Prices\Application\UseCases;
 
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData;
-use Src\Calculator\Domain\Services\CalculatePrice;
+use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Prices\Application\Services\Products\Update;
 use Src\Prices\Domain\UseCases\Contracts\UpdatePrice as UpdatePriceInterface;
 use Src\Products\Domain\Models\Post\Factories\Factory;

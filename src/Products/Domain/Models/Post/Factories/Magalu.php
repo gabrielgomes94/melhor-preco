@@ -4,11 +4,11 @@ namespace Src\Products\Domain\Models\Post\Factories;
 
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Domain\Models\Product\ProductData;
-use Src\Calculator\Domain\Services\CalculatePost;
-use Src\Calculator\Domain\Services\CalculatePrice;
+use Src\Calculator\Application\Services\CalculatePost;
+use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Products\Domain\Models\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Models\Post\MagaluPost;

@@ -3,7 +3,7 @@
 namespace Src\Prices\Domain\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Src\Products\Domain\Models\Product\Product;

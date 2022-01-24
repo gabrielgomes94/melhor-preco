@@ -3,7 +3,7 @@
 namespace Src\Calculator\Domain\Models\Price\Freight;
 
 use Money\Money;
-use Src\Calculator\Domain\Transformer\MoneyTransformer;
+use Src\Math\MoneyTransformer;
 use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 
 abstract class BaseFreight
