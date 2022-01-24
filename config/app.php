@@ -205,8 +205,8 @@ return [
         /**
          * Prices' module Service Providers...
          */
-        Src\Prices\Application\Providers\BladeServiceProvider::class,
-        Src\Prices\Application\Providers\EventServiceProvider::class,
+        Src\Prices\Infrastructure\Laravel\ServiceProviders\BladeServiceProvider::class,
+        Src\Prices\Infrastructure\Laravel\ServiceProviders\EventServiceProvider::class,
 
         /**
          * Prices' Calculator module Services Providers...

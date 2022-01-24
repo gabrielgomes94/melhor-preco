@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Application\Http\Controllers\Web\PriceList;
+namespace Src\Prices\Presentation\Http\Controllers\Web\PriceList;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Application\Http\Requests\PriceList;
+namespace Src\Prices\Presentation\Http\Requests\PriceList;
 
 use Src\Products\Presentation\Http\Requests\Product\Contracts\HasOptions;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Application\Http\Controllers\Web\Price;
+namespace Src\Prices\Presentation\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\Breadcrumb;
