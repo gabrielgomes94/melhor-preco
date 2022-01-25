@@ -11,16 +11,16 @@ return [
 //            'extra_commission' => 0.0,
 //        ],
 //    ],
-    'b2w' => [
-        'name' => 'B2W',
-        'slug' => 'b2w',
-        'erpCode' => '203482706',
-        'commission' => 16.0,
-//        'extra_costs' => [
-//            'freight' => 0.0,
-//            'extra_commission' => 0.0,
-//        ],
-    ],
+//    'b2w' => [
+//        'name' => 'B2W',
+//        'slug' => 'b2w',
+//        'erpCode' => '203482706',
+//        'commission' => 16.0,
+////        'extra_costs' => [
+////            'freight' => 0.0,
+////            'extra_commission' => 0.0,
+////        ],
+//    ],
     'magalu' => [
         'name' => 'Magalu',
         'slug' => 'magalu',
@@ -41,16 +41,16 @@ return [
 //            'extra_commission' => 0.0,
 //        ],
     ],
-    'olist' => [
-        'name' => 'OList',
-        'slug' => 'olist',
-        'erpCode' => '203524129',
-        'commission' => 20.0,
-//        'extra_costs' => [
-//            'freight' => 0.0,
-//            'extra_commission' => 0.0,
-//        ],
-    ],
+//    'olist' => [
+//        'name' => 'OList',
+//        'slug' => 'olist',
+//        'erpCode' => '203524129',
+//        'commission' => 20.0,
+////        'extra_costs' => [
+////            'freight' => 0.0,
+////            'extra_commission' => 0.0,
+////        ],
+//    ],
     'shopee' => [
         'name' => 'Shopee',
         'slug' => 'shopee',
@@ -61,14 +61,14 @@ return [
 //            'extra_commission' => 0.0,
 //        ],
     ],
-    'via_varejo' => [
-        'name' => 'Via Varejo',
-        'slug' => 'via_varejo',
-        'erpCode' => '203626895',
-        'commission' => 16.0,
-//        'extra_costs' => [
-//            'freight' => 0.0,
-//            'extra_commission' => 0.0,
-//        ],
-    ],
+//    'via_varejo' => [
+//        'name' => 'Via Varejo',
+//        'slug' => 'via_varejo',
+//        'erpCode' => '203626895',
+//        'commission' => 16.0,
+////        'extra_costs' => [
+////            'freight' => 0.0,
+////            'extra_commission' => 0.0,
+////        ],
+//    ],
 ];

@@ -121,14 +121,9 @@ class ProductRepository implements ErpProductRepositoryInterface
         $pricesCollection = [];
 
         do {
-            try {
-                $response = $this->client->listPrice(storeCode: $storeCode, page: ++$page, status: $status);
-                $prices = $this->priceFactory->make(storeSlug: $store, data: $response);
-                $pricesCollection = array_merge($pricesCollection, $prices->data());
-            } catch (ConnectionException $exception) {
-                --$page;
-                continue;
-            }
+            $response = $this->client->listPrice(storeCode: $storeCode, page: ++$page, status: $status);
+            $prices = $this->priceFactory->make(storeSlug: $store, data: $response);
+            $pricesCollection = array_merge($pricesCollection, $prices->data());
         } while (!isset($prices) || !empty($prices->data()));
 
         return $pricesCollection;
