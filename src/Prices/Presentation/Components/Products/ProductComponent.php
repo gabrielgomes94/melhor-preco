@@ -31,6 +31,7 @@ abstract class ProductComponent extends Component
             'profit' => $this->getProfit(),
             'margin' => $this->getMargin(),
             'store' => $this->store,
+            'quantity' => $this->product->quantity,
         ];
     }
 

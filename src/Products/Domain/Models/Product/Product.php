@@ -49,6 +49,7 @@ class Product extends Model implements ProductModelInterface
         'composition_products',
         'is_active',
         'category_id',
+        'quantity',
     ];
 
     protected $casts = [
