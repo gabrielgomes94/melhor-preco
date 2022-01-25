@@ -276,6 +276,11 @@ class Product extends Model implements ProductModelInterface
         return $query->where('is_active', true);
     }
 
+    public function scopeOrderBySku($query)
+    {
+        return $query->orderByRaw('CAST(sku AS INTEGER) DESC');
+    }
+
     // Mover essas lógicas pra Model de Prices
     // @todo: criar método no repositoru para isso
     public static function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
