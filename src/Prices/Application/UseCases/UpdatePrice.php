@@ -23,7 +23,7 @@ class UpdatePrice implements UpdatePriceInterface
         $this->updatePriceService = $updatePriceService;
     }
 
-    public function updatePrice(Product $product, Store $store, float $priceValue): bool
+    public function updatePrice(Product $product, Store $store, float $priceValue, ?float $commission = null): bool
     {
         $products = $this->getProducts($product);
 
@@ -36,7 +36,7 @@ class UpdatePrice implements UpdatePriceInterface
                 ProductData::fromModel($product),
                 $store,
                 $priceValue,
-                Percentage::fromFraction($this->getCommissionRate($post))
+                Percentage::fromFraction($commission ?? $this->getCommissionRate($post))
             );
 
             $post = Factory::updatePrice($product, $post, $price);

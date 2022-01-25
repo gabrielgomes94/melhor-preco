@@ -44,6 +44,7 @@ class PricePresenter
                 'commission' => Percentage::fromFraction(
                     $price->getCommission()->getCommissionRate()
                 ),
+                'commissionRate' => $price->getCommission()->getCommissionRate() * 100,
             ],
         ];
     }

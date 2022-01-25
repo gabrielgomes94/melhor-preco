@@ -7,5 +7,5 @@ use Src\Products\Domain\Models\Store\Store;
 
 interface UpdatePrice
 {
-    public function updatePrice(Product $product, Store $store, float $priceValue): bool;
+    public function updatePrice(Product $product, Store $store, float $priceValue, ?float $commission = null): bool;
 }

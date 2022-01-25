@@ -27,6 +27,7 @@ class UpdatePriceRequest extends FormRequest
             'profit' => 'required|numeric',
             'storeSlug' => 'required',
             'value' => 'required|numeric',
+            'commissionRate' => 'numeric',
         ];
     }
 }

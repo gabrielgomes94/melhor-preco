@@ -26,6 +26,14 @@
         >
         </x-template.input.read-only>
 
+        <x-template.input.hidden
+            attribute="commissionRate"
+            label="Comissão"
+            componentId="update-price-{{ $price['id'] }}-commission-rate"
+            value="{{ $price['mainPrice']['commissionRate'] ?? 10.0 }}"
+        >
+        </x-template.input.hidden>
+
         <x-template.input.read-only
             attribute="freight"
             label="Frete"

@@ -124,21 +124,22 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
     ): void {
         $this->product = $product;
         $this->store = $store;
-        $this->commissionRate = $commission;
 
         $this->setCostPrice($product);
         $this->setValue(
             $value,
             $options[CalculatorOptions::DISCOUNT_RATE] ?? Percentage::fromPercentage(0)
         );
-        $this->setCommission($store->getSlug());
+        $this->setCommission($store->getSlug(), $commission);
 
         $ignoreFreight = $options[CalculatorOptions::IGNORE_FREIGHT] ?? false;
         $this->setFreight($product, $store->getSlug(), $ignoreFreight);
     }
 
-    private function setCommission(string $store): void
+    private function setCommission(string $store, float $commission): void
     {
+        $this->commissionRate = $commission;
+//        dd($this->commissionRate, CommissionFactory::make($store, $this->value, $this->commissionRate));
         $this->commission = CommissionFactory::make($store, $this->value, $this->commissionRate);
     }
 
