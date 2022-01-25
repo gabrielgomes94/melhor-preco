@@ -16,7 +16,7 @@ class CalculatePriceRequest extends FormRequest
     {
         return [
             'desiredPrice' => 'numeric',
-            'commission' => 'numeric',
+            'commission' => 'string',
             'discount' => 'numeric|nullable',
             'product' => 'string',
             'store' => [new Store()],

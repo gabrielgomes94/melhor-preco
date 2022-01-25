@@ -39,7 +39,7 @@ class UpdateController extends Controller
         }
 
         try {
-            $this->updatePriceService->updatePrice($product, $store, $data['value'], $data['commission']);
+            $this->updatePriceService->updatePrice($product, $store, $data['value'], $data['commission'] ?? null);
             session()->flash('message', 'Preço atualizado com sucesso.');
         } catch (UpdatePriceException $exception) {
             session()->flash('error', $exception->getMessage());
