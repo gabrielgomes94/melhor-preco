@@ -46,7 +46,14 @@ class PriceListPresenter
             'store' => $store,
             'filter' => [
                 'categories' => $categories->toArray(),
+                'minimumProfit' => $parameters['minProfit'] ?? null,
+                'maximumProfit' => $parameters['maxProfit'] ?? null,
+                'sku' => $parameters['sku'] ?? null,
             ],
+            'massCalculation' => [
+                'margin' => 00.0,
+                'commission' => 0.0,
+            ]
         ];
     }
 

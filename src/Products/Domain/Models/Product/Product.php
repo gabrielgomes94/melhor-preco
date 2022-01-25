@@ -49,6 +49,7 @@ class Product extends Model implements ProductModelInterface
         'composition_products',
         'is_active',
         'category_id',
+        'quantity',
     ];
 
     protected $casts = [
@@ -273,6 +274,11 @@ class Product extends Model implements ProductModelInterface
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeOrderBySku($query)
+    {
+        return $query->orderByRaw('CAST(sku AS INTEGER) DESC');
     }
 
     // Mover essas lógicas pra Model de Prices

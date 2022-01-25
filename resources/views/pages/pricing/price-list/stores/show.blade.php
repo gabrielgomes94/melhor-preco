@@ -14,15 +14,19 @@
             actionLabel="Filtrar"
             formId="filter-products-form"
         >
-            <x-app.pricing.price-list.filters.filter
+            <x-app.pricing.price-list.filters.modal.content
                 :store="$store"
-                :minimumProfit="$minimumProfit"
-                :maximumProfit="$maximumProfit"
-                :sku="$sku"
-                formId="filter-products-form"
                 :filter="$filter"
+                formId="filter-products-form"
             />
         </x-template.modals.modal>
+
+
+        <x-app.pricing.price-list.mass-calculation.modal.modal
+            :store="$store"
+            :filter="$filter ?? []"
+            :massCalculation="$massCalculation"
+        />
     </x-slot>
 
     <div class="row">
@@ -32,8 +36,10 @@
                     <x-app.pricing.price-list.history-link :store="$store" />
                 </div>
 
-                <div class="d-flex flex-column">
+                <div class="d-inline-flex flex-row">
                     <x-app.pricing.price-list.filters.buttons :store="$store" />
+                    <span class="m-2"></span>
+                    <x-app.pricing.price-list.mass-calculation.buttons :store="$store" />
                 </div>
             </div>
         </div>
