@@ -3,6 +3,7 @@
 namespace Src\Products\Domain\Models\Product;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -279,6 +280,14 @@ class Product extends Model implements ProductModelInterface
     public function scopeOrderBySku($query)
     {
         return $query->orderByRaw('CAST(sku AS INTEGER) DESC');
+    }
+
+    public function scopeIsOnStore($query, string $store)
+    {
+
+        return $query->whereHas('prices', function(Builder $query) use ($store) {
+            $query->where('store', '=', $store);
+        });
     }
 
     // Mover essas lógicas pra Model de Prices

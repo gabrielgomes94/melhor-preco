@@ -60,6 +60,7 @@ class ProductRepository implements ProductRepositoryInterface
                 }
             ])
             ->active()
+            ->isOnStore($storeSlug)
             ->orderBySku()
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
@@ -72,6 +73,7 @@ class ProductRepository implements ProductRepositoryInterface
             }
         ])
             ->active()
+            ->isOnStore($storeSlug)
             ->where('sku', $sku)
             ->orWhere(function ($query) use ($sku, $storeSlug) {
                 $query->where('parent_sku', $sku)
@@ -95,6 +97,7 @@ class ProductRepository implements ProductRepositoryInterface
             }
         ])
             ->active()
+            ->isOnStore($storeSlug)
             ->whereNull('parent_sku')
             ->whereNotIn('composition_products', ['[]'])
             ->orderBySku()
@@ -109,6 +112,7 @@ class ProductRepository implements ProductRepositoryInterface
             }
         ])
             ->active()
+            ->isOnStore($storeSlug)
             ->where('category_id', $categoryId)
             ->orderBySku()
             ->paginate(perPage: self::PER_PAGE, page: $page);
