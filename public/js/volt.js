@@ -8324,7 +8324,7 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v11.3.4
+* sweetalert2 v11.3.6
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -8894,7 +8894,11 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
     timerProgressBar.style.width = "".concat(timerProgressBarPercent, "%");
   };
 
-  // Detect Node env
+  /**
+   * Detect Node env
+   *
+   * @returns {boolean}
+   */
   const isNodeEnv = () => typeof window === 'undefined' || typeof document === 'undefined';
 
   const RESTORE_FOCUS_TIMEOUT = 100;
@@ -9740,12 +9744,17 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
     if (!template) {
       return {};
     }
+    /** @type {DocumentFragment} */
+
 
     const templateContent = template.content;
     showWarningsForElements(templateContent);
     const result = Object.assign(getSwalParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
 
   const getSwalParams = templateContent => {
     const result = {};
@@ -9764,6 +9773,10 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
     });
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalButtons = templateContent => {
     const result = {};
@@ -9783,9 +9796,15 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
     });
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalImage = templateContent => {
     const result = {};
+    /** @type {HTMLElement} */
+
     const image = templateContent.querySelector('swal-image');
 
     if (image) {
@@ -9810,9 +9829,15 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalIcon = templateContent => {
     const result = {};
+    /** @type {HTMLElement} */
+
     const icon = templateContent.querySelector('swal-icon');
 
     if (icon) {
@@ -9831,9 +9856,15 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+
 
   const getSwalInput = templateContent => {
     const result = {};
+    /** @type {HTMLElement} */
+
     const input = templateContent.querySelector('swal-input');
 
     if (input) {
@@ -9867,12 +9898,19 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   * @param {string[]} paramNames
+   */
+
 
   const getSwalStringParams = (templateContent, paramNames) => {
     const result = {};
 
     for (const i in paramNames) {
       const paramName = paramNames[i];
+      /** @type {HTMLElement} */
+
       const tag = templateContent.querySelector(paramName);
 
       if (tag) {
@@ -9883,10 +9921,14 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
 
     return result;
   };
+  /**
+   * @param {DocumentFragment} templateContent
+   */
 
-  const showWarningsForElements = template => {
+
+  const showWarningsForElements = templateContent => {
     const allowedElements = swalStringParams.concat(['swal-param', 'swal-button', 'swal-image', 'swal-icon', 'swal-input', 'swal-input-option']);
-    toArray(template.children).forEach(el => {
+    toArray(templateContent.children).forEach(el => {
       const tagName = el.tagName.toLowerCase();
 
       if (allowedElements.indexOf(tagName) === -1) {
@@ -10475,6 +10517,11 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
   /* 'confirm' | 'deny' */
   ) => {
     const innerParams = privateProps.innerParams.get(instance);
+
+    if (!innerParams.input) {
+      return error("The \"input\" parameter is needed to be set when using returnInputValueOn".concat(capitalizeFirstLetter(type)));
+    }
+
     const inputValue = getInputValue(instance, innerParams);
 
     if (innerParams.inputValidator) {
@@ -11622,7 +11669,7 @@ window.Element&&!Element.prototype.closest&&(Element.prototype.closest=function(
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '11.3.4';
+  SweetAlert.version = '11.3.6';
 
   const Swal = SweetAlert; // @ts-ignore
 
