@@ -5972,7 +5972,8 @@ var calculator_form = function calculator_form() {
         profit: getInput(id, 'profit', pricePreffix),
         margin: getInput(id, 'margin', pricePreffix),
         commission: getInput(id, 'commission', pricePreffix),
-        taxSimplesNacional: getInput(id, 'simplesNacional', pricePreffix),
+        commissionRate: getInput(id, 'commissionRate-input', pricePreffix),
+        taxSimplesNacional: getInput(id, 'taxSimplesNacional', pricePreffix),
         freight: getInput(id, 'freight', pricePreffix),
         differenceICMS: getInput(id, 'differenceICMS', pricePreffix),
         purchasePrice: getInput(id, 'purchasePrice', pricePreffix)
@@ -5982,7 +5983,8 @@ var calculator_form = function calculator_form() {
         profit: getInput(id, 'profit', discountedPricePreffix),
         margin: getInput(id, 'margin', discountedPricePreffix),
         commission: getInput(id, 'commission', discountedPricePreffix),
-        taxSimplesNacional: getInput(id, 'simplesNacional', discountedPricePreffix),
+        commissionRate: getInput(id, 'commissionRate-input', pricePreffix),
+        taxSimplesNacional: getInput(id, 'taxSimplesNacional', discountedPricePreffix),
         freight: getInput(id, 'freight', discountedPricePreffix),
         differenceICMS: getInput(id, 'differenceICMS', discountedPricePreffix),
         purchasePrice: getInput(id, 'purchasePrice', discountedPricePreffix)
@@ -6009,18 +6011,19 @@ var calculator_form = function calculator_form() {
           break;
       }
 
-      calculator[object][input].style.backgroundColor = backgroundColor;
-      calculator[object][input].style.color = textColor;
+      object[input].style.backgroundColor = backgroundColor;
+      object[input].style.color = textColor;
     }
 
     function setValue(object, input, value) {
-      calculator[object][input].value = value;
+      object[input].value = value;
     }
 
     function setData(object, data) {
       setValue(object, 'price', data.suggestedPrice);
       setValue(object, 'profit', data.profit);
       setValue(object, 'commission', data.commission);
+      setValue(object, 'commissionRate', data.commissionRate);
       setValue(object, 'taxSimplesNacional', data.taxSimplesNacional);
       setValue(object, 'freight', data.freight);
       setValue(object, 'differenceICMS', data.differenceICMS);
@@ -6046,10 +6049,10 @@ var calculator_form = function calculator_form() {
       })["catch"](function (error) {
         return console.error('Error:', error);
       }).then(function (data) {
-        setData('price', data.price);
+        setData(calculator.price, data.price);
 
         if (data.secondaryPrice) {
-          setData('discountedPrice', data.secondaryPrice);
+          setData(calculator.discountedPrice, data.secondaryPrice);
         }
       });
     });
