@@ -34,7 +34,7 @@
     <x-template.input.read-only
         attribute="simplesNacional"
         label="Simples Nacional"
-        componentId="discounted-price-{{ $price['id'] }}-simplesNacional"
+        componentId="discounted-price-{{ $price['id'] }}-taxSimplesNacional"
         value=""
     >
     </x-template.input.read-only>

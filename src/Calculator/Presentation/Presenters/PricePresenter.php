@@ -29,7 +29,7 @@ class PricePresenter
             'suggestedPrice' => MoneyTransformer::toString($price->get()),
             'costs' => MoneyTransformer::toString($price->getCosts()),
             'commission' => MoneyTransformer::toString($price->getCommission()->get()),
-            'commissionRate' => $price->getCommission()->getCommissionRate(),
+            'commissionRate' => $price->getCommission()->getCommissionRate() * 100,
             'freight' => MoneyTransformer::toString($price->getFreight()->get()),
             'taxSimplesNacional' => MoneyTransformer::toString($price->getSimplesNacional()),
             'differenceICMS' => MoneyTransformer::toString($price->getDifferenceICMS()),

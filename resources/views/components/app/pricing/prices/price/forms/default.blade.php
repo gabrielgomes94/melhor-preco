@@ -29,7 +29,7 @@
         <x-template.input.hidden
             attribute="commissionRate"
             label="Comissão"
-            componentId="update-price-{{ $price['id'] }}-commission-rate"
+            componentId="update-price-{{ $price['id'] }}-commissionRate"
             value="{{ $price['mainPrice']['commissionRate'] ?? 10.0 }}"
         >
         </x-template.input.hidden>
@@ -45,7 +45,7 @@
         <x-template.input.read-only
             attribute="simplesNacional"
             label="Simples Nacional"
-            componentId="update-price-{{ $price['id'] }}-simplesNacional"
+            componentId="update-price-{{ $price['id'] }}-taxSimplesNacional"
             value=""
         >
         </x-template.input.read-only>

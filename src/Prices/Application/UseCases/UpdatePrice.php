@@ -40,6 +40,7 @@ class UpdatePrice implements UpdatePriceInterface
             );
 
             $post = Factory::updatePrice($product, $post, $price);
+
             $this->updatePriceService->execute($product->getSku(), $post);
         }
 
