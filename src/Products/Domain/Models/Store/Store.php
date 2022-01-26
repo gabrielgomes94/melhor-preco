@@ -8,6 +8,7 @@ use Src\Products\Domain\Models\Store\Contracts\Store as StoreInterface;
 class Store implements StoreInterface
 {
     private array $validStores = [
+        'amazon',
         'b2w',
         'barrigudinha',
         'magalu',
