@@ -45,6 +45,7 @@ class ProductController extends Controller
             'costs' => $costs,
             'product' => $product->toArray(),
             'sales' => $sales,
+            'redirectLink' => redirect()->back()->getTargetUrl(),
         ]);
     }
 

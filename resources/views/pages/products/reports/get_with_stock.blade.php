@@ -8,6 +8,12 @@
                     </div>
                 </div>
 
+                <x-template.links.link :route="$redirectLink">
+                    Voltar
+                </x-template.links.link>
+
+
+
                 @isset($product)
 
                     <x-template.card.card>

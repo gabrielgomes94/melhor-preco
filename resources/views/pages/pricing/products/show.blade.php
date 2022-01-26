@@ -13,7 +13,9 @@
 
     <div class="row mb-4">
         <div class="mb-4">
-            <h3>{{ $productHeader }}</h3>
+            <x-template.links.link :route="route('products.reports.show', $product->getSku())">
+                <h3>{{ $productHeader }}</h3>
+            </x-template.links.link>
         </div>
 
         <div class="col-4">
