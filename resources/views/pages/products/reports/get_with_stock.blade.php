@@ -1,9 +1,5 @@
 <body class="antialiased">
     <x-layout>
-        <x-slot name="header">
-            Produto
-        </x-slot>
-
         <div class="row mt-4">
             <div class="col-sm-12">
                 <div class="error-container">
@@ -13,7 +9,9 @@
                 </div>
 
                 @isset($product)
+
                     <x-template.card.card>
+                        <h3>Informações Gerais</h3>
                         <div class="content-container">
                             <ul>
                                 <li>
@@ -23,12 +21,20 @@
                                     <b>Nome:</b> {{ $product['name'] }}
                                 </li>
                                 <li>
-                                    <b>Estoque atual:</b> {{ $product['stock'] }}
+                                    <b>Estoque atual:</b> {{ $product['quantity'] }}
                                 </li>
                             </ul>
                         </div>
                     </x-template.card.card>
                 @endif
+
+                <div class="col-12 mt-2">
+                    <x-app.sales.reports.product.details.card :data="$sales"/>
+                </div>
+
+                <div class="col-12 mt-2">
+                    <x-app.costs.product-costs.details.card :data="$costs"/>
+                </div>
             </div>
         </div>
     </x-layout>

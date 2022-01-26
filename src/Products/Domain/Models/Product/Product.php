@@ -74,9 +74,9 @@ class Product extends Model implements ProductModelInterface
         return $this->hasMany(Price::class, 'product_sku', 'sku');
     }
 
-    public function items(): BelongsTo
+    public function items(): HasMany
     {
-        return $this->belongsTo(Item::class, 'product_id', 'sku');
+        return $this->hasMany(Item::class, 'sku', 'sku');
     }
 
     public function itemsCosts(): HasMany
