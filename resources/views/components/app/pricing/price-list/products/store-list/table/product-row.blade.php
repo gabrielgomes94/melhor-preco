@@ -1,5 +1,9 @@
 <tr>
-    <td colspan="1">{{ $sku }}</td>
+    <td colspan="1">
+        <x-template.links.link :route="route('products.reports.show', ['sku' => $sku])">
+            {{ $sku }}
+        </x-template.links.link>
+    </td>
 
     <td colspan="4"
         data-bs-toggle="tooltip"
