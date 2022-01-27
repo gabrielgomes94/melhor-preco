@@ -20,6 +20,7 @@ include 'notifications/web.php';
 include 'products/web.php';
 include 'prices/price/web.php';
 include 'sales/web.php';
+include 'stores/web.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
