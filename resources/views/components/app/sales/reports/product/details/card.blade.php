@@ -1,5 +1,9 @@
-<x-template.card.card>
-    <x-app.sales.reports.product.details.header />
+<x-bootstrap.card.basic-card>
+    <x-slot name="header">
+        <h2>Vendas</h2>
+    </x-slot>
 
-    <x-app.sales.reports.product.details.content :data="$data" />
-</x-template.card.card>
+    <x-slot name="body">
+        <x-app.sales.reports.product.details.content :data="$data" />
+    </x-slot>
+</x-bootstrap.card.basic-card>
