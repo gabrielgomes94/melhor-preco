@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Stores\Presentation\Http\Controllers\CommissionController;
-use Src\Stores\Presentation\Http\Controllers\StoresController;
+use Src\Marketplaces\Presentation\Http\Controllers\CommissionController;
+use Src\Marketplaces\Presentation\Http\Controllers\StoresController;
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('stores')
-        ->name('stores')
+    Route::prefix('marketplaces')
+        ->name('marketplaces')
         ->group(function() {
             Route::get('/create', [StoresController::class, 'create'])->name('.create');
             Route::post('/create', [StoresController::class, 'store'])->name('.store');

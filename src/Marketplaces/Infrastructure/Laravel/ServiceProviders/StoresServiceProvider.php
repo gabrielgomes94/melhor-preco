@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Stores\Infrastructure\Laravel\ServiceProviders;
+namespace Src\Marketplaces\Infrastructure\Laravel\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Stores\Application\UseCase\CreateStore as CreateStoreImpl;
-use Src\Stores\Domain\UseCase\Contracts\CreateStore;
+use Src\Marketplaces\Application\UseCase\CreateMarketplace as CreateStoreImpl;
+use Src\Marketplaces\Domain\UseCase\Contracts\CreateMarketplace;
 
 class StoresServiceProvider extends ServiceProvider
 {
@@ -26,6 +26,6 @@ class StoresServiceProvider extends ServiceProvider
     public function boot()
     {
         // Use Cases
-        $this->app->bind(CreateStore::class, CreateStoreImpl::class);
+        $this->app->bind(CreateMarketplace::class, CreateStoreImpl::class);
     }
 }
