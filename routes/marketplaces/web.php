@@ -12,7 +12,11 @@ Route::middleware('auth')->group(function () {
             Route::post('/criar', [MarketplacesController::class, 'store'])->name('.store');
             Route::get('/', [MarketplacesController::class, 'list'])->name('.list');
 
-            Route::get('/definir-comissoes', [CommissionController::class, 'setCommission'])->name('.setCommission');
-            Route::post('/definir-comissoes', [CommissionController::class, 'doSetCommission'])->name('.doSetCommission');
+
+            Route::post('/definir-comissoes', [CommissionController::class, 'doSetCommission'])
+                ->name('.doSetCommission');
+
+            Route::get('/comissao/{marketplace_uuid}', [CommissionController::class, 'setCommission'])
+                ->name('.setCommission');
         });
 });

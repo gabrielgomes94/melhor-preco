@@ -9,7 +9,7 @@ class GetCommissionType implements GetCommissionTypeInterface
 {
     public function get(string $marketplaceUuid): string
     {
-        $marketplace = Marketplace::find('uuid', $marketplaceUuid);
+        $marketplace = Marketplace::where('uuid', $marketplaceUuid)->first();
 
         if (!$marketplace) {
             throw new \Exception('Markeplace not found');
