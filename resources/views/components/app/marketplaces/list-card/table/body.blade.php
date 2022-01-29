@@ -8,10 +8,12 @@
             {{ $marketplace['erpId'] }}
         </td>
         <td colspan="1">
-            {{ $marketplace['commissions'] }}
+            @foreach ($marketplace['commissions'] as $commission)
+                {{ $commission }} <br>
+            @endforeach
         </td>
         <td colspan="1">
-            <a href="{{ route('marketplaces.setCommission', $marketplace['uuid']) }}"
+            <a href="{{ route('marketplaces.setCommission', $marketplace['slug']) }}"
                class="link-info"
             >
                 Configurar comissões

@@ -2,14 +2,21 @@
 
 namespace Src\Marketplaces\Application\UseCases;
 
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType as GetCommissionTypeInterface;
 
 class GetCommissionType implements GetCommissionTypeInterface
 {
-    public function get(string $marketplaceUuid): string
+    private MarketplaceRepository $marketplaceRepository;
+
+    public function __construct(MarketplaceRepository $marketplaceRepository)
     {
-        $marketplace = Marketplace::where('uuid', $marketplaceUuid)->first();
+        $this->marketplaceRepository = $marketplaceRepository;
+    }
+
+    public function get(string $marketplaceSlug): string
+    {
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
 
         if (!$marketplace) {
             throw new \Exception('Markeplace not found');

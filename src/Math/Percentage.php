@@ -29,8 +29,13 @@ class Percentage
         return new self($value);
     }
 
-    public function get(): float
+    public function getFraction(): float
     {
         return $this->value;
+    }
+
+    public function get(): float
+    {
+        return $this->value * 100;
     }
 }

@@ -10,10 +10,12 @@ class MarketplacePresenter
     public function present(Collection $marketplaces)
     {
         $presented = $marketplaces->map(function (Marketplace $marketplace) {
+            $commissions = $this->presentCommissions($marketplace);
+
             return [
                 'name' => $marketplace->getName(),
                 'slug' => $marketplace->getSlug(),
-                'commissions' => $marketplace->getCommissionValues(),
+                'commissions' => $commissions,
                 'erpId' => $marketplace->getErpId(),
                 'uuid' => $marketplace->getUuid(),
             ];
@@ -22,5 +24,16 @@ class MarketplacePresenter
         return [
             'marketplaces' => $presented,
         ];
+    }
+
+    private function presentCommissions(Marketplace $marketplace)
+    {
+        $commissions = $marketplace->getCommissionValues();
+
+        foreach ($commissions as $key => $commission) {
+            $commissions[$key] = number_format($commission, '2', ',') . '%';
+        }
+
+        return $commissions;
     }
 }

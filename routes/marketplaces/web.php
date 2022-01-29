@@ -13,10 +13,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [MarketplacesController::class, 'list'])->name('.list');
 
 
-            Route::post('/definir-comissoes', [CommissionController::class, 'doSetCommission'])
+            Route::post('/{marketplace_slug}/definir-comissoes', [CommissionController::class, 'doSetCommission'])
                 ->name('.doSetCommission');
 
-            Route::get('/comissao/{marketplace_uuid}', [CommissionController::class, 'setCommission'])
+            Route::get('/{marketplace_slug}/comissao/', [CommissionController::class, 'setCommission'])
                 ->name('.setCommission');
         });
 });

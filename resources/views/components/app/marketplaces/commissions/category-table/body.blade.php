@@ -18,12 +18,12 @@
             />
         </td>
         <td data-parent-id="{{ $category['parentId'] }}">
-            <x-bootstrap.forms.input.percentage
+            <x-bootstrap.forms.input.number
                 name="commission[]"
                 id="commission-input-{{ $category['categoryId'] }}"
                 class="input-commission"
                 label=""
-                value=""
+                value="{{ $category['commission'] }}"
             />
         </td>
     </tr>

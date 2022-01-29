@@ -232,7 +232,7 @@ return [
         /**
          * Stores' module Service Providers...
          */
-        Src\Marketplaces\Infrastructure\Laravel\ServiceProviders\StoresServiceProvider::class,
+        Src\Marketplaces\Infrastructure\Laravel\ServiceProviders\MarketplacesServiceProvider::class,
 
         /**
          * PDF Generator Service Provider...

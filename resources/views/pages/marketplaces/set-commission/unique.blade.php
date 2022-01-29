@@ -15,7 +15,7 @@
                 </x-slot>
 
                 <x-slot name="body">
-                    <x-app.marketplaces.commissions.unique-form />
+                    <x-app.marketplaces.commissions.unique-form :marketplaceSlug="$marketplaceSlug" />
                 </x-slot>
             </x-bootstrap.card.basic-card>
         </div>

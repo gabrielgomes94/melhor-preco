@@ -15,7 +15,10 @@
                 </x-slot>
 
                 <x-slot name="body">
-                    <x-app.marketplaces.commissions.category-form :categories="$categories" />
+                    <x-app.marketplaces.commissions.category-form
+                        :categories="$categories"
+                        :marketplaceSlug="$marketplaceSlug"
+                    />
                 </x-slot>
             </x-bootstrap.card.basic-card>
         </div>

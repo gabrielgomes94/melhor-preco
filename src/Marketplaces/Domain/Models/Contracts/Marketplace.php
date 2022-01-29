@@ -6,7 +6,7 @@ interface Marketplace
 {
     public function getCommissionType(): string;
 
-    public function getCommissionValues(): string;
+    public function getCommissionValues(): array;
 
     public function getErpId(): string;
 

@@ -12,4 +12,9 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
     {
         return Marketplace::all();
     }
+
+    public function getBySlug(string $marketplaceSlug): ?Marketplace
+    {
+        return Marketplace::where('slug', $marketplaceSlug)->first();
+    }
 }

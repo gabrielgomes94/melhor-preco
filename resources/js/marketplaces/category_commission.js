@@ -4,6 +4,7 @@ let setChildrenCategory = function () {
     inputs.forEach(function (element) {
         element.addEventListener("change", function () {
             let value = element.value
+
             let commissionInputs = Array.from(
                 document.querySelectorAll('td[data-parent-id]')
             )

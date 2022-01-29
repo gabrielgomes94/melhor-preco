@@ -22,6 +22,7 @@ class ListMarketplaces implements ListMarketplacesInterface
     public function list(): array
     {
         $marketplaces = $this->marketplaceRepository->list();
+
         return $this->marketplacePresenter->present($marketplaces);
     }
 }
