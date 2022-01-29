@@ -4,24 +4,20 @@ namespace Src\Marketplaces\Presentation\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Src\Marketplaces\Application\UseCase\CreateMarketplace;
-use Src\Marketplaces\Infrastructure\Laravel\Eloquent\MarketplaceRepository;
-use Src\Marketplaces\Presentation\Presenters\MarketplacePresenter;
+use Src\Marketplaces\Domain\UseCases\Contracts\CreateMarketplace;
+use Src\Marketplaces\Domain\UseCases\Contracts\ListMarketplaces;
 
 class StoresController extends Controller
 {
     private CreateMarketplace $createStore;
-    private MarketplaceRepository $marketplaceRepository;
-    private MarketplacePresenter $marketplacePresenter;
+    private ListMarketplaces $listMarketplaces;
 
     public function __construct(
         CreateMarketplace $createStore,
-        MarketplaceRepository $marketplaceRepository,
-        MarketplacePresenter $marketplacePresenter
+        ListMarketplaces $listMarketplaces
     ) {
         $this->createStore = $createStore;
-        $this->marketplaceRepository = $marketplaceRepository;
-        $this->marketplacePresenter = $marketplacePresenter;
+        $this->listMarketplaces = $listMarketplaces;
     }
 
     public function create(Request $request)
@@ -31,8 +27,7 @@ class StoresController extends Controller
 
     public function list(Request $request)
     {
-        $marketplaces = $this->marketplaceRepository->list();
-        $data = $this->marketplacePresenter->present($marketplaces);
+        $data = $this->listMarketplaces->list();
 
         return view('pages.marketplaces.list', $data);
     }

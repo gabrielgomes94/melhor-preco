@@ -4,8 +4,8 @@ namespace Src\Marketplaces\Presentation\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Src\Marketplaces\Application\UseCase\GetCommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
+use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType;
 
 class CommissionController extends Controller
 {

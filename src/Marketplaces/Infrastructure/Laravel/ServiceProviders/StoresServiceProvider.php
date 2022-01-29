@@ -3,8 +3,14 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Marketplaces\Application\UseCase\CreateMarketplace as CreateStoreImpl;
-use Src\Marketplaces\Domain\UseCase\Contracts\CreateMarketplace;
+use Src\Marketplaces\Application\UseCases\CreateMarketplace;
+use Src\Marketplaces\Application\UseCases\GetCommissionType;
+use Src\Marketplaces\Application\UseCases\ListMarketplaces;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
+use Src\Marketplaces\Domain\UseCases\Contracts\CreateMarketplace as CreateMarketplaceInterface;
+use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType as GetCommissionTypeInterface;
+use Src\Marketplaces\Domain\UseCases\Contracts\ListMarketplaces as ListMarketplacesInterface;
+use Src\Marketplaces\Infrastructure\Laravel\Eloquent\MarketplaceRepository;
 
 class StoresServiceProvider extends ServiceProvider
 {
@@ -25,7 +31,12 @@ class StoresServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Repositories
+        $this->app->bind(MarketplaceRepositoryInterface::class, MarketplaceRepository::class);
+
         // Use Cases
-        $this->app->bind(CreateMarketplace::class, CreateStoreImpl::class);
+        $this->app->bind(CreateMarketplaceInterface::class, CreateMarketplace::class);
+        $this->app->bind(GetCommissionTypeInterface::class, GetCommissionType::class);
+        $this->app->bind(ListMarketplacesInterface::class, ListMarketplaces::class);
     }
 }

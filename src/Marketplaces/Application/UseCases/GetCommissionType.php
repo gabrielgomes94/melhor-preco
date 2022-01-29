@@ -1,10 +1,11 @@
 <?php
 
-namespace Src\Marketplaces\Application\UseCase;
+namespace Src\Marketplaces\Application\UseCases;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType as GetCommissionTypeInterface;
 
-class GetCommissionType
+class GetCommissionType implements GetCommissionTypeInterface
 {
     public function get(string $marketplaceUuid): string
     {

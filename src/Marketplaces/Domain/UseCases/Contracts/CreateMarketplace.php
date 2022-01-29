@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Domain\UseCase\Contracts;
+namespace Src\Marketplaces\Domain\UseCases\Contracts;
 
 interface CreateMarketplace
 {

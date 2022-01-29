@@ -3,8 +3,9 @@
 namespace Src\Marketplaces\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
 
-class Marketplace extends Model
+class Marketplace extends Model implements MarketplaceInterface
 {
     public $incrementing = false;
 
