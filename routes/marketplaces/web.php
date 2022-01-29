@@ -13,8 +13,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [MarketplacesController::class, 'list'])->name('.list');
 
 
-            Route::post('/{marketplace_slug}/definir-comissoes', [CommissionController::class, 'doSetCommission'])
-                ->name('.doSetCommission');
+            Route::post('/{marketplace_slug}/definir-comissoes-por-categoria',
+                [CommissionController::class, 'doSetCommissionByCategory']
+            )->name('.doSetCommissionByCategory');
+
+            Route::post('/{marketplace_slug}/definir-comissao-unica',
+                [CommissionController::class, 'doSetUniqueCommission']
+            )->name('.doSetUniqueCommission');
 
             Route::get('/{marketplace_slug}/comissao/', [CommissionController::class, 'setCommission'])
                 ->name('.setCommission');
