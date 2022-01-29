@@ -11,7 +11,7 @@
             {{ $marketplace['commissions'] }}
         </td>
         <td colspan="1">
-            <a href="#" class="link-primary">Configurar comissões</a>
+            <a href="#" class="link-info">Configurar comissões</a>
         </td>
     </tr>
 @endforeach

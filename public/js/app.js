@@ -5784,6 +5784,8 @@ __webpack_require__(/*! ./pricing/calculator_forms */ "./resources/js/pricing/ca
 
 __webpack_require__(/*! ./notifications/notifications */ "./resources/js/notifications/notifications.js");
 
+__webpack_require__(/*! ./marketplaces/navbar */ "./resources/js/marketplaces/navbar.js");
+
 /***/ }),
 
 /***/ "./resources/js/costs/navbar.js":
@@ -5810,16 +5812,60 @@ var highlightNavbarSection = function highlightNavbarSection() {
     }
 
     return null;
+  } //@todo: refatorar esse trecho para evitar duplicação
+
+
+  function colorSection() {
+    var section = getActiveSection();
+
+    if (section == null) {
+      return;
+    }
+
+    section.querySelector('.nav-link').style.color = '#fff';
+    section.style.backgroundColor = '#1F2937';
   }
 
-  var section = getActiveSection();
+  colorSection();
+};
 
-  if (section == null) {
-    return;
+highlightNavbarSection();
+
+/***/ }),
+
+/***/ "./resources/js/marketplaces/navbar.js":
+/*!*********************************************!*\
+  !*** ./resources/js/marketplaces/navbar.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var highlightNavbarSection = function highlightNavbarSection() {
+  function isCreateMarketplacePage() {
+    return window.location.pathname.includes('marketplaces/criar');
   }
 
-  section.querySelector('.nav-link').style.color = '#fff';
-  section.style.backgroundColor = '#1F2937';
+  function getActiveSection() {
+    if (isCreateMarketplacePage()) {
+      return document.querySelector('#nav-marketplaces-create');
+    }
+
+    return document.querySelector('#nav-marketplaces-list');
+  } //@todo: refatorar esse trecho para evitar duplicação
+
+
+  function colorSection() {
+    var section = getActiveSection();
+
+    if (section == null) {
+      return;
+    }
+
+    section.querySelector('.nav-link').style.color = '#fff';
+    section.style.backgroundColor = '#1F2937';
+  }
+
+  colorSection();
 };
 
 highlightNavbarSection();

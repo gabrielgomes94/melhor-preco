@@ -1,20 +1,14 @@
 let highlightNavbarSection = function () {
-    function isProductCostsPage() {
-        return window.location.pathname.includes('custos/produtos')
-    }
-
-    function isInvoicePage() {
-        return window.location.pathname.includes('custos/notas-fiscais')
+    function isCreateMarketplacePage() {
+        return window.location.pathname.includes('marketplaces/criar')
     }
 
     function getActiveSection() {
-        if (isProductCostsPage()) {
-            return document.querySelector('#nav-product-costs')
-        } else if (isInvoicePage()) {
-            return document.querySelector('#nav-invoice-costs')
+        if (isCreateMarketplacePage()) {
+            return document.querySelector('#nav-marketplaces-create')
         }
 
-        return null
+        return document.querySelector('#nav-marketplaces-list')
     }
 
     //@todo: refatorar esse trecho para evitar duplicação

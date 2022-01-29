@@ -1,4 +1,4 @@
-<x-template.forms.post action="{{ route('stores.store') }}">
+<x-template.forms.post action="{{ route('marketplaces.store') }}">
     <div class="mt-1">
         <x-bootstrap.forms.input.text
             attribute="erpId"

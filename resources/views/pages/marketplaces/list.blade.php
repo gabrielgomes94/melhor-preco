@@ -1,4 +1,8 @@
 <x-layout>
+    <x-slot name="navbar">
+        <x-app.marketplaces.navbar />
+    </x-slot>
+
     <div class="m-4">
         <x-bootstrap.card.basic-card>
             <x-slot name="header">
