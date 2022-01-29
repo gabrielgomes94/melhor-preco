@@ -5786,6 +5786,8 @@ __webpack_require__(/*! ./notifications/notifications */ "./resources/js/notific
 
 __webpack_require__(/*! ./marketplaces/navbar */ "./resources/js/marketplaces/navbar.js");
 
+__webpack_require__(/*! ./marketplaces/category_commission */ "./resources/js/marketplaces/category_commission.js");
+
 /***/ }),
 
 /***/ "./resources/js/costs/navbar.js":
@@ -5830,6 +5832,36 @@ var highlightNavbarSection = function highlightNavbarSection() {
 };
 
 highlightNavbarSection();
+
+/***/ }),
+
+/***/ "./resources/js/marketplaces/category_commission.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/marketplaces/category_commission.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var setChildrenCategory = function setChildrenCategory() {
+  var inputs = document.querySelectorAll('.input-commission');
+  inputs.forEach(function (element) {
+    element.addEventListener("change", function () {
+      var value = element.value;
+      var commissionInputs = Array.from(document.querySelectorAll('td[data-parent-id]'));
+      var categoryId = element.closest('.category-commission-row').querySelector('.input-category-id').value;
+      commissionInputs = commissionInputs.filter(function (element) {
+        return element.getAttribute('data-parent-id') === categoryId;
+      }, categoryId);
+      commissionInputs.forEach(function (element) {
+        input = element.querySelector('.input-commission');
+        input.value = value;
+        input.dispatchEvent(new Event('change'));
+      }, value);
+    });
+  });
+};
+
+setChildrenCategory();
 
 /***/ }),
 

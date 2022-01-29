@@ -42,4 +42,8 @@ class CommissionController extends Controller
         return view('pages.marketplaces.set-commission.unique');
     }
 
+    public function doSetCommission(Request $request)
+    {
+        dd($request->all());
+    }
 }

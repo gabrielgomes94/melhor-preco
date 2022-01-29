@@ -4,9 +4,8 @@
     @endisset
 
     <input type="text"
-           class="form-control w-100 input-percentage"
+           class="form-control w-100 input-percentage {{ $class }}"
            id="{{ $id  }}-input-view"
-           name="{{ $name }}"
            value="{{ $value }}"
     >
 
@@ -14,6 +13,7 @@
            id="{{ $id }}"
            name="{{ $name }}"
            value="{{ $value }}"
+           class="{{ $class }}"
     >
 </div>
 

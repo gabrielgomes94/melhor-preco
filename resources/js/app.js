@@ -6,5 +6,6 @@ require('./pricing/inputs')
 require('./pricing/calculator_forms')
 require('./notifications/notifications')
 require('./marketplaces/navbar')
+require('./marketplaces/category_commission')
 
 

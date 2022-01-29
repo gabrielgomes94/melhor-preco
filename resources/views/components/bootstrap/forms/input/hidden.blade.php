@@ -5,7 +5,7 @@
 
     <input
         type="hidden"
-        class="form-control w-100"
+        class="form-control w-100 {{ $class }}"
         id="{{ $id }}"
         name="{{ $name ?? '' }}"
         value="{{ $value }}"
