@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Src\Marketplaces\Domain\UseCases\Contracts\CreateMarketplace;
 use Src\Marketplaces\Domain\UseCases\Contracts\ListMarketplaces;
+use Src\Marketplaces\Presentation\Http\Requests\SaveMarketplaceRequest;
 
 class StoresController extends Controller
 {
@@ -32,9 +33,9 @@ class StoresController extends Controller
         return view('pages.marketplaces.list', $data);
     }
 
-    public function store(Request $request)
+    public function store(SaveMarketplaceRequest $request)
     {
-        $this->createStore->create($request->all());
+        $this->createStore->create($request->validated());
 
         return redirect()->route('marketplaces.list');
     }

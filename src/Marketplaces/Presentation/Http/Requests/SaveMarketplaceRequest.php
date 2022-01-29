@@ -24,9 +24,18 @@ class SaveMarketplaceRequest extends FormRequest
     public function rules()
     {
         return [
-            'commissionType' => 'string',
-            'erpId' => 'string',
-            'name' => 'string',
+            'commissionType' => 'required',
+            'erpId' => 'required',
+            'name' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'commissionType.required' => 'Tipo de Comissão deve ser escolhida.',
+            'erpId.required' => 'ID do Marketplace no Bling deve ser preenchido',
+            'name.required' => 'Nome do marketplace deve ser preenchido',
         ];
     }
 }
