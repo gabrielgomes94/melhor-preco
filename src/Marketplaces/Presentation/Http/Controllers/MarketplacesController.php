@@ -2,13 +2,12 @@
 
 namespace Src\Marketplaces\Presentation\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Src\Marketplaces\Domain\UseCases\Contracts\CreateMarketplace;
 use Src\Marketplaces\Domain\UseCases\Contracts\ListMarketplaces;
 use Src\Marketplaces\Presentation\Http\Requests\SaveMarketplaceRequest;
 
-class StoresController extends Controller
+class MarketplacesController extends Controller
 {
     private CreateMarketplace $createStore;
     private ListMarketplaces $listMarketplaces;
@@ -21,12 +20,12 @@ class StoresController extends Controller
         $this->listMarketplaces = $listMarketplaces;
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('pages.marketplaces.create');
     }
 
-    public function list(Request $request)
+    public function list()
     {
         $data = $this->listMarketplaces->list();
 
