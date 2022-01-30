@@ -30,7 +30,7 @@ class CalculatePrice implements CalculatePrices
     private function getCommission(Store $store, ?Percentage $commission): float
     {
         return $commission
-            ? $commission->get()
+            ? $commission->getFraction()
             : $store->getDefaultCommission();
     }
 

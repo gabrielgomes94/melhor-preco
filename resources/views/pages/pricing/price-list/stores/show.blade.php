@@ -38,7 +38,9 @@
 
                 <div class="d-inline-flex flex-row">
                     <x-app.pricing.price-list.filters.buttons :store="$store" />
+
                     <span class="m-2"></span>
+
                     <x-app.pricing.price-list.mass-calculation.buttons :store="$store" />
                 </div>
             </div>
@@ -47,16 +49,11 @@
 
     <div class="row">
         <div class="col-12 mb-4">
-            <x-template.card.card class="p-1">
-                <x-app.pricing.price-list.products.store-list.table
-                    :products="$products"
-                    :store="$store"
-                />
-
-                <div class="my-4">
-                    <x-template.paginator.paginator-links :paginator="$paginator" />
-                </div>
-            </x-template.card.card>
+            <x-app.pricing.price-list.card.card
+                :paginator="$paginator"
+                :products="$products"
+                :store="$store"
+            />
         </div>
     </div>
 </x-layout>

@@ -17,6 +17,7 @@ use Src\Dashboard\Presentation\Http\Controllers\SynchronizationController;
 
 include 'costs/web.php';
 include 'notifications/web.php';
+include 'marketplaces/web.php';
 include 'products/web.php';
 include 'prices/price/web.php';
 include 'sales/web.php';

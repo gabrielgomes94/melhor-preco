@@ -10,7 +10,9 @@
             <x-template.alert-messages.alert-messages />
 
             <x-template.card.card>
-                <x-app.products.reports.over-dimensions-table :products="$overDimensionProducts"/>
+                <x-template.card.card-body>
+                    <x-app.products.reports.over-dimensions-table :products="$overDimensionProducts"/>
+                </x-template.card.card-body>
             </x-template.card.card>
         </div>
     </div>

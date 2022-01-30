@@ -10,11 +10,13 @@
     <div class="row">
         <div class="col-12">
             <x-template.card.card>
-                <div class="d-flex justify-content-between">
-                    <x-app.pricing.price-log.table :products="$products"/>
-                </div>
+                <x-template.card.card-body>
+                    <div class="d-flex justify-content-between">
+                        <x-app.pricing.price-log.table :products="$products"/>
+                    </div>
 
-                <x-template.paginator.paginator-links :paginator="$paginator"/>
+                    <x-template.paginator.paginator-links :paginator="$paginator"/>
+                </x-template.card.card-body>
             </x-template.card.card>
         </div>
     </div>

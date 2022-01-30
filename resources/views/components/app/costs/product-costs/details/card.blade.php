@@ -1,5 +1,11 @@
-<x-template.card.card>
-    <x-app.costs.product-costs.details.card-header :product="$data['product']" />
+<x-bootstrap.card.basic-card>
+    @isset($header)
+        <x-slot name="header">
+            {{ $header }}
+        </x-slot>
+    @endisset
 
-    <x-app.costs.product-costs.details.table.table :data="$data['items']" />
-</x-template.card.card>
+    <x-slot name="body">
+        <x-app.costs.product-costs.details.table.table :data="$data['items']" />
+    </x-slot>
+</x-bootstrap.card.basic-card>

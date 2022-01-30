@@ -230,6 +230,11 @@ return [
         Src\Sales\Infrastructure\Eloquent\RepositoryServiceProvider::class,
 
         /**
+         * Stores' module Service Providers...
+         */
+        Src\Marketplaces\Infrastructure\Laravel\ServiceProviders\MarketplacesServiceProvider::class,
+
+        /**
          * PDF Generator Service Provider...
          */
         Barryvdh\DomPDF\ServiceProvider::class,
