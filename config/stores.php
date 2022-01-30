@@ -25,7 +25,7 @@ return [
     ],
     'mercado_livre' => [
         'name' => 'Mercado Livre',
-        'slug' => 'mercado_livre',
+        'slug' => 'mercado-livre',
         'erpCode' => '203476906',
         'commission' => 16.5,
     ],

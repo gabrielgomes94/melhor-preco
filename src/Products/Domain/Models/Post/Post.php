@@ -4,6 +4,7 @@ namespace Src\Products\Domain\Models\Post;
 
 use Money\Money;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
@@ -17,12 +18,14 @@ class Post implements PostInterface
     protected float $profit;
     protected Identifiers $identifiers;
     protected Store $store;
+    protected ?Marketplace $marketplace;
 
-    public function __construct(Identifiers $identifiers, Store $store, Price $price)
+    public function __construct(Identifiers $identifiers, Store $store, Price $price, ?Marketplace $marketplace = null)
     {
         $this->identifiers = $identifiers;
         $this->store = $store;
         $this->price = $price;
+        $this->marketplace = $marketplace;
     }
 
     public function getId(): string

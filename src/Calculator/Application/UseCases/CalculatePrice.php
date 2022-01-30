@@ -21,6 +21,7 @@ class CalculatePrice implements CalculatePriceInterface
     {
         $post = $this->service->calculate($data);
 
+
         return $this->presenter->transform($post);
     }
 }

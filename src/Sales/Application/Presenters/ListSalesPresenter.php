@@ -2,12 +2,19 @@
 
 namespace Src\Sales\Application\Presenters;
 
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Models\Store\Factory;
 use Src\Sales\Domain\Models\SaleOrder;
 
 class ListSalesPresenter
 {
+    private MarketplaceRepository $marketplaceRepository;
+
+    public function __construct(MarketplaceRepository $marketplaceRepository)
+    {
+        $this->marketplaceRepository = $marketplaceRepository;
+    }
+
     public function listSaleOrder(array $saleOrders): array
     {
         foreach ($saleOrders as $saleOrder) {
@@ -57,6 +64,8 @@ class ListSalesPresenter
 
     private function presentStore($identifiers): string
     {
-        return Factory::makeFromErpCode($identifiers->storeId())->getName();
+        $marketplace = $this->marketplaceRepository->getByErpId($identifiers->storeId());
+
+        return $marketplace->getName();
     }
 }

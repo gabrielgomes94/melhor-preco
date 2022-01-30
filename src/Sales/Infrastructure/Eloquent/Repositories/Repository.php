@@ -3,8 +3,7 @@
 namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Carbon\Carbon;
-use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Infrastructure\Laravel\Config\StoreRepository;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
@@ -54,21 +53,22 @@ class Repository implements RepositoryInterface
 
     public static function getTotalStoresCount(Carbon $beginDate, Carbon $endDate)
     {
-        $stores = StoreRepository::all();
+        $marketplacesRepository = app(MarketplaceRepository::class);
+        $marketplaces = $marketplacesRepository->list();
 
-        foreach ($stores as $store) {
-            $slug = $store->getSlug();
+        foreach ($marketplaces as $marketplace) {
+            $slug = $marketplace->getSlug();
 
-            $storeList[$slug] = [
+            $marketplaceList[$slug] = [
                 'count' => SaleOrder::valid()
                     ->inDateInterval($beginDate, $endDate)
-                    ->where('store_id', $store->getErpCode())
+                    ->where('store_id', $marketplace->getErpCode())
                     ->count(),
-                'name' => $store->getName(),
+                'name' => $marketplace->getName(),
             ];
         }
 
-        return $storeList ?? [];
+        return $marketplaceList ?? [];
     }
 
     public function update(SaleOrder $saleOrder, ?float $profit = null, ?string $status = null): void

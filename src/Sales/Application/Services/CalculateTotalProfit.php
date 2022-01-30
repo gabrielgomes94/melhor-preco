@@ -3,33 +3,33 @@
 namespace Src\Sales\Application\Services;
 
 use Money\Money;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData as PriceProductData;
 use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Math\MoneyTransformer;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Models\Store\Store;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Services\Contracts\CalculateTotalProfit as CalculateTotalProfitInterface;
-use Src\Sales\Infrastructure\Eloquent\Repositories\StoreRepository;
 use Src\Sales\Infrastructure\Logging\Logging;
 
 class CalculateTotalProfit implements CalculateTotalProfitInterface
 {
     private CalculatePrice $calculatePrice;
     private ProductRepository $productRepository;
-    private StoreRepository $storeRepository;
+    private MarketplaceRepository $marketplaceRepository;
 
     public function __construct(
         CalculatePrice $calculatePrice,
         ProductRepository $productRepository,
-        StoreRepository $storeRepository
+        MarketplaceRepository $marketplaceRepository
     ) {
         $this->calculatePrice = $calculatePrice;
         $this->productRepository = $productRepository;
-        $this->storeRepository = $storeRepository;
+        $this->marketplaceRepository = $marketplaceRepository;
     }
 
     public function execute(SaleOrder $saleOrder): float
@@ -50,18 +50,20 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             return;
         }
 
-        if (!$store = $this->storeRepository->get($saleOrder)) {
+        if (!$marketplace = $this->marketplaceRepository->getByErpId(
+            $saleOrder->getIdentifiers()->storeId()
+        )) {
             return;
         }
 
-        $profit = $this->getProfit($product, $store, $item, $profit);
+        $profit = $this->getProfit($product, $marketplace, $item, $profit);
 
         Logging::priceCalculated($profit);
     }
 
-    private function getCommission(Product $product, Store $store): Percentage
+    private function getCommission(Product $product, Marketplace $marketplace): Percentage
     {
-        $post = $product?->getPost($store->getSlug());
+        $post = $product?->getPost($marketplace->getSlug());
 
         if (!$post) {
             return Percentage::fromFraction(0.0);
@@ -75,21 +77,22 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         return Percentage::fromFraction($comissionRate ?? 0.0);
     }
 
-    private function getProductData($product): PriceProductData
+    private function getProductData(Product $product): PriceProductData
     {
         return new PriceProductData(
             costs: $product->getCosts(),
-            dimensions: $product->getDimensions()
+            dimensions: $product->getDimensions(),
+            category: $product->getCategory(),
         );
     }
 
-    private function getProfit(Product $product, ?Store $store, Item $item, Money $profit): Money
+    private function getProfit(Product $product, Marketplace $marketplace, Item $item, Money $profit): Money
     {
         $price = $this->calculatePrice->calculate(
             $this->getProductData($product),
-            $store,
+            $marketplace,
             $this->getValue($item),
-            $this->getCommission($product, $store)
+            $this->getCommission($product, $marketplace)
         );
 
         $profit = $profit->add(

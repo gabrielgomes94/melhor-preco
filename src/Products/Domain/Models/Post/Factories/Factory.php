@@ -42,6 +42,7 @@ class Factory
             identifiers: new PostIdentifiers($data['id'], $data['store_sku_id']),
             store: StoreFactory::make($data['store']),
             price: $price,
+//            marketplace:
         );
     }
 

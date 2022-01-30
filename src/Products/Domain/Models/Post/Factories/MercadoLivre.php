@@ -8,6 +8,7 @@ use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Application\Services\CalculatePost;
 use Src\Calculator\Application\Services\CalculatePrice;
+use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Models\Post\MercadoLivrePost;
@@ -34,7 +35,8 @@ class MercadoLivre implements FactoryInterface
             StoreFactory::make($data['store']),
             price: $this->calculatePostService->calculate($data)
         );
-        $secondaryPrice = self::getSecondaryPrice($post, $data['costs'], $data['dimensions']);
+
+        $secondaryPrice = self::getSecondaryPrice($post, $data['costs'], $data['dimensions'], $data['category']);
         $post->setSecondaryPrice($secondaryPrice);
 
         return $post;
@@ -52,10 +54,10 @@ class MercadoLivre implements FactoryInterface
         return $post;
     }
 
-    private function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
+    private function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions, Category $category): Price
     {
         return $this->calculatePriceService->calculate(
-            productData: new ProductData($costs, $dimensions),
+            productData: new ProductData($costs, $dimensions, $category),
             store: $post->getStore(),
             value: MoneyTransformer::toFloat($post->getPrice()->get()),
             commission: Percentage::fromFraction($post->getPrice()->getCommission()->getCommissionRate()),

@@ -6,7 +6,7 @@ use Src\Prices\Domain\Models\Price;
 
 class Transformer
 {
-    public static function transform(string $storeSlug, array $product): ?Price
+    public static function transform(string $storeSlug, string $storeCode, array $product): ?Price
     {
         if (!isset($product)) {
             return null;
@@ -23,6 +23,7 @@ class Transformer
             'created_at' => $product['produtoLoja']['dataInclusao'] ?? '',
             'updated_at' => $product['produtoLoja']['dataAlteracao'] ?? '',
             'product_sku' => $product['codigo'],
+            'marketplace_erp_id' => $storeCode,
         ]);
     }
 }

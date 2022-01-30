@@ -3,28 +3,30 @@
 namespace Src\Calculator\Domain\Models\Product;
 
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData as ProductDataInterface;
+use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
-use Src\Products\Domain\Models\Product\Data\Costs\Factory as CostsFactory;
 use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
-use Src\Products\Domain\Models\Product\Data\Dimensions\Factory as DimensionsFactory;
 use Src\Products\Domain\Models\Product\Product;
 
 class ProductData implements ProductDataInterface
 {
-    private Costs $costs;
-    private Dimensions $dimensions;
+    public readonly Costs $costs;
+    public readonly Dimensions $dimensions;
+    public readonly ?Category $category;
 
-    public function __construct(Costs $costs, Dimensions $dimensions)
+    public function __construct(Costs $costs, Dimensions $dimensions, ?Category $category)
     {
         $this->costs = $costs;
         $this->dimensions = $dimensions;
+        $this->category = $category;
     }
 
     public static function fromModel(Product $product): self
     {
         return new self(
-            CostsFactory::make($product),
-            DimensionsFactory::make($product)
+            $product->getCosts(),
+            $product->getDimensions(),
+            $product->getCategory()
         );
     }
 
@@ -38,7 +40,7 @@ class ProductData implements ProductDataInterface
             throw new \Exception('Invalid dimensions attribute type');
         }
 
-        return new self($data['costs'], $data['dimensions']);
+        return new self($data['costs'], $data['dimensions'], $data['category']);
     }
 
     public function getCosts(): Costs
@@ -49,5 +51,10 @@ class ProductData implements ProductDataInterface
     public function getDimensions(): Dimensions
     {
         return $this->dimensions;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
     }
 }

@@ -26,7 +26,7 @@ class GetCategoryWithCommission
 
         return $categories->map(function(Category $category) use ($marketplace) {
             $categoryId = $category->getCategoryId();
-            $commission = $marketplace->getCommission($categoryId);
+            $commission = $marketplace->getCommissionByCategory($categoryId);
 
             return [
                 'name' => $category->getFullName(),

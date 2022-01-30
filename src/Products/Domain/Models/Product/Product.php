@@ -152,6 +152,16 @@ class Product extends Model implements ProductModelInterface
         return new Variations($this->parent_sku, $variationProducts ?? []);
     }
 
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function getCategoryId(): string
+    {
+        return $this->getCategory()?->getCategoryId() ?? '';
+    }
+
     public function getCosts(): Costs
     {
         return new Costs(
@@ -197,6 +207,7 @@ class Product extends Model implements ProductModelInterface
             $posts[] = PostFactory::make(array_merge($price, [
                 'costs' => $this->getCosts(),
                 'dimensions' => $this->getDimensions(),
+                'category' => $this->category,
             ]));
         }
 

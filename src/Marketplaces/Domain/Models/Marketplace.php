@@ -65,24 +65,42 @@ class Marketplace extends Model implements MarketplaceInterface
         return array_unique($commissionList ?? []);
     }
 
-    public function getCommissions()
+    public function getCommissions(): array
     {
         return $this->extra['commissionValues'] ?? [];
     }
 
-    public function getCommission(?string $categoryId = null): ?Percentage
+    public function getCommissionByCategory(?string $categoryId = null): ?Percentage
     {
-        if ($this->getCommissionType() === CommissionType::CATEGORY_COMMISSION) {
-            $commissions = $this->getCommissions();
+        if (!$this->hasCommissionByCategory()) {
+            throw new \Exception('Marketplace não possui comissões por categorias.');
+        }
 
-            foreach ($commissions as $data) {
-                if ($data['categoryId'] === $categoryId) {
-                    return Percentage::fromPercentage($data['commission']);
-                }
+        $commissions = $this->getCommissions();
+
+        foreach ($commissions as $data) {
+            if ($data['categoryId'] === $categoryId) {
+                return Percentage::fromPercentage($data['commission']);
             }
         }
 
         return null;
+    }
+
+    public function getUniqueCommission(): ?Percentage
+    {
+        if (!$this->hasUniqueCommission()) {
+            throw new \Exception('Marketplace possui varias commissões');
+        }
+
+        $commissions = $this->getCommissions();
+        $data = array_shift($commissions);
+
+        if (empty($data['commission'])) {
+            return null;
+        }
+
+        return Percentage::fromPercentage($data['commission']);
     }
 
     public function setCommissionByCategory(Collection $commissions)
@@ -107,5 +125,15 @@ class Marketplace extends Model implements MarketplaceInterface
         ];
 
         $this->extra = array_merge($this->extra, $extra);
+    }
+
+    public function hasUniqueCommission(): bool
+    {
+        return $this->getCommissionType() === CommissionType::UNIQUE_COMMISSION;
+    }
+
+    public function hasCommissionByCategory(): bool
+    {
+        return $this->getCommissionType() === CommissionType::CATEGORY_COMMISSION;
     }
 }

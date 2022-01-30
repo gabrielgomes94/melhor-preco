@@ -4,7 +4,6 @@ namespace Src\Prices\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Products\Domain\Models\Store\Factory;
 
 class PriceLogPresenter
 {
@@ -18,7 +17,7 @@ class PriceLogPresenter
     public function list(LengthAwarePaginator $paginator, string $storeSlug): array
     {
         $store = new StorePresenter(
-            name: Factory::make($storeSlug)->getName(),
+            name: $storeSlug,
             slug: $storeSlug
         );
         $products = $this->present($paginator->items());

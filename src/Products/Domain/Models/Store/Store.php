@@ -5,6 +5,9 @@ namespace Src\Products\Domain\Models\Store;
 use InvalidArgumentException;
 use Src\Products\Domain\Models\Store\Contracts\Store as StoreInterface;
 
+/**
+ * @deprecated
+ */
 class Store implements StoreInterface
 {
     private array $validStores = [
@@ -12,10 +15,10 @@ class Store implements StoreInterface
         'b2w',
         'barrigudinha',
         'magalu',
-        'mercado_livre',
+        'mercado-livre',
         'olist',
         'shopee',
-        'via_varejo',
+        'via-varejo',
     ];
 
     private string $slug;
