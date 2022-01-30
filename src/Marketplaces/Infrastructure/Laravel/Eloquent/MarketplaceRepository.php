@@ -7,7 +7,6 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
 
 class MarketplaceRepository implements MarketplaceRepositoryInterface
-
 {
     public function getByErpId(string $marketplaceErpId): ?Marketplace
     {

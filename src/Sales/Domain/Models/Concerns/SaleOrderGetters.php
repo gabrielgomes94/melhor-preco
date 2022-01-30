@@ -32,7 +32,8 @@ trait SaleOrderGetters
             purchaseOrderId: $this->purchase_order_id,
             integration: $this->integration,
             storeId: $this->store_id,
-            storeSaleOrderId: $this->store_sale_order_id);
+            storeSaleOrderId: $this->store_sale_order_id
+        );
     }
 
     public function getItems(): Items

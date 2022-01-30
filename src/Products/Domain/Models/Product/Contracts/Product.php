@@ -9,7 +9,6 @@ use Src\Products\Domain\Models\Product\Data\Details\Details;
 use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Models\Product\Data\Identifiers\Identifiers;
 use Src\Products\Domain\Models\Product\Data\Variations\Variations;
-use Src\Products\Domain\Models\Store\Contracts\Store;
 
 interface Product
 {
@@ -26,8 +25,6 @@ interface Product
     public function getPost(string $storeSlug): ?Post;
 
     public function getPosts(): array;
-
-    public function getStore(string $storeSlug): ?Store;
 
     public function getVariations(): ?Variations;
 

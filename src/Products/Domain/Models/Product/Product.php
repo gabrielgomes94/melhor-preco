@@ -20,7 +20,6 @@ use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Models\Product\Data\Identifiers\Identifiers;
 use Src\Products\Domain\Models\Product\Data\Variations\Variations;
 use Src\Products\Domain\Models\Product\Contracts\Product as ProductModelInterface;
-use Src\Products\Domain\Models\Store\Contracts\Store;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Sales\Domain\Models\Item;
 
@@ -214,17 +213,6 @@ class Product extends Model implements ProductModelInterface
         return $posts ?? [];
     }
 
-    public function getStore(string $storeSlug): ?Store
-    {
-        foreach ($this->getPosts() as $post) {
-            if ($post->getStore()->getSlug() === $storeSlug) {
-                return $post->getStore();
-            }
-        }
-
-        return null;
-    }
-
     public function getCreationDate(): Carbon
     {
         return $this->created_at;
@@ -296,7 +284,7 @@ class Product extends Model implements ProductModelInterface
     public function scopeIsOnStore($query, string $store)
     {
 
-        return $query->whereHas('prices', function(Builder $query) use ($store) {
+        return $query->whereHas('prices', function (Builder $query) use ($store) {
             $query->where('store', '=', $store);
         });
     }

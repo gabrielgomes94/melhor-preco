@@ -50,9 +50,11 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             return;
         }
 
-        if (!$marketplace = $this->marketplaceRepository->getByErpId(
-            $saleOrder->getIdentifiers()->storeId()
-        )) {
+        if (
+            !$marketplace = $this->marketplaceRepository->getByErpId(
+                $saleOrder->getIdentifiers()->storeId()
+            )
+        ) {
             return;
         }
 

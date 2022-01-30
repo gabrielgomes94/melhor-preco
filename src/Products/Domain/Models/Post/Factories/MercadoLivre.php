@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Models\Post\Factories;
 
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
 use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Price\Price;
@@ -15,24 +16,27 @@ use Src\Products\Domain\Models\Post\MercadoLivrePost;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
-use Src\Products\Domain\Models\Store\Factory as StoreFactory;
 
 class MercadoLivre implements FactoryInterface
 {
     private CalculatePrice $calculatePriceService;
     private CalculatePost $calculatePostService;
+    private MarketplaceRepository $marketplaceRepository;
 
-    public function __construct(CalculatePrice $calculatePriceService, CalculatePost $calculatePostService)
+    public function __construct(CalculatePrice $calculatePriceService, CalculatePost $calculatePostService, MarketplaceRepository $marketplaceRepository)
     {
         $this->calculatePriceService = $calculatePriceService;
         $this->calculatePostService = $calculatePostService;
+        $this->marketplaceRepository = $marketplaceRepository;
     }
 
     public function make(array $data): Post
     {
+        $marketplace = $this->marketplaceRepository->getBySlug($data['store']);
+
         $post = new MercadoLivrePost(
-            new PostIdentifiers($data['id'], $data['store_sku_id']),
-            StoreFactory::make($data['store']),
+            identifiers: new PostIdentifiers($data['id'], $data['store_sku_id']),
+            marketplace: $marketplace,
             price: $this->calculatePostService->calculate($data)
         );
 
@@ -42,14 +46,14 @@ class MercadoLivre implements FactoryInterface
         return $post;
     }
 
-    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
+    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions, Category $category): Post
     {
         $post = new MercadoLivrePost(
             identifiers: $post->getIdentifiers(),
-            store: $post->getStore(),
+            marketplace: $post->getMarketplace(),
             price: $price,
         );
-        $post->setSecondaryPrice(self::getSecondaryPrice($post, $costs, $dimensions));
+        $post->setSecondaryPrice(self::getSecondaryPrice($post, $costs, $dimensions, $category));
 
         return $post;
     }
@@ -58,7 +62,7 @@ class MercadoLivre implements FactoryInterface
     {
         return $this->calculatePriceService->calculate(
             productData: new ProductData($costs, $dimensions, $category),
-            store: $post->getStore(),
+            marketplace: $post->getMarketplace(),
             value: MoneyTransformer::toFloat($post->getPrice()->get()),
             commission: Percentage::fromFraction($post->getPrice()->getCommission()->getCommissionRate()),
             options: ['ignoreFreight' => true]

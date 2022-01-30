@@ -69,7 +69,6 @@ class ProductRepository implements ErpProductRepositoryInterface
 
             throw new \Exception("Erro: produto não foi enviado para o Bling.");
         }
-
     }
 
     private function storeImages(string $path, array $images): array

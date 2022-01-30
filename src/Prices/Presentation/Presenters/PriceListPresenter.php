@@ -28,7 +28,7 @@ class PriceListPresenter
         );
 
         $categories = $this->categoryRepository->list();
-        $categories = $categories->map(function(Category $category) {
+        $categories = $categories->map(function (Category $category) {
             return [
                 'name' => $category->getFullName(),
                 'category_id' => $category->getCategoryId(),

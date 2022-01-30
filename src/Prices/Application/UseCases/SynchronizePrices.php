@@ -15,6 +15,7 @@ use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use TypeError;
+
 use function event;
 
 class SynchronizePrices implements SynchronizePricesInterface
