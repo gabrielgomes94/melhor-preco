@@ -14,11 +14,16 @@ class SimulatePostService implements SimulatePost
 {
     private CalculatePrice $calculatePrice;
     private MarketplaceRepository $marketplaceRepository;
+    private PostFactory $postFactory;
 
-    public function __construct(CalculatePrice $calculatePrice, MarketplaceRepository $marketplaceRepository)
-    {
+    public function __construct(
+        CalculatePrice $calculatePrice,
+        MarketplaceRepository $marketplaceRepository,
+        PostFactory $postFactory
+    ) {
         $this->calculatePrice = $calculatePrice;
         $this->marketplaceRepository = $marketplaceRepository;
+        $this->postFactory = $postFactory;
     }
 
     public function calculate(array $data): Post
@@ -39,6 +44,6 @@ class SimulatePostService implements SimulatePost
 
         $post = $product->getPost($data['storeSlug']);
 
-        return PostFactory::updatePrice($product, $post, $price);
+        return $this->postFactory->updatePrice($product, $post, $price);
     }
 }

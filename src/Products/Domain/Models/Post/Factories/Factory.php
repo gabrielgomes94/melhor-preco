@@ -20,6 +20,17 @@ use Src\Products\Domain\Models\Store\Factory as StoreFactory;
  */
 class Factory
 {
+    private Magalu $magaluFactory;
+    private MercadoLivre $mercadoLivreFactory;
+
+    public function __construct(
+        Magalu $magaluFactory,
+        MercadoLivre $mercadoLivreFactory
+    ) {
+        $this->magaluFactory = $magaluFactory;
+        $this->mercadoLivreFactory = $mercadoLivreFactory;
+    }
+
     private static array $mapper = [
         'magalu' => Magalu::class,
         'mercado_livre' => MercadoLivre::class,
@@ -49,17 +60,28 @@ class Factory
         );
     }
 
-    public static function updatePrice(Product $product, Post $post, Price $price): Post
+    public function updatePrice(Product $product, Post $post, Price $price): Post
     {
-//        $store = $post->getStore()->getSlug();
-        $applicationContainer = Container::getInstance();
+        $marketplaceSlug = $post->getMarketplace()->getSlug();
+        if ($marketplaceSlug === 'magalu') {
+            return $this->magaluFactory->updatePrice(
+                $post,
+                $price,
+                $product->getCosts(),
+                $product->getDimensions(),
+                $product->getCategory()
+            );
+        }
 
-//        if (in_array($store, array_keys(self::$mapper))) {
-//            $class = self::$mapper[$store];
-//            $factory = $applicationContainer->make($class);
-//
-//            return $factory->updatePrice($post, $price, $product->getCosts(), $product->getDimensions());
-//        }
+        if ($marketplaceSlug === 'mercado-livre') {
+            return $this->mercadoLivreFactory->updatePrice(
+                $post,
+                $price,
+                $product->getCosts(),
+                $product->getDimensions(),
+                $product->getCategory()
+            );
+        }
 
         return new PostObject(
             identifiers: $post->getIdentifiers(),

@@ -192,7 +192,7 @@ class Product extends Model implements ProductModelInterface
     public function getPost(string $storeSlug): ?Post
     {
         foreach ($this->getPosts() as $post) {
-            if ($post->getStore()->getSlug() === $storeSlug) {
+            if ($post->getMarketplace()->getSlug() === $storeSlug) {
                 return $post;
             }
         }

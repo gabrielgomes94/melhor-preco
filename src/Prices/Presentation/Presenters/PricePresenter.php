@@ -29,7 +29,7 @@ class PricePresenter
     private function presentPrice(Product $product, Post $post): array
     {
         $price = $post->getPrice();
-        $store = $post->getStore();
+        $store = $post->getMarketplace();
 
         return [
             'name' => $product->getDetails()->getName(),

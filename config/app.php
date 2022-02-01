@@ -209,9 +209,15 @@ return [
         Src\Prices\Infrastructure\Laravel\ServiceProviders\EventServiceProvider::class,
 
         /**
-         * Prices' Calculator module Services Providers...
+         * Calculator module Services Providers...
          */
         Src\Calculator\Infrastructure\Laravel\ServiceProviders\CalculatorServiceProvider::class,
+
+        /**
+         * Prices' module Services Providers...
+         */
+        \Src\Prices\Infrastructure\Laravel\ServiceProviders\PricesServiceProvider::class,
+
 
         /**
          * Products' module Service Providers...

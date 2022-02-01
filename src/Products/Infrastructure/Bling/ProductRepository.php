@@ -48,8 +48,6 @@ class ProductRepository implements ErpProductRepositoryInterface
         $activeProductsCollection = $this->listPricesOnStore($marketplace, Config::ACTIVE);
         $inactiveProductsCollection = $this->listPricesOnStore($marketplace, Config::INACTIVE);
 
-
-
         return array_merge($activeProductsCollection, $inactiveProductsCollection);
     }
 

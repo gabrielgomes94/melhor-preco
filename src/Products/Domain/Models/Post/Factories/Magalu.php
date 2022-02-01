@@ -10,6 +10,7 @@ use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Application\Services\CalculatePost;
 use Src\Calculator\Application\Services\CalculatePrice;
+use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Models\Post\MagaluPost;
@@ -49,22 +50,22 @@ class Magalu implements FactoryInterface
         return $post;
     }
 
-    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions): Post
+    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions, Category $category): Post
     {
         $post = new MagaluPost(
             identifiers: $post->getIdentifiers(),
             marketplace: $post->getMarketplace(),
             price: $price,
         );
-        $post->setSecondaryPrice($this->getSecondaryPrice($post, $costs, $dimensions));
+        $post->setSecondaryPrice($this->getSecondaryPrice($post, $costs, $dimensions, $category));
 
         return $post;
     }
 
-    private function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions): Price
+    private function getSecondaryPrice(Post $post, Costs $costs, Dimensions $dimensions, Category $category): Price
     {
         return $this->calculatePriceService->calculate(
-            productData: new ProductData($costs, $dimensions),
+            productData: new ProductData($costs, $dimensions, $category),
             marketplace: $post->getMarketplace(),
             value: MoneyTransformer::toFloat($post->getPrice()->get()),
             commission: Percentage::fromFraction($post->getPrice()->getCommission()->getCommissionRate()),

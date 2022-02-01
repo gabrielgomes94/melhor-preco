@@ -4,6 +4,8 @@ namespace Src\Prices\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
 
@@ -11,13 +13,16 @@ class PriceListPresenter
 {
     private Breadcrumb $breadcrumb;
     private CategoryRepository $categoryRepository;
+    private MarketplaceRepository $marketplaceRepository;
 
     public function __construct(
         Breadcrumb $breadcrumb,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        MarketplaceRepository $marketplaceRepository
     ) {
         $this->breadcrumb = $breadcrumb;
         $this->categoryRepository = $categoryRepository;
+        $this->marketplaceRepository = $marketplaceRepository;
     }
 
     public function list(LengthAwarePaginator $paginator, string $store, array $parameters)
@@ -34,6 +39,14 @@ class PriceListPresenter
                 'category_id' => $category->getCategoryId(),
             ];
         })->sortBy('name');
+
+        $marketplaces = $this->marketplaceRepository->list();
+        $marketplaces = $marketplaces->map(function(Marketplace $marketplace) {
+            return [
+                'slug' => $marketplace->getSlug(),
+                'name' => $marketplace->getName(),
+            ];
+        });
 
         return [
             'breadcrumb' => $this->getBreadcrumb($store),
@@ -52,7 +65,8 @@ class PriceListPresenter
             'massCalculation' => [
                 'margin' => 00.0,
                 'commission' => 0.0,
-            ]
+            ],
+            'marketplaces' => $marketplaces,
         ];
     }
 

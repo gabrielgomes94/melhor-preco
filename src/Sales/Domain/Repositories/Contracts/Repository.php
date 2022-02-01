@@ -9,11 +9,11 @@ interface Repository
 {
     public const PER_PAGE = 40;
 
-    public static function getTotalValueSum(Carbon $beginDate, Carbon $endDate);
+    public function getTotalValueSum(Carbon $beginDate, Carbon $endDate);
 
-    public static function getTotalProfitSum(Carbon $beginDate, Carbon $endDate);
+    public function getTotalProfitSum(Carbon $beginDate, Carbon $endDate);
 
-    public static function listPaginate(
+    public function listPaginate(
         Carbon $beginDate,
         Carbon $endDate,
         int $page,

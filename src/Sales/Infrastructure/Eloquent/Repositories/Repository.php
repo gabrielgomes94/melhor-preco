@@ -3,6 +3,7 @@
 namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Carbon\Carbon;
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
@@ -12,7 +13,14 @@ use function event;
 
 class Repository implements RepositoryInterface
 {
-    public static function listPaginate(
+    private MarketplaceRepository $marketplaceRepository;
+
+    public function __construct(MarketplaceRepository $marketplaceRepository)
+    {
+        $this->marketplaceRepository = $marketplaceRepository;
+    }
+
+    public function listPaginate(
         Carbon $beginDate,
         Carbon $endDate,
         int $page,
@@ -24,52 +32,41 @@ class Repository implements RepositoryInterface
             ->paginate(page: $page, perPage: $perPage);
     }
 
-    public static function getTotalValueSum(Carbon $beginDate, Carbon $endDate)
+    public function getTotalValueSum(Carbon $beginDate, Carbon $endDate)
     {
         return SaleOrder::valid()
             ->inDateInterval($beginDate, $endDate)
             ->sum('total_value');
     }
 
-    public static function getTotalProfitSum(Carbon $beginDate, Carbon $endDate)
+    public function getTotalProfitSum(Carbon $beginDate, Carbon $endDate)
     {
         return SaleOrder::valid()
             ->inDateInterval($beginDate, $endDate)
             ->sum('total_profit');
     }
 
-    public static function getTotalSalesCount(Carbon $beginDate, Carbon $endDate)
+    public function getTotalSalesCount(Carbon $beginDate, Carbon $endDate)
     {
         return SaleOrder::valid()
             ->inDateInterval($beginDate, $endDate)
             ->count();
     }
 
-    public static function getTotalProductsCount(Carbon $beginDate, Carbon $endDate)
+    public function getTotalProductsCount(Carbon $beginDate, Carbon $endDate)
     {
         return SaleOrder::withCount('items')
             ->inDateInterval($beginDate, $endDate)
             ->count();
     }
 
-    public static function getTotalStoresCount(Carbon $beginDate, Carbon $endDate)
+    public function getTotalStoresCount(Carbon $beginDate, Carbon $endDate)
     {
-        $marketplacesRepository = app(MarketplaceRepository::class);
-        $marketplaces = $marketplacesRepository->list();
+        $marketplaces = $this->marketplaceRepository->list();
 
-        foreach ($marketplaces as $marketplace) {
-            $slug = $marketplace->getSlug();
-
-            $marketplaceList[$slug] = [
-                'count' => SaleOrder::valid()
-                    ->inDateInterval($beginDate, $endDate)
-                    ->where('store_id', $marketplace->getErpCode())
-                    ->count(),
-                'name' => $marketplace->getName(),
-            ];
-        }
-
-        return $marketplaceList ?? [];
+        return $marketplaces->mapWithKeys(function (Marketplace $marketplace) use ($beginDate, $endDate){
+            return $this->mapMarketplaceCount($marketplace, $beginDate, $endDate);
+        })->all();
     }
 
     public function update(SaleOrder $saleOrder, ?float $profit = null, ?string $status = null): void
@@ -97,5 +94,20 @@ class Repository implements RepositoryInterface
         $lastUpdatedProduct = SaleOrder::query()->orderByDesc('selled_at')->first();
 
         return $lastUpdatedProduct?->getLastUpdate();
+    }
+
+    private function mapMarketplaceCount(Marketplace $marketplace, Carbon $beginDate, Carbon $endDate): array
+    {
+        $slug = $marketplace->getSlug();
+
+        return [
+            $slug => [
+                'count' => SaleOrder::valid()
+                    ->inDateInterval($beginDate, $endDate)
+                    ->where('store_id', $marketplace->getErpId())
+                    ->count(),
+                'name' => $marketplace->getName(),
+            ],
+        ];
     }
 }

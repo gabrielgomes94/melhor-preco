@@ -13,6 +13,4 @@ use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 interface Factory
 {
     public function make(array $data): Post;
-
-    public function updatePrice(Post $post, Price $price, Costs $costs, Dimensions $dimensions, Category $category): Post;
 }
