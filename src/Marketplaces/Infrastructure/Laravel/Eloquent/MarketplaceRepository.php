@@ -8,13 +8,18 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRep
 
 class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
-    public function list(): Collection
+    public function getByErpId(string $marketplaceErpId): ?Marketplace
     {
-        return Marketplace::all();
+        return Marketplace::where('erp_id', $marketplaceErpId)->first();
     }
 
     public function getBySlug(string $marketplaceSlug): ?Marketplace
     {
         return Marketplace::where('slug', $marketplaceSlug)->first();
+    }
+
+    public function list(): Collection
+    {
+        return Marketplace::all();
     }
 }

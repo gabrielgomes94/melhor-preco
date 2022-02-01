@@ -6,7 +6,7 @@ use Src\Integrations\Bling\Base\Responses\Factories\BaseFactory;
 
 class Factory extends BaseFactory
 {
-    public function make(string $storeSlug, array $data)
+    public function make(string $storeSlug, string $storeCode, array $data)
     {
         if ($this->isInvalid($data)) {
             return $this->makeError(data: $data);
@@ -17,7 +17,7 @@ class Factory extends BaseFactory
                 continue;
             }
 
-            if (!$price = Transformer::transform($storeSlug, $product['produto'])) {
+            if (!$price = Transformer::transform($storeSlug, $storeCode, $product['produto'])) {
                 continue;
             }
             $prices[] = $price;

@@ -6,7 +6,6 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Domain\Models\Store\Factory;
 
 class UnprofitablePrice
 {
@@ -30,7 +29,6 @@ class UnprofitablePrice
     {
         $price = $this->getPrice();
         $product = $price->product()->first();
-        $storeName = Factory::make($price->store)->getName();
 
         return [
             'priceId' => $price->id,
@@ -38,7 +36,7 @@ class UnprofitablePrice
             'productName' => $product->name,
             'profitValue' => $price->getProfit(),
             'priceValue' => $price->getValue(),
-            'store' => $storeName,
+            'store' => $price->store,
             'storeSlug' => $price->store,
         ];
     }

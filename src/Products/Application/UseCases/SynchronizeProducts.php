@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\UseCases;
 
-use Src\Prices\Application\Services\Synchronization\SynchronizePrices;
+use Src\Prices\Application\UseCases\SynchronizePrices;
 use Src\Products\Application\Services\SynchronizeProductCosts;
 use Src\Products\Application\Services\SynchronizeProducts as SynchronizeProductsService;
 use Src\Products\Domain\UseCases\Contracts\SyncProducts as SyncProductsInterface;

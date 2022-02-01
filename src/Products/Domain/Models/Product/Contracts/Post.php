@@ -3,8 +3,8 @@
 namespace Src\Products\Domain\Models\Product\Contracts;
 
 use Src\Calculator\Domain\Models\Price\Price;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
-use Src\Products\Domain\Models\Store\Store;
 
 interface Post
 {
@@ -12,7 +12,7 @@ interface Post
 
     public function getIdentifiers(): Identifiers;
 
-    public function getPrice(): Price;
+    public function getMarketplace(): Marketplace;
 
-    public function getStore(): Store;
+    public function getPrice(): Price;
 }

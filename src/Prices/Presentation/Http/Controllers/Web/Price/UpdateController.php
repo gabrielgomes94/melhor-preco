@@ -38,10 +38,16 @@ class UpdateController extends Controller
             return redirect()->back();
         }
 
+        if (!$marketplace = $product->getMarketplace($data['storeSlug'])) {
+            session()->flash('error', 'Loja inválida.');
+
+            return redirect()->back();
+        }
+
         $commission = isset($data['commissionRate']) ? $data['commissionRate'] : null;
 
         try {
-            $this->updatePriceService->updatePrice($product, $store, $data['value'], $commission);
+            $this->updatePriceService->updatePrice($product, $marketplace, $data['value'], $commission);
             session()->flash('message', 'Preço atualizado com sucesso.');
         } catch (UpdatePriceException $exception) {
             session()->flash('error', $exception->getMessage());

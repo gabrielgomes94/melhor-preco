@@ -18,6 +18,7 @@ class Price extends Model
         'value',
         'additional_costs',
         'product_sku',
+        'marketplace_erp_id',
     ];
 
     protected $casts = [
@@ -29,6 +30,11 @@ class Price extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_sku', 'sku');
+    }
+
+    public function getMarketplaceErpId(): string
+    {
+        return $this->marketplace_erp_id;
     }
 
     public function getProductSku(): string
@@ -59,11 +65,6 @@ class Price extends Model
 
         return $post->isProfitable();
     }
-
-//    public function product()
-//    {
-//        return $this->belongsTo(Product::class, 'product_id');
-//    }
 
     public function margin(): float
     {

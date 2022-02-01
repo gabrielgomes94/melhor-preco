@@ -3,9 +3,6 @@
 namespace Src\Sales\Domain\Models\Concerns;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
-use Src\Products\Domain\Models\Store\Factory;
-use Src\Products\Domain\Models\Store\Store;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
 use Src\Sales\Domain\Factories\Invoice;
 use Src\Sales\Domain\Factories\Item;
@@ -35,7 +32,8 @@ trait SaleOrderGetters
             purchaseOrderId: $this->purchase_order_id,
             integration: $this->integration,
             storeId: $this->store_id,
-            storeSaleOrderId: $this->store_sale_order_id);
+            storeSaleOrderId: $this->store_sale_order_id
+        );
     }
 
     public function getItems(): Items
@@ -88,15 +86,6 @@ trait SaleOrderGetters
     public function getShipment(): ShipmentData
     {
         return ShipmentFactory::make($this->shipment);
-    }
-
-    public function getStore(): Store
-    {
-        $slug = $this->store_id
-            ?? $this->getIdentifiers()->storeId()
-            ?? '';
-
-        return Factory::makeFromErpCode($slug);
     }
 
     public function getStatus(): Status

@@ -24,9 +24,9 @@ class GetCategoryWithCommission
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
         $categories = $this->repository->list();
 
-        return $categories->map(function(Category $category) use ($marketplace) {
+        return $categories->map(function (Category $category) use ($marketplace) {
             $categoryId = $category->getCategoryId();
-            $commission = $marketplace->getCommission($categoryId);
+            $commission = $marketplace->getCommissionByCategory($categoryId);
 
             return [
                 'name' => $category->getFullName(),

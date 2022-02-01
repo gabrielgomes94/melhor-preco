@@ -2,11 +2,13 @@
 
 namespace Src\Products\Domain\Repositories\Contracts\Erp;
 
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+
 interface ProductRepository
 {
     public function all();
 
-    public function allOnStore(string $store);
+    public function allOnStore(Marketplace $marketplace);
 
     public function get(string $sku);
 

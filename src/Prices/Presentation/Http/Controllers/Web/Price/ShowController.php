@@ -7,20 +7,24 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
+use Src\Prices\Domain\UseCases\Contracts\ShowPrice;
 use Src\Prices\Presentation\Presenters\PricePresenter;
+use Src\Prices\Presentation\Presenters\ProductPresenter;
+use Src\Products\Application\Exceptions\PostNotFoundException;
+use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 
 class ShowController extends Controller
 {
-    private Breadcrumb $breadcrumb;
-    private PricePresenter $pricePresenter;
+    private ProductPresenter $productPresenter;
+    private ShowPrice $showPrice;
 
     public function __construct(
-        Breadcrumb $breadcrumb,
-        PricePresenter $pricePresenter
+        ProductPresenter $productPresenter,
+        ShowPrice $showPrice
     ) {
-        $this->breadcrumb = $breadcrumb;
-        $this->pricePresenter = $pricePresenter;
+        $this->productPresenter = $productPresenter;
+        $this->showPrice = $showPrice;
     }
 
     /**
@@ -28,28 +32,14 @@ class ShowController extends Controller
      */
     public function showByStore(string $storeSlug, string $productId)
     {
-        if (!$product = Product::find($productId)) {
+        try {
+            $data = $this->showPrice->show($productId, $storeSlug);
+        } catch (ProductNotFoundException $exception) {
             abort(404);
-        }
-
-        if (!$post = $product->getPost($storeSlug)) {
+        } catch (PostNotFoundException $exception) {
             return view('pages.pricing.products.not-integrated');
+        } finally {
+            return view('pages.pricing.products.show', $this->productPresenter->present($data));
         }
-
-        $store = $product->getStore($storeSlug);
-        $breadcrumb = $this->breadcrumb->generate(
-            Breadcrumb::priceListIndex(),
-            Breadcrumb::priceListByStore($store->getName(), $store->getSlug()),
-            Breadcrumb::product($product->getDetails()->getName()),
-        );
-
-        return view('pages.pricing.products.show', [
-            'breadcrumb' => $breadcrumb,
-            'store' => $store,
-            'price' => $this->pricePresenter->present($product, $post),
-            'product' => $product,
-            'productId' => $product->getSku(),
-            'productHeader' => $product->getSku() . '-' . $product->getDetails()->getName(),
-        ]);
     }
 }

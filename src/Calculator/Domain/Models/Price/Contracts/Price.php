@@ -7,13 +7,13 @@ use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Models\Price\Commission\Commission;
 use Src\Calculator\Domain\Models\Price\Costs\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
-use Src\Products\Domain\Models\Store\Store;
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 
 interface Price
 {
     public function __construct(
         ProductData $product,
-        Store $store,
+        Marketplace $marketplace,
         float $value,
         float $commission,
         array $options = []
@@ -40,8 +40,6 @@ interface Price
     public function getPurchasePrice(): Money;
 
     public function getSimplesNacional(): Money;
-
-    public function getStore(): Store;
 
     public function __toString(): string;
 }

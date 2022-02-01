@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Application\UseCases;
 
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Application\Services\CalculatePrice;
@@ -10,7 +11,6 @@ use Src\Prices\Domain\UseCases\Contracts\UpdatePrice as UpdatePriceInterface;
 use Src\Products\Domain\Models\Post\Factories\Factory;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Models\Store\Store;
 
 class UpdatePrice implements UpdatePriceInterface
 {
@@ -23,18 +23,18 @@ class UpdatePrice implements UpdatePriceInterface
         $this->updatePriceService = $updatePriceService;
     }
 
-    public function updatePrice(Product $product, Store $store, float $priceValue, ?float $commission = null): bool
+    public function updatePrice(Product $product, Marketplace $marketplace, float $priceValue, ?float $commission = null): bool
     {
         $products = $this->getProducts($product);
 
         foreach ($products as $product) {
-            if (!$post = $product->getPost($store->getSlug())) {
+            if (!$post = $product->getPost($marketplace->getSlug())) {
                 return false;
             }
 
             $price = $this->calculatePrice->calculate(
                 ProductData::fromModel($product),
-                $store,
+                $marketplace,
                 $priceValue,
                 Percentage::fromFraction($commission ?? $this->getCommissionRate($post))
             );

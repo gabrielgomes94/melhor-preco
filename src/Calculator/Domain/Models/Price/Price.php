@@ -2,6 +2,7 @@
 
 namespace Src\Calculator\Domain\Models\Price;
 
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
@@ -13,7 +14,6 @@ use Src\Calculator\Domain\Models\Price\Commission\Factories\Factory as Commissio
 use Src\Calculator\Domain\Models\Price\Costs\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
 use Src\Calculator\Domain\Models\Price\Freight\Factories\Factory;
-use Src\Products\Domain\Models\Store\Store;
 
 class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
 {
@@ -25,11 +25,11 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
     private Money $profit;
     private Money $value;
     private ProductData $product;
-    private Store $store;
+    private Marketplace $marketplace;
 
-    public function __construct(ProductData $product, Store $store, float $value, float $commission, array $options = [])
+    public function __construct(ProductData $product, Marketplace $marketplace, float $value, float $commission, array $options = [])
     {
-        $this->setParameters($product, $store, $value, $commission, $options);
+        $this->setParameters($product, $marketplace, $value, $commission, $options);
 
         $this->calculate();
     }
@@ -95,11 +95,6 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
         return $this->value->multiply($this->taxSimplesNacional());
     }
 
-    public function getStore(): Store
-    {
-        return $this->store;
-    }
-
     public function __toString(): string
     {
         return MoneyTransformer::toString($this->value);
@@ -117,23 +112,23 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
 
     private function setParameters(
         ProductData $product,
-        Store $store,
+        Marketplace $marketplace,
         float $value,
         float $commission,
         array $options = []
     ): void {
         $this->product = $product;
-        $this->store = $store;
+        $this->store = $marketplace;
 
         $this->setCostPrice($product);
         $this->setValue(
             $value,
             $options[CalculatorOptions::DISCOUNT_RATE] ?? Percentage::fromPercentage(0)
         );
-        $this->setCommission($store->getSlug(), $commission);
+        $this->setCommission($marketplace->getSlug(), $commission);
 
         $ignoreFreight = $options[CalculatorOptions::IGNORE_FREIGHT] ?? false;
-        $this->setFreight($product, $store->getSlug(), $ignoreFreight);
+        $this->setFreight($product, $marketplace->getSlug(), $ignoreFreight);
     }
 
     private function setCommission(string $store, float $commission): void

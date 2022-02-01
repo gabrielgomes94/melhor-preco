@@ -1,42 +1,48 @@
 <?php
 
-namespace Src\Prices\Application\Services\Synchronization;
+namespace Src\Prices\Application\UseCases;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Calculator\Application\Services\CalculateProfit;
-use Src\Calculator\Application\Services\GetCommission;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission;
 use Src\Prices\Domain\Events\PriceSynchronized;
 use Src\Prices\Domain\Events\PriceWasNotSynchronized;
 use Src\Prices\Domain\Models\Price;
+use Src\Prices\Domain\UseCases\Contracts\SynchronizePrices as SynchronizePricesInterface;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use TypeError;
 
-// @todo: criar um UseCase para Sincronização de Preços e separar melhor as responsabilidades
-class SynchronizePrices
+use function event;
+
+class SynchronizePrices implements SynchronizePricesInterface
 {
     private BlingRepository $erpRepository;
     private CalculateProfit $calculateProfit;
     private GetCommission $getCommission;
+    private MarketplaceRepository $marketplaceRepository;
 
     public function __construct(
         BlingRepository $erpRepository,
         CalculateProfit $calculateProfit,
-        GetCommission $getCommission
+        GetCommission $getCommission,
+        MarketplaceRepository $marketplaceRepository
     ) {
         $this->erpRepository = $erpRepository;
         $this->calculateProfit = $calculateProfit;
         $this->getCommission = $getCommission;
+        $this->marketplaceRepository = $marketplaceRepository;
     }
 
     public function sync(): void
     {
-        $stores = array_keys(config("stores_code"));
+        $marketplaces = $this->marketplaceRepository->list();
 
-        foreach ($stores as $store) {
-            $prices = $this->erpRepository->allOnStore($store);
+        foreach ($marketplaces as $marketplace) {
+            $prices = $this->erpRepository->allOnStore($marketplace);
 
             $this->savePrices($prices);
         }
@@ -114,7 +120,10 @@ class SynchronizePrices
 
     private function updateCommissionAndProfit(Price $price): Price
     {
-        $commission = $this->getCommission->get($price->getProductSku(), $price->store);
+        $commission = $this->getCommission->get(
+            $price->getMarketplaceErpId(),
+            $price->getProductSku()
+        );
         $profit = $this->calculateProfit->fromModel($price);
 
         $price->fill([
