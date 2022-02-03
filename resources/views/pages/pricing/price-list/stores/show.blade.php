@@ -42,6 +42,10 @@
                     <span class="m-2"></span>
 
                     <x-app.pricing.price-list.mass-calculation.buttons :store="$store" />
+
+                    <span class="m-2"></span>
+
+                    <x-app.pricing.price-list.sync.buttons :store="$store->slug()" />
                 </div>
             </div>
         </div>

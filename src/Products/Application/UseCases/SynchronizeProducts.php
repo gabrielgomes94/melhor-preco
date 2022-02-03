@@ -27,6 +27,6 @@ class SynchronizeProducts implements SyncProductsInterface
     {
         $this->syncProductsService->sync();
         $this->syncCostsService->sync();
-        $this->syncPricesService->sync();
+        $this->syncPricesService->syncAll();
     }
 }

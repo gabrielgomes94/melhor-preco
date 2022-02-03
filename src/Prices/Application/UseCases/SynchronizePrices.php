@@ -5,6 +5,7 @@ namespace Src\Prices\Application\UseCases;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Calculator\Application\Services\CalculateProfit;
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission;
 use Src\Prices\Domain\Events\PriceSynchronized;
@@ -37,15 +38,25 @@ class SynchronizePrices implements SynchronizePricesInterface
         $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function sync(): void
+    public function syncAll(): void
     {
         $marketplaces = $this->marketplaceRepository->list();
 
         foreach ($marketplaces as $marketplace) {
-            $prices = $this->erpRepository->allOnStore($marketplace);
-
-            $this->savePrices($prices);
+            $this->sync($marketplace);
         }
+    }
+
+    public function syncMarketplace(string $marketplaceSlug): void
+    {
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
+        $this->sync($marketplace);
+    }
+
+    private function sync(Marketplace $marketplace): void
+    {
+        $prices = $this->erpRepository->allOnStore($marketplace);
+        $this->savePrices($prices);
     }
 
     private function insertPrice(Price $price): void

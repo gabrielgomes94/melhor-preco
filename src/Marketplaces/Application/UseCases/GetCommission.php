@@ -31,7 +31,7 @@ class GetCommission implements GetCommissionInterface
         if ($marketplace->hasCommissionByCategory()) {
             return $marketplace->getCommissionByCategory(
                 $product->getCategoryId()
-            )->getFraction();
+            )?->getFraction() ?? 0.0;
         }
 
         return 0.0;

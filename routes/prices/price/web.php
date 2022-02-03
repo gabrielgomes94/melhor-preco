@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Prices\Presentation\Http\Controllers\Web\Price\CalculatorController;
+use Src\Prices\Presentation\Http\Controllers\Web\Price\SyncController;
 use Src\Prices\Presentation\Http\Controllers\Web\Price\UpdateController;
 use Src\Prices\Presentation\Http\Controllers\Web\PriceList\IndexController;
 use Src\Prices\Presentation\Http\Controllers\Web\PriceList\ShowController;
@@ -33,6 +34,9 @@ Route::middleware('auth')->group(function () {
                     Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])
                         ->name('.showByStore');
                 });
+
+            Route::post('/{store_slug}/sync', [SyncController::class, 'sync'])
+                ->name('.sync');
 
             Route::prefix('/price_log')
                 ->name('.priceLog')
