@@ -18,6 +18,6 @@ class SyncPrices implements ShouldQueue
 
     public function handle(SynchronizePrices $syncService): void
     {
-        $syncService->sync();
+        $syncService->syncAll();
     }
 }
