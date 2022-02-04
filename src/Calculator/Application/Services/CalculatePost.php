@@ -33,7 +33,7 @@ class CalculatePost
             productData: ProductData::fromArray($data),
             marketplace: $marketplace,
             value: $data['value'],
-            commission: Percentage::fromPercentage($data['commission']),
+            commission: Percentage::fromFraction($data['commission']),
             options: $options
         );
     }
