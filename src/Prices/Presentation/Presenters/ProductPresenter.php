@@ -4,19 +4,23 @@ namespace Src\Prices\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Models\Product\Product;
 
 class ProductPresenter
 {
     private Breadcrumb $breadcrumb;
     private PricePresenter $pricePresenter;
+    private MarketplaceRepository $marketplaceRepository;
 
     public function __construct(
         Breadcrumb $breadcrumb,
-        PricePresenter $pricePresenter
+        PricePresenter $pricePresenter,
+        MarketplaceRepository $marketplaceRepository
     ) {
         $this->breadcrumb = $breadcrumb;
         $this->pricePresenter = $pricePresenter;
+        $this->marketplaceRepository = $marketplaceRepository;
     }
 
     public function present(array $data): array
@@ -25,6 +29,7 @@ class ProductPresenter
         $post = $data['post'];
 
         $marketplace = $post->getMarketplace();
+        $marketplaces = $this->marketplaceRepository->list();
 
         return [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
@@ -33,6 +38,7 @@ class ProductPresenter
             'product' => $product,
             'productId' => $product->getSku(),
             'productHeader' => $this->getProductHeader($product),
+            'marketplaces' => $marketplaces,
         ];
     }
 
