@@ -14,5 +14,5 @@ interface Post
 
     public function getMarketplace(): Marketplace;
 
-    public function getPrice(): Price;
+    public function getCalculatedPrice(): Price;
 }

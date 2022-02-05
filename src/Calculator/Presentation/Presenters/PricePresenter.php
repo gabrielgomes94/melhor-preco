@@ -2,6 +2,7 @@
 
 namespace Src\Calculator\Presentation\Presenters;
 
+use Money\Money;
 use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Price\Price;
 use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
@@ -12,7 +13,7 @@ class PricePresenter
     public function transform(Post $post): array
     {
         $data = [
-            'price' => $this->setData($post->getPrice()),
+            'price' => $this->setData($post->getCalculatedPrice()),
             'secondaryPrice' => [],
         ];
 
@@ -25,17 +26,24 @@ class PricePresenter
 
     private function setData(Price $price): array
     {
+        $commissionRate = $price->getCommission()->getCommissionRate() * 100;
+
         return [
-            'suggestedPrice' => MoneyTransformer::toString($price->get()),
-            'costs' => MoneyTransformer::toString($price->getCosts()),
-            'commission' => MoneyTransformer::toString($price->getCommission()->get()),
-            'commissionRate' => $price->getCommission()->getCommissionRate() * 100,
-            'freight' => MoneyTransformer::toString($price->getFreight()->get()),
-            'taxSimplesNacional' => MoneyTransformer::toString($price->getSimplesNacional()),
-            'differenceICMS' => MoneyTransformer::toString($price->getDifferenceICMS()),
-            'profit' => MoneyTransformer::toString($price->getProfit()),
-            'purchasePrice' => MoneyTransformer::toString($price->getPurchasePrice()),
+            'suggestedPrice' => $this->transformMoney($price->get()),
+            'costs' => $this->transformMoney($price->getCosts()),
+            'commission' => $this->transformMoney($price->getCommission()->get()),
+            'commissionRate' => $commissionRate,
+            'freight' => $this->transformMoney($price->getFreight()->get()),
+            'taxSimplesNacional' => $this->transformMoney($price->getSimplesNacional()),
+            'differenceICMS' => $this->transformMoney($price->getDifferenceICMS()),
+            'profit' => $this->transformMoney($price->getProfit()),
+            'purchasePrice' => $this->transformMoney($price->getPurchasePrice()),
             'margin' => $price->getMargin()
         ];
+    }
+
+    private function transformMoney(Money $money): float
+    {
+        return MoneyTransformer::toString($money);
     }
 }

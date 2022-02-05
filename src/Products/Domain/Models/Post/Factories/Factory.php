@@ -2,91 +2,71 @@
 
 namespace Src\Products\Domain\Models\Post\Factories;
 
-use Illuminate\Container\Container;
 use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Application\Services\CalculatePost;
-use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Products\Domain\Models\Post\Identifiers\Identifiers as PostIdentifiers;
+use Src\Prices\Domain\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Post as PostObject;
 use Src\Products\Domain\Models\Product\Contracts\Post;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Models\Store\Factory as StoreFactory;
 
-/**
- * Class Factory
- * @package Src\Products\Domain\Models\Post\Factories
- *
- * To Do: criar uma estrutura para validar e visualizar os atributos que precisam ser enviados no campo $data
- */
 class Factory
 {
+    private CalculatePost $calculatePostService;
     private Magalu $magaluFactory;
     private MercadoLivre $mercadoLivreFactory;
 
     public function __construct(
         Magalu $magaluFactory,
-        MercadoLivre $mercadoLivreFactory
+        MercadoLivre $mercadoLivreFactory,
+        CalculatePost $calculatePostService
     ) {
         $this->magaluFactory = $magaluFactory;
         $this->mercadoLivreFactory = $mercadoLivreFactory;
+        $this->calculatePostService = $calculatePostService;
     }
 
-    private static array $mapper = [
-        'magalu' => Magalu::class,
-        'mercado_livre' => MercadoLivre::class,
-    ];
-
-    public static function make(array $data): Post
+    public function make(Product $product, PriceModel $price): Post
     {
-        $applicationContainer = Container::getInstance();
+        $marketplace = $price->getMarketplace();
+        $calculatedPrice = $this->calculatePostService->calculatePost($product, $price);
 
-        if (in_array($data['store'], array_keys(self::$mapper))) {
-            $class = self::$mapper[$data['store']];
-            $factory = $applicationContainer->make($class);
-
-            return $factory->make($data);
+        $marketplaceSlug = $marketplace->getSlug();
+        if ($marketplaceSlug === 'magalu') {
+            return $this->magaluFactory->make($product, $price);
+        } elseif ($marketplaceSlug === 'mercado-livre') {
+            return $this->mercadoLivreFactory->make($product, $price);
         }
 
-        $service = app(CalculatePost::class);
-        $price = $service->calculate($data);
-
-        $marketplaceRepository = app(MarketplaceRepository::class);
-        $marketplace = $marketplaceRepository->getBySlug($data['store']);
-
         return new PostObject(
-            identifiers: new PostIdentifiers($data['id'], $data['store_sku_id']),
-            marketplace: $marketplace,
-            price: $price
+            product: $product,
+            priceModel: $price,
+            calculatedPrice: $calculatedPrice
         );
     }
 
-    public function updatePrice(Product $product, Post $post, Price $price): Post
+    public function updatePrice(Product $product, Post $post, Price $calculatedPrice): Post
     {
-        $marketplaceSlug = $post->getMarketplace()->getSlug();
+        $marketplace = $post->getMarketplace();
+        $marketplaceSlug = $marketplace->getSlug();
+
         if ($marketplaceSlug === 'magalu') {
             return $this->magaluFactory->updatePrice(
                 $post,
-                $price,
-                $product->getCosts(),
-                $product->getDimensions(),
-                $product->getCategory()
+                $calculatedPrice
             );
         }
 
         if ($marketplaceSlug === 'mercado-livre') {
             return $this->mercadoLivreFactory->updatePrice(
                 $post,
-                $price,
-                $product->getCosts(),
-                $product->getDimensions(),
-                $product->getCategory()
+                $calculatedPrice
             );
         }
 
         return new PostObject(
-            identifiers: $post->getIdentifiers(),
-            marketplace: $post->getMarketplace(),
-            price: $price,
+            product: $product,
+            priceModel: $calculatedPrice,
+            calculatedPrice: $calculatedPrice
         );
     }
 }

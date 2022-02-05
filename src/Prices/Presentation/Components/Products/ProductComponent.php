@@ -5,6 +5,7 @@ namespace Src\Prices\Presentation\Components\Products;
 use Illuminate\View\Component;
 use Src\Math\MoneyTransformer;
 use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Repositories\Contracts\PostRepository;
 
 abstract class ProductComponent extends Component
 {
@@ -37,31 +38,38 @@ abstract class ProductComponent extends Component
 
     private function getPrice(): string
     {
-        if (!$post = $this->product->getPost($this->store)) {
-            return '';
-        }
-
-        return MoneyTransformer::toString($post->getPrice()->get());
-    }
-
-    private function getProfit(): string
-    {
-        if (!$post = $this->product->getPost($this->store)) {
-            return '';
-        }
-
-        return MoneyTransformer::toString($post->getPrice()->getProfit());
-    }
-
-    private function getMargin(): string
-    {
-        $post = $this->product->getPost($store ?? $this->store);
+        $postRepository = app(PostRepository::class);
+        $post = $postRepository->getByMarketplaceSlug($this->product, $this->store);
 
         if (!$post) {
             return '';
         }
 
-        $price = $post->getPrice();
+        return MoneyTransformer::toString($post->getCalculatedPrice()->get());
+    }
+
+    private function getProfit(): string
+    {
+        $postRepository = app(PostRepository::class);
+        $post = $postRepository->getByMarketplaceSlug($this->product, $this->store);
+
+        if (!$post) {
+            return '';
+        }
+
+        return MoneyTransformer::toString($post->getCalculatedPrice()->getProfit());
+    }
+
+    private function getMargin(): string
+    {
+        $postRepository = app(PostRepository::class);
+        $post = $postRepository->getByMarketplaceSlug($this->product, $this->store);
+
+        if (!$post) {
+            return '';
+        }
+
+        $price = $post->getCalculatedPrice();
 
         if ($price->get()->isZero()) {
             return '0.0';

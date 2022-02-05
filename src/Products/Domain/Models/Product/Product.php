@@ -6,13 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Data\Details\Details;
@@ -20,7 +19,6 @@ use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Models\Product\Data\Identifiers\Identifiers;
 use Src\Products\Domain\Models\Product\Data\Variations\Variations;
 use Src\Products\Domain\Models\Product\Contracts\Product as ProductModelInterface;
-use Src\Products\Domain\Models\Post\Post;
 use Src\Sales\Domain\Models\Item;
 
 class Product extends Model implements ProductModelInterface
@@ -189,28 +187,9 @@ class Product extends Model implements ProductModelInterface
         );
     }
 
-    public function getPost(string $storeSlug): ?Post
+    public function getPrices(): Collection
     {
-        foreach ($this->getPosts() as $post) {
-            if ($post->getMarketplace()->getSlug() === $storeSlug) {
-                return $post;
-            }
-        }
-
-        return null;
-    }
-
-    public function getPosts(): array
-    {
-        foreach ($this->prices->toArray() as $price) {
-            $posts[] = PostFactory::make(array_merge($price, [
-                'costs' => $this->getCosts(),
-                'dimensions' => $this->getDimensions(),
-                'category' => $this->category,
-            ]));
-        }
-
-        return $posts ?? [];
+        return $this->prices ?? [];
     }
 
     public function getCreationDate(): Carbon
@@ -230,7 +209,7 @@ class Product extends Model implements ProductModelInterface
 
     public function isActive(): bool
     {
-        return $this->is_active && count($this->getPosts()) > 0;
+        return $this->is_active && $this->prices->count() > 0;
     }
 
     public function setActive(bool $status)
