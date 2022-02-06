@@ -9,21 +9,25 @@ use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Contracts\Post;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
+use Src\Products\Domain\Repositories\Contracts\PostRepository;
 
 class SimulatePostService implements SimulatePost
 {
     private CalculatePrice $calculatePrice;
     private MarketplaceRepository $marketplaceRepository;
     private PostFactory $postFactory;
+    private PostRepository $postRepository;
 
     public function __construct(
         CalculatePrice $calculatePrice,
         MarketplaceRepository $marketplaceRepository,
-        PostFactory $postFactory
+        PostFactory $postFactory,
+        PostRepository $postRepository
     ) {
         $this->calculatePrice = $calculatePrice;
         $this->marketplaceRepository = $marketplaceRepository;
         $this->postFactory = $postFactory;
+        $this->postRepository = $postRepository;
     }
 
     public function calculate(array $data): Post
@@ -42,7 +46,7 @@ class SimulatePostService implements SimulatePost
             $data['options']
         );
 
-        $post = $product->getPost($data['storeSlug']);
+        $post = $this->postRepository->getByMarketplaceSlug($product, $data['storeSlug']);
 
         return $this->postFactory->updatePrice($product, $post, $price);
     }

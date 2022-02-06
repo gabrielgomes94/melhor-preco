@@ -22,10 +22,6 @@ interface Product
 
     public function getDimensions(): Dimensions;
 
-    public function getPost(string $storeSlug): ?Post;
-
-    public function getPosts(): array;
-
     public function getVariations(): ?Variations;
 
     public function hasCompositionProducts(): bool;

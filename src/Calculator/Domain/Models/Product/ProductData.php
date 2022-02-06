@@ -21,15 +21,6 @@ class ProductData implements ProductDataInterface
         $this->category = $category;
     }
 
-    public static function fromModel(Product $product): self
-    {
-        return new self(
-            $product->getCosts(),
-            $product->getDimensions(),
-            $product->getCategory()
-        );
-    }
-
     public static function fromArray(array $data): self
     {
         if (!$data['costs'] instanceof Costs) {
@@ -41,6 +32,15 @@ class ProductData implements ProductDataInterface
         }
 
         return new self($data['costs'], $data['dimensions'], $data['category']);
+    }
+
+    public static function fromModel(Product $product): self
+    {
+        return new self(
+            $product->getCosts(),
+            $product->getDimensions(),
+            $product->getCategory()
+        );
     }
 
     public function getCosts(): Costs

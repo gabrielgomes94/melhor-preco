@@ -2,38 +2,34 @@
 
 namespace Src\Calculator\Application\Services;
 
+use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
+use Src\Calculator\Domain\Models\Product\ProductData;
+use Src\Calculator\Domain\Services\Contracts\CalculatePost as CalculatePostInterface;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
-use Src\Calculator\Domain\Models\Price\Price;
-use Src\Calculator\Domain\Models\Product\ProductData;
+use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Post\Post;
+use Src\Products\Domain\Models\Product\Product;
 
-class CalculatePost
+class CalculatePost implements CalculatePostInterface
 {
     private CalculatePrice $service;
-    private MarketplaceRepository $marketplaceRepository;
 
-    public function __construct(CalculatePrice $service, MarketplaceRepository $marketplaceRepository)
+    public function __construct(CalculatePrice $service)
     {
         $this->service = $service;
-        $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function calculate(array|Post $data, array $options = []): Price
+    public function calculatePost(Price $price, array $options = []): CalculatedPrice
     {
-        $marketplace = $this->marketplaceRepository->getByErpId($data['marketplace_erp_id'] ?? '');
-
-        // @todo: delete this line
-        if (!$marketplace) {
-            $marketplace = Marketplace::first();
-        }
+        $marketplace = $price->getMarketplace();
 
         return $this->service->calculate(
-            productData: ProductData::fromArray($data),
+            productData: ProductData::fromModel($price->getProduct()),
             marketplace: $marketplace,
-            value: $data['value'],
-            commission: Percentage::fromFraction($data['commission']),
+            value: $price->getValue(),
+            commission: $price->getCommission(),
             options: $options
         );
     }

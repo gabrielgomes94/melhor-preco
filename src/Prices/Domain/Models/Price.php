@@ -3,9 +3,12 @@
 namespace Src\Prices\Domain\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Illuminate\Database\Eloquent\Model;
+use Src\Math\Percentage;
+use Src\Prices\Presentation\Components\Products\ProductComponent;
 use Src\Products\Domain\Models\Product\Product;
 
 class Price extends Model
@@ -27,14 +30,39 @@ class Price extends Model
 
     public $keyType = 'string';
 
+    public function marketplace(): BelongsTo
+    {
+        return $this->belongsTo(Marketplace::class, 'marketplace_erp_id', 'erp_id');
+    }
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_sku', 'sku');
     }
 
+    public function getCommission(): Percentage
+    {
+        return Percentage::fromFraction($this->commission);
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getMarketplace(): Marketplace
+    {
+        return $this->marketplace;
+    }
+
     public function getMarketplaceErpId(): string
     {
         return $this->marketplace_erp_id;
+    }
+
+    public function getProduct(): Product
+    {
+        return $this->product;
     }
 
     public function getProductSku(): string
@@ -52,6 +80,11 @@ class Price extends Model
         return $this->store;
     }
 
+    public function getStoreSkuId(): string
+    {
+        return $this->store_sku_id;
+    }
+
     public function getValue(): float
     {
         return $this->value;
@@ -59,11 +92,7 @@ class Price extends Model
 
     public function isProfitable(): bool
     {
-        if (!$post = $this->product->getPost($this->store)) {
-            return false;
-        }
-
-        return $post->isProfitable();
+        return $this->profit > 0;
     }
 
     public function margin(): float

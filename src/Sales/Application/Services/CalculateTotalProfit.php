@@ -9,7 +9,9 @@ use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData as PriceProductData;
 use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Math\MoneyTransformer;
+use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Repositories\Contracts\PostRepository;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item;
 use Src\Sales\Domain\Models\SaleOrder;
@@ -19,15 +21,18 @@ use Src\Sales\Infrastructure\Logging\Logging;
 class CalculateTotalProfit implements CalculateTotalProfitInterface
 {
     private CalculatePrice $calculatePrice;
-    private ProductRepository $productRepository;
     private MarketplaceRepository $marketplaceRepository;
+    private PostRepository $postRepository;
+    private ProductRepository $productRepository;
 
     public function __construct(
         CalculatePrice $calculatePrice,
+        MarketplaceRepository $marketplaceRepository,
+        PostRepository $postRepository,
         ProductRepository $productRepository,
-        MarketplaceRepository $marketplaceRepository
     ) {
         $this->calculatePrice = $calculatePrice;
+        $this->postRepository = $postRepository;
         $this->productRepository = $productRepository;
         $this->marketplaceRepository = $marketplaceRepository;
     }
@@ -65,7 +70,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
 
     private function getCommission(Product $product, Marketplace $marketplace): Percentage
     {
-        $post = $product?->getPost($marketplace->getSlug());
+        $post = $this->postRepository->get($product, $marketplace);
 
         if (!$post) {
             return Percentage::fromFraction(0.0);

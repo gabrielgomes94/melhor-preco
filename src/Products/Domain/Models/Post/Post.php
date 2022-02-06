@@ -3,44 +3,64 @@
 namespace Src\Products\Domain\Models\Post;
 
 use Money\Money;
+use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Calculator\Domain\Models\Price\Price;
+use Src\Prices\Domain\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
+use Src\Products\Domain\Models\Post\Identifiers\Identifiers as PostIdentifiers;
 use Src\Products\Domain\Models\Product\Contracts\Post as PostInterface;
+use Src\Products\Domain\Models\Product\Product;
 
 class Post implements PostInterface
 {
-    protected Price $price;
-    protected float $profit;
-    protected Identifiers $identifiers;
-    protected ?Marketplace $marketplace;
+    protected CalculatedPrice $calculatedPrice;
+    protected PriceModel $priceModel;
 
-    public function __construct(Identifiers $identifiers, Marketplace $marketplace, Price $price)
-    {
-        $this->identifiers = $identifiers;
-        $this->price = $price;
-        $this->marketplace = $marketplace;
+    public function __construct(
+        PriceModel      $priceModel,
+        CalculatedPrice $calculatedPrice
+    ) {
+        $this->priceModel = $priceModel;
+        $this->calculatedPrice = $calculatedPrice;
     }
 
     public function getId(): string
     {
-        return $this->identifiers->getId();
+        return $this->getIdentifiers()->getId();
     }
 
     public function getIdentifiers(): Identifiers
     {
-        return $this->identifiers;
+        return new PostIdentifiers(
+            $this->priceModel->getId(),
+            $this->priceModel->getStoreSkuId(),
+        );
     }
 
     public function getMarketplace(): Marketplace
     {
-        return $this->marketplace;
+        return $this->priceModel->getMarketplace();
     }
 
-    public function getPrice(): Price
+    public function getCalculatedPrice(): CalculatedPrice
     {
-        return $this->price;
+        return $this->calculatedPrice;
+    }
+
+    public function getPrice(): PriceModel
+    {
+        return $this->priceModel;
+    }
+
+    public function getPriceModel(): PriceModel
+    {
+        return $this->priceModel;
+    }
+
+    public function getProduct(): Product
+    {
+        return $this->priceModel->getProduct();
     }
 
     public function isProfitable(): bool

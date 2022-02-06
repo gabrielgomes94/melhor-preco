@@ -3,16 +3,13 @@
 namespace Src\Prices\Presentation\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
 use Src\Prices\Domain\UseCases\Contracts\ShowPrice;
-use Src\Prices\Presentation\Presenters\PricePresenter;
 use Src\Prices\Presentation\Presenters\ProductPresenter;
 use Src\Products\Application\Exceptions\PostNotFoundException;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Models\Product\Product;
 
 class ShowController extends Controller
 {
@@ -38,8 +35,8 @@ class ShowController extends Controller
             abort(404);
         } catch (PostNotFoundException $exception) {
             return view('pages.pricing.products.not-integrated');
-        } finally {
-            return view('pages.pricing.products.show', $this->productPresenter->present($data));
         }
+
+        return view('pages.pricing.products.show', $this->productPresenter->present($data));
     }
 }
