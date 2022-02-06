@@ -8,5 +8,5 @@ use Src\Products\Domain\Models\Product\Product;
 
 interface CalculatePost
 {
-    public function calculatePost(Product $product, Price $price, array $options = []): PriceCalculated;
+    public function calculatePost(Price $price, array $options = []): PriceCalculated;
 }

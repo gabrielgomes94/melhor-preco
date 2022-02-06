@@ -34,12 +34,11 @@ class Magalu implements FactoryInterface
         $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function make(Product $product, PriceModel $priceModel): Post
+    public function make(PriceModel $priceModel): Post
     {
-        $post = $this->getPostCalculated($product, $priceModel);
+        $post = $this->getPostCalculated($priceModel);
         $post->setSecondaryPrice(
             $this->calculatePostService->calculatePost(
-                $product,
                 $priceModel,
                 $this->getCalculatorOptions()
             )
@@ -51,7 +50,6 @@ class Magalu implements FactoryInterface
     public function updatePrice(Post $post, CalculatedPrice $calculatedPrice): Post
     {
         $post = new MagaluPost(
-            product: $post->getProduct(),
             priceModel: $post->getPriceModel(),
             calculatedPrice: $calculatedPrice
         );
@@ -66,15 +64,11 @@ class Magalu implements FactoryInterface
         return $post;
     }
 
-    private function getPostCalculated(Product $product, PriceModel $priceModel): MagaluPost
+    private function getPostCalculated(PriceModel $priceModel): MagaluPost
     {
-        $calculatedPrice = $this->calculatePostService->calculatePost(
-            $product,
-            $priceModel
-        );
+        $calculatedPrice = $this->calculatePostService->calculatePost($priceModel);
 
         return new MagaluPost(
-            product: $product,
             priceModel: $priceModel,
             calculatedPrice: $calculatedPrice
         );

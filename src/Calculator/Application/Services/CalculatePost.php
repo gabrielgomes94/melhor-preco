@@ -15,37 +15,18 @@ use Src\Products\Domain\Models\Product\Product;
 class CalculatePost implements CalculatePostInterface
 {
     private CalculatePrice $service;
-    private MarketplaceRepository $marketplaceRepository;
 
-    public function __construct(CalculatePrice $service, MarketplaceRepository $marketplaceRepository)
+    public function __construct(CalculatePrice $service)
     {
         $this->service = $service;
-        $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function calculate(array|Post $data, array $options = []): CalculatedPrice
-    {
-        $marketplace = $this->marketplaceRepository->getByErpId($data['marketplace_erp_id'] ?? '');
-
-        if (!$marketplace) {
-            $marketplace = Marketplace::first();
-        }
-
-        return $this->service->calculate(
-            productData: ProductData::fromArray($data),
-            marketplace: $marketplace,
-            value: $data['value'],
-            commission: Percentage::fromFraction($data['commission']),
-            options: $options
-        );
-    }
-
-    public function calculatePost(Product $product, Price $price, array $options = []): CalculatedPrice
+    public function calculatePost(Price $price, array $options = []): CalculatedPrice
     {
         $marketplace = $price->getMarketplace();
 
         return $this->service->calculate(
-            productData: ProductData::fromModel($product),
+            productData: ProductData::fromModel($price->getProduct()),
             marketplace: $marketplace,
             value: $price->getValue(),
             commission: $price->getCommission(),

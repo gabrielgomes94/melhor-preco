@@ -50,7 +50,7 @@ class UpdatePrice implements UpdatePriceInterface
                 Percentage::fromFraction($commission ?? $this->getCommissionRate($post))
             );
 
-            $post = $this->postFactory->updatePrice($product, $post, $price);
+            $post = $this->postFactory->updatePrice($post, $price);
             $this->updatePriceService->execute($product->getSku(), $post);
         }
 

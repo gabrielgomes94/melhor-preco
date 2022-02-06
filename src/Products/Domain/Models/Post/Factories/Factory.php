@@ -25,26 +25,25 @@ class Factory
         $this->calculatePostService = $calculatePostService;
     }
 
-    public function make(Product $product, PriceModel $price): Post
+    public function make(PriceModel $price): Post
     {
         $marketplace = $price->getMarketplace();
-        $calculatedPrice = $this->calculatePostService->calculatePost($product, $price);
+        $calculatedPrice = $this->calculatePostService->calculatePost($price);
 
         $marketplaceSlug = $marketplace->getSlug();
         if ($marketplaceSlug === 'magalu') {
-            return $this->magaluFactory->make($product, $price);
+            return $this->magaluFactory->make($price);
         } elseif ($marketplaceSlug === 'mercado-livre') {
-            return $this->mercadoLivreFactory->make($product, $price);
+            return $this->mercadoLivreFactory->make($price);
         }
 
         return new PostObject(
-            product: $product,
             priceModel: $price,
             calculatedPrice: $calculatedPrice
         );
     }
 
-    public function updatePrice(Product $product, Post $post, Price $calculatedPrice): Post
+    public function updatePrice(Post $post, Price $calculatedPrice): Post
     {
         $marketplace = $post->getMarketplace();
         $marketplaceSlug = $marketplace->getSlug();
@@ -64,8 +63,7 @@ class Factory
         }
 
         return new PostObject(
-            product: $product,
-            priceModel: $calculatedPrice,
+            priceModel: $post->getPrice(),
             calculatedPrice: $calculatedPrice
         );
     }

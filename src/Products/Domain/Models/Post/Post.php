@@ -14,17 +14,13 @@ use Src\Products\Domain\Models\Product\Product;
 
 class Post implements PostInterface
 {
-    protected CalculatedPrice $price;
+    protected CalculatedPrice $calculatedPrice;
     protected PriceModel $priceModel;
-    protected float $profit;
-    protected Marketplace $marketplace;
 
     public function __construct(
-        Product         $product,
         PriceModel      $priceModel,
         CalculatedPrice $calculatedPrice
     ) {
-        $this->product = $product;
         $this->priceModel = $priceModel;
         $this->calculatedPrice = $calculatedPrice;
     }
@@ -52,6 +48,11 @@ class Post implements PostInterface
         return $this->calculatedPrice;
     }
 
+    public function getPrice(): PriceModel
+    {
+        return $this->priceModel;
+    }
+
     public function getPriceModel(): PriceModel
     {
         return $this->priceModel;
@@ -59,7 +60,7 @@ class Post implements PostInterface
 
     public function getProduct(): Product
     {
-        return $this->product;
+        return $this->priceModel->getProduct();
     }
 
     public function isProfitable(): bool

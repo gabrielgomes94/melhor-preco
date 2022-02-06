@@ -43,7 +43,7 @@ class PostRepository implements PostRepositoryInterface
     private function getPosts(Product $product): array
     {
         foreach ($product->getPrices() as $price) {
-            $posts[] = $this->factory->make($product, $price);
+            $posts[] = $this->factory->make($price);
         }
 
         return $posts ?? [];

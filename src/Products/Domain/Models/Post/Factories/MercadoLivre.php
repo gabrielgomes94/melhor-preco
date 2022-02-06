@@ -26,12 +26,11 @@ class MercadoLivre implements FactoryInterface
         $this->calculatePostService = $calculatePostService;
     }
 
-    public function make(Product $product, PriceModel $priceModel): Post
+    public function make(PriceModel $priceModel): Post
     {
         $post = new MercadoLivrePost(
-            product: $product,
             priceModel: $priceModel,
-            calculatedPrice: $this->calculatePostService->calculatePost($product, $priceModel)
+            calculatedPrice: $this->calculatePostService->calculatePost($priceModel)
         );
 
         $post->setSecondaryPrice(
@@ -44,7 +43,6 @@ class MercadoLivre implements FactoryInterface
     public function updatePrice(Post $post, Price $calculatedPrice): Post
     {
         $post = new MercadoLivrePost(
-            product: $post->getProduct(),
             priceModel: $post->getPriceModel(),
             calculatedPrice: $calculatedPrice
         );

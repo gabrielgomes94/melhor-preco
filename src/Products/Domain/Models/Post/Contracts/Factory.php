@@ -14,5 +14,5 @@ use Src\Products\Domain\Models\Product\Product;
 
 interface Factory
 {
-    public function make(Product $product, PriceModel $priceModel): Post;
+    public function make(PriceModel $priceModel): Post;
 }
