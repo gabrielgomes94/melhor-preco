@@ -31,26 +31,12 @@
         </div>
 
         <div class="col-8">
-            @if ($store->getSlug() === 'magalu')
-                <x-app.pricing.prices.price.magalu-card
-                    :price="$price"
-                    :productId="$productId"
-                    :store="$store"
-                />
-            @elseif ($store->getSlug() === 'mercado_livre')
-                <x-app.pricing.prices.price.mercado-livre-card
-                    :price="$price"
-                    :productId="$productId"
-                    :store="$store"
-                />
-            @else
-                <x-app.pricing.prices.price.card
-                    :price="$price"
-                    :product="$product"
-                    :productId="$productId"
-                    :store="$store"
-                />
-            @endif
+            <x-app.pricing.prices.price.card
+                :price="$price"
+                :product="$product"
+                :productId="$productId"
+                :store="$store"
+            />
         </div>
     </div>
 </x-layout>

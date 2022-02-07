@@ -6,6 +6,7 @@ use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
+use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Models\Post\Post;
 
 trait WithSecondaryPriceFactory
@@ -25,7 +26,7 @@ trait WithSecondaryPriceFactory
         return ProductData::fromModel($product);
     }
 
-    private function getSecondaryPriceCalculated(Post $post, array $options = []): Price
+    private function getSecondaryPriceCalculated(HasSecondaryPrice $post, array $options = []): Price
     {
         return $this->calculatePriceService->calculate(
             productData: $this->getProductData($post),
@@ -36,9 +37,9 @@ trait WithSecondaryPriceFactory
         );
     }
 
-    private function getValue(Post $post): float
+    private function getValue(HasSecondaryPrice $post): float
     {
-        $price = $post->getCalculatedPrice();
+        $price = $post->getSecondaryPrice();
 
         return MoneyTransformer::toFloat($price->get());
     }

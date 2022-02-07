@@ -6,9 +6,9 @@ use Money\Money;
 use Src\Products\Domain\Models\Post\Concerns\SecondaryPrice;
 use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
 
-class MercadoLivrePost extends Post implements HasSecondaryPrice
+class MercadoLivrePost extends Post //implements HasSecondaryPrice
 {
-    use SecondaryPrice;
+//    use SecondaryPrice;
 
     public function isProfitable(): bool
     {
