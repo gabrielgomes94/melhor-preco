@@ -32,7 +32,6 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
         );
     }
 
-    // @todo: bloquear natOp Entrada de mercadoria (devolucao de mercadoria fora estado)
     private function execute(Collection $data): void
     {
         foreach ($data as $purchaseInvoice) {

@@ -117,4 +117,9 @@ class ProductRepository implements ProductRepositoryInterface
             ->orderBySku()
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
+
+    public function getProductByEan(string $ean): ?Product
+    {
+        return Product::where('ean', $ean)->first();
+    }
 }

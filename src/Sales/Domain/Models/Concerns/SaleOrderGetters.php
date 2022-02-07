@@ -3,6 +3,7 @@
 namespace Src\Sales\Domain\Models\Concerns;
 
 use Carbon\Carbon;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
 use Src\Sales\Domain\Factories\Invoice;
 use Src\Sales\Domain\Factories\Item;
@@ -48,6 +49,11 @@ trait SaleOrderGetters
     public function getInvoice(): InvoiceObject
     {
         return Invoice::make($this->invoice);
+    }
+
+    public function getMarketplace(): ?Marketplace
+    {
+        return $this->marketplace;
     }
 
     public function getPayment(): Payment

@@ -56,12 +56,24 @@ class XmlReader implements NFeRepository
 
     public function getFreightValue($product): float
     {
-        return ($product['vFrete'] / $this->getQuantity($product)) ?? 0.0;
+        if ($this->getQuantity($product) === 0) {
+            return 0.0;
+        }
+
+        $freightValue = (float) ($product['vFrete'] ?? 0.0);
+
+        return $freightValue / $this->getQuantity($product);
     }
 
     public function getInsuranceValue($product): float
     {
-        return ($product['vSeg']  / $this->getQuantity($product)) ?? 0.0;
+        if ($this->getQuantity($product) === 0) {
+            return 0.0;
+        }
+
+        $insuranceValue = (float) ($product['vSeg'] ?? 0.0);
+
+        return $insuranceValue  / $this->getQuantity($product);
     }
 
     public function getTaxes(array $items): array

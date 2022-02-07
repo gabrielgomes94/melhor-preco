@@ -17,6 +17,8 @@ interface ProductRepository
 
     public function get(string $sku): ?Product;
 
+    public function getProductByEan(string $ean): ?Product;
+
     public function getLastSynchronizationDateTime(): ?Carbon;
 
     public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator;

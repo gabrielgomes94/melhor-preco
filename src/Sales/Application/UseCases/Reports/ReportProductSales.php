@@ -103,7 +103,7 @@ class ReportProductSales
                 return false;
             }
 
-            $slug = $saleItem->saleOrder->getStore()->getSlug();
+            $slug = $saleItem->saleOrder?->getMarketplace()?->getSlug() ?? '';
             return $slug === $storeSlug;
         });
     }

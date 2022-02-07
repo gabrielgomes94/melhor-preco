@@ -3,15 +3,16 @@
 namespace Src\Costs\Application\Services;
 
 use Src\Costs\Infrastructure\NFe\XmlReader;
-use Src\Costs\Domain\Repositories\NFeRepository;
 
 class PurchaseItemTransformer
 {
     private XmlReader $nfeReader;
     private CalculateUnitCost $calculateUnitCost;
 
-    public function __construct(XmlReader $nfeReader, CalculateUnitCost $calculateUnitCost)
-    {
+    public function __construct(
+        XmlReader $nfeReader,
+        CalculateUnitCost $calculateUnitCost
+    ) {
         $this->nfeReader = $nfeReader;
         $this->calculateUnitCost = $calculateUnitCost;
     }
