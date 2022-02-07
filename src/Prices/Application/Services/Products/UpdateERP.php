@@ -47,6 +47,6 @@ class UpdateERP implements UpdateERPInterface
 
     private function getPrice(Post $post): string
     {
-        return MoneyTransformer::toString($post->getPrice()->get());
+        return MoneyTransformer::toString($post->getCalculatedPrice()->get());
     }
 }
