@@ -48,6 +48,6 @@ class SimulatePostService implements SimulatePost
 
         $post = $this->postRepository->getByMarketplaceSlug($product, $data['storeSlug']);
 
-        return $this->postFactory->updatePrice($product, $post, $price);
+        return $this->postFactory->updatePrice($post, $price);
     }
 }
