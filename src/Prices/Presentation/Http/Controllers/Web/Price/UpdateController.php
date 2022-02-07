@@ -3,6 +3,7 @@
 namespace Src\Prices\Presentation\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Prices\Presentation\Http\Requests\Price\UpdatePriceRequest;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Prices\Application\UseCases\UpdatePrice as UpdatePriceService;
@@ -12,10 +13,12 @@ use Illuminate\Routing\Redirector;
 
 class UpdateController extends Controller
 {
+    private MarketplaceRepository $marketplaceRepository;
     private UpdatePriceService $updatePriceService;
 
-    public function __construct(UpdatePriceService $updatePriceService)
+    public function __construct(MarketplaceRepository $marketplaceRepository, UpdatePriceService $updatePriceService)
     {
+        $this->marketplaceRepository = $marketplaceRepository;
         $this->updatePriceService = $updatePriceService;
     }
 
@@ -32,7 +35,7 @@ class UpdateController extends Controller
             return redirect()->back();
         }
 
-        if (!$marketplace = $product->getMarketplace($data['storeSlug'])) {
+        if (!$marketplace = $this->marketplaceRepository->getBySlug($data['storeSlug'])) {
             session()->flash('error', 'Loja inválida.');
 
             return redirect()->back();
