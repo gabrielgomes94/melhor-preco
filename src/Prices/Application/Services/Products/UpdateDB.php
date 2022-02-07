@@ -24,7 +24,7 @@ class UpdateDB implements UpdateDBInterface
             return false;
         }
 
-        $price = $post->getPrice();
+        $price = $post->getCalculatedPrice();
 
         return $this->updatePrice->execute($priceModel, $price);
     }
