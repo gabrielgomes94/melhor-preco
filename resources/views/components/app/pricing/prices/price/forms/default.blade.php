@@ -30,7 +30,7 @@
             attribute="commissionRate"
             label="Comissão"
             componentId="update-price-{{ $price['id'] }}-commissionRate"
-            value="{{ $price['mainPrice']['commissionRate'] ?? 10.0 }}"
+            value="{{ $price['mainPrice']['commission'] }}"
         >
         </x-template.input.hidden>
 
@@ -82,7 +82,7 @@
         >
         </x-template.input.read-only>
 
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-3 mb-2">
             <x-template.buttons.submit label="Salvar" />
         </div>
     </x-template.forms.put>

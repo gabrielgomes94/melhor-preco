@@ -46,7 +46,7 @@
             value="{{ $productId }}" />
 
 
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-3 mb-2">
             <x-template.buttons.submit label="Calcular" />
         </div>
     </form>

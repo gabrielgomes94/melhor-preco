@@ -30,6 +30,8 @@ class PricePresenter
     {
         $price = $post->getCalculatedPrice();
         $store = $post->getMarketplace();
+        $commissionRate = $price->getCommission()->getCommissionRate();
+        $commission = Percentage::fromFraction($commissionRate)->get();
 
         return [
             'name' => $product->getDetails()->getName(),
@@ -41,10 +43,7 @@ class PricePresenter
                 'value' => MoneyTransformer::toFloat($price->get()),
                 'profit' => MoneyTransformer::toFloat($price->getProfit()),
                 'margin' => $price->getMargin(),
-                'commission' => Percentage::fromFraction(
-                    $price->getCommission()->getCommissionRate()
-                ),
-                'commissionRate' => $price->getCommission()->getCommissionRate() * 100,
+                'commission' => $commission,
             ],
         ];
     }

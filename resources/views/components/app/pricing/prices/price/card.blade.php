@@ -1,4 +1,4 @@
-<x-template.card.card>
+<x-template.card.card class="h-100">
     <x-template.card.card-body>
         <x-app.pricing.prices.price.card-header :post="$price"/>
 
