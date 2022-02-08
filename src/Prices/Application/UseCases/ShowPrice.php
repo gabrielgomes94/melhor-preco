@@ -28,7 +28,7 @@ class ShowPrice implements ShowPriceInterface
         }
 
         if (!$post = $this->postRepository->getByMarketplaceSlug($product, $marketplaceSlug)) {
-            throw new PostNotFoundException($product, $post);
+            throw new PostNotFoundException($product, $marketplaceSlug);
         }
 
         return [

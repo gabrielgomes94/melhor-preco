@@ -7,11 +7,10 @@ use Src\Products\Domain\Models\Product\Product;
 
 class PostNotFoundException extends \Exception
 {
-    public function __construct(Product $product, Post $post)
+    public function __construct(Product $product, string $marketplaceSlug)
     {
         $productSku = $product->getSku();
-        $storeName = $post->getMarketplace()->getName();
 
-        parent::__construct("Post em {$storeName} para o produto {$productSku} não foi encontrado.");
+        parent::__construct("Post em {$marketplaceSlug} para o produto {$productSku} não foi encontrado.");
     }
 }
