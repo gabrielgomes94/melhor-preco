@@ -19,7 +19,7 @@ class CalculatePriceRequest extends FormRequest
             'commission' => 'string',
             'discount' => 'numeric|nullable',
             'product' => 'string',
-            'store' => [new Store()],
+            'store' => 'in:b2w,magalu,mercado-livre,mercado-shops,olist,shopee',
         ];
     }
 }
