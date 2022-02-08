@@ -28,7 +28,8 @@ class CalculateItem implements CalculateItemInterface
 
     public function calculate(Item $item): Price
     {
-        $marketplace = $this->marketplaceRepository->getByErpId($item->saleOrder->getIdentifiers()->storeId());
+        $marketplaceErpId = $item->saleOrder->getIdentifiers()->storeId() ?? '';
+        $marketplace = $this->marketplaceRepository->getByErpId($marketplaceErpId);
 
         return $this->calculatePrice->calculate(
             productData: ProductData::fromModel($item->product),
