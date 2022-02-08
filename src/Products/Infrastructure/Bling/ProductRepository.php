@@ -52,13 +52,11 @@ class ProductRepository implements ErpProductRepositoryInterface
             status: $status
         );
 
-        $prices = $this->priceFactory->make(
+        return $this->priceFactory->make(
             storeSlug: $marketplace->getSlug(),
             storeCode: $marketplace->getErpId(),
             data: $response
         );
-
-        return $prices;
     }
 
     public function uploadImages(string $sku, string $path, array $images)
