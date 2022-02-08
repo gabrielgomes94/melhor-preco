@@ -5,6 +5,7 @@ namespace Src\Prices\Application\UseCases;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Calculator\Application\Services\CalculateProfit;
+use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission;
@@ -15,6 +16,7 @@ use Src\Prices\Domain\UseCases\Contracts\SynchronizePrices as SynchronizePricesI
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
+use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 use TypeError;
 
 use function event;
@@ -55,8 +57,17 @@ class SynchronizePrices implements SynchronizePricesInterface
 
     private function sync(Marketplace $marketplace): void
     {
-        $prices = $this->erpRepository->allOnStore($marketplace);
-        $this->savePrices($prices);
+        $page = 0;
+        do {
+            $prices = $this->erpRepository->allInMarketplace($marketplace, Config::ACTIVE, ++$page);
+            $this->savePrices($prices);
+        } while ( $this->isNotEmpty($prices));
+
+        $page = 0;
+        do {
+            $prices = $this->erpRepository->allInMarketplace($marketplace, Config::INACTIVE, ++$page);
+            $this->savePrices($prices);
+        } while ( $this->isNotEmpty($prices));
     }
 
     private function insertPrice(Price $price): void
@@ -99,9 +110,9 @@ class SynchronizePrices implements SynchronizePricesInterface
         ]);
     }
 
-    private function savePrices(array $prices): void
+    private function savePrices(PricesCollectionResponse $prices): void
     {
-        foreach ($prices as $price) {
+        foreach ($prices->data() as $price) {
             try {
                 $priceModels = $this->getPrices($price);
                 if ($priceModels->count() === 0) {
@@ -143,5 +154,10 @@ class SynchronizePrices implements SynchronizePricesInterface
         ]);
 
         return $price;
+    }
+
+    private function isNotEmpty(PricesCollectionResponse $prices)
+    {
+        return !empty($prices->data());
     }
 }

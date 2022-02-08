@@ -3,12 +3,13 @@
 namespace Src\Products\Domain\Repositories\Contracts\Erp;
 
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 
 interface ProductRepository
 {
     public function all();
 
-    public function allOnStore(Marketplace $marketplace);
+    public function allInMarketplace(Marketplace $marketplace, string $status, int $page): PricesCollectionResponse;
 
     public function get(string $sku);
 

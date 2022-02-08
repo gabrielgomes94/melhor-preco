@@ -11,6 +11,7 @@ use Src\Integrations\Bling\Products\Client;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Products\Domain\Repositories\Contracts\Erp\ProductRepository as ErpProductRepositoryInterface;
+use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 use Src\Products\Infrastructure\Bling\Responses\Product\Factory;
 use Src\Products\Infrastructure\Bling\Responses\Prices\Factory as PriceFactory;
 use SimpleXMLElement;
@@ -43,12 +44,21 @@ class ProductRepository implements ErpProductRepositoryInterface
         return array_merge($activeProductsCollection, $inactiveProductsCollection);
     }
 
-    public function allOnStore(Marketplace $marketplace)
+    public function allInMarketplace(Marketplace $marketplace, string $status, int $page): PricesCollectionResponse
     {
-        $activeProductsCollection = $this->listPricesOnStore($marketplace, Config::ACTIVE);
-        $inactiveProductsCollection = $this->listPricesOnStore($marketplace, Config::INACTIVE);
+        $response = $this->client->listPrice(
+            storeCode: $marketplace->getErpId(),
+            page: ++$page,
+            status: $status
+        );
 
-        return array_merge($activeProductsCollection, $inactiveProductsCollection);
+        $prices = $this->priceFactory->make(
+            storeSlug: $marketplace->getSlug(),
+            storeCode: $marketplace->getErpId(),
+            data: $response
+        );
+
+        return $prices;
     }
 
     public function uploadImages(string $sku, string $path, array $images)
