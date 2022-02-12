@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Repositories\Contracts;
 
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Product;
 

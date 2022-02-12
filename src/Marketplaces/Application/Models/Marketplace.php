@@ -1,9 +1,10 @@
 <?php
 
-namespace Src\Marketplaces\Domain\Models;
+namespace Src\Marketplaces\Application\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Src\Marketplaces\Application\Models\ValueObjects\CategoryCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
 use Src\Math\Percentage;
@@ -103,14 +104,21 @@ class Marketplace extends Model implements MarketplaceInterface
         return Percentage::fromPercentage($data['commission']);
     }
 
-    public function setCommissionByCategory(Collection $commissions)
+    public function setCommissionByCategory(CategoryCommission $categoryCommission)
     {
-        foreach ($commissions as $categoryCommission) {
-            $extra['commissionValues'][] = [
-                'categoryId' => $categoryCommission->categoryId,
-                'commission' => $categoryCommission->commission->get()
-            ];
-        }
+        // @todo: add logic
+
+    }
+
+    public function setCommissionsByCategory(Collection $commissions)
+    {
+        $extra['commissionValues'] = $commissions->map(
+            function (CategoryCommission $categoryCommission) {
+                return [
+                    'categoryId' => $categoryCommission->categoryId,
+                    'commission' => $categoryCommission->commission->get()
+                ];
+            })->toArray();
 
         $this->extra = array_merge($this->extra, $extra);
     }

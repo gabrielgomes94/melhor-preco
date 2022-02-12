@@ -13,19 +13,11 @@ use Src\Marketplaces\Presentation\Http\Requests\SetUniqueCommissionRequest;
 
 class CommissionController extends Controller
 {
-    private GetCommissionType $getCommissionType;
-    private GetCategoryWithCommission $getCategoryWithCommission;
-    private UpdateCommission $updateCommission;
-
     public function __construct(
-        GetCommissionType $getCommissionType,
-        GetCategoryWithCommission $getCategoryWithCommission,
-        UpdateCommission $updateCommission
-    ) {
-        $this->getCommissionType = $getCommissionType;
-        $this->getCategoryWithCommission = $getCategoryWithCommission;
-        $this->updateCommission = $updateCommission;
-    }
+        private GetCommissionType $getCommissionType,
+        private GetCategoryWithCommission $getCategoryWithCommission,
+        private UpdateCommission $updateCommission
+    ) {}
 
     public function setCommission(string $marketplaceSlug)
     {

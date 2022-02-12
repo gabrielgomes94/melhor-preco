@@ -27,7 +27,7 @@ interface Marketplace
 
     public function hasCommissionByCategory(): bool;
 
-    public function setCommissionByCategory(Collection $commissions);
+    public function setCommissionsByCategory(Collection $commissions);
 
     public function setCommissionByUniqueValue(float $commission);
 }

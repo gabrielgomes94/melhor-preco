@@ -5,7 +5,7 @@ namespace Src\Sales\Domain\Models\Concerns;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Sales\Domain\Models\Customer;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Models\Shipment;

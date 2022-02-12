@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Domain\Models;
+namespace Src\Marketplaces\Application\Models\ValueObjects;
 
 use Src\Math\Percentage;
 

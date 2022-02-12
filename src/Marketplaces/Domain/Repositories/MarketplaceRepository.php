@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Domain\Repositories;
 
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Application\Models\Marketplace;
 
 interface MarketplaceRepository
 {

@@ -35,10 +35,17 @@ class MarketplacesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Repositories
-        $this->app->bind(MarketplaceRepositoryInterface::class, MarketplaceRepository::class);
+        $this->bindRepositories();
+        $this->bindUseCases();
+    }
 
-        // Use Cases
+    private function bindRepositories()
+    {
+        $this->app->bind(MarketplaceRepositoryInterface::class, MarketplaceRepository::class);
+    }
+
+    private function bindUseCases()
+    {
         $this->app->bind(CreateMarketplaceInterface::class, CreateMarketplace::class);
         $this->app->bind(GetCommissionInterface::class, GetCommission::class);
         $this->app->bind(GetCommissionTypeInterface::class, GetCommissionType::class);
