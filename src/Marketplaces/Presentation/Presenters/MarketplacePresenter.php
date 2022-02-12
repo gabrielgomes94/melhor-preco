@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Presentation\Presenters;
 
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Application\Models\Marketplace;
 
 class MarketplacePresenter
 {

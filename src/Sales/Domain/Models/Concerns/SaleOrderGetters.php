@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\Models\Concerns;
 
 use Carbon\Carbon;
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
 use Src\Sales\Domain\Factories\Invoice;
 use Src\Sales\Domain\Factories\Item;

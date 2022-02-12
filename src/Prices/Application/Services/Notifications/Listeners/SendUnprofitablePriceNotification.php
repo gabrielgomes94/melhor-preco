@@ -13,6 +13,6 @@ class SendUnprofitablePriceNotification implements ShouldQueue
     {
         $user = User::first();
 
-        $user->notify(new UnprofitablePriceNotification($event->toArray()));
+//        $user->notify(new UnprofitablePriceNotification($event->toArray()));
     }
 }

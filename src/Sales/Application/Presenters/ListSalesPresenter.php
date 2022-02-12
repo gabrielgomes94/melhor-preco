@@ -66,6 +66,10 @@ class ListSalesPresenter
     {
         $marketplace = $this->marketplaceRepository->getByErpId($identifiers->storeId());
 
+        if (!$marketplace) {
+            return '';
+        }
+
         return $marketplace->getName();
     }
 }

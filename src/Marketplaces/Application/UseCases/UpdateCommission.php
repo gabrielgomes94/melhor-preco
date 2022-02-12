@@ -2,7 +2,7 @@
 
 namespace Src\Marketplaces\Application\UseCases;
 
-use Src\Marketplaces\Domain\Models\CategoryCommission;
+use Src\Marketplaces\Application\Models\ValueObjects\CategoryCommission;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission as UpdateCommissionInterface;
 
@@ -23,7 +23,7 @@ class UpdateCommission implements UpdateCommissionInterface
             return new CategoryCommission($commission);
         });
 
-        $marketplace->setCommissionByCategory($data);
+        $marketplace->setCommissionsByCategory($data);
 
         return $marketplace->save();
     }

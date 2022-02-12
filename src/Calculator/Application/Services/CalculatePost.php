@@ -5,7 +5,7 @@ namespace Src\Calculator\Application\Services;
 use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost as CalculatePostInterface;
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
 use Src\Prices\Domain\Models\Price;

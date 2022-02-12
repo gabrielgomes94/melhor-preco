@@ -4,7 +4,7 @@ namespace Src\Marketplaces\Application\UseCases;
 
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
-use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Marketplaces\Domain\UseCases\Contracts\CreateMarketplace as CreateMarketplaceInterface;
 
 class CreateMarketplace implements CreateMarketplaceInterface

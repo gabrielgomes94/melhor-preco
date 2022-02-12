@@ -9,16 +9,10 @@ use Src\Marketplaces\Presentation\Http\Requests\SaveMarketplaceRequest;
 
 class MarketplacesController extends Controller
 {
-    private CreateMarketplace $createStore;
-    private ListMarketplaces $listMarketplaces;
-
     public function __construct(
-        CreateMarketplace $createStore,
-        ListMarketplaces $listMarketplaces
-    ) {
-        $this->createStore = $createStore;
-        $this->listMarketplaces = $listMarketplaces;
-    }
+        private CreateMarketplace $createStore,
+        private ListMarketplaces $listMarketplaces
+    ) {}
 
     public function create()
     {
