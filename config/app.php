@@ -232,6 +232,7 @@ return [
          */
         Src\Sales\Application\Providers\SalesServiceProvider::class,
         Src\Sales\Application\Providers\EventServiceProvider::class,
+        Src\Sales\Infrastructure\Laravel\Container\ServiceProvider::class,
         Src\Sales\Infrastructure\Logging\ServiceProvider::class,
         Src\Sales\Infrastructure\Eloquent\RepositoryServiceProvider::class,
 

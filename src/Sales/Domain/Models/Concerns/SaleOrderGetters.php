@@ -89,6 +89,11 @@ trait SaleOrderGetters
         );
     }
 
+    public function getSelledAt(): ?Carbon
+    {
+        return $this->selled_at;
+    }
+
     public function getShipment(): ShipmentData
     {
         return ShipmentFactory::make($this->shipment);

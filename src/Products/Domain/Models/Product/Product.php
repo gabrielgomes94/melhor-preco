@@ -115,6 +115,11 @@ class Product extends Model implements ProductModelInterface
         return $this->sku;
     }
 
+    public function getSaleItems(): Collection
+    {
+        return $this->items;
+    }
+
     public function getIdentifiers(): Identifiers
     {
         return new Identifiers($this->sku, $this->erp_id);
