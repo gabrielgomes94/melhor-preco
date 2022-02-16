@@ -4,22 +4,23 @@ namespace Src\Products\Presentation\Http\Controllers\Web\Reports;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Prices\Presentation\Presenters\ProductPresenter;
+//use Src\Prices\Presentation\Presenters\ProductPresenter;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Application\UseCases\ReportProduct;
+use Src\Products\Presentation\Presenters\Reports\ProductReportPresenter;
 
 class ProductController extends Controller
 {
     public function __construct(
         private ReportProduct      $reportProduct,
-        private ProductPresenter $productPresenter
+        private ProductReportPresenter $productReportPresenter
     ) {}
 
     public function get(Request $request, string $sku)
     {
         try {
             $data = $this->reportProduct->get($sku);
-            dd($data);
+            $data = $this->productReportPresenter->present($data);
         } catch (ProductNotFoundException $exception) {
             abort(404);
         }

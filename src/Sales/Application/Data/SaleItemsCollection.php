@@ -5,24 +5,19 @@ namespace Src\Sales\Application\Data;
 use Illuminate\Support\Collection;
 use Src\Sales\Domain\Models\Item;
 
-class SaleItemsCollection extends Collection
+class SaleItemsCollection
 {
-    public function __construct(Collection $sales)
-    {
-        $sales = $sales->map(function (Item $saleOrder) {
-            return $saleOrder;
-        });
+    public readonly Collection $saleItems;
 
-        parent::__construct($sales);
+    public function __construct(Collection $saleItems){
+
+        $this->saleItems = $saleItems->map(function (Item $saleItem) {
+            return $saleItem;
+        });
     }
 
-    public function getTotalData(): array
+    public function get(): Collection
     {
-        [
-            'quantity' => $this->count(),
-            'value' => $this->sum(function(Item $saleItem) {
-                return $saleItem->getTotalValue();
-            }),
-        ];
+        return $this->saleItems;
     }
 }

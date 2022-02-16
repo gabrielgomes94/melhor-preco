@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Sales\Application\Http\Controllers\Web\ListController;
-use Src\Sales\Application\Http\Controllers\Web\ReportsController;
-use Src\Sales\Application\Http\Controllers\Web\SyncController;
+use Src\Sales\Presentation\Http\Controllers\Web\ListController;
+use Src\Sales\Presentation\Http\Controllers\Web\ReportsController;
+use Src\Sales\Presentation\Http\Controllers\Web\SyncController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('sales')

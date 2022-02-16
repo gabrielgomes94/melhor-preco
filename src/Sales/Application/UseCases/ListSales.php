@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Application\UseCases;
 
-use Src\Sales\Application\Presenters\ListSalesPresenter;
+use Src\Sales\Presentation\Presenters\ListSalesPresenter;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\ListSales as ListSalesInterface;

@@ -2,11 +2,11 @@
 
 namespace Src\Sales\Application\Services;
 
-use Illuminate\Support\Collection;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Eloquent\MarketplaceRepository;
 use Src\Products\Domain\Models\Product\Contracts\Product;
-use Src\Sales\Application\Data\MarketplaceSales;
+use Src\Sales\Application\Data\MarketplaceSaleItems;
+use Src\Sales\Application\Data\Reports\SaleItemsInMarketplaces;
 use Src\Sales\Application\Data\SaleItemsCollection;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Services\Contracts\GetProductSales as GetProductSalesInterface;
@@ -17,28 +17,31 @@ class GetProductSales implements GetProductSalesInterface
         private MarketplaceRepository $marketplaceRepository
     ){}
 
-    public function getLastSales(Product $product, int $limit = 5): Collection
+    public function getLastSaleItems(Product $product, int $limit = 5): SaleItemsCollection
     {
         $sales = $product->getSaleItems();
 
-        return $sales->sortByDesc(function (Item $saleItem) {
+        $sales = $sales->sortByDesc(function (Item $saleItem) {
             return $saleItem->getSelledAt();
         })->take($limit);
+
+        return new SaleItemsCollection($sales);
     }
 
-    public function getSalesInAllMarketplaces(Product $product): Collection
+    public function getSaleItemsInAllMarketplaces(Product $product): SaleItemsInMarketplaces
     {
         $marketplaces = $this->marketplaceRepository->list();
 
-        return $marketplaces->map(function(\Src\Marketplaces\Domain\Models\Contracts\Marketplace $marketplace) use ($product) {
-            $sales = $this->getSalesByMarketplace($product, $marketplace);
+        $salesInMarketplaces = $marketplaces->map(function(Marketplace $marketplace) use ($product) {
+            $sales = $this->getSaleItemsByMarketplace($product, $marketplace);
 
             return $sales;
         });
+
+        return new SaleItemsInMarketplaces($salesInMarketplaces);
     }
 
-
-    public function getSalesByMarketplace(Product $product, Marketplace $marketplace): MarketplaceSales
+    public function getSaleItemsByMarketplace(Product $product, Marketplace $marketplace): MarketplaceSaleItems
     {
         $sales = $product->getSaleItems();
 
@@ -50,17 +53,15 @@ class GetProductSales implements GetProductSalesInterface
             $slug = $saleOrder->getMarketplace()?->getSlug() ?? '';
 
             return $marketplace->getSlug() === $slug;
-        })->map(function(Item $saleItem) {
-            return $saleItem->getSaleOrder();
         });
 
-        return new MarketplaceSales(
+        return new MarketplaceSaleItems(
             $marketplace,
-            $sales
+            new SaleItemsCollection($sales)
         );
     }
 
-    public function getTotalSales(Product $product): SaleItemsCollection
+    public function getTotalSaleItems(Product $product): SaleItemsCollection
     {
         return new SaleItemsCollection($product->getSaleItems());
     }

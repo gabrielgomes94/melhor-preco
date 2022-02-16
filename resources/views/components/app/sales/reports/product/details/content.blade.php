@@ -9,7 +9,7 @@
     </thead>
 
     <tbody>
-        @foreach ($data['stores'] ?? [] as $saleData)
+        @foreach ($data['salesByMarketplace'] ?? [] as $saleData)
             <tr>
                 <td>{{ $saleData['storeName'] }}</td>
                 <td>{{ $saleData['value'] }}</td>

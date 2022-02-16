@@ -2,19 +2,20 @@
 
 namespace Src\Sales\Domain\Services\Contracts;
 
-use Illuminate\Support\Collection;
 use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Products\Domain\Models\Product\Contracts\Product;
-use Src\Sales\Application\Data\MarketplaceSales;
+use Src\Sales\Application\Data\MarketplaceSaleItems;
+use Src\Sales\Application\Data\Reports\SaleItemsInMarketplaces;
+use Src\Sales\Application\Data\SaleItemsCollection;
 
 // @todo: avaliar a possibilidade de permitir a passagem de um parâmetro do tipo DateInterval
 interface GetProductSales
 {
-    public function getLastSales(Product $product, int $limit = 5): Collection;
+    public function getLastSaleItems(Product $product, int $limit = 5): SaleItemsCollection;
 
-    public function getSalesByMarketplace(Product $product, Marketplace $marketplace): MarketplaceSales;
+    public function getSaleItemsByMarketplace(Product $product, Marketplace $marketplace): MarketplaceSaleItems;
 
-    public function getSalesInAllMarketplaces(Product $product): Collection;
+    public function getSaleItemsInAllMarketplaces(Product $product): SaleItemsInMarketplaces;
 
-    public function getTotalSales(Product $product): Collection;
+    public function getTotalSaleItems(Product $product): SaleItemsCollection;
 }
