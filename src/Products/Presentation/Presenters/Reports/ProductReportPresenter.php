@@ -17,7 +17,7 @@ class ProductReportPresenter
             'costs' => $productInfoReport->costsItems->toArray(),
             'product' => $productInfoReport->product->toArray(),
             'sales' => [
-                'lastSales' => $this->getLastSales($salesReport),// $salesReport->lastSales->all(),
+                'lastSales' => $this->getLastSales($salesReport),
                 'salesByMarketplace' => $this->getSalesByMarketplace($salesReport),
                 'total' => $this->getTotalSales($salesReport),
             ]
@@ -27,36 +27,38 @@ class ProductReportPresenter
     private function getLastSales(SalesReport $salesReport): array
     {
         $sales = $salesReport->lastSales->get();
-
-        return $sales->transform(function(Item $saleItem) {
+        $sales = $sales->transform(function (Item $saleItem) {
             $saleOrder = $saleItem->getSaleOrder();
 
             return [
                 'saleDate' => $saleOrder->getSelledAt(),
                 'marketplace' => $saleOrder->getMarketplace()?->getName(),
-                'quantity' => '',
+                'quantity' => $saleItem->getQuantity(),
                 'value' => $saleOrder->getSaleValue()->totalValue(),
-                'profit' => '',
             ];
-        })->all();
+        });
+
+        return $sales->toArray();
     }
 
     private function getSalesByMarketplace(SalesReport $salesReport): array
     {
         $marketplaceSales = $salesReport->salesInMarketplaces->marketplacesSales;
 
-        return $marketplaceSales->transform(function (MarketplaceSaleItems $marketplaceSales) {
+        $marketplaceSales = $marketplaceSales->transform(function (MarketplaceSaleItems $marketplaceSales) {
             $sales = $marketplaceSales->sales->get();
 
             return [
                 'quantity' => $sales->count(),
-                'value' => $sales->sum(function(Item $saleItem) {
+                'value' => $sales->sum(function (Item $saleItem) {
                     return $saleItem->getTotalValue();
                 }),
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];
-        })->toArray();
+        });
+
+        return $marketplaceSales->toArray();
     }
 
     private function getTotalSales(SalesReport $salesReport): array
@@ -65,7 +67,7 @@ class ProductReportPresenter
 
         return [
             'quantity' => $itemsSelled->count(),
-            'value' => $itemsSelled->sum(function(Item $saleItem) {
+            'value' => $itemsSelled->sum(function (Item $saleItem) {
                 return $saleItem->getTotalValue();
             }),
         ];

@@ -4,7 +4,6 @@ namespace Src\Products\Presentation\Http\Controllers\Web\Reports;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-//use Src\Prices\Presentation\Presenters\ProductPresenter;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Application\UseCases\ReportProduct;
 use Src\Products\Presentation\Presenters\Reports\ProductReportPresenter;
