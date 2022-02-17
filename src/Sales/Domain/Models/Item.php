@@ -2,7 +2,9 @@
 
 namespace Src\Sales\Domain\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Domain\Models\Item as ItemModel;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item as ItemData;
@@ -33,9 +35,24 @@ class Item extends Model
         return $this->belongsTo(SaleOrder::class, 'sale_order_id', 'sale_order_id');
     }
 
+    public function getMarketplace(): ?Marketplace
+    {
+        return $this?->getSaleOrder()?->getMarketplace();
+    }
+
     public function getQuantity(): float
     {
         return $this->quantity;
+    }
+
+    public function getSaleOrder(): ?SaleOrder
+    {
+        return $this->saleOrder;
+    }
+
+    public function getSelledAt(): ?Carbon
+    {
+        return $this?->getSaleOrder()?->getSelledAt();
     }
 
     public function getSku(): ?string

@@ -2,110 +2,44 @@
 
 namespace Src\Sales\Application\UseCases\Reports;
 
-use Illuminate\Support\Collection;
+use Src\Sales\Application\Data\Reports\SalesReport;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Domain\Services\Contracts\GetProductSales;
 
 class ReportProductSales
 {
-    private ProductRepository $repository;
+    public function __construct(
+        private ProductRepository $repository,
+        private GetProductSales $getProductSales
+    ) {}
 
-    public function __construct(ProductRepository $repository)
+    public function report(string $sku): SalesReport
     {
-        $this->repository = $repository;
+        $product = $this->getProduct($sku);
+        $salesInMarketplaces = $this->getProductSales->getSaleItemsInAllMarketplaces($product);
+        $lastSales = $this->getProductSales->getLastSaleItems($product);
+        $totalItemsSelled = $this->getProductSales->getTotalSaleItems($product);
+
+        $salesReport = new SalesReport(
+            product: $product,
+            salesInMarketplaces: $salesInMarketplaces,
+            itemsSelled: $totalItemsSelled,
+            lastSales: $lastSales,
+        );
+
+        return $salesReport;
     }
 
-    public function report(string $sku): array
+    private function getProduct(string $sku): Product
     {
         $product = $this->repository->get($sku);
 
         if (!$product) {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException($sku);
         }
 
-        $sales = $product->items;
-
-        $b2wSales = $this->filterSalesFromStore($sales, 'b2w');
-        $magaluSales = $this->filterSalesFromStore($sales, 'magalu');
-        $mercadoLivreSales = $this->filterSalesFromStore($sales, 'mercado_livre');
-        $olistSales = $this->filterSalesFromStore($sales, 'olist');
-        $shopeeSales = $this->filterSalesFromStore($sales, 'shopee');
-        $internalSales = $this->filterSalesFromStore($sales, 'barrigudinha');
-
-        return [
-            'total' => [
-                'quantity' => $sales->count(),
-                'value' => $sales->sum(function(Item $saleItem) {
-                    return $saleItem->getTotalValue();
-                }),
-            ],
-            'stores' => [
-                [
-                    'quantity' => $b2wSales->count(),
-                    'value' => $b2wSales->sum(function(Item $saleItem) {
-                        return $saleItem->getTotalValue();
-                    }),
-                    'slug' => 'b2w',
-                    'storeName' => 'B2W',
-                ],
-                [
-                    'quantity' => $magaluSales->count(),
-                    'value' => $magaluSales->sum(function(Item $saleItem) {
-                        return $saleItem->getTotalValue();
-                    }),
-                    'slug' => 'magalu',
-                    'storeName' => 'Magalu',
-                ],
-                [
-                    'quantity' => $mercadoLivreSales->count(),
-                    'value' => $mercadoLivreSales->sum(function(Item $saleItem) {
-                        return $saleItem->getTotalValue();
-                    }),
-                    'slug' => 'mercado_livre',
-                    'storeName' => 'Mercado Livre',
-                ],
-                [
-                    'quantity' => $olistSales->count(),
-                    'value' => $olistSales->sum(function(Item $saleItem) {
-                        return $saleItem->getTotalValue();
-                    }),
-                    'slug' => 'olist',
-                    'storeName' => 'Olist',
-                ],
-                [
-                    'quantity' => $shopeeSales->count(),
-                    'value' => $shopeeSales->sum(function(Item $saleItem) {
-                        return $saleItem->getTotalValue();
-                    }),
-                    'slug' => 'shopee',
-                    'storeName' => 'Shopee',
-                ],
-                [
-                    'quantity' => $internalSales->count(),
-                    'value' => $internalSales->sum(function(Item $saleItem) {
-                        return $saleItem->getTotalValue();
-                    }),
-                    'slug' => 'barrigudinha',
-                    'storeName' => 'Loja Física',
-                ]
-            ],
-        ];
-    }
-
-    private function filterSalesFromStore(Collection $sales, string $storeSlug)
-    {
-        return $sales->filter(function(Item $saleItem) use ($storeSlug) {
-            $saleOrder = $saleItem->saleOrder;
-
-            if (!$saleOrder) {
-                return false;
-            }
-
-            $slug = $saleItem->saleOrder?->getMarketplace()?->getSlug() ?? '';
-            return $slug === $storeSlug;
-        });
+        return $product;
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\Providers;
+namespace Src\Sales\Infrastructure\Laravel\Container;
 
 use Illuminate\Support\ServiceProvider;
 use Src\Sales\Application\UseCases\SyncSales as SyncSalesImpl;

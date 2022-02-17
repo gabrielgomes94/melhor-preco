@@ -38,9 +38,16 @@
                     </div>
                 @endif
 
-                <div class="col-12 my-4">
-                    <x-app.sales.reports.product.details.card :data="$sales"/>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <x-app.sales.reports.product.details.card :data="$sales"/>
+                    </div>
+
+                    <div class="col-6">
+                        <x-app.sales.reports.last-sales.card :data="$sales"/>
+                    </div>
                 </div>
+
 
                 <div class="col-12 my-4">
                     <x-app.costs.product-costs.details.card :data="$costs" :product="$product">

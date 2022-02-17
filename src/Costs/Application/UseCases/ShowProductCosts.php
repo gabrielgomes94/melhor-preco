@@ -2,6 +2,7 @@
 
 namespace Src\Costs\Application\UseCases;
 
+use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
@@ -14,10 +15,10 @@ class ShowProductCosts
         $this->repository = $repository;
     }
 
-    public function show(string $sku)
+    public function show(string $sku): Collection
     {
         if (!$product = $this->repository->get($sku)) {
-            return null;
+            return collect([]);
         }
 
         $items = $product->itemsCosts;
@@ -43,12 +44,6 @@ class ShowProductCosts
             ];
         });
 
-        return [
-            'product' => [
-                'sku' => $product->getSku(),
-                'name' => $product->getDetails()->getName(),
-            ],
-            'items' => $items,
-        ];
+        return $items;
     }
 }

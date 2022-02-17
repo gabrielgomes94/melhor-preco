@@ -4,17 +4,16 @@
             <th colspan="1">Canal de Vendas</th>
             <th colspan="1">Faturamento</th>
             <th colspan="1">Quantidade</th>
-            <th colspan="1">Lucro</th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach ($data['stores'] ?? [] as $saleData)
+        @foreach ($data['salesByMarketplace'] ?? [] as $saleData)
             <tr>
                 <td>{{ $saleData['storeName'] }}</td>
                 <td>{{ $saleData['value'] }}</td>
                 <td>{{ $saleData['quantity'] }}</td>
-                <td></td>
+
             </tr>
         @endforeach
 
@@ -22,7 +21,6 @@
             <td>Total</td>
             <td>{{ $data['total']['value'] }}</td>
             <td>{{ $data['total']['quantity'] }}</td>
-            <td></td>
         </tr>
     </tbody>
 </table>
