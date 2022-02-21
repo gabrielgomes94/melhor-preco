@@ -5,11 +5,12 @@ let calculator_form = function() {
         var id = form.dataset.priceId
 
         let calculatorParams = {
-            store: form.querySelector('#store-' + id).value,
             commission: form.querySelector('#commission-' + id).value,
-            discount: form.querySelector('#discount-' + id).value,
             desiredPrice: form.querySelector('#desiredPrice-' + id).value,
-            product: form.querySelector('#product-' + id).value
+            discount: form.querySelector('#discount-' + id).value,
+            freeFreight: form.querySelector('#freeFreight-' + id).checked ? '1' : '0',
+            product: form.querySelector('#product-' + id).value,
+            store: form.querySelector('#store-' + id).value,
         }
 
         var formData = new FormData()
@@ -18,6 +19,7 @@ let calculator_form = function() {
         formData.append('commission', calculatorParams.commission)
         formData.append('discount', calculatorParams.discount)
         formData.append('desiredPrice', calculatorParams.desiredPrice)
+        formData.append('freeFreight', calculatorParams.freeFreight)
         formData.append('product', calculatorParams.product)
 
         return formData

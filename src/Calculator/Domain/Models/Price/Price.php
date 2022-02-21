@@ -133,8 +133,8 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
         );
         $this->setCommission($marketplace->getSlug(), $commission);
 
-        $ignoreFreight = !$options[CalculatorOptions::FREE_FREIGHT];
-        $this->setFreight($product, $marketplace->getSlug(), $ignoreFreight);
+        $freeFreight = $options[CalculatorOptions::FREE_FREIGHT];
+        $this->setFreight($product, $marketplace->getSlug(), $freeFreight);
     }
 
     private function setCommission(string $store, float $commission): void
@@ -154,9 +154,9 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
         );
     }
 
-    private function setFreight(ProductData $product, string $store, bool $ignoreFreight): void
+    private function setFreight(ProductData $product, string $store, bool $freeFreight): void
     {
-        $this->freight = Factory::make($store, $product->getDimensions(), $this->value, $ignoreFreight);
+        $this->freight = Factory::make($store, $product->getDimensions(), $this->value, $freeFreight);
     }
 
     private function setValue(float $value, $discount)

@@ -20,12 +20,12 @@ class CalculatePriceRequest extends FormRequest
             'discount' => 'numeric|nullable',
             'product' => 'string',
             'store' => 'in:b2w,magalu,mercado-livre,mercado-shops,olist,shopee',
+            'freeFreight' => 'boolean',
         ];
     }
 
     public function hasFreeFreight(): bool
     {
-        return true; // temporary. for dev only
-//        return $this->input('freeFreight') ?? false;
+        return $this->input('freeFreight') ?? false;
     }
 }

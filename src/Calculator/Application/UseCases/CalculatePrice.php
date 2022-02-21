@@ -17,6 +17,7 @@ class CalculatePrice implements CalculatePriceInterface
         $this->presenter = $presenter;
     }
 
+    //@todo: retirar o presenter daqui. Simplificar o Service(talvez o simulate post não seja mais necessário)
     public function calculate(array $data): array
     {
         $post = $this->service->calculate($data);

@@ -6,7 +6,7 @@
     <input
         type="text"
         class="form-control w-100 input-percentage"
-        id="{{ $visibleComponentId  }}"
+        id="{{ $visibleComponentId }}"
         name="{{ $attribute }}"
         value="{{ $value }}"
     >
