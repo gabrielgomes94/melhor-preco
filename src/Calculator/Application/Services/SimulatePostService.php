@@ -32,6 +32,7 @@ class SimulatePostService implements SimulatePost
 
     public function calculate(array $data): Post
     {
+        // @todo: usar o repositório aqui para pegar os produtos
         if (!$product = Product::find($data['productId'])) {
             throw new ProductNotFoundException($data['productId']);
         }

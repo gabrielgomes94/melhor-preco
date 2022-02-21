@@ -50,6 +50,7 @@ class CalculatePrice implements CalculatePrices
     {
         return [
             self::IGNORE_FREIGHT => $options[self::IGNORE_FREIGHT] ?? false,
+            self::FREE_FREIGHT => $options[self::FREE_FREIGHT] ?? false,
             self::DISCOUNT_RATE => $options[self::DISCOUNT_RATE] ?? Percentage::fromPercentage(0),
             self::COMMISSION => $options[self::COMMISSION] ?? null,
         ];

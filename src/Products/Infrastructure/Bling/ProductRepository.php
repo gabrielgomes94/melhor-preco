@@ -122,27 +122,27 @@ class ProductRepository implements ErpProductRepositoryInterface
         return $productsCollection;
     }
 
-    private function listPricesOnStore(Marketplace $marketplace, string $status)
-    {
-        $page = 0;
-        $pricesCollection = [];
-
-        do {
-            $response = $this->client->listPrice(
-                storeCode: $marketplace->getErpId(),
-                page: ++$page,
-                status: $status
-            );
-
-            $prices = $this->priceFactory->make(
-                storeSlug: $marketplace->getSlug(),
-                storeCode: $marketplace->getErpId(),
-                data: $response
-            );
-
-            $pricesCollection = array_merge($pricesCollection, $prices->data());
-        } while (!isset($prices) || !empty($prices->data()));
-
-        return $pricesCollection;
-    }
+//    private function listPricesOnStore(Marketplace $marketplace, string $status)
+//    {
+//        $page = 0;
+//        $pricesCollection = [];
+//
+//        do {
+//            $response = $this->client->listPrice(
+//                storeCode: $marketplace->getErpId(),
+//                page: ++$page,
+//                status: $status
+//            );
+//
+//            $prices = $this->priceFactory->make(
+//                storeSlug: $marketplace->getSlug(),
+//                storeCode: $marketplace->getErpId(),
+//                data: $response
+//            );
+//
+//            $pricesCollection = array_merge($pricesCollection, $prices->data());
+//        } while (!isset($prices) || !empty($prices->data()));
+//
+//        return $pricesCollection;
+//    }
 }
