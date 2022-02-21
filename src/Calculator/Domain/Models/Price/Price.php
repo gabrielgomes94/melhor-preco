@@ -15,6 +15,7 @@ use Src\Calculator\Domain\Models\Price\Costs\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
 use Src\Calculator\Domain\Models\Price\Freight\Factories\Factory;
 
+// @todo: instanciar essa classe através de um factory e delegar as lógicas de definição de atributos para esse factory
 class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
 {
     private float $commissionRate;
@@ -27,8 +28,13 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
     private ProductData $product;
     private Marketplace $marketplace;
 
-    public function __construct(ProductData $product, Marketplace $marketplace, float $value, float $commission, array $options = [])
-    {
+    public function __construct(
+        ProductData $product,
+        Marketplace $marketplace,
+        float $value,
+        float $commission,
+        array $options = []
+    ) {
         $this->setParameters($product, $marketplace, $value, $commission, $options);
 
         $this->calculate();
@@ -118,7 +124,7 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
         array $options = []
     ): void {
         $this->product = $product;
-        $this->store = $marketplace;
+//        $this->store = $marketplace;
 
         $this->setCostPrice($product);
         $this->setValue(
@@ -127,8 +133,8 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
         );
         $this->setCommission($marketplace->getSlug(), $commission);
 
-        $ignoreFreight = $options[CalculatorOptions::IGNORE_FREIGHT] ?? false;
-        $this->setFreight($product, $marketplace->getSlug(), $ignoreFreight);
+        $freeFreight = $options[CalculatorOptions::FREE_FREIGHT];
+        $this->setFreight($product, $marketplace->getSlug(), $freeFreight);
     }
 
     private function setCommission(string $store, float $commission): void
@@ -148,9 +154,9 @@ class Price implements \Src\Calculator\Domain\Models\Price\Contracts\Price
         );
     }
 
-    private function setFreight(ProductData $product, string $store, bool $ignoreFreight): void
+    private function setFreight(ProductData $product, string $store, bool $freeFreight): void
     {
-        $this->freight = Factory::make($store, $product->getDimensions(), $this->value, $ignoreFreight);
+        $this->freight = Factory::make($store, $product->getDimensions(), $this->value, $freeFreight);
     }
 
     private function setValue(float $value, $discount)

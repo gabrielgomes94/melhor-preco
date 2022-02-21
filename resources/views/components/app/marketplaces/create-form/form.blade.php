@@ -41,7 +41,6 @@
         />
     </div>
 
-
     <div class="d-flex justify-content-center mt-2">
         <x-template.buttons.submit label="Salvar" />
     </div>

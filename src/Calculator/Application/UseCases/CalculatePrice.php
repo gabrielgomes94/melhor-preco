@@ -2,25 +2,58 @@
 
 namespace Src\Calculator\Application\UseCases;
 
-use Src\Calculator\Domain\Services\Contracts\SimulatePost;
+use Src\Calculator\Application\Services\CalculatePrice as CalculatePriceService;
+use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\UseCases\Contracts\CalculatePrice as CalculatePriceInterface;
-use Src\Calculator\Presentation\Presenters\PricePresenter;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
+use Src\Products\Domain\Models\Product\Contracts\Post;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Repositories\Contracts\PostRepository;
+use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
 class CalculatePrice implements CalculatePriceInterface
 {
-    private SimulatePost $service;
-    private PricePresenter $presenter;
+    public function __construct(
+        private MarketplaceRepository $marketplaceRepository,
+        private ProductRepository $productRepository,
+        private PostFactory $postFactory,
+        private PostRepository $postRepository,
+        private CalculatePriceService $calculatePrice
+    ) {}
 
-    public function __construct(SimulatePost $service, PricePresenter $presenter)
+    public function calculate(array $data): Post
     {
-        $this->service = $service;
-        $this->presenter = $presenter;
+        $product = $this->getProduct($data['productId']);
+        $marketplace = $this->getMarketplace($data['storeSlug']);
+
+        $price = $this->calculatePrice->calculate(
+            ProductData::fromModel($product),
+            $marketplace,
+            $data['price'],
+            $data['commission'],
+            $data['options']
+        );
+
+        $post = $this->postRepository->getByMarketplaceSlug($product, $data['storeSlug']);
+
+        return $this->postFactory->updatePrice($post, $price);
     }
 
-    public function calculate(array $data): array
+    private function getProduct(string $productSku): Product
     {
-        $post = $this->service->calculate($data);
+        $product = $this->productRepository->get($productSku);
 
-        return $this->presenter->transform($post);
+        if (!$product) {
+            throw new ProductNotFoundException($productSku);
+        }
+
+        return $product;
+    }
+
+    private function getMarketplace(string $marketplaceSlug)
+    {
+        return $this->marketplaceRepository->getBySlug($marketplaceSlug);
     }
 }

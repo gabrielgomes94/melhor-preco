@@ -9,4 +9,6 @@ interface CalculatorOptions
     public const DISCOUNT_RATE = 'discountRate';
 
     public const IGNORE_FREIGHT = 'ignoreFreight';
+
+    public const FREE_FREIGHT = 'freeFreight';
 }

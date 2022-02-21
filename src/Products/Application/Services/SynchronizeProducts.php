@@ -22,6 +22,8 @@ class SynchronizeProducts
         $updatedCount = $createdCount = 0;
         $products = $this->erpRepository->all();
 
+
+        //@todo: usar o repositório de produtos
         foreach ($products as $erpProduct) {
             $product = Product::find($erpProduct->getSku());
 

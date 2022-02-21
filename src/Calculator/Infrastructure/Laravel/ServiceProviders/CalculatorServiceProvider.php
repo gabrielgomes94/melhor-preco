@@ -4,10 +4,8 @@ namespace Src\Calculator\Infrastructure\Laravel\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
 use Src\Calculator\Application\Services\CalculatePost;
-use Src\Calculator\Application\Services\SimulatePostService;
 use Src\Calculator\Application\UseCases\CalculatePrice;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost as CalculatePostInterface;
-use Src\Calculator\Domain\Services\Contracts\SimulatePost as SimulatePostInterface;
 use Src\Calculator\Domain\UseCases\Contracts\CalculatePrice as CalculatePriceInterface;
 
 class CalculatorServiceProvider extends ServiceProvider
@@ -16,7 +14,6 @@ class CalculatorServiceProvider extends ServiceProvider
     {
         // Services
         $this->app->bind(CalculatePostInterface::class, CalculatePost::class);
-        $this->app->bind(SimulatePostInterface::class, SimulatePostService::class);
 
         // Use Cases
         $this->app->bind(CalculatePriceInterface::class, CalculatePrice::class);
