@@ -39,6 +39,7 @@ class ProductPresenter
             'productId' => $product->getSku(),
             'productHeader' => $this->getProductHeader($product),
             'marketplaces' => $marketplaces,
+            'isFreeFreightDisabled' => $this->isFreeFreightDisabled($marketplace)
         ];
     }
 
@@ -54,5 +55,17 @@ class ProductPresenter
     private function getProductHeader(Product $product): string
     {
         return $product->getSku() . '-' . $product->getDetails()->getName();
+    }
+
+    // @todo: melhorar essa lógica. Talvez jogar isso aqui pra camada de domínio.
+    private function isFreeFreightDisabled(Marketplace $marketplace): bool
+    {
+        $marketplaceSlug = $marketplace->getSlug();
+
+        if (in_array($marketplaceSlug, ['magalu', 'shopee'])) {
+            return true;
+        }
+
+        return false;
     }
 }

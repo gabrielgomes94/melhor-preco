@@ -2,15 +2,10 @@
 
 namespace Src\Calculator\Application\Services;
 
-use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
+use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost as CalculatePostInterface;
-use Src\Marketplaces\Application\Models\Marketplace;
-use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Math\Percentage;
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Domain\Models\Post\Post;
-use Src\Products\Domain\Models\Product\Product;
 
 class CalculatePost implements CalculatePostInterface
 {

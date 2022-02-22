@@ -24,6 +24,7 @@
                     :price="$price"
                     :product="$product"
                     :store="$store"
+                    :isFreeFreightDisabled="$isFreeFreightDisabled"
                 />
             </div>
 

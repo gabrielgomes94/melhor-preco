@@ -3,6 +3,10 @@
            type="checkbox"
            id="{{ $id }}"
            name="{{ $name }}"
+
+           @if ($isDisabled)
+                disabled
+           @endif
     >
     <label class="form-check-label" for="{{ $id }}">{{ $label ?? '' }}</label>
 </div>

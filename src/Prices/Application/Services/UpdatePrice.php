@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Services;
 
-use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
+use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\Models\Price;
 

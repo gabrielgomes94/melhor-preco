@@ -11,14 +11,6 @@ use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 
 interface Price
 {
-    public function __construct(
-        ProductData $product,
-        Marketplace $marketplace,
-        float $value,
-        float $commission,
-        array $options = []
-    );
-
     public function get(): Money;
 
     public function getCommission(): Commission;
@@ -33,7 +25,7 @@ interface Price
 
     public function getMargin(): float;
 
-    public function getProductData(): \Src\Calculator\Domain\Models\Product\Contracts\ProductData;
+    public function getProductData(): ProductData;
 
     public function getProfit(): Money;
 

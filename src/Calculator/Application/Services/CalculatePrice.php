@@ -2,10 +2,11 @@
 
 namespace Src\Calculator\Application\Services;
 
+use Src\Calculator\Domain\Models\Price\PriceFactory;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
-use Src\Calculator\Domain\Models\Price\Price;
+use Src\Calculator\Domain\Models\Price\Contracts\Price;
 use Src\Calculator\Domain\Services\Contracts\CalculatePrices;
 
 // @todo: Talvez seja interessante disponibilizar uma classe CalculateProduct
@@ -18,7 +19,7 @@ class CalculatePrice implements CalculatePrices
         ?Percentage $commission,
         array $options = []
     ): Price {
-        return new Price(
+        return PriceFactory::make(
             product: $productData,
             marketplace: $marketplace,
             value: $value,
