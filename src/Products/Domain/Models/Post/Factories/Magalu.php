@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Models\Post\Factories;
 
-use Src\Calculator\Domain\Models\Price\Price as CalculatedPrice;
+use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Calculator\Application\Services\CalculatePost;
 use Src\Prices\Domain\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Contracts\Factory as FactoryInterface;
