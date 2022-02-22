@@ -52,6 +52,7 @@
                 id="freeFreight-{{ $price['id'] }}"
                 label="Frete grátis"
                 name="freeFreight"
+                :isDisabled="$isFreeFreightDisabled"
             >
             </x-bootstrap.forms.input.toggle-switch>
         </div>

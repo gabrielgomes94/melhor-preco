@@ -3,7 +3,7 @@
 namespace Src\Calculator\Domain\Models\Price;
 
 use Src\Calculator\Domain\Models\Price\Commission\Factories\Factory as CommissionFactory;
-use Src\Calculator\Domain\Models\Price\Contracts\Price;
+use Src\Calculator\Domain\Models\Price\Contracts\Price as PriceInterface;
 use Src\Calculator\Domain\Models\Price\Costs\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\Factories\Factory;
 use Src\Calculator\Domain\Models\Price\Price;
@@ -22,7 +22,7 @@ class PriceFactory
         float $value,
         float $commission,
         array $options = []
-    ): Price {
+    ): PriceInterface {
         $discountRate = $options[CalculatorOptions::DISCOUNT_RATE] ?? Percentage::fromPercentage(0);
         $value = MoneyTransformer::toMoney($value)->multiply(1 - $discountRate->get());
 
