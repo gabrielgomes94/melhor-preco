@@ -3,14 +3,18 @@
         <x-app.marketplaces.navbar />
     </x-slot>
 
+    <div class="row">
+        <x-template.alert-messages.alert-messages />
+    </div>
+
     <div class="m-4">
         <x-bootstrap.card.basic-card>
             <x-slot name="header">
-                <h2>Marketplaces Integrados</h2>
+                <h2>Editar Marketplace {{ $marketplace['name'] }}</h2>
             </x-slot>
 
             <x-slot name="body">
-                <x-app.marketplaces.list-card.card :marketplaces="$marketplaces" />
+                <x-app.marketplaces.edit-form.form :marketplace="$marketplace" />
             </x-slot>
         </x-bootstrap.card.basic-card>
     </div>

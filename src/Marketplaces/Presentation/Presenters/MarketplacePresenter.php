@@ -7,18 +7,24 @@ use Src\Marketplaces\Application\Models\Marketplace;
 
 class MarketplacePresenter
 {
-    public function present(Collection $marketplaces)
+    public function present(Marketplace $marketplace): array
+    {
+        $commissions = $this->presentCommissions($marketplace);
+
+        return [
+            'name' => $marketplace->getName(),
+            'slug' => $marketplace->getSlug(),
+            'commissions' => $commissions,
+            'erpId' => $marketplace->getErpId(),
+            'uuid' => $marketplace->getUuid(),
+            'commissionType' => $marketplace->getCommissionType(),
+        ];
+    }
+
+    public function presentList(Collection $marketplaces): array
     {
         $presented = $marketplaces->map(function (Marketplace $marketplace) {
-            $commissions = $this->presentCommissions($marketplace);
-
-            return [
-                'name' => $marketplace->getName(),
-                'slug' => $marketplace->getSlug(),
-                'commissions' => $commissions,
-                'erpId' => $marketplace->getErpId(),
-                'uuid' => $marketplace->getUuid(),
-            ];
+            return $this->present($marketplace);
         })->toArray();
 
         return [
@@ -26,7 +32,7 @@ class MarketplacePresenter
         ];
     }
 
-    private function presentCommissions(Marketplace $marketplace)
+    private function presentCommissions(Marketplace $marketplace): array
     {
         $commissions = $marketplace->getCommissionValues();
 
