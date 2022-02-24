@@ -5,8 +5,9 @@ namespace Src\Marketplaces\Application\UseCases;
 use Src\Marketplaces\Application\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Eloquent\MarketplaceRepository;
+use Src\Marketplaces\Domain\UseCases\Contracts\GetMarketplace as GetMarketplaceInterface;
 
-class GetMarketplace
+class GetMarketplace implements GetMarketplaceInterface
 {
     public function __construct(
         private MarketplaceRepository $marketplaceRepository
@@ -15,12 +16,12 @@ class GetMarketplace
     /**
      * @throws MarketplaceNotFoundException
      */
-    public function get(string $marketplaceId): Marketplace
+    public function getByUuid(string $marketplaceUuid): Marketplace
     {
-        $marketplace = $this->marketplaceRepository->getByErpId($marketplaceId);
+        $marketplace = $this->marketplaceRepository->getByUuid($marketplaceUuid);
 
         if (!$marketplace) {
-            throw new MarketplaceNotFoundException($marketplaceId);
+            throw new MarketplaceNotFoundException($marketplaceUuid);
         }
 
         return $marketplace;

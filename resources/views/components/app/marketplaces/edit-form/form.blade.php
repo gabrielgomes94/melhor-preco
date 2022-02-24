@@ -1,4 +1,4 @@
-<x-template.forms.post action="{{ route('marketplaces.store') }}">
+<x-template.forms.post action="{{ route('marketplaces.update', $marketplace['uuid']) }}">
     <div class="mt-1">
         <x-bootstrap.forms.input.text
             attribute="erpId"

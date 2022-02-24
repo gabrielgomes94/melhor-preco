@@ -24,7 +24,7 @@
 
             <br>
 
-            <a href="{{ route('marketplaces.edit', $marketplace['erpId']) }}"
+            <a href="{{ route('marketplaces.edit', $marketplace['uuid']) }}"
                class="link-info"
             >
                 Editar

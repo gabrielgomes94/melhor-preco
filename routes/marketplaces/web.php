@@ -13,9 +13,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/criar', [MarketplacesController::class, 'create'])->name('.create');
             Route::post('/criar', [MarketplacesController::class, 'store'])->name('.store');
 
-            Route::get('/{marketplace_id}/editar', [MarketplacesController::class, 'edit'])
+            Route::get('/{marketplace_uuid}/editar', [MarketplacesController::class, 'edit'])
                 ->name('.edit');
-            Route::post('/{marketplace_id}/editar', [MarketplacesController::class, 'update'])
+            Route::post('/{marketplace_uuid}/editar', [MarketplacesController::class, 'update'])
                 ->name('.update');
 
 
