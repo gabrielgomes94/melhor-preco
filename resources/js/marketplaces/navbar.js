@@ -1,13 +1,5 @@
 let highlightNavbarSection = function () {
-    function isCreateMarketplacePage() {
-        return window.location.pathname.includes('marketplaces/criar')
-    }
-
     function getActiveSection() {
-        if (isCreateMarketplacePage()) {
-            return document.querySelector('#nav-marketplaces-create')
-        }
-
         return document.querySelector('#nav-marketplaces-list')
     }
 

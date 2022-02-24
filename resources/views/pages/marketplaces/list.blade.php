@@ -6,7 +6,11 @@
     <div class="m-4">
         <x-bootstrap.card.basic-card>
             <x-slot name="header">
-                <h2>Marketplaces Integrados</h2>
+                <div class="d-flex justify-content-between">
+                    <h2>Marketplaces Integrados</h2>
+
+                    <x-app.marketplaces.buttons.add-marketplace />
+                </div>
             </x-slot>
 
             <x-slot name="body">
