@@ -4,6 +4,10 @@
            id="{{ $id }}"
            value="{{ $value }}"
            name="{{ $name }}"
+
+           @if ($active ?? false)
+               checked
+           @endif
     >
     <label class="form-check-label" for="{{ $id }}">{{ $label }}</label>
 </div>

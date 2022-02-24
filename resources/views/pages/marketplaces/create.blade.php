@@ -10,7 +10,9 @@
     <div class="m-4">
         <x-bootstrap.card.basic-card>
             <x-slot name="header">
-                <h2>Cadastrar Marketplace</h2>
+                <div class="d-flex justify-content-between">
+                    <h2>Cadastrar Marketplace</h2>
+                </div>
             </x-slot>
 
             <x-slot name="body">

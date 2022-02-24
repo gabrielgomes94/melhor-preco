@@ -8,9 +8,15 @@ Route::middleware('auth')->group(function () {
     Route::prefix('marketplaces')
         ->name('marketplaces')
         ->group(function() {
+            Route::get('/', [MarketplacesController::class, 'list'])->name('.list');
+
             Route::get('/criar', [MarketplacesController::class, 'create'])->name('.create');
             Route::post('/criar', [MarketplacesController::class, 'store'])->name('.store');
-            Route::get('/', [MarketplacesController::class, 'list'])->name('.list');
+
+            Route::get('/{marketplace_uuid}/editar', [MarketplacesController::class, 'edit'])
+                ->name('.edit');
+            Route::post('/{marketplace_uuid}/editar', [MarketplacesController::class, 'update'])
+                ->name('.update');
 
 
             Route::post('/{marketplace_slug}/definir-comissoes-por-categoria',

@@ -5871,15 +5871,7 @@ setChildrenCategory();
 /***/ (function(module, exports) {
 
 var highlightNavbarSection = function highlightNavbarSection() {
-  function isCreateMarketplacePage() {
-    return window.location.pathname.includes('marketplaces/criar');
-  }
-
   function getActiveSection() {
-    if (isCreateMarketplacePage()) {
-      return document.querySelector('#nav-marketplaces-create');
-    }
-
     return document.querySelector('#nav-marketplaces-list');
   } //@todo: refatorar esse trecho para evitar duplicação
 
