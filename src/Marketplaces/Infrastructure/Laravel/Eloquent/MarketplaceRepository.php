@@ -12,18 +12,13 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
     public function create(array $data): bool
     {
-        $slug = Str::slug($data['name']);
+        $data = $this->prepareData($data);
 
-        return Marketplace::create([
-            'erp_id' => $data['erpId'],
-            'erp_name' => 'bling',
-            'name' => $data['name'],
-            'slug' => $slug,
-            'extra' => [
-                'commissionType' => $data['commissionType'],
-            ],
-            'uuid' => Uuid::uuid4(),
-        ]);
+        return Marketplace::create(
+            array_merge($data, [
+                'uuid' => Uuid::uuid4(),
+            ])
+        );
     }
 
     public function exists(string $marketplaceUuid): bool
@@ -61,17 +56,25 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
             return false;
         }
 
+        $data = $this->prepareData($data);
+        $marketplace->fill($data);
+
+        return $marketplace->save();
+    }
+
+    private function prepareData(array $data): array
+    {
         $slug = Str::slug($data['name']);
-        $marketplace->fill([
+
+        return [
             'erp_id' => $data['erpId'],
             'erp_name' => 'bling',
-            'name' => $data['name'],
-            'slug' => $slug,
             'extra' => [
                 'commissionType' => $data['commissionType'],
             ],
-        ]);
-
-        return $marketplace->save();
+            'is_active' => $data['is_active'],
+            'name' => $data['name'],
+            'slug' => $slug,
+        ];
     }
 }
