@@ -14,7 +14,7 @@ class Percentage
     public function __toString()
     {
         $fullValue = $this->value * 100;
-        $fullValue = number_format($fullValue, 2);
+        $fullValue = number_format($fullValue, 2, ',', '.');
 
         return "{$fullValue} %";
     }

@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Models\Product\Contracts;
 
+use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
@@ -22,6 +23,8 @@ interface Product
     public function getCosts(): Costs;
 
     public function getDetails(): Details;
+
+    public function getPrices(): Collection;
 
     public function getDimensions(): Dimensions;
 

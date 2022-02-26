@@ -9,17 +9,18 @@ use Src\Sales\Domain\Models\Item;
 
 class ProductReportPresenter
 {
-    public function __construct(private ProductPresenter $productPresenter)
-    {
+    public function __construct(
+        private PricePresenter $pricePresenter,
+        private ProductPresenter $productPresenter
+    ) {}
 
-    }
-
-    public function present(ProductInfoReport $productInfoReport)
+    public function present(ProductInfoReport $productInfoReport): array
     {
         $salesReport = $productInfoReport->salesReport;
 
         return [
             'costs' => $productInfoReport->costsItems->toArray(),
+            'prices' => $this->pricePresenter->present($productInfoReport->product),
             'product' => $this->productPresenter->present($productInfoReport->product),
             'sales' => [
                 'lastSales' => $this->getLastSales($salesReport),
