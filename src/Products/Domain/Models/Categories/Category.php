@@ -65,6 +65,11 @@ class Category extends Model
         return implode(' / ', array_reverse($parentNames));
     }
 
+    public function getName(): string
+    {
+        return $this->name ?? '';
+    }
+
     public function getParentId(): string
     {
         return $this?->parent?->getCategoryId() ?? '';

@@ -20,18 +20,15 @@
                             </x-slot>
 
                             <x-slot name="body">
-                                <div class="content-container">
-                                    <ul>
-                                        <li>
-                                            <b>SKU:</b> {{ $product['sku'] }}
-                                        </li>
-                                        <li>
-                                            <b>Nome:</b> {{ $product['name'] }}
-                                        </li>
-                                        <li>
-                                            <b>Estoque atual:</b> {{ $product['quantity'] }}
-                                        </li>
-                                    </ul>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <x-app.products.reports.basic-info.table :product="$product" />
+                                    </div>
+
+                                    <div class="col-6">
+                                        <x-app.products.reports.basic-info.images :product="$product"/>
+                                    </div>
                                 </div>
                             </x-slot>
                         </x-bootstrap.card.basic-card>

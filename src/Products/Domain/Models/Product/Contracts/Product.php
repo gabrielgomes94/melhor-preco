@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Models\Product\Contracts;
 
+use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
@@ -15,6 +16,8 @@ interface Product
     public function getIdentifiers(): Identifiers;
 
     public function getComposition(): Composition;
+
+    public function getCategory(): ?Category;
 
     public function getCosts(): Costs;
 
