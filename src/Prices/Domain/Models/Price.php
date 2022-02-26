@@ -50,6 +50,11 @@ class Price extends Model
         return $this->id;
     }
 
+    public function getMargin(): float
+    {
+        return $this->margin();
+    }
+
     public function getMarketplace(): Marketplace
     {
         return $this->marketplace;

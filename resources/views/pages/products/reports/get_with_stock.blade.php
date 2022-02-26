@@ -20,23 +20,33 @@
                             </x-slot>
 
                             <x-slot name="body">
-                                <div class="content-container">
-                                    <ul>
-                                        <li>
-                                            <b>SKU:</b> {{ $product['sku'] }}
-                                        </li>
-                                        <li>
-                                            <b>Nome:</b> {{ $product['name'] }}
-                                        </li>
-                                        <li>
-                                            <b>Estoque atual:</b> {{ $product['quantity'] }}
-                                        </li>
-                                    </ul>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <x-app.products.reports.basic-info.table :product="$product" />
+                                    </div>
+
+                                    <div class="col-6">
+                                        <x-app.products.reports.basic-info.images :product="$product"/>
+                                    </div>
                                 </div>
                             </x-slot>
                         </x-bootstrap.card.basic-card>
                     </div>
                 @endif
+
+                <div class="row my-4">
+                    <div class="col-12 my-4">
+                        <x-bootstrap.card.basic-card>
+                            <x-slot name="header">
+                                <h3>Preços</h3>
+                            </x-slot>
+
+                            <x-slot name="body">
+                                <x-app.products.reports.prices.table :data="$prices" />
+                            </x-slot>
+                        </x-bootstrap.card.basic-card>
+                    </div>
+                </div>
 
                 <div class="row my-4">
                     <div class="col-6">
@@ -47,7 +57,6 @@
                         <x-app.sales.reports.last-sales.card :data="$sales"/>
                     </div>
                 </div>
-
 
                 <div class="col-12 my-4">
                     <x-app.costs.product-costs.details.card :data="$costs" :product="$product">

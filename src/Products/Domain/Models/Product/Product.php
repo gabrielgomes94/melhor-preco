@@ -194,7 +194,7 @@ class Product extends Model implements ProductModelInterface
 
     public function getPrices(): Collection
     {
-        return $this->prices ?? [];
+        return $this->prices ?? collect();
     }
 
     public function getCreationDate(): Carbon
