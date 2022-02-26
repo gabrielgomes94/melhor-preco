@@ -17,12 +17,16 @@ class PricePresenter
             $profit = $price->getProfit();
             $value = $price->getValue();
             $marketplaceName = $price->getMarketplace()->getName();
+            $marketplaceSlug = $price->getMarketplace()->getSlug();
+            $productSku = $price->getProductSku();
 
             return [
                 'value' => (string) Money::fromFloat($value),
                 'profit' => (string) Money::fromFloat($profit),
                 'marketplaceName' => $marketplaceName,
+                'marketplaceSlug' => $marketplaceSlug,
                 'margin' => (string) Percentage::fromFraction($price->getMargin()),
+                'productSku' => $productSku,
             ];
         })->all();
     }

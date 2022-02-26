@@ -24,6 +24,21 @@
                 <td colspan="1">
                     {{ $price['margin'] }}
                 </td>
+                <td>
+                    <a  href="{{
+                            route(
+                                'pricing.products.showByStore',
+                                [
+                                    'store_slug' => $price['marketplaceSlug'],
+                                    'product_id' => $price['productSku']
+                                ]
+                            )
+                           }}"
+                        role="button"
+                    >
+                        <x-app.base.icons.calculator />
+                    </a>
+                </td>
             </tr>
         @endforeach
     </tbody>
