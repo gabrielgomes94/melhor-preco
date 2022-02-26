@@ -1,12 +1,20 @@
-<div class="form-check form-switch">
-    <input class="form-check-input"
-           type="checkbox"
-           id="{{ $id }}"
-           name="{{ $name }}"
+<div class="d-inline-flex">
+    {{ $previousLabel ?? '' }}
 
-           @if ($isDisabled)
-                disabled
-           @endif
-    >
-    <label class="form-check-label" for="{{ $id }}">{{ $label ?? '' }}</label>
+    <div class="mx-1"></div>
+
+    <div class="form-check form-switch">
+        <input class="form-check-input"
+               type="checkbox"
+               id="{{ $id }}"
+               name="{{ $name }}"
+
+               @if ($isDisabled ?? false) disabled @endif
+
+               @if ($active ?? false) checked @endif
+        >
+    </div>
+
+    {{ $nextLabel ?? '' }}
 </div>
+

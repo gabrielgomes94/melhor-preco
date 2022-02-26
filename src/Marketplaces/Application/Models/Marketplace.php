@@ -19,6 +19,7 @@ class Marketplace extends Model implements MarketplaceInterface
         'name',
         'slug',
         'extra',
+        'is_active',
         'uuid',
     ];
 
@@ -143,5 +144,10 @@ class Marketplace extends Model implements MarketplaceInterface
     public function hasCommissionByCategory(): bool
     {
         return $this->getCommissionType() === CommissionType::CATEGORY_COMMISSION;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
     }
 }

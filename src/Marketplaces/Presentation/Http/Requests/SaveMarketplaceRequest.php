@@ -6,6 +6,16 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SaveMarketplaceRequest extends FormRequest
 {
+    public function validationData()
+    {
+        return array_merge(
+            $this->all(),
+            [
+                'is_active' => $this->isActive(),
+            ]
+        );
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,6 +37,7 @@ class SaveMarketplaceRequest extends FormRequest
             'commissionType' => 'required',
             'erpId' => 'required',
             'name' => 'required',
+            'is_active' => 'boolean',
         ];
     }
 
@@ -37,5 +48,10 @@ class SaveMarketplaceRequest extends FormRequest
             'erpId.required' => 'ID do Marketplace no Bling deve ser preenchido',
             'name.required' => 'Nome do marketplace deve ser preenchido',
         ];
+    }
+
+    public function isActive(): bool
+    {
+        return $this->input('status') ?? false;
     }
 }
