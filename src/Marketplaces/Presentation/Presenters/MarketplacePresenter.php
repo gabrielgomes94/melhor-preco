@@ -10,14 +10,17 @@ class MarketplacePresenter
     public function present(Marketplace $marketplace): array
     {
         $commissions = $this->presentCommissions($marketplace);
+        $status = $marketplace->isActive() ? 'Ativo' : 'Inativo';
 
         return [
-            'name' => $marketplace->getName(),
-            'slug' => $marketplace->getSlug(),
+            'commissionType' => $marketplace->getCommissionType(),
             'commissions' => $commissions,
             'erpId' => $marketplace->getErpId(),
+            'isActive' => $marketplace->isActive(),
+            'name' => $marketplace->getName(),
+            'status' => $status,
+            'slug' => $marketplace->getSlug(),
             'uuid' => $marketplace->getUuid(),
-            'commissionType' => $marketplace->getCommissionType(),
         ];
     }
 

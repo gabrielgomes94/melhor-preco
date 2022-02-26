@@ -9,10 +9,15 @@
             {{ $marketplace['erpId'] }}
         </td>
 
+
         <td colspan="1">
             @foreach ($marketplace['commissions'] as $commission)
                 {{ $commission }} <br>
             @endforeach
+        </td>
+
+        <td colspan="1">
+            {{ $marketplace['status'] }}
         </td>
 
         <td colspan="1">
@@ -29,6 +34,8 @@
             >
                 Editar
             </a>
+
+            <br>
         </td>
     </tr>
 @endforeach

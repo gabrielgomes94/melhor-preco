@@ -41,6 +41,19 @@
         />
     </div>
 
+    <div class="mt-2">
+        <h5>Status</h5>
+
+        <x-bootstrap.forms.input.toggle-switch
+            id="status-check"
+            name="status"
+            value="active"
+            active="true"
+            previousLabel="Inativo"
+            nextLabel="Ativo"
+        />
+    </div>
+
     <div class="d-flex justify-content-center mt-2">
         <x-template.buttons.submit label="Salvar" />
     </div>
