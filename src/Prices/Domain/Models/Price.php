@@ -50,9 +50,9 @@ class Price extends Model
         return $this->id;
     }
 
-    public function getMargin(): float
+    public function getMargin(): Percentage
     {
-        return $this->margin();
+        return Percentage::fromFraction($this->margin());
     }
 
     public function getMarketplace(): Marketplace
