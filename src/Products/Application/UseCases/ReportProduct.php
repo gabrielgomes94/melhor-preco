@@ -16,7 +16,7 @@ class ReportProduct
         private ReportProductSales $reportProductSales
     ){}
 
-    public function get(string $sku)//: array
+    public function get(string $sku): ProductInfoReport
     {
         $product = $this->productRepository->get($sku);
 
