@@ -2,6 +2,7 @@
 
 namespace Src\Products\Presentation\Presenters\Reports;
 
+use Src\Math\MathPresenter;
 use Src\Products\Application\Data\Reports\ProductInfoReport;
 use Src\Sales\Application\Data\MarketplaceSaleItems;
 use Src\Sales\Application\Data\Reports\SalesReport;
@@ -11,15 +12,18 @@ class ProductReportPresenter
 {
     public function __construct(
         private PricePresenter $pricePresenter,
-        private ProductPresenter $productPresenter
-    ) {}
+        private ProductPresenter $productPresenter,
+        private CostsPresenter $costsPresenter
+    ) {
+    }
 
     public function present(ProductInfoReport $productInfoReport): array
     {
         $salesReport = $productInfoReport->salesReport;
+        $costs = $this->costsPresenter->present($productInfoReport->costsItems);
 
         return [
-            'costs' => $productInfoReport->costsItems->toArray(),
+            'costs' => $costs,
             'prices' => $this->pricePresenter->present($productInfoReport->product),
             'product' => $this->productPresenter->present($productInfoReport->product),
             'sales' => [
@@ -35,12 +39,13 @@ class ProductReportPresenter
         $sales = $salesReport->lastSales->get();
         $sales = $sales->transform(function (Item $saleItem) {
             $saleOrder = $saleItem->getSaleOrder();
+            $value = $saleOrder->getSaleValue()->totalValue();
 
             return [
-                'saleDate' => $saleOrder->getSelledAt(),
+                'saleDate' => $saleOrder->getSelledAt()->format('d/m/Y'),
                 'marketplace' => $saleOrder->getMarketplace()?->getName(),
                 'quantity' => $saleItem->getQuantity(),
-                'value' => $saleOrder->getSaleValue()->totalValue(),
+                'value' => MathPresenter::money($value),
             ];
         });
 
@@ -53,12 +58,13 @@ class ProductReportPresenter
 
         $marketplaceSales = $marketplaceSales->transform(function (MarketplaceSaleItems $marketplaceSales) {
             $sales = $marketplaceSales->sales->get();
+            $totalValue = $sales->sum(function (Item $saleItem) {
+                return $saleItem->getTotalValue();
+            });
 
             return [
                 'quantity' => $sales->count(),
-                'value' => $sales->sum(function (Item $saleItem) {
-                    return $saleItem->getTotalValue();
-                }),
+                'value' => MathPresenter::money($totalValue),
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];
@@ -70,12 +76,13 @@ class ProductReportPresenter
     private function getTotalSales(SalesReport $salesReport): array
     {
         $itemsSelled = $salesReport->itemsSelled->get();
+        $totalValue = $itemsSelled->sum(function (Item $saleItem) {
+            return $saleItem->getTotalValue();
+        });
 
         return [
             'quantity' => $itemsSelled->count(),
-            'value' => $itemsSelled->sum(function (Item $saleItem) {
-                return $saleItem->getTotalValue();
-            }),
+            'value' => MathPresenter::money($totalValue),
         ];
     }
 }

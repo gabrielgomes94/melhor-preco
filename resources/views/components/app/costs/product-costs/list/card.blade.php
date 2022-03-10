@@ -6,6 +6,6 @@
     @endisset
 
     <x-slot name="body">
-        <x-app.costs.product-costs.details.table.table :data="$data" />
+        <x-app.costs.product-costs.list.table.table :data="$data" />
     </x-slot>
 </x-bootstrap.card.basic-card>

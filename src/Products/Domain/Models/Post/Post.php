@@ -72,7 +72,7 @@ class Post implements PostInterface
     {
         $minimumProfit = PercentageTransformer::toPercentage($minimumProfit);
         $maximumProfit = PercentageTransformer::toPercentage($maximumProfit);
-        $margin = $this->getPrice()->getMargin();
+        $margin = $this->getPrice()->getMargin()->getFraction();
 
         return $minimumProfit <= $margin && $margin <= $maximumProfit;
     }

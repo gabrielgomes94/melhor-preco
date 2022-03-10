@@ -59,11 +59,11 @@
                 </div>
 
                 <div class="col-12 my-4">
-                    <x-app.costs.product-costs.details.card :data="$costs" :product="$product">
+                    <x-app.costs.product-costs.list.card :data="$costs" :product="$product">
                         <x-slot name="header">
                             <h2>Custos</h2>
                         </x-slot>
-                    </x-app.costs.product-costs.details.card>
+                    </x-app.costs.product-costs.list.card>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 
 namespace Src\Products\Presentation\Presenters\Reports;
 
-use Src\Math\Money;
+use Src\Math\MathPresenter;
 use Src\Math\Percentage;
 use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Product\Contracts\Product;
@@ -21,11 +21,11 @@ class PricePresenter
             $productSku = $price->getProductSku();
 
             return [
-                'value' => (string) Money::fromFloat($value),
-                'profit' => (string) Money::fromFloat($profit),
+                'value' => MathPresenter::money($value),
+                'profit' => MathPresenter::money($profit),
                 'marketplaceName' => $marketplaceName,
                 'marketplaceSlug' => $marketplaceSlug,
-                'margin' => (string) Percentage::fromFraction($price->getMargin()),
+                'margin' => MathPresenter::percentage($price->getMargin()),
                 'productSku' => $productSku,
             ];
         })->all();
