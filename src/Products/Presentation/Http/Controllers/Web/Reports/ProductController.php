@@ -11,9 +11,10 @@ use Src\Products\Presentation\Presenters\Reports\ProductReportPresenter;
 class ProductController extends Controller
 {
     public function __construct(
-        private ReportProduct      $reportProduct,
+        private ReportProduct $reportProduct,
         private ProductReportPresenter $productReportPresenter
-    ) {}
+    ) {
+    }
 
     public function get(Request $request, string $sku)
     {
@@ -25,7 +26,7 @@ class ProductController extends Controller
         }
 
         return view(
-            'pages.products.reports.get_with_stock',
+            'pages.products.reports.product_infos',
             array_merge(
                 $data,
                 [

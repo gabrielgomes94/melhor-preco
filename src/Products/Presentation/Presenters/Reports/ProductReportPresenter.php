@@ -12,15 +12,18 @@ class ProductReportPresenter
 {
     public function __construct(
         private PricePresenter $pricePresenter,
-        private ProductPresenter $productPresenter
-    ) {}
+        private ProductPresenter $productPresenter,
+        private CostsPresenter $costsPresenter
+    ) {
+    }
 
     public function present(ProductInfoReport $productInfoReport): array
     {
         $salesReport = $productInfoReport->salesReport;
+        $costs = $this->costsPresenter->present($productInfoReport->costsItems);
 
         return [
-            'costs' => $productInfoReport->costsItems->toArray(),
+            'costs' => $costs,
             'prices' => $this->pricePresenter->present($productInfoReport->product),
             'product' => $this->productPresenter->present($productInfoReport->product),
             'sales' => [
@@ -39,7 +42,7 @@ class ProductReportPresenter
             $value = $saleOrder->getSaleValue()->totalValue();
 
             return [
-                'saleDate' => $saleOrder->getSelledAt(),
+                'saleDate' => $saleOrder->getSelledAt()->format('d/m/Y'),
                 'marketplace' => $saleOrder->getMarketplace()?->getName(),
                 'quantity' => $saleItem->getQuantity(),
                 'value' => MathPresenter::money($value),
