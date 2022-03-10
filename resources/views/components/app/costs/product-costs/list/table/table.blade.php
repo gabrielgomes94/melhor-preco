@@ -1,4 +1,3 @@
-{{--<table class="table w-100">--}}
 <x-bootstrap.table.bordered-table>
     <thead>
         <x-app.costs.product-costs.list.table.header />
@@ -10,4 +9,3 @@
         @endforeach
     </tbody>
 </x-bootstrap.table.bordered-table>
-{{--</table>--}}
