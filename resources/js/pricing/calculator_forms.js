@@ -1,8 +1,24 @@
 let calculator_form = function() {
     var forms = document.querySelectorAll('.price-calculator-form')
 
+    var tableAttributes = {
+        costs: [
+            'commission',
+            'purchasePrice',
+            'freight',
+            'taxSimplesNacional',
+            'differenceICMS',
+        ],
+        profit: [
+            'profit',
+            'margin',
+        ],
+        desiredPrice: 'price'
+    }
+
     function getFormData(form) {
         var id = form.dataset.priceId
+
 
         let calculatorParams = {
             commission: form.querySelector('#commission-' + id).value,
@@ -10,50 +26,33 @@ let calculator_form = function() {
             discount: form.querySelector('#discount-' + id).value,
             freeFreight: form.querySelector('#freeFreight-' + id).checked ? '1' : '0',
             product: form.querySelector('#product-' + id).value,
-            store: form.querySelector('#store-' + id).value,
+            store: form.querySelector('#store-' + id).value
         }
 
-        var formData = new FormData()
-
-        formData.append('store', calculatorParams.store)
+        let formData = new FormData()
         formData.append('commission', calculatorParams.commission)
-        formData.append('discount', calculatorParams.discount)
         formData.append('desiredPrice', calculatorParams.desiredPrice)
+        formData.append('discount', calculatorParams.discount)
         formData.append('freeFreight', calculatorParams.freeFreight)
         formData.append('product', calculatorParams.product)
+        formData.append('store', calculatorParams.store)
 
         return formData
     }
 
     forms.forEach(function(form){
         var id = form.dataset.priceId
-
         let pricePreffix = 'update-price'
-        let discountedPricePreffix = 'discounted-price'
 
         let calculator = {
-            price: {
-                price: getInput(id, 'value', pricePreffix),
-                profit: getInput(id, 'profit', pricePreffix),
-                margin: getInput(id, 'margin', pricePreffix),
-                commission: getInput(id, 'commission', pricePreffix),
-                commissionRate: getInput(id, 'commissionRate-input', pricePreffix),
-                taxSimplesNacional: getInput(id, 'taxSimplesNacional', pricePreffix),
-                freight: getInput(id, 'freight', pricePreffix),
-                differenceICMS: getInput(id, 'differenceICMS', pricePreffix),
-                purchasePrice: getInput(id, 'purchasePrice', pricePreffix)
-            },
-            discountedPrice: {
-                price: getInput(id, 'value', discountedPricePreffix),
-                profit: getInput(id, 'profit', discountedPricePreffix),
-                margin: getInput(id, 'margin', discountedPricePreffix),
-                commission: getInput(id, 'commission', discountedPricePreffix),
-                commissionRate: getInput(id, 'commissionRate-input', pricePreffix),
-                taxSimplesNacional: getInput(id, 'taxSimplesNacional', discountedPricePreffix),
-                freight: getInput(id, 'freight', discountedPricePreffix),
-                differenceICMS: getInput(id, 'differenceICMS', discountedPricePreffix),
-                purchasePrice: getInput(id, 'purchasePrice', discountedPricePreffix)
-            }
+            price: getInput(id, 'value', pricePreffix),
+            profit: getInput(id, 'profit', pricePreffix),
+            margin: getInput(id, 'margin', pricePreffix),
+            commission: getInput(id, 'commission', pricePreffix),
+            taxSimplesNacional: getInput(id, 'taxSimplesNacional', pricePreffix),
+            freight: getInput(id, 'freight', pricePreffix),
+            differenceICMS: getInput(id, 'differenceICMS', pricePreffix),
+            purchasePrice: getInput(id, 'purchasePrice', pricePreffix)
         }
 
         function getInput (id, inputName, preffix) {
@@ -62,56 +61,43 @@ let calculator_form = function() {
 
         function setColor(object, input, color) {
             var backgroundColor =  '#e9ecef'
-            var textColor = '#222';
 
             switch(color) {
                 case 'red':
                     backgroundColor = '#dc3545'
-                    textColor = '#fff'
                     break
                 case 'green':
                     backgroundColor = '#198754';
-                    textColor = '#fff';
                     break
             }
 
-            object[input].style.backgroundColor = backgroundColor
-            object[input].style.color = textColor
+            object[input].style.color = backgroundColor
         }
 
         function setValue(object, input, value) {
-            object[input].value = value
+            object[input].innerText = value
         }
 
         function setData(object, data) {
-            setValue(object, 'price', data.suggestedPrice)
-            setValue(object, 'profit', data.profit)
-            setValue(object,'commission', data.commission)
-            setValue(object,'commissionRate', data.commissionRate)
-            setValue(object,'taxSimplesNacional', data.taxSimplesNacional)
-            setValue(object, 'freight', data.freight)
-            setValue(object, 'differenceICMS', data.differenceICMS)
-            setValue(object, 'purchasePrice', data.purchasePrice)
-            setValue(object, 'margin', data.margin)
+            setValue(object, tableAttributes.desiredPrice, data.suggestedPrice)
 
-            setColor(object, 'commission', 'red')
-            setColor(object, 'taxSimplesNacional', 'red')
-            setColor(object, 'freight', 'red')
-            setColor(object, 'differenceICMS', 'red')
-            setColor(object, 'purchasePrice', 'red')
+            tableAttributes.costs.forEach(function (attribute) {
+                setValue(object, attribute, data[attribute])
+                setColor(object, attribute, 'red')
+            })
 
-            data.profit > 0
-                ? setColor(object, 'profit', 'green')
-                : setColor(object, 'profit', 'red')
+            tableAttributes.profit.forEach(function (attribute) {
+                setValue(object, attribute, data[attribute])
 
-            data.margin > 0
-                ? setColor(object, 'margin', 'green')
-                : setColor(object, 'margin', 'red')
+                $color = data[attribute] > 0 ? 'green' : 'red'
+                setColor(object, attribute, $color)
+            })
         }
 
         form.addEventListener('submit', (event) => {
             event.preventDefault()
             let formData = getFormData(form)
+            console.log(formData)
 
             fetch(form.action, {
                 method: 'POST',
@@ -120,11 +106,8 @@ let calculator_form = function() {
                 .then(response => response.json())
                 .catch(error => console.error('Error:', error))
                 .then(function(data) {
-                    setData(calculator.price, data.price)
-
-                    if (data.secondaryPrice) {
-                        setData(calculator.discountedPrice, data.secondaryPrice)
-                    }
+                    console.log(data)
+                    setData(calculator, data.price)
                 })
         })
     })
