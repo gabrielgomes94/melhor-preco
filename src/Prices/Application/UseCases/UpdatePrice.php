@@ -73,6 +73,6 @@ class UpdatePrice implements UpdatePriceInterface
 
     protected function getCommissionRate(Post $post): float
     {
-        return $post->getPrice()->getCommission()->getCommissionRate();
+        return $post->getPrice()->getCommission()->getFraction();
     }
 }
