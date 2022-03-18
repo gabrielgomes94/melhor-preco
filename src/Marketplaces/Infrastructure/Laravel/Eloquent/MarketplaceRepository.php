@@ -10,7 +10,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRep
 
 class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
-    public function create(array $data): bool
+    public function create(array $data): Marketplace
     {
         $data = $this->prepareData($data);
 

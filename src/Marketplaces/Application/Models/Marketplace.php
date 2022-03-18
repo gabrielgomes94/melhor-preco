@@ -3,11 +3,15 @@
 namespace Src\Marketplaces\Application\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Application\Models\ValueObjects\CategoryCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
 use Src\Math\Percentage;
+use Src\Prices\Domain\Models\Price;
+use Src\Products\Domain\Models\Product\Product;
 
 class Marketplace extends Model implements MarketplaceInterface
 {
@@ -30,6 +34,23 @@ class Marketplace extends Model implements MarketplaceInterface
     protected $primaryKey = 'uuid';
 
     public $keyType = 'string';
+
+    public function products(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Product::class,
+            Price::class,
+            'marketplace_erp_id',
+            'sku',
+            'erp_id',
+            'product_sku'
+        );
+    }
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(Price::class, 'marketplace_erp_id', 'erp_id');
+    }
 
     public function getCommissionType(): string
     {

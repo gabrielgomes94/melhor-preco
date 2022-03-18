@@ -7,7 +7,7 @@ use Src\Marketplaces\Application\Models\Marketplace;
 
 interface MarketplaceRepository
 {
-    public function create(array $data): bool;
+    public function create(array $data): Marketplace;
 
     public function exists(string $marketplaceUuid): bool;
 

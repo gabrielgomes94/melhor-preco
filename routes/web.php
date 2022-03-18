@@ -20,6 +20,7 @@ include 'notifications/web.php';
 include 'marketplaces/web.php';
 include 'products/web.php';
 include 'prices/price/web.php';
+include 'promotions/web.php';
 include 'sales/web.php';
 
 Route::middleware('auth')->group(function () {
