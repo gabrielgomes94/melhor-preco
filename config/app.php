@@ -228,6 +228,11 @@ return [
         Src\Products\Infrastructure\Laravel\ServiceProviders\RepositoryServiceProvider::class,
 
         /**
+         * Promotions' module Service Providers...
+         */
+        Src\Promotions\Infrastructure\Laravel\Providers\PromotionsServiceProvider::class,
+
+        /**
          * Sales' module Service Providers...
          */
         Src\Sales\Infrastructure\Laravel\Container\SalesServiceProvider::class,

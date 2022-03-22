@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Promotions\Presentation\Http\Controllers;
+namespace Src\Promotions\Infrastructure\Laravel\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Src\Promotions\Application\Data\PromotionSetup;
-use Src\Promotions\Application\UseCases\CalculatePromotions;
+use Src\Promotions\Domain\Data\PromotionSetup;
+use Src\Promotions\Domain\UseCases\CalculatePromotions;
 
 class CalculatePromotionController extends Controller
 {

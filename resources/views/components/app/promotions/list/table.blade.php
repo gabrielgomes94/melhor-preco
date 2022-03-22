@@ -5,15 +5,25 @@
             <th>Data de Encerramento</th>
             <th>Marketplace</th>
             <th>Campanha</th>
+            <th>Desconto</th>
+            <th></th>
         </tr>
     </thead>
 
     <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        @foreach($promotions as $promotion)
+            <tr>
+                <td>{{ $promotion['beginDate'] }}</td>
+                <td>{{ $promotion['endDate'] }}</td>
+                <td>{{ $promotion['marketplace'] }}</td>
+                <td>{{ $promotion['name'] }}</td>
+                <td>{{ $promotion['discount'] }}</td>
+
+                <td>
+                    Detalhes <br>
+                    Exportar
+                </td>
+            </tr>
+        @endforeach
     </tbody>
 </x-bootstrap.table.bordered-table>

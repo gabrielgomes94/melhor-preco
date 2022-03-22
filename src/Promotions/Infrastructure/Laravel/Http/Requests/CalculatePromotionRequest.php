@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Promotions\Presentation\Http\Requests;
+namespace Src\Promotions\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Http\Request;
 

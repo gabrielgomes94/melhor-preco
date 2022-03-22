@@ -6,6 +6,6 @@
     </x-slot>
 
     <x-slot name="body">
-        <x-app.promotions.list.table />
+        <x-app.promotions.list.table :promotions="$promotions" />
     </x-slot>
 </x-bootstrap.card.basic-card>

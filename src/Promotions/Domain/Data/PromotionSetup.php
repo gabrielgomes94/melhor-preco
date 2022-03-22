@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Promotions\Application\Data;
+namespace Src\Promotions\Domain\Data;
 
 use Carbon\Carbon;
 use Src\Math\Percentage;

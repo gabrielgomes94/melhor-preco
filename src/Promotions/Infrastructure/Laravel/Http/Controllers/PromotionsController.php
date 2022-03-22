@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Promotions\Presentation\Http\Controllers;
+namespace Src\Promotions\Infrastructure\Laravel\Http\Controllers;
 
 class PromotionsController
 {

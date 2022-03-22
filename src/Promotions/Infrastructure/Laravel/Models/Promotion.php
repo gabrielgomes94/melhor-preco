@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Promotions\Application\Models;
+namespace Src\Promotions\Infrastructure\Laravel\Models;
 
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +22,8 @@ class Promotion extends Model implements PromotionInterface
 
     protected $casts = [
         'products' => 'json',
+        'begin_date' => 'datetime',
+        'end_date' => 'datetime',
     ];
 
     protected $primaryKey = 'uuid';
@@ -38,9 +40,14 @@ class Promotion extends Model implements PromotionInterface
         return $this->name;
     }
 
+    public function getMarketplace(): string
+    {
+        return 'magalu';
+    }
+
     public function getDiscount(): Percentage
     {
-        return $this->discount;
+        return Percentage::fromPercentage($this->discount);
     }
 
     public function getBeginDate(): DateTime
