@@ -4,51 +4,59 @@
 >
     <x-bootstrap.forms.input.text
         attribute="promotionName"
-        id="promotion-name"
+        id="calculate-promotions-form-promotion-name"
         label="Nome da promoção"
         value=""
-    >
-    </x-bootstrap.forms.input.text>
+    />
 
-    <x-bootstrap.forms.input.text
-        attribute="sellerSubsidy"
-        id="seller"
-        label="Subsídio do vendedor"
-        value=""
-    >
-    </x-bootstrap.forms.input.text>
+    <div class="row my-2">
+        <div class="col-6">
+            <x-bootstrap.forms.input.date-picker
+                attribute="beginDate"
+                id="calculate-promotions-form-begin-date"
+                label="Data de Início"
+            />
+        </div>
 
-    <x-bootstrap.forms.input.text
-        attribute="marketplaceSubsidy"
-        id="marketplace"
-        label="Subsídio do Marketplace"
-        value=""
-    >
-    </x-bootstrap.forms.input.text>
+        <div class="col-6">
+            <x-bootstrap.forms.input.date-picker
+                attribute="endDate"
+                id="calculate-promotions-form-end-date"
+                label="Data de Encerramento"
+            />
+        </div>
+    </div>
 
-    <x-bootstrap.forms.input.text
-        attribute="minimumDiscount"
-        id="minimum-discount"
-        label="Valor mínimo de desconto"
-        value=""
-    >
-    </x-bootstrap.forms.input.text>
+    <div class="row my-2">
+        <div class="col-4">
+            <x-bootstrap.forms.input.text
+                attribute="discount"
+                id="calculate-promotions-form-discount"
+                label="Desconto (%)"
+                value=""
+            />
+        </div>
 
-    <x-bootstrap.forms.input.text
-        attribute="maximumDiscount"
-        id="maximum-discount"
-        label="Valor máximo de desconto"
-        value=""
-    >
-    </x-bootstrap.forms.input.text>
+        <div class="col-4">
+            <x-bootstrap.forms.input.text
+                attribute="productsMaxLimit"
+                id="calculate-promotions-form-products-max-limit"
+                label="Limite máximo de produtos"
+                value=""
+            />
+        </div>
 
-    <x-bootstrap.forms.input.text
-        attribute="productsMaxLimit"
-        id="products-max-limit"
-        label="Limite máximo de produtos"
-        value=""
-    >
-    </x-bootstrap.forms.input.text>
+        <div class="col-4">
+            <x-bootstrap.forms.input.text
+                attribute="marketplaceSubsidy"
+                id="calculate-promotions-form-marketplace"
+                label="Subsídio do Marketplace"
+                value=""
+            />
+        </div>
+    </div>
 
-    <x-bootstrap.forms.input.submit label="Calcular" />
+    <div class="d-flex justify-content-end mt-3 mb-2">
+        <x-bootstrap.forms.input.submit label="Calcular" />
+    </div>
 </x-bootstrap.forms.form.post>
