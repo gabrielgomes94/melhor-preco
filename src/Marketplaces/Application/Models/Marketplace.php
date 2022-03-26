@@ -171,4 +171,9 @@ class Marketplace extends Model implements MarketplaceInterface
     {
         return $this->is_active;
     }
+
+    public function getPrices(): iterable
+    {
+        return $this->prices;
+    }
 }

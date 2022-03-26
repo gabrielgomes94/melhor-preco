@@ -3,8 +3,8 @@
 namespace Src\Promotions\Infrastructure\Laravel\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Src\Promotions\Domain\Data\PromotionSetup;
 use Src\Promotions\Domain\UseCases\CalculatePromotions;
+use Src\Promotions\Infrastructure\Laravel\Http\Requests\CalculatePromotionRequest;
 
 class CalculatePromotionController extends Controller
 {
@@ -12,32 +12,11 @@ class CalculatePromotionController extends Controller
         private CalculatePromotions $calculatePromotions
     ) {}
 
-    public function __invoke()
+    public function __invoke(CalculatePromotionRequest $request)
     {
-        $data = [
-            'name' => 'Super Campanha de Março - 20% à vista',
-            'subsidy' => [
-                'seller' => 100,
-                'marketplace' => 0,
-            ],
-            'discount' => [
-                'minimum' => 0,
-                'maximum' => 20,
-            ],
-            'maxProductsQuantity' => 150,
-            'marketplaceSlug' => 'magalu',
-            'minimumMargin' => 5,
-            'promotionPeriod' => [
-                'begin' => '2022-04-01',
-                'end' => '2022-04-31',
-            ]
-        ];
+        $data = $request->transform();
+        $this->calculatePromotions->calculate($data);
 
-        $data = new PromotionSetup($data);
-
-        $prices = $this->calculatePromotions->calculate($data);
-//        $data
-        dd($prices);
-
+        return redirect()->route('promotions.index');
     }
 }

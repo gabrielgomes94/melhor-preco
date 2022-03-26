@@ -90,4 +90,9 @@ class Price implements PriceInterface
     {
         return MoneyTransformer::toString($this->value);
     }
+
+    public function isProfitable(): bool
+    {
+        return $this->getProfit()->greaterThan(Money::BRL(0));
+    }
 }
