@@ -6,7 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use Src\Promotions\Domain\Repositories\Repository as RepositoryInterface;
 use Src\Promotions\Domain\Services\FilterProfitableProducts as FilterProfitableProductsInterface;
 use Src\Promotions\Domain\UseCases\Contracts\ListPromotions as ListPromotionsInterface;
+use Src\Promotions\Domain\UseCases\Contracts\ShowPromotion as ShowPromotionInterface;
 use Src\Promotions\Domain\UseCases\ListPromotions;
+use Src\Promotions\Domain\UseCases\ShowPromotion;
 use Src\Promotions\Infrastructure\Laravel\Repositories\Repository;
 use Src\Promotions\Infrastructure\Laravel\Services\FilterProfitableProducts;
 
@@ -25,5 +27,6 @@ class PromotionsServiceProvider extends ServiceProvider
 
         // Use Cases
         $this->app->bind(ListPromotionsInterface::class, ListPromotions::class);
+        $this->app->bind(ShowPromotionInterface::class, ShowPromotion::class);
     }
 }

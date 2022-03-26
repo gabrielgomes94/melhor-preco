@@ -20,7 +20,7 @@
                 <td>{{ $promotion['discount'] }}</td>
 
                 <td>
-                    Detalhes <br>
+                    <a href="{{ route('promotions.show', $promotion['uuid']) }}" class="link-primary">Detalhes</a> <br>
                     Exportar
                 </td>
             </tr>

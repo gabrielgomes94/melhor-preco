@@ -36,6 +36,6 @@ class Repository implements RepositoryInterface
 
     public function get(string $uuid): Promotion
     {
-        return PromotionModel::where('uuid', $uuid)->get();
+        return PromotionModel::where('uuid', $uuid)->first();
     }
 }

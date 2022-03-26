@@ -64,4 +64,9 @@ class Promotion extends Model implements PromotionInterface
     {
         return $this->max_products_limit;
     }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
 }

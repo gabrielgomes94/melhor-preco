@@ -46,6 +46,12 @@
                         name="Marketplaces"
                         icon="marketplace"
                     />
+
+                    <x-app.base.menu.menu-item
+                        route="{{ route('promotions.index') }}"
+                        name="Promoções"
+                        icon="marketplace"
+                    />
                 </x-app.base.menu.menu-section>
 
                 <x-app.base.menu.menu-item route="{{ route('sales.list') }}" name="Gestão de Vendas" badge="beta" icon="currency" />
