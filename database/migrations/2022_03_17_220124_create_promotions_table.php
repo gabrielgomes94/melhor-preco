@@ -18,6 +18,7 @@ class CreatePromotionsTable extends Migration
             $table->string('name');
             $table->json('products');
             $table->decimal('discount');
+            $table->decimal('marketplace_subsidy');
             $table->integer('max_products_limit');
             $table->dateTime('begin_date');
             $table->dateTime('end_date');
