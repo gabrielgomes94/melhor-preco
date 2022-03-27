@@ -38,4 +38,20 @@ class Repository implements RepositoryInterface
     {
         return PromotionModel::where('uuid', $uuid)->first();
     }
+
+    public function update(string $uuid, PromotionSetup $data, array $products): Promotion
+    {
+        $promotion = $this->get($uuid);
+        $promotion->fill([
+            'name' => $data->name,
+            'discount' => $data->discount->get(),
+            'begin_date' => $data->beginDate,
+            'end_date' => $data->endDate,
+            'max_products_limit' => $data->productsMaxLimit,
+            'products' => $products,
+        ]);
+        $promotion->save();
+
+        return $promotion->refresh();
+    }
 }

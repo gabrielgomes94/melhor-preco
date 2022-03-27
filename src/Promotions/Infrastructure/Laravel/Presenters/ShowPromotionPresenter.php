@@ -11,10 +11,12 @@ class ShowPromotionPresenter
     {
         return [
             'name' => $promotion->getName(),
-            'beginDate' => $promotion->getBeginDate(),
-            'endDate' => $promotion->getEndDate(),
+            'beginDate' => $promotion->getBeginDate()->format('d/m/Y'),
+            'endDate' => $promotion->getEndDate()->format('d/m/Y'),
             'discount' => $promotion->getDiscount(),
             'uuid' => $promotion->getUuid(),
+            'maxProductsLimit' => $promotion->getProductsLimit(),
+            'marketplaceSubsidy' => $promotion->getMarketplaceSubsidy(),
             'products' => $this->presentProducts(
                 $promotion->getProducts()
             ),

@@ -18,6 +18,7 @@ class Promotion extends Model implements PromotionInterface
         'begin_date',
         'end_date',
         'max_products_limit',
+        'marketplace_subsidy',
     ];
 
     protected $casts = [
@@ -68,5 +69,10 @@ class Promotion extends Model implements PromotionInterface
     public function getUuid(): string
     {
         return $this->uuid;
+    }
+
+    public function getMarketplaceSubsidy(): Percentage
+    {
+        return Percentage::fromPercentage($this->marketplace_subsidy ?? 0);
     }
 }

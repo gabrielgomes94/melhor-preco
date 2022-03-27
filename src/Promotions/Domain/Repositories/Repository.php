@@ -12,4 +12,6 @@ interface Repository
     public function list();
 
     public function get(string $uuid): Promotion;
+
+    public function update(string $uuid, PromotionSetup $data, array $products): Promotion;
 }

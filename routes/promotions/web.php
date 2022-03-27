@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Promotions\Infrastructure\Laravel\Http\Controllers\CalculatePromotionController;
+use Src\Promotions\Infrastructure\Laravel\Http\Controllers\EditPromotionController;
 use Src\Promotions\Infrastructure\Laravel\Http\Controllers\ExportSpreadsheetController;
 use Src\Promotions\Infrastructure\Laravel\Http\Controllers\ListPromotionsController;
 use Src\Promotions\Infrastructure\Laravel\Http\Controllers\PromotionsController;
@@ -17,9 +18,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/{promotionUuid}', ShowPromotionController::class)
                 ->name('.show');
 
-            Route::get('/magalu', ListPromotionsController::class)
-                ->name('.magaluPromotions');
-
             Route::get('/calcular', [PromotionsController::class, 'calculate'])
                 ->name('.calculate');
 
@@ -28,5 +26,11 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/exportar/{promotionUuid}', ExportSpreadsheetController::class)
                 ->name('.export');
+
+            Route::get('/editar/{promotionUuid}', [EditPromotionController::class, 'edit'])
+                ->name('.edit');
+
+            Route::patch('/editar/{promotionUuid}', [EditPromotionController::class, 'update'])
+                ->name('.update');
         });
 });

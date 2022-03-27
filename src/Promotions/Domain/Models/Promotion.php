@@ -18,4 +18,6 @@ interface Promotion
     public function getEndDate(): DateTime;
 
     public function getProductsLimit(): int;
+
+    public function getMarketplaceSubsidy(): Percentage;
 }
