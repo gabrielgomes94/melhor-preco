@@ -24,7 +24,7 @@ class PriceFactory
         array $options = []
     ): PriceInterface {
         $discountRate = $options[CalculatorOptions::DISCOUNT_RATE] ?? Percentage::fromPercentage(0);
-        $value = MoneyTransformer::toMoney($value)->multiply(1 - $discountRate->get());
+        $value = MoneyTransformer::toMoney($value)->multiply(1 - $discountRate->getFraction());
 
         return new Price(
             costPrice: self::getCostPrice($product),

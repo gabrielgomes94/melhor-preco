@@ -19,6 +19,8 @@ interface Marketplace
 
     public function getName(): string;
 
+    public function getPrices(): iterable;
+
     public function getSlug(): string;
 
     public function getUuid(): string;

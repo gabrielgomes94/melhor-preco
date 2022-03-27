@@ -16,6 +16,6 @@ class SaveMarketplace implements SaveMarketplaceInterface
             return $this->marketplaceRepository->update($data, $marketplaceId);
         }
 
-        return $this->marketplaceRepository->create($data);
+        return (bool) $this->marketplaceRepository->create($data);
     }
 }

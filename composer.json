@@ -71,6 +71,7 @@
             "Src\\Math\\": "src/Math",
             "Src\\Prices\\": "src/Prices",
             "Src\\Products\\": "src/Products",
+            "Src\\Promotions\\": "src/Promotions",
             "Src\\Sales\\": "src/Sales",
             "Src\\Marketplaces\\": "src/Marketplaces"
         }

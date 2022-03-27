@@ -33,5 +33,7 @@ interface Price
 
     public function getSimplesNacional(): Money;
 
+    public function isProfitable(): bool;
+
     public function __toString(): string;
 }

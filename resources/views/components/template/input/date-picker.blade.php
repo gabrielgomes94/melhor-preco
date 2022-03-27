@@ -10,6 +10,7 @@
                class="form-control"
                id="{{ $id }}"
                form="{{ $formId }}"
+               name="{{ $attribute }}"
                type="text"
                placeholder="dd/mm/aaaaa"
                required
