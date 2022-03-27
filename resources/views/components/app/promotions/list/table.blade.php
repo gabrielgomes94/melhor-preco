@@ -21,7 +21,9 @@
 
                 <td>
                     <a href="{{ route('promotions.show', $promotion['uuid']) }}" class="link-primary">Detalhes</a> <br>
-                    Exportar
+
+                    <a href="{{ route('promotions.export', $promotion['uuid']) }}" class="link-primary">Exportar</a> <br>
+{{--                    <x-app.promotions.export.button :promotion="$promotion" label="Exportar"/>--}}
                 </td>
             </tr>
         @endforeach

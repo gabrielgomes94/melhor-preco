@@ -1,8 +1,10 @@
 <x-bootstrap.card.basic-card>
     <x-slot name="header">
-        <x-bootstrap.buttons.primary-link route="{{ route('promotions.doCalculate')  }}">
-            Gerar planilha de promoção
-        </x-bootstrap.buttons.primary-link>
+        <x-bootstrap.forms.form.post :action="route('promotions.export', $promotion['uuid'])">
+            <x-bootstrap.forms.input.submit
+                label="Gerar planilha de promoção"
+            />
+        </x-bootstrap.forms.form.post>
     </x-slot>
 
     <x-slot name="body">

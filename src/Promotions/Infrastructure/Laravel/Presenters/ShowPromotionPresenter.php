@@ -14,6 +14,7 @@ class ShowPromotionPresenter
             'beginDate' => $promotion->getBeginDate(),
             'endDate' => $promotion->getEndDate(),
             'discount' => $promotion->getDiscount(),
+            'uuid' => $promotion->getUuid(),
             'products' => $this->presentProducts(
                 $promotion->getProducts()
             ),
