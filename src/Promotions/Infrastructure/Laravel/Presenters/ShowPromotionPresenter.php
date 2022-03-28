@@ -3,6 +3,7 @@
 namespace Src\Promotions\Infrastructure\Laravel\Presenters;
 
 use Src\Math\MathPresenter;
+use Src\Math\Percentage;
 use Src\Promotions\Domain\Models\Promotion;
 
 class ShowPromotionPresenter
@@ -26,9 +27,12 @@ class ShowPromotionPresenter
     private function presentProducts(array $products): array
     {
         return array_map(function(array $product) {
+            $margin = Percentage::fromFraction($product['profit'] / $product['value']);
+
             return [
                 'value' => MathPresenter::money($product['value']),
                 'profit' => MathPresenter::money($product['profit']),
+                'margin' => $margin,
                 'name' => $product['name'],
                 'sku' => $product['sku'],
             ];

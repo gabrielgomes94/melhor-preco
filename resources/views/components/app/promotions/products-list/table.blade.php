@@ -5,6 +5,7 @@
         <th>Produto</th>
         <th>Preço com desconto</th>
         <th>Lucro</th>
+        <th>Margem</th>
     </tr>
     </thead>
 
@@ -15,6 +16,7 @@
             <td>{{ $product['name'] }}</td>
             <td>{{ $product['value'] }}</td>
             <td>{{ $product['profit'] }}</td>
+            <td>{{ $product['margin'] }}</td>
         </tr>
     @endforeach
     </tbody>
