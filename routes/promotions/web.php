@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', ListPromotionsController::class)
                 ->name('.index');
 
-            Route::get('/{promotionUuid}', ShowPromotionController::class)
+            Route::get('/promocao/{promotionUuid}', ShowPromotionController::class)
                 ->name('.show');
 
             Route::get('/calcular', [PromotionsController::class, 'calculate'])
