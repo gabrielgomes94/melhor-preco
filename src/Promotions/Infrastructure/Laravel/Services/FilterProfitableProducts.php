@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Math\MathPresenter;
+use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\Models\Price;
 use Src\Promotions\Domain\Data\PromotionSetup;
 
@@ -14,12 +16,12 @@ class FilterProfitableProducts implements \Src\Promotions\Domain\Services\Filter
     public function __construct(
         private CalculatePost $calculatePost
     )
-    {
-    }
+    {}
 
     public function get(Marketplace $marketplace, PromotionSetup $promotionData): array
     {
         $prices = $this->filterProfitablePrices($marketplace, $promotionData);
+        $prices = $this->mapCalculatePrices($promotionData, $prices);
         $prices = $this->transformPrices($prices);
 
         foreach ($prices->toArray() as $price) {
@@ -29,9 +31,13 @@ class FilterProfitableProducts implements \Src\Promotions\Domain\Services\Filter
         return $products ?? [];
     }
 
-    private function filterProfitablePrices(Marketplace $marketplace, PromotionSetup $promotionData): Collection
+    private function filterProfitablePrices(
+        Marketplace $marketplace,
+        PromotionSetup $promotionData
+    ): Collection
     {
         $prices = $marketplace->getPrices();
+
         return $prices->filter(function (Price $price) use ($promotionData) {
             $parameters = [
                 CalculatorOptions::DISCOUNT_RATE => $promotionData->discount,
@@ -40,6 +46,25 @@ class FilterProfitableProducts implements \Src\Promotions\Domain\Services\Filter
             $calculatedPrice = $this->calculatePost->calculatePost($price, $parameters);
 
             return $calculatedPrice->isProfitable();
+        });
+    }
+
+    private function mapCalculatePrices(
+        PromotionSetup $promotionData,
+        Collection $prices
+    ): Collection
+    {
+        return $prices->map(function (Price $price) use ($promotionData) {
+            $parameters = [
+                CalculatorOptions::DISCOUNT_RATE => $promotionData->discount,
+            ];
+
+            $calculatedPrice = $this->calculatePost->calculatePost($price, $parameters);
+
+            $price->value = MoneyTransformer::toFloat($calculatedPrice->get());
+            $price->profit = MoneyTransformer::toFloat($calculatedPrice->getProfit());
+
+            return $price;
         });
     }
 
