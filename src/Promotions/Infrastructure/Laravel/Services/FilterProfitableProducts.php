@@ -45,7 +45,7 @@ class FilterProfitableProducts implements \Src\Promotions\Domain\Services\Filter
 
             $calculatedPrice = $this->calculatePost->calculatePost($price, $parameters);
 
-            return $calculatedPrice->isProfitable();
+            return $calculatedPrice->isProfitable() && $calculatedPrice->getMargin() >= 5;
         });
     }
 
