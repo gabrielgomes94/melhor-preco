@@ -1,22 +1,22 @@
 <x-bootstrap.table.bordered-table>
     <thead>
     <tr>
-        <th>SKU</th>
-        <th>Produto</th>
-        <th>Preço com desconto</th>
-        <th>Lucro</th>
-        <th>Margem</th>
+        <th colspan="1">SKU</th>
+        <th colspan="4">Produto</th>
+        <th colspan="1">Preço com desconto</th>
+        <th colspan="1">Lucro</th>
+        <th colspan="1">Margem</th>
     </tr>
     </thead>
 
     <tbody>
     @foreach($products as $product)
         <tr>
-            <td>{{ $product['sku'] }}</td>
-            <td>{{ $product['name'] }}</td>
-            <td>{{ $product['value'] }}</td>
-            <td>{{ $product['profit'] }}</td>
-            <td>{{ $product['margin'] }}</td>
+            <td colspan="1">{{ $product['sku'] }}</td>
+            <td colspan="4">{{ $product['name'] }}</td>
+            <td colspan="1">{{ $product['value'] }}</td>
+            <td colspan="1">{{ $product['profit'] }}</td>
+            <td colspan="1">{{ $product['margin'] }}</td>
         </tr>
     @endforeach
     </tbody>
