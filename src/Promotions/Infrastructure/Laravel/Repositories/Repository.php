@@ -48,6 +48,7 @@ class Repository implements RepositoryInterface
             'begin_date' => $data->beginDate,
             'end_date' => $data->endDate,
             'max_products_limit' => $data->productsMaxLimit,
+            'marketplace_subsidy' => $data->marketplaceSubsidy->get() ?? 0,
             'products' => $products,
         ]);
         $promotion->save();
