@@ -2,6 +2,7 @@
     <x-slot name="header">
         <x-app.promotions.export.button
             label="Gerar planilha de promoção"
+            :promotion="$promotion"
         />
     </x-slot>
 
