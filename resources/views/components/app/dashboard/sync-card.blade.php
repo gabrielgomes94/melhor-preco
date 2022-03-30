@@ -1,5 +1,5 @@
-<x-template.card.card>
-    <x-template.card.card-body>
+<x-bootstrap.card.basic.card>
+    <x-bootstrap.card.basic.card-body>
         <div class="sync-card-product p-1 border-bottom">
             <div class="d-inline-flex justify-content-between w-100">
                 <x-app.dashboard.sync-card.info-label
@@ -47,13 +47,13 @@
         </div>
 
         <div class="d-flex justify-content-around my-1">
-            <x-template.forms.post action="{{ route('dashboard.sync') }}">
+            <x-bootstrap.forms.form.post action="{{ route('dashboard.sync') }}">
                 <button class="btn btn-primary" type="submit">
                     Sincronizar dados
 
                     <x-app.base.icons.icon icon="sync" />
                 </button>
-            </x-template.forms.post>
+            </x-bootstrap.forms.form.post>
         </div>
-    </x-template.card.card-body>
-</x-template.card.card>
+    </x-bootstrap.card.basic.card-body>
+</x-bootstrap.card.basic.card>

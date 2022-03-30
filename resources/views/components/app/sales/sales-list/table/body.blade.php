@@ -1,9 +1,9 @@
 @foreach ($saleOrders as $saleOrder)
     <tr>
         <td>
-            <x-template.links.link :route="route('sales.show', $saleOrder['saleOrderCode'])">
+            <x-bootstrap.links.link :route="route('sales.show', $saleOrder['saleOrderCode'])">
                 {{ $saleOrder['saleOrderCode'] }}
-            </x-template.links.link>
+            </x-bootstrap.links.link>
         </td>
 
         <td>

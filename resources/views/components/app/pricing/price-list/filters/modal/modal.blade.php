@@ -1,4 +1,4 @@
-<x-template.modals.modal
+<x-bootstrap.modals.modal
     id="filterModal"
     title="Filtrar produtos"
     actionLabel="Filtrar"
@@ -12,4 +12,4 @@
         formId="filter-products-form"
         :categories="$filter['categories']"
     />
-</x-template.modals.modal>
+</x-bootstrap.modals.modal>

@@ -1,4 +1,4 @@
-<x-template.forms.post action="{{ route('marketplaces.doSetUniqueCommission', $marketplaceSlug) }}">
+<x-bootstrap.forms.form.post action="{{ route('marketplaces.doSetUniqueCommission', $marketplaceSlug) }}">
     <div class="mt-1">
         <x-bootstrap.forms.input.text
             attribute="commission"
@@ -11,4 +11,4 @@
     <div class="d-flex justify-content-center mt-3">
         <x-bootstrap.forms.input.submit label="Salvar" />
     </div>
-</x-template.forms.post>
+</x-bootstrap.forms.form.post>

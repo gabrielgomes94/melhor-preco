@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end">
-    <x-template.forms.get
+    <x-bootstrap.forms.form.get
         action="{{ $route }}"
         formId="filter-sales-list"
     >
@@ -7,5 +7,5 @@
             <x-app.sales.sales-list.filter.inputs />
             <x-app.sales.sales-list.filter.submit />
         </div>
-    </x-template.forms.get>
+    </x-bootstrap.forms.form.get>
 </div>

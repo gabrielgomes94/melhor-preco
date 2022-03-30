@@ -1,6 +1,6 @@
 <x-layout>
     <div class="row">
-        <x-template.alert-messages.alert-messages />
+        <x-bootstrap.alert-messages.alert-messages />
     </div>
 
     <div class="row my-4">

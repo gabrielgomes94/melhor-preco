@@ -8,9 +8,9 @@
                     </div>
                 </div>
 
-                <x-template.links.link :route="$redirectLink">
+                <x-bootstrap.links.link :route="$redirectLink">
                     Voltar
-                </x-template.links.link>
+                </x-bootstrap.links.link>
 
                 @isset($product)
                     <div class="my-2">

@@ -1,5 +1,5 @@
-<x-template.card.card>
-    <x-template.card.card-body>
+<x-bootstrap.card.basic.card>
+    <x-bootstrap.card.basic.card-body>
         <h4 class="text-center">Calcular</h4>
 
         <x-app.pricing.prices.calculator.forms.calculator
@@ -7,6 +7,6 @@
             :productId="$product->getSku()"
             :isFreeFreightDisabled="$isFreeFreightDisabled"
         />
-    </x-template.card.card-body>
-</x-template.card.card>
+    </x-bootstrap.card.basic.card-body>
+</x-bootstrap.card.basic.card>
 

@@ -1,8 +1,8 @@
 <tr>
     <td colspan="1">
-        <x-template.links.link :route="route('products.reports.show', ['sku' => $sku])">
+        <x-bootstrap.links.link :route="route('products.reports.show', ['sku' => $sku])">
             {{ $sku }}
-        </x-template.links.link>
+        </x-bootstrap.links.link>
     </td>
 
     <td colspan="4"

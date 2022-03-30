@@ -1,4 +1,4 @@
-<x-template.modals.modal
+<x-bootstrap.modals.modal
     id="massCalculation"
     title="Calcular em massa"
     actionLabel="Calcular"
@@ -10,4 +10,4 @@
         :filter="$filter"
         :massCalculation="$massCalculation"
     />
-</x-template.modals.modal>
+</x-bootstrap.modals.modal>

@@ -12,6 +12,6 @@ class ReadOnlyInput extends BaseInput
      */
     public function render()
     {
-        return view('components.template.input.read-only');
+        return view('components.bootstrap.input.read-only');
     }
 }

@@ -8,43 +8,43 @@
         @csrf
 
         <div class="mt-2">
-            <x-template.input.read-only
+            <x-bootstrap.input.read-only
                 attribute="store"
                 componentId="store-{{ $price['id'] }}"
                 label="Marketplace"
                 value="{{ $price['storeSlug'] }}"
             >
-            </x-template.input.read-only>
+            </x-bootstrap.input.read-only>
         </div>
 
         <div class="mt-2">
-            <x-template.input.percentage
+            <x-bootstrap.input.percentage
                 attribute="commission"
                 componentId="commission-{{ $price['id'] }}"
                 label="Comissão"
                 value="{{ $price['mainPrice']['commission'] }}"
             >
-            </x-template.input.percentage>
+            </x-bootstrap.input.percentage>
         </div>
 
         <div class="mt-2">
-            <x-template.input.percentage
+            <x-bootstrap.input.percentage
                 attribute="discount"
                 componentId="discount-{{ $price['id'] }}"
                 label="Desconto"
                 value=""
             >
-            </x-template.input.percentage>
+            </x-bootstrap.input.percentage>
         </div>
 
         <div class="mt-2">
-            <x-template.input.percentage
+            <x-bootstrap.input.percentage
                 attribute="desiredPrice"
                 componentId="desiredPrice-{{ $price['id'] }}"
                 label="Preço desejado"
                 value="{{ $price['mainPrice']['value'] }}"
             >
-            </x-template.input.percentage>
+            </x-bootstrap.input.percentage>
         </div>
 
         <div class="mt-2">
@@ -65,7 +65,7 @@
         />
 
         <div class="d-flex justify-content-center mt-3 mb-2">
-            <x-template.buttons.submit label="Calcular" />
+            <x-bootstrap.buttons.submit label="Calcular" />
         </div>
     </form>
 </div>

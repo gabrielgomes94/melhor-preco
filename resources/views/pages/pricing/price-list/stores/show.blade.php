@@ -4,11 +4,11 @@
     </x-slot>
 
     <x-slot name="breadcrumb">
-        <x-template.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
+        <x-bootstrap.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
     </x-slot>
 
     <x-slot name="modals">
-        <x-template.modals.modal
+        <x-bootstrap.modals.modal
             id="filterModal"
             title="Filtrar produtos"
             actionLabel="Filtrar"
@@ -19,7 +19,7 @@
                 :filter="$filter"
                 formId="filter-products-form"
             />
-        </x-template.modals.modal>
+        </x-bootstrap.modals.modal>
 
 
         <x-app.pricing.price-list.mass-calculation.modal.modal
