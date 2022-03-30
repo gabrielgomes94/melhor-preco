@@ -1,13 +1,13 @@
 @foreach ($variations as $variation)
-    <x-template.forms.put :action="route('costs.product.update', $variation->getSku())">
+    <x-bootstrap.forms.form.put :action="route('costs.product.update', $variation->getSku())">
         <tr>
             <td colspan="1">
-                <x-template.input.hidden
+                <x-bootstrap.input.hidden
                     attribute="sku"
                     componentId="sku-{{ $variation->getSku() }}"
                     value="{{ $variation->getSku() }}"
                 >
-                </x-template.input.hidden>
+                </x-bootstrap.input.hidden>
             </td>
 
             <td colspan="4"
@@ -19,28 +19,28 @@
             </td>
 
             <td colspan="2">
-                <x-template.input.money
+                <x-bootstrap.input.money
                     attribute="purchasePrice"
                     componentId="purchasePrice-{{ $variation->getSku() }}"
                     value="{{ $variation->getCosts()->purchasePrice() }}"
                 >
-                </x-template.input.money>
+                </x-bootstrap.input.money>
             </td>
 
             <td colspan="2">
-                <x-template.input.money
+                <x-bootstrap.input.money
                     attribute="additionalCosts"
                     componentId="additionalCosts-{{ $variation->getSku() }}"
                     value="{{ $variation->getCosts()->additionalCosts() }}"
                 >
-                </x-template.input.money>
+                </x-bootstrap.input.money>
             </td>
 
             <td colspan="1">
-                <x-template.buttons.submit-with-icon>
+                <x-bootstrap.buttons.submit-with-icon>
                     <x-app.base.icons.save />
-                </x-template.buttons.submit-with-icon>
+                </x-bootstrap.buttons.submit-with-icon>
             </td>
         </tr>
-    </x-template.forms.put>
+    </x-bootstrap.forms.form.put>
 @endforeach

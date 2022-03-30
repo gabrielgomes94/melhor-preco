@@ -1,4 +1,4 @@
-<x-template.forms.post action="{{ route('marketplaces.store') }}">
+<x-bootstrap.forms.form.post action="{{ route('marketplaces.store') }}">
     <div class="mt-1">
         <x-bootstrap.forms.input.text
             attribute="erpId"
@@ -55,6 +55,6 @@
     </div>
 
     <div class="d-flex justify-content-center mt-2">
-        <x-template.buttons.submit label="Salvar" />
+        <x-bootstrap.buttons.submit label="Salvar" />
     </div>
-</x-template.forms.post>
+</x-bootstrap.forms.form.post>

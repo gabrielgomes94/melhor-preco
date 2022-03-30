@@ -7,13 +7,13 @@
 
     <div class="row">
         <div class="col-12 mb-4">
-            <x-template.alert-messages.alert-messages />
+            <x-bootstrap.alert-messages.alert-messages />
 
-            <x-template.card.card>
-                <x-template.card.card-body>
+            <x-bootstrap.card.basic.card>
+                <x-bootstrap.card.basic.card-body>
                     <x-app.products.reports.over-dimensions-table :products="$overDimensionProducts"/>
-                </x-template.card.card-body>
-            </x-template.card.card>
+                </x-bootstrap.card.basic.card-body>
+            </x-bootstrap.card.basic.card>
         </div>
     </div>
 </x-layout>

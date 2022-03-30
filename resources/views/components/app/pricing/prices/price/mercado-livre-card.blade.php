@@ -1,4 +1,4 @@
-<x-template.card.card>
+<x-bootstrap.card.basic.card>
         <x-app.pricing.prices.price.card-header :price="$price" />
 
         <div class="row">
@@ -10,4 +10,4 @@
                 <x-app.pricing.prices.price.forms.without-freight :productId="$productId" :price="$price" />
             </div>
         </div>
-</x-template.card.card>
+</x-bootstrap.card.basic.card>

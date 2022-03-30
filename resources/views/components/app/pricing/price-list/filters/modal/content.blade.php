@@ -1,7 +1,7 @@
 <div class="d-flex flex-column justify-content-around">
     <x-app.pricing.products.single-store.filter-kits :store="$store" />
 
-    <x-template.forms.get
+    <x-bootstrap.forms.form.get
         :action="route('pricing.priceList.byStore', $store->slug())"
         :formId="$formId"
     >
@@ -24,5 +24,5 @@
                 @endforeach
             </select>
         </div>
-    </x-template.forms.get>
+    </x-bootstrap.forms.form.get>
 </div>

@@ -10,7 +10,7 @@
 
 <div class="dropdown-menu dropdown-menu-end my-4 py-1">
     <div class="list-group list-group-flush">
-        <x-template.forms.put
+        <x-bootstrap.forms.form.put
             action="{{ route('notifications.updateReadedStatus', $notification->identifier()) }}"
         >
             <input type="hidden" name="readed" value="true">
@@ -18,9 +18,9 @@
             <button class="btn dropdown-item" type="submit">
                 Marcar como lido
             </button>
-        </x-template.forms.put>
+        </x-bootstrap.forms.form.put>
 
-        <x-template.forms.put
+        <x-bootstrap.forms.form.put
             action="{{ route('notifications.updateSolvedStatus', $notification->identifier()) }}"
         >
             <input type="hidden" name="solved" value="true">
@@ -28,6 +28,6 @@
             <button class="btn dropdown-item" type="submit">
                 Marcar como resolvido
             </button>
-        </x-template.forms.put>
+        </x-bootstrap.forms.form.put>
     </div>
 </div>

@@ -1,9 +1,9 @@
 @foreach ($data as $invoice)
     <tr>
         <td>
-             <x-template.links.link :route="route('costs.showPurchaseInvoices', $invoice['uuid'])">
+             <x-bootstrap.links.link :route="route('costs.showPurchaseInvoices', $invoice['uuid'])">
                 {{ $invoice['seriesNumber'] ?? '' }}
-            </x-template.links.link>
+            </x-bootstrap.links.link>
         </td>
 
         <td>

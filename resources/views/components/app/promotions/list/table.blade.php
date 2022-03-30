@@ -20,21 +20,21 @@
                 <td>{{ $promotion['discount'] }}</td>
 
                 <td>
-                    <x-template.links.link :route="route('promotions.show', $promotion['uuid'])">
+                    <x-bootstrap.links.link :route="route('promotions.show', $promotion['uuid'])">
                         Detalhes
-                    </x-template.links.link>
+                    </x-bootstrap.links.link>
 
                     <br>
 
-                    <x-template.links.link :route="route('promotions.export', $promotion['uuid'])">
+                    <x-bootstrap.links.link :route="route('promotions.export', $promotion['uuid'])">
                         Exportar
-                    </x-template.links.link>
+                    </x-bootstrap.links.link>
 
                     <br>
 
-                    <x-template.links.link :route="route('promotions.edit', $promotion['uuid'])">
+                    <x-bootstrap.links.link :route="route('promotions.edit', $promotion['uuid'])">
                         Editar
-                    </x-template.links.link>
+                    </x-bootstrap.links.link>
                 </td>
             </tr>
         @endforeach

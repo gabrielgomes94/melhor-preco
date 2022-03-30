@@ -7,7 +7,7 @@
 
     <div class="container">
         <div class="row">
-            <x-template.alert-messages.alert-messages />
+            <x-bootstrap.alert-messages.alert-messages />
         </div>
 
         <div class="row mt-4">

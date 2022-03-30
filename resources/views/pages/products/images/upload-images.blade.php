@@ -7,11 +7,11 @@
 
     <div class="row">
         <div class="col-12 mb-4">
-            <x-template.alert-messages.alert-messages />
+            <x-bootstrap.alert-messages.alert-messages />
 
-            <x-template.card.card>
+            <x-bootstrap.card.basic.card>
                 <x-app.products.images.upload-form />
-            </x-template.card.card>
+            </x-bootstrap.card.basic.card>
         </div>
     </div>
 </x-layout>

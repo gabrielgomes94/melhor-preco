@@ -20,7 +20,7 @@
                     @endforeach
                 </td>
                 <td>
-                    <x-template.navigation.navigation-button
+                    <x-bootstrap.navigation.navigation-button
                         :route="route('pricing.priceList.custom.show', $priceList['id'])"
                         label="Visualizar"
                     />

@@ -1,17 +1,17 @@
-<x-template.card.card>
+<x-bootstrap.card.basic.card>
     @isset($header)
-        <x-template.card.card-header>
+        <x-bootstrap.card.basic.card-header>
             {{ $header }}
-        </x-template.card.card-header>
+        </x-bootstrap.card.basic.card-header>
     @endisset
 
-    <x-template.card.card-body>
+    <x-bootstrap.card.basic.card-body>
         {{ $body }}
-    </x-template.card.card-body>
+    </x-bootstrap.card.basic.card-body>
 
     @isset($footer)
-        <x-template.card.card-footer>
+        <x-bootstrap.card.basic.card-footer>
             {{ $footer }}
-        </x-template.card.card-footer>
+        </x-bootstrap.card.basic.card-footer>
     @endisset
-</x-template.card.card>
+</x-bootstrap.card.basic.card>

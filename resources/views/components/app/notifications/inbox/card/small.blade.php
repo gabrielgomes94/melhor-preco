@@ -8,6 +8,6 @@
     </div>
 
     <div class="my-4">
-        <x-template.paginator.paginator-links :paginator="$paginator"/>
+        <x-bootstrap.paginator.paginator-links :paginator="$paginator"/>
     </div>
 </div>

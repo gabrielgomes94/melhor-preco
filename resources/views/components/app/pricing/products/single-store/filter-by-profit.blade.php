@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-6">
-        <x-template.input.percentage
+        <x-bootstrap.input.percentage
             attribute="minProfit"
             label="Margem de Lucro mínima"
             value="{{ $minimumProfit }}"
         />
     </div>
     <div class="col-6">
-        <x-template.input.percentage
+        <x-bootstrap.input.percentage
             attribute="maxProfit"
             label="Margem de Lucro maxima"
             value="{{ $maximumProfit }}"
@@ -15,7 +15,7 @@
     </div>
 
     <div class="col-12">
-        <x-template.input.text
+        <x-bootstrap.input.text
             attribute="sku"
             label="SKU"
             visibleComponentId="sku"

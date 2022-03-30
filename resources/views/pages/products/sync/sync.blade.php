@@ -7,9 +7,9 @@
 
     <div class="row">
         <div class="col-6">
-            <x-template.card.card class="h-100">
+            <x-bootstrap.card.basic.card class="h-100">
                 <x-app.products.sync.sync-products-card />
-            </x-template.card.card>
+            </x-bootstrap.card.basic.card>
         </div>
 
         <div class="col-6">

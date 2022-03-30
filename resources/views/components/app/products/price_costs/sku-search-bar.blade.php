@@ -1,8 +1,8 @@
-<x-template.forms.get
+<x-bootstrap.forms.form.get
     :action="route('costs.product.list')"
 >
     <div class="d-flex justify-content-around">
-        <x-template.input.text
+        <x-bootstrap.input.text
             attribute="sku"
             label="SKU"
             visibleComponentId="sku"
@@ -10,7 +10,7 @@
         />
 
         <div class="d-flex align-items-end px-2">
-            <x-template.buttons.submit label="Filtrar" />
+            <x-bootstrap.buttons.submit label="Filtrar" />
         </div>
     </div>
-</x-template.forms.get>
+</x-bootstrap.forms.form.get>

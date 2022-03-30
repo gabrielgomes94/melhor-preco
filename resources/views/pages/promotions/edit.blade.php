@@ -2,7 +2,7 @@
     <div class="row full-height">
         <div class="col-1"></div>
         <div class="col-10">
-            <x-template.alert-messages.alert-messages />
+            <x-bootstrap.alert-messages.alert-messages />
 
             <div class="my-4">
                 <h3>Promoções</h3>

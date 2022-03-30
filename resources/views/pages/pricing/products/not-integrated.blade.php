@@ -4,12 +4,12 @@
     </x-slot>
 
     <div class="row">
-        <x-template.alert-messages.alert-messages />
+        <x-bootstrap.alert-messages.alert-messages />
     </div>
 
     <div class="row">
-        <x.template.card.card>
+        <x.bootstrap.card.basic.card>
             <h1>Produto não integrado.</h1>
-        </x.template.card.card>
+        </x.bootstrap.card.basic.card>
     </div>
 </x-layout>

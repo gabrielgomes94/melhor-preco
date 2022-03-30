@@ -4,18 +4,18 @@
     </x-slot>
 
     <x-slot name="breadcrumb">
-        <x-template.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
+        <x-bootstrap.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
     </x-slot>
 
     <div class="row">
-        <x-template.alert-messages.alert-messages />
+        <x-bootstrap.alert-messages.alert-messages />
     </div>
 
     <div class="row mb-4">
         <div class="mb-4">
-            <x-template.links.link :route="route('products.reports.show', $product->getSku())">
+            <x-bootstrap.links.link :route="route('products.reports.show', $product->getSku())">
                 <h3>{{ $productHeader }}</h3>
-            </x-template.links.link>
+            </x-bootstrap.links.link>
         </div>
 
         <div class="col-4">
