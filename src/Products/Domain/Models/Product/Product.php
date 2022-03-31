@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\PurchaseItem;
+use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
@@ -296,5 +297,24 @@ class Product extends Model implements ProductModelInterface
             ->where('prices.store', $storeSlug)
             ->orderBy('prices.updated_at', 'desc')
             ->paginate(perPage: self::PER_PAGE, page: $page);
+    }
+
+    public function postedOnMarketplace(Marketplace $marketplace): bool
+    {
+        $slug = $marketplace->getSlug();
+        $prices = $this->prices;
+
+        foreach ($prices as $price) {
+            if ($price->getMarketplace()->getSlug() === $slug) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function getImages(): array
+    {
+        return $this->images;
     }
 }
