@@ -13,7 +13,6 @@
                placeholder="dd/mm/aaaaa"
                name="{{ $attribute }}"
                value="{{ $value ?? '' }}"
-               required
         >
     </div>
 </div>

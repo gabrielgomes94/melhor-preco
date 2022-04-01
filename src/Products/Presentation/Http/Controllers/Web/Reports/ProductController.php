@@ -25,14 +25,11 @@ class ProductController extends Controller
             abort(404);
         }
 
-        return view(
-            'pages.products.reports.product_infos',
-            array_merge(
-                $data,
-                [
-                    'redirectLink' => redirect()->back()->getTargetUrl()
-                ]
-            )
+        $data = array_merge(
+            $data,
+            ['redirectLink' => redirect()->back()->getTargetUrl()]
         );
+
+        return view('pages.products.reports.product_details', $data);
     }
 }

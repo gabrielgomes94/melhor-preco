@@ -3,6 +3,7 @@
 namespace Src\Sales\Domain\Repositories\Contracts;
 
 use Carbon\Carbon;
+use Src\Products\Domain\Models\Product\Contracts\Product;
 use Src\Sales\Domain\Models\SaleOrder;
 
 interface Repository

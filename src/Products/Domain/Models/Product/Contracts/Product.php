@@ -3,6 +3,7 @@
 namespace Src\Products\Domain\Models\Product\Contracts;
 
 use Illuminate\Support\Collection;
+use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
@@ -35,4 +36,8 @@ interface Product
     public function hasVariations(): bool;
 
     public function isActive(): bool;
+
+    public function postedOnMarketplace(Marketplace $marketplace): bool;
+
+    public function getImages(): array;
 }

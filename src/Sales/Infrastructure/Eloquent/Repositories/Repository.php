@@ -5,6 +5,7 @@ namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 use Carbon\Carbon;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Products\Domain\Models\Product\Contracts\Product;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;

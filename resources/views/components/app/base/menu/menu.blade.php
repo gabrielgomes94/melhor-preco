@@ -41,6 +41,12 @@
                 />
 
                 <x-app.base.menu.menu-item
+                    route="{{ route('products.reports.informations') }}"
+                    name="Produtos"
+                    icon="qr-code"
+                />
+
+                <x-app.base.menu.menu-item
                     route="{{ route('pricing.priceList.byStore', 'magalu') }}"
                     name="Calculadora de Preços"
                     icon="calculator

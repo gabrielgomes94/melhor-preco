@@ -2,69 +2,13 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories;
 
-use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
-use Src\Products\Application\Data\FilterOptions;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository as ProductRepositoryInterface;
+use Src\Products\Domain\Repositories\Contracts\ProductWithPriceRepository as ProductWithPriceRepositoryInterface;
 
-class ProductRepository implements ProductRepositoryInterface
+class ProductWithPriceRepository implements ProductWithPriceRepositoryInterface
 {
     private const PER_PAGE = 15;
-
-    public function all(): Collection
-    {
-        return Product::active()->get();
-    }
-
-    public function allFiltered(FilterOptions $filter): LengthAwarePaginator
-    {
-        $query = Product::active();
-
-        if ($filter->hasSku()) {
-            $query = $query->withSku($filter->sku);
-        }
-
-        if ($filter->hasCategory()) {
-            $query = $query->inCategory($filter->category);
-        }
-
-        return $query->paginate(perPage: self::PER_PAGE, page: $filter->page);
-    }
-
-    public function get(string $sku): ?Product
-    {
-        $product = Product::where('sku', $sku)->first();
-
-        if (!$product) {
-            Log::info('Produto não encontrado.', [
-                'sku' => $sku,
-            ]);
-
-            return null;
-        }
-
-        return $product;
-    }
-
-    public function getLastSynchronizationDateTime(): ?Carbon
-    {
-        $lastUpdatedProduct = Product::query()->orderByDesc('updated_at')->first();
-
-        return $lastUpdatedProduct?->getLastUpdate();
-    }
-
-    public function count(): int
-    {
-        return Product::query()->count();
-    }
-
-    public function countActives(): int
-    {
-        return Product::active()->count();
-    }
 
     public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator
     {
