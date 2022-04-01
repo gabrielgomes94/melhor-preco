@@ -2,6 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Product\Contracts\Product;
 use Src\Sales\Domain\Events\ItemSynchronized;
@@ -14,11 +15,8 @@ use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 
 class ItemsRepository implements ItemRepositoryRepository
 {
-    public function countSalesByProduct(Product $product, ListSalesFilter $options): int
+    public function countSalesByProduct(Product $product, Carbon $beginDate, Carbon $endDate): int
     {
-        $beginDate = $options->getBeginDate();
-        $endDate = $options->getEndDate();
-
         return Item::with(['product', 'saleOrder'])
             ->join(
                 'sale_orders',

@@ -6,6 +6,7 @@
         :formId="$formId"
     >
         <div class="border-top my-2 py-2">
+{{--            @todo: voltar a ter esse input--}}
             <x-app.pricing.products.single-store.filter-by-profit
                 :store="$store"
                 :minimumProfit="$filter['minimumProfit'] ?? null"
@@ -16,13 +17,7 @@
         </div>
 
         <div class="mb-4">
-            <label class="my-1 me-2" for="country">Categoria</label>
-            <select class="form-select" name="category" id="country" aria-label="Seleciona uma categoria">
-                <option value=""></option>
-                @foreach ($filter['categories'] ?? [] as $category)
-                    <option value="{{ $category['category_id'] }}">{{ $category['name'] }}</option>
-                @endforeach
-            </select>
+            <x-app.products.filters.category :filter="$filter" />
         </div>
     </x-bootstrap.forms.form.get>
 </div>

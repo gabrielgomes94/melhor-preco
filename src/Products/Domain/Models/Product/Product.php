@@ -261,6 +261,26 @@ class Product extends Model implements ProductModelInterface
         return $query->where('is_active', true);
     }
 
+    public function scopeWithSku($query, string $sku)
+    {
+        return $query->where('sku', $sku)
+            ->orWhere(function ($query) use ($sku) {
+                $query->where('parent_sku', $sku)
+                    ->where('is_active', true);
+            })
+            ->orWhere(function ($query) use ($sku) {
+                $sku = '%"' . $sku . '"%';
+
+                $query->where('composition_products', 'like', $sku)
+                    ->where('is_active', true);
+            });
+    }
+
+    public function scopeInCategory($query, string $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
+    }
+
     public function scopeOrderBySku($query)
     {
         return $query->orderByRaw('CAST(sku AS INTEGER) DESC');
@@ -272,31 +292,6 @@ class Product extends Model implements ProductModelInterface
         return $query->whereHas('prices', function (Builder $query) use ($store) {
             $query->where('store', '=', $store);
         });
-    }
-
-    // Mover essas lógicas pra Model de Prices
-    // @todo: criar método no repositoru para isso
-    public static function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
-    {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
-            ->whereNull('parent_sku')
-            ->where('is_active', true)
-            ->whereNotNull('product_id')
-            ->whereNotIn('composition_products', ['[]'])
-            ->where('store', $storeSlug)
-            ->orderBy('product_id')
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    // @todo: criar método no repositoru para isso
-    public static function listPricesLog(string $storeSlug, int $page = 1): LengthAwarePaginator
-    {
-        return self::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
-            ->whereNull('parent_sku')
-            ->where('is_active', true)
-            ->where('prices.store', $storeSlug)
-            ->orderBy('prices.updated_at', 'desc')
-            ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
     public function postedOnMarketplace(Marketplace $marketplace): bool

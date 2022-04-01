@@ -6,16 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Application\UseCases\ReportProduct;
-use Src\Products\Application\UseCases\Reports\ProductsInformation;
-use Src\Products\Application\UseCases\Reports\ReportInformations;
 use Src\Products\Presentation\Presenters\Reports\ProductReportPresenter;
 
 class ProductController extends Controller
 {
     public function __construct(
         private ReportProduct $reportProduct,
-        private ProductReportPresenter $productReportPresenter,
-        private ProductsInformation $reportInformations
+        private ProductReportPresenter $productReportPresenter
     ) {
     }
 
@@ -34,14 +31,5 @@ class ProductController extends Controller
         );
 
         return view('pages.products.reports.product_details', $data);
-    }
-
-    public function informations(Request $request)
-    {
-        $data = $this->reportInformations->report();
-
-        return view('pages.products.reports.product_information', [
-            'data' => $data,
-        ]);
     }
 }

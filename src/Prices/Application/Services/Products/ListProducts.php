@@ -2,16 +2,16 @@
 
 namespace Src\Prices\Application\Services\Products;
 
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Domain\Repositories\Contracts\ProductWithPriceRepository;
 use Src\Products\Domain\Utils\Contracts\Options;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Products\Domain\Models\Product\Product;
 
 class ListProducts
 {
-    private ProductRepository $repository;
+    private ProductWithPriceRepository $repository;
 
-    public function __construct(ProductRepository $repository)
+    public function __construct(ProductWithPriceRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -37,7 +37,7 @@ class ListProducts
         }
 
         if ($options->shouldFilterKits()) {
-            return Product::listCompositionProducts(
+            return $this->repository->listCompositionProducts(
                 $store,
                 $page
             );

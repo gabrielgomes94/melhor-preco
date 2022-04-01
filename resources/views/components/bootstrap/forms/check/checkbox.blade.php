@@ -8,6 +8,10 @@
         @if ($active ?? false)
            checked
         @endif
+
+        @if ($disabled ?? false)
+           disabled
+        @endif
     >
     <label class="form-check-label" for="{{ $id ?? '' }}">{{ $label }}</label>
 </div>

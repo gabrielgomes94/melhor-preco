@@ -24,21 +24,25 @@
                     <x-bootstrap.forms.check.checkbox
                         label="3 ou mais imagens"
                         active="{{ $product['checklist']['hasManyImages'] }}"
+                        disabled="true"
                     />
 
                     <x-bootstrap.forms.check.checkbox
                         label="Postado no Mercado Livre"
                         active="{{ $product['checklist']['postedOnMercadoLivre'] }}"
+                        disabled="true"
                     />
 
                     <x-bootstrap.forms.check.checkbox
                         label="Postado no Magalu"
                         active="{{ $product['checklist']['postedOnMagalu'] }}"
+                        disabled="true"
                     />
 
                     <x-bootstrap.forms.check.checkbox
                         label="Postado no Shopee"
                         active="{{ $product['checklist']['postedOnShopee'] }}"
+                        disabled="true"
                     />
                 </div>
             </td>

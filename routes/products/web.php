@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Src\Products\Presentation\Http\Controllers\Web\Images\ProductImageController;
 use Src\Products\Presentation\Http\Controllers\Web\Reports\DimensionsController;
 use Src\Products\Presentation\Http\Controllers\Web\Reports\ProductController;
+use Src\Products\Presentation\Http\Controllers\Web\Reports\ProductInformations;
 use Src\Products\Presentation\Http\Controllers\Web\StockTag\StockTagController;
 use Src\Products\Presentation\Http\Controllers\Web\Synchronization\SynchronizationController;
 
@@ -35,7 +36,7 @@ Route::middleware('auth')->group(function () {
                 ->group(function () {
                     Route::get('/show_info/{sku}', [ProductController::class, 'get'])->name('.show');
 
-                    Route::get('/informations', [ProductController::class, 'informations'])->name('.informations');
+                    Route::get('/informations', ProductInformations::class)->name('.informations');
 
                     Route::get('/over_dimension', [DimensionsController::class, 'overDimension'])
                         ->name('.overDimension');

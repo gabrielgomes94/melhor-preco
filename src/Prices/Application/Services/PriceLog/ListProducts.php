@@ -11,6 +11,11 @@ class ListProducts
 
     public function listPaginate(string $storeSlug, int $page): LengthAwarePaginator
     {
-        return Product::listPricesLog($storeSlug, $page, self::PER_PAGE);
+        return Product::leftJoin('prices', 'prices.product_id', '=', 'products.sku')
+            ->whereNull('parent_sku')
+            ->where('is_active', true)
+            ->where('prices.store', $storeSlug)
+            ->orderBy('prices.updated_at', 'desc')
+            ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 }
