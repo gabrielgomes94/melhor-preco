@@ -1,4 +1,8 @@
 <x-layout>
+    <x-slot name="navbar">
+        <x-app.products.navbar.navbar />
+    </x-slot>
+
     <div class="row my-4">
         <div class="col-sm-12">
             <div class="error-container">
