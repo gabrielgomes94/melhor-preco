@@ -4,7 +4,6 @@
         <th colspan="1">SKU</th>
         <th colspan="4">Nome</th>
         <th colspan="2">Observações</th>
-        <th colspan="1">Vendas</th>
     </tr>
     </thead>
 
@@ -45,10 +44,6 @@
                         disabled="true"
                     />
                 </div>
-            </td>
-
-            <td colspan="1">
-                {{ $product['sales'] }}
             </td>
         </tr>
     @endforeach
