@@ -5,7 +5,9 @@
                 <h2 class="m-0">Custos dos produtos</h2>
             </div>
 
-            <x-app.products.price_costs.sku-search-bar :sku="$filter['sku']" />
+            <div class="d-flex flex-column">
+                <x-app.products.price_costs.sku-search-bar :sku="$filter['sku']" />
+            </div>
         </div>
 
         <x-app.costs.product-costs.list.table.table
