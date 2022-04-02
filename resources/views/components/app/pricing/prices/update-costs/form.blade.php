@@ -22,7 +22,7 @@
 
                 <x-bootstrap.forms.input.money
                     attribute="additionalCosts"
-                    id="additionalCosts-{{ $product->getSku() }}"
+                    componentId="additionalCosts-{{ $product->getSku() }}"
                     label="Custos Adicionais"
                     value="{{ $product->getCosts()->additionalCosts() }}"
                 >
