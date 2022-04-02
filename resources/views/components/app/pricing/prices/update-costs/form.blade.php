@@ -14,7 +14,7 @@
 
                 <x-bootstrap.forms.input.percentage
                     attribute="taxICMS"
-                    componentId="taxICMS-{{ $product->getSku() }}"
+                    id="taxICMS-{{ $product->getSku() }}"
                     label="Imposto ICMS"
                     value="{{ $product->getCosts()->taxICMS() }}"
                 >
@@ -22,7 +22,7 @@
 
                 <x-bootstrap.forms.input.money
                     attribute="additionalCosts"
-                    componentId="additionalCosts-{{ $product->getSku() }}"
+                    id="additionalCosts-{{ $product->getSku() }}"
                     label="Custos Adicionais"
                     value="{{ $product->getCosts()->additionalCosts() }}"
                 >
