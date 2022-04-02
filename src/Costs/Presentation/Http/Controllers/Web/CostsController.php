@@ -16,9 +16,7 @@ class CostsController extends Controller
 {
     public function __construct(
         private UpdateCosts $updateService,
-        private ListProducts $listProducts,
-        private ShowProductCosts $showProductCosts,
-        private CostsPresenter $costsPresenter
+        private ListProducts $listProducts
     ) {
     }
 
@@ -41,18 +39,5 @@ class CostsController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    public function show(Request $request, string $sku)
-    {
-        $data = $this->showProductCosts->show($sku);
-
-        return view('pages.costs.products.show', [
-            'costs' => $this->costsPresenter->present($data['costs']),
-            'product' => [
-                'sku' => $data['product']->getIdentifiers()->getSku(),
-                'name' => $data['product']->getDetails()->getName(),
-            ]
-        ]);
     }
 }

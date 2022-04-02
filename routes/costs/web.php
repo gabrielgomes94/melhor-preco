@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Costs\Presentation\Http\Controllers\Web\CostsController;
+use Src\Costs\Presentation\Http\Controllers\Web\CostsDetailedController;
 use Src\Costs\Presentation\Http\Controllers\Web\PurchaseInvoicesController;
 use Src\Costs\Presentation\Http\Controllers\Web\PurchaseItemsController;
 use Src\Costs\Presentation\Http\Controllers\Web\SyncController;
@@ -17,7 +18,7 @@ Route::middleware('auth')->group(function () {
                     Route::get('/lista', [CostsController::class, 'list'])
                         ->name('.list');
 
-                    Route::get('/detalhes/{sku}', [CostsController::class, 'show'])
+                    Route::get('/detalhes/{sku}', CostsDetailedController::class)
                         ->name('.show');
 
                     Route::put('/atualizar/{product_id}', [CostsController::class, 'update'])
