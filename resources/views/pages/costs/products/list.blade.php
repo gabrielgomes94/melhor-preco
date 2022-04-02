@@ -9,7 +9,11 @@
 
     <div class="row m-4">
         <div class="col-12">
-            <x-app.costs.product-costs.card :paginator="$paginator" :products="$products" :sku="$sku" />
+            <x-app.costs.product-costs.list.card.card
+                :paginator="$paginator"
+                :products="$products"
+                :filter="$filter"
+            />
         </div>
     </div>
 </x-layout>

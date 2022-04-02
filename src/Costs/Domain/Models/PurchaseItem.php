@@ -123,4 +123,9 @@ class PurchaseItem extends Model
     {
         return $this->uuid;
     }
+
+    public function getSku(): string
+    {
+        return $this->product_sku ?? '';
+    }
 }

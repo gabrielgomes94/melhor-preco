@@ -10,11 +10,13 @@
     <div class="row my-4">
         <div class="col-12">
             <h2>
-                {{ $data['product']['sku'] }} - {{ $data['product']['name'] }}
+                {{ $product['sku'] }} - {{ $product['name'] }}
             </h2>
 
             <div class="my-2">
-                <x-app.costs.product-costs.card :data="$data"/>
+                <x-app.costs.product-costs.details.card.card
+                    :costs="$costs"
+                />
             </div>
         </div>
     </div>

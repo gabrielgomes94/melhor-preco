@@ -28,7 +28,7 @@ class CostsPresenter
                 'supplierName' => $item->getSupplierName(),
                 'supplierFiscalId' => $item->getSupplierFiscalId(),
             ];
-        });
+        })->toArray();
 
         return $items;
     }

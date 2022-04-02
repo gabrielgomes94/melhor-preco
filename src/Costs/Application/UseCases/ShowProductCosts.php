@@ -4,6 +4,7 @@ namespace Src\Costs\Application\UseCases;
 
 use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\PurchaseItem;
+use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
 class ShowProductCosts
@@ -15,10 +16,10 @@ class ShowProductCosts
         $this->repository = $repository;
     }
 
-    public function show(string $sku): Collection
+    public function show(string $sku): array
     {
         if (!$product = $this->repository->get($sku)) {
-            return collect([]);
+            throw new ProductNotFoundException();
         }
 
         $items = $product->itemsCosts;
@@ -26,6 +27,9 @@ class ShowProductCosts
             return $item->getIssuedAt();
         });
 
-        return $items;
+        return [
+            'product' => $product,
+            'costs' => $items,
+        ];
     }
 }

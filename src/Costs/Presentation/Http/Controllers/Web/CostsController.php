@@ -10,32 +10,26 @@ use Src\Prices\Application\Services\Exceptions\UpdatePriceException;
 use Src\Products\Presentation\Http\Requests\Product\EditCostsRequest;
 use Src\Products\Presentation\Http\Requests\Product\UpdateCostsRequest;
 use Src\Products\Application\UseCases\ListProducts;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Presentation\Presenters\Reports\CostsPresenter;
 
 class CostsController extends Controller
 {
-    private UpdateCosts $updateService;
-    private ListProducts $listProducts;
-    private ShowProductCosts $showProductCosts;
-
     public function __construct(
-        UpdateCosts $updateService,
-        ListProducts $listProducts,
-        ShowProductCosts $showProductCosts
+        private UpdateCosts $updateService,
+        private ListProducts $listProducts,
+        private ShowProductCosts $showProductCosts,
+        private CostsPresenter $costsPresenter
     ) {
-        $this->updateService = $updateService;
-        $this->listProducts =  $listProducts;
-        $this->showProductCosts = $showProductCosts;
     }
 
     public function list(EditCostsRequest $request)
     {
         $data = $this->listProducts->list($request->getOptions());
 
+
         return view('pages.costs.products.list', $data);
     }
 
-    // @todo: mover esse mótodo para um controller proprio ded PurchaseInvoices
     public function update(string $productId, UpdateCostsRequest $request)
     {
         try {
@@ -53,6 +47,12 @@ class CostsController extends Controller
     {
         $data = $this->showProductCosts->show($sku);
 
-        return view('pages.costs.products.show', ['data' => $data]);
+        return view('pages.costs.products.show', [
+            'costs' => $this->costsPresenter->present($data['costs']),
+            'product' => [
+                'sku' => $data['product']->getIdentifiers()->getSku(),
+                'name' => $data['product']->getDetails()->getName(),
+            ]
+        ]);
     }
 }

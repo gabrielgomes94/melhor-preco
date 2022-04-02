@@ -22,7 +22,9 @@ class ListProducts implements ListProductsInterface
         return [
             'paginator' => $paginator,
             'products' => $paginator->items(),
-            'sku' => $options->sku(),
+            'filter' => [
+                'sku' => $options->sku(),
+            ],
         ];
     }
 }

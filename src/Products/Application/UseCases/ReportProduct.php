@@ -16,17 +16,13 @@ class ReportProduct
         private ReportProductSales $reportProductSales
     ){}
 
-    public function get(string $sku)//: array
+    public function get(string $sku)
     {
-        $product = $this->productRepository->get($sku);
-
-        if (!$product) {
-            throw new ProductNotFoundException();
-        }
+        $data = $this->showProductCosts->show($sku);
 
         return new ProductInfoReport(
-            costsItems: $this->showProductCosts->show($sku),
-            product: $product,
+            costsItems: $data['costs'],
+            product: $data['product'],
             salesReport: $this->reportProductSales->report($sku)
         );
     }
