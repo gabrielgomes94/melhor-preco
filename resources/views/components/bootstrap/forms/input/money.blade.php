@@ -6,7 +6,7 @@
     <input
         type="text"
         class="form-control w-100 input-money"
-        id="{{ $visibleComponentId  }}"
+        id="{{ $componentId  }}-input-view"
         name="{{ $attribute }}"
         value="{{ $value }}"
     >
