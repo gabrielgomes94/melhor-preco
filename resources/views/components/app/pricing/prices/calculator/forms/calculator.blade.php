@@ -8,13 +8,13 @@
         @csrf
 
         <div class="mt-2">
-            <x-bootstrap.input.read-only
+            <x-bootstrap.forms.input.read-only
                 attribute="store"
                 componentId="store-{{ $price['id'] }}"
                 label="Marketplace"
                 value="{{ $price['storeSlug'] }}"
             >
-            </x-bootstrap.input.read-only>
+            </x-bootstrap.forms.input.read-only>
         </div>
 
         <div class="mt-2">
@@ -38,13 +38,13 @@
         </div>
 
         <div class="mt-2">
-            <x-bootstrap.input.forms.percentage
+            <x-bootstrap.forms.input.percentage
                 attribute="desiredPrice"
                 componentId="desiredPrice-{{ $price['id'] }}"
                 label="Preço desejado"
                 value="{{ $price['mainPrice']['value'] }}"
             >
-            </x-bootstrap.input.forms.percentage>
+            </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">

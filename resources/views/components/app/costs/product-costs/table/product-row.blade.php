@@ -5,12 +5,12 @@
                 {{ $product->getSku() }}
             </x-bootstrap.links.link>
 
-            <x-bootstrap.input.hidden
+            <x-bootstrap.forms.input.hidden
                 attribute="sku"
                 componentId="sku-{{ $product->getSku() }}"
                 value="{{ $product->getSku() }}"
             >
-            </x-bootstrap.input.hidden>
+            </x-bootstrap.forms.input.hidden>
         </td>
 
         <td colspan="4"
@@ -22,21 +22,21 @@
         </td>
 
         <td colspan="2">
-            <x-bootstrap.input.money
+            <x-bootstrap.forms.input.money
                 attribute="purchasePrice"
                 componentId="purchasePrice-{{ $product->getSku() }}"
                 value="{{ $product->getCosts()->purchasePrice() }}"
             >
-            </x-bootstrap.input.money>
+            </x-bootstrap.forms.input.money>
         </td>
 
         <td colspan="2">
-            <x-bootstrap.input.money
+            <x-bootstrap.forms.input.money
                 attribute="additionalCosts"
                 componentId="additionalCosts-{{ $product->getSku() }}"
                 value="{{ $product->getCosts()->additionalCosts() }}"
             >
-            </x-bootstrap.input.money>
+            </x-bootstrap.forms.input.money>
         </td>
 
         <td colspan="1">

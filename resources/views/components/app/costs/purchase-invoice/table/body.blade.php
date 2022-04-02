@@ -5,7 +5,7 @@
         </td>
 
         <td>
-            <x-bootstrap.input.text
+            <x-bootstrap.forms.input.text
                 attribute="products[{{ $model['purchaseItemUuid'] }}]"
                 visibleComponentId="{{ 'inputSku-' . $model['purchaseItemUuid'] ?? '' }}"
                 :value="$model['productSku']"

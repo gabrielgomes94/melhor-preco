@@ -4,29 +4,29 @@
             <x-bootstrap.forms.form.put action="{{ route('costs.product.update', $product->getSku()) }}">
                 <h5 class="text-center mb-2">Atualizar custos</h5>
 
-                <x-bootstrap.input.money
+                <x-bootstrap.forms.input.money
                     attribute="purchasePrice"
                     componentId="purchasePrice-{{ $product->getSku() }}"
                     label="Preço de Custo"
                     value="{{ $product->getCosts()->purchasePrice() }}"
                 >
-                </x-bootstrap.input.money>
+                </x-bootstrap.forms.input.money>
 
-                <x-bootstrap.input.forms.percentage
+                <x-bootstrap.forms.input.percentage
                     attribute="taxICMS"
                     componentId="taxICMS-{{ $product->getSku() }}"
                     label="Imposto ICMS"
                     value="{{ $product->getCosts()->taxICMS() }}"
                 >
-                </x-bootstrap.input.forms.percentage>
+                </x-bootstrap.forms.input.percentage>
 
-                <x-bootstrap.input.money
+                <x-bootstrap.forms.input.money
                     attribute="additionalCosts"
                     componentId="additionalCosts-{{ $product->getSku() }}"
                     label="Custos Adicionais"
                     value="{{ $product->getCosts()->additionalCosts() }}"
                 >
-                </x-bootstrap.input.money>
+                </x-bootstrap.forms.input.money>
 
                 <div class="d-flex justify-content-center mt-3 mb-2">
                     <x-bootstrap.buttons.submit label="Atualizar" />

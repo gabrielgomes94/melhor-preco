@@ -2,7 +2,7 @@
     :action="route('costs.product.list')"
 >
     <div class="d-flex justify-content-around">
-        <x-bootstrap.input.text
+        <x-bootstrap.forms.input.text
             attribute="sku"
             label="SKU"
             visibleComponentId="sku"

@@ -21,6 +21,6 @@ class Money extends BaseInput
      */
     public function render()
     {
-        return view('components.bootstrap.input.money');
+        return view('components.bootstrap.forms.input.money');
     }
 }
