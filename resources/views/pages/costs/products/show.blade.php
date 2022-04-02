@@ -14,7 +14,7 @@
             </h2>
 
             <div class="my-2">
-                <x-app.costs.product-costs.details.card :data="$data"/>
+                <x-app.costs.product-costs.card :data="$data"/>
             </div>
         </div>
     </div>
