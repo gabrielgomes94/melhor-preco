@@ -1,6 +1,6 @@
 <div class="form-group w-100">
     @isset($label)
-        <label for="{{ $visibleComponentId }}">{{ $label }} (R$)</label>
+        <label for="{{ $componentId  }}-input-view">{{ $label }} (R$)</label>
     @endisset
 
     <input
