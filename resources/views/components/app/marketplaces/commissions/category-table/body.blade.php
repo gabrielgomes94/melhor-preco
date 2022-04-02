@@ -12,7 +12,7 @@
             <x-bootstrap.forms.input.hidden
                 name="categoryId[]"
                 class="input-category-id"
-                id="categoryId-input-{{ $category['categoryId'] }}"
+                componentId="categoryId-input-{{ $category['categoryId'] }}"
                 label=""
                 value="{{ $category['categoryId'] }}"
             />
