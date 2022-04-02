@@ -26,6 +26,6 @@ class Percentage extends BaseInput
      */
     public function render()
     {
-        return view('components.bootstrap.input.percentage');
+        return view('components.bootstrap.forms.input.percentage');
     }
 }

@@ -18,33 +18,33 @@
         </div>
 
         <div class="mt-2">
-            <x-bootstrap.input.percentage
+            <x-bootstrap.forms.input.percentage
                 attribute="commission"
                 componentId="commission-{{ $price['id'] }}"
                 label="Comissão"
                 value="{{ $price['mainPrice']['commission'] }}"
             >
-            </x-bootstrap.input.percentage>
+            </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
-            <x-bootstrap.input.percentage
+            <x-bootstrap.forms.input.percentage
                 attribute="discount"
                 componentId="discount-{{ $price['id'] }}"
                 label="Desconto"
                 value=""
             >
-            </x-bootstrap.input.percentage>
+            </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
-            <x-bootstrap.input.percentage
+            <x-bootstrap.input.forms.percentage
                 attribute="desiredPrice"
                 componentId="desiredPrice-{{ $price['id'] }}"
                 label="Preço desejado"
                 value="{{ $price['mainPrice']['value'] }}"
             >
-            </x-bootstrap.input.percentage>
+            </x-bootstrap.input.forms.percentage>
         </div>
 
         <div class="mt-2">

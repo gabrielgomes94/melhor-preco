@@ -14,7 +14,7 @@
         </div>
 
         <div class="mb-4">
-            <x-bootstrap.input.percentage
+            <x-bootstrap.forms.input.percentage
                 attribute="profitMargin"
                 label="Margem de Lucro desejada"
                 value="{{ $massCalculation['profitMargin'] ?? '' }}"
@@ -22,7 +22,7 @@
         </div>
 
         <div class="mb-4">
-            <x-bootstrap.input.percentage
+            <x-bootstrap.forms.input.percentage
                 attribute="commission"
                 label="Commissão"
                 value="{{ $massCalculation['commission'] ?? '' }}"

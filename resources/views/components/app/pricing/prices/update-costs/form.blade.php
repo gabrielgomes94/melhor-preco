@@ -12,13 +12,13 @@
                 >
                 </x-bootstrap.input.money>
 
-                <x-bootstrap.input.percentage
+                <x-bootstrap.input.forms.percentage
                     attribute="taxICMS"
                     componentId="taxICMS-{{ $product->getSku() }}"
                     label="Imposto ICMS"
                     value="{{ $product->getCosts()->taxICMS() }}"
                 >
-                </x-bootstrap.input.percentage>
+                </x-bootstrap.input.forms.percentage>
 
                 <x-bootstrap.input.money
                     attribute="additionalCosts"
