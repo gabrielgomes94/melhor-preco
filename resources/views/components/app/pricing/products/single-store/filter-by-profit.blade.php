@@ -4,6 +4,7 @@
             attribute="minProfit"
             label="Margem de Lucro mínima"
             value="{{ $minimumProfit }}"
+            id="minimum-profit-input"
         />
     </div>
     <div class="col-6">
@@ -11,6 +12,7 @@
             attribute="maxProfit"
             label="Margem de Lucro maxima"
             value="{{ $maximumProfit }}"
+            id="maximum-profit-input"
         />
     </div>
 
@@ -20,6 +22,7 @@
             label="SKU"
             visibleComponentId="sku"
             value="{{ $sku }}"
+            id="sku-input"
         />
     </div>
 </div>
