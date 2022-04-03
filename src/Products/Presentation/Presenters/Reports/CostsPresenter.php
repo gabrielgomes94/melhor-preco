@@ -3,7 +3,7 @@
 namespace Src\Products\Presentation\Presenters\Reports;
 
 use Illuminate\Support\Collection;
-use Src\Costs\Domain\Models\PurchaseItem;
+use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Math\MathPresenter;
 use Src\Math\Percentage;
 

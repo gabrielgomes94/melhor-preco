@@ -4,8 +4,8 @@ namespace Src\Costs\Domain\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Src\Costs\Domain\Models\PurchaseInvoice;
-use Src\Costs\Domain\Models\PurchaseItem;
+use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
+use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 
 interface DbRepository
 {

@@ -3,7 +3,7 @@
 namespace Src\Costs\Infrastructure\Bling\Responses;
 
 use Carbon\Carbon;
-use Src\costs\Domain\Models\PurchaseInvoice;
+use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 
 class Transformer
 {

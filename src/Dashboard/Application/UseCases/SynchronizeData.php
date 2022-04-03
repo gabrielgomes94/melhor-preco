@@ -2,7 +2,7 @@
 
 namespace Src\Dashboard\Application\UseCases;
 
-use Src\Costs\Application\Jobs\SyncCosts;
+use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
 use Src\Products\Application\Jobs\SyncCategories;
 use Src\Products\Application\Jobs\SyncProducts;
 use Src\Sales\Application\Jobs\SyncSales;

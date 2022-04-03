@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Src\Costs\Domain\Models\PurchaseItem;
+use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Categories\Category;

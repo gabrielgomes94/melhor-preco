@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\UseCases;
 
-use Src\Costs\Application\UseCases\ShowProductCosts;
+use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Products\Application\Data\Reports\ProductInfoReport;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
