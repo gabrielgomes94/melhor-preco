@@ -16,22 +16,20 @@ class ListProducts
     public function listPaginate(Options $options): LengthAwarePaginator
     {
         if (!$options->page()) {
-            Product::whereNull('parent_sku')
+            return Product::whereNull('parent_sku')
                 ->where('is_active', true)
                 ->orderBy('sku')
                 ->all();
         }
 
         if ($sku = $options->sku()) {
-            Product::where('sku', $sku)
+            return Product::where('sku', $sku)
                 ->orWhere('parent_sku', $sku)
                 ->orWhere('composition_products', 'like', '%"' . $sku . '"%')
                 ->orderBy('sku')
                 ->paginate(perPage: $options->perPage(), page: $options->page());
         }
 
-
-        if ($options)
 
         return Product::whereNull('parent_sku')
             ->where('is_active', true)
