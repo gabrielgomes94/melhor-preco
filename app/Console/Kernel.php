@@ -32,6 +32,8 @@ class Kernel extends ConsoleKernel
             $syncProducts = app(SynchronizeProducts::class);
             $syncProducts->sync();
         })->weekdays()->daily();
+
+        $schedule->job(new SyncCosts)->weekdays()->daily();
     }
 
     /**
