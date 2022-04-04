@@ -1,7 +1,7 @@
 <div class="row my-1">
     <div class="col-2">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeSeries"
+            id="attributeSeries"
             label="Série"
             attribute="series"
             value="{{ $data['series'] }}"
@@ -10,7 +10,7 @@
 
     <div class="col-3">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeNumber"
+            id="attributeNumber"
             label="Número"
             attribute="number"
             value="{{ $data['number'] }}"
@@ -19,7 +19,7 @@
 
     <div class="col-3">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeIssuedAt"
+            id="attributeIssuedAt"
             label="Data de Emissão"
             attribute="issuedAt"
             value="{{ $data['issuedAt'] }}"
@@ -28,7 +28,7 @@
 
     <div class="col-4">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeSituation"
+            id="attributeSituation"
             label="Situação"
             attribute="situation"
             value="{{ $data['situation'] }}"
@@ -39,7 +39,7 @@
 <div class="row my-1">
     <div class="col-6">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeFiscalId"
+            id="attributeFiscalId"
             label="CNPJ"
             attribute="fiscalId"
             value="{{ $data['fiscalId'] }}"
@@ -48,7 +48,7 @@
 
     <div class="col-6">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeContactName"
+            id="attributeContactName"
             label="Fornecedor"
             attribute="contactName"
             value="{{ $data['contactName'] }}"
@@ -59,7 +59,7 @@
 <div class="row my-1">
     <div class="col-4">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeValue"
+            id="attributeValue"
             label="Valor da nota"
             attribute="value"
             value="{{ $data['value'] }}"
@@ -68,7 +68,7 @@
 
     <div class="col-4">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeFreightValue"
+            id="attributeFreightValue"
             label="Valor do Frete"
             attribute="freightValue"
             value="{{ $data['freightValue'] }}"
@@ -77,7 +77,7 @@
 
     <div class="col-4">
         <x-bootstrap.forms.input.read-only
-            componentId="attributeInsurancePrice"
+            id="attributeInsurancePrice"
             label="Valor do Seguro"
             attribute="insuranceValue"
             value="{{ $data['insuranceValue'] }}"

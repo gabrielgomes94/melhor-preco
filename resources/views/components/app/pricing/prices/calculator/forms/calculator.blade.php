@@ -10,7 +10,7 @@
         <div class="mt-2">
             <x-bootstrap.forms.input.read-only
                 attribute="store"
-                componentId="store-{{ $price['id'] }}"
+                id="store-{{ $price['id'] }}"
                 label="Marketplace"
                 value="{{ $price['storeSlug'] }}"
             >
