@@ -39,6 +39,16 @@ class ProductReportPresenter
         $sales = $salesReport->lastSales->get();
         $sales = $sales->transform(function (Item $saleItem) {
             $saleOrder = $saleItem->getSaleOrder();
+
+            if (!$saleOrder) {
+                return [
+                    'saleDate' => null,
+                    'marketplace' => null,
+                    'quantity' => null,
+                    'value' => null,
+                ];
+            }
+
             $value = $saleOrder->getSaleValue()->totalValue();
 
             return [
