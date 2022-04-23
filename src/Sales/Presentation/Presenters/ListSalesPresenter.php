@@ -3,6 +3,7 @@
 namespace Src\Sales\Presentation\Presenters;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Math\MathPresenter;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Domain\Models\SaleOrder;
 
@@ -31,10 +32,10 @@ class ListSalesPresenter
                 'storeSaleOrderId' => $identifiers->storeSaleOrderId(),
                 'selledAt' => $this->presentSelledAt($saleOrder),
                 'store' => $this->presentStore($identifiers),
-                'value' => $saleValue->totalValue(),
+                'value' => MathPresenter::money($saleValue->totalValue()),
                 'products' => $this->presentProducts($saleOrder),
                 'productsValue' => $saleValue->totalProducts(),
-                'profit' => $saleOrder->getProfit() ?? '',
+                'profit' => $this->getProfit($saleOrder),
                 'status' => (string) $saleOrder->getStatus(),
             ];
         }
@@ -71,5 +72,14 @@ class ListSalesPresenter
         }
 
         return $marketplace->getName();
+    }
+
+    private function getProfit(SaleOrder $saleOrder): string
+    {
+        $profit = $saleOrder->getProfit();
+
+        return $profit
+            ? MathPresenter::money($profit)
+            : '';
     }
 }

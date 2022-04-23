@@ -23,11 +23,11 @@
         <td>{{ $saleOrder['store'] }}</td>
 
         <td>
-            R$ {{ $saleOrder['value'] }}
+            {{ $saleOrder['value'] }}
         </td>
 
         <td>
-            R$ {{ $saleOrder['profit'] }}
+            {{ $saleOrder['profit'] }}
         </td>
 
         <td>
