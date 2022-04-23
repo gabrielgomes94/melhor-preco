@@ -4,6 +4,7 @@ namespace Src\Prices\Presentation\Presenters;
 
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
+use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Contracts\Product;
@@ -38,7 +39,7 @@ class PricePresenter
             'sku' => $product->getSku(),
             'id' => $post->getId(),
             'store' => $store->getName(),
-            'storeSlug' => $store->getSlug(),
+            'marketplaceSlug' => $store->getSlug(),
             'mainPrice' => [
                 'value' => MoneyTransformer::toFloat($price->get()),
                 'profit' => MoneyTransformer::toFloat($price->getProfit()),
@@ -46,6 +47,11 @@ class PricePresenter
                 'commission' => $commission,
             ],
         ];
+    }
+
+    private function presentNew(Post $post): array
+    {
+
     }
 
     private function presentSecondaryPrice(HasSecondaryPrice $post): array

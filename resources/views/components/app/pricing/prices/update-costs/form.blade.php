@@ -1,30 +1,30 @@
 <x-bootstrap.card.basic.card>
     <x-bootstrap.card.basic.card-body>
         <div class="form-group">
-            <x-bootstrap.forms.form.put action="{{ route('costs.product.update', $product->getSku()) }}">
+            <x-bootstrap.forms.form.put action="{{ route('costs.product.update', $productId) }}">
                 <h5 class="text-center mb-2">Atualizar custos</h5>
 
                 <x-bootstrap.forms.input.money
                     attribute="purchasePrice"
-                    componentId="purchasePrice-{{ $product->getSku() }}"
+                    componentId="purchasePrice-{{ $productId }}"
                     label="Preço de Custo"
-                    value="{{ $product->getCosts()->purchasePrice() }}"
+                    value="{{ $costs['purchasePrice'] }}"
                 >
                 </x-bootstrap.forms.input.money>
 
                 <x-bootstrap.forms.input.percentage
                     attribute="taxICMS"
-                    id="taxICMS-{{ $product->getSku() }}"
+                    id="taxICMS-{{ $productId }}"
                     label="Imposto ICMS"
-                    value="{{ $product->getCosts()->taxICMS() }}"
+                    value="{{ $costs['taxICMS'] }}"
                 >
                 </x-bootstrap.forms.input.percentage>
 
                 <x-bootstrap.forms.input.money
                     attribute="additionalCosts"
-                    componentId="additionalCosts-{{ $product->getSku() }}"
+                    componentId="additionalCosts-{{ $productId }}"
                     label="Custos Adicionais"
-                    value="{{ $product->getCosts()->additionalCosts() }}"
+                    value="{{ $costs['additionalCosts'] }}"
                 >
                 </x-bootstrap.forms.input.money>
 

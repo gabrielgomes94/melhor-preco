@@ -27,7 +27,7 @@
                 <td>
                     <a  href="{{
                             route(
-                                'pricing.products.showByStore',
+                                'pricing.products.calculate',
                                 [
                                     'store_slug' => $price['marketplaceSlug'],
                                     'product_id' => $price['productSku']

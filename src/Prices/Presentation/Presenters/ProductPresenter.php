@@ -5,22 +5,19 @@ namespace Src\Prices\Presentation\Presenters;
 use App\Http\Controllers\Utils\Breadcrumb;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Math\MoneyTransformer;
+use Src\Math\Percentage;
+use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Product;
 
 class ProductPresenter
 {
-    private Breadcrumb $breadcrumb;
-    private PricePresenter $pricePresenter;
-    private MarketplaceRepository $marketplaceRepository;
-
     public function __construct(
-        Breadcrumb $breadcrumb,
-        PricePresenter $pricePresenter,
-        MarketplaceRepository $marketplaceRepository
+        private Breadcrumb $breadcrumb,
+        private PricePresenter $pricePresenter,
+        private MarketplaceRepository $marketplaceRepository,
+        private \Src\Calculator\Presentation\Presenters\PricePresenter $calculatorPresenter
     ) {
-        $this->breadcrumb = $breadcrumb;
-        $this->pricePresenter = $pricePresenter;
-        $this->marketplaceRepository = $marketplaceRepository;
     }
 
     public function present(array $data): array
@@ -33,6 +30,7 @@ class ProductPresenter
 
         return [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
+            'calculatorForm' => $this->getCalculatorForm($product, $post, $marketplace),
             'store' => $marketplace,
             'price' => $this->pricePresenter->present($product, $post),
             'product' => $product,
@@ -40,6 +38,23 @@ class ProductPresenter
             'productHeader' => $this->getProductHeader($product),
             'marketplaces' => $marketplaces,
             'isFreeFreightDisabled' => $this->isFreeFreightDisabled($marketplace)
+        ];
+    }
+
+    public function presentNew(Product $product, Post $post)
+    {
+//        $product = $data['product'];
+//        $post = $data['post'];
+
+        $marketplace = $post->getMarketplace();
+
+        return [
+            'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
+            'calculatorForm' => $this->getCalculatorForm($post),
+            'productInfo' => $this->getProductInfo($product),
+            'costsForm' => $this->getCostsForm($product),
+            'price' => $this->getPrice($post),
+            'navbar' => $this->getNavbar($marketplace),
         ];
     }
 
@@ -54,7 +69,7 @@ class ProductPresenter
 
     private function getProductHeader(Product $product): string
     {
-        return $product->getSku() . '-' . $product->getDetails()->getName();
+        return $product->getSku() . ' - ' . $product->getDetails()->getName();
     }
 
     // @todo: melhorar essa lógica. Talvez jogar isso aqui pra camada de domínio.
@@ -67,5 +82,57 @@ class ProductPresenter
         }
 
         return false;
+    }
+
+    private function getCalculatorForm(Post $post): array
+    {
+        $price = $post->getCalculatedPrice();
+        $commissionRate = $price->getCommission()->getCommissionRate();
+        $commission = Percentage::fromFraction($commissionRate)->get();
+        $marketplace = $post->getMarketplace();
+
+        return [
+            'marketplaceName' => $marketplace->getName(),
+            'marketplaceSlug' => $marketplace->getSlug(),
+            'commission' => $commission,
+            'discount' => 5.0,
+            'desiredPrice' => MoneyTransformer::toFloat($price->get()),
+            'isFreeFreightDisabled' => $this->isFreeFreightDisabled($marketplace),
+            'priceId' => $post->getId(),
+            'productId' => $post->getProduct()->getSku(),
+        ];
+    }
+
+    private function getProductInfo(Product $product): array
+    {
+        return [
+            'product' => $product,
+            'id' => $product->getSku(),
+            'header' => $this->getProductHeader($product),
+        ];
+    }
+
+    private function getCostsForm(Product $product): array
+    {
+        $costs = $product->getCosts();
+
+        return [
+            'purchasePrice' => $costs->purchasePrice(),
+            'taxICMS' => $costs->taxICMS(),
+            'additionalCosts' => $costs->additionalCosts(),
+        ];
+    }
+
+    private function getPrice(Post $post): array
+    {
+        return $this->calculatorPresenter->transform($post);
+    }
+
+    private function getNavbar(Marketplace $marketplace): array
+    {
+        return [
+            'marketplaces' => $this->marketplaceRepository->list(),
+            'selected' => $marketplace->getSlug(),
+        ];
     }
 }

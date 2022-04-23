@@ -1,11 +1,11 @@
 <div class="form-group">
     <x-bootstrap.forms.form.put
-        action="{{ route('pricing.products.prices.update', [$productId, $price['id']]) }}"
+        action="{{ route('pricing.products.prices.update', [$productId, $price['priceId']]) }}"
     >
         <x-bootstrap.forms.input.hidden
             attribute="value"
-            componentId="update-price-{{ $price['id'] }}-value"
-            value="{{ $price['mainPrice']['value'] }}"
+            componentId="update-price-{{ $price['priceId'] }}-value"
+            value="{{ $price['suggestedPrice'] }}"
         >
         </x-bootstrap.forms.input.hidden>
 
@@ -73,12 +73,12 @@
 {{--        >--}}
 {{--        </x-bootstrap.forms.input.read-only>--}}
 
-        <x-bootstrap.forms.input.hidden
-            attribute="storeSlug"
-            componentId="update-price-{{ $price['id'] }}-store"
-            value="{{ $price['storeSlug'] }}"
-        >
-        </x-bootstrap.forms.input.hidden>
+{{--        <x-bootstrap.forms.input.hidden--}}
+{{--            attribute="storeSlug"--}}
+{{--            componentId="update-price-{{ $price['priceId'] }}-store"--}}
+{{--            value="{{ $price['marketplaceSlug'] }}"--}}
+{{--        >--}}
+{{--        </x-bootstrap.forms.input.hidden>--}}
 
         <div class="d-flex justify-content-center mt-3 mb-2">
             <x-bootstrap.buttons.submit label="Salvar" />

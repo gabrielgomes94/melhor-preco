@@ -11,6 +11,8 @@ class CalculatePriceTransformer
     public function transform(CalculatePriceRequest $request): array
     {
         $data = $request->validated();
+//
+//        dd($data, $request->all());
 
         return [
             'productId' => $data['product'],

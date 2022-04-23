@@ -1,55 +1,55 @@
 <div class="form-group">
     <form
-        method="post"
-        action="{{ route('pricing.products.prices.calculate', [$productId, $price['id']]) }}"
-        data-price-id="{{ $price['id'] }}"
+        method="get"
+        action="{{ route('pricing.products.calculate', [$marketplaceSlug, $productId]) }}"
+        data-price-id="{{ $priceId }}"
         class="price-calculator-form"
         enctype="multipart/form-data">
         @csrf
 
         <div class="mt-2">
             <x-bootstrap.forms.input.read-only
-                attribute="store"
-                id="store-{{ $price['id'] }}"
+                name="store"
+                id="store-{{ $priceId }}"
                 label="Marketplace"
-                value="{{ $price['storeSlug'] }}"
+                value="{{ $marketplaceSlug }}"
             >
             </x-bootstrap.forms.input.read-only>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
-                attribute="commission"
-                id="commission-{{ $price['id'] }}"
+                name="commission"
+                id="commission-{{ $priceId }}"
                 label="Comissão"
-                value="{{ $price['mainPrice']['commission'] }}"
+                value="{{ $commission }}"
             >
             </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
-                attribute="discount"
-                id="discount-{{ $price['id'] }}"
+                name="discount"
+                id="discount-{{ $priceId }}"
                 label="Desconto"
-                value=""
+                value="{{ $discount }}"
             >
             </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
-                attribute="desiredPrice"
-                id="desiredPrice-{{ $price['id'] }}"
+                name="desiredPrice"
+                id="desiredPrice-{{ $priceId }}"
                 label="Preço desejado"
-                value="{{ $price['mainPrice']['value'] }}"
+                value="{{ $desiredPrice }}"
             >
             </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.toggle-switch
-                id="freeFreight-{{ $price['id'] }}"
+                id="freeFreight-{{ $priceId }}"
                 label="Frete grátis"
                 name="freeFreight"
                 :isDisabled="$isFreeFreightDisabled"
@@ -60,7 +60,7 @@
         <input
             type="hidden"
             name="product"
-            id="product-{{ $price['id'] }}"
+            id="product-{{ $priceId }}"
             value="{{ $productId }}"
         />
 

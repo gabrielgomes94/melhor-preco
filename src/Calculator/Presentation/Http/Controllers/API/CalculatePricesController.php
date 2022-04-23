@@ -12,14 +12,17 @@ use Src\Calculator\Presentation\Presenters\PricePresenter;
 class CalculatePricesController extends Controller
 {
     public function __construct(
-        private CalculatePriceTransformer $transformer,
+//        private CalculatePriceTransformer $transformer,
         private CalculatePrice $calculatePriceUseCase,
         private PricePresenter $presenter
     ) {}
 
     public function calculate(CalculatePriceRequest $request): JsonResponse
     {
-        $data = $this->transformer->transform($request);
+//        $data = $this->transformer->transform($request);
+        $data = $request->transform();
+
+        dd($data);
         $price = $this->calculatePriceUseCase->calculate($data);
         $price = $this->presenter->transform($price);
 
