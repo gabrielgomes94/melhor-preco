@@ -43,8 +43,8 @@ class ProductPresenter
             $presentedData,
             [
                 'calculatorForm' => [
-                    'discount' => (float) $request->transform()['discount'],
-                    'desiredPrice' => (float) $request->transform()['price'],
+                    'discount' => (float) ($request->transform()['discount'] ?? 0.0),
+                    'desiredPrice' => (float) ($request->transform()['price'] ?? 0.0),
                 ]
             ]
         );

@@ -25,8 +25,8 @@ class CalculateController extends Controller
     public function __invoke(string $storeSlug, string $productId, CalculatePriceRequest $request)
     {
         try {
-            $data = $this->getPost->show($productId, $storeSlug, $request->transform());
-            $presentedData = $this->productPresenter->present($data, $request);
+            $data = $this->getPost->get($productId, $storeSlug, $request->transform());
+            $presented = $this->productPresenter->present($data, $request);
         } catch (ProductNotFoundException $exception) {
             abort(404);
         } catch (PostNotFoundException $exception) {
@@ -35,7 +35,7 @@ class CalculateController extends Controller
 
         return view(
             'pages.pricing.products.show',
-            $presentedData
+            $presented
         );
     }
 }

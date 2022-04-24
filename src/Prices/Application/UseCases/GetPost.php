@@ -22,7 +22,7 @@ class GetPost implements GetPostInterface
      * @throws PostNotFoundException
      * @throws ProductNotFoundException
      */
-    public function show(string $productId, string $marketplaceSlug, array $priceParameters): Post
+    public function get(string $productId, string $marketplaceSlug, array $priceParameters): Post
     {
         if (!$product = ProductModel::find($productId)) {
             throw new ProductNotFoundException($productId);

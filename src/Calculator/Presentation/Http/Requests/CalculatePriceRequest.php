@@ -32,6 +32,10 @@ class CalculatePriceRequest extends FormRequest
 
     public function transform(): array
     {
+        if ($this->isEmpty()) {
+            return [];
+        }
+
         $data = $this->all();
 
         return [
