@@ -33,6 +33,8 @@ class CalculateController extends Controller
             return view('pages.pricing.products.not-integrated');
         }
 
+//        dd($presented);
+
         return view(
             'pages.pricing.products.show',
             $presented

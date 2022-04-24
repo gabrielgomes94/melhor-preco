@@ -7,6 +7,7 @@ use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
 use Src\Calculator\Presentation\Presenters\PricePresenter;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product\Contracts\Post;
@@ -28,7 +29,7 @@ class ProductPresenter
         $presentedData = [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
             'calculatorForm' => $this->getCalculatorForm($post),
-            'productInfo' => $this->getProductInfo($product),
+            'productInfo' => $this->getProductInfo($post),
             'costsForm' => $this->getCostsForm($product),
             'calculatedPrice' => $this->getPrice($post),
             'navbar' => $this->getNavbar($marketplace),
@@ -94,12 +95,15 @@ class ProductPresenter
         ];
     }
 
-    private function getProductInfo(Product $product): array
+    private function getProductInfo(Post $post): array
     {
+        $product = $post->getProduct();
+
         return [
             'product' => $product,
             'id' => $product->getSku(),
             'header' => $this->getProductHeader($product),
+            'currentPrice' => MathPresenter::money($post->getPrice()->getValue()),
         ];
     }
 
@@ -116,7 +120,10 @@ class ProductPresenter
 
     private function getPrice(Post $post): array
     {
-        return $this->calculatorPresenter->transform($post);
+        return [
+            'raw' => $this->calculatorPresenter->transformRaw($post),
+            'formatted' => $this->calculatorPresenter->format($post)
+        ];
     }
 
     private function getNavbar(Marketplace $marketplace): array

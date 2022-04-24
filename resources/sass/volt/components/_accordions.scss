@@ -7,14 +7,14 @@
     text-align: left;
     &:not(.collapsed) {
         &::after {
-          background-image: none;
-          @include transform(rotateZ(45deg));
+          //background-image: none;
+          @include transform(rotateZ(180deg));
         }
     }
 
     // Accordion icon
     &::after {
-        background-image: none;
+        //background-image: none;
         content: '\f067';
         font-family: $font-awesome-5;
         font-size: $font-size-base;
@@ -25,8 +25,8 @@
         background-color: $gray-200;
     }
 }
-  
-  
+
+
 // Flush accordion items
 //
 // Remove borders and border-radius to keep accordion items edge-to-edge.
