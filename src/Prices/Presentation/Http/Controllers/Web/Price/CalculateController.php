@@ -6,37 +6,38 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
-use Src\Prices\Domain\UseCases\Contracts\ShowPrice;
+use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
+use Src\Prices\Domain\UseCases\Contracts\GetPost;
 use Src\Prices\Presentation\Presenters\ProductPresenter;
 use Src\Products\Application\Exceptions\PostNotFoundException;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 
-class ShowController extends Controller
+class CalculateController extends Controller
 {
-    private ProductPresenter $productPresenter;
-    private ShowPrice $showPrice;
-
     public function __construct(
-        ProductPresenter $productPresenter,
-        ShowPrice $showPrice
-    ) {
-        $this->productPresenter = $productPresenter;
-        $this->showPrice = $showPrice;
-    }
+        private ProductPresenter $productPresenter,
+        private GetPost $getPost
+    ) {}
 
     /**
      * @return Application|ViewFactory|View
      */
-    public function showByStore(string $storeSlug, string $productId)
+    public function __invoke(string $storeSlug, string $productId, CalculatePriceRequest $request)
     {
         try {
-            $data = $this->showPrice->show($productId, $storeSlug);
+            $data = $this->getPost->get($productId, $storeSlug, $request->transform());
+            $presented = $this->productPresenter->present($data, $request);
         } catch (ProductNotFoundException $exception) {
             abort(404);
         } catch (PostNotFoundException $exception) {
             return view('pages.pricing.products.not-integrated');
         }
 
-        return view('pages.pricing.products.show', $this->productPresenter->present($data));
+//        dd($presented);
+
+        return view(
+            'pages.pricing.products.show',
+            $presented
+        );
     }
 }

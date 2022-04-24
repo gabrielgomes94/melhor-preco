@@ -1,55 +1,63 @@
 <x-bootstrap.table.bordered-table >
-    <thead>
-
-    </thead>
-
     <tbody>
+
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-value"
+        id="update-price-{{ $price['priceId'] }}-value"
         label="Preço"
-        :value="$price['mainPrice']['value']"
+        :value="$price['suggestedPrice']"
+        class="text-success"
+        bold="true"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-purchasePrice"
+        id="update-price-{{ $price['priceId'] }}-purchasePrice"
         label="Preço de Compra"
-{{--        :value=""--}}
+        :value="$price['purchasePrice']"
+        class="text-danger"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-commission"
+        id="update-price-{{ $price['priceId'] }}-commission"
         label="Comissão"
-{{--        :value=""--}}
+        :value="$price['commission']"
+        class="text-danger"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-freight"
+        id="update-price-{{ $price['priceId'] }}-freight"
         label="Frete"
-{{--        :value=""--}}
+        :value="$price['freight']"
+        class="text-danger"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-taxSimplesNacional"
+        id="update-price-{{ $price['priceId'] }}-taxSimplesNacional"
         label="Simples Nacional"
-{{--        :value=""--}}
+        :value="$price['taxSimplesNacional']"
+        class="text-danger"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-differenceICMS"
+        id="update-price-{{ $price['priceId'] }}-differenceICMS"
         label="Diferença de ICMS"
-{{--        :value=""--}}
+        :value="$price['differenceICMS']"
+        class="text-danger"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-profit"
+        id="update-price-{{ $price['priceId'] }}-profit"
         label="Lucro"
-        :value="$price['mainPrice']['profit']"
+        :value="$price['profit']"
+        class="{{ ($priceRaw['profit'] > 0) ? 'text-success' : 'text-danger' }}"
+        bold="true"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
-        id="update-price-{{ $price['id'] }}-margin"
+        id="update-price-{{ $price['priceId'] }}-margin"
         label="Margem"
-        :value="$price['mainPrice']['margin']"
+        :value="$price['margin']"
+        class="{{ ($priceRaw['margin'] > 0) ? 'text-success' : 'text-danger' }}"
+        bold="true"
     />
     </tbody>
 </x-bootstrap.table.bordered-table>

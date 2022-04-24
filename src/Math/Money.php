@@ -7,6 +7,9 @@ use Money\Formatter\IntlMoneyFormatter;
 use Money\Money as MoneyPHP;
 use Money\MoneyFormatter;
 
+/**
+ * @deprecated
+ */
 class Money
 {
     private MoneyFormatter $formatter;

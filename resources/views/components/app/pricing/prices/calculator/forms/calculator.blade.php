@@ -1,58 +1,64 @@
 <div class="form-group">
     <form
-        method="post"
-        action="{{ route('pricing.products.prices.calculate', [$productId, $price['id']]) }}"
-        data-price-id="{{ $price['id'] }}"
+        method="get"
+        action="{{
+            route(
+                'pricing.products.calculate',
+                [
+                    $calculatorForm['marketplaceSlug'],
+                    $calculatorForm['productId']
+                ])
+                }}"
+        data-price-id="{{ $calculatorForm['priceId'] }}"
         class="price-calculator-form"
         enctype="multipart/form-data">
         @csrf
 
         <div class="mt-2">
-            <x-bootstrap.forms.input.read-only
-                attribute="store"
-                id="store-{{ $price['id'] }}"
-                label="Marketplace"
-                value="{{ $price['storeSlug'] }}"
+            <x-bootstrap.forms.input.hidden
+                name="store"
+                id="store-{{ $calculatorForm['priceId'] }}"
+                value="{{ $calculatorForm['marketplaceSlug'] }}"
             >
-            </x-bootstrap.forms.input.read-only>
+            </x-bootstrap.forms.input.hidden>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
-                attribute="commission"
-                id="commission-{{ $price['id'] }}"
+                name="commission"
+                id="commission-{{ $calculatorForm['priceId'] }}"
                 label="Comissão"
-                value="{{ $price['mainPrice']['commission'] }}"
+                value="{{ $calculatorForm['commission'] }}"
             >
             </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
-                attribute="discount"
-                id="discount-{{ $price['id'] }}"
+                name="discount"
+                id="discount-{{ $calculatorForm['priceId'] }}"
                 label="Desconto"
-                value=""
+                value="{{ $calculatorForm['discount'] }}"
             >
             </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
-                attribute="desiredPrice"
-                id="desiredPrice-{{ $price['id'] }}"
+                name="desiredPrice"
+                id="desiredPrice-{{ $calculatorForm['priceId'] }}"
                 label="Preço desejado"
-                value="{{ $price['mainPrice']['value'] }}"
+                value="{{ $calculatorForm['desiredPrice'] }}"
             >
             </x-bootstrap.forms.input.percentage>
         </div>
 
         <div class="mt-2">
             <x-bootstrap.forms.input.toggle-switch
-                id="freeFreight-{{ $price['id'] }}"
+                id="freeFreight-{{ $calculatorForm['priceId'] }}"
                 label="Frete grátis"
                 name="freeFreight"
-                :isDisabled="$isFreeFreightDisabled"
+                :isDisabled="$calculatorForm['isFreeFreightDisabled']"
             >
             </x-bootstrap.forms.input.toggle-switch>
         </div>
@@ -60,8 +66,8 @@
         <input
             type="hidden"
             name="product"
-            id="product-{{ $price['id'] }}"
-            value="{{ $productId }}"
+            id="product-{{ $calculatorForm['priceId'] }}"
+            value="{{ $calculatorForm['productId'] }}"
         />
 
         <div class="d-flex justify-content-center mt-3 mb-2">

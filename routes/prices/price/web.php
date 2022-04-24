@@ -7,7 +7,7 @@ use Src\Prices\Presentation\Http\Controllers\Web\Price\UpdateController;
 use Src\Prices\Presentation\Http\Controllers\Web\PriceList\IndexController;
 use Src\Prices\Presentation\Http\Controllers\Web\PriceList\ShowController;
 use Src\Prices\Presentation\Http\Controllers\Web\PriceLog\PriceLogController;
-use Src\Prices\Presentation\Http\Controllers\Web\Price\ShowController as ProductShowController;
+use Src\Prices\Presentation\Http\Controllers\Web\Price\CalculateController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('pricing')
@@ -31,8 +31,8 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/{store_slug}/products')
                 ->name('.products')
                 ->group(function () {
-                    Route::get('/{product_id}', [ProductShowController::class, 'showByStore'])
-                        ->name('.showByStore');
+                    Route::get('/{product_id}', CalculateController::class)
+                        ->name('.calculate');
                 });
 
             Route::post('/{store_slug}/sync', [SyncController::class, 'sync'])
