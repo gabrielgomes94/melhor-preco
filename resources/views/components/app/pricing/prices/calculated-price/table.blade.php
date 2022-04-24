@@ -13,31 +13,31 @@
     <x-app.pricing.prices.calculated-price.table-cell
         id="update-price-{{ $price['priceId'] }}-purchasePrice"
         label="Preço de Compra"
-{{--        :value=""--}}
+        :value="$price['purchasePrice']"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
         id="update-price-{{ $price['priceId'] }}-commission"
         label="Comissão"
-{{--        :value=""--}}
+        :value="$price['commission']"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
         id="update-price-{{ $price['priceId'] }}-freight"
         label="Frete"
-{{--        :value=""--}}
+        :value="$price['freight']"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
         id="update-price-{{ $price['priceId'] }}-taxSimplesNacional"
         label="Simples Nacional"
-{{--        :value=""--}}
+        :value="$price['taxSimplesNacional']"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell
         id="update-price-{{ $price['priceId'] }}-differenceICMS"
         label="Diferença de ICMS"
-{{--        :value=""--}}
+        :value="$price['differenceICMS']"
     />
 
     <x-app.pricing.prices.calculated-price.table-cell

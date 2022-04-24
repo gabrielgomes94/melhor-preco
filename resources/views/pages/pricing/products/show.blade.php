@@ -33,10 +33,8 @@
 
         <div class="col-8">
             <x-app.pricing.prices.price.card
-                :price="$price"
-{{--                :product="$product"--}}
+                :price="$calculatedPrice"
                 :productId="$productInfo['id']"
-{{--                :store="$store"--}}
             />
         </div>
     </div>
