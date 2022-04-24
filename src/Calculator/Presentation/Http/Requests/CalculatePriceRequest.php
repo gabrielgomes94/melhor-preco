@@ -4,7 +4,6 @@ namespace Src\Calculator\Presentation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
-use Src\Calculator\Presentation\Rules\Store;
 use Src\Math\Percentage;
 
 class CalculatePriceRequest extends FormRequest
@@ -40,10 +39,16 @@ class CalculatePriceRequest extends FormRequest
             'storeSlug' => $data['store'],
             'price' => (float) $data['desiredPrice'],
             'commission' => Percentage::fromPercentage((float) $data['commission']),
+            'discount' => $data['discount'],
             'options' => [
                 CalculatorOptions::DISCOUNT_RATE => Percentage::fromPercentage($data['discount'] ?? 0),
                 CalculatorOptions::FREE_FREIGHT => $this->hasFreeFreight(),
             ]
         ];
+    }
+
+    public function isEmpty(): bool
+    {
+        return empty($this->all());
     }
 }

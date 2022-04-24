@@ -23,30 +23,13 @@ class PricePresenter
             'freight' => $this->transformMoney($price->getFreight()->get()),
             'taxSimplesNacional' => $this->transformMoney($price->getSimplesNacional()),
             'differenceICMS' => $this->transformMoney($price->getDifferenceICMS()),
+            'marketplaceSlug' => $post->getMarketplace()->getSlug(),
             'profit' => $this->transformMoney($price->getProfit()),
             'purchasePrice' => $this->transformMoney($price->getPurchasePrice()),
             'margin' => $price->getMargin(),
             'priceId' => $post->getId(),
         ];
     }
-
-//    private function setData(Price $price): array
-//    {
-//        $commissionRate = $price->getCommission()->getCommissionRate() * 100;
-//
-//        return [
-//            'suggestedPrice' => $this->transformMoney($price->get()),
-//            'costs' => $this->transformMoney($price->getCosts()),
-//            'commission' => $this->transformMoney($price->getCommission()->get()),
-//            'commissionRate' => $commissionRate,
-//            'freight' => $this->transformMoney($price->getFreight()->get()),
-//            'taxSimplesNacional' => $this->transformMoney($price->getSimplesNacional()),
-//            'differenceICMS' => $this->transformMoney($price->getDifferenceICMS()),
-//            'profit' => $this->transformMoney($price->getProfit()),
-//            'purchasePrice' => $this->transformMoney($price->getPurchasePrice()),
-//            'margin' => $price->getMargin()
-//        ];
-//    }
 
     private function transformMoney(Money $money): float
     {

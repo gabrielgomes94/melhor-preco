@@ -3,59 +3,51 @@
 namespace Src\Prices\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
+use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
+use Src\Calculator\Presentation\Presenters\PricePresenter;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
-use Src\Products\Domain\Models\Post\Post;
+use Src\Products\Domain\Models\Product\Contracts\Post;
 use Src\Products\Domain\Models\Product\Product;
 
 class ProductPresenter
 {
     public function __construct(
         private Breadcrumb $breadcrumb,
-        private PricePresenter $pricePresenter,
         private MarketplaceRepository $marketplaceRepository,
-        private \Src\Calculator\Presentation\Presenters\PricePresenter $calculatorPresenter
-    ) {
-    }
+        private PricePresenter $calculatorPresenter
+    ) {}
 
-    public function present(array $data): array
+    public function present(Post $post, CalculatePriceRequest $request)
     {
-        $product = $data['product'];
-        $post = $data['post'];
-
         $marketplace = $post->getMarketplace();
-        $marketplaces = $this->marketplaceRepository->list();
+        $product = $post->getProduct();
 
-        return [
-            'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
-            'calculatorForm' => $this->getCalculatorForm($product, $post, $marketplace),
-            'store' => $marketplace,
-            'price' => $this->pricePresenter->present($product, $post),
-            'product' => $product,
-            'productId' => $product->getSku(),
-            'productHeader' => $this->getProductHeader($product),
-            'marketplaces' => $marketplaces,
-            'isFreeFreightDisabled' => $this->isFreeFreightDisabled($marketplace)
-        ];
-    }
-
-    public function presentNew(Product $product, Post $post)
-    {
-//        $product = $data['product'];
-//        $post = $data['post'];
-
-        $marketplace = $post->getMarketplace();
-
-        return [
+        $presentedData = [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
             'calculatorForm' => $this->getCalculatorForm($post),
             'productInfo' => $this->getProductInfo($product),
             'costsForm' => $this->getCostsForm($product),
-            'price' => $this->getPrice($post),
+            'calculatedPrice' => $this->getPrice($post),
             'navbar' => $this->getNavbar($marketplace),
         ];
+
+        return $this->mergeRequest($presentedData, $request);
+    }
+
+    private function mergeRequest(array $presentedData, CalculatePriceRequest $request): array
+    {
+        return array_replace_recursive(
+            $presentedData,
+            [
+                'calculatorForm' => [
+                    'discount' => (float) $request->transform()['discount'],
+                    'desiredPrice' => (float) $request->transform()['price'],
+                ]
+            ]
+        );
     }
 
     private function getBreadcrumb(Marketplace $marketplace, Product $product)
@@ -95,7 +87,6 @@ class ProductPresenter
             'marketplaceName' => $marketplace->getName(),
             'marketplaceSlug' => $marketplace->getSlug(),
             'commission' => $commission,
-            'discount' => 5.0,
             'desiredPrice' => MoneyTransformer::toFloat($price->get()),
             'isFreeFreightDisabled' => $this->isFreeFreightDisabled($marketplace),
             'priceId' => $post->getId(),

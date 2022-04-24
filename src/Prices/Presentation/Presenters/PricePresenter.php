@@ -9,6 +9,9 @@ use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Contracts\Product;
 
+/*
+ * @deprecated
+ */
 class PricePresenter
 {
     public function present(Product $product, ?Post $post)
