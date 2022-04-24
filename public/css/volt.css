@@ -23493,12 +23493,10 @@ label {
 }
 
 .accordion-button:not(.collapsed)::after {
-  background-image: none;
-  transform: rotateZ(45deg);
+  transform: rotateZ(180deg);
 }
 
 .accordion-button::after {
-  background-image: none;
   content: "\F067";
   font-family: "Font Awesome 5 Free";
   font-size: 1rem;
