@@ -10,6 +10,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
+use Src\Prices\Domain\Models\Price;
 use Src\Products\Domain\Models\Product\Contracts\Post;
 use Src\Products\Domain\Models\Product\Product;
 
@@ -33,6 +34,7 @@ class ProductPresenter
             'costsForm' => $this->getCostsForm($product),
             'calculatedPrice' => $this->getPrice($post),
             'navbar' => $this->getNavbar($marketplace),
+            'marketplacesList' => $this->getMarketplacesList($post),
         ];
 
         return $this->mergeRequest($presentedData, $request);
@@ -132,5 +134,22 @@ class ProductPresenter
             'marketplaces' => $this->marketplaceRepository->list(),
             'selected' => $marketplace->getSlug(),
         ];
+    }
+
+    private function getMarketplacesList(Post $post): array
+    {
+        $product = $post->getProduct();
+        $prices = $product->getPrices();
+        $currentMarketplaceSlug = $post->getMarketplace()->getSlug();
+
+        return $prices->transform(function(Price $price) use ($currentMarketplaceSlug){
+            $marketplace = $price->getMarketplace();
+
+            return [
+                'name' => $marketplace->getName(),
+                'slug' => $marketplace->getSlug(),
+                'selected' => $marketplace->getSlug() === $currentMarketplaceSlug,
+            ];
+        })->toArray();
     }
 }

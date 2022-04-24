@@ -1,8 +1,4 @@
 <x-layout>
-    <x-slot name="navbar">
-        <x-app.pricing.price-list.navbar selected="" :marketplaces="$marketplaces"/>
-    </x-slot>
-
     <div class="row">
         <x-bootstrap.alert-messages.alert-messages />
     </div>

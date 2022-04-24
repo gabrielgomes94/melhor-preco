@@ -1,29 +1,23 @@
 <tr>
     @if($bold ?? false)
         <td>
-            <p>
                 <b>
                     {{ $label }}
                 </b>
-            </p>
         </td>
         <td id="{{ $id }}">
-            <p class="{{ $class ?? '' }}">
-                <b>
-                    {{ $value ?? '' }}
-                </b>
-            </p>
+            <span class="{{ $class ?? '' }}">
+                <b>{{ $value ?? '' }}</b>
+            </span>
         </td>
     @else
         <td>
-            <p>
-                {{ $label }}
-            </p>
+            {{ $label }}
         </td>
         <td id="{{ $id }}">
-            <p class="{{ $class ?? '' }}">
+            <span class="{{ $class ?? '' }}">
                 {{ $value ?? '' }}
-            </p>
+            </span>
         </td>
     @endif
 </tr>

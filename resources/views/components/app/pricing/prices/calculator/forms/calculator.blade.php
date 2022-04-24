@@ -15,13 +15,12 @@
         @csrf
 
         <div class="mt-2">
-            <x-bootstrap.forms.input.read-only
+            <x-bootstrap.forms.input.hidden
                 name="store"
                 id="store-{{ $calculatorForm['priceId'] }}"
-                label="Marketplace"
                 value="{{ $calculatorForm['marketplaceSlug'] }}"
             >
-            </x-bootstrap.forms.input.read-only>
+            </x-bootstrap.forms.input.hidden>
         </div>
 
         <div class="mt-2">
