@@ -35,7 +35,7 @@ class UpdateController extends Controller
             return redirect()->back();
         }
 
-        if (!$marketplace = $this->marketplaceRepository->getBySlug($data['storeSlug'])) {
+        if (!$marketplace = $this->marketplaceRepository->getBySlug($data['marketplaceSlug'])) {
             session()->flash('error', 'Loja inválida.');
 
             return redirect()->back();

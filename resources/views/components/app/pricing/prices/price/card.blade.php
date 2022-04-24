@@ -9,7 +9,11 @@
                 :priceRaw="$priceRaw"
             />
 
-            <x-app.pricing.prices.price.forms.default :productId="$productId" :price="$price"/>
+            <x-app.pricing.prices.price.forms.default
+                :productId="$productId"
+                :price="$price"
+                :priceRaw="$priceRaw"
+            />
         </div>
     </x-bootstrap.card.basic.card-body>
 </x-bootstrap.card.basic.card>
