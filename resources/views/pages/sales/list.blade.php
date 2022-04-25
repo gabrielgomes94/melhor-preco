@@ -17,11 +17,15 @@
         </div>
     </div>
 
-    <x-app.sales.sales-list.card>
-        <div class="mb-2">
-            <x-app.sales.sales-list.filter.form :route="route('sales.list')"/>
+    <div class="mb-4">
+        <x-app.sales.sales-list.card>
+            <div class="p-4">
+                <div class="mb-2">
+                    <x-app.sales.sales-list.filter.form :route="route('sales.list')"/>
+                </div>
 
-            <x-app.sales.sales-list.table.table :saleOrders="$saleOrders" :total="$total" :paginator="$paginator"/>
-        </div>
-    </x-app.sales.sales-list.card>
+                <x-app.sales.sales-list.table.table :saleOrders="$saleOrders" :total="$total" :paginator="$paginator"/>
+            </div>
+        </x-app.sales.sales-list.card>
+    </div>
 </x-layout>
