@@ -26,6 +26,8 @@ class ListSalesPresenter
                 continue;
             }
 
+            $products = $this->presentProducts($saleOrder);
+
             $presented[] = [
                 'saleOrderCode' => $identifiers->id(),
                 'purchaseSaleOrderId' => $identifiers->purchaseSaleOrderId(),
@@ -33,7 +35,8 @@ class ListSalesPresenter
                 'selledAt' => $this->presentSelledAt($saleOrder),
                 'store' => $this->presentStore($identifiers),
                 'value' => MathPresenter::money($saleValue->totalValue()),
-                'products' => $this->presentProducts($saleOrder),
+                'products' => $products,
+                'productsInTooltip' => $this->presentProductsInTooltip($products),
                 'productsValue' => $saleValue->totalProducts(),
                 'profit' => $this->getProfit($saleOrder),
                 'status' => (string) $saleOrder->getStatus(),
@@ -51,7 +54,10 @@ class ListSalesPresenter
             }
 
             for ($i = 0; $i < $item->getQuantity(); $i++) {
-                $products[] = "{$product->getSku()} - {$product->getDetails()->getName()}";
+                $products[] = [
+                    'formattedName' => "{$product->getSku()} - {$product->getDetails()->getName()}",
+                    'sku' => $product->getSku(),
+                ];
             }
         }
 
@@ -81,5 +87,13 @@ class ListSalesPresenter
         return $profit
             ? MathPresenter::money($profit)
             : '';
+    }
+
+    private function presentProductsInTooltip(array $products): string
+    {
+        return implode(
+            ';',
+            array_column($products, 'formattedName')
+        );
     }
 }

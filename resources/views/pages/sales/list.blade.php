@@ -24,7 +24,11 @@
                     <x-app.sales.sales-list.filter.form :route="route('sales.list')"/>
                 </div>
 
-                <x-app.sales.sales-list.table.table :saleOrders="$saleOrders" :total="$total" :paginator="$paginator"/>
+                <x-app.sales.sales-list.table.table
+                    :saleOrders="$saleOrders"
+                    :total="$total"
+                    :paginator="$paginator"
+                />
             </div>
         </x-app.sales.sales-list.card>
     </div>
