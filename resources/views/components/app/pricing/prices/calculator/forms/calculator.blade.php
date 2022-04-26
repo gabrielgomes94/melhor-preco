@@ -56,7 +56,7 @@
         <div class="mt-2">
             <x-bootstrap.forms.input.toggle-switch
                 id="freeFreight-{{ $calculatorForm['priceId'] }}"
-                label="Frete grátis"
+                nextLabel="Frete grátis"
                 name="freeFreight"
                 :isDisabled="$calculatorForm['isFreeFreightDisabled']"
             >

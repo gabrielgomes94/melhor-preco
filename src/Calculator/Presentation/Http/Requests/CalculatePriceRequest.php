@@ -25,6 +25,16 @@ class CalculatePriceRequest extends FormRequest
         ];
     }
 
+    public function validationData()
+    {
+        return array_merge(
+            $this->all(),
+            [
+                'freeFreight' => (bool) $this->input('freeFreight') ?? false,
+            ]
+        );
+    }
+
     public function hasFreeFreight(): bool
     {
         return $this->input('freeFreight') ?? false;
