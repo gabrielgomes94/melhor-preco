@@ -66,7 +66,7 @@ class ListSalesPresenter
 
     private function presentSelledAt(SaleOrder $saleOrder): string
     {
-        return $saleOrder->getSaleDates()->selledAt()->format('d-m-Y');
+        return $saleOrder->getSaleDates()->selledAt()->format('d/m/Y');
     }
 
     private function presentStore($identifiers): string

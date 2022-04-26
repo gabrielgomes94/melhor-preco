@@ -11,4 +11,8 @@ interface ListSalesFilter
     public function getEndDate(): Carbon;
 
     public function getPage(): int;
+
+    public function getPerPage(): int;
+
+    public function getUrl(): string;
 }

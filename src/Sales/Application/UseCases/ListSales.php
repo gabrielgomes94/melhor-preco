@@ -2,6 +2,9 @@
 
 namespace Src\Sales\Application\UseCases;
 
+use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Math\MathPresenter;
 use Src\Sales\Presentation\Presenters\ListSalesPresenter;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
@@ -29,26 +32,42 @@ class ListSales implements ListSalesInterface
             page: $options->getPage(),
         );
 
+        return [
+            'saleOrders' => $this->presenter->listSaleOrder($sales->items()),
+            'meta' => $this->getMetaData($beginDate, $endDate),
+            'paginator' => $this->getPaginator($sales, $options),
+        ];
+    }
+
+    private function getMetaData(Carbon $beginDate, Carbon $endDate): array
+    {
         $totalValue = $this->repository->getTotalValueSum($beginDate, $endDate);
         $totalProfit = $this->repository->getTotalProfitSum($beginDate, $endDate);
         $salesCount = $this->repository->getTotalSalesCount($beginDate, $endDate);
         $productsCount = $this->repository->getTotalProductsCount($beginDate, $endDate);
         $storesCount = $this->repository->getTotalStoresCount($beginDate, $endDate);
 
-        $saleOrders = $this->presenter->listSaleOrder($sales->items());
-
         return [
-            'saleOrders' => $saleOrders ?? [],
-            'meta' => [
-                'beginDate' => $beginDate->format('d/m/Y'),
-                'endDate' => $endDate->format('d/m/Y'),
-                'salesCount' => $salesCount,
-                'productsCount' => $productsCount,
-                'storesCount' => $storesCount,
-                'value' => $totalValue,
-                'profit' => $totalProfit,
-            ],
-            'paginator' => $sales,
+            'beginDate' => $beginDate->format('d/m/Y'),
+            'endDate' => $endDate->format('d/m/Y'),
+            'salesCount' => $salesCount,
+            'productsCount' => $productsCount,
+            'storesCount' => $storesCount,
+            'value' => MathPresenter::money($totalValue),
+            'profit' => MathPresenter::money($totalProfit),
         ];
+    }
+
+    private function getPaginator($sales, ListSalesFilter $options): LengthAwarePaginator
+    {
+        return new LengthAwarePaginator(
+            $sales->items(),
+            $sales->total(),
+            $options->getPerPage(),
+            $options->getPage(),
+            [
+                'path' => $options->getUrl(),
+            ]
+        );
     }
 }
