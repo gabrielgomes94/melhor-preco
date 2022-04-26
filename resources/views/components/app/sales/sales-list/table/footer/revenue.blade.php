@@ -1,4 +1,4 @@
 <h6>Receita</h6>
 
-<b>Faturamento:</b> R$ {{ $value }} <br>
-<b>Lucro:</b> R$ {{ $profit }}
+<b>Faturamento:</b> {{ $value }} <br>
+<b>Lucro:</b> {{ $profit }}

@@ -22,7 +22,8 @@ class ListController extends Controller
             [
                 'beginDate' => $request->input('beginDate'),
                 'endDate' => $request->input('endDate'),
-                'page' => $page = (int) $request->input('page') ?? 1,
+                'page' => (int) $request->input('page') ?? 1,
+                'url' => $request->fullUrlWithQuery($request->query())
             ]
         );
 

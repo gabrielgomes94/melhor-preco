@@ -13,11 +13,13 @@
         <td class="text-break"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
-            title="{{ implode(';', $saleOrder['products']) }}"
+            title="{{ $saleOrder['productsInTooltip'] }}"
             colspan="4"
         >
             @foreach ($saleOrder['products'] as $product)
-                {{ $product }} <br>
+                <x-bootstrap.links.link :route="route('products.reports.show', $product['sku'])">
+                    {{ $product['formattedName'] }} <br>
+                </x-bootstrap.links.link>
             @endforeach
         </td>
         <td>{{ $saleOrder['store'] }}</td>

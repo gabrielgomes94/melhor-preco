@@ -1,4 +1,4 @@
-<x-bootstrap.card.basic.card :class="{{$class ?? '}}">
+<x-bootstrap.card.basic.card :class="$class ?? ''">
     @isset($header)
         <x-bootstrap.card.basic.card-header>
             {{ $header }}
