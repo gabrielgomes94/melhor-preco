@@ -5,12 +5,13 @@
     </head>
 
     <body>
-        <x-app.base.menu.menu />
+        <x-app.base.menu.menu-navbar />
 
-        <x-app.base.content.content :navbar="$navbar ?? null"
-                                  :header="$header ?? null"
-                                  :breadcrumb="$breadcrumb ?? null"
-                                  >
+        <x-app.base.content.content
+            :navbar="$navbar ?? null"
+            :header="$header ?? null"
+            :breadcrumb="$breadcrumb ?? null"
+        >
             {{ $slot }}
         </x-app.base.content.content>
 

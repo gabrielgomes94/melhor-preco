@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a class="nav-link p-0 m-1 w-100"
+    <a class="nav-link p-2 m-1 w-100"
        href="{{ route('logout') }}"
        onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
         <span class="sidebar-icon">

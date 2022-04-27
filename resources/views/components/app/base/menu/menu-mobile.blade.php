@@ -14,81 +14,47 @@
     </div>
 </nav>
 
-<nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse">
+<nav id="sidebarMenu" class="sidebar d-lg-none bg-gray-800 text-white collapse">
     <div class="sidebar-inner px-4 pt-3">
         <ul class="nav d-flex flex-column pt-3 pt-md-0">
             <div class="p-2 bd-highlight">
-                <x-app.base.menu.menu-item-inbox
+                <x-app.base.menu.menu-item-mobile
                     route="{{ route('home') }}"
                     name="Dashboard"
-                    badge="beta"
                     icon="dashboard"
                 />
 
-                <x-app.base.menu.menu-item-inbox
-                    route="{{ route('notifications.list') }}"
-                    name="Inbox"
-                    badge="beta"
-                    icon="mail"
-                />
-
-                <x-app.base.menu.menu-item
+                <x-app.base.menu.menu-item-mobile
                     route="{{ route('product.images.upload_form') }}"
                     name="Upload de Imagens"
                     icon="upload"
                 />
 
-                <x-app.base.menu.menu-item
-                    route="{{ route('products.stock_tags.index') }}"
-                    name="Etiquetas de Estoque"
-                    icon="qr-code"
-                />
-
-                <x-app.base.menu.menu-item
+                <x-app.base.menu.menu-item-mobile
                     route="{{ route('products.reports.informations') }}"
                     name="Produtos"
                     icon="qr-code"
                 />
 
-                <x-app.base.menu.menu-item
+                <x-app.base.menu.menu-item-mobile
                     route="{{ route('pricing.priceList.byStore', 'magalu') }}"
                     name="Calculadora de Preços"
-                    icon="calculator
-                    "/>
-
-                <x-app.base.menu.menu-item
-                    route="{{ route('costs.product.list') }}"
-                    name="Custos"
-                    icon="costs"
+                    icon="calculator"
                 />
 
-                <x-app.base.menu.menu-item
-                    route="{{ route('marketplaces.list') }}"
-                    name="Marketplaces"
-                    icon="marketplace"
-                />
-
-                <x-app.base.menu.menu-item
-                    route="{{ route('promotions.index') }}"
-                    name="Promoções"
-                    icon="price"
-                />
-
-                <x-app.base.menu.menu-item
+                <x-app.base.menu.menu-item-mobile
                     route="{{ route('sales.list') }}"
-                    name="Gestão de Vendas"
-                    badge="beta"
+                    name="Vendas"
                     icon="currency"
                 />
 
-                <x-app.base.menu.menu-item
+                <x-app.base.menu.menu-item-mobile
                     route="{{ route('home') }}"
                     name="Configurações"
-                    badge="em breve"
                     icon="settings"
                 />
 
-                <x-app.base.menu.logout />
+                <x-app.base.menu.logout-mobile />
             </div>
         </ul>
     </div>

@@ -22,7 +22,7 @@
                 </x-bootstrap.links.link>
             @endforeach
         </td>
-        <td>{{ $saleOrder['store'] }}</td>
+        <td colspan="2">{{ $saleOrder['store'] }}</td>
 
         <td>
             {{ $saleOrder['value'] }}
