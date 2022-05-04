@@ -2,22 +2,24 @@
 
 namespace Src\Promotions\Infrastructure\Laravel\Repositories;
 
-use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
-use Src\Promotions\Domain\Data\PromotionSetup;
-use Src\Promotions\Domain\Models\Promotion;
-use Src\Promotions\Domain\Repositories\Repository as RepositoryInterface;
+use Src\Prices\Domain\Models\Price;
+use Src\Promotions\Domain\Data\TransferObjects\PromotionSetup;
+use Src\Promotions\Domain\Data\Entities\Promotion;
+use Src\Promotions\Domain\Repositories\PromotionRepository as RepositoryInterface;
 use Src\Promotions\Infrastructure\Laravel\Models\Promotion as PromotionModel;
 
-class Repository implements RepositoryInterface
+class PromotionPromotionRepository implements RepositoryInterface
 {
-    public function create(PromotionSetup $data, array $products): Promotion
+    /**
+     * @param Price[] $prices
+     */
+    public function create(PromotionSetup $data, array $prices): Promotion
     {
         $promotion = new PromotionModel();
         $promotion->uuid = Uuid::uuid4();
         $promotion->fill([
             'name' => $data->name,
-            'products' => $products,
             'discount' => $data->discount->get(),
             'begin_date' => $data->beginDate,
             'end_date' => $data->endDate,
@@ -27,12 +29,34 @@ class Repository implements RepositoryInterface
 
         $promotion->save();
 
+        $promotion->prices()->createMany(
+            $this->transformPrices($promotion->uuid, $prices)
+        );
+
         return $promotion->refresh();
     }
 
-    public function list()
+    private function transformPrices(string $promotionUuid, array $prices): array
     {
-        // TODO: Implement list() method.
+        $transformed = collect($prices)->transform(
+            fn (Price $price) => [
+                'uuid' => Uuid::uuid4(),
+                'price_id' => $price->getId(),
+                'profit' => $price->getProfit(),
+                'promotion_uuid' => $promotionUuid,
+                'value' => $price->getValue(),
+            ]
+        );
+
+        return $transformed->toArray();
+    }
+
+    /**
+     * @return Promotion[]
+     */
+    public function list(): array
+    {
+        return Promotion::all()->all();
     }
 
     public function get(string $uuid): Promotion

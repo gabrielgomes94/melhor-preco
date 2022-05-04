@@ -4,7 +4,7 @@ namespace Src\Promotions\Infrastructure\Laravel\Presenters;
 
 use Src\Math\MathPresenter;
 use Src\Math\Percentage;
-use Src\Promotions\Domain\Models\Promotion;
+use Src\Promotions\Domain\Data\Entities\Promotion;
 
 class ShowPromotionPresenter
 {

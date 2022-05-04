@@ -3,7 +3,7 @@
 namespace Src\Promotions\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Support\Collection;
-use Src\Promotions\Domain\Models\Promotion;
+use Src\Promotions\Domain\Data\Entities\Promotion;
 
 class ListPromotionsPresenter
 {

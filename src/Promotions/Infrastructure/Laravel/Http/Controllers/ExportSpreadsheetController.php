@@ -4,15 +4,15 @@ namespace Src\Promotions\Infrastructure\Laravel\Http\Controllers;
 
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Excel;
-use Src\Promotions\Domain\Models\Promotion;
-use Src\Promotions\Domain\Repositories\Repository;
+use Src\Promotions\Domain\Data\Entities\Promotion;
+use Src\Promotions\Domain\Repositories\PromotionRepository;
 use Src\Promotions\Infrastructure\Laravel\Exports\PromotionSpredsheet;
 
 class ExportSpreadsheetController
 {
     public function __construct(
-        private Excel $excel,
-        private Repository $repository,
+        private Excel               $excel,
+        private PromotionRepository $repository,
     )
     {}
 

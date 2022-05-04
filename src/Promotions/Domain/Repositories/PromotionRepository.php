@@ -2,14 +2,17 @@
 
 namespace Src\Promotions\Domain\Repositories;
 
-use Src\Promotions\Domain\Data\PromotionSetup;
-use Src\Promotions\Domain\Models\Promotion;
+use Src\Promotions\Domain\Data\TransferObjects\PromotionSetup;
+use Src\Promotions\Domain\Data\Entities\Promotion;
 
-interface Repository
+interface PromotionRepository
 {
     public function create(PromotionSetup $data, array $products): Promotion;
 
-    public function list();
+    /**
+     * @return Promotion[]
+     */
+    public function list(): array;
 
     public function get(string $uuid): Promotion;
 

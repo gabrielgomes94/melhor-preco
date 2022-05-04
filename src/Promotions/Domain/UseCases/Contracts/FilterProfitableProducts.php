@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Promotions\Domain\Services;
+namespace Src\Promotions\Domain\UseCases\Contracts;
 
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Promotions\Domain\Data\PromotionSetup;
+use Src\Promotions\Domain\Data\TransferObjects\PromotionSetup;
 
 interface FilterProfitableProducts
 {

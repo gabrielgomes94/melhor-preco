@@ -5,7 +5,7 @@ namespace Src\Promotions\Infrastructure\Laravel\Http\Requests;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Math\Percentage;
-use Src\Promotions\Domain\Data\PromotionSetup;
+use Src\Promotions\Domain\Data\TransferObjects\PromotionSetup;
 
 class CalculatePromotionRequest extends FormRequest
 {
@@ -29,14 +29,32 @@ class CalculatePromotionRequest extends FormRequest
 
     public function transform(): PromotionSetup
     {
-        return new PromotionSetup(
-            beginDate: Carbon::createFromFormat('d/m/Y', $this->input('beginDate')),
-            endDate: Carbon::createFromFormat('d/m/Y', $this->input('endDate')),
-            discount: Percentage::fromPercentage($this->input('discount')),
-            marketplaceSubsidy: Percentage::fromPercentage($this->input('marketplaceSubsidy') ?? 0),
-            marketplaceSlug: $this->input('marketplaceSlug') ?? 'magalu',
-            name: $this->input('promotionName'),
-            productsMaxLimit: $this->input('productsMaxLimit')
-        );
+        return PromotionSetup::fromArray([
+            'beginDate' => $this->convertDate('beginDate'),
+            'endDate' => $this->convertDate('endDate'),
+            'discount' => $this->convertPercentage('discount'),
+            'marketplaceSubsidy' => $this->convertPercentage('marketplaceSubsidy'),
+            'minimumMargin' => $this->getMinimumMargin(),
+            'marketplaceSlug' => $this->input('marketplaceSlug') ?? 'magalu',
+            'name' => $this->input('promotionName'),
+            'productsMaxLimit' => $this->input('productsMaxLimit'),
+        ]);
+    }
+
+    private function convertDate(string $inputName): Carbon
+    {
+        return Carbon::createFromFormat('d/m/Y', $this->input($inputName));
+    }
+
+    private function convertPercentage(string $inputName): Percentage
+    {
+        return Percentage::fromPercentage($this->input($inputName));
+    }
+
+    private function getMinimumMargin(): ?Percentage
+    {
+        return $this->has('minimumMargin')
+            ? $this->convertPercentage('minimumMargin')
+            : null;
     }
 }

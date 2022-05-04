@@ -3,31 +3,25 @@
 namespace Src\Promotions\Domain\UseCases;
 
 use Src\Marketplaces\Application\Exceptions\MarketplaceNotFoundException;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Promotions\Domain\Data\PromotionSetup;
-use Src\Promotions\Domain\Models\Promotion;
-use Src\Promotions\Domain\Repositories\Repository;
-use Src\Promotions\Domain\Services\FilterProfitableProducts;
+use Src\Promotions\Domain\Data\TransferObjects\PromotionSetup;
+use Src\Promotions\Domain\Data\Entities\Promotion;
+use Src\Promotions\Domain\Repositories\PromotionRepository;
+use Src\Promotions\Domain\UseCases\Contracts\FilterProfitableProducts;
 
 class UpdatePromotion
 {
     public function __construct(
         private MarketplaceRepository $marketplaceRepository,
-        private Repository $repository,
+        private PromotionRepository $promotionRepository,
         private FilterProfitableProducts $filterProfitableProducts
     )
     {}
 
+    /**
+     * @throws MarketplaceNotFoundException
+     */
     public function update(string $promotionUuid, PromotionSetup $data): Promotion
-    {
-        $marketplace = $this->getMarketplace($data);
-        $products = $this->filterProfitableProducts->get($marketplace, $data);
-
-        return $this->repository->update($promotionUuid, $data, $products);
-    }
-
-    private function getMarketplace(PromotionSetup $data): Marketplace
     {
         $marketplace = $this->marketplaceRepository->getBySlug($data->marketplaceSlug);
 
@@ -35,6 +29,8 @@ class UpdatePromotion
             throw new MarketplaceNotFoundException($data->marketplaceSlug);
         }
 
-        return $marketplace;
+        $prices = $this->filterProfitableProducts->get($marketplace, $data);
+
+        return $this->promotionRepository->update($promotionUuid, $data, $prices);
     }
 }

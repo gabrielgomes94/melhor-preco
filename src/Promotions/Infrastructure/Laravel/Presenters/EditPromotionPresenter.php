@@ -2,7 +2,7 @@
 
 namespace Src\Promotions\Infrastructure\Laravel\Presenters;
 
-use Src\Promotions\Domain\Models\Promotion;
+use Src\Promotions\Domain\Data\Entities\Promotion;
 
 class EditPromotionPresenter
 {

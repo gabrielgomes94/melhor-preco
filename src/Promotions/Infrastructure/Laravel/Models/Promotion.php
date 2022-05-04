@@ -4,16 +4,16 @@ namespace Src\Promotions\Infrastructure\Laravel\Models;
 
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Src\Math\Percentage;
-use Src\Promotions\Domain\Models\Promotion as PromotionInterface;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Promotions\Domain\Data\Entities\Promotion as PromotionInterface;
 
 class Promotion extends Model implements PromotionInterface
 {
-    public $incrementing = false;
-
     protected $fillable = [
         'name',
-        'products',
         'discount',
         'begin_date',
         'end_date',
@@ -22,7 +22,6 @@ class Promotion extends Model implements PromotionInterface
     ];
 
     protected $casts = [
-        'products' => 'json',
         'begin_date' => 'datetime',
         'end_date' => 'datetime',
     ];
@@ -30,6 +29,16 @@ class Promotion extends Model implements PromotionInterface
     protected $primaryKey = 'uuid';
 
     public $keyType = 'string';
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(PriceInPromotion::class);
+    }
+
+    public function products(): HasManyThrough
+    {
+        return $this->hasManyThrough(Product::class, PriceInPromotion::class);
+    }
 
     public function getProducts()
     {

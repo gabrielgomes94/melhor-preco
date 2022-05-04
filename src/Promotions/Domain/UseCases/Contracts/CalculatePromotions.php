@@ -2,8 +2,8 @@
 
 namespace Src\Promotions\Domain\UseCases\Contracts;
 
-use Src\Promotions\Domain\Data\PromotionSetup;
-use Src\Promotions\Domain\Models\Promotion;
+use Src\Promotions\Domain\Data\TransferObjects\PromotionSetup;
+use Src\Promotions\Domain\Data\Entities\Promotion;
 
 interface CalculatePromotions
 {

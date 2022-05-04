@@ -2,18 +2,18 @@
 
 namespace Src\Promotions\Domain\UseCases;
 
+use Src\Promotions\Domain\Repositories\PromotionRepository;
 use Src\Promotions\Domain\UseCases\Contracts\ListPromotions as ListPromotionsInterface;
-use Src\Promotions\Infrastructure\Laravel\Models\Promotion;
 
 class ListPromotions implements ListPromotionsInterface
 {
-    public function __construct()
-    {
-
-    }
+    public function __construct(
+        private PromotionRepository $promotionRepository
+    )
+    {}
 
     public function list(): array
     {
-        return Promotion::all()->all();
+        return $this->promotionRepository->list();
     }
 }

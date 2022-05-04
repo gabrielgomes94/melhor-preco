@@ -2,7 +2,7 @@
 
 namespace Src\Promotions\Infrastructure\Laravel\Http\Controllers;
 
-use Src\Promotions\Domain\Repositories\Repository;
+use Src\Promotions\Domain\Repositories\PromotionRepository;
 use Src\Promotions\Domain\UseCases\UpdatePromotion;
 use Src\Promotions\Infrastructure\Laravel\Http\Requests\CalculatePromotionRequest;
 use Src\Promotions\Infrastructure\Laravel\Presenters\EditPromotionPresenter;
@@ -10,9 +10,9 @@ use Src\Promotions\Infrastructure\Laravel\Presenters\EditPromotionPresenter;
 class EditPromotionController
 {
     public function __construct(
-        private Repository $repository,
+        private PromotionRepository    $repository,
         private EditPromotionPresenter $presenter,
-        private UpdatePromotion $updatePromotion
+        private UpdatePromotion        $updatePromotion
     )
     {}
 

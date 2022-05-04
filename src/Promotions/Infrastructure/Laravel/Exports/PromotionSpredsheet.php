@@ -5,7 +5,7 @@ namespace Src\Promotions\Infrastructure\Laravel\Exports;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-use Src\Promotions\Domain\Models\Promotion;
+use Src\Promotions\Domain\Data\Entities\Promotion;
 
 class PromotionSpredsheet implements FromCollection, WithCustomStartCell
 {

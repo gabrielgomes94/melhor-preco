@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Promotions\Domain\Models;
+namespace Src\Promotions\Domain\Data\Entities;
 
 use DateTime;
 use Src\Math\Percentage;
