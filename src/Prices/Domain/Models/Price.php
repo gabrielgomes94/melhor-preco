@@ -4,14 +4,13 @@ namespace Src\Prices\Domain\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Src\Marketplaces\Application\Models\Marketplace;
-use Src\Math\MoneyTransformer;
-use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Src\Math\Percentage;
-use Src\Prices\Presentation\Components\Products\ProductComponent;
+use Src\Math\ProfitMargin;
+use Src\Prices\Domain\Models\Contracts\Price as PriceInterface;
 use Src\Products\Domain\Models\Product\Product;
 
-class Price extends Model
+class Price extends Model implements PriceInterface
 {
     protected $fillable = [
         'commission',
@@ -52,7 +51,7 @@ class Price extends Model
 
     public function getMargin(): Percentage
     {
-        return Percentage::fromFraction($this->margin());
+        return ProfitMargin::calculate($this->profit, $this->value);
     }
 
     public function getMarketplace(): Marketplace
@@ -98,25 +97,5 @@ class Price extends Model
     public function isProfitable(): bool
     {
         return $this->profit > 0;
-    }
-
-    public function margin(): float
-    {
-        $profit = MoneyTransformer::toMoney($this->profit);
-        $value = MoneyTransformer::toMoney($this->value);
-
-        if ($value->isZero()) {
-            return 0.0;
-        }
-
-        return $profit->ratioOf($value);
-    }
-
-    public function isProfitMarginInRange(float $minimumProfit, float $maximumProfit): bool
-    {
-        $minimumProfit = PercentageTransformer::toPercentage($minimumProfit);
-        $maximumProfit = PercentageTransformer::toPercentage($maximumProfit);
-
-        return $minimumProfit <= $this->margin() && $this->margin() <= $maximumProfit;
     }
 }

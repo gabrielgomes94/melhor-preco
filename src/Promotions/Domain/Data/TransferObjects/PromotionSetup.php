@@ -18,8 +18,7 @@ class PromotionSetup
         public readonly string $marketplaceSlug,
         public readonly string $name,
         public readonly int $productsMaxLimit,
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): self
