@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Data\Pricing;
+namespace Tests\Legacy\Data\Pricing;
 
 use Barrigudinha\Pricing\Data\Product;
 

@@ -8,7 +8,7 @@ use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Promotions\Domain\Repositories\PromotionRepository;
 use Src\Promotions\Domain\UseCases\Contracts\FilterProfitableProducts;
-use Tests\Prices\Data\PriceData;
+use Tests\Data\Price\PriceData;
 use Tests\Data\Promotions\Entities\PromotionData;
 use Tests\Data\Promotions\TransferObjects\PromotionSetupData;
 use Tests\TestCase;

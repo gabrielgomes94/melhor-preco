@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\API\Products;
+namespace Tests\Legacy\Feature\API\Products;
 
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -14,6 +14,8 @@ class ProductController extends TestCase
 {
     public function test_should_get_products_from_bling_api(): void
     {
+        dd(User::first());
+        dd(User::factory()->create());
         // Set
         $user = User::factory()->create();
         $this->mockRequest('Bling/Products/products.json');

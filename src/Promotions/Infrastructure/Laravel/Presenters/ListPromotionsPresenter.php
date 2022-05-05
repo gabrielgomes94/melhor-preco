@@ -16,7 +16,7 @@ class ListPromotionsPresenter
 
             $presented[] = [
                 'name' => $promotion->getName(),
-                'discount' => $promotion->getDiscount(),
+                'discount' => $promotion->getDiscount()->get(),
                 'marketplace' => $promotion->getMarketplace(),
                 'beginDate' => $promotion->getBeginDate()->format('d-m-Y'),
                 'endDate' => $promotion->getEndDate()->format('d-m-Y'),

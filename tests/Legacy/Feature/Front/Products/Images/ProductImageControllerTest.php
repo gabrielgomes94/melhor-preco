@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Front\Products\Images;
+namespace Tests\Legacy\Feature\Front\Products\Images;
 
 use App\Models\User;
 use GuzzleHttp\Client;

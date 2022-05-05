@@ -9,7 +9,7 @@ use Src\Calculator\Domain\Services\Contracts\CalculatePost;
 use Src\Math\Percentage;
 use Src\Prices\Domain\Models\Price;
 use Src\Promotions\Domain\UseCases\FilterProfitableProducts;
-use Tests\Marketplaces\Data\MarketplaceData;
+use Tests\Data\Marketplaces\MarketplaceData;
 use Tests\Promotions\Data\TransferObjects\PromotionSetupData;
 use Tests\TestCase;
 

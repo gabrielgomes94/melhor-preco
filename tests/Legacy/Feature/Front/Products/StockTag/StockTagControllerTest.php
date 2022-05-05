@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Front\Products\StockTag;
+namespace Tests\Legacy\Feature\Front\Products\StockTag;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

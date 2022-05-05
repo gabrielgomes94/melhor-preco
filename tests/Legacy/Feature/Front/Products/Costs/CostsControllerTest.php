@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Feature\Front\Products\Costs;
+namespace Tests\Legacy\Feature\Front\Products\Costs;
 
-use Src\Products\Domain\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;

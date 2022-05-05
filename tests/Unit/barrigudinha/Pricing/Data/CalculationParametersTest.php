@@ -4,7 +4,7 @@ namespace Tests\Unit\Barrigudinha\Pricing\Data;
 
 use Barrigudinha\Pricing\Data\CalculationParameters;
 use Money\Money;
-use Tests\Data\Pricing\ProductData;
+use Tests\Legacy\Data\Pricing\ProductData;
 use Tests\TestCase;
 
 /**

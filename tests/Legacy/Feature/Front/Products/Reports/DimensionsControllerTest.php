@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Feature\Front\Products\Reports;
+namespace Tests\Legacy\Feature\Front\Products\Reports;
 
-use Src\Products\Domain\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Data\Models\ProductDataFactory;
