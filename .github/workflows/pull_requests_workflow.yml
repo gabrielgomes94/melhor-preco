@@ -32,5 +32,5 @@ jobs:
         run: composer setup-dev
       - name: Execute tests (Unit and Feature tests) using PHPUnit
         env:
-          DB_PORT: ${{ job.services.image.postgres[5432] }}
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
         run: ./vendor/bin/phpunit
