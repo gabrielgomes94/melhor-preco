@@ -9,7 +9,7 @@ jobs:
   app-tests:
     runs-on: ubuntu-latest
     services:
-      pgsql:
+      postgres:
         image: postgres:13.4
         env:
           DB_DATABASE: barrigudinha_test
@@ -17,6 +17,7 @@ jobs:
           DB_PASSWORD: barrigudinha_password
         ports:
           - 5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
     steps:
       - uses: actions/checkout@v1
       - name: Copy .env
@@ -29,5 +30,5 @@ jobs:
         run: php artisan key:generate
       - name: Execute tests (Unit and Feature tests) using PHPUnit
         env:
-          DB_PORT: ${{ job.services.image.ports[5432] }}
+          DB_PORT: ${{ job.services.image.postgres[5432] }}
         run: ./vendor/bin/phpunit
