@@ -27,7 +27,9 @@ jobs:
       - name: Install NPM Dependencies
         run: npm install
       - name: Generate key
-        run: php artisan key:generate
+        run: php artisan key:generate]
+      - name: Setup Project
+        run: composer setup-dev
       - name: Execute tests (Unit and Feature tests) using PHPUnit
         env:
           DB_PORT: ${{ job.services.image.postgres[5432] }}
