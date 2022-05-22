@@ -1,0 +1,33 @@
+name: Pull Requests WorkFlow
+
+on:
+  pull_request:
+    branches:
+      - *
+
+jobs:
+  app-tests:
+    runs-on: ubuntu-latest
+    services:
+      pgsql:
+        image: postgres:13.4
+        env:
+          DB_DATABASE: barrigudinha_test
+          DB_USERNAME: barrigudinha_user
+          DB_PASSWORD: barrigudinha_password
+        ports:
+          - 5432
+    steps:
+      - uses: actions/checkout@v1
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+      - name: Install Composer Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Install NPM Dependencies
+        run: npm install
+      - name: Generate key
+        run: php artisan key:generate
+      - name: Execute tests (Unit and Feature tests) using PHPUnit
+        env:
+          DB_PORT: ${{ job.services.image.ports[5432] }}
+        run: ./vendor/bin/phpunit
