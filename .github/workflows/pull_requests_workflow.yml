@@ -12,11 +12,11 @@ jobs:
       postgres:
         image: postgres:13.4
         env:
-          DB_DATABASE: barrigudinha_test
-          DB_USERNAME: barrigudinha_user
-          DB_PASSWORD: barrigudinha_password
+          POSTGRES_DB: barrigudinha_test
+          POSTGRES_USER: barrigudinha_user
+          POSTGRES_PASSWORD: barrigudinha_password
         ports:
-          - 5432/tcp
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
     steps:
       - uses: actions/checkout@v1
@@ -32,5 +32,5 @@ jobs:
         run: composer setup-dev
       - name: Execute tests using PHPUnit
         env:
-          DB_PORT: ${{ job.services.postgres.ports[5432] }}
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         run: ./vendor/bin/phpunit
