@@ -6,31 +6,46 @@ on:
       - master
 
 jobs:
-  app-tests:
+  build-database:
     runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
     services:
-      postgres:
+      barrigudinha-db:
         image: postgres:13.4
         env:
           POSTGRES_DB: barrigudinha_test
           POSTGRES_USER: barrigudinha_user
           POSTGRES_PASSWORD: barrigudinha_password
+          POSTGRES_PORT: 5432
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
     steps:
-      - uses: actions/checkout@v1
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
-      - name: Install Composer Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-      - name: Install NPM Dependencies
-        run: npm install
-      - name: Generate key
-        run: php artisan key:generate
-      - name: Setup Project
-        run: composer setup-dev
-      - name: Execute tests using PHPUnit
+      - name: Install xmllint
+        run: apt-get update; apt-get install -y libxml2-utils
+      - name: Install PostgreSQL client
+        run: |
+            apt-get install --yes postgresql-client
+      - name: Setup database
+        run: |
+          psql -h barrigudinha-db -d barrigudinha_test -U barrigudinha_user -c 'GRANT ALL PRIVILEGES ON DATABASE barrigudinha_test TO barrigudinha_user;'
         env:
-          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-        run: ./vendor/bin/phpunit
+          PGPASSWORD: barrigudinha_password
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Install composer dependencies
+        run: |
+          composer install --no-scripts
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.ci .env
+          php artisan key:generate
+          php artisan migrate:refresh --seed
+      - name: Run Testsuite
+        run: vendor/bin/phpunit tests/
