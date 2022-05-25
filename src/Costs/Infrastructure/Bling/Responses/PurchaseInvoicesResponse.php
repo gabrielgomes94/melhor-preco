@@ -11,6 +11,16 @@ class PurchaseInvoicesResponse extends BaseResponse
 
     public function __construct(array $data)
     {
+        $this->setData($data);
+    }
+
+    public function data(): array
+    {
+        return $this->data;
+    }
+
+    private function setData(array $data): void
+    {
         foreach ($data as $invoice) {
             if ($invoice instanceof PurchaseInvoice) {
                 $this->data[] = $invoice;
@@ -18,10 +28,5 @@ class PurchaseInvoicesResponse extends BaseResponse
         }
 
         $this->data = $data;
-    }
-
-    public function data()
-    {
-        return $this->data;
     }
 }
