@@ -12,6 +12,7 @@ class ListProductCostsRequest extends FormRequest
         return true;
     }
 
+    // @todo: add validations here
     public function rules(): array
     {
         return [];
