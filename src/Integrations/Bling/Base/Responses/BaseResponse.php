@@ -8,6 +8,11 @@ abstract class BaseResponse
 
     abstract public function data();
 
+    public function isEmpty(): bool
+    {
+        return empty($this->data());
+    }
+
     public function addErrors(string $error)
     {
         $this->errors[] = $error;
