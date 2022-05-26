@@ -2,29 +2,22 @@
 
 namespace Src\Products\Application\UseCases;
 
-use Src\Products\Application\Services\ListProducts as ListProductsService;
+use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\DataTransfer\ProductsPaginated;
 use Src\Products\Domain\UseCases\Contracts\ListProducts as ListProductsInterface;
-use Src\Products\Domain\Utils\Contracts\Options;
+use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 
 class ListProducts implements ListProductsInterface
 {
-    private ListProductsService $listProductsService;
-
-    public function __construct(ListProductsService $listProductsService)
-    {
-        $this->listProductsService = $listProductsService;
+    public function __construct(
+        private ProductRepository $productRepository
+    ) {
     }
 
-    public function list(Options $options): array
+    public function list(FilterOptions $options): ProductsPaginated
     {
-        $paginator = $this->listProductsService->listPaginate($options);
+        $paginator = $this->productRepository->allFiltered($options);
 
-        return [
-            'paginator' => $paginator,
-            'products' => $paginator->items(),
-            'filter' => [
-                'sku' => $options->sku(),
-            ],
-        ];
+        return new ProductsPaginated($paginator);
     }
 }

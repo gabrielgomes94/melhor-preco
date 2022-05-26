@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\CostsController;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\CostsDetailedController;
+use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\ListCostsController;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\PurchaseInvoicesController;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\PurchaseItemsController;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\SyncController;
@@ -15,7 +16,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/produtos')
                 ->name('.product')
                 ->group(function() {
-                    Route::get('/lista', [CostsController::class, 'list'])
+                    Route::get('/lista', ListCostsController::class)
                         ->name('.list');
 
                     Route::get('/detalhes/{sku}', CostsDetailedController::class)
