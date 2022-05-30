@@ -18,6 +18,7 @@ class PurchaseInvoiceData
                 'number' => '248284',
                 'series' => '1',
                 'situation' => 'Registrada',
+                'value' => 1000.0,
                 'xml' => 'https://bling.com.br/relatorios/nfe.xml.php?s&chaveAcesso=1234',
                 'link_danfe' => 'https://bling.com.br/doc.view.php?id=12346754',
             ],
@@ -25,5 +26,13 @@ class PurchaseInvoiceData
         );
 
         return new PurchaseInvoice($data);
+    }
+
+    public static function makePersisted(array $data = []): PurchaseInvoice
+    {
+        $purchaseInvoice = self::make($data);
+        $purchaseInvoice->save();
+
+        return $purchaseInvoice;
     }
 }

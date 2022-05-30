@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Http\Requests\Product;
+namespace Src\Costs\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

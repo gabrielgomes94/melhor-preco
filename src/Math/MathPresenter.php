@@ -25,7 +25,9 @@ class MathPresenter
             ? $value
             : Money::BRL((int) ($value * 100));
 
-        return $formatter->format($value);
+        $value = $formatter->format($value);
+
+        return $value;
     }
 
     public static function percentage(Percentage $value): string

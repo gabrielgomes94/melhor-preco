@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Products\Presentation\Presenters\Reports\CostsPresenter;
 
-class CostsDetailedController extends Controller
+class ShowCostsController extends Controller
 {
     public function __construct(
         private ShowProductCosts $showProductCosts,

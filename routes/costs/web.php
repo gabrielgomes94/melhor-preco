@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\CostsController;
-use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\CostsDetailedController;
+use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\UpdateCostsController;
+use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\ShowCostsController;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\ListCostsController;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\PurchaseInvoicesController;
 use Src\Costs\Infrastructure\Laravel\Http\Controllers\Web\PurchaseItemsController;
@@ -19,10 +19,10 @@ Route::middleware('auth')->group(function () {
                     Route::get('/lista', ListCostsController::class)
                         ->name('.list');
 
-                    Route::get('/detalhes/{sku}', CostsDetailedController::class)
+                    Route::get('/detalhes/{sku}', ShowCostsController::class)
                         ->name('.show');
 
-                    Route::put('/atualizar/{product_id}', [CostsController::class, 'update'])
+                    Route::put('/atualizar/{product_id}', UpdateCostsController::class)
                         ->name('.update');
             });
 

@@ -12,6 +12,9 @@ class CostsPresenter
     public function present(Collection $costs)
     {
         $items = $costs->map(function (PurchaseItem $item) {
+
+//            dd(MathPresenter::money($item->getFreightCosts()));
+
             return [
                 'issuedAt' => $item->getIssuedAt()->format('d/m/Y H:i'),
                 'unitCost' => MathPresenter::money($item->getUnitCost()),
@@ -29,6 +32,7 @@ class CostsPresenter
                 'supplierFiscalId' => $item->getSupplierFiscalId(),
             ];
         })->toArray();
+
 
         return $items;
     }
