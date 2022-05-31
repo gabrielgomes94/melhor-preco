@@ -8,7 +8,9 @@ Copie o token em API Key
 Cole no arquivo .env 
 ```
 
-2. Configure os Marketplaces
+2. Sincronize as categorias
+
+3. Configure os Marketplaces
 
 ```
 2.1. Vá em: Configurações -> Integrações -> Configurações de integração com lojas virtuais e marketplaces
