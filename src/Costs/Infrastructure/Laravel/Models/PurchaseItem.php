@@ -75,7 +75,7 @@ class PurchaseItem extends Model implements PurchaseItemInterface
 
     public function getProductSku(): ?string
     {
-        return $this->sku ?? null;
+        return $this->product_sku ?? null;
     }
 
     public function getPurchaseItemUuid(): string
@@ -125,6 +125,7 @@ class PurchaseItem extends Model implements PurchaseItemInterface
         return $this->uuid;
     }
 
+    // @deprecated
     public function getSku(): string
     {
         return $this->product_sku ?? '';

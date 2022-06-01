@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
+use Tests\Data\Models\Costs\PurchaseItemsData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
@@ -28,7 +29,7 @@ class ShowProductCostsTest extends TestCase
     public function test_show_product_costs(): void
     {
         $this->given_i_have_a_product_with_purchase_item();
-//        $this->and_given_this_product_has_some_purchase_invoice();
+        $this->and_given_this_product_has_some_purchase_invoice();
 
         $this->when_i_want_to_see_its_costs_details();
 
@@ -46,32 +47,7 @@ class ShowProductCostsTest extends TestCase
         ]);
 
         $purchaseInvoice = PurchaseInvoiceData::makePersisted();
-        $purchaseItem = new PurchaseItem([
-            'freight_cost' => 10,
-            'insurance_cost' => 0,
-            'name' => '',
-            'quantity' => 5,
-            'discount' => 0.0,
-            'unit_cost' => 100.0,
-            'unit_price' => 150.0,
-            'taxes' => [
-                'icms' => [
-                    'value' => 0.0,
-                    'percentage' => 0,
-                ],
-                'ipi' => [
-                    'value' => 40.0,
-                    'percentage' => 0.4,
-                ],
-                'totalTaxes' => 40.0
-            ],
-            'product_sku' => 1,
-            'ean' => '12345678910',
-        ]);
-
-        $purchaseItem->invoice()->associate($purchaseInvoice);
-
-        $purchaseItem->save();
+        PurchaseItemsData::makePersisted($purchaseInvoice);
     }
 
     private function when_i_want_to_see_its_costs_details(): void
@@ -87,15 +63,15 @@ class ShowProductCostsTest extends TestCase
         $this->response->assertViewHas('costs', [
             [
                 'issuedAt' => '17/02/2021 09:55',
-                'unitCost' => 'R$ 100,00',
+                'unitCost' => 'R$ 100,00',
                 'quantity' => 5.0,
                 'supplierName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
                 'supplierFiscalId' => '06981862000200',
                 'costs' => [
-                    'purchasePrice' => 'R$ 150,00',
-                    'taxes' => 'R$ 40,00',
-                    'freight' => 'R$ 10,00',
-                    'insurance' => 'R$ 0,00',
+                    'purchasePrice' => 'R$ 150,00',
+                    'taxes' => 'R$ 40,00',
+                    'freight' => 'R$ 10,00',
+                    'insurance' => 'R$ 0,00',
                     'icms' => '0,00 %',
                 ],
             ],
@@ -104,5 +80,10 @@ class ShowProductCostsTest extends TestCase
             'name' => 'Canguru Balbi Vermelho',
             'sku' => '1',
         ]);
+    }
+
+    private function and_given_this_product_has_some_purchase_invoice(): void
+    {
+
     }
 }

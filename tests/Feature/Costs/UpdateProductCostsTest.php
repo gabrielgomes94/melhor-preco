@@ -48,17 +48,6 @@ class UpdateProductCostsTest extends TestCase
         $this->then_the_user_is_redirected_with_missing_product_errors();
     }
 
-    public function test_should_handle_errors_when_product_could_not_be_updated(): void
-    {
-        $this->given_i_have_an_user();
-        $this->and_given_i_have_a_product();
-
-        $this->when_i_update_its_costs_but_database_connection_ceases_to_exists();
-
-        $this->then_the_user_is_redirected_with_update_costs_errors();
-        $this->and_then_the_product_costs_are_not_updated_in_database();
-    }
-
     private function given_i_have_an_user(): void
     {
         $this->user = UserData::make();
@@ -101,13 +90,6 @@ class UpdateProductCostsTest extends TestCase
         $this->when_i_update_its_costs();
     }
 
-    private function when_i_update_its_costs_but_database_connection_ceases_to_exists(): void
-    {
-        env('DB_CONNECTION', null);
-
-        $this->when_i_update_its_costs();
-    }
-
     private function then_the_user_is_redirected(): void
     {
         $this->response->assertRedirect();
@@ -126,12 +108,6 @@ class UpdateProductCostsTest extends TestCase
     }
 
     private function then_the_user_is_redirected_with_missing_product_errors(): void
-    {
-        $this->response->assertRedirect();
-        $this->response->assertSessionHas('error', 'Produto 1 não foi encontrado.');
-    }
-
-    private function then_the_user_is_redirected_with_update_costs_errors(): void
     {
         $this->response->assertRedirect();
         $this->response->assertSessionHas('error', 'Produto 1 não foi encontrado.');

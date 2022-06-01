@@ -25,7 +25,7 @@ class PurchaseInvoicePresenter
             'insuranceValue' => 0.0,
             'items' => $invoice->items->map(function (PurchaseItem $item) {
                 return PurchaseItemsPresenter::present($item);
-            }),
+            })->all(),
         ];
     }
 

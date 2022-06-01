@@ -9,7 +9,7 @@ class PurchaseInvoiceData
 {
     public static function make(array $data = []): PurchaseInvoice
     {
-        $data = array_merge_recursive(
+        $data = array_replace(
             [
                 'access_key' => '1234',
                 'contact_name' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
@@ -32,6 +32,11 @@ class PurchaseInvoiceData
     {
         $purchaseInvoice = self::make($data);
         $purchaseInvoice->save();
+
+        if (isset($data['uuid'])) {
+            $purchaseInvoice->uuid = $data['uuid'];
+            $purchaseInvoice->save();
+        }
 
         return $purchaseInvoice;
     }
