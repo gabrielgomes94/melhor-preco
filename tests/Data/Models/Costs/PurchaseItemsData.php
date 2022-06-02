@@ -10,28 +10,7 @@ class PurchaseItemsData
     public static function make(array $data = []):  PurchaseItem
     {
         $data = array_merge(
-            [
-                'freight_cost' => 10,
-                'insurance_cost' => 0,
-                'name' => 'Canguru Balbi Vermelho',
-                'quantity' => 5,
-                'discount' => 0.0,
-                'unit_cost' => 100.0,
-                'unit_price' => 150.0,
-                'taxes' => [
-                    'icms' => [
-                        'value' => 0.0,
-                        'percentage' => 0,
-                    ],
-                    'ipi' => [
-                        'value' => 40.0,
-                        'percentage' => 0.4,
-                    ],
-                    'totalTaxes' => 40.0
-                ],
-                'product_sku' => 1,
-                'ean' => '12345678910',
-            ],
+            self::getPayload(),
             $data
         );
         return new PurchaseItem($data);
@@ -49,5 +28,31 @@ class PurchaseItemsData
         }
 
         return $purchaseItem;
+    }
+
+    public static function getPayload(): array
+    {
+        return [
+            'freight_cost' => 10,
+            'insurance_cost' => 0,
+            'name' => 'Canguru Balbi Vermelho',
+            'quantity' => 5,
+            'discount' => 0.0,
+            'unit_cost' => 100.0,
+            'unit_price' => 150.0,
+            'taxes' => [
+                'icms' => [
+                    'value' => 0.0,
+                    'percentage' => 0,
+                ],
+                'ipi' => [
+                    'value' => 40.0,
+                    'percentage' => 0.4,
+                ],
+                'totalTaxes' => 40.0
+            ],
+            'product_sku' => 1,
+            'ean' => '12345678910',
+        ];
     }
 }

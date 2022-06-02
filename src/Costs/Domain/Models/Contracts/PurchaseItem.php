@@ -24,8 +24,6 @@ interface PurchaseItem
 
     public function getQuantity(): float;
 
-    public function getSku(): string;
-
     public function getSupplierName(): string;
 
     public function getSupplierFiscalId(): string;
