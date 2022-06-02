@@ -81,6 +81,7 @@ class ProductRepository implements ProductRepositoryInterface
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
+    // @deprecated
     public function listProductsBySku(string $storeSlug, string $sku, int $page = 1): LengthAwarePaginator
     {
         return Product::with([
@@ -95,6 +96,7 @@ class ProductRepository implements ProductRepositoryInterface
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
+    // @deprecated
     public function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
     {
         return Product::with([
@@ -110,6 +112,7 @@ class ProductRepository implements ProductRepositoryInterface
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
 
+    // @deprecated
     public function listProductsByCategory(string $storeSlug, string $categoryId, int $page = 1): LengthAwarePaginator
     {
         return Product::with([

@@ -1,0 +1,147 @@
+{
+    "retorno": {
+        "notasfiscais": [
+            {
+                "notafiscal": {
+                    "id": "11458232255",
+                    "serie": "1",
+                    "numero": "056527",
+                    "loja": "0",
+                    "numeroPedidoLoja": null,
+                    "tipo": "E",
+                    "situacao": "Registrada",
+                    "cliente": {
+                        "idContato": "11458232251",
+                        "nome": "TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA",
+                        "cnpj": "06981862000200",
+                        "ie": "258347848",
+                        "rg": "",
+                        "endereco": "RODOVIA: BR 101",
+                        "numero": "S N",
+                        "complemento": "KM81",
+                        "cidade": "Barra Velha",
+                        "bairro": "ESCALVADO",
+                        "cep": "88.390-000",
+                        "uf": "SC",
+                        "email": "",
+                        "fone": "4733794000"
+                    },
+                    "contato": "TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA",
+                    "cnpj": "06981862000200",
+                    "vendedor": "",
+                    "dataEmissao": "2021-02-17 09:55:41",
+                    "valorNota": "4407.87",
+                    "chaveAcesso": "42210206981862000200550010000565271003759340",
+                    "xml": "https://bling.com.br/relatorios/nfe.xml.php?s&chaveAcesso=42210206981862000200550010000565271003759340",
+                    "linkDanfe": "https://bling.com.br/doc.view.php?id=a3ea319808b10f9a36fbae2dfb885401",
+                    "linkPDF": "https://bling.com.br/doc.view.php?PDF=true&id=a3ea319808b10f9a36fbae2dfb885401",
+                    "codigosRastreamento": [],
+                    "cfops": [
+                        "6101",
+                        "6101",
+                        "6101"
+                    ],
+                    "transporte": {
+                        "transportadora": "DIRECIONAL TRANSPORTE E LOGISTICA S/A",
+                        "cnpj": "08219203002714",
+                        "tipo_frete": "R"
+                    }
+                }
+            },
+            {
+                "notafiscal": {
+                    "id": "11482918137",
+                    "serie": "3",
+                    "numero": "456793",
+                    "loja": "0",
+                    "numeroPedidoLoja": null,
+                    "tipo": "E",
+                    "situacao": "Registrada",
+                    "cliente": {
+                        "idContato": "9014464271",
+                        "nome": "GALZERANO INDUSTRIA DE CARRINHOS E BERCOS LTDA",
+                        "cnpj": "43594977000197",
+                        "ie": "417010745113",
+                        "rg": "",
+                        "endereco": "VIA PREFEITO JURANDYR PAIXAO",
+                        "numero": "700",
+                        "complemento": "C.POSTAL 184",
+                        "cidade": "Limeira",
+                        "bairro": "JARDIM CAMPO BELO",
+                        "cep": "13.481-149",
+                        "uf": "SP",
+                        "email": null,
+                        "fone": "1934043030"
+                    },
+                    "contato": "GALZERANO INDUSTRIA DE CARRINHOS E BERCOS LTDA",
+                    "cnpj": "43594977000197",
+                    "vendedor": "",
+                    "dataEmissao": "2021-02-25 14:02:00",
+                    "valorNota": "7433.90",
+                    "chaveAcesso": "35210243594977000197550030004567931920169000",
+                    "xml": "https://bling.com.br/relatorios/nfe.xml.php?s&chaveAcesso=35210243594977000197550030004567931920169000",
+                    "linkDanfe": "https://bling.com.br/doc.view.php?id=a055b539ceacb1be9352e9f6dfbbfd1b",
+                    "linkPDF": "https://bling.com.br/doc.view.php?PDF=true&id=a055b539ceacb1be9352e9f6dfbbfd1b",
+                    "codigosRastreamento": [],
+                    "cfops": [
+                        "6101",
+                        "6101",
+                        "6102",
+                        "6102"
+                    ],
+                    "transporte": {
+                        "transportadora": "GALZERANO IND DE CARRINHOS E BERCOS LTDA",
+                        "cnpj": "43594977000197",
+                        "tipo_frete": "D"
+                    }
+                }
+            },
+            {
+                "notafiscal": {
+                    "id": "11608815329",
+                    "serie": "1",
+                    "numero": "248284",
+                    "loja": "0",
+                    "numeroPedidoLoja": null,
+                    "tipo": "E",
+                    "situacao": "Registrada",
+                    "cliente": {
+                        "idContato": "9558424328",
+                        "nome": "COMPANHIA DOREL BRASIL PRODUTOS INFANTIS",
+                        "cnpj": "10659948000107",
+                        "ie": "78774592",
+                        "rg": "",
+                        "endereco": "AVENIDA NILO PECANHA",
+                        "numero": "1516",
+                        "complemento": "1516/1582",
+                        "cidade": "Campos dos Goytacazes",
+                        "bairro": "PQ. DOS RODOVIARIOS",
+                        "cep": "28.030-035",
+                        "uf": "RJ",
+                        "email": null,
+                        "fone": "2221018600"
+                    },
+                    "contato": "COMPANHIA DOREL BRASIL PRODUTOS INFANTIS",
+                    "cnpj": "10659948000107",
+                    "vendedor": "",
+                    "dataEmissao": "2021-02-27 11:28:00",
+                    "valorNota": "2477.37",
+                    "chaveAcesso": "33210210659948000107550010002482841464891786",
+                    "xml": "https://bling.com.br/relatorios/nfe.xml.php?s&chaveAcesso=33210210659948000107550010002482841464891786",
+                    "linkDanfe": "https://bling.com.br/doc.view.php?id=6ee008d7410d317b534da630098d7a85",
+                    "linkPDF": "https://bling.com.br/doc.view.php?PDF=true&id=6ee008d7410d317b534da630098d7a85",
+                    "codigosRastreamento": [],
+                    "cfops": [
+                        "6101",
+                        "6101"
+                    ],
+                    "transporte": {
+                        "transportadora": "PATRUS TRANSPORTES URGENTES",
+                        "cnpj": "17463456001910",
+                        "tipo_frete": "R"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -16,6 +16,7 @@ class ShowProductCosts
         $this->repository = $repository;
     }
 
+    // @todo: Criar DTO ProductCosts: Domain/TransferData/ProductCosts;
     public function show(string $sku): array
     {
         if (!$product = $this->repository->get($sku)) {

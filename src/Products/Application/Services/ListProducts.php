@@ -6,6 +6,7 @@ use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Utils\Contracts\Options;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
+// @deprecated
 class ListProducts
 {
     public function all()

@@ -5,6 +5,7 @@ namespace Src\Products\Application\UseCases;
 use Src\Products\Application\Services\ListProducts;
 use Src\Products\Domain\UseCases\Contracts\ReportOverDimensionsProducts as ReportOverDimensionsProductsInterface;
 
+// @deprecated
 class ReportOverDimensionProducts implements ReportOverDimensionsProductsInterface
 {
     private ListProducts $listProductsService;

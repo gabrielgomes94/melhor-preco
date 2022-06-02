@@ -8,13 +8,10 @@ use Src\Integrations\Bling\Invoices\Client;
 
 class BlingRepository implements ErpRepository
 {
-    private Client $client;
-    private Factory $responseFactory;
-
-    public function __construct(Client $client, Factory $responseFactory)
-    {
-        $this->client = $client;
-        $this->responseFactory = $responseFactory;
+    public function __construct(
+        private readonly Client $client,
+        private readonly Factory $responseFactory
+    ) {
     }
 
     public function listPurchaseInvoice(): array
@@ -27,10 +24,10 @@ class BlingRepository implements ErpRepository
             $invoices = $this->responseFactory->make($response);
 
             $invoicesCollection = array_merge(
-                $invoicesCollection, $invoices->data()
-
+                $invoicesCollection,
+                $invoices->data()
             );
-        } while(!empty($invoices->data()));
+        } while (!$invoices->isEmpty());
 
         return $invoicesCollection;
     }

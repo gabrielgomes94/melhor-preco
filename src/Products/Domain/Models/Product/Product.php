@@ -24,10 +24,6 @@ use Src\Sales\Domain\Models\Item;
 
 class Product extends Model implements ProductModelInterface
 {
-    private const PER_PAGE = 15;
-
-    public $incrementing = false;
-
     protected $fillable = [
         'id',
         'erp_id',
@@ -61,6 +57,9 @@ class Product extends Model implements ProductModelInterface
 
     public $keyType = 'string';
 
+    public $incrementing = false;
+
+    public $escapeWhenCastingToString = true;
 
     public function category(): BelongsTo
     {
@@ -266,13 +265,13 @@ class Product extends Model implements ProductModelInterface
         return $query->where('sku', $sku)
             ->orWhere(function ($query) use ($sku) {
                 $query->where('parent_sku', $sku)
-                    ->where('is_active', true);
+                    ->active();
             })
             ->orWhere(function ($query) use ($sku) {
-                $sku = '%"' . $sku . '"%';
+                $sku = "%{$sku}%";
 
                 $query->where('composition_products', 'like', $sku)
-                    ->where('is_active', true);
+                    ->active();
             });
     }
 

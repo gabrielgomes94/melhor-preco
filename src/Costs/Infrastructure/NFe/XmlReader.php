@@ -6,6 +6,7 @@ use SimpleXMLElement;
 use Src\Costs\Domain\Models\Tax;
 use Src\Costs\Domain\Repositories\NFeRepository;
 
+// @todo: rename to NFeXMLRepository
 class XmlReader implements NFeRepository
 {
     public function getItems(SimpleXMLElement $xml): array
