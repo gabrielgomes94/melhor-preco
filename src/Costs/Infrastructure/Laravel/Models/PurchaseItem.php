@@ -60,6 +60,10 @@ class PurchaseItem extends Model implements PurchaseItemInterface
 
     public function getIpiValue(): float
     {
+        if ($this->quantity === 0) {
+            return 0.0;
+        }
+
         return ($this->taxes['ipi']['value'] / $this->quantity) ?: 0.0;
     }
 
@@ -90,7 +94,7 @@ class PurchaseItem extends Model implements PurchaseItemInterface
 
     public function getSupplierName(): string
     {
-        return $this->invoice->getSupplierName();
+        return $this->invoice->getContactName();
     }
 
     public function getSupplierFiscalId(): string
@@ -123,11 +127,5 @@ class PurchaseItem extends Model implements PurchaseItemInterface
     public function getUuid(): string
     {
         return $this->uuid;
-    }
-
-    // @deprecated
-    public function getSku(): string
-    {
-        return $this->product_sku ?? '';
     }
 }
