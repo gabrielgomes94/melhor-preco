@@ -63,15 +63,15 @@ class ShowProductCostsTest extends TestCase
         $this->response->assertViewHas('costs', [
             [
                 'issuedAt' => '17/02/2021 09:55',
-                'unitCost' => 'R$ 100,00',
+                'unitCost' => 'R$ 100,00',
                 'quantity' => 5.0,
                 'supplierName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
                 'supplierFiscalId' => '06981862000200',
                 'costs' => [
-                    'purchasePrice' => 'R$ 150,00',
-                    'taxes' => 'R$ 40,00',
-                    'freight' => 'R$ 10,00',
-                    'insurance' => 'R$ 0,00',
+                    'purchasePrice' => 'R$ 150,00',
+                    'taxes' => 'R$ 40,00',
+                    'freight' => 'R$ 10,00',
+                    'insurance' => 'R$ 0,00',
                     'icms' => '0,00 %',
                 ],
             ],
