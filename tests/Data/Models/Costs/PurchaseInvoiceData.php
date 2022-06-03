@@ -9,23 +9,24 @@ class PurchaseInvoiceData
 {
     public static function make(array $data = []): PurchaseInvoice
     {
-        $data = array_replace(
-            self::getPayload(),
-            $data
+        $purchaseInvoice = new PurchaseInvoice(
+            array_replace(
+                self::getPayload(),
+                $data
+            )
         );
 
-        return new PurchaseInvoice($data);
+        if (isset($data['uuid'])) {
+            $purchaseInvoice->uuid = $data['uuid'];
+        }
+
+        return $purchaseInvoice;
     }
 
     public static function makePersisted(array $data = []): PurchaseInvoice
     {
         $purchaseInvoice = self::make($data);
         $purchaseInvoice->save();
-
-        if (isset($data['uuid'])) {
-            $purchaseInvoice->uuid = $data['uuid'];
-            $purchaseInvoice->save();
-        }
 
         return $purchaseInvoice;
     }

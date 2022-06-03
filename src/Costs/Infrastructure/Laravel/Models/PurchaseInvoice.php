@@ -5,8 +5,8 @@ namespace Src\Costs\Infrastructure\Laravel\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice as PurchaseInvoiceInterface;
-use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 
 class PurchaseInvoice extends Model implements PurchaseInvoiceInterface
 {
@@ -96,5 +96,10 @@ class PurchaseInvoice extends Model implements PurchaseInvoiceInterface
     public function hasItems(): bool
     {
         return $this->items->count() > 0;
+    }
+
+    public function getItems(): Collection
+    {
+        return $this->items;
     }
 }

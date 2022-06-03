@@ -29,4 +29,6 @@ interface PurchaseInvoice
     public function getXmlUrl(): string;
 
     public function hasItems(): bool;
+
+    public function getItems(): iterable;
 }

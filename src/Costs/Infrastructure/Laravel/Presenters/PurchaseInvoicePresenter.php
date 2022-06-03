@@ -3,7 +3,7 @@
 namespace Src\Costs\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Support\Collection;
-use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
+use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 
 class PurchaseInvoicePresenter
@@ -23,9 +23,9 @@ class PurchaseInvoicePresenter
             'status' => $invoice->getSituation(),
             'freightValue' => 0.0,
             'insuranceValue' => 0.0,
-            'items' => $invoice->items->map(function (PurchaseItem $item) {
-                return PurchaseItemsPresenter::present($item);
-            })->all(),
+            'items' => $invoice->getItems()->map(
+                fn (PurchaseItem $item) => PurchaseItemsPresenter::present($item)
+            )->all(),
         ];
     }
 
