@@ -9,11 +9,18 @@ class PurchaseItemsData
 {
     public static function make(array $data = []):  PurchaseItem
     {
-        $data = array_merge(
-            self::getPayload(),
-            $data
+        $purchaseItem = new PurchaseItem(
+            array_replace(
+                self::getPayload(),
+                $data
+            )
         );
-        return new PurchaseItem($data);
+
+        if (isset($data['uuid'])) {
+            $purchaseItem->uuid = $data['uuid'];
+        }
+
+        return $purchaseItem;
     }
 
     public static function makePersisted(PurchaseInvoice $purchaseInvoice, array $data = []): PurchaseItem
@@ -21,11 +28,6 @@ class PurchaseItemsData
         $purchaseItem = self::make($data);
         $purchaseItem->invoice()->associate($purchaseInvoice);
         $purchaseItem->save();
-
-        if (isset($data['uuid'])) {
-            $purchaseItem->uuid = $data['uuid'];
-            $purchaseItem->save();
-        }
 
         return $purchaseItem;
     }
