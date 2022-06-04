@@ -8,6 +8,8 @@ interface Tax
 
     public const ICMS = 'icms';
 
+    public const II = 'ii';
+
     public const IPI = 'ipi';
 
     public const PIS = 'pis';

@@ -187,7 +187,6 @@ return [
         /**
          * Costs' module Service Providers...
          */
-        \Src\Costs\Infrastructure\Laravel\Providers\UseCasesServiceProviders::class,
         \Src\Costs\Infrastructure\Laravel\Providers\ServiceProvider::class,
 
         /**

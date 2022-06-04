@@ -1,0 +1,248 @@
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+    <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+        <infNFe Id="NFe33210410659948000107550010002537201537799513" versao="4.00">
+            <ide>
+                <cUF>33</cUF>
+                <cNF>53779951</cNF>
+                <natOp>VENDA PRODUCAO</natOp>
+                <mod>55</mod>
+                <serie>1</serie>
+                <nNF>253720</nNF>
+                <dhEmi>2021-04-28T20:05:00-03:00</dhEmi>
+                <tpNF>1</tpNF>
+                <idDest>2</idDest>
+                <cMunFG>3301009</cMunFG>
+                <tpImp>1</tpImp>
+                <tpEmis>1</tpEmis>
+                <cDV>3</cDV>
+                <tpAmb>1</tpAmb>
+                <finNFe>1</finNFe>
+                <indFinal>0</indFinal>
+                <indPres>9</indPres>
+                <procEmi>0</procEmi>
+                <verProc>12.1.027 | 3.0</verProc>
+            </ide>
+            <emit>
+                <CNPJ>10659948000107</CNPJ>
+                <xNome>COMPANHIA DOREL BRASIL PRODUTOS INFANTIS</xNome>
+                <xFant>DOREL</xFant>
+                <enderEmit>
+                    <xLgr>AVENIDA NILO PECANHA</xLgr>
+                    <nro>1516</nro>
+                    <xCpl>1516/1582</xCpl>
+                    <xBairro>PQ. DOS RODOVIARIOS</xBairro>
+                    <cMun>3301009</cMun>
+                    <xMun>CAMPOS DOS GOYTACAZES</xMun>
+                    <UF>RJ</UF>
+                    <CEP>28030035</CEP>
+                    <cPais>1058</cPais>
+                    <xPais>BRASIL</xPais>
+                    <fone>552221018600</fone>
+                </enderEmit>
+                <IE>78774592</IE>
+                <IM>82924</IM>
+                <CNAE>3102100</CNAE>
+                <CRT>3</CRT>
+            </emit>
+            <dest>
+                <CNPJ>11927457000162</CNPJ>
+                <xNome>BARRIGUDINHA</xNome>
+                <enderDest>
+                    <xLgr>AVENIDA SAO JOSE</xLgr>
+                    <nro>110</nro>
+                    <xBairro>CENTRO</xBairro>
+                    <cMun>3170701</cMun>
+                    <xMun>VARGINHA</xMun>
+                    <UF>MG</UF>
+                    <CEP>37002133</CEP>
+                    <cPais>1058</cPais>
+                    <xPais>BRASIL</xPais>
+                    <fone>3532217540</fone>
+                </enderDest>
+                <indIEDest>1</indIEDest>
+                <IE>0015948590003</IE>
+                <email>BARRIGUDINHA@BOL.COM.BR</email>
+            </dest>
+            <det nItem="1">
+                <prod>
+                    <cProd>IMP01767</cProd>
+                    <cEAN>7908238802119</cEAN>
+                    <xProd>CARRINHO SPOT VOYAGE ROSA GEO</xProd>
+                    <NCM>87150000</NCM>
+                    <cBenef/>
+                    <CFOP>6101</CFOP>
+                    <uCom>UN</uCom>
+                    <qCom>5.0000</qCom>
+                    <vUnCom>302.53000000</vUnCom>
+                    <vProd>1512.65</vProd>
+                    <cEANTrib>7908238802119</cEANTrib>
+                    <uTrib>UN</uTrib>
+                    <qTrib>5.0000</qTrib>
+                    <vUnTrib>302.53000000</vUnTrib>
+                    <indTot>1</indTot>
+                    <xPed>4673297911</xPed>
+                    <nItemPed>01</nItemPed>
+                    <nFCI>6BB6A326-5AA4-40E6-90DC-DB9D9BC6A172</nFCI>
+                </prod>
+                <imposto>
+                    <ICMS>
+                        <ICMS00>
+                            <orig>5</orig>
+                            <CST>00</CST>
+                            <modBC>3</modBC>
+                            <vBC>1512.65</vBC>
+                            <pICMS>12.0000</pICMS>
+                            <vICMS>181.51</vICMS>
+                        </ICMS00>
+                    </ICMS>
+                    <IPI>
+                        <cEnq>999</cEnq>
+                        <IPITrib>
+                            <CST>50</CST>
+                            <vBC>1512.65</vBC>
+                            <pIPI>10.0000</pIPI>
+                            <vIPI>151.27</vIPI>
+                        </IPITrib>
+                    </IPI>
+                    <PIS>
+                        <PISAliq>
+                            <CST>01</CST>
+                            <vBC>1331.14</vBC>
+                            <pPIS>1.6500</pPIS>
+                            <vPIS>21.96</vPIS>
+                        </PISAliq>
+                    </PIS>
+                    <COFINS>
+                        <COFINSAliq>
+                            <CST>01</CST>
+                            <vBC>1331.14</vBC>
+                            <pCOFINS>7.6000</pCOFINS>
+                            <vCOFINS>101.16</vCOFINS>
+                        </COFINSAliq>
+                    </COFINS>
+                </imposto>
+                <infAdProd>Resolucao do Senado Federal nº 13/12, Numero da FCI 6BB6A326-5AA4-40E6-90DC-DB9D9BC6A172.</infAdProd>
+            </det>
+            <total>
+                <ICMSTot>
+                    <vBC>1512.65</vBC>
+                    <vICMS>181.51</vICMS>
+                    <vICMSDeson>0</vICMSDeson>
+                    <vFCPUFDest>0</vFCPUFDest>
+                    <vICMSUFDest>0</vICMSUFDest>
+                    <vICMSUFRemet>0</vICMSUFRemet>
+                    <vFCP>0</vFCP>
+                    <vBCST>0</vBCST>
+                    <vST>0</vST>
+                    <vFCPST>0</vFCPST>
+                    <vFCPSTRet>0</vFCPSTRet>
+                    <vProd>1512.65</vProd>
+                    <vFrete>0</vFrete>
+                    <vSeg>0</vSeg>
+                    <vDesc>0</vDesc>
+                    <vII>0</vII>
+                    <vIPI>151.27</vIPI>
+                    <vIPIDevol>0</vIPIDevol>
+                    <vPIS>21.96</vPIS>
+                    <vCOFINS>101.16</vCOFINS>
+                    <vOutro>0</vOutro>
+                    <vNF>1663.92</vNF>
+                </ICMSTot>
+            </total>
+            <transp>
+                <modFrete>0</modFrete>
+                <transporta>
+                    <CNPJ>17463456001910</CNPJ>
+                    <xNome>PATRUS TRANSPORTES URGENTES</xNome>
+                    <IE>78097760</IE>
+                    <xEnder>ESTRADA AMARAL PEIXOTO S/N KM 68,4</xEnder>
+                    <xMun>CAMPOS DOS GOYT</xMun>
+                    <UF>RJ</UF>
+                </transporta>
+                <vol>
+                    <qVol>5</qVol>
+                    <esp>CAIXA</esp>
+                    <pesoL>29.000</pesoL>
+                    <pesoB>35.000</pesoB>
+                </vol>
+            </transp>
+            <cobr>
+                <fat>
+                    <nFat>1000253720</nFat>
+                    <vOrig>1663.92</vOrig>
+                    <vDesc>0</vDesc>
+                    <vLiq>1663.92</vLiq>
+                </fat>
+                <dup>
+                    <nDup>001</nDup>
+                    <dVenc>2021-05-28</dVenc>
+                    <vDup>415.98</vDup>
+                </dup>
+                <dup>
+                    <nDup>002</nDup>
+                    <dVenc>2021-06-28</dVenc>
+                    <vDup>415.98</vDup>
+                </dup>
+                <dup>
+                    <nDup>003</nDup>
+                    <dVenc>2021-07-27</dVenc>
+                    <vDup>415.98</vDup>
+                </dup>
+                <dup>
+                    <nDup>004</nDup>
+                    <dVenc>2021-08-26</dVenc>
+                    <vDup>415.98</vDup>
+                </dup>
+            </cobr>
+            <pag>
+                <detPag>
+                    <indPag>1</indPag>
+                    <tPag>15</tPag>
+                    <vPag>1663.92</vPag>
+                </detPag>
+            </pag>
+            <infAdic>
+                <infAdFisco>MD-5:94DBB831B0F3C67A412EAC4010EC561F</infAdFisco>
+                <infCpl>E-mail Dorel para recepcao de arquivos XML: XML@DORELBRASIL.COM.BR * PROCON/RJ: RUA DA AJUDA, 05, SUBSOLO, CENTRO, RIO DE JANEIRO-RJ. TEL: 151 * CODECON/ALERJ: RUA DA ALFANDEGA, 8/TERREO, CENTRO, RIO DE JANEIRO-RJ. TEL: 08002827060. * PED.DOREL: 182222 - PED.CLIENTE: 4673297911 * END.ENTREGA: AVENIDA SAO JOSE 110, CENTRO - VARGINHA - MG - 37002133 Financeiro - contato: cobranca@dorel.com.br Tel.: (21) 3554-7012, 3554-7010</infCpl>
+            </infAdic>
+            <infRespTec>
+                <CNPJ>53113791000122</CNPJ>
+                <xContato>Rodrigo de Almeida Sartorio</xContato>
+                <email>resp_tecnico_dfe_protheus@totvs.com.br</email>
+                <fone>1128593904</fone>
+            </infRespTec>
+        </infNFe>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#NFe33210410659948000107550010002537201537799513">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>tFjoB+qw5DShFx2iQgnhocsfz4s=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>SIGNATURE_token</SignatureValue>
+            <KeyInfo>
+                <X509Data>
+                    <X509Certificate>CERTIFICATE_token</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </NFe>
+    <protNFe xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+        <infProt>
+            <tpAmb>1</tpAmb>
+            <verAplic>SVRS202103300813</verAplic>
+            <chNFe>33210410659948000107550010002537201537799513</chNFe>
+            <dhRecbto>2021-04-28T20:16:44-03:00</dhRecbto>
+            <nProt>333210066580298</nProt>
+            <digVal>tFjoB+qw5DShFx2iQgnhocsfz4s=</digVal>
+            <cStat>100</cStat>
+            <xMotivo>Autorizado o uso da NF-e</xMotivo>
+        </infProt>
+    </protNFe>
+</nfeProc>

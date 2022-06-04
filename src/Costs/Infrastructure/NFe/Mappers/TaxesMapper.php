@@ -1,29 +1,27 @@
 <?php
 
-namespace Src\Costs\Infrastructure\NFe;
+namespace Src\Costs\Infrastructure\NFe\Mappers;
 
-class Taxes
+use Src\Costs\Domain\Models\Tax as TaxInterface;
+use Src\Costs\Infrastructure\NFe\Data\Tax;
+use Src\Math\Percentage;
+
+class TaxesMapper
 {
-    private array $taxes = [
-        'IPI',
-        'ICMS',
-        'Importation' // II
-    ];
-
     public static function getIPI(array $tax): array
     {
         if (isset($tax['IPI']['IPITrib'])) {
             $tributation = $tax['IPI']['IPITrib'];
 
             return [
-                'value' => $tributation['vIPI'],
                 'percentage' => $tributation['pIPI'],
+                'value' => $tributation['vIPI'],
             ];
         }
 
         return [
-            'value' => 0.0,
             'percentage' => 0.0,
+            'value' => 0.0,
         ];
     }
 
