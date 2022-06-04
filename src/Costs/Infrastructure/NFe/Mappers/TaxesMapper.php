@@ -2,6 +2,10 @@
 
 namespace Src\Costs\Infrastructure\NFe\Mappers;
 
+use Src\Costs\Domain\Models\Tax as TaxInterface;
+use Src\Costs\Infrastructure\NFe\Data\Tax;
+use Src\Math\Percentage;
+
 class TaxesMapper
 {
     public static function getIPI(array $tax): array

@@ -4,7 +4,6 @@ namespace Src\Costs\Infrastructure\NFe\Data;
 
 use Src\Costs\Domain\Models\Tax as TaxInterface;
 use Src\Costs\Infrastructure\NFe\Mappers\TaxesMapper as TaxesMapper;
-use Src\Math\Percentage;
 
 class Taxes
 {
@@ -22,35 +21,11 @@ class Taxes
     public static function fromArray(array $data): self
     {
         return new static(
-            new Tax(
-                TaxInterface::ICMS,
-                0.0,
-                Percentage::fromPercentage(
-                    TaxesMapper::getICMS($data)['percentage']
-                )
-            ),
-            new Tax(
-                TaxInterface::IPI,
-                TaxesMapper::getIPI($data)['value'],
-                Percentage::fromPercentage(
-                    TaxesMapper::getIPI($data)['percentage']
-                ),
-            ),
-            new Tax(TaxInterface::II, 0.0, Percentage::fromPercentage(0.0)),
-            new Tax(
-                TaxInterface::PIS,
-                TaxesMapper::getPIS($data)['value'],
-                Percentage::fromPercentage(
-                    TaxesMapper::getPIS($data)['percentage']
-                )
-            ),
-            new Tax(
-                TaxInterface::COFINS,
-                TaxesMapper::getCOFINS($data)['value'],
-                Percentage::fromPercentage(
-                    TaxesMapper::getCOFINS($data)['percentage']
-                ),
-            ),
+            Tax::fromArray(TaxInterface::ICMS, TaxesMapper::getICMS($data)),
+            Tax::fromArray(TaxInterface::IPI, TaxesMapper::getIPI($data)),
+            Tax::fromArray(TaxInterface::II, []),
+            Tax::fromArray(TaxInterface::PIS, TaxesMapper::getPIS($data)),
+            Tax::fromArray(TaxInterface::COFINS, TaxesMapper::getCOFINS($data)),
             $data['vTotTrib'] ?? 0.0
         );
     }

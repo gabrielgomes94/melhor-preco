@@ -37,23 +37,23 @@ class TaxesTest extends TestCase
 
         // Assert
         $this->assertEquals(
-            new Tax('icms', 0, Percentage::fromPercentage(0)),
+            Tax::fromArray('icms', []),
             $result->icms
         );
         $this->assertEquals(
-            new Tax('ipi', 0, Percentage::fromPercentage(0)),
+            Tax::fromArray('ipi', []),
             $result->ipi
         );
         $this->assertEquals(
-            new Tax('ii', 0, Percentage::fromPercentage(0)),
+            Tax::fromArray('ii', []),
             $result->ii
         );
         $this->assertEquals(
-            new Tax('pis', 0, Percentage::fromPercentage(0)),
+            Tax::fromArray('pis', []),
             $result->pis
         );
         $this->assertEquals(
-            new Tax('cofins', 0, Percentage::fromPercentage(0)),
+            Tax::fromArray('cofins', []),
             $result->cofins
         );
         $this->assertSame(101.21, $result->totalTaxes);

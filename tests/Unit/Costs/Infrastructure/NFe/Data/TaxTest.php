@@ -2,7 +2,6 @@
 
 namespace Src\Costs\Infrastructure\NFe\Data;
 
-use Src\Math\Percentage;
 use Tests\TestCase;
 
 class TaxTest extends TestCase
@@ -16,10 +15,12 @@ class TaxTest extends TestCase
         ];
 
         // Act
-        $result = new Tax(
+        $result = Tax::fromArray(
             'IPI',
-            5.0,
-            Percentage::fromPercentage(10.0)
+            [
+                'value' => 5.0,
+                'percentage' => 10.0,
+            ]
         );
 
         // Assert
