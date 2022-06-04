@@ -17,7 +17,10 @@ interface DbRepository
 
     public function getPurchaseItem(string $uuid): ?PurchaseItem;
 
-    public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, array $item): bool;
+    public function insertPurchaseItem(
+        PurchaseInvoice $purchaseInvoice,
+        PurchaseItem $purchaseItem
+    ): bool;
 
     public function listPurchaseInvoice(): Collection;
 

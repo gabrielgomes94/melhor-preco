@@ -37,10 +37,8 @@ class Repository implements DbRepository
         return PurchaseItem::where('uuid', $uuid)->first();
     }
 
-    public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, array $item): bool
+    public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, PurchaseItem $purchaseItem): bool
     {
-        $purchaseItem = new PurchaseItem($item);
-
         try {
             $purchaseInvoice->items()->save($purchaseItem);
             Logging::logSuccessfulItemSync($purchaseItem, $purchaseInvoice);
