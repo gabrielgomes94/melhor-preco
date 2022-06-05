@@ -16,7 +16,6 @@ class PurchaseItem extends Model implements PurchaseItemInterface
         'name',
         'quantity',
         'discount',
-        'unit_cost',
         'unit_price',
         'taxes',
         'product_sku',
@@ -41,6 +40,11 @@ class PurchaseItem extends Model implements PurchaseItemInterface
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'ean', 'ean');
+    }
+
+    public function getDiscount(): float
+    {
+        return $this->discount ?? 0.0;
     }
 
     public function getFreightCosts(): float
@@ -111,7 +115,7 @@ class PurchaseItem extends Model implements PurchaseItemInterface
 
     public function getTotalValue(): float
     {
-        return $this->unit_cost * $this->quantity;
+        return $this->getUnitCost() * $this->quantity;
     }
 
     public function getUnitPrice(): float
@@ -121,7 +125,11 @@ class PurchaseItem extends Model implements PurchaseItemInterface
 
     public function getUnitCost(): float
     {
-        return $this->unit_cost;
+        return $this->getUnitPrice()
+            + $this->getFreightCosts()
+            + $this->getInsuranceCosts()
+            + $this->getIpiValue()
+            - $this->getDiscount();
     }
 
     public function getUuid(): string

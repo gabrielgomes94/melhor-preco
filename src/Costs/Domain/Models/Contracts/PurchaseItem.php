@@ -6,6 +6,8 @@ use Illuminate\Support\Carbon;
 
 interface PurchaseItem
 {
+    public function getDiscount(): float;
+
     public function getFreightCosts(): float;
 
     public function getICMSPercentage(): float;
