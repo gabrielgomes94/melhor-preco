@@ -3,9 +3,8 @@
 namespace Src\Costs\Domain\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
-use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
+use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 
 interface DbRepository
 {
@@ -22,7 +21,9 @@ interface DbRepository
         PurchaseItem $purchaseItem
     ): bool;
 
-    public function listPurchaseInvoice(): Collection;
+    public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice): bool;
+
+    public function listPurchaseInvoice(): array;
 
     public function linkItemToProduct(PurchaseItem $item, string $productSku): bool;
 

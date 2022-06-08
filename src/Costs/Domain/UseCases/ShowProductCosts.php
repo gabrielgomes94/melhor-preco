@@ -2,8 +2,8 @@
 
 namespace Src\Costs\Domain\UseCases;
 
-use Illuminate\Support\Collection;
-use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
+use Src\Costs\Domain\DataTransfer\ProductCosts;
+use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
@@ -16,21 +16,17 @@ class ShowProductCosts
         $this->repository = $repository;
     }
 
-    // @todo: Criar DTO ProductCosts: Domain/TransferData/ProductCosts;
-    public function show(string $sku): array
+    public function show(string $sku): ProductCosts
     {
         if (!$product = $this->repository->get($sku)) {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException($sku);
         }
 
-        $items = $product->itemsCosts;
-        $items = $items->sortByDesc(function (PurchaseItem $item) {
-            return $item->getIssuedAt();
-        });
+        $items = collect($product->getPurchaseItemsCosts());
+        $items = $items->sortByDesc(
+            fn (PurchaseItem $item) => $item->getIssuedAt()
+        )->all();
 
-        return [
-            'product' => $product,
-            'costs' => $items,
-        ];
+        return new ProductCosts($product, $items);
     }
 }

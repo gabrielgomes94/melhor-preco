@@ -7,6 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository as ProductRepositoryInterface;
 
@@ -130,5 +131,29 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProductByEan(string $ean): ?Product
     {
         return Product::where('ean', $ean)->first();
+    }
+
+    public function getProductsAndVariations(string $sku): array
+    {
+        if (!$product = $this->get($sku)) {
+            return [];
+        }
+
+        $products[] = $product;
+
+
+        foreach ($product->getVariations()->get() as $variation) {
+            $variationModel = $this->get($variation->getSku());
+            $products[] = $variationModel;
+        }
+
+        return $products;
+    }
+
+    public function updateCosts(Product $product, Costs $costs): bool
+    {
+        $product->setCosts($costs);
+
+        return $product->save();
     }
 }

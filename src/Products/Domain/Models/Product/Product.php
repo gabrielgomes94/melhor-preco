@@ -115,6 +115,11 @@ class Product extends Model implements ProductModelInterface
         return $this->sku;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function getSaleItems(): Collection
     {
         return $this->items;
@@ -190,6 +195,11 @@ class Product extends Model implements ProductModelInterface
             $this->width,
             $this->weight
         );
+    }
+
+    public function getPurchaseItemsCosts(): array
+    {
+        return $this->itemsCosts->all();
     }
 
     public function getPrices(): Collection

@@ -2,18 +2,15 @@
 
 namespace Src\Costs\Domain\UseCases;
 
-use Illuminate\Support\Collection;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Domain\UseCases\Contracts\LinkProductToPurchaseItem as LinkProductToPurchaseItemInterface;
 
 class LinkProductToPurchaseItem implements LinkProductToPurchaseItemInterface
 {
-    private DbRepository $repository;
-
-    public function __construct(DbRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+    public function __construct(
+        private DbRepository $repository
+    )
+    {}
 
     public function link(string $itemUuid, string $productSku): void
     {
@@ -24,7 +21,7 @@ class LinkProductToPurchaseItem implements LinkProductToPurchaseItemInterface
         $this->repository->linkItemToProduct($item, $productSku);
     }
 
-    public function linkManyProducts(Collection $data): void
+    public function linkManyProducts(array $data): void
     {
         foreach ($data as $itemUuid => $sku) {
             if (!$sku) {

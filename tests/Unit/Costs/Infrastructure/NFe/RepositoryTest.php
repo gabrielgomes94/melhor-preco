@@ -17,9 +17,7 @@ class RepositoryTest extends TestCase
         $xml = new SimpleXMLElement($xml);
 
         $xmlReader = new Repository(
-            new PurchaseItemMapper(
-                new CalculateUnitCost()
-            )
+            new PurchaseItemMapper()
         );
 
         // Act

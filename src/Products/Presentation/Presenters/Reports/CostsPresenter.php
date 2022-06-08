@@ -9,12 +9,11 @@ use Src\Math\Percentage;
 
 class CostsPresenter
 {
-    public function present(Collection $costs)
+    public function present(array $costs)
     {
+        $costs = collect($costs);
+
         $items = $costs->map(function (PurchaseItem $item) {
-
-//            dd(MathPresenter::money($item->getFreightCosts()));
-
             return [
                 'issuedAt' => $item->getIssuedAt()->format('d/m/Y H:i'),
                 'unitCost' => MathPresenter::money($item->getUnitCost()),
