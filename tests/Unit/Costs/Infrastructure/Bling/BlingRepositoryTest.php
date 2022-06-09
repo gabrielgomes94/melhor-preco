@@ -10,6 +10,7 @@ use Src\Integrations\Bling\Invoices\Client;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\TestCase;
 
+// @todo: Mover para contexto de Integrations
 class BlingRepositoryTest extends TestCase
 {
     public function test_should_list_purchase_invoices(): void

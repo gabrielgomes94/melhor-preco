@@ -16,9 +16,7 @@ class RepositoryTest extends TestCase
         $xml = $this->getFixture('NFe/purchase-invoice.xml');
         $xml = new SimpleXMLElement($xml);
 
-        $xmlReader = new Repository(
-            new PurchaseItemMapper()
-        );
+        $xmlReader = new Repository(new PurchaseItemMapper());
 
         // Act
         $result = $xmlReader->getPurchaseItems($xml);
