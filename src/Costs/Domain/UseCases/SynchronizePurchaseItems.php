@@ -36,7 +36,7 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
         return $this->nfeReader->getPurchaseItems($xml);
     }
 
-    private function insertItemsInInvoice(PurchaseInvoice $purchaseInvoice)
+    private function insertItemsInInvoice(PurchaseInvoice $purchaseInvoice): void
     {
         $items = $this->getItems($purchaseInvoice);
 
