@@ -19,10 +19,10 @@ class ShowCostsController extends Controller
         $data = $this->showProductCosts->show($sku);
 
         return view('pages.costs.products.show', [
-            'costs' => $this->costsPresenter->present($data['costs']),
+            'costs' => $this->costsPresenter->present($data->purchaseItemCosts),
             'product' => [
-                'sku' => $data['product']->getIdentifiers()->getSku(),
-                'name' => $data['product']->getDetails()->getName(),
+                'sku' => $data->product->getSku(),
+                'name' => $data->product->getName(),
             ]
         ]);
     }

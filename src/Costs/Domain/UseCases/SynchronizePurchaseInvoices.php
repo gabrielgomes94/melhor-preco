@@ -8,13 +8,11 @@ use Src\Costs\Domain\UseCases\Contracts\SyncPurchaseInvoices;
 
 class SynchronizePurchaseInvoices implements SyncPurchaseInvoices
 {
-    private DbRepository $repository;
-    private ErpRepository $erpRepository;
-
-    public function __construct(DbRepository $repository, ErpRepository $erpRepository)
+    public function __construct(
+        private DbRepository $repository,
+        private ErpRepository $erpRepository
+    )
     {
-        $this->repository = $repository;
-        $this->erpRepository = $erpRepository;
     }
 
     public function sync(): void
@@ -22,11 +20,7 @@ class SynchronizePurchaseInvoices implements SyncPurchaseInvoices
         $data = $this->erpRepository->listPurchaseInvoice();
 
         foreach ($data as $purchaseInvoice) {
-            if ($this->repository->purchaseInvoiceExists($purchaseInvoice)) {
-                continue;
-            }
-
-            $purchaseInvoice->save();
+            $this->repository->insertPurchaseInvoice($purchaseInvoice);
         }
     }
 }

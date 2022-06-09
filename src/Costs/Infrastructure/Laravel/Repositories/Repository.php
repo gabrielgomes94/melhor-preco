@@ -7,17 +7,17 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
+use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice as PurchaseInvoiceModel;
-use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Infrastructure\Laravel\Logging\Logging;
 use Throwable;
 
 class Repository implements DbRepository
 {
-    public function listPurchaseInvoice(): Collection
+    public function listPurchaseInvoice(): array
     {
-        return PurchaseInvoiceModel::all();
+        return PurchaseInvoiceModel::all()->toArray();
     }
 
     public function getXml(PurchaseInvoice $purchaseInvoice): SimpleXMLElement
@@ -79,6 +79,18 @@ class Repository implements DbRepository
 
     public function getLastSynchronizationDateTime(): ?Carbon
     {
-        return PurchaseInvoiceModel::query()->orderByDesc('updated_at')->first()?->getLastUpdate();
+        return PurchaseInvoiceModel::query()
+            ->orderByDesc('updated_at')
+            ->first()
+            ?->getLastUpdate();
+    }
+
+    public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice): bool
+    {
+        if ($this->purchaseInvoiceExists($purchaseInvoice)) {
+            return false;
+        }
+
+        return $purchaseInvoice->save();
     }
 }

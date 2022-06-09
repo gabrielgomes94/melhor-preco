@@ -3,20 +3,18 @@
 namespace Src\Costs\Domain\UseCases;
 
 use Src\Costs\Domain\Exceptions\UpdateCostsException;
+use Src\Costs\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\Product\ProductCostsUpdated;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
-use Src\Products\Domain\Models\Product\Product;
-use Src\Prices\Application\Services\Products\UpdateDB;
-use Src\Costs\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
+use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
 class UpdateCosts implements UpdateCostsInterface
 {
-    private UpdateDB $updatePriceService;
-
-    public function __construct(UpdateDB $updatePriceService)
+    public function __construct(
+        private ProductRepository $productRepository
+    )
     {
-        $this->updatePriceService = $updatePriceService;
     }
 
     /**
@@ -25,17 +23,17 @@ class UpdateCosts implements UpdateCostsInterface
      */
     public function execute(string $sku, array $data): bool
     {
-        if (!$product = Product::find($sku)) {
+        if (!$products = $this->productRepository->getProductsAndVariations($sku)) {
             throw new ProductNotFoundException($sku);
         }
 
-        $products = $this->getProducts($product);
-
         foreach ($products as $product) {
-            $costs = Costs::make($data, $product);
-            $product->setCosts($costs);
+            $result = $this->productRepository->updateCosts(
+                $product,
+                Costs::make($data, $product)
+            );
 
-            if (!$product->save()) {
+            if (!$result) {
                 throw new UpdateCostsException($sku);
             }
 
@@ -43,17 +41,5 @@ class UpdateCosts implements UpdateCostsInterface
         }
 
         return true;
-    }
-
-    private function getProducts(Product $product): array
-    {
-        $products[] = $product;
-
-        foreach ($product->getVariations()->get() as $variation) {
-            $variationModel = Product::find($variation->getSku());
-            $products[] = $variationModel;
-        }
-
-        return $products;
     }
 }

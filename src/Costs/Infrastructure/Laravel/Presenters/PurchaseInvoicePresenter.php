@@ -29,8 +29,10 @@ class PurchaseInvoicePresenter
         ];
     }
 
-    public static function presentList(Collection $collection): array
+    public static function presentList(array $collection): array
     {
+        $collection = collect($collection);
+
         $data = $collection->transform(function($model) {
             return [
                 'uuid' => $model->getUuid(),
