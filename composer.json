@@ -78,10 +78,10 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Src\\Costs\\": "tests/Costs/Unit/",
             "Tests\\": "tests/",
             "Tests\\Unit\\App\\": "tests/Unit/app/",
             "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/",
-            "Src\\Costs\\": "tests/Unit/Costs",
             "Tests\\Unit\\Src\\Products\\": "tests/Unit/src/products/"
         }
     },
