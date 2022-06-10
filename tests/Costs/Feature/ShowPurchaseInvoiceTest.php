@@ -88,11 +88,11 @@ class ShowPurchaseInvoiceTest extends TestCase
                         'taxesValue' => 40.0,
                         'insuranceValue' => 0.0,
                     ],
-                    'unitValue' => 100.0,
+                    'unitValue' => 168.0,
                     'quantity' => 5.0,
-                    'totalValue' => 500.0,
+                    'totalValue' => 840.0,
                     'purchaseItemUuid' => '517cce8a-e7c2-48d7-a052-5e10729c7c22',
-                    'productSku' => 1,
+                    'productSku' => '1',
                 ]
             ],
         ]);

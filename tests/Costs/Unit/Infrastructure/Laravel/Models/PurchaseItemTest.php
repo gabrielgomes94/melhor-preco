@@ -40,9 +40,9 @@ class PurchaseItemTest extends TestCase
         );
         $this->assertSame('06981862000200', $purchaseItem->getSupplierFiscalId());
         $this->assertSame(40.0, $purchaseItem->getTotalTaxesCosts());
-        $this->assertSame(500.0, $purchaseItem->getTotalValue());
+        $this->assertSame(840.0, $purchaseItem->getTotalValue());
         $this->assertSame(150.0, $purchaseItem->getUnitPrice());
-        $this->assertSame(100.0, $purchaseItem->getUnitCost());
+        $this->assertSame(168.0, $purchaseItem->getUnitCost());
         $this->assertSame('33ef9826-5500-4681-8d6d-e10757af8169', $purchaseItem->getUuid());
     }
 }

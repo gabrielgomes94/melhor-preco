@@ -35,7 +35,7 @@ class PurchaseInvoicePresenterTest extends TestCase
     public function test_should_present_list_of_purchase_invoices(): void
     {
         // Arrange
-        $data = collect([
+        $data = [
             PurchaseInvoiceData::make([
                 'uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110',
             ]),
@@ -45,7 +45,7 @@ class PurchaseInvoicePresenterTest extends TestCase
             PurchaseInvoiceData::make([
                 'uuid' => '49f038d0-21ab-49c0-8071-c82f68930534',
             ]),
-        ]);
+        ];
 
         $presenter = new PurchaseInvoicePresenter($data);
 
@@ -83,9 +83,9 @@ class PurchaseInvoicePresenterTest extends TestCase
                         'taxesValue' => 40.0,
                         'insuranceValue' => 0.0,
                     ],
-                    'unitValue' => 100.0,
+                    'unitValue' => 168.0,
                     'quantity' => 5.0,
-                    'totalValue' => 500.0,
+                    'totalValue' => 840.0,
                     'purchaseItemUuid' => '6e113301-f9ac-44af-85da-d43f3a1652cf',
                     'productSku' => '1',
                 ]

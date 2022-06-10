@@ -3,6 +3,7 @@
 namespace Tests\Costs\Integration\Bling;
 
 use Mockery;
+use Src\Costs\Infrastructure\Bling\BlingRepository;
 use Src\Costs\Infrastructure\Bling\Responses\Factory;
 use Src\Costs\Infrastructure\Bling\Responses\PurchaseInvoicesResponse;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;

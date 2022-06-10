@@ -12,13 +12,11 @@ class PurchaseItemMapperTest extends TestCase
     public function test_should_map(): void
     {
         // Arrange
-        $calculateUnitCostService = new CalculateUnitCost();
-        $mapper = new PurchaseItemMapper($calculateUnitCostService);
+        $mapper = new PurchaseItemMapper();
         $product = ProductData::make();
         $expected = [
             'name' => 'Mobile Take Along Magical Tales',
             'unit_price' => 170.91,
-            'unit_cost' => 178.41,
             'quantity' => 2.0,
             'freight_cost' => 5.0,
             'insurance_cost' => 2.5,

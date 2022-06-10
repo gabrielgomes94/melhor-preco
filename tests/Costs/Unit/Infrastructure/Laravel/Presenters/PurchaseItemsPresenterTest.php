@@ -27,9 +27,9 @@ class PurchaseItemsPresenterTest extends TestCase
                 'taxesValue' => 40.0,
                 'insuranceValue' => 0.0,
             ],
-            'unitValue' => 100.0,
+            'unitValue' => 168.0,
             'quantity' => 5.0,
-            'totalValue' => 500.0,
+            'totalValue' => 840.0,
             'purchaseItemUuid' => '6e113301-f9ac-44af-85da-d43f3a1652cf',
             'productSku' => '1',
         ];
