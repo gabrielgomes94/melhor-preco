@@ -7,8 +7,10 @@ use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 
 class PurchaseInvoiceObserver
 {
-    public function creating(PurchaseInvoice $purchaseInvoice)
+    public function creating(PurchaseInvoice $purchaseInvoice): void
     {
-        $purchaseInvoice->uuid = Uuid::uuid4();
+        if (!$purchaseInvoice->uuid) {
+            $purchaseInvoice->uuid = Uuid::uuid4();
+        }
     }
 }

@@ -3,75 +3,16 @@
 namespace Src\Costs\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
 use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice as PurchaseInvoiceModel;
+use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem as PurchaseItemModel;
 use Src\Costs\Domain\Repositories\DbRepository;
-use Src\Costs\Infrastructure\Laravel\Logging\Logging;
-use Throwable;
 
 class Repository implements DbRepository
 {
-    public function listPurchaseInvoice(): array
-    {
-        return PurchaseInvoiceModel::all()->toArray();
-    }
-
-    public function getXml(PurchaseInvoice $purchaseInvoice): SimpleXMLElement
-    {
-        $data = Http::get($purchaseInvoice->getXmlUrl());
-
-        return new SimpleXMLElement($data->body());
-    }
-
-    public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice
-    {
-        return PurchaseInvoiceModel::where('uuid', $uuid)->first();
-    }
-
-    public function getPurchaseItem(string $uuid): ?PurchaseItem
-    {
-        return PurchaseItem::where('uuid', $uuid)->first();
-    }
-
-    public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, PurchaseItem $purchaseItem): bool
-    {
-        try {
-            $purchaseInvoice->items()->save($purchaseItem);
-            Logging::logSuccessfulItemSync($purchaseItem, $purchaseInvoice);
-
-            return true;
-        } catch (Throwable $exception) {
-            Logging::logFailedItemSync($purchaseItem, $purchaseInvoice, $exception);
-        }
-
-        return false;
-    }
-
-    public function linkItemToProduct(PurchaseItem $item, string $productSku): bool
-    {
-        $item->product_sku = $productSku;
-        $result = $item->save();
-
-        $result
-            ? Logging::logSuccessfulItemToProductLink($item, $productSku)
-            : Logging::logFailedItemToProductLink($item, $productSku);
-
-        return $result;
-    }
-
-    public function purchaseInvoiceExists(PurchaseInvoice $purchaseInvoice): bool
-    {
-        return (bool) PurchaseInvoiceModel::where([
-            'access_key' => $purchaseInvoice->getAccessKey(),
-            'number' => $purchaseInvoice->getNumber(),
-            'series' => $purchaseInvoice->getSeries(),
-        ])->first();
-    }
-
     public function countPurchaseInvoices(): int
     {
         return PurchaseInvoiceModel::count();
@@ -85,6 +26,23 @@ class Repository implements DbRepository
             ?->getLastUpdate();
     }
 
+    public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice
+    {
+        return PurchaseInvoiceModel::where('uuid', $uuid)->first();
+    }
+
+    public function getPurchaseItem(string $uuid): ?PurchaseItem
+    {
+        return PurchaseItemModel::where('uuid', $uuid)->first();
+    }
+
+    public function getXml(PurchaseInvoice $purchaseInvoice): SimpleXMLElement
+    {
+        $data = Http::get($purchaseInvoice->getXmlUrl());
+
+        return new SimpleXMLElement($data->body());
+    }
+
     public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice): bool
     {
         if ($this->purchaseInvoiceExists($purchaseInvoice)) {
@@ -92,5 +50,34 @@ class Repository implements DbRepository
         }
 
         return $purchaseInvoice->save();
+    }
+
+    public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, PurchaseItem $purchaseItem): bool
+    {
+        return (bool) $purchaseInvoice->items()->save($purchaseItem);
+    }
+
+    public function linkItemToProduct(PurchaseItem $item, string $productSku): bool
+    {
+        $item->product_sku = $productSku;
+
+        return $item->save();
+    }
+
+    /**
+     * @return PurchaseInvoiceModel[]
+     */
+    public function listPurchaseInvoice(): array
+    {
+        return PurchaseInvoiceModel::all()->all();
+    }
+
+    public function purchaseInvoiceExists(PurchaseInvoice $purchaseInvoice): bool
+    {
+        return (bool) PurchaseInvoiceModel::where([
+            'access_key' => $purchaseInvoice->getAccessKey(),
+            'number' => $purchaseInvoice->getNumber(),
+            'series' => $purchaseInvoice->getSeries(),
+        ])->first();
     }
 }

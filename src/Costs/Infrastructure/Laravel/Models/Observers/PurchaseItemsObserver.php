@@ -8,8 +8,10 @@ use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 
 class PurchaseItemsObserver
 {
-    public function creating(PurchaseItem $purchaseItem)
+    public function creating(PurchaseItem $purchaseItem): void
     {
-        $purchaseItem->uuid = Uuid::uuid4();
+        if (!$purchaseItem->uuid) {
+            $purchaseItem->uuid = Uuid::uuid4();
+        }
     }
 }
