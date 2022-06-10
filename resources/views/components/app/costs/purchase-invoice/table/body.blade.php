@@ -1,6 +1,6 @@
 @foreach ($items as $model)
     <tr>
-        <td colspan="4">
+        <td colspan="3">
             {{ $model['name'] }}
         </td>
 
@@ -13,17 +13,17 @@
         </td>
 
         <td>
-            R$ {{ $model['purchasePrice'] }}
+            {{ $model['purchasePrice'] }}
         </td>
 
         <td>
-            Frete: R$ {{ $model['additionalCosts']['freightValue'] ?? 0.0 }} <br>
-            Impostos: R$ {{ $model['additionalCosts']['taxesValue'] ?? 0.0 }} <br>
-            Seguro: R$ {{ $model['additionalCosts']['insuranceValue'] ?? 0.0 }} <br>
+            Frete: {{ $model['additionalCosts']['freightValue'] }} <br>
+            Impostos: {{ $model['additionalCosts']['taxesValue'] }} <br>
+            Seguro: {{ $model['additionalCosts']['insuranceValue'] }} <br>
         </td>
 
         <td>
-            R$ {{ $model['unitValue'] }}
+            {{ $model['unitValue'] }}
         </td>
 
         <td>
@@ -31,7 +31,7 @@
         </td>
 
         <td>
-            R$ {{ $model['totalValue'] }}
+            {{ $model['totalValue'] }}
         </td>
     </tr>
 @endforeach
