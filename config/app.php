@@ -171,12 +171,9 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        \Src\Users\Infrastructure\Laravel\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        \Src\Users\Infrastructure\Laravel\Providers\FortifyServiceProvider::class,
-        \Src\Users\Infrastructure\Laravel\Providers\JetstreamServiceProvider::class,
 
         /**
          * Custom Service Providers...
@@ -217,7 +214,6 @@ return [
          */
         \Src\Prices\Infrastructure\Laravel\ServiceProviders\PricesServiceProvider::class,
 
-
         /**
          * Products' module Service Providers...
          */
@@ -241,9 +237,16 @@ return [
         Src\Sales\Infrastructure\Eloquent\RepositoryServiceProvider::class,
 
         /**
-         * Stores' module Service Providers...
+         * Marketplaces' module Service Providers...
          */
         Src\Marketplaces\Infrastructure\Laravel\ServiceProviders\MarketplacesServiceProvider::class,
+
+        /**
+         * Users' module Service Providers
+         */
+        Src\Users\Infrastructure\Laravel\Providers\AuthServiceProvider::class,
+        Src\Users\Infrastructure\Laravel\Providers\FortifyServiceProvider::class,
+        Src\Users\Infrastructure\Laravel\Providers\JetstreamServiceProvider::class,
 
         /**
          * PDF Generator Service Provider...
