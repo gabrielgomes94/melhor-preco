@@ -8,6 +8,7 @@
     <projectFiles>
         <ignoreFiles>
             <directory name="vendor"/>
+            <directory name="tests"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
