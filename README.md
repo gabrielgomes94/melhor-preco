@@ -19,17 +19,17 @@ docker-compose up -d
 - Prepare os bancos de dados:
 ```
 docker-compose exec db bash
-psql -U melhorpreco_user
+psql -U barrigudinha_user
 \l      # comando para listar todas as bases de dados presentes
 
-DROP DATABASE IF EXISTS melhorpreco_dev;
-DROP DATABASE IF EXISTS melhorpreco_test;
+DROP DATABASE IF EXISTS barrigudinha_dev;
+DROP DATABASE IF EXISTS barrigudinha_test;
 
-CREATE DATABASE melhorpreco_dev;
-GRANT ALL PRIVILEGES ON DATABASE melhorpreco_dev TO barrigudinha_user;
+CREATE DATABASE barrigudinha_dev;
+GRANT ALL PRIVILEGES ON DATABASE barrigudinha_dev TO barrigudinha_user;
 
-CREATE DATABASE melhorpreco_test;
-GRANT ALL PRIVILEGES ON DATABASE melhorpreco_test TO barrigudinha_user;
+CREATE DATABASE barrigudinha_test;
+GRANT ALL PRIVILEGES ON DATABASE barrigudinha_test TO barrigudinha_user;
  
 ```
 
