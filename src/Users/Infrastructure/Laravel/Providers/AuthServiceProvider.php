@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Src\Users\Infrastructure\Laravel\Providers;
 
 use App\View\Components\Layout;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // @todo: verificar onde esse bind pode ser realizado. Provavelmente num futuro contexto de Application
         Blade::component('layout', Layout::class);
     }
 }

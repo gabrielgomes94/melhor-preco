@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\Services\Listeners;
 
-use App\Models\User;
+use Src\Users\Infrastructure\Laravel\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Src\Notifications\Domain\Notifications\Products\ProductsSynchronized as ProductsSynchronizedNotification;

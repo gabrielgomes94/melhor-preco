@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace Src\Users\Infrastructure\Laravel\Providers;
 
-use App\Actions\Jetstream\DeleteUser;
+use Src\Users\Infrastructure\Laravel\Actions\DeleteUser;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use Laravel\Jetstream\Jetstream;

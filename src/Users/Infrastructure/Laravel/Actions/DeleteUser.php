@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Jetstream;
+namespace Src\Users\Infrastructure\Laravel\Actions;
 
 use Laravel\Jetstream\Contracts\DeletesUsers;
 

@@ -68,17 +68,19 @@
             "Src\\Dashboard\\": "src/Dashboard",
             "Src\\Integrations\\": "src/Integrations",
             "Src\\Notifications\\": "src/Notifications",
+            "Src\\Marketplaces\\": "src/Marketplaces",
             "Src\\Math\\": "src/Math",
             "Src\\Prices\\": "src/Prices",
             "Src\\Products\\": "src/Products",
             "Src\\Promotions\\": "src/Promotions",
             "Src\\Sales\\": "src/Sales",
-            "Src\\Marketplaces\\": "src/Marketplaces"
+            "Src\\Users\\": "src/Users"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Src\\Costs\\": "tests/Costs/Unit/",
+            "Src\\Users\\": "tests/Users/Unit/",
             "Tests\\": "tests/",
             "Tests\\Unit\\App\\": "tests/Unit/app/",
             "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/",
