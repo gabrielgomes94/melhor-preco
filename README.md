@@ -7,8 +7,8 @@ Antes de começar, garanta que você tem instalado na sua máquina:
 - Git
 - Docker Engine e o Docker Compose
 
-- Baixe o repositório: `git clone git@github.com:gabrielgomes94/barrigudinha-backoffice.git`-
-- Acesse o repositório: `cd barrigudinha-backoffice`
+- Baixe o repositório: `git clone git@github.com:gabrielgomes94/melhor-preco.git`-
+- Acesse o repositório: `cd melhor-preco`
 
 - Monte e suba os containers
 ```
@@ -19,17 +19,17 @@ docker-compose up -d
 - Prepare os bancos de dados:
 ```
 docker-compose exec db bash
-psql -U barrigudinha_user
+psql -U melhorpreco_user
 \l      # comando para listar todas as bases de dados presentes
 
-DROP DATABASE IF EXISTS barrigudinha_dev;
-DROP DATABASE IF EXISTS barrigudinha_test;
+DROP DATABASE IF EXISTS melhorpreco_dev;
+DROP DATABASE IF EXISTS melhorpreco_test;
 
-CREATE DATABASE barrigudinha_dev;
-GRANT ALL PRIVILEGES ON DATABASE barrigudinha_dev TO barrigudinha_user;
+CREATE DATABASE melhorpreco_dev;
+GRANT ALL PRIVILEGES ON DATABASE melhorpreco_dev TO barrigudinha_user;
 
-CREATE DATABASE barrigudinha_test;
-GRANT ALL PRIVILEGES ON DATABASE barrigudinha_test TO barrigudinha_user;
+CREATE DATABASE melhorpreco_test;
+GRANT ALL PRIVILEGES ON DATABASE melhorpreco_test TO barrigudinha_user;
  
 ```
 
@@ -50,10 +50,10 @@ API_KEY=token
 
 - Configure o arquivo `/etc/hosts` da seguinte maneira:
 ```
-127.0.0.1       barrigudinha.test
+127.0.0.1       melhorpreco.test
 ```
 
 - Acesse a aplicação em: 
 ```
-barrigudinha.test:8000
+melhorpreco.test:8000
 ```
