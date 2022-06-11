@@ -171,12 +171,12 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+        \Src\Users\Infrastructure\Laravel\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\FortifyServiceProvider::class,
-        App\Providers\JetstreamServiceProvider::class,
+        \Src\Users\Infrastructure\Laravel\Providers\FortifyServiceProvider::class,
+        \Src\Users\Infrastructure\Laravel\Providers\JetstreamServiceProvider::class,
 
         /**
          * Custom Service Providers...

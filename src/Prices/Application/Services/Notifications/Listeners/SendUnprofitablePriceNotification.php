@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Services\Notifications\Listeners;
 
-use App\Models\User;
+use Src\Users\Infrastructure\Laravel\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Src\Notifications\Domain\Notifications\Prices\UnprofitablePrice as UnprofitablePriceNotification;
 use Src\Prices\Domain\Events\UnprofitablePrice;

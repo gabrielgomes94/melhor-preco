@@ -2,7 +2,7 @@
 
 namespace Tests\Costs\Feature;
 
-use App\Models\User;
+use Src\Users\Infrastructure\Laravel\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
 use Src\Products\Domain\Models\Product\Product;

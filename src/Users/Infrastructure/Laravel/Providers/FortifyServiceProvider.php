@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Providers;
+namespace Src\Users\Infrastructure\Laravel\Providers;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
+use Src\Users\Infrastructure\Laravel\Actions\CreateNewUser;
+use Src\Users\Infrastructure\Laravel\Actions\ResetUserPassword;
+use Src\Users\Infrastructure\Laravel\Actions\UpdateUserPassword;
+use Src\Users\Infrastructure\Laravel\Actions\UpdateUserProfileInformation;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Src\Users\Domain\UseCases\RegisterUser;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -28,9 +29,14 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Fortify::createUsersUsing(CreateNewUser::class);
+        $this->create();
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+    }
+
+    public function create(): void
+    {
+        Fortify::createUsersUsing(CreateNewUser::class);
     }
 }

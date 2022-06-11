@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Src\Users\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,6 +61,7 @@ class User extends Authenticatable
 
     public function notifications()
     {
-        return $this->morphMany(Notification::class, 'notifiable')->orderBy('created_at', 'desc');
+        return $this->morphMany(Notification::class, 'notifiable')
+            ->orderBy('created_at', 'desc');
     }
 }
