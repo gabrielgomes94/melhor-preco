@@ -9,6 +9,7 @@ Antes de começar, garanta que você tem instalado na sua máquina:
 
 - Baixe o repositório: `git clone git@github.com:gabrielgomes94/barrigudinha-backoffice.git`-
 - Acesse o repositório: `cd barrigudinha-backoffice`
+- Copie as variáveis de ambiente: `cp .env.example .env`
 
 - Monte e suba os containers
 ```
