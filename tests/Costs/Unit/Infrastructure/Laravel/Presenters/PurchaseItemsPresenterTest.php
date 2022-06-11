@@ -21,15 +21,15 @@ class PurchaseItemsPresenterTest extends TestCase
         // Assert
         $expected = [
             'name' => 'Canguru Balbi Vermelho',
-            'purchasePrice' => 150.0,
+            'purchasePrice' => 'R$ 150,00',
             'additionalCosts' => [
-                'freightValue' => 10.0,
-                'taxesValue' => 40.0,
-                'insuranceValue' => 0.0,
+                'freightValue' => 'R$ 10,00',
+                'taxesValue' => 'R$ 40,00',
+                'insuranceValue' => 'R$ 0,00',
             ],
-            'unitValue' => 168.0,
+            'unitValue' => 'R$ 168,00',
             'quantity' => 5.0,
-            'totalValue' => 840.0,
+            'totalValue' => 'R$ 840,00',
             'purchaseItemUuid' => '6e113301-f9ac-44af-85da-d43f3a1652cf',
             'productSku' => '1',
         ];

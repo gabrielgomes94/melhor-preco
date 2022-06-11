@@ -1,5 +1,5 @@
 <tr>
-    <th scope="col" colspan="4">Produto</th>
+    <th scope="col" colspan="3">Produto</th>
     <th scope="col">SKU</th>
     <th scope="col">Preço de Compra</th>
     <th scope="col">Custos Adicionais</th>
