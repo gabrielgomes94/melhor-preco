@@ -16,7 +16,7 @@
     <input type="password"
            class="form-control"
            id="password-confirmation"
-           name="password-confirmation"
+           name="password_confirmation"
            required
     >
 </div>

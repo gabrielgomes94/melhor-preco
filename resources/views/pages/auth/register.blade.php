@@ -2,6 +2,8 @@
     <x-app.guest.background>
         <div class="col-12 d-flex align-items-center justify-content-center">
             <x-app.auth.register.card.card>
+                <x-bootstrap.alert-messages.alert-messages />
+
                 <x-app.auth.register.card.title />
 
                 <x-app.auth.register.card.form />
