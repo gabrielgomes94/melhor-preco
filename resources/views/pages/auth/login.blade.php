@@ -6,7 +6,7 @@
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3">Barrigudinha Backoffice</h1>
+                                <h1 class="mb-0 h3">Melhor Preço</h1>
                             </div>
 
                             <form method="POST" action="{{ route('login') }}" class="mt-4">
@@ -26,7 +26,6 @@
                                         <input type="email"
                                                name="email"
                                                class="form-control"
-                                               placeholder="exemplo@barrigudinha.com"
                                                id="email" value="{{ old('email') }}" autofocus required
                                         >
                                     </div>
@@ -46,7 +45,6 @@
 
                                             <input type="password"
                                                    name="password"
-                                                   placeholder="Senha"
                                                    class="form-control"
                                                    id="password" required
                                             >
@@ -75,6 +73,15 @@
                                     <button type="submit" class="btn btn-gray-800">Login</button>
                                 </div>
                             </form>
+
+                            <div class="mt-3 mb-4 text-center">
+                                <span class="fw-normal">
+                                    Não possui conta ainda?
+                                    <x-bootstrap.links.link route="{{ route('register') }}">
+                                        Cadastre-se
+                                    </x-bootstrap.links.link>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
