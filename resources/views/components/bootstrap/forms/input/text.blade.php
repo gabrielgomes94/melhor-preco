@@ -7,5 +7,6 @@
         id="{{ $id ?? ''  }}"
         name="{{ $attribute ?? '' }}"
         value="{{ $value ?? '' }}"
+        placeholder="{{ $placeholder ?? '' }}"
     >
 </div>
