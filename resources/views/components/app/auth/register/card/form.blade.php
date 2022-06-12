@@ -1,13 +1,16 @@
 <form action="{{ route('register') }}" method="POST" class="mt-4">
     {{ csrf_field() }}
 
-    <!-- Form -->
     <div class="form-group mb-4">
         <x-app.auth.register.card.inputs.email />
     </div>
 
     <div class="form-group mb-4">
         <x-app.auth.register.card.inputs.fiscal-id />
+    </div>
+
+    <div class="form-group mb-4">
+        <x-app.auth.register.card.inputs.name />
     </div>
 
     <div class="form-group mb-4">

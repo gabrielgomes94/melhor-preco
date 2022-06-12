@@ -16,5 +16,6 @@
         id="email"
         class="form-control"
         autofocus required
+        value="{{ old('email') ?? '' }}"
     >
 </div>

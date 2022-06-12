@@ -12,5 +12,5 @@
             </path>
         </svg>
     </span>
-    <input name="fiscalId" type="text" class="form-control" id="fiscalId" required>
+    <input name="fiscal_id" type="text" class="form-control" id="fiscalId" required value="{{ old('fiscal_id') ?? '' }}">
 </div>
