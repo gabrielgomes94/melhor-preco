@@ -5772,20 +5772,18 @@ try {
 
 __webpack_require__(/*! ./costs/navbar */ "./resources/js/costs/navbar.js");
 
-__webpack_require__(/*! ./product/product */ "./resources/js/product/product.js");
-
 __webpack_require__(/*! ./product/upload_image */ "./resources/js/product/upload_image.js");
 
 __webpack_require__(/*! ./product/generate_qr_code */ "./resources/js/product/generate_qr_code.js");
 
-__webpack_require__(/*! ./pricing/inputs */ "./resources/js/pricing/inputs.js"); // require('./pricing/calculator_forms')
+__webpack_require__(/*! ./pricing/inputs */ "./resources/js/pricing/inputs.js"); // require('./notifications/notifications')
 
-
-__webpack_require__(/*! ./notifications/notifications */ "./resources/js/notifications/notifications.js");
 
 __webpack_require__(/*! ./marketplaces/navbar */ "./resources/js/marketplaces/navbar.js");
 
 __webpack_require__(/*! ./marketplaces/category_commission */ "./resources/js/marketplaces/category_commission.js");
+
+__webpack_require__(/*! ./users/registration_form */ "./resources/js/users/registration_form.js");
 
 /***/ }),
 
@@ -5892,114 +5890,6 @@ var highlightNavbarSection = function highlightNavbarSection() {
 };
 
 highlightNavbarSection();
-
-/***/ }),
-
-/***/ "./resources/js/notifications/notifications.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/notifications/notifications.js ***!
-  \*****************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-var showNotificationsBadge = function showNotificationsBadge() {
-  function setBadge(notificationsCount) {
-    var sections = document.querySelectorAll('.notifications-badge-section');
-    sections.forEach(function (section) {
-      section.innerHTML = "<span class='badge badge-sm bg-danger m-1 p-2 text-white rounded-circle '>" + notificationsCount + "</span>";
-    });
-  }
-
-  function getNotificationsCount() {
-    return _getNotificationsCount.apply(this, arguments);
-  }
-
-  function _getNotificationsCount() {
-    _getNotificationsCount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var url, options;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              url = window.location.origin + '/api/notifications/count';
-              options = {
-                method: 'GET',
-                headers: {
-                  'Accept': 'application/json',
-                  'Authorization': 'Bearer ' + tokenApiKey
-                }
-              };
-              _context.next = 4;
-              return fetch(url, options).then(function (data) {
-                return data.json();
-              }).then(function (data) {
-                if (data.count > 0) setBadge(data.count);
-              });
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-    return _getNotificationsCount.apply(this, arguments);
-  }
-
-  getNotificationsCount();
-};
-
-var highlightNavbarSection = function highlightNavbarSection() {
-  function isInboxPage() {
-    return window.location.pathname === '/notifications/inbox' && window.location.search === '';
-  }
-
-  function isInboxSolvedPage() {
-    return window.location.search.includes('filter=solved');
-  }
-
-  function getActiveSection() {
-    if (isInboxPage()) {
-      return document.querySelector('#inbox-nav-link');
-    } else if (isInboxSolvedPage()) {
-      return document.querySelector('#inbox-solved-nav-link');
-    }
-
-    return null;
-  }
-
-  var section = getActiveSection();
-
-  if (section == null) {
-    return;
-  }
-
-  section.style.borderBottom = '2px #2361ce solid';
-};
-
-var highlightNotification = function highlightNotification() {
-  var mainNotificationId = document.querySelector('.main-notification-card');
-  var cards = document.querySelectorAll('.notification-card');
-  cards.forEach(function (card) {
-    if (card.dataset.notificationId === mainNotificationId.dataset.mainNotificationId) {
-      card.style.backgroundColor = '#e5e7eb';
-    }
-  });
-};
-
-showNotificationsBadge();
-highlightNavbarSection();
-highlightNotification();
 
 /***/ }),
 
@@ -6217,26 +6107,6 @@ generateQRCodeForm();
 
 /***/ }),
 
-/***/ "./resources/js/product/product.js":
-/*!*****************************************!*\
-  !*** ./resources/js/product/product.js ***!
-  \*****************************************/
-/*! exports provided: requestOptions */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestOptions", function() { return requestOptions; });
-var requestOptions = {
-  method: 'GET',
-  headers: {
-    'Accept': 'application/json',
-    'Authorization': 'Bearer ' + tokenApiKey
-  }
-};
-
-/***/ }),
-
 /***/ "./resources/js/product/upload_image.js":
 /*!**********************************************!*\
   !*** ./resources/js/product/upload_image.js ***!
@@ -6248,14 +6118,12 @@ var requestOptions = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _product__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./product */ "./resources/js/product/product.js");
-/* harmony import */ var _error_box__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./error_box */ "./resources/js/product/error_box.js");
+/* harmony import */ var _error_box__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error_box */ "./resources/js/product/error_box.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 
 
 
@@ -6302,10 +6170,10 @@ var uploadImageAPI = function uploadImageAPI() {
                 }
 
                 if (data.errors) {
-                  _error_box__WEBPACK_IMPORTED_MODULE_2__["show"](data.errors, uploadImage.errorBox);
+                  _error_box__WEBPACK_IMPORTED_MODULE_1__["show"](data.errors, uploadImage.errorBox);
                 }
               })["catch"](function (error) {
-                _error_box__WEBPACK_IMPORTED_MODULE_2__["show"](error, uploadImage.errorBox);
+                _error_box__WEBPACK_IMPORTED_MODULE_1__["show"](error, uploadImage.errorBox);
               });
 
             case 4:
@@ -6348,6 +6216,38 @@ var filePreview = function filePreview() {
 
 uploadImageAPI();
 filePreview();
+
+/***/ }),
+
+/***/ "./resources/js/users/registration_form.js":
+/*!*************************************************!*\
+  !*** ./resources/js/users/registration_form.js ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var imask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! imask */ "./node_modules/imask/esm/index.js");
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  var phoneInput = document.querySelector('[data-registration-phone]');
+  Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(phoneInput, {
+    mask: [{
+      mask: '(00) 0000-0000'
+    }, {
+      mask: '(00) 0 0000-0000'
+    }]
+  });
+  var fiscalIdInput = document.querySelector('[data-registration-fiscal-id]');
+  Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(fiscalIdInput, {
+    mask: [{
+      mask: '000.000.000-00'
+    }, {
+      mask: '00.000.000/0000-00'
+    }]
+  });
+});
 
 /***/ }),
 
