@@ -13,7 +13,7 @@
         </svg>
     </span>
 
-    <input name="fiscalId"
+    <input name="fiscal_id"
            type="text"
            class="form-control"
            id="fiscalId"
