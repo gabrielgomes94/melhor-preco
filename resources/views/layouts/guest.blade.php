@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{{ asset('css/volt.css') }}">
 
         <!-- Scripts -->
+        <script type="text/javascript" src="{{ URL::asset('js/app.js') }}" defer></script>
         <script type="text/javascript" src="{{ URL::asset('js/volt.js') }}" defer></script>
     </head>
 
