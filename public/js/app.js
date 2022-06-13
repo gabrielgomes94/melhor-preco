@@ -5778,8 +5778,7 @@ __webpack_require__(/*! ./product/upload_image */ "./resources/js/product/upload
 
 __webpack_require__(/*! ./product/generate_qr_code */ "./resources/js/product/generate_qr_code.js");
 
-__webpack_require__(/*! ./pricing/inputs */ "./resources/js/pricing/inputs.js"); // require('./pricing/calculator_forms')
-
+__webpack_require__(/*! ./pricing/inputs */ "./resources/js/pricing/inputs.js");
 
 __webpack_require__(/*! ./notifications/notifications */ "./resources/js/notifications/notifications.js");
 
