@@ -246,7 +246,6 @@ return [
          */
         Src\Users\Infrastructure\Laravel\Providers\AuthServiceProvider::class,
         Src\Users\Infrastructure\Laravel\Providers\FortifyServiceProvider::class,
-        Src\Users\Infrastructure\Laravel\Providers\JetstreamServiceProvider::class,
 
         /**
          * PDF Generator Service Provider...
