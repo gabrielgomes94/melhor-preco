@@ -1,6 +1,7 @@
 import IMask from 'imask';
 
 document.addEventListener('DOMContentLoaded', (event) => {
+
     var moneyElements = document.querySelectorAll('.input-money');
     var percentageElements = document.querySelectorAll('.input-percentage');
 

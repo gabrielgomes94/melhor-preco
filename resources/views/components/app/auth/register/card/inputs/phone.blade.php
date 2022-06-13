@@ -16,5 +16,13 @@
             </path>
         </svg>
     </span>
-    <input name="phone" type="text" class="form-control" id="phone" value="{{ old('phone') ?? '' }}" required>
+
+    <input name="phone"
+           type="text"
+           class="form-control"
+           id="phone"
+           value="{{ old('phone') ?? '' }}"
+           data-registration-phone
+           required
+    >
 </div>

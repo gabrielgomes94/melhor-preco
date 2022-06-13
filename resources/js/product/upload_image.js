@@ -1,4 +1,3 @@
-import * as product from "./product";
 import * as errorBox from "./error_box";
 
 let uploadImageAPI = function() {
