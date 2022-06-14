@@ -29,18 +29,18 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->create();
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
-        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-    }
+        Fortify::loginView(function () {
+            return view('pages.auth.login');
+        });
 
-    public function create(): void
-    {
         Fortify::registerView(function () {
             return view('pages.auth.register');
         });
 
         Fortify::createUsersUsing(CreateNewUser::class);
+
+        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
     }
 }
