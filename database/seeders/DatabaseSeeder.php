@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $user->email = 'admin@admin.com';
         $user->password = bcrypt('asimov123');
         $user->name = 'Admin';
+        $user->phone = '+5511987654321';
+        $user->fiscal_id = '43987867086';
         $user->markEmailAsVerified();
         $user->save();
     }
