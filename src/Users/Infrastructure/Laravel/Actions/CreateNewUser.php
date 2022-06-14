@@ -26,13 +26,18 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'phone' => $input['phone'],
+            'fiscal_id' => $this->removeNonDigits($input['fiscal_id']),
         ]);
     }
 
     private function formatPhone(string $phone): string
     {
-        $phone = preg_replace('/[^0-9]/', '', $phone);
+        return '+55' . $this->removeNonDigits($phone);
+    }
 
-        return '+55' . $phone;
+    private function removeNonDigits(string $data): string
+    {
+        return preg_replace('/[^0-9]/', '', $data);
     }
 }
