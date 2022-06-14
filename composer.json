@@ -9,11 +9,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-intl": "*",
+        "ext-simplexml": "*",
         "barryvdh/laravel-dompdf": "^0.9.0",
         "doctrine/dbal": "^3.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel/fortify": "^1.13",
         "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
@@ -25,9 +28,7 @@
         "predis/predis": "~1.0",
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/data-transfer-object": "^2.8",
-        "squizlabs/php_codesniffer": "^3.5.8",
-        "ext-intl": "*",
-        "ext-simplexml": "*"
+        "squizlabs/php_codesniffer": "^3.5.8"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.7",
