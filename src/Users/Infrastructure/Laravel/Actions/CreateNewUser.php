@@ -3,17 +3,24 @@
 namespace Src\Users\Infrastructure\Laravel\Actions;
 
 use Src\Users\Infrastructure\Laravel\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Src\Users\Infrastructure\Laravel\Repositories\Repository;
 use Src\Users\Infrastructure\Laravel\Rules\FiscalId;
 use Src\Users\Infrastructure\Laravel\Rules\Phone;
 
 class CreateNewUser implements CreatesNewUsers
 {
+    public function __construct(
+        private Repository $repository
+    ) {
+    }
+
     public function create(array $input): User
     {
         $input['phone'] = $this->formatPhone($input['phone'] ?? '');
+        $input['fiscal_id'] = $this->removeNonDigits($input['fiscal_id']);
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -22,13 +29,7 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => ['required', new Phone()],
         ])->validate();
 
-        return User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-            'phone' => $input['phone'],
-            'fiscal_id' => $this->removeNonDigits($input['fiscal_id']),
-        ]);
+        return $this->repository->register($input);
     }
 
     private function formatPhone(string $phone): string

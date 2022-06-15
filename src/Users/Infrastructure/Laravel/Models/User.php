@@ -8,13 +8,15 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Src\Notifications\Domain\Models\Notification;
+use Src\Users\Domain\Entities\User as UserInterface;
 
-class User extends Authenticatable
+class User extends Authenticatable implements UserInterface
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
-    use TwoFactorAuthenticatable;
+
+//    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -50,18 +52,34 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'profile_photo_url',
-    ];
-
     public function notifications()
     {
         return $this->morphMany(Notification::class, 'notifiable')
             ->orderBy('created_at', 'desc');
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getFiscalId(): string
+    {
+        return $this->fiscal_id;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function getErpToken(): ?string
+    {
+        return $this->erp_token;
     }
 }
