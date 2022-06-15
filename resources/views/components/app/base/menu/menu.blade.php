@@ -78,7 +78,7 @@
                 />
 
                 <x-app.base.menu.menu-item
-                    route="{{ route('home') }}"
+                    route="{{ route('users.settings.integrations') }}"
                     name="Configurações"
                     badge="em breve"
                     icon="settings"
