@@ -78,6 +78,11 @@ class User extends Authenticatable implements UserInterface
         return $this->phone;
     }
 
+    public function getErp(): ?string
+    {
+        return $this->erp;
+    }
+
     public function getErpToken(): ?string
     {
         return $this->erp_token;
