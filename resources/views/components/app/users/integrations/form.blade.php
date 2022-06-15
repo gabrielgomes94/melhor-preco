@@ -1,6 +1,8 @@
 <x-bootstrap.forms.form.post
     :action="route('users.settings.updateErp')"
 >
+    @csrf
+
     <div class="my-2">
         <x-bootstrap.forms.input.read-only
             name="erp"
@@ -12,7 +14,7 @@
 
     <div class="my-2">
         <x-bootstrap.forms.input.text
-            name="erpToken"
+            attribute="erp_token"
             id="erp-token-input"
             label="Token do ERP"
             value="{{ $erpToken ?? '' }}"

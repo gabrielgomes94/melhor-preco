@@ -8,7 +8,7 @@
             <x-bootstrap.alert-messages.alert-messages />
 
             <div class="mt-2">
-                <x-app.users.integrations.card />
+                <x-app.users.integrations.card :erpToken="$erpToken" />
             </div>
         </div>
     </div>
