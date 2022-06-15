@@ -22,6 +22,7 @@ include 'products/web.php';
 include 'prices/price/web.php';
 include 'promotions/web.php';
 include 'sales/web.php';
+include 'users/web.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');

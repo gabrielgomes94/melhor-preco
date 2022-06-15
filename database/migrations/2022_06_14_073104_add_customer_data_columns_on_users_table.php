@@ -10,6 +10,7 @@ class AddCustomerDataColumnsOnUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('erp_token')->nullable();
+            $table->string('erp')->nullable();
             $table->string('phone');
             $table->string('fiscal_id');
         });
@@ -18,6 +19,7 @@ class AddCustomerDataColumnsOnUsersTable extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('erp');
             $table->dropColumn('erp_token');
             $table->dropColumn('phone');
             $table->dropColumn('fiscal_id');
