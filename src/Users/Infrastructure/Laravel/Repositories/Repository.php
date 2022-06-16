@@ -40,4 +40,13 @@ class Repository implements RepositoryInterface
 
         return $user->save();
     }
+
+    public function updateProfile(User $user, array $data): bool
+    {
+        $user->name = $data['name'];
+        $user->phone = $data['phone'];
+        $user->fiscal_id = $data['fiscal_id'];
+
+        return $user->save();
+    }
 }

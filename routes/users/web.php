@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Users\Infrastructure\Laravel\Http\Controllers\IntegrationsController;
+use Src\Users\Infrastructure\Laravel\Http\Controllers\ProfileController;
 use Src\Users\Infrastructure\Laravel\Http\Controllers\TaxesController;
 
 Route::middleware('auth')
@@ -21,5 +22,11 @@ Route::middleware('auth')
 
                 Route::post('/impostos', [TaxesController::class, 'update'])
                     ->name('.taxes');
+
+                Route::get('/perfil', [ProfileController::class, 'show'])
+                    ->name('.profile');
+
+                Route::post('/perfil', [ProfileController::class, 'update'])
+                    ->name('.profile');
             });
     });
