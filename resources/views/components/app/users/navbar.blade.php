@@ -15,7 +15,7 @@
     />
 
     <x-app.base.navbar.navbar-item
-        :link="route('users.settings.integrations')"
+        :link="route('users.settings.profile')"
         label="Informações da Conta"
     />
 </x-app.base.navbar.navbar>

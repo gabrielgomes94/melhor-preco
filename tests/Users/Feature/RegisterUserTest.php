@@ -7,7 +7,7 @@ use Illuminate\Testing\TestResponse;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\TestCase;
 
-class RegisterUser extends TestCase
+class RegisterUserTest extends TestCase
 {
     use RefreshDatabase;
 
