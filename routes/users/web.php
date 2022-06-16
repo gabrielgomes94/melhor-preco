@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Users\Infrastructure\Laravel\Http\Controllers\IntegrationsController;
+use Src\Users\Infrastructure\Laravel\Http\Controllers\TaxesController;
 
 Route::middleware('auth')
     ->name('users')
@@ -14,5 +15,11 @@ Route::middleware('auth')
 
                 Route::post('/integracoes', [IntegrationsController::class, 'updateErp'])
                     ->name('.updateErp');
+
+                Route::get('/impostos', [TaxesController::class, 'get'])
+                    ->name('.taxes');
+
+                Route::post('/impostos', [TaxesController::class, 'update'])
+                    ->name('.taxes');
             });
     });
