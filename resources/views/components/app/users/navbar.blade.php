@@ -1,6 +1,6 @@
 <x-app.base.navbar.navbar>
     <x-app.base.navbar.navbar-item
-        :link="route('users.settings.integrations')"
+        :link="route('marketplaces.list')"
         label="Marketplaces"
     />
 

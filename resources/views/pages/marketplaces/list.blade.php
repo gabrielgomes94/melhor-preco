@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-app.marketplaces.navbar />
+        <x-app.users.navbar />
     </x-slot>
 
     <div class="m-4">

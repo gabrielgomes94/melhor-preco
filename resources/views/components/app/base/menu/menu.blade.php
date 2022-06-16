@@ -59,12 +59,6 @@
                 />
 
                 <x-app.base.menu.menu-item
-                    route="{{ route('marketplaces.list') }}"
-                    name="Marketplaces"
-                    icon="marketplace"
-                />
-
-                <x-app.base.menu.menu-item
                     route="{{ route('promotions.index') }}"
                     name="Promoções"
                     icon="price"
@@ -80,7 +74,6 @@
                 <x-app.base.menu.menu-item
                     route="{{ route('users.settings.integrations') }}"
                     name="Configurações"
-                    badge="em breve"
                     icon="settings"
                 />
 
