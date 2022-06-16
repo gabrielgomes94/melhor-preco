@@ -33,4 +33,11 @@ class Repository implements RepositoryInterface
 
         return $user->save();
     }
+
+    public function updateTax(User $user, float $taxRate): bool
+    {
+        $user->tax_rate = $taxRate;
+
+        return $user->save();
+    }
 }

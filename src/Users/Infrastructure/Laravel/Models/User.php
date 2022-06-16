@@ -28,7 +28,8 @@ class User extends Authenticatable implements UserInterface
         'email',
         'password',
         'phone',
-        'fiscal_id'
+        'fiscal_id',
+        'tax_rate',
     ];
 
     /**
@@ -86,5 +87,10 @@ class User extends Authenticatable implements UserInterface
     public function getErpToken(): ?string
     {
         return $this->erp_token;
+    }
+
+    public function getSimplesNacionalTaxRate(): float
+    {
+        return $this->tax_rate ?? 0.0;
     }
 }
