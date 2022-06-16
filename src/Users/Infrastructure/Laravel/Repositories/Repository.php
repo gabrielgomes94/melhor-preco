@@ -49,4 +49,15 @@ class Repository implements RepositoryInterface
 
         return $user->save();
     }
+
+    public function updatePassword(User $user, array $data): bool
+    {
+        if (!Hash::check($data['current_password'], $user->password)) {
+            return false;
+        }
+
+        $user->password = Hash::make($data['password']);
+
+        return $user->save();
+    }
 }
