@@ -5,7 +5,7 @@
     />
 
     <x-app.base.navbar.navbar-item
-        :link="route('users.settings.integrations')"
+        :link="route('users.settings.taxes')"
         label="Impostos"
     />
 
