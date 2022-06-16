@@ -16,7 +16,7 @@
         <x-bootstrap.forms.input.text
             attribute="tax_rate"
             id="tax-rate-input"
-            label="Alíquota"
+            label="Alíquota (%)"
             value="{{ $taxRate ?? '' }}"
         />
     </div>

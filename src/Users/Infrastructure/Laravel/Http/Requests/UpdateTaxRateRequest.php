@@ -18,8 +18,18 @@ class UpdateTaxRateRequest extends FormRequest
         ];
     }
 
+    public function validationData(): array
+    {
+        $taxRate = $this->input('tax_rate');
+        $taxRate = str_replace(',', '.', $taxRate);
+
+        return [
+            'tax_rate' => (float) $taxRate,
+        ];
+    }
+
     public function getTaxRate(): float
     {
-        return $this->input('tax_rate');
+        return (float) $this->validated()['tax_rate'];
     }
 }

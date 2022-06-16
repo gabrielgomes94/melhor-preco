@@ -19,7 +19,7 @@ class TaxesController
         $user = auth()->user();
 
         return view('pages.users.taxes', [
-            'taxRate' => $user->getSimplesNacionalTaxRate(),
+            'taxRate' => str_replace('.', ',', $user->getSimplesNacionalTaxRate()),
         ]);
     }
 
