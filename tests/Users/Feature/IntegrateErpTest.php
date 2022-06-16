@@ -15,6 +15,15 @@ class IntegrateErpTest extends TestCase
     private TestResponse $response;
     private User $user;
 
+    public function test_should_render_update_erp_form(): void
+    {
+        $this->given_i_have_a_user_which_does_not_have_an_erp_integrated();
+
+        $this->when_i_want_to_update_erp();
+
+        $this->then_i_must_see_update_erp_page();
+    }
+
     public function test_should_update_erp(): void
     {
         $this->given_i_have_a_user_which_does_not_have_an_erp_integrated();
@@ -45,6 +54,13 @@ class IntegrateErpTest extends TestCase
             ]);
     }
 
+    private function when_i_want_to_update_erp(): void
+    {
+        $this->response = $this
+            ->actingAs($this->user)
+            ->get('/configuracoes/integracoes');
+    }
+
     private function then_the_user_must_have_an_erp_integrated(): void
     {
         $user = $this->user->refresh();
@@ -56,5 +72,11 @@ class IntegrateErpTest extends TestCase
     private function and_the_user_must_be_redirected(): void
     {
         $this->response->assertRedirect();
+    }
+
+    private function then_i_must_see_update_erp_page(): void
+    {
+        $this->response->assertViewIs('pages.users.integrations');
+        $this->response->assertViewHas('erpToken', null);
     }
 }
