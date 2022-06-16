@@ -28,5 +28,8 @@ Route::middleware('auth')
 
                 Route::post('/perfil', [ProfileController::class, 'update'])
                     ->name('.profile');
+
+                Route::post('atualizar-senha', [ProfileController::class, 'updatePasword'])
+                    ->name('.updatePassword');
             });
     });
