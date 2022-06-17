@@ -13,5 +13,7 @@ interface Repository
 
     public function updateErp(User $user, Erp $erp): bool;
 
-    public function updateProfile(User $user, array $data): bool;
+    public function updatePassword(User $user, string $currentPassword, string $password): bool;
+
+    public function updateProfile(User $user, string $name, string $phone, string $fiscalId): bool;
 }
