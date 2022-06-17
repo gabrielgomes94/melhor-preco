@@ -47,18 +47,6 @@
                     "/>
 
                 <x-app.base.menu.menu-item
-                    route="{{ route('costs.product.list') }}"
-                    name="Custos"
-                    icon="costs"
-                />
-
-                <x-app.base.menu.menu-item
-                    route="{{ route('promotions.index') }}"
-                    name="Promoções"
-                    icon="price"
-                />
-
-                <x-app.base.menu.menu-item
                     route="{{ route('sales.list') }}"
                     name="Gestão de Vendas"
                     badge="beta"

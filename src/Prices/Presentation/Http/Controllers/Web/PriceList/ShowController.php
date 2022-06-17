@@ -35,7 +35,7 @@ class ShowController extends Controller
 
         $data = $this->priceListPresenter->list($paginator, $store, $request->all());
 
-        return view('pages.pricing.price-list.stores.show', $data);
+        return view('pages.pricing.price-list.show', $data);
     }
 
     private function getOptions(string $store, ShowRequest $request): Options

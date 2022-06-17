@@ -1,4 +1,8 @@
 <x-layout>
+    <x-slot name="navbar">
+        <x-app.pricing.navbar />
+    </x-slot>
+
     <div class="container">
         <div class="row mb-4">
             <div class="my-4">
