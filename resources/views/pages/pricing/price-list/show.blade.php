@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="navbar">
-        <x-app.pricing.price-list.navbar :selected="$store->slug()" :marketplaces="$marketplaces"/>
+        <x-app.pricing.navbar />
     </x-slot>
 
     <x-slot name="breadcrumb">
