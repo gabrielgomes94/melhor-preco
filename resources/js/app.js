@@ -1,6 +1,5 @@
 require('./costs/navbar')
 require('./product/upload_image')
-require('./product/generate_qr_code')
 require('./pricing/inputs')
 // require('./notifications/notifications')
 require('./marketplaces/navbar')

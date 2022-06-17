@@ -35,12 +35,6 @@
                 />
 
                 <x-app.base.menu.menu-item
-                    route="{{ route('products.stock_tags.index') }}"
-                    name="Etiquetas de Estoque"
-                    icon="qr-code"
-                />
-
-                <x-app.base.menu.menu-item
                     route="{{ route('products.reports.informations') }}"
                     name="Produtos"
                     icon="qr-code"
