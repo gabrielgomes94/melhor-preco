@@ -28,35 +28,32 @@ class Repository implements RepositoryInterface
 
     public function updateErp(User $user, Erp $erp): bool
     {
-        $user->erp = $erp->name;
-        $user->erp_token = $erp->token;
+        $user->setErp($erp);
 
         return $user->save();
     }
 
     public function updateTax(User $user, float $taxRate): bool
     {
-        $user->tax_rate = $taxRate;
+        $user->setTaxRate($taxRate);
 
         return $user->save();
     }
 
-    public function updateProfile(User $user, array $data): bool
+    public function updateProfile(User $user, string $name, string $phone, string $fiscalId): bool
     {
-        $user->name = $data['name'];
-        $user->phone = $data['phone'];
-        $user->fiscal_id = $data['fiscal_id'];
+        $user->setProfile($name, $phone, $fiscalId);
 
         return $user->save();
     }
 
-    public function updatePassword(User $user, array $data): bool
+    public function updatePassword(User $user, string $currentPassword, string $password): bool
     {
-        if (!Hash::check($data['current_password'], $user->password)) {
+        if (!Hash::check($currentPassword, $user->getPassword())) {
             return false;
         }
 
-        $user->password = Hash::make($data['password']);
+        $user->setPassword(Hash::make($password));
 
         return $user->save();
     }

@@ -5,9 +5,9 @@ namespace Src\Users\Infrastructure\Laravel\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Src\Notifications\Domain\Models\Notification;
+use Src\Users\Domain\DataTransfer\Erp;
 use Src\Users\Domain\Entities\User as UserInterface;
 
 class User extends Authenticatable implements UserInterface
@@ -15,8 +15,6 @@ class User extends Authenticatable implements UserInterface
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
-
-//    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -74,11 +72,6 @@ class User extends Authenticatable implements UserInterface
         return $this->email;
     }
 
-    public function getPhone(): string
-    {
-        return $this->phone;
-    }
-
     public function getErp(): ?string
     {
         return $this->erp;
@@ -89,8 +82,41 @@ class User extends Authenticatable implements UserInterface
         return $this->erp_token;
     }
 
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
     public function getSimplesNacionalTaxRate(): float
     {
         return $this->tax_rate ?? 0.0;
+    }
+
+    public function setErp(Erp $erp): void
+    {
+        $this->erp = $erp->name;
+        $this->erp_token = $erp->token;
+    }
+
+    public function setPassword(string $hashedPassword): void
+    {
+        $this->password = $hashedPassword;
+    }
+
+    public function setProfile(string $name, string $phone, string $fiscalId): void
+    {
+        $this->name = $name;
+        $this->phone = $phone;
+        $this->fiscal_id = $fiscalId;
+    }
+
+    public function setTaxRate(float $taxRate = 0.0): void
+    {
+        $this->tax_rate = $taxRate;
     }
 }
