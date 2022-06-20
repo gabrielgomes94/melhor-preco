@@ -6,24 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class AddIsActiveColumnOnMarketplacesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('marketplaces', function(Blueprint $table) {
             $table->float('is_active')->default(true);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         if (Schema::hasColumn('marketplaces', 'is_active')) {
             Schema::table('marketplaces', function (Blueprint $table) {

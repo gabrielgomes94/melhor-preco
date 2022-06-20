@@ -27,6 +27,10 @@ class RemoveSkuColumnsOnProductsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('sku_magalu')->nullable();
+            $table->string('sku_b2w')->nullable();
+            $table->string('sku_mercado_livre')->nullable();
+        });
     }
 }

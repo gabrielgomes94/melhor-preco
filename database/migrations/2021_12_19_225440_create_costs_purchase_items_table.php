@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCostsPurchaseItemsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('costs_purchase_items', function (Blueprint $table) {
             $table->uuid('uuid');
@@ -31,12 +26,7 @@ class CreateCostsPurchaseItemsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('costs_purchase_items');
     }

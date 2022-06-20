@@ -26,7 +26,7 @@ class AddStoreSkuIdToPricesTable extends Migration
     public function down()
     {
         Schema::table('prices', function (Blueprint $table) {
-            //
+            $table->dropColumn('store_sku_id');
         });
     }
 }

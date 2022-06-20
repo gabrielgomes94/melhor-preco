@@ -6,25 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class AddProductSkuColumnOnPrices extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('prices', function (Blueprint $table) {
             $table->string('product_sku')->nullable();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
-        //
+        Schema::table('prices', function (Blueprint $table) {
+            $table->dropColumn('product_sku');
+        });
     }
 }

@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class RemoveTaxIpiAndTaxSimplesNacionalColumnOnProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn('tax_ipi');
@@ -19,13 +14,11 @@ class RemoveTaxIpiAndTaxSimplesNacionalColumnOnProductsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
-        //
+        Schema::table('products', function (Blueprint $table) {
+            $table->float('tax_ipi', 7, 4);
+            $table->float('tax_simples_nacional', 7, 4);
+        });
     }
 }

@@ -6,25 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class AddHasVariationColumnOnProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
             $table->boolean('has_variations')->default(false);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
-        //
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('has_variations');
+        });
     }
 }

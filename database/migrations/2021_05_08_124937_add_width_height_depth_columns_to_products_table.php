@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class AddWidthHeightDepthColumnsToProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
             $table->decimal('depth');
@@ -20,15 +15,12 @@ class AddWidthHeightDepthColumnsToProductsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            //
+            $table->dropColumn('depth');
+            $table->dropColumn('width');
+            $table->dropColumn('height');
         });
     }
 }
