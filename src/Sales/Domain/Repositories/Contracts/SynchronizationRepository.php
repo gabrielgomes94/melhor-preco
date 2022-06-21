@@ -8,7 +8,7 @@ use Src\Sales\Infrastructure\Bling\Data\SaleOrder as SaleOrderData;
 
 interface SynchronizationRepository
 {
-    public function insert(SaleOrderData $externalSaleOrder): SaleOrder;
+    public function insert(SaleOrderData $externalSaleOrder, string $userId): SaleOrder;
 
     public static function syncPayment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
 

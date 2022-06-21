@@ -16,7 +16,11 @@ class SyncCategories implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
+    public function __construct(private string $userId)
+    {
+    }
+
     public function handle(SyncCategoriesUseCase $synchronizeCategories) {
-        $synchronizeCategories->sync();
+        $synchronizeCategories->sync($this->userId);
     }
 }

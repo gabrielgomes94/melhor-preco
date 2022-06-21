@@ -17,7 +17,7 @@ class SynchronizeProducts
         $this->erpRepository = $erpRepository;
     }
 
-    public function sync(): void
+    public function sync(string $userId): void
     {
         $updatedCount = $createdCount = 0;
         $products = $this->erpRepository->all();
@@ -41,6 +41,7 @@ class SynchronizeProducts
             }
 
             $product->fill($erpProduct->toArray());
+            $product->user_id = $userId;
             $product->save();
             ++$updatedCount;
         }

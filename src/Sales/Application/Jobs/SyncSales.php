@@ -20,10 +20,14 @@ class SyncSales implements ShouldQueue
 
     private CalculateTotalProfit $calculateTotalProfit;
 
+    public function __construct(private string $userId)
+    {
+    }
+
     public function handle(ErpRepository $erpRepository, Synchronize $synchronizeService): void
     {
         $data = $erpRepository->list();
 
-        $synchronizeService->sync($data);
+        $synchronizeService->sync($data, $this->userId);
     }
 }

@@ -16,8 +16,12 @@ class SyncProducts implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
+    public function __construct(private string $userId)
+    {
+    }
+
     public function handle(SynchronizeProducts $synchronizeProducts): void
     {
-        $synchronizeProducts->sync();
+        $synchronizeProducts->sync($this->userId);
     }
 }

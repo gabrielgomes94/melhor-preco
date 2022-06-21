@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Src\Integrations\Bling\Base\Responses\ErrorResponse;
 use Src\Products\Infrastructure\Bling\ProductRepository;
 
+// @deprecated
 class ProductController extends BaseController
 {
     private ProductRepository $erpRepository;

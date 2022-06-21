@@ -29,12 +29,13 @@ class Synchronize
         $this->syncRepository = $syncRepository;
     }
 
-    public function sync(array $data)
+    public function sync(array $data, string $userId)
     {
         foreach ($data as $saleOrder) {
             try {
                 if (!$saleOrderModel = $this->getSaleOrder($saleOrder)) {
-                    $this->insertSaleOrder($saleOrder);
+
+                    $this->insertSaleOrder($saleOrder, $userId);
                     continue;
                 }
 
@@ -52,9 +53,9 @@ class Synchronize
         return SaleOrder::where('sale_order_id', $id)->first();
     }
 
-    private function insertSaleOrder(SaleOrderInterface $externalSaleOrder): void
+    private function insertSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): void
     {
-        $saleOrderModel = $this->syncRepository->insert($externalSaleOrder);
+        $saleOrderModel = $this->syncRepository->insert($externalSaleOrder, $userId);
 
         $this->itemsRepository->insert($saleOrderModel, $externalSaleOrder->getItems());
 

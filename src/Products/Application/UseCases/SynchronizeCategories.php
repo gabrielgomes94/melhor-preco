@@ -17,7 +17,7 @@ class SynchronizeCategories implements SyncCategories
         $this->erpCategoryRepository = $erpCategoryRepository;
     }
 
-    public function sync(): void
+    public function sync(string $userId): void
     {
         $data = $this->erpCategoryRepository->list();
 
@@ -26,7 +26,7 @@ class SynchronizeCategories implements SyncCategories
                 continue;
             }
 
-            $this->categoryRepository->insert($category);
+            $this->categoryRepository->insert($category, $userId);
         }
     }
 }

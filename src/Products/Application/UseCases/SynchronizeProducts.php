@@ -23,10 +23,10 @@ class SynchronizeProducts implements SyncProductsInterface
         $this->syncProductsService = $syncProductsService;
     }
 
-    public function sync(): void
+    public function sync(string $userId): void
     {
-        $this->syncProductsService->sync();
+        $this->syncProductsService->sync($userId);
         $this->syncCostsService->sync();
-        $this->syncPricesService->syncAll();
+        $this->syncPricesService->syncAll($userId);
     }
 }

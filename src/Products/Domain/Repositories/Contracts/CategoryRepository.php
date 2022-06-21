@@ -12,7 +12,7 @@ interface CategoryRepository
 
     public function getParent(string $categoryId);
 
-    public function insert(Category $category);
+    public function insert(Category $category, string $userId);
 
     public function list();
 }

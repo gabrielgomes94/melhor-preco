@@ -60,6 +60,7 @@ class SavePrices
         $product = Product::where('sku', $price->product_sku)->get()->first();
         $price = $this->updateCommissionAndProfit($price);
         $price->product()->associate($product);
+        $price->user_id = $price->getMarketplace()->user_id;
 
         $this->savePrice($price);
     }

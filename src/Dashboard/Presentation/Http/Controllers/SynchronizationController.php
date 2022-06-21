@@ -17,7 +17,8 @@ class SynchronizationController extends Controller
 
     public function sync(Request $request)
     {
-        $this->synchronizeData->execute();
+        $userId = auth()->user()->id;
+        $this->synchronizeData->execute($userId);
 
         return redirect()->back();
     }
