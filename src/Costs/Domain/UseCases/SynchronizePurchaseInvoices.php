@@ -15,12 +15,12 @@ class SynchronizePurchaseInvoices implements SyncPurchaseInvoices
     {
     }
 
-    public function sync(): void
+    public function sync(string $userId): void
     {
         $data = $this->erpRepository->listPurchaseInvoice();
 
         foreach ($data as $purchaseInvoice) {
-            $this->repository->insertPurchaseInvoice($purchaseInvoice);
+            $this->repository->insertPurchaseInvoice($purchaseInvoice, $userId);
         }
     }
 }

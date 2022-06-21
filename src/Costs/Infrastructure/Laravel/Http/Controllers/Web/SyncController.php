@@ -10,7 +10,8 @@ class SyncController extends Controller
 {
     public function sync(Request $request)
     {
-        SyncCosts::dispatch();
+        $userId = auth()->user()->id;
+        SyncCosts::dispatch($userId);
 
         return redirect()->route('costs.listPurchaseInvoices');
     }
