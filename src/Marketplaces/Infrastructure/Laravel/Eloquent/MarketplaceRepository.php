@@ -6,11 +6,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
 
 class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
-    public function create(array $data): Marketplace
+    public function create(MarketplaceSettings $data): Marketplace
     {
         $data = $this->prepareData($data);
 
@@ -48,7 +49,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return Marketplace::all();
     }
 
-    public function update(array $data, string $marketplaceId): bool
+    public function update(MarketplaceSettings $data, string $marketplaceId): bool
     {
         $marketplace = $this->getByUuid($marketplaceId);
 
@@ -62,19 +63,20 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return $marketplace->save();
     }
 
-    private function prepareData(array $data): array
+    private function prepareData(MarketplaceSettings $data): array
     {
-        $slug = Str::slug($data['name']);
+        $slug = Str::slug($data->name);
 
         return [
-            'erp_id' => $data['erpId'],
+            'erp_id' => $data->erpId,
             'erp_name' => 'bling',
             'extra' => [
-                'commissionType' => $data['commissionType'],
+                'commissionType' => $data->commissionType,
             ],
-            'is_active' => $data['is_active'],
-            'name' => $data['name'],
+            'is_active' => $data->isActive,
+            'name' => $data->name,
             'slug' => $slug,
+            'user_id' => $data->userId
         ];
     }
 }

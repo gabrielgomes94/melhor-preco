@@ -4,10 +4,11 @@ namespace Src\Marketplaces\Domain\Repositories;
 
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 
 interface MarketplaceRepository
 {
-    public function create(array $data): Marketplace;
+    public function create(MarketplaceSettings $data): Marketplace;
 
     public function exists(string $marketplaceUuid): bool;
 
@@ -19,5 +20,5 @@ interface MarketplaceRepository
 
     public function list(): Collection;
 
-    public function update(array $data, string $marketplaceId): bool;
+    public function update(MarketplaceSettings $data, string $marketplaceId): bool;
 }

@@ -3,6 +3,7 @@
 namespace Src\Marketplaces\Presentation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 
 class SaveMarketplaceRequest extends FormRequest
 {
@@ -53,5 +54,18 @@ class SaveMarketplaceRequest extends FormRequest
     public function isActive(): bool
     {
         return $this->input('status') ?? false;
+    }
+
+    public function transform(): MarketplaceSettings
+    {
+        $data = $this->validated();
+
+        return new MarketplaceSettings(
+            $data['erpId'],
+            $data['name'],
+            $data['is_active'],
+            $data['commissionType'],
+            auth()->user()->id
+        );
     }
 }
