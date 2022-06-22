@@ -2,6 +2,7 @@
 
 namespace Src\Products\Domain\Repositories\Contracts;
 
+use Carbon\Carbon;
 use Src\Products\Domain\Models\Categories\Category;
 
 interface CategoryRepository
@@ -15,4 +16,8 @@ interface CategoryRepository
     public function insert(Category $category, string $userId);
 
     public function list();
+
+    public function count(): int;
+
+    public function getLastUpdatedAt(): ?Carbon;
 }

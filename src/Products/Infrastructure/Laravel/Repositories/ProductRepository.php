@@ -59,7 +59,9 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function count(): int
     {
-        return Product::query()->count();
+        $userId = auth()->user()->id;
+
+        return Product::query()->where('user_id', $userId)->count();
     }
 
     public function countActives(): int

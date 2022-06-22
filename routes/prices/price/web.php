@@ -18,7 +18,6 @@ Route::middleware('auth')->group(function () {
                 ->group(function () {
                     Route::get('/{$store}', [CalculatorController::class, 'massCalculation'])
                         ->name('.massCalculation');
-
                 });
 
             Route::prefix('/price_list')
@@ -37,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/{store_slug}/sync', [SyncController::class, 'sync'])
                 ->name('.sync');
+
+            Route::post('/sync', [SyncController::class, 'sync'])
+                ->name('.syncAll');
 
             Route::prefix('/price_log')
                 ->name('.priceLog')

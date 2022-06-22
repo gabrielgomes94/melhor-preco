@@ -65,7 +65,7 @@ class Repository implements RepositoryInterface
     {
         $marketplaces = $this->marketplaceRepository->list();
 
-        return $marketplaces->mapWithKeys(function (Marketplace $marketplace) use ($beginDate, $endDate){
+        return $marketplaces->mapWithKeys(function (Marketplace $marketplace) use ($beginDate, $endDate) {
             return $this->mapMarketplaceCount($marketplace, $beginDate, $endDate);
         })->all();
     }
@@ -87,12 +87,14 @@ class Repository implements RepositoryInterface
 
     public function countSales(): int
     {
-        return SaleOrder::count();
+        $userId = auth()->user()->id;
+        return SaleOrder::where('user_id', $userId)->count();
     }
 
     public function getLastSaleDateTime(): ?Carbon
     {
-        $lastUpdatedProduct = SaleOrder::query()->orderByDesc('selled_at')->first();
+        $userId = auth()->user()->id;
+        $lastUpdatedProduct = SaleOrder::query()->where('user_id', $userId)->orderByDesc('selled_at')->first();
 
         return $lastUpdatedProduct?->getLastUpdate();
     }
