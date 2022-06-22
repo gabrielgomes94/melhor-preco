@@ -2,7 +2,9 @@
 
 namespace Src\Products\Domain\UseCases\Contracts;
 
+use Src\Users\Infrastructure\Laravel\Models\User;
+
 interface SyncCategories
 {
-    public function sync(string $userId): void;
+    public function sync(User $user): void;
 }

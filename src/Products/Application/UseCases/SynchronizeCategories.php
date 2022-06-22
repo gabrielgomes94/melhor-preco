@@ -5,6 +5,7 @@ namespace Src\Products\Application\UseCases;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
 use Src\Products\Domain\Repositories\Contracts\Erp\CategoryRepository as ErpCategoryRepository;
 use Src\Products\Domain\UseCases\Contracts\SyncCategories;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class SynchronizeCategories implements SyncCategories
 {
@@ -17,16 +18,16 @@ class SynchronizeCategories implements SyncCategories
         $this->erpCategoryRepository = $erpCategoryRepository;
     }
 
-    public function sync(string $userId): void
+    public function sync(User $user): void
     {
-        $data = $this->erpCategoryRepository->list();
+        $data = $this->erpCategoryRepository->list($user->getErpToken());
 
         foreach ($data as $category) {
             if ($this->categoryRepository->exists($category->getCategoryId())) {
                 continue;
             }
 
-            $this->categoryRepository->insert($category, $userId);
+            $this->categoryRepository->insert($category, $user->getId());
         }
     }
 }

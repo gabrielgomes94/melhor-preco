@@ -14,12 +14,19 @@ class SynchronizationController extends Controller
         return view('pages.products.sync.sync');
     }
 
-    public function doSync(Request $request)
+    public function doSync()
     {
         $userId = auth()->user()->id;
-        SyncCategories::dispatch($userId);
+        SyncCategories::dispatch(auth()->user());
         SyncProducts::dispatch($userId);
 
         return view('pages.products.sync.sync');
+    }
+
+    public function doSyncCategory()
+    {
+        SyncCategories::dispatch(auth()->user());
+
+        return redirect()->back();
     }
 }

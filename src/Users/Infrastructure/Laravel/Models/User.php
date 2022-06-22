@@ -82,6 +82,11 @@ class User extends Authenticatable implements UserInterface
         return $this->erp_token;
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function getPassword(): string
     {
         return $this->password;

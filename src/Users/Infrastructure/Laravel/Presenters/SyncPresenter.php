@@ -25,7 +25,7 @@ class SyncPresenter
             'categories' => [
                 'quantity' => $this->categoryRepository->count(),
                 'syncedAt' => $this->categoryRepository->getLastUpdatedAt()?->format('d/m/Y H:i'),
-                'route' => 'products.sync',
+                'route' => 'categories.sync',
             ],
             'prices' => [
                 'quantity' => $this->priceRepository->count(),

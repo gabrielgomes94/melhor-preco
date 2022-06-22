@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Src\Products\Domain\UseCases\Contracts\SyncCategories as SyncCategoriesUseCase;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class SyncCategories implements ShouldQueue
 {
@@ -16,11 +17,11 @@ class SyncCategories implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private string $userId)
+    public function __construct(private User $user)
     {
     }
 
     public function handle(SyncCategoriesUseCase $synchronizeCategories) {
-        $synchronizeCategories->sync($this->userId);
+        $synchronizeCategories->sync($this->user);
     }
 }

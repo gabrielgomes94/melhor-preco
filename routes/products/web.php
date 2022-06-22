@@ -33,4 +33,9 @@ Route::middleware('auth')->group(function () {
                         ->name('.overDimension');
                 });
         });
+
+    Route::prefix('categorias')
+        ->name('categories')->group(function() {
+            Route::put('/sincronizar', [SynchronizationController::class, 'doSyncCategory'])->name('.sync');
+        });
 });

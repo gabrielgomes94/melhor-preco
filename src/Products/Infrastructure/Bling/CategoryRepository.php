@@ -15,13 +15,13 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->client = $client;
     }
 
-    public function list(): array
+    public function list(string $erpToken): array
     {
         $categories = [];
         $page = 0;
 
         do {
-            $data = $this->client->list(++$page);
+            $data = $this->client->list($erpToken, ++$page);
             $categories = array_merge($categories, $data);
         } while (!empty($data));
 
