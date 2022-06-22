@@ -30,9 +30,6 @@
                     <a class="dropdown-item" href={{ route('products.costs.edit') }}>Atualizar Custos</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href={{ route('products.reports.overDimension') }}>Relatórios de Produtos</a>
-            </li>
         </ul>
 
         <ul class="nav justify-content-end">
