@@ -10,6 +10,16 @@
             <div class="mt-2">
                 <x-app.users.integrations.card :erpToken="$erpToken" />
             </div>
+
+            <div class="mt-2">
+                <x-app.users.sync.card
+                    :categories="$categories"
+                    :prices="$prices"
+                    :products="$products"
+                    :purchaseInvoices="$purchaseInvoices"
+                    :sales="$sales"
+                />
+            </div>
         </div>
     </div>
 </x-layout>

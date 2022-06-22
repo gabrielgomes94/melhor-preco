@@ -4,5 +4,5 @@ namespace Src\Products\Domain\UseCases\Contracts;
 
 interface SyncProducts
 {
-    public function sync(): void;
+    public function sync(string $userId): void;
 }

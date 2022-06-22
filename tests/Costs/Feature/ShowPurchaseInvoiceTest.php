@@ -44,7 +44,8 @@ class ShowPurchaseInvoiceTest extends TestCase
 
     private function given_i_have_a_purchase_invoice(): void
     {
-        $purchaseInvoice = PurchaseInvoiceData::makePersisted([
+        $purchaseInvoice = PurchaseInvoiceData::makePersisted(
+            $this->user, [
             'uuid' => '8556b473-602d-4b59-954f-44f9b78526af'
         ]);
 

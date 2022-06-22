@@ -34,15 +34,15 @@ class ListPurchaseInvoicesTest extends TestCase
 
     private function given_i_have_a_bunch_of_purchase_invoices(): void
     {
-        PurchaseInvoiceData::makePersisted([
+        PurchaseInvoiceData::makePersisted($this->user, [
             'uuid' => '8556b473-602d-4b59-954f-44f9b78526af'
         ]);
-        PurchaseInvoiceData::makePersisted([
+        PurchaseInvoiceData::makePersisted($this->user, [
             'uuid' => 'e376571c-daff-43cb-b54e-0eb51396f179',
             'value' => 2500.0,
             'number' => '248285',
         ]);
-        PurchaseInvoiceData::makePersisted([
+        PurchaseInvoiceData::makePersisted($this->user, [
             'uuid' => '8d56958e-4006-4cbf-af24-dce3daeb2da7',
             'value' => 1750.0,
             'number' => '248286',

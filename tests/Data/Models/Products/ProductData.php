@@ -3,6 +3,7 @@
 namespace Tests\Data\Models\Products;
 
 use Src\Products\Domain\Models\Product\Product;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class ProductData
 {
@@ -13,10 +14,11 @@ class ProductData
         return new Product($data);
     }
 
-    public static function makePersisted(array $data = []): Product
+    public static function makePersisted(User $user, array $data = []): Product
     {
         $data = self::getData($data);
         $product = new Product($data);
+        $product->user_id = $user->id;
         $product->save();
 
         return $product->refresh();

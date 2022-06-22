@@ -6,24 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class RemoveProductIdColumnOnPricesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('prices', function (Blueprint $table) {
             $table->dropColumn('product_id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         if (Schema::hasColumn('prices', 'product_id')) {
             Schema::table('prices', function (Blueprint $table) {

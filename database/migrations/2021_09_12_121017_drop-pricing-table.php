@@ -6,24 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 class DropPricingTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::dropIfExists('pricing_products');
         Schema::dropIfExists('pricing');
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
-        //
+        Schema::create('pricing', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+
+            $table->timestamps();
+        });
+
+        Schema::create('pricing_products', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+//            $table->foreignId('pricing_id')->constrained('pricing');
+//            $table->foreignId('product_id')->constrained('products');
+        });
     }
 }

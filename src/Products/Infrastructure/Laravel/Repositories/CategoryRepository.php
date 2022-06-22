@@ -2,6 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories;
 
+use Carbon\Carbon;
 use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository as CategoryRepositoryInterface;
 
@@ -17,8 +18,10 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::first('category_id', $categoryId)->parent();
     }
 
-    public function insert(Category $category): bool
+    public function insert(Category $category, string $userId): bool
     {
+        $category->user_id = $userId;
+
         return $category->save();
     }
 
@@ -30,5 +33,22 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function exists(string $categoryId): bool
     {
         return (bool) Category::where('category_id', $categoryId)->first();
+    }
+
+    public function count(): int
+    {
+        $userId = auth()->user()->id;
+
+        return Category::where('user_id', $userId)->count();
+    }
+
+    public function getLastUpdatedAt(): ?Carbon
+    {
+        $userId = auth()->user()->id;
+
+        return Category::where('user_id', $userId)
+            ->orderByDesc('updated_at')
+            ->first()
+            ?->updated_at;
     }
 }

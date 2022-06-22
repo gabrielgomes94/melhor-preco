@@ -25,6 +25,7 @@ class Marketplace extends Model implements MarketplaceInterface
         'extra',
         'is_active',
         'uuid',
+        'user_id',
     ];
 
     protected $casts = [
@@ -129,7 +130,6 @@ class Marketplace extends Model implements MarketplaceInterface
     public function setCommissionByCategory(CategoryCommission $categoryCommission)
     {
         // @todo: add logic
-
     }
 
     public function setCommissionsByCategory(Collection $commissions)
@@ -140,7 +140,8 @@ class Marketplace extends Model implements MarketplaceInterface
                     'categoryId' => $categoryCommission->categoryId,
                     'commission' => $categoryCommission->commission->get()
                 ];
-            })->toArray();
+            }
+        )->toArray();
 
         $this->extra = array_merge($this->extra, $extra);
     }

@@ -14,7 +14,7 @@ class Category extends Model
 
     public $incrementing = false;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $primaryKey = 'uuid';
 

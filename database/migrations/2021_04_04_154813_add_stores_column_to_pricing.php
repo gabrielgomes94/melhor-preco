@@ -25,8 +25,10 @@ class AddStoresColumnToPricing extends Migration
      */
     public function down()
     {
-        Schema::table('pricing', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasColumn('pricing', 'stores')) {
+            Schema::table('pricing', function (Blueprint $table) {
+                $table->dropColumn('stores');
+            });
+        }
     }
 }

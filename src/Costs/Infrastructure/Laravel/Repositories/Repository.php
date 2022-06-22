@@ -43,11 +43,13 @@ class Repository implements DbRepository
         return new SimpleXMLElement($data->body());
     }
 
-    public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice): bool
+    public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice, string $userId): bool
     {
         if ($this->purchaseInvoiceExists($purchaseInvoice)) {
             return false;
         }
+
+        $purchaseInvoice->user_id = $userId;
 
         return $purchaseInvoice->save();
     }

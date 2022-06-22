@@ -6,24 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class AddCategoryIdOnProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('products', function(Blueprint $table) {
             $table->string('category_id')->nullable();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         if (Schema::hasColumn('products', 'category_id')) {
             Schema::table('products', function (Blueprint $table) {

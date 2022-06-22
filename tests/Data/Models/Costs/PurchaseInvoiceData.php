@@ -4,6 +4,7 @@ namespace Tests\Data\Models\Costs;
 
 use Carbon\Carbon;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class PurchaseInvoiceData
 {
@@ -23,9 +24,10 @@ class PurchaseInvoiceData
         return $purchaseInvoice;
     }
 
-    public static function makePersisted(array $data = []): PurchaseInvoice
+    public static function makePersisted(User $user, array $data = []): PurchaseInvoice
     {
         $purchaseInvoice = self::make($data);
+        $purchaseInvoice->user_id = $user->id;
         $purchaseInvoice->save();
 
         return $purchaseInvoice;

@@ -7,6 +7,7 @@ use Src\Costs\Domain\UseCases\SynchronizePurchaseInvoices;
 use Src\Costs\Infrastructure\Bling\BlingRepository;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository;
+use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\TestCase;
 
@@ -18,6 +19,8 @@ class SynchronizePurchaseInvoicesTest extends TestCase
         $dbRepository = m::mock(Repository::class);
         $erpRepository = m::mock(BlingRepository::class);
         $synchronizePurchaseInvoices = new SynchronizePurchaseInvoices($dbRepository, $erpRepository);
+
+        $user = new User();
 
         $purchaseInvoicesFromERP = [
             PurchaseInvoiceData::make(),
@@ -37,11 +40,11 @@ class SynchronizePurchaseInvoicesTest extends TestCase
             ->andReturn($purchaseInvoicesFromERP);
 
         $dbRepository->expects()
-            ->insertPurchaseInvoice(m::type(PurchaseInvoice::class))
+            ->insertPurchaseInvoice(m::type(PurchaseInvoice::class), m::type('string'))
             ->times(3)
             ->andReturnTrue();
 
         // Act
-        $synchronizePurchaseInvoices->sync();
+        $synchronizePurchaseInvoices->sync($user);
     }
 }

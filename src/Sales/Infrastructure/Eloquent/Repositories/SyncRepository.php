@@ -21,13 +21,14 @@ use function event;
 
 class SyncRepository implements SynchronizationRepository
 {
-    public function insert(SaleOrderInterface $externalSaleOrder): SaleOrder
+    public function insert(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrder
     {
         $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
         $internalSaleOrder->customer()->associate(
             $this->getCustomerModel($externalSaleOrder)
         );
 
+        $internalSaleOrder->user_id = $userId;
         if ($internalSaleOrder->save()) {
             event(new CustomerSynchronized($internalSaleOrder->customer->getId()));
         }

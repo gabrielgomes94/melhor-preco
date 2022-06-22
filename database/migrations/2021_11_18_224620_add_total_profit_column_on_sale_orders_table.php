@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class AddTotalProfitColumnOnSaleOrdersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('sale_orders', function (Blueprint $table) {
             $table->decimal('total_profit', 12, 2)->nullable();
@@ -22,12 +17,7 @@ class AddTotalProfitColumnOnSaleOrdersTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::table('sale_orders', function (Blueprint $table) {
             $table->dropColumn('total_profit');

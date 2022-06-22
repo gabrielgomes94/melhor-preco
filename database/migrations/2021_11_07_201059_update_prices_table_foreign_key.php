@@ -6,27 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class UpdatePricesTableForeignKey extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('prices', function (Blueprint $table) {
             $table->dropForeign('prices_product_id_foreign');
         });
-        //
-
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
-        //
+        Schema::table('prices', function (Blueprint $table) {
+            $table->foreignId('product_id')->constrained();
+        });
     }
 }

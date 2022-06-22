@@ -6,24 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class ChangeSaleItemsSaleOrderIdColumnType extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::table('sales_items', function (Blueprint $table) {
             $table->string('sale_order_id')->change();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::table('sales_items', function (Blueprint $table) {
             $table->dropColumn('sale_order_id');

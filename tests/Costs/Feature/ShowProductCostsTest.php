@@ -38,7 +38,7 @@ class ShowProductCostsTest extends TestCase
 
     private function given_i_have_a_product_with_purchase_item(): void
     {
-        ProductData::makePersisted([
+        ProductData::makePersisted($this->user, [
             'sku' => 1,
             'purchase_price' => 50,
             'tax_icms' => 12,
@@ -46,7 +46,7 @@ class ShowProductCostsTest extends TestCase
             'ean' => '12345678910'
         ]);
 
-        $purchaseInvoice = PurchaseInvoiceData::makePersisted();
+        $purchaseInvoice = PurchaseInvoiceData::makePersisted($this->user);
         PurchaseItemsData::makePersisted($purchaseInvoice);
     }
 

@@ -14,11 +14,15 @@ class SyncCosts implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public function __construct(private string $userId)
+    {}
+
+
     public function handle(
         SynchronizePurchaseInvoices $syncPurchaseInvoices,
         SynchronizePurchaseItems $syncPurchaseItems
     ): void {
-        $syncPurchaseInvoices->sync();
+        $syncPurchaseInvoices->sync($this->userId);
         $syncPurchaseItems->sync();
     }
 }

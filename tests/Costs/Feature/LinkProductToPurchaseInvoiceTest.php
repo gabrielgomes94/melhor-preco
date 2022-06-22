@@ -40,14 +40,12 @@ class LinkProductToPurchaseInvoiceTest extends TestCase
 
     private function given_i_have_a_product(): void
     {
-        ProductData::makePersisted([
-            'sku' => '3600',
-        ]);
+        ProductData::makePersisted($this->user, ['sku' => '3600']);
     }
 
     private function and_given_i_have_a_purchase_item(): void
     {
-        $purchaseInvoice = PurchaseInvoiceData::makePersisted();
+        $purchaseInvoice = PurchaseInvoiceData::makePersisted($this->user);
 
         PurchaseItemsData::makePersisted($purchaseInvoice, [
             'uuid' => '517cce8a-e7c2-48d7-a052-5e10729c7c22',

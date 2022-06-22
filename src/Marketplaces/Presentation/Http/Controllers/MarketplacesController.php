@@ -13,11 +13,12 @@ use Src\Marketplaces\Presentation\Presenters\MarketplacePresenter;
 class MarketplacesController extends Controller
 {
     public function __construct(
-        private SaveMarketplace      $saveStore,
-        private GetMarketplace       $getMarketplace,
-        private ListMarketplaces     $listMarketplaces,
+        private SaveMarketplace $saveStore,
+        private GetMarketplace $getMarketplace,
+        private ListMarketplaces $listMarketplaces,
         private MarketplacePresenter $marketplacePresenter
-    ) {}
+    ) {
+    }
 
     public function create()
     {
@@ -49,14 +50,14 @@ class MarketplacesController extends Controller
 
     public function store(SaveMarketplaceRequest $request)
     {
-        $this->saveStore->save($request->validated());
+        $this->saveStore->save($request->transform());
 
         return redirect()->route('marketplaces.list');
     }
 
     public function update(SaveMarketplaceRequest $request, string $marketplaceId)
     {
-        $this->saveStore->save($request->validated(), $marketplaceId);
+        $this->saveStore->save($request->transform(), $marketplaceId);
 
         return redirect()->route('marketplaces.list');
     }

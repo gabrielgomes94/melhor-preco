@@ -21,7 +21,7 @@ interface DbRepository
         PurchaseItem $purchaseItem
     ): bool;
 
-    public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice): bool;
+    public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice, string $userId): bool;
 
     public function listPurchaseInvoice(): array;
 
