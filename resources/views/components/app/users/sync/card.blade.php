@@ -7,10 +7,10 @@
         <x-bootstrap.table.borderless-table>
             <thead>
                 <tr>
-                    <th></th>
-                    <th>Quantidade</th>
-                    <th>Última sincronização</th>
-                    <th></th>
+                    <th colspan="3"></th>
+                    <th colspan="1">Quantidade</th>
+                    <th colspan="1">Última sincronização</th>
+                    <th colspan="1"></th>
                 </tr>
             </thead>
 

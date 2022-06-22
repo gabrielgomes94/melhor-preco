@@ -1,16 +1,16 @@
 <tr class="">
-    <td>
+    <td colspan="3">
         <h6>Categorias</h6>
     </td>
-    <td>
+    <td colspan="1">
         {{ $categories['quantity'] }}
     </td>
-    <td>
+    <td colspan="1">
         {{ $categories['syncedAt'] }}
     </td>
-    <td>
+    <td colspan="1">
         <x-bootstrap.forms.form.put action="{{ route($categories['route']) }}">
-            <button class="btn btn-primary m-0" type="submit">
+            <button class="btn btn-primary m-0 w-100" type="submit">
                 Sincronizar categorias
 
                 <x-app.base.icons.icon icon="sync" />

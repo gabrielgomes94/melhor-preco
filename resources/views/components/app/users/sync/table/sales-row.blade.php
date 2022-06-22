@@ -1,16 +1,16 @@
 <tr class="">
-    <td>
+    <td colspan="3">
         <h6>Vendas</h6>
     </td>
-    <td>
+    <td colspan="1">
         {{ $sales['quantity'] }}
     </td>
-    <td>
+    <td colspan="1">
         {{ $sales['syncedAt'] }}
     </td>
-    <td>
+    <td colspan="1">
         <x-bootstrap.forms.form.post action="{{ route($sales['route']) }}">
-            <button class="btn btn-primary" type="submit">
+            <button class="btn btn-primary m-0 w-100" type="submit">
                 Sincronizar vendas
 
                 <x-app.base.icons.icon icon="sync" />
