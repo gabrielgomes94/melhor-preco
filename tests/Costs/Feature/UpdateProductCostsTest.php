@@ -55,12 +55,15 @@ class UpdateProductCostsTest extends TestCase
 
     private function and_given_i_have_a_product(): void
     {
-        ProductData::makePersisted([
-            'sku' => 1,
-            'purchase_price' => 50,
-            'tax_icms' => 12,
-            'additional_costs' => 0,
-        ]);
+        ProductData::makePersisted(
+            $this->user,
+            [
+                'sku' => 1,
+                'purchase_price' => 50,
+                'tax_icms' => 12,
+                'additional_costs' => 0,
+            ]
+        );
     }
 
     private function when_i_update_its_costs(): void

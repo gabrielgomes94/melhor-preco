@@ -4,6 +4,7 @@ namespace Tests\Costs\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Products\Domain\Models\Product\Product;
+use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
@@ -16,7 +17,7 @@ class ListProductsCostsTest extends TestCase
     {
         // Set
         $user = UserData::make();
-        $this->setProducts();
+        $this->setProducts($user);
 
         $products = [
             Product::find('1'),
@@ -43,7 +44,7 @@ class ListProductsCostsTest extends TestCase
     {
         // Set
         $user = UserData::make();
-        $this->setProducts();
+        $this->setProducts($user);
 
         $products = [
             Product::find('1'),
@@ -64,12 +65,12 @@ class ListProductsCostsTest extends TestCase
         $response->assertViewHas('filter', ['sku' => 1]);
     }
 
-    private function setProducts(): void
+    private function setProducts(User $user): void
     {
-        ProductData::makePersisted(['sku' => 1]);
-        ProductData::makePersisted(['sku' => 2, 'parent_sku' => 1]);
-        ProductData::makePersisted(['sku' => 3, 'composition_products' => [1, 2]]);
-        ProductData::makePersisted(['sku' => 4]);
-        ProductData::makePersisted(['sku' => 5]);
+        ProductData::makePersisted($user, ['sku' => 1]);
+        ProductData::makePersisted($user, ['sku' => 2, 'parent_sku' => 1]);
+        ProductData::makePersisted($user, ['sku' => 3, 'composition_products' => [1, 2]]);
+        ProductData::makePersisted($user, ['sku' => 4]);
+        ProductData::makePersisted($user, ['sku' => 5]);
     }
 }
