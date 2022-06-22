@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\UseCases;
+namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
 use Src\Products\Domain\Repositories\Contracts\Erp\CategoryRepository as ErpCategoryRepository;
