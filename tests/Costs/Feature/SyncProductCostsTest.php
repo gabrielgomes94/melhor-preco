@@ -10,6 +10,7 @@ use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
+// @todo: escrever um teste de feature mais completo: simular requisição na API do Bling e verificar se salva no banco
 class SyncProductCostsTest extends TestCase
 {
     use RefreshDatabase;

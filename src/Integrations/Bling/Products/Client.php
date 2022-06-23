@@ -17,69 +17,69 @@ class Client
         $this->sanitizer = $sanitizer;
     }
 
-    public function get(string $sku, string $status = Config::ACTIVE): array
+    public function get(string $erpToken, string $sku, string $status = Config::ACTIVE): array
     {
-        $response = Http::withOptions(
-            Config::getProduct($status)
-        )->get(
-            Endpoint::product($sku)
-        );
+        $config = Config::getProduct($erpToken, $status);
+        $endpoint = Endpoint::product($sku);
+        $response = Http::withOptions($config)->get($endpoint);
 
         return $this->sanitizer->sanitize($response);
     }
 
-    public function getPrice(string $sku, string $storeCode, string $status = Config::ACTIVE): array
+    public function getPrice(string $erpToken, string $sku, string $storeCode, string $status = Config::ACTIVE): array
     {
-        $response = Http::withOptions(
-            Config::getPrice($storeCode, $status)
-        )->get(
-            Endpoint::product($sku)
-        );
+        $config = Config::getPrice($storeCode, $status);
+        $endpoint = Endpoint::product($sku);
+        $response = Http::withOptions($config)->get($endpoint);
 
         return $this->sanitizer->sanitize($response);
     }
 
-    public function list(int $page = 1, string $status = Config::ACTIVE): array
+    public function list(string $erpToken, int $page = 1, string $status = Config::ACTIVE): array
     {
-        $response = Http::withOptions(
-            Config::listProducts($status)
-        )->get(
-            Endpoint::products($page)
-        );
+        $config = Config::listProducts($erpToken, $status);
+        $endpoint = Endpoint::products($page);
+        $response = Http::withOptions($config)->get($endpoint);
 
         return $this->sanitizer->sanitizeMultiple($response);
     }
 
-    public function listPrice(string $storeCode, int $page = 1, string $status = Config::ACTIVE): array
+    public function listPrice(
+        string $erpToken,
+        string $storeCode,
+        int $page = 1,
+        string $status =
+        Config::ACTIVE
+    ): array
     {
-        $response = Http::withOptions(
-            Config::listPrices($status, $storeCode)
-        )->get(
-            Endpoint::products($page)
-        );
+        $config = Config::listPrices($erpToken, $status, $storeCode);
+        $endpoint = Endpoint::products($page);
+        $response = Http::withOptions($config)->get($endpoint);
 
         return $this->sanitizer->sanitizeMultiple($response);
     }
 
-    public function update(string $sku, string $xml): array
+    public function update(string $erpToken, string $sku, string $xml): array
     {
-        $response = Http::withOptions(
-            Config::updateProduct($xml)
-        )->post(
-            Endpoint::product($sku)
-        );
+        $config = Config::updateProduct($erpToken, $xml);
+        $endpoint = Endpoint::product($sku);
+        $response = Http::withOptions($config)->post($endpoint);
 
         return $this->sanitizer->sanitize($response);
     }
 
-    public function updatePrice(string $sku, string $storeCode, string $productStoreSku, string $priceValue): array
+    public function updatePrice(
+        string $erpToken,
+        string $sku,
+        string $storeCode,
+        string $productStoreSku,
+        string $priceValue
+    ): array
     {
         $xml = ProductStoreTransformer::generateXML($productStoreSku, $priceValue);
-        $response = Http::withOptions(
-            Config::updatePrice($xml)
-        )->post(
-            Endpoint::productStore($sku, $storeCode)
-        );
+        $config = Config::updatePrice($erpToken, $xml);
+        $endpoint = Endpoint::productStore($sku, $storeCode);
+        $response = Http::withOptions($config)->post($endpoint);
 
         return $this->sanitizer->sanitize($response);
     }

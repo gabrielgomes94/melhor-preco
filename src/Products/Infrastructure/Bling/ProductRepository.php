@@ -29,24 +29,25 @@ class ProductRepository implements ErpProductRepositoryInterface
         $this->priceFactory = $priceFactory;
     }
 
-    public function get(string $sku): BaseResponse
+    public function get(string $erpToken, string $sku): BaseResponse
     {
-        $response = $this->client->get($sku, Config::ACTIVE);
+        $response = $this->client->get($erpToken, $sku, Config::ACTIVE);
 
         return $this->factory->make([$response]);
     }
 
-    public function all()
+    public function all(string $erpToken)
     {
-        $activeProductsCollection = $this->listProducts(Config::ACTIVE);
-        $inactiveProductsCollection = $this->listProducts(Config::INACTIVE);
+        $activeProductsCollection = $this->listProducts($erpToken, Config::ACTIVE);
+        $inactiveProductsCollection = $this->listProducts($erpToken, Config::INACTIVE);
 
         return array_merge($activeProductsCollection, $inactiveProductsCollection);
     }
 
-    public function allInMarketplace(Marketplace $marketplace, string $status, int $page): PricesCollectionResponse
+    public function allInMarketplace(string $erpToken, Marketplace $marketplace, string $status, int $page): PricesCollectionResponse
     {
         $response = $this->client->listPrice(
+            erpToken:$erpToken,
             storeCode: $marketplace->getErpId(),
             page: ++$page,
             status: $status
@@ -59,11 +60,10 @@ class ProductRepository implements ErpProductRepositoryInterface
         );
     }
 
-    public function uploadImages(string $sku, string $path, array $images)
+    public function uploadImages(string $erpToken, string $sku, string $path, array $images)
     {
         $urls = $this->storeImages($path, $images);
-
-        $updateResponse = $this->client->update($sku, $this->getXML($urls));
+        $updateResponse = $this->client->update($erpToken, $sku, $this->getXML($urls));
 
         $response = $this->factory->make($updateResponse);
 
@@ -101,14 +101,14 @@ class ProductRepository implements ErpProductRepositoryInterface
         return $xml->asXML();
     }
 
-    private function listProducts(string $status)
+    private function listProducts(string $erpToken, string $status)
     {
         $page = 0;
         $productsCollection = [];
 
         do {
             try {
-                $response = $this->client->list(page: ++$page, status: $status);
+                $response = $this->client->list($erpToken, page: ++$page, status: $status);
                 $products = $this->factory->make($response);
                 $productsCollection = array_merge($productsCollection, $products->data());
             } catch (ConnectionException $exception) {

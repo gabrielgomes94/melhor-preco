@@ -7,11 +7,16 @@ use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 
 interface ProductRepository
 {
-    public function all();
+    public function all(string $erpToken);
 
-    public function allInMarketplace(Marketplace $marketplace, string $status, int $page): PricesCollectionResponse;
+    public function allInMarketplace(
+        string $erpToken,
+        Marketplace $marketplace,
+        string $status,
+        int $page
+    ): PricesCollectionResponse;
 
-    public function get(string $sku);
+    public function get(string $erpToken, string $sku);
 
-    public function uploadImages(string $sku, string $path, array $images);
+    public function uploadImages(string $erpToken, string $sku, string $path, array $images);
 }

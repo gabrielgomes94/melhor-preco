@@ -7,9 +7,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\Events\Product\ProductSynchronized;
+use Src\Products\Domain\Events\Product\ProductWasNotSynchronized;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository as ProductRepositoryInterface;
+use Src\Users\Domain\Entities\User;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -69,67 +72,6 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::active()->count();
     }
 
-    public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator
-    {
-        return Product::with(
-            [
-                'prices' => function ($query) use ($storeSlug) {
-                    $query->where('store', '=', $storeSlug);
-                }
-            ]
-        )
-            ->active()
-            ->isOnStore($storeSlug)
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    // @deprecated
-    public function listProductsBySku(string $storeSlug, string $sku, int $page = 1): LengthAwarePaginator
-    {
-        return Product::with([
-            'prices' => function ($query) use ($storeSlug) {
-                $query->where('store', '=', $storeSlug);
-            }
-        ])
-            ->active()
-            ->isOnStore($storeSlug)
-            ->withSku($sku)
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    // @deprecated
-    public function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
-    {
-        return Product::with([
-            'prices' => function ($query) use ($storeSlug) {
-                $query->where('store', '=', $storeSlug);
-            }
-        ])
-            ->active()
-            ->isOnStore($storeSlug)
-            ->whereNull('parent_sku')
-            ->whereNotIn('composition_products', ['[]'])
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    // @deprecated
-    public function listProductsByCategory(string $storeSlug, string $categoryId, int $page = 1): LengthAwarePaginator
-    {
-        return Product::with([
-            'prices' => function ($query) use ($storeSlug) {
-                $query->where('store', '=', $storeSlug);
-            }
-        ])
-            ->active()
-            ->isOnStore($storeSlug)
-            ->where('category_id', $categoryId)
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
     public function getProductByEan(string $ean): ?Product
     {
         return Product::where('ean', $ean)->first();
@@ -157,5 +99,19 @@ class ProductRepository implements ProductRepositoryInterface
         $product->setCosts($costs);
 
         return $product->save();
+    }
+
+    public function save(Product $product, User $user): bool
+    {
+        $product->user_id = $user->getId();
+
+        if ($product->save()) {
+            event(new ProductSynchronized($product->getSku()));
+
+            return true;
+        }
+
+        event(new ProductWasNotSynchronized($product));
+        return false;
     }
 }

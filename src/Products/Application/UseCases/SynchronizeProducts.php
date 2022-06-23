@@ -4,8 +4,9 @@ namespace Src\Products\Application\UseCases;
 
 use Src\Prices\Application\UseCases\SynchronizePrices;
 use Src\Products\Application\Services\SynchronizeProductCosts;
-use Src\Products\Application\Services\SynchronizeProducts as SynchronizeProductsService;
+use Src\Products\Infrastructure\Laravel\Services\SynchronizeProducts as SynchronizeProductsService;
 use Src\Products\Domain\UseCases\Contracts\SyncProducts as SyncProductsInterface;
+use Src\Users\Domain\Entities\User;
 
 class SynchronizeProducts implements SyncProductsInterface
 {
@@ -23,10 +24,10 @@ class SynchronizeProducts implements SyncProductsInterface
         $this->syncProductsService = $syncProductsService;
     }
 
-    public function sync(string $userId): void
+    public function sync(User $user): void
     {
-        $this->syncProductsService->sync($userId);
+        $this->syncProductsService->sync($user);
         $this->syncCostsService->sync();
-        $this->syncPricesService->syncAll($userId);
+        $this->syncPricesService->syncAll();
     }
 }

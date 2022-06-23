@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Src\Products\Application\Data\FilterOptions;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Product;
+use Src\Users\Domain\Entities\User;
 
 interface ProductRepository
 {
@@ -26,6 +27,8 @@ interface ProductRepository
     public function getProductByEan(string $ean): ?Product;
 
     public function getLastSynchronizationDateTime(): ?Carbon;
+
+    public function save(Product $product, User $user): bool;
 
     public function updateCosts(Product $product, Costs $costs): bool;
 }

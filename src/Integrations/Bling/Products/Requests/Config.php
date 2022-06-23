@@ -23,14 +23,14 @@ class Config
         ];
     }
 
-    public static function getProduct(string $status = self::ACTIVE): array
+    public static function getProduct(string $erpToken, string $status = self::ACTIVE): array
     {
         $status = self::transformStatus($status);
 
         return [
             'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'filters' => "situacao[$status]",
                 'estoque' => 'S',
                 'imagem' => 'S',
@@ -40,14 +40,14 @@ class Config
 
 
 
-    public static function listProducts(string $status = self::ACTIVE): array
+    public static function listProducts(string $erpToken, string $status = self::ACTIVE): array
     {
         $status = self::transformStatus($status);
 
         return [
             'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'estoque' => 'S',
                 'filters' => "situacao[$status]",
                 'imagem' => 'S'
@@ -57,21 +57,21 @@ class Config
 
 
 
-    public static function listPrices(string $status = self::ACTIVE, ?string $storeCode = null): array
+    public static function listPrices(string $erpToken, string $status = self::ACTIVE, ?string $storeCode = null): array
     {
         $status = self::transformStatus($status);
 
         return [
             'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'filters' => "situacao[$status]",
                 'loja' => $storeCode,
             ],
         ];
     }
 
-    public static function updatePrice(string $xml): array
+    public static function updatePrice(string $erpToken, string $xml): array
     {
         return [
             'base_uri' => config('integrations.bling.base_uri'),
@@ -79,13 +79,13 @@ class Config
                 'Content-Type' => 'text/xml',
             ],
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'xml' => $xml,
             ],
         ];
     }
 
-    public static function updateProduct(string $xml): array
+    public static function updateProduct(string $erpToken, string $xml): array
     {
         return [
             'base_uri' => config('integrations.bling.base_uri'),
@@ -93,7 +93,7 @@ class Config
                 'Content-Type' => 'text/xml',
             ],
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'xml' => $xml,
             ],
         ];
@@ -101,8 +101,6 @@ class Config
 
     private static function transformStatus(string $status): string
     {
-        return $status == self::ACTIVE
-            ? 'A'
-            : 'I';
+        return $status == self::ACTIVE ? 'A' : 'I';
     }
 }

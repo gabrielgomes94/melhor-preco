@@ -2,7 +2,9 @@
 
 namespace Src\Products\Domain\UseCases\Contracts;
 
+use Src\Users\Domain\Entities\User;
+
 interface SyncProducts
 {
-    public function sync(string $userId): void;
+    public function sync(User $user): void;
 }

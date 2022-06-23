@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Src\Products\Application\UseCases\SynchronizeProducts;
+use Src\Users\Domain\Entities\User;
 
 class SyncProducts implements ShouldQueue
 {
@@ -16,12 +17,12 @@ class SyncProducts implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private string $userId)
+    public function __construct(private User $user)
     {
     }
 
     public function handle(SynchronizeProducts $synchronizeProducts): void
     {
-        $synchronizeProducts->sync($this->userId);
+        $synchronizeProducts->sync($this->user);
     }
 }
