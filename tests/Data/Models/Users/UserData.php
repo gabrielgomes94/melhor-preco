@@ -2,6 +2,7 @@
 
 namespace Tests\Data\Models\Users;
 
+use Src\Users\Domain\DataTransfer\Erp;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,7 @@ class UserData
             'phone' => '+5511987654321',
             'fiscal_id' => '66569343076',
         ]);
+        $user->setErp(new Erp('token', 'bling'));
 
         $user->save();
 
