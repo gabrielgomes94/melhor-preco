@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Products\Presentation\Http\Controllers\Api\Products\ProductController;
+use Src\Products\Presentation\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Http\Controllers\Web\Reports;
+namespace Src\Products\Presentation\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use Src\Products\Application\UseCases\Reports\ProductsInformation as ReportProductsInformation;
@@ -8,7 +8,7 @@ use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
 use Src\Products\Presentation\Http\Requests\Product\ReportProductRequest;
 
-class ProductInformations
+class ProductInformationsReport
 {
     public function __construct(
         private ReportProductsInformation $reportInformations,

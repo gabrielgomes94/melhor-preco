@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Products\Presentation\Http\Controllers\Web\Images\ProductImageController;
-use Src\Products\Presentation\Http\Controllers\Web\Reports\ProductController;
-use Src\Products\Presentation\Http\Controllers\Web\Reports\ProductInformations;
-use Src\Products\Presentation\Http\Controllers\Web\Synchronization\SynchronizationController;
+use Src\Products\Presentation\Http\Controllers\Web\ProductImageController;
+use Src\Products\Presentation\Http\Controllers\Web\ProductController;
+use Src\Products\Presentation\Http\Controllers\Web\ProductInformationsReport;
+use Src\Products\Presentation\Http\Controllers\Web\SynchronizationController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {
@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
                 ->group(function () {
                     Route::get('/show_info/{sku}', [ProductController::class, 'get'])->name('.show');
 
-                    Route::get('/informations', ProductInformations::class)->name('.informations');
+                    Route::get('/informations', ProductInformationsReport::class)->name('.informations');
                 });
         });
 
