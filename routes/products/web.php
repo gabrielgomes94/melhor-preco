@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Products\Presentation\Http\Controllers\Web\ProductImageController;
-use Src\Products\Presentation\Http\Controllers\Web\ProductController;
-use Src\Products\Presentation\Http\Controllers\Web\ProductInformationsReport;
-use Src\Products\Presentation\Http\Controllers\Web\SynchronizationController;
+use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\ProductImageController;
+use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\ProductController;
+use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\ProductInformationsReport;
+use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\SynchronizationController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {

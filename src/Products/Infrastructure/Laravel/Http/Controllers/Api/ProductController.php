@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Http\Controllers\Api;
+namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;

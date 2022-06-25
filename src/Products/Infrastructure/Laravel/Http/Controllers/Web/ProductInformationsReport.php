@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Http\Controllers\Web;
+namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use Src\Products\Application\UseCases\Reports\ProductsInformation as ReportProductsInformation;

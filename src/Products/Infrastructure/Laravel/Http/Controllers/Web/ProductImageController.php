@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Http\Controllers\Web;
+namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 
 use Src\Products\Presentation\Http\Requests\Product\ImageUploaderRequest;
 use Illuminate\Http\Request;
