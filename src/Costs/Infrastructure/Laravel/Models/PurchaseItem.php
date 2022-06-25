@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Src\Costs\Domain\Models\Contracts\PurchaseItem as PurchaseItemInterface;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class PurchaseItem extends Model implements PurchaseItemInterface
 {

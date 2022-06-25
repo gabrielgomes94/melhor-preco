@@ -4,7 +4,7 @@ namespace Src\Prices\Presentation\Components\Products;
 
 use Illuminate\View\Component;
 use Src\Math\MoneyTransformer;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\PostRepository;
 
 abstract class ProductComponent extends Component

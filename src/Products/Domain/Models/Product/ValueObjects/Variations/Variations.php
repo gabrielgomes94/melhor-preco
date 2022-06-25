@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data\Variations;
+namespace Src\Products\Domain\Models\Product\ValueObjects\Variations;
 
 class Variations
 {

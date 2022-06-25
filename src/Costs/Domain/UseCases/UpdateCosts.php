@@ -6,15 +6,14 @@ use Src\Costs\Domain\Exceptions\UpdateCostsException;
 use Src\Costs\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\ProductCostsUpdated;
-use Src\Products\Domain\Models\Product\Data\Costs;
+use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
 class UpdateCosts implements UpdateCostsInterface
 {
     public function __construct(
         private ProductRepository $productRepository
-    )
-    {
+    ) {
     }
 
     /**

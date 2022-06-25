@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\Repositories\Contracts;
 
 use Carbon\Carbon;
-use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Models\ValueObjects\Items\Items;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;

@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories\Options;
 
-use Src\Products\Domain\Models\Product\Data\Dimensions;
+use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 
 class Options
 {

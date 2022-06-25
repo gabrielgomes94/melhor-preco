@@ -9,7 +9,7 @@ use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission;
 use Src\Prices\Domain\Events\PriceSynchronized;
 use Src\Prices\Domain\Events\PriceWasNotSynchronized;
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 
 class SavePrices

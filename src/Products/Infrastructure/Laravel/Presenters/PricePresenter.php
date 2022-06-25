@@ -5,7 +5,7 @@ namespace Src\Products\Infrastructure\Laravel\Presenters;
 use Src\Math\MathPresenter;
 use Src\Math\Percentage;
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Products\Domain\Models\Product\Product;
 
 class PricePresenter
 {
@@ -13,7 +13,7 @@ class PricePresenter
     {
         $prices = $product->getPrices();
 
-        return $prices->transform(function(Price $price) {
+        return $prices->transform(function (Price $price) {
             $profit = $price->getProfit();
             $value = $price->getValue();
             $marketplaceName = $price->getMarketplace()->getName();

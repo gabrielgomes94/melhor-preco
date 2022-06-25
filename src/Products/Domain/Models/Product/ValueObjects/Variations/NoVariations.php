@@ -1,11 +1,13 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data\Variations;
+namespace Src\Products\Domain\Models\Product\ValueObjects\Variations;
+
+use Src\Products\Domain\Models\Product\Product;
 
 class NoVariations extends Variations
 {
     /**
-     * @param \Src\Products\Domain\Entities\Product[] $products
+     * @param Product[] $products
      */
     public function __construct(string $parentSku = '', array $products = [])
     {

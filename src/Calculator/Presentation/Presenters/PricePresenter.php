@@ -8,7 +8,7 @@ use Src\Math\MoneyTransformer;
 use Src\Calculator\Domain\Models\Price\Contracts\Price;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
-use Src\Products\Domain\Models\Product\Contracts\Post;
+use Src\Products\Domain\Models\Post\Contracts\Post;
 
 class PricePresenter
 {

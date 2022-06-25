@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Exceptions;
 
 use Src\Products\Domain\Models\Post\Post;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class PostNotFoundException extends \Exception
 {

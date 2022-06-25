@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Src\Products\Domain\DataTransfer\FilterOptions;
-use Src\Products\Domain\Models\Product\Data\Costs;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Domain\Entities\User;
 
 interface ProductRepository

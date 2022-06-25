@@ -6,7 +6,7 @@ use Src\Calculator\Domain\Models\Price\Contracts\Price;
 use Src\Calculator\Application\Services\CalculatePost;
 use Src\Prices\Domain\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Post as PostObject;
-use Src\Products\Domain\Models\Product\Contracts\Post;
+use Src\Products\Domain\Models\Post\Contracts\Post;
 
 class Factory
 {

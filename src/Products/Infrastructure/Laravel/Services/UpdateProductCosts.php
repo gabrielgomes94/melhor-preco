@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Services;
 
-use Src\Products\Domain\Models\Product\Data\Costs;
+use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
 class UpdateProductCosts

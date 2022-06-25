@@ -5,7 +5,7 @@ namespace Src\Prices\Application\Services\Products;
 use Src\Prices\Application\Services\UpdatePrice;
 use Src\Prices\Domain\Models\Price;
 use Src\Prices\Domain\Contracts\Services\UpdateDB as UpdateDBInterface;
-use Src\Products\Domain\Models\Product\Contracts\Post;
+use Src\Products\Domain\Models\Post\Contracts\Post;
 
 class UpdateDB implements UpdateDBInterface
 {

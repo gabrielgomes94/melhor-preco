@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data;
+namespace Src\Products\Domain\Models\Product\ValueObjects;
 
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class Costs
 {

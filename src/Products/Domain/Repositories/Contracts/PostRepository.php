@@ -4,7 +4,7 @@ namespace Src\Products\Domain\Repositories\Contracts;
 
 use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Products\Domain\Models\Post\Post;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 interface PostRepository
 {

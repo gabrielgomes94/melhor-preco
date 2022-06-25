@@ -6,10 +6,10 @@ use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\DataTransfer\FilterOptions;
-use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
-use function Src\Products\Application\UseCases\Reports\count;
+
 
 class GetProductsInformationReport
 {

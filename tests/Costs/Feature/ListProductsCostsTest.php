@@ -3,7 +3,7 @@
 namespace Tests\Costs\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;

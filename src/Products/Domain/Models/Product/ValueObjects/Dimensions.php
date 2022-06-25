@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data;
+namespace Src\Products\Domain\Models\Product\ValueObjects;
 
 class Dimensions
 {
@@ -41,7 +41,7 @@ class Dimensions
 
     public function cubicWeight(): float
     {
-        return ($this->depth * $this->height * $this->width)/6000;
+        return ($this->depth * $this->height * $this->width) / 6000;
     }
 
     private function fill(float $depth, float $height, float $width, float $weight)

@@ -3,7 +3,7 @@
 namespace Src\Products\Infrastructure\Laravel\Presenters;
 
 use Src\Math\MathPresenter;
-use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Products\Domain\Models\Product\Product;
 
 class ProductPresenter
 {

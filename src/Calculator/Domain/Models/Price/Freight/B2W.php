@@ -5,7 +5,8 @@ namespace Src\Calculator\Domain\Models\Price\Freight;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
 use Src\Math\MoneyTransformer;
-use Src\Products\Domain\Models\Product\Data\Dimensions;
+use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
+
 use function config;
 
 class B2W extends BaseFreight

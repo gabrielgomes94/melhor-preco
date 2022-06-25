@@ -9,7 +9,7 @@ use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Src\Math\Percentage;
 use Src\Prices\Presentation\Components\Products\ProductComponent;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class Price extends Model
 {

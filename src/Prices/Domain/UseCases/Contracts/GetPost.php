@@ -4,7 +4,7 @@ namespace Src\Prices\Domain\UseCases\Contracts;
 
 use Src\Products\Domain\Exceptions\PostNotFoundException;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Models\Product\Contracts\Post;
+use Src\Products\Domain\Models\Post\Contracts\Post;
 
 interface GetPost
 {

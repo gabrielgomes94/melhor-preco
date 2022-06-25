@@ -6,7 +6,7 @@ use Mockery;
 use Src\Costs\Domain\DataTransfer\ProductCosts;
 use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;

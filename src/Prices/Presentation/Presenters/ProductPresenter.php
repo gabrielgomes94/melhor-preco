@@ -11,8 +11,8 @@ use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Domain\Models\Product\Contracts\Post;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Post\Contracts\Post;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ProductPresenter
 {
@@ -20,7 +20,8 @@ class ProductPresenter
         private Breadcrumb $breadcrumb,
         private MarketplaceRepository $marketplaceRepository,
         private PricePresenter $calculatorPresenter
-    ) {}
+    ) {
+    }
 
     public function present(Post $post, CalculatePriceRequest $request)
     {
@@ -142,7 +143,7 @@ class ProductPresenter
         $prices = $product->getPrices();
         $currentMarketplaceSlug = $post->getMarketplace()->getSlug();
 
-        return $prices->transform(function(Price $price) use ($currentMarketplaceSlug){
+        return $prices->transform(function (Price $price) use ($currentMarketplaceSlug) {
             $marketplace = $price->getMarketplace();
 
             return [

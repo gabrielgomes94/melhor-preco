@@ -3,7 +3,7 @@
 namespace Src\Products\Infrastructure\Bling\Responses\Product;
 
 use Src\Integrations\Bling\Base\Responses\BaseResponse;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ProductResponse extends BaseResponse
 {

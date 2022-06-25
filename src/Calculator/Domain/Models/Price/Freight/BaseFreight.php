@@ -4,7 +4,7 @@ namespace Src\Calculator\Domain\Models\Price\Freight;
 
 use Money\Money;
 use Src\Math\MoneyTransformer;
-use Src\Products\Domain\Models\Product\Data\Dimensions;
+use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 
 abstract class BaseFreight
 {

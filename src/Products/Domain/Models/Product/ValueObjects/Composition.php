@@ -1,10 +1,8 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data;
+namespace Src\Products\Domain\Models\Product\ValueObjects;
 
-use Src\Products\Domain\Models\Product\Data\Costs;
-use Src\Products\Domain\Models\Product\Product;
-use function Src\Products\Domain\Models\Product\Data\Composition\count;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class Composition
 {

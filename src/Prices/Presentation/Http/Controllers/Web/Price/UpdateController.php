@@ -5,7 +5,7 @@ namespace Src\Prices\Presentation\Http\Controllers\Web\Price;
 use App\Http\Controllers\Controller;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Prices\Presentation\Http\Requests\Price\UpdatePriceRequest;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Prices\Application\UseCases\UpdatePrice as UpdatePriceService;
 use Src\Prices\Application\Services\Exceptions\UpdatePriceException;
 use Illuminate\Http\RedirectResponse;

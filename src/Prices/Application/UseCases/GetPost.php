@@ -6,9 +6,9 @@ use Src\Calculator\Domain\UseCases\Contracts\CalculatePrice;
 use Src\Prices\Domain\UseCases\Contracts\GetPost as GetPostInterface;
 use Src\Products\Domain\Exceptions\PostNotFoundException;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Models\Product\Contracts\Post;
-use Src\Products\Domain\Models\Product\Contracts\Product;
-use Src\Products\Domain\Models\Product\Product as ProductModel;
+use Src\Products\Domain\Models\Post\Contracts\Post;
+use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product as ProductModel;
 use Src\Products\Domain\Repositories\Contracts\PostRepository;
 
 class GetPost implements GetPostInterface
@@ -16,7 +16,8 @@ class GetPost implements GetPostInterface
     public function __construct(
         private PostRepository $postRepository,
         private CalculatePrice $calculatePriceUseCase
-    ) {}
+    ) {
+    }
 
     /**
      * @throws PostNotFoundException

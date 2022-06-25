@@ -8,7 +8,7 @@ use Money\Money;
 use Src\Calculator\Domain\Models\Price\Freight\B2W;
 use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
 use Src\Calculator\Domain\Models\Price\Freight\Olist;
-use Src\Products\Domain\Models\Product\Data\Dimensions;
+use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 
 class Factory
 {
