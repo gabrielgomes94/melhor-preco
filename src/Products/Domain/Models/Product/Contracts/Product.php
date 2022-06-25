@@ -6,11 +6,11 @@ use Illuminate\Support\Collection;
 use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Post;
-use Src\Products\Domain\Models\Product\Data\Composition\Composition;
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
-use Src\Products\Domain\Models\Product\Data\Details\Details;
-use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
-use Src\Products\Domain\Models\Product\Data\Identifiers\Identifiers;
+use Src\Products\Domain\Models\Product\Data\Composition;
+use Src\Products\Domain\Models\Product\Data\Costs;
+use Src\Products\Domain\Models\Product\Data\Details;
+use Src\Products\Domain\Models\Product\Data\Dimensions;
+use Src\Products\Domain\Models\Product\Data\Identifiers;
 use Src\Products\Domain\Models\Product\Data\Variations\Variations;
 
 interface Product

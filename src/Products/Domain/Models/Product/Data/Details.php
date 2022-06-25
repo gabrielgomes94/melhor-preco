@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data\Details;
+namespace Src\Products\Domain\Models\Product\Data;
 
 class Details
 {

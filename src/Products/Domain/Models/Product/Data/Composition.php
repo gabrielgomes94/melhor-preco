@@ -1,9 +1,10 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data\Composition;
+namespace Src\Products\Domain\Models\Product\Data;
 
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
+use Src\Products\Domain\Models\Product\Data\Costs;
 use Src\Products\Domain\Models\Product\Product;
+use function Src\Products\Domain\Models\Product\Data\Composition\count;
 
 class Composition
 {

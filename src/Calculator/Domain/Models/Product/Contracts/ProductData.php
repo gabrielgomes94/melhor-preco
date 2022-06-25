@@ -3,8 +3,8 @@
 namespace Src\Calculator\Domain\Models\Product\Contracts;
 
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
-use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
+use Src\Products\Domain\Models\Product\Data\Costs;
+use Src\Products\Domain\Models\Product\Data\Dimensions;
 
 interface ProductData
 {

@@ -8,7 +8,7 @@ use Src\Costs\Domain\Exceptions\UpdateCostsException;
 use Src\Costs\Domain\UseCases\UpdateCosts;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\ProductCostsUpdated;
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
+use Src\Products\Domain\Models\Product\Data\Costs;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Tests\Data\Models\Products\ProductData;

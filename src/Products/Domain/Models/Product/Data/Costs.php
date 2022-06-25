@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\Data\Costs;
+namespace Src\Products\Domain\Models\Product\Data;
 
 use Src\Products\Domain\Models\Product\Product;
 

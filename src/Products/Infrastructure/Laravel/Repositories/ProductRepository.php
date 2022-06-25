@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Events\ProductSynchronized;
 use Src\Products\Domain\Events\ProductWasNotSynchronized;
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
+use Src\Products\Domain\Models\Product\Data\Costs;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository as ProductRepositoryInterface;
 use Src\Users\Domain\Entities\User;
