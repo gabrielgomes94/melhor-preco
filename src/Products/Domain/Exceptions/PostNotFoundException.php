@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\Exceptions;
+namespace Src\Products\Domain\Exceptions;
 
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Product;

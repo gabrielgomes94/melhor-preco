@@ -4,8 +4,8 @@ namespace Src\Prices\Application\UseCases;
 
 use Src\Calculator\Domain\UseCases\Contracts\CalculatePrice;
 use Src\Prices\Domain\UseCases\Contracts\GetPost as GetPostInterface;
-use Src\Products\Application\Exceptions\PostNotFoundException;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\PostNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Contracts\Post;
 use Src\Products\Domain\Models\Product\Contracts\Product;
 use Src\Products\Domain\Models\Product\Product as ProductModel;

@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Application\UseCases\ReportProduct;
 use Src\Products\Infrastructure\Laravel\Presenters\ProductReportPresenter;
 

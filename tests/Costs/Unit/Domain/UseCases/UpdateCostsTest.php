@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Mockery as m;
 use Src\Costs\Domain\Exceptions\UpdateCostsException;
 use Src\Costs\Domain\UseCases\UpdateCosts;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\Product\ProductCostsUpdated;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Product;

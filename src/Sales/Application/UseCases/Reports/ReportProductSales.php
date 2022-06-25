@@ -3,7 +3,7 @@
 namespace Src\Sales\Application\UseCases\Reports;
 
 use Src\Sales\Application\Data\Reports\SalesReport;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Src\Sales\Domain\Services\Contracts\GetProductSales;

@@ -4,7 +4,7 @@ namespace Src\Costs\Domain\UseCases;
 
 use Src\Costs\Domain\DataTransfer\ProductCosts;
 use Src\Costs\Domain\Models\Contracts\PurchaseItem;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
 class ShowProductCosts

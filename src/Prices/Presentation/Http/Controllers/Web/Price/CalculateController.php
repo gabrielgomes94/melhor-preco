@@ -9,8 +9,8 @@ use Illuminate\Contracts\View\View;
 use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Domain\UseCases\Contracts\GetPost;
 use Src\Prices\Presentation\Presenters\ProductPresenter;
-use Src\Products\Application\Exceptions\PostNotFoundException;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\PostNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 
 class CalculateController extends Controller
 {

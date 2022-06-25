@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Domain\UseCases\Contracts;
 
-use Src\Products\Application\Exceptions\PostNotFoundException;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\PostNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Contracts\Post;
 
 interface GetPost

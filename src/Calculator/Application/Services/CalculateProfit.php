@@ -7,7 +7,7 @@ use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
 class CalculateProfit
