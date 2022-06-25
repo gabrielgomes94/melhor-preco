@@ -5,7 +5,7 @@ namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 use Src\Products\Infrastructure\Laravel\Http\Requests\ImageUploaderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Src\Products\Application\UseCases\UploadImages;
+use Src\Products\Infrastructure\Laravel\Services\UploadImages;
 
 class ProductImageController extends BaseController
 {

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Src\Products\Application\UseCases\SynchronizeProducts;
+use Src\Products\Infrastructure\Laravel\Services\SynchronizeData;
 use Src\Users\Domain\Entities\User;
 
 class SyncProducts implements ShouldQueue
@@ -21,7 +21,7 @@ class SyncProducts implements ShouldQueue
     {
     }
 
-    public function handle(SynchronizeProducts $synchronizeProducts): void
+    public function handle(SynchronizeData $synchronizeProducts): void
     {
         $synchronizeProducts->sync($this->user);
     }

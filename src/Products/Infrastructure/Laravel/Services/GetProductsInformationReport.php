@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\UseCases\Reports;
+namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -9,8 +9,9 @@ use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product\Contracts\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
+use function Src\Products\Application\UseCases\Reports\count;
 
-class ProductsInformation
+class GetProductsInformationReport
 {
     public function __construct(
         private ProductRepository $productRepository,

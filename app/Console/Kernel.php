@@ -6,7 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
 use Src\Prices\Application\Jobs\SyncPrices;
-use Src\Products\Application\UseCases\SynchronizeProducts;
+use Src\Products\Infrastructure\Laravel\Services\SynchronizeData;
 use Src\Products\Infrastructure\Laravel\Console\Commands\SyncProducts;
 use Src\Sales\Application\Jobs\SyncSales;
 
@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new SyncSales)->everyTenMinutes();
 
         $schedule->call(function () {
-            $syncProducts = app(SynchronizeProducts::class);
+            $syncProducts = app(SynchronizeData::class);
             $syncProducts->sync();
         })->weekdays()->daily();
 

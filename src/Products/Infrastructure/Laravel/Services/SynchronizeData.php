@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\UseCases;
+namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Prices\Application\UseCases\SynchronizePrices;
 use Src\Products\Infrastructure\Laravel\Services\UpdateProductCosts;
@@ -8,7 +8,7 @@ use Src\Products\Infrastructure\Laravel\Services\SynchronizeProducts as Synchron
 use Src\Products\Domain\UseCases\Contracts\SyncProducts as SyncProductsInterface;
 use Src\Users\Domain\Entities\User;
 
-class SynchronizeProducts implements SyncProductsInterface
+class SynchronizeData implements SyncProductsInterface
 {
     public function __construct(
         private SynchronizePrices $syncPricesService,

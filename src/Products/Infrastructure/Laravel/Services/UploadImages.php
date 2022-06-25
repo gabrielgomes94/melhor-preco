@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\UseCases;
+namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Products\Domain\Repositories\Contracts\Erp\ProductRepository;
 use Src\Products\Domain\UseCases\Contracts\UploadImages as UploadImagesInterface;

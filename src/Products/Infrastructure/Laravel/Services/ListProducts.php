@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\UseCases;
+namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\DataTransfer\ProductsPaginated;
