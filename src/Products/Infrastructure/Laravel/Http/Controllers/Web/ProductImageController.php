@@ -19,7 +19,10 @@ class ProductImageController extends BaseController
     public function upload(ImageUploaderRequest $request)
     {
         try {
+            $user = $request->user();
+
             $this->storeImages->execute(
+                $user->getErpToken(),
                 $request->validated()['sku'],
                 $request->validated()['name'],
                 $request->validated()['brand'],

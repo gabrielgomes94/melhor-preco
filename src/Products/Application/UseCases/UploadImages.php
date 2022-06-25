@@ -14,10 +14,16 @@ class UploadImages implements UploadImagesInterface
         $this->productRepository = $productRepository;
     }
 
-    public function execute(string $sku, string $name, string $brand, array $images): bool
+    public function execute(
+        string $erpToken,
+        string $sku,
+        string $name,
+        string $brand,
+        array $images
+    ): bool
     {
         $path = $this->getPath($sku, $name, $brand);
-        $this->productRepository->uploadImages($sku, $path, $images);
+        $this->productRepository->uploadImages($erpToken, $sku, $path, $images);
 
         return true;
     }
