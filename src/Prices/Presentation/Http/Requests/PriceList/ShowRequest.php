@@ -2,12 +2,11 @@
 
 namespace Src\Prices\Presentation\Http\Requests\PriceList;
 
-use Src\Products\Presentation\Http\Requests\Product\Contracts\HasOptions;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 use Src\Products\Domain\Utils\Contracts\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowRequest extends FormRequest implements HasOptions
+class ShowRequest extends FormRequest
 {
     public function authorize(): bool
     {

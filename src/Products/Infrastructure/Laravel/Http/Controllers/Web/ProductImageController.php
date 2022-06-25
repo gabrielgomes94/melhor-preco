@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 
-use Src\Products\Presentation\Http\Requests\Product\ImageUploaderRequest;
+use Src\Products\Presentation\Http\Requests\ImageUploaderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Src\Products\Application\UseCases\UploadImages;
