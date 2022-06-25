@@ -1,9 +1,10 @@
 <?php
 
-namespace Src\Products\Presentation\Presenters\Reports;
+namespace Src\Products\Infrastructure\Laravel\Presenters;
 
 use Src\Math\MathPresenter;
 use Src\Products\Application\Data\Reports\ProductInfoReport;
+use Src\Products\Infrastructure\Laravel\Presenters\ProductPresenter;
 use Src\Sales\Application\Data\MarketplaceSaleItems;
 use Src\Sales\Application\Data\Reports\SalesReport;
 use Src\Sales\Domain\Models\Item;

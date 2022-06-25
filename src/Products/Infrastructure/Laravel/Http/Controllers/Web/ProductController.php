@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Src\Products\Application\Exceptions\ProductNotFoundException;
 use Src\Products\Application\UseCases\ReportProduct;
-use Src\Products\Presentation\Presenters\Reports\ProductReportPresenter;
+use Src\Products\Infrastructure\Laravel\Presenters\ProductReportPresenter;
 
 class ProductController extends Controller
 {

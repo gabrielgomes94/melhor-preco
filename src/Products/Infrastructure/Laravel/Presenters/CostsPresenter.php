@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Presenters\Reports;
+namespace Src\Products\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Support\Collection;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;

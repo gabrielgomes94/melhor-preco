@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Presenters\Reports;
+namespace Src\Products\Infrastructure\Laravel\Presenters;
 
 use Src\Math\MathPresenter;
 use Src\Math\Percentage;
