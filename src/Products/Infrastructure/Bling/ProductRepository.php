@@ -10,7 +10,7 @@ use Src\Integrations\Bling\Base\Responses\ErrorResponse;
 use Src\Integrations\Bling\Products\Client;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Products\Domain\Repositories\Contracts\Erp\ProductRepository as ErpProductRepositoryInterface;
+use Src\Products\Domain\Repositories\Erp\ProductRepository as ErpProductRepositoryInterface;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 use Src\Products\Infrastructure\Bling\Responses\Product\Factory;
 use Src\Products\Infrastructure\Bling\Responses\Prices\Factory as PriceFactory;

@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Bling;
 
 use Src\Integrations\Bling\Categories\Client;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\Erp\CategoryRepository as CategoryRepositoryInterface;
+use Src\Products\Domain\Repositories\Erp\CategoryRepository as CategoryRepositoryInterface;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {

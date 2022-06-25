@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Repositories\Contracts;
+namespace Src\Products\Domain\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;

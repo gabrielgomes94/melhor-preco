@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\CategoryRepository as CategoryRepositoryInterface;
+use Src\Products\Domain\Repositories\CategoryRepository as CategoryRepositoryInterface;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {

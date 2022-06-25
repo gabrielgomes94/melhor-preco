@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Repositories\Contracts\Erp;
+namespace Src\Products\Domain\Repositories\Erp;
 
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;

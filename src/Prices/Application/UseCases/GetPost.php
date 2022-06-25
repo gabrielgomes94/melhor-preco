@@ -9,7 +9,7 @@ use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product as ProductModel;
-use Src\Products\Domain\Repositories\Contracts\PostRepository;
+use Src\Products\Domain\Repositories\PostRepository;
 
 class GetPost implements GetPostInterface
 {

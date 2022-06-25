@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Repositories\Contracts;
+namespace Src\Products\Domain\Repositories;
 
 use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Products\Domain\Models\Post\Post;

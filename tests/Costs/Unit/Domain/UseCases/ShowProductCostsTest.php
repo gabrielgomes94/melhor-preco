@@ -7,7 +7,7 @@ use Src\Costs\Domain\DataTransfer\ProductCosts;
 use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
 use Tests\Data\Models\Products\ProductData;

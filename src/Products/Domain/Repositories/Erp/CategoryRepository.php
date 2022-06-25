@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Repositories\Contracts\Erp;
+namespace Src\Products\Domain\Repositories\Erp;
 
 interface CategoryRepository
 {

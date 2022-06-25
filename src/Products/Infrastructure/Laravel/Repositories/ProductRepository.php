@@ -11,7 +11,7 @@ use Src\Products\Domain\Events\ProductSynchronized;
 use Src\Products\Domain\Events\ProductWasNotSynchronized;
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository as ProductRepositoryInterface;
+use Src\Products\Domain\Repositories\ProductRepository as ProductRepositoryInterface;
 use Src\Users\Domain\Entities\User;
 
 class ProductRepository implements ProductRepositoryInterface

@@ -3,12 +3,12 @@
 namespace Src\Products\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
-use Src\Products\Domain\Repositories\Contracts\Erp\CategoryRepository as ErpCategoryRepository;
-use Src\Products\Domain\Repositories\Contracts\Erp\ProductRepository as ErpProductRepository;
-use Src\Products\Domain\Repositories\Contracts\PostRepository;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
-use Src\Products\Domain\Repositories\Contracts\ProductWithPriceRepository;
+use Src\Products\Domain\Repositories\CategoryRepository;
+use Src\Products\Domain\Repositories\Erp\CategoryRepository as ErpCategoryRepository;
+use Src\Products\Domain\Repositories\Erp\ProductRepository as ErpProductRepository;
+use Src\Products\Domain\Repositories\PostRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Products\Domain\Repositories\ProductWithPriceRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\PostRepository as PostRepositoryImpl;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository as ProductRepositoryImpl;
 use Src\Products\Infrastructure\Laravel\Repositories\CategoryRepository as CategoryRepositoryImpl;

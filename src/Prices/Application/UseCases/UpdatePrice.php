@@ -11,7 +11,7 @@ use Src\Prices\Domain\UseCases\Contracts\UpdatePrice as UpdatePriceInterface;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\PostRepository;
+use Src\Products\Domain\Repositories\PostRepository;
 
 class UpdatePrice implements UpdatePriceInterface
 {

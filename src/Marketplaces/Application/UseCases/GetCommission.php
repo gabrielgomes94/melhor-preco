@@ -4,7 +4,7 @@ namespace Src\Marketplaces\Application\UseCases;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission as GetCommissionInterface;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
 
 class GetCommission implements GetCommissionInterface
 {

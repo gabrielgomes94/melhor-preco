@@ -5,7 +5,7 @@ namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use Src\Products\Infrastructure\Laravel\Services\GetProductsInformationReport as ReportProductsInformation;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
+use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Http\Requests\ReportProductRequest;
 
 class ProductInformationsReport

@@ -4,7 +4,7 @@ namespace Src\Marketplaces\Application\UseCases;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
+use Src\Products\Domain\Repositories\CategoryRepository;
 
 class GetCategoryWithCommission
 {

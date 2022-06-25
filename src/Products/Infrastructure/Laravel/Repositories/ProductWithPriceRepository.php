@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductWithPriceRepository as ProductWithPriceRepositoryInterface;
+use Src\Products\Domain\Repositories\ProductWithPriceRepository as ProductWithPriceRepositoryInterface;
 
 class ProductWithPriceRepository implements ProductWithPriceRepositoryInterface
 {

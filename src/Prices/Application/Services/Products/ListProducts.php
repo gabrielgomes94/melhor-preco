@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Application\Services\Products;
 
-use Src\Products\Domain\Repositories\Contracts\ProductWithPriceRepository;
+use Src\Products\Domain\Repositories\ProductWithPriceRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 

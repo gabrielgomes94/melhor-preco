@@ -10,7 +10,7 @@ use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\ProductCostsUpdated;
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Tests\Data\Models\Products\ProductData;
 use Tests\TestCase;
 

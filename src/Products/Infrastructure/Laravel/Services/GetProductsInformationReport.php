@@ -7,7 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 
 
