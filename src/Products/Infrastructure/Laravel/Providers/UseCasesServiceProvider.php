@@ -4,9 +4,9 @@ namespace Src\Products\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeData;
-use Src\Products\Domain\UseCases\Contracts\SyncProducts;
+use Src\Products\Domain\UseCases\SyncProducts;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeCategories;
-use Src\Products\Domain\UseCases\Contracts\SyncCategories;
+use Src\Products\Domain\UseCases\SyncCategories;
 
 class UseCasesServiceProvider extends ServiceProvider
 {
