@@ -1,14 +1,14 @@
 <?php
 
-namespace Src\Products\Domain\Models\Categories;
+namespace Src\Products\Infrastructure\Laravel\Models\Categories;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Src\Products\Domain\Models\Category as CategoryInterface;
 use Src\Products\Domain\Models\Product\Product;
 
-class Category extends Model
+class Category extends Model implements CategoryInterface
 {
     public $keyType = 'string';
 

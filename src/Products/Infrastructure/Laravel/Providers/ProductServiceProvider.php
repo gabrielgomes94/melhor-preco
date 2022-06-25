@@ -3,8 +3,8 @@
 namespace Src\Products\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Models\Categories\CategoryObserver;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\CategoryObserver;
 
 class ProductServiceProvider extends ServiceProvider
 {

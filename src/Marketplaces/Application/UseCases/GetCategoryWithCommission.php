@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Application\UseCases;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
 
 class GetCategoryWithCommission

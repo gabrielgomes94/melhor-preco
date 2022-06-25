@@ -6,7 +6,7 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
 
 class PriceListPresenter

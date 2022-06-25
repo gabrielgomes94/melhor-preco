@@ -3,7 +3,7 @@
 namespace Src\Calculator\Domain\Models\Product;
 
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData as ProductDataInterface;
-use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 use Src\Products\Domain\Models\Product\Product;

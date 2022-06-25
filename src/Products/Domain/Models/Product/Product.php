@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Marketplaces\Application\Models\Marketplace;
 use Src\Prices\Domain\Models\Price;
-use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Data\Details\Details;

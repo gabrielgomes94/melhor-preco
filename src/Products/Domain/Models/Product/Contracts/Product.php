@@ -4,7 +4,7 @@ namespace Src\Products\Domain\Models\Product\Contracts;
 
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Application\Models\Marketplace;
-use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\Data\Composition\Composition;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;

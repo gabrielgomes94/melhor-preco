@@ -4,7 +4,7 @@ namespace Tests\Integration\Products\Laravel\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
-use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeCategories;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Users\UserData;

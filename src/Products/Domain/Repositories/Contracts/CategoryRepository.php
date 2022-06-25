@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Repositories\Contracts;
 
 use Carbon\Carbon;
-use Src\Products\Domain\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 
 interface CategoryRepository
 {

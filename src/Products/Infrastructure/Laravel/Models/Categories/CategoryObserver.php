@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Categories;
+namespace Src\Products\Infrastructure\Laravel\Models\Categories;
 
 use Ramsey\Uuid\Uuid;
 
