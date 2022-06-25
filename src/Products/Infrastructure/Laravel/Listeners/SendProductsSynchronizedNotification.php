@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\Services\Listeners;
+namespace Src\Products\Infrastructure\Laravel\Listeners;
 
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;

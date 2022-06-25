@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Src\Products\Infrastructure\Laravel\Logging\Listeners\LogProductsSynchronized;
 use Src\Products\Infrastructure\Laravel\Logging\Listeners\LogProductSynchronized;
 use Src\Products\Infrastructure\Laravel\Logging\Listeners\LogProductWasNotSynchronized;
-use Src\Products\Application\Services\Listeners\SendProductsSynchronizedNotification;
+use Src\Products\Infrastructure\Laravel\Listeners\SendProductsSynchronizedNotification;
 use Src\Products\Domain\Events\Product\ProductsSynchronized;
 use Src\Products\Domain\Events\Product\ProductSynchronized;
 use Src\Products\Domain\Events\Product\ProductWasNotSynchronized;
