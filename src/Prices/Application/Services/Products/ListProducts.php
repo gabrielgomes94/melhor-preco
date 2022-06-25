@@ -3,9 +3,8 @@
 namespace Src\Prices\Application\Services\Products;
 
 use Src\Products\Domain\Repositories\Contracts\ProductWithPriceRepository;
-use Src\Products\Domain\Utils\Contracts\Options;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class ListProducts
 {

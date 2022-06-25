@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use Src\Prices\Presentation\Http\Requests\PriceList\ShowRequest;
 use Src\Prices\Application\Services\Products\ListProducts;
 use Src\Prices\Presentation\Presenters\PriceListPresenter;
-use Src\Products\Domain\Utils\Contracts\Options;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class ShowController extends Controller
 {

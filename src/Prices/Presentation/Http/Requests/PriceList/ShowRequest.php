@@ -3,7 +3,6 @@
 namespace Src\Prices\Presentation\Http\Requests\PriceList;
 
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
-use Src\Products\Domain\Utils\Contracts\Options as OptionsInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowRequest extends FormRequest
@@ -18,7 +17,7 @@ class ShowRequest extends FormRequest
         return [];
     }
 
-    public function getOptions(): OptionsInterface
+    public function getOptions(): Options
     {
         $data = [
             'minimumProfit' => $this->input('minProfit') ?? null,

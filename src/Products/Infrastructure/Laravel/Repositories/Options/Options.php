@@ -2,10 +2,9 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories\Options;
 
-use Src\Products\Domain\Utils\Contracts\Options as OptionsInterface;
 use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
 
-class Options implements OptionsInterface
+class Options
 {
     private const INFINITE = 100000000000000000;
     public array $extra;
