@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Products\Laravel\Services;
+namespace Tests\Integration\Products\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;

@@ -74,4 +74,16 @@ class Category extends Model implements CategoryInterface
     {
         return $this?->parent?->getCategoryId() ?? '';
     }
+
+    public function scopeFromUser($query, int $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    public function scopeWithId($query, string $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
+    }
+
+
 }
