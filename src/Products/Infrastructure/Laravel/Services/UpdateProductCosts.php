@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Products\Application\Services;
+namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 
-class SynchronizeProductCosts
+class UpdateProductCosts
 {
     private ProductRepository $repository;
 
