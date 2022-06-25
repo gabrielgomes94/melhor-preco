@@ -2,7 +2,7 @@
 
 namespace Src\Products\Presentation\Console\Commands;
 
-use Src\Products\Application\Jobs\SyncProducts as SyncProductsJob;
+use Src\Products\Infrastructure\Laravel\Jobs\SyncProducts as SyncProductsJob;
 use Illuminate\Console\Command;
 
 class SyncProducts extends Command
