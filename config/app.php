@@ -217,10 +217,10 @@ return [
         /**
          * Products' module Service Providers...
          */
-        Src\Products\Infrastructure\Laravel\ServiceProviders\EventServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\ServiceProviders\ProductServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\ServiceProviders\UseCasesServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\ServiceProviders\RepositoryServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\EventServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\ProductServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\UseCasesServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\RepositoryServiceProvider::class,
 
         /**
          * Promotions' module Service Providers...

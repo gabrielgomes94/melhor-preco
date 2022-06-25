@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Infrastructure\Laravel\ServiceProviders;
+namespace Src\Products\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;

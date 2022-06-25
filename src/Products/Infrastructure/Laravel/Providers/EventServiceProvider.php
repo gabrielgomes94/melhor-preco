@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Infrastructure\Laravel\ServiceProviders;
+namespace Src\Products\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
