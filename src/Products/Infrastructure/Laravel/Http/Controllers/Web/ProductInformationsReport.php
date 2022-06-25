@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Src\Products\Application\UseCases\Reports\ProductsInformation as ReportProductsInformation;
 use Src\Products\Domain\Models\Categories\Category;
 use Src\Products\Domain\Repositories\Contracts\CategoryRepository;
-use Src\Products\Presentation\Http\Requests\ReportProductRequest;
+use Src\Products\Infrastructure\Laravel\Http\Requests\ReportProductRequest;
 
 class ProductInformationsReport
 {

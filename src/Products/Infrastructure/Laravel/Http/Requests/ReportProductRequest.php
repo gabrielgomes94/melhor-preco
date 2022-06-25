@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Presentation\Http\Requests;
+namespace Src\Products\Infrastructure\Laravel\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
