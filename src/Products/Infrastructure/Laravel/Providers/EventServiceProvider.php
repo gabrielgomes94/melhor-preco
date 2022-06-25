@@ -8,9 +8,9 @@ use Src\Products\Infrastructure\Laravel\Logging\Listeners\LogProductsSynchronize
 use Src\Products\Infrastructure\Laravel\Logging\Listeners\LogProductSynchronized;
 use Src\Products\Infrastructure\Laravel\Logging\Listeners\LogProductWasNotSynchronized;
 use Src\Products\Infrastructure\Laravel\Listeners\SendProductsSynchronizedNotification;
-use Src\Products\Domain\Events\Product\ProductsSynchronized;
-use Src\Products\Domain\Events\Product\ProductSynchronized;
-use Src\Products\Domain\Events\Product\ProductWasNotSynchronized;
+use Src\Products\Domain\Events\ProductsSynchronized;
+use Src\Products\Domain\Events\ProductSynchronized;
+use Src\Products\Domain\Events\ProductWasNotSynchronized;
 
 class EventServiceProvider extends ServiceProvider
 {

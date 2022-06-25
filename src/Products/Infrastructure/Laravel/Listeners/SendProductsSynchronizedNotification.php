@@ -6,7 +6,7 @@ use Src\Users\Infrastructure\Laravel\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Src\Notifications\Domain\Notifications\Products\ProductsSynchronized as ProductsSynchronizedNotification;
-use Src\Products\Domain\Events\Product\ProductsSynchronized;
+use Src\Products\Domain\Events\ProductsSynchronized;
 
 class SendProductsSynchronizedNotification implements ShouldQueue
 {
@@ -23,7 +23,7 @@ class SendProductsSynchronizedNotification implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  \Src\Products\Domain\Events\Product\ProductsSynchronized  $event
+     * @param  \Src\Products\Domain\Events\ProductsSynchronized  $event
      * @return void
      */
     public function handle(ProductsSynchronized $event)
