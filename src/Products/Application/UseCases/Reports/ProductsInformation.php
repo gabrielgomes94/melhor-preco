@@ -5,7 +5,7 @@ namespace Src\Products\Application\UseCases\Reports;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product\Contracts\Product;
 use Src\Products\Domain\Repositories\Contracts\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;

@@ -2,7 +2,7 @@
 
 namespace Src\Costs\Infrastructure\Laravel\Http\Requests;
 
-use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\DataTransfer\FilterOptions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ListProductCostsRequest extends FormRequest

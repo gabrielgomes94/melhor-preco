@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\Data;
+namespace Src\Products\Domain\DataTransfer;
 
 use Carbon\Carbon;
 

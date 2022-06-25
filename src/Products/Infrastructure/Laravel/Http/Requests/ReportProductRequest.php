@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\DataTransfer\FilterOptions;
 
 class ReportProductRequest extends FormRequest
 {

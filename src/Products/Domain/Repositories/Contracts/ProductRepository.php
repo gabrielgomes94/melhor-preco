@@ -5,7 +5,7 @@ namespace Src\Products\Domain\Repositories\Contracts;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product\Data\Costs\Costs;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Users\Domain\Entities\User;

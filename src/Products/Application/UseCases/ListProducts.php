@@ -2,7 +2,7 @@
 
 namespace Src\Products\Application\UseCases;
 
-use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\DataTransfer\ProductsPaginated;
 use Src\Products\Domain\UseCases\Contracts\ListProducts as ListProductsInterface;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;

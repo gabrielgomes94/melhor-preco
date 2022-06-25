@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Application\Data\Reports;
+namespace Src\Products\Domain\DataTransfer;
 
 use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Product\Contracts\Product;
