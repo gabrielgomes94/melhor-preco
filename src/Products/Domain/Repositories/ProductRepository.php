@@ -28,7 +28,7 @@ interface ProductRepository
 
     public function getLastSynchronizationDateTime(): ?Carbon;
 
-    public function save(Product $product, User $user): bool;
+    public function save(Product $product, string $userId): bool;
 
     public function updateCosts(Product $product, Costs $costs): bool;
 }

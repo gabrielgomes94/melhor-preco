@@ -23,15 +23,13 @@ class SynchronizeProducts
             $product = $this->dbRepository->get($erpProduct->getSku());
 
             if (!$product) {
-                $erpProduct->user_id = $user->id;
-                $erpProduct->save();
+                $this->dbRepository->save($erpProduct, $user->id);
 
                 continue;
             }
 
             $product->fill($erpProduct->toArray());
-            $product->user_id = $user->id;
-            $product->save();
+            $this->dbRepository->save($product, $user->id);
         }
     }
 }

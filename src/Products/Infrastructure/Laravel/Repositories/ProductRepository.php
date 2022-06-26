@@ -5,14 +5,10 @@ namespace Src\Products\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use Src\Products\Domain\DataTransfer\FilterOptions;
-use Src\Products\Domain\Events\ProductSynchronized;
-use Src\Products\Domain\Events\ProductWasNotSynchronized;
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\ProductRepository as ProductRepositoryInterface;
-use Src\Users\Domain\Entities\User;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -109,6 +105,13 @@ class ProductRepository implements ProductRepositoryInterface
     public function updateCosts(Product $product, Costs $costs): bool
     {
         $product->setCosts($costs);
+
+        return $product->save();
+    }
+
+    public function save(Product $product, string $userId): bool
+    {
+        $product->user_id = $user->id;
 
         return $product->save();
     }
