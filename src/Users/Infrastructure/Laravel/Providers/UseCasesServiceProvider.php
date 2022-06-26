@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Dashboard\Infrastructure\Container;
+namespace Src\Users\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Dashboard\Application\UseCases\GetSynchronizationInfo as GetSynchronizationInfoImpl;
-use Src\Dashboard\Domain\UseCases\GetSynchronizationInfo;
+use Src\Users\Infrastructure\Laravel\UseCases\GetSynchronizationInfo as GetSynchronizationInfoImpl;
+use Src\Users\Domain\UseCases\GetSynchronizationInfo;
 
 class UseCasesServiceProvider extends ServiceProvider
 {

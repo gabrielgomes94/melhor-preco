@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Dashboard\Domain\UseCases;
+namespace Src\Users\Domain\UseCases;
 
 interface GetSynchronizationInfo
 {

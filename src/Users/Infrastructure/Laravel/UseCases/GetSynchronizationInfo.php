@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Dashboard\Application\UseCases;
+namespace Src\Users\Infrastructure\Laravel\UseCases;
 
 use Carbon\Carbon;
 use Src\Costs\Domain\Repositories\DbRepository;
-use Src\Dashboard\Domain\UseCases\GetSynchronizationInfo as GetSynchronizationInfoInterface;
+use Src\Users\Domain\UseCases\GetSynchronizationInfo as GetSynchronizationInfoInterface;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository as SalesRepository;
 

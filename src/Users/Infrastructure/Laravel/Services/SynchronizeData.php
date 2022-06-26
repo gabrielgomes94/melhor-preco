@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Dashboard\Application\UseCases;
+namespace Src\Users\Infrastructure\Laravel\Services;
 
 use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
 use Src\Products\Infrastructure\Laravel\Jobs\SyncCategories;

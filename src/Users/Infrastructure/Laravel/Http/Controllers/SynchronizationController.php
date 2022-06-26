@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Dashboard\Presentation\Http\Controllers;
+namespace Src\Users\Infrastructure\Laravel\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Dashboard\Application\UseCases\SynchronizeData;
+use Src\Users\Infrastructure\Laravel\Services\SynchronizeData;
 
 class SynchronizationController extends Controller
 {
