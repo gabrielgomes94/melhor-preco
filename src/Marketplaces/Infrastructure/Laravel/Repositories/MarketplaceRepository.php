@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\Eloquent;
+namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
 

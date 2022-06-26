@@ -5,7 +5,7 @@ namespace Src\Products\Domain\Models\Post;
 use Money\Money;
 use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Domain\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers as PostIdentifiers;

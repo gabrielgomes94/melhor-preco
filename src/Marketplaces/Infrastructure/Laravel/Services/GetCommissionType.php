@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Application\UseCases;
+namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType as GetCommissionTypeInterface;

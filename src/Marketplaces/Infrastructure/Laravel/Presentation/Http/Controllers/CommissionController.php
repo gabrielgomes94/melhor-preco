@@ -1,15 +1,15 @@
 <?php
 
-namespace Src\Marketplaces\Presentation\Http\Controllers;
+namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Src\Marketplaces\Application\UseCases\GetCategoryWithCommission;
+use Src\Marketplaces\Infrastructure\Laravel\Services\GetCategoryWithCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType;
 use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission;
-use Src\Marketplaces\Presentation\Http\Requests\SetCommissionByCategoryRequest;
-use Src\Marketplaces\Presentation\Http\Requests\SetUniqueCommissionRequest;
+use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
+use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
 
 class CommissionController extends Controller
 {

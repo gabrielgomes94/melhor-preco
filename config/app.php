@@ -239,7 +239,7 @@ return [
         /**
          * Marketplaces' module Service Providers...
          */
-        Src\Marketplaces\Infrastructure\Laravel\ServiceProviders\MarketplacesServiceProvider::class,
+        \Src\Marketplaces\Infrastructure\Laravel\Providers\MarketplacesServiceProvider::class,
 
         /**
          * Users' module Service Providers

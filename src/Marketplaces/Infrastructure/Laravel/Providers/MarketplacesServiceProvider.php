@@ -1,14 +1,14 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\ServiceProviders;
+namespace Src\Marketplaces\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Marketplaces\Application\UseCases\GetMarketplace;
-use Src\Marketplaces\Application\UseCases\SaveMarketplace;
-use Src\Marketplaces\Application\UseCases\GetCommission;
-use Src\Marketplaces\Application\UseCases\GetCommissionType;
-use Src\Marketplaces\Application\UseCases\ListMarketplaces;
-use Src\Marketplaces\Application\UseCases\UpdateCommission;
+use Src\Marketplaces\Infrastructure\Laravel\Services\GetMarketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Services\SaveMarketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Services\GetCommission;
+use Src\Marketplaces\Infrastructure\Laravel\Services\GetCommissionType;
+use Src\Marketplaces\Infrastructure\Laravel\Services\ListMarketplaces;
+use Src\Marketplaces\Infrastructure\Laravel\Services\UpdateCommission;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetMarketplace as GetMarketplaceInterface;
 use Src\Marketplaces\Domain\UseCases\Contracts\SaveMarketplace as SaveMarketplaceInterface;
@@ -16,7 +16,7 @@ use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission as GetCommissionInt
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType as GetCommissionTypeInterface;
 use Src\Marketplaces\Domain\UseCases\Contracts\ListMarketplaces as ListMarketplacesInterface;
 use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission as UpdateCommissionInterface;
-use Src\Marketplaces\Infrastructure\Laravel\Eloquent\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 
 class MarketplacesServiceProvider extends ServiceProvider
 {

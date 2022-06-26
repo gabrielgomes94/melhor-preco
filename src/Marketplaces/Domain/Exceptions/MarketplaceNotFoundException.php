@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Application\Exceptions;
+namespace Src\Marketplaces\Domain\Exceptions;
 
 use Exception;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Src\Marketplaces\Application\Models;
+namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Application\Models\ValueObjects\CategoryCommission;
+use Src\Marketplaces\Domain\Models\ValueObjects\CategoryCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
 use Src\Math\Percentage;

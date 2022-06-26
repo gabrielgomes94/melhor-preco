@@ -3,7 +3,7 @@
 namespace Src\Sales\Application\Services;
 
 use Money\Money;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData as PriceProductData;

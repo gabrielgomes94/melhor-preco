@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Marketplaces\Application\UseCases;
+namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
-use Src\Marketplaces\Application\Exceptions\MarketplaceNotFoundException;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Marketplaces\Infrastructure\Laravel\Eloquent\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetMarketplace as GetMarketplaceInterface;
 
 class GetMarketplace implements GetMarketplaceInterface

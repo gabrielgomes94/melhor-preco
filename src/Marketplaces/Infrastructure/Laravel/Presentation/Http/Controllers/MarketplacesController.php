@@ -1,14 +1,14 @@
 <?php
 
-namespace Src\Marketplaces\Presentation\Http\Controllers;
+namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Src\Marketplaces\Application\Exceptions\MarketplaceNotFoundException;
-use Src\Marketplaces\Application\UseCases\GetMarketplace;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Marketplaces\Infrastructure\Laravel\Services\GetMarketplace;
 use Src\Marketplaces\Domain\UseCases\Contracts\SaveMarketplace;
 use Src\Marketplaces\Domain\UseCases\Contracts\ListMarketplaces;
-use Src\Marketplaces\Presentation\Http\Requests\SaveMarketplaceRequest;
-use Src\Marketplaces\Presentation\Presenters\MarketplacePresenter;
+use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SaveMarketplaceRequest;
+use Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters\MarketplacePresenter;
 
 class MarketplacesController extends Controller
 {

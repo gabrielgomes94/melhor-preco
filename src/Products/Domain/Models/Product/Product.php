@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Models\Product;
 
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\ValueObjects\Composition;

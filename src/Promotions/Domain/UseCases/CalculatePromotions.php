@@ -2,7 +2,7 @@
 
 namespace Src\Promotions\Domain\UseCases;
 
-use Src\Marketplaces\Application\Exceptions\MarketplaceNotFoundException;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Promotions\Domain\Data\PromotionSetup;
 use Src\Promotions\Domain\Models\Promotion;

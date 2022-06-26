@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Marketplaces\Presentation\Presenters;
+namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters;
 
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 
 class MarketplacePresenter
 {
