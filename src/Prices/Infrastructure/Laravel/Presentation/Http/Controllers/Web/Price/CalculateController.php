@@ -7,7 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
 use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
-use Src\Prices\Domain\UseCases\Contracts\GetPost;
+use Src\Prices\Domain\UseCases\GetPost;
 use Src\Prices\Infrastructure\Laravel\Presentation\Presenters\ProductPresenter;
 use Src\Products\Domain\Exceptions\PostNotFoundException;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;

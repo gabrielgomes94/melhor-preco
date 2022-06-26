@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Services;
 
 use Src\Calculator\Domain\UseCases\Contracts\CalculatePrice;
-use Src\Prices\Domain\UseCases\Contracts\GetPost as GetPostInterface;
+use Src\Prices\Domain\UseCases\GetPost as GetPostInterface;
 use Src\Products\Domain\Exceptions\PostNotFoundException;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Post\Contracts\Post;

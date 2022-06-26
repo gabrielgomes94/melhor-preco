@@ -1,18 +1,19 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Products;
+namespace Src\Prices\Infrastructure\Laravel\Services\Products\Commands;
 
 use Src\Prices\Domain\Exceptions\SyncERPException;
 use Src\Prices\Domain\Exceptions\UpdateDBException;
-use Src\Prices\Domain\UseCases\Update as UpdateInterface;
+use Src\Prices\Domain\UseCases\Products\UpdateCommand as UpdateInterface;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 
-class Update implements UpdateInterface
+// @todo: renomear para Commands
+class UpdateCommandCommand implements UpdateInterface
 {
-    private UpdateDB $updatePriceServiceDB;
-    private UpdateERP $updatePriceServiceERP;
+    private UpdateDBCommandCommand $updatePriceServiceDB;
+    private UpdateERPCommandCommand $updatePriceServiceERP;
 
-    public function __construct(UpdateDB $updatePriceServiceDB, UpdateERP $updatePriceServiceERP)
+    public function __construct(UpdateDBCommandCommand $updatePriceServiceDB, UpdateERPCommandCommand $updatePriceServiceERP)
     {
         $this->updatePriceServiceDB = $updatePriceServiceDB;
         $this->updatePriceServiceERP = $updatePriceServiceERP;
@@ -20,7 +21,7 @@ class Update implements UpdateInterface
 
     /**
      * @throws SyncERPException
-     * @throws \Src\Prices\Domain\Exceptions\UpdateDBException
+     * @throws UpdateDBException
      */
     public function execute(string $sku, Post $post): bool
     {

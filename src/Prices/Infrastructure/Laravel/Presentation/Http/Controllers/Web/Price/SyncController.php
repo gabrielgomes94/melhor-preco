@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Pr
 
 use App\Http\Controllers\Controller;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
-use Src\Prices\Domain\UseCases\Contracts\SynchronizePrices;
+use Src\Prices\Domain\UseCases\Price\SynchronizePrices;
 
 class SyncController extends Controller
 {

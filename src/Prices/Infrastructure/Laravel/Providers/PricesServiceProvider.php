@@ -3,8 +3,8 @@
 namespace Src\Prices\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider as ServiceProviderAlias;
-use Src\Prices\Domain\UseCases\Contracts\GetPost as GetPostInterface;
-use Src\Prices\Domain\UseCases\Contracts\SynchronizePrices as SynchronizePricesInterface;
+use Src\Prices\Domain\UseCases\GetPost as GetPostInterface;
+use Src\Prices\Domain\UseCases\Price\SynchronizePrices as SynchronizePricesInterface;
 use Src\Prices\Infrastructure\Laravel\Services\GetPost;
 use Src\Prices\Infrastructure\Laravel\Services\SynchronizePrices;
 

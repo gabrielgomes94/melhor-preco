@@ -6,8 +6,8 @@ use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Math\Percentage;
-use Src\Prices\Domain\UseCases\Contracts\UpdatePrice as UpdatePriceInterface;
-use Src\Prices\Infrastructure\Laravel\Services\Products\Update;
+use Src\Prices\Domain\UseCases\Price\UpdatePrice as UpdatePriceInterface;
+use Src\Prices\Infrastructure\Laravel\Services\Products\Commands\UpdateCommandCommand;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Repositories\PostRepository;
@@ -16,15 +16,15 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 class UpdatePrice implements UpdatePriceInterface
 {
     private CalculatePrice $calculatePrice;
-    private Update $updatePriceService;
+    private UpdateCommandCommand $updatePriceService;
     private PostRepository $postRepository;
     private PostFactory $postFactory;
 
     public function __construct(
-        CalculatePrice $calculatePrice,
-        Update $updatePriceService,
-        PostRepository $postRepository,
-        PostFactory $postFactory
+        CalculatePrice       $calculatePrice,
+        UpdateCommandCommand $updatePriceService,
+        PostRepository       $postRepository,
+        PostFactory          $postFactory
     ) {
         $this->calculatePrice = $calculatePrice;
         $this->updatePriceService = $updatePriceService;

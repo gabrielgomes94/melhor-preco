@@ -8,6 +8,9 @@ use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
+/**
+ * @depreacted Remover essa classe da aplicação. Utilizar Products/Product no lugar.
+ */
 class ProductData implements ProductDataInterface
 {
     public readonly Costs $costs;

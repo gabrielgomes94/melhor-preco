@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Products;
+namespace Src\Prices\Infrastructure\Laravel\Services\Products\Commands;
 
-use Src\Prices\Domain\UseCases\UpdateDB as UpdateDBInterface;
+use Src\Prices\Domain\UseCases\Products\UpdateDBCommand as UpdateDBInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Services\Prices\UpdatePrice;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 
-class UpdateDB implements UpdateDBInterface
+class UpdateDBCommandCommand implements UpdateDBInterface
 {
     private UpdatePrice $updatePrice;
 

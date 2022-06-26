@@ -1,16 +1,16 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Products;
+namespace Src\Prices\Infrastructure\Laravel\Services\Products\Commands;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Src\Integrations\Bling\Products\Client;
 use Src\Math\MoneyTransformer;
-use Src\Prices\Domain\UseCases\UpdateERP as UpdateERPInterface;
+use Src\Prices\Domain\UseCases\Products\UpdateERPCommand as UpdateERPInterface;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 use Src\Products\Infrastructure\Bling\Responses\Product\Factory;
 
-class UpdateERP implements UpdateERPInterface
+class UpdateERPCommandCommand implements UpdateERPInterface
 {
     private DecimalMoneyFormatter $formatter;
     private Client $client;

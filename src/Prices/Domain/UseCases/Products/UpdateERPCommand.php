@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Prices\Domain\UseCases;
+namespace Src\Prices\Domain\UseCases\Products;
 
 use Src\Products\Domain\Models\Post\Post;
 
 // To Do: Refatorar o código para liberar os métodos comentados na interface e remover o execute()
-interface UpdateERP
+interface UpdateERPCommand
 {
     public function execute(string $sku, Post $post): bool;
 

@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Prices\Domain\UseCases\Contracts\SynchronizePrices as SynchronizePricesInterface;
+use Src\Prices\Domain\UseCases\Price\SynchronizePrices as SynchronizePricesInterface;
 use Src\Prices\Infrastructure\Laravel\Jobs\SyncPrices;
 
 
