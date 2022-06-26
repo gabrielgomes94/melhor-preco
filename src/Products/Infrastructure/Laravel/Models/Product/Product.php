@@ -290,6 +290,11 @@ class Product extends Model implements ProductModelInterface
         return $query->where('category_id', $categoryId);
     }
 
+    public function scopeFromUser($query, string $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
     public function scopeOrderBySku($query)
     {
         return $query->orderByRaw('CAST(sku AS INTEGER) DESC');

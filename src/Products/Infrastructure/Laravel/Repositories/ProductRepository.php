@@ -18,14 +18,24 @@ class ProductRepository implements ProductRepositoryInterface
 {
     private const PER_PAGE = 15;
 
+    private string $userId;
+
+    public function __construct()
+    {
+        $this->userId = auth()->user()->getAuthIdentifier();
+    }
+
     public function all(): Collection
     {
-        return Product::active()->get();
+        return Product::fromUser($this->userId)
+            ->active()
+            ->get();
     }
 
     public function allFiltered(FilterOptions $filter): LengthAwarePaginator
     {
-        $query = Product::active();
+        $query = Product::fromUser($this->userId)
+            ->active();
 
         if ($filter->hasSku()) {
             $query = $query->withSku($filter->sku);
@@ -40,13 +50,11 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function get(string $sku): ?Product
     {
-        $product = Product::where('sku', $sku)->first();
+        $product = Product::fromUser($this->userId)
+            ->where('sku', $sku)
+            ->first();
 
         if (!$product) {
-            Log::info('Produto não encontrado.', [
-                'sku' => $sku,
-            ]);
-
             return null;
         }
 
@@ -55,26 +63,30 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getLastSynchronizationDateTime(): ?Carbon
     {
-        $lastUpdatedProduct = Product::query()->orderByDesc('updated_at')->first();
+        $lastUpdatedProduct = Product::fromUser($this->userId)
+            ->orderByDesc('updated_at')
+            ->first();
 
         return $lastUpdatedProduct?->getLastUpdate();
     }
 
     public function count(): int
     {
-        $userId = auth()->user()->id;
-
-        return Product::query()->where('user_id', $userId)->count();
+        return Product::fromUser($this->userId)->count();
     }
 
     public function countActives(): int
     {
-        return Product::active()->count();
+        return Product::fromUser($this->userId)
+            ->active()
+            ->count();
     }
 
     public function getProductByEan(string $ean): ?Product
     {
-        return Product::where('ean', $ean)->first();
+        return Product::fromUser($this->userId)
+            ->where('ean', $ean)
+            ->first();
     }
 
     public function getProductsAndVariations(string $sku): array
@@ -99,19 +111,5 @@ class ProductRepository implements ProductRepositoryInterface
         $product->setCosts($costs);
 
         return $product->save();
-    }
-
-    public function save(Product $product, User $user): bool
-    {
-        $product->user_id = $user->getId();
-
-        if ($product->save()) {
-            event(new ProductSynchronized($product->getSku()));
-
-            return true;
-        }
-
-        event(new ProductWasNotSynchronized($product));
-        return false;
     }
 }
