@@ -4,7 +4,7 @@ namespace Src\Products\Domain\Models\Post\Contracts;
 
 use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Prices\Domain\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Models\Post\Identifiers\Identifiers;
 use Src\Products\Domain\Models\Product\Product;
 

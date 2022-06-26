@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Promotions\Infrastructure\Laravel\Http\Controllers\CalculatePromotionController;
-use Src\Promotions\Infrastructure\Laravel\Http\Controllers\EditPromotionController;
-use Src\Promotions\Infrastructure\Laravel\Http\Controllers\ExportSpreadsheetController;
-use Src\Promotions\Infrastructure\Laravel\Http\Controllers\ListPromotionsController;
-use Src\Promotions\Infrastructure\Laravel\Http\Controllers\PromotionsController;
-use Src\Promotions\Infrastructure\Laravel\Http\Controllers\ShowPromotionController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Promotions\CalculatePromotionController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Promotions\EditPromotionController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Promotions\ExportSpreadsheetController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Promotions\ListPromotionsController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Promotions\PromotionsController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Promotions\ShowPromotionController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('promocoes')

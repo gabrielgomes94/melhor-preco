@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Prices\Presentation\Http\Controllers\Web\Price\CalculatorController;
-use Src\Prices\Presentation\Http\Controllers\Web\Price\SyncController;
-use Src\Prices\Presentation\Http\Controllers\Web\Price\UpdateController;
-use Src\Prices\Presentation\Http\Controllers\Web\PriceList\IndexController;
-use Src\Prices\Presentation\Http\Controllers\Web\PriceList\ShowController;
-use Src\Prices\Presentation\Http\Controllers\Web\PriceLog\PriceLogController;
-use Src\Prices\Presentation\Http\Controllers\Web\Price\CalculateController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\CalculateController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\CalculatorController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\SyncController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\UpdateController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceList\IndexController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceList\ShowController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceLog\PriceLogController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('pricing')

@@ -2,10 +2,11 @@
 
 namespace Tests\Data\Models\Product;
 
-use Src\Prices\Domain\Models\Price;
-//use Src\Products\Domain\Models\Product;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Tests\Data\Models\Product\Contracts\ProductFactory;
+
+//use Src\Products\Domain\Models\Product;
 
 class SimpleProduct implements ProductFactory
 {

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Domain\Models\ValueObjects\CategoryCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
+use Src\Marketplaces\Domain\Models\ValueObjects\CategoryCommission;
 use Src\Math\Percentage;
-use Src\Prices\Domain\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class Marketplace extends Model implements MarketplaceInterface

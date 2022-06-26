@@ -5,7 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
-use Src\Prices\Application\Jobs\SyncPrices;
+use Src\Prices\Infrastructure\Laravel\Jobs\SyncPrices;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeData;
 use Src\Products\Infrastructure\Laravel\Console\Commands\SyncProducts;
 use Src\Sales\Application\Jobs\SyncSales;

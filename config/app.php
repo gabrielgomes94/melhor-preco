@@ -201,8 +201,8 @@ return [
         /**
          * Prices' module Service Providers...
          */
-        Src\Prices\Infrastructure\Laravel\ServiceProviders\BladeServiceProvider::class,
-        Src\Prices\Infrastructure\Laravel\ServiceProviders\EventServiceProvider::class,
+        Src\Prices\Infrastructure\Laravel\Providers\BladeServiceProvider::class,
+        Src\Prices\Infrastructure\Laravel\Providers\EventServiceProvider::class,
 
         /**
          * Calculator module Services Providers...
@@ -212,7 +212,7 @@ return [
         /**
          * Prices' module Services Providers...
          */
-        \Src\Prices\Infrastructure\Laravel\ServiceProviders\PricesServiceProvider::class,
+        \Src\Prices\Infrastructure\Laravel\Providers\PricesServiceProvider::class,
 
         /**
          * Products' module Service Providers...
@@ -225,7 +225,7 @@ return [
         /**
          * Promotions' module Service Providers...
          */
-        Src\Promotions\Infrastructure\Laravel\Providers\PromotionsServiceProvider::class,
+        \Src\Prices\Infrastructure\Laravel\Providers\PromotionsServiceProvider::class,
 
         /**
          * Sales' module Service Providers...

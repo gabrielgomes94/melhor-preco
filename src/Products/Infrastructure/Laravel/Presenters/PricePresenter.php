@@ -3,8 +3,7 @@
 namespace Src\Products\Infrastructure\Laravel\Presenters;
 
 use Src\Math\MathPresenter;
-use Src\Math\Percentage;
-use Src\Prices\Domain\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Models\Product\Product;
 
 class PricePresenter

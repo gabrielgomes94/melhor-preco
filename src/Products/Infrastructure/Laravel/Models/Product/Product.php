@@ -7,19 +7,18 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Prices\Domain\Models\Price;
-use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
+use Src\Products\Domain\Models\Product\Product as ProductModelInterface;
 use Src\Products\Domain\Models\Product\ValueObjects\Composition;
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Models\Product\ValueObjects\Details;
 use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
 use Src\Products\Domain\Models\Product\ValueObjects\Variations\Variations;
-use Src\Products\Domain\Models\Product\Product as ProductModelInterface;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Sales\Domain\Models\Item;
 
 class Product extends Model implements ProductModelInterface

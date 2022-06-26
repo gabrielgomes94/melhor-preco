@@ -2,11 +2,11 @@
 
 namespace Src\Calculator\Application\Services;
 
-use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MoneyTransformer;
-use Src\Prices\Domain\Models\Price;
+use Src\Math\Percentage;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
 
