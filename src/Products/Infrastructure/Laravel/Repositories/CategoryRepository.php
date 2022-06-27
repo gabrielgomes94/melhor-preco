@@ -9,17 +9,6 @@ use Src\Users\Domain\Exceptions\UserNotAuthenticated;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    private string $userId;
-
-    public function __construct()
-    {
-        if (!$user = auth()->user()) {
-            throw new UserNotAuthenticated();
-        }
-
-        $this->userId = $user->getAuthIdentifier();
-    }
-
     public function exists(string $categoryId): bool
     {
         return (bool) $this->get($categoryId);
@@ -27,7 +16,8 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function get(string $categoryId): ?Category
     {
-        return Category::fromUser((int) $this->userId)
+        $userId = $this->getUserIdentifier();
+        return Category::fromUser((int) $userId)
             ->withId($categoryId)
             ->first();
     }
@@ -48,19 +38,27 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function list()
     {
-        return Category::fromUser($this->userId)->get()->all();
+        $userId = $this->getUserIdentifier();
+        return Category::fromUser($userId)->get()->all();
     }
 
     public function count(): int
     {
-        return Category::fromUser($this->userId)->count();
+        $userId = $this->getUserIdentifier();
+        return Category::fromUser($userId)->count();
     }
 
     public function getLastUpdatedAt(): ?Carbon
     {
-        return Category::fromUser($this->userId)
+        $userId = $this->getUserIdentifier();
+        return Category::fromUser($userId)
             ->orderByDesc('updated_at')
             ->first()
             ?->updated_at;
+    }
+
+    private function getUserIdentifier(): string
+    {
+        return auth()->user()->getAuthIdentifier();
     }
 }
