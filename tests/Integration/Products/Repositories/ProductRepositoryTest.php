@@ -216,7 +216,7 @@ class ProductRepositoryTest extends TestCase
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->save($product, $user);
+        $result = $repository->save($product, $user->id);
 
         // Assert
         $this->assertTrue($result);
