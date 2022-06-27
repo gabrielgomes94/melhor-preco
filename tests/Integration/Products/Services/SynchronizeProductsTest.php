@@ -41,6 +41,7 @@ class SynchronizeProductsTest extends TestCase
     private function given_i_have_an_user_with_no_products(): void
     {
         $this->user = UserData::make();
+        $this->actingAs($this->user);
     }
 
     private function and_given_i_have_an_integration_with_bling_setup(): void
@@ -72,6 +73,7 @@ class SynchronizeProductsTest extends TestCase
     private function given_i_have_an_user_with_products()
     {
         $this->user = UserData::make();
+        $this->actingAs($this->user);
 
         ProductData::makePersisted($this->user, [
             'sku' => '1211',

@@ -29,6 +29,7 @@ class SynchronizeCategoriesTest extends TestCase
     private function given_i_have_a_user_with_no_categories(): void
     {
         $this->user = UserData::make();
+        $this->actingAs($this->user);
     }
 
     private function and_given_i_have_an_integration_with_bling_setup(): void

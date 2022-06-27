@@ -111,7 +111,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function save(Product $product, string $userId): bool
     {
-        $product->user_id = $user->id;
+        $product->user_id = $userId;
 
         return $product->save();
     }
