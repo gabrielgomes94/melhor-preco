@@ -6,7 +6,6 @@ use Src\Costs\Infrastructure\Bling\Responses\Factory;
 use Src\Costs\Infrastructure\Bling\Responses\PurchaseInvoicesResponse;
 use Src\Integrations\Bling\Base\Responses\ErrorResponse;
 use Tests\TestCase;
-use function Tests\Costs\Unit\Infrastructure\Bling\Responses\count;
 
 class FactoryTest extends TestCase
 {

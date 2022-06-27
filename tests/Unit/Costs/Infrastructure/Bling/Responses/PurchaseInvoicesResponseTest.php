@@ -6,7 +6,6 @@ use Src\Costs\Infrastructure\Bling\Responses\PurchaseInvoicesResponse;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\TestCase;
-use function Tests\Costs\Unit\Infrastructure\Bling\Responses\count;
 
 class PurchaseInvoicesResponseTest extends TestCase
 {

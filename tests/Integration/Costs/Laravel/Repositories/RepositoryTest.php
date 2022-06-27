@@ -13,7 +13,6 @@ use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
-use function Tests\Costs\Integration\Laravel\Repositories\count;
 
 class RepositoryTest extends TestCase
 {

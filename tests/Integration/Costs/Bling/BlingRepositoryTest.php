@@ -10,7 +10,6 @@ use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Src\Integrations\Bling\Invoices\Client;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\TestCase;
-use function Tests\Costs\Integration\Bling\count;
 
 // @todo: Mover para contexto de Integrations
 class BlingRepositoryTest extends TestCase
