@@ -5,24 +5,41 @@ namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Src\Calculator\Application\Services\CalculateProfit;
+use Src\Integrations\Bling\Products\Requests\Config;
+use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission;
 use Src\Prices\Domain\Events\PriceSynchronized;
 use Src\Prices\Domain\Events\PriceWasNotSynchronized;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
+use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
-class SavePrices
+class SynchronizeFromMarketplace
 {
-    private CalculateProfit $calculateProfit;
-    private GetCommission $getCommission;
-
     public function __construct(
-        CalculateProfit $calculateProfit,
-        GetCommission $getCommission,
+        private BlingRepository $erpRepository,
+        private CalculateProfit $calculateProfit,
+        private GetCommission $getCommission
     ) {
-        $this->calculateProfit = $calculateProfit;
-        $this->getCommission = $getCommission;
+    }
+
+    public function sync(Marketplace $marketplace, string $erpToken, int $page = 1): bool
+    {
+        $prices = $this->erpRepository->allInMarketplace(
+            $erpToken,
+            $marketplace,
+            Config::ACTIVE,
+            $page
+        );
+
+        if (empty($prices->data())) {
+            return false;
+        }
+
+        $this->save($prices);
+
+        return true;
     }
 
     public function save(PricesCollectionResponse $prices): void
@@ -42,7 +59,7 @@ class SavePrices
             } catch (\Throwable $error) {
                 $this->logErrors($error->getMessage(), $price->toArray());
 
-                throw $error;
+                continue;
             }
         }
     }
