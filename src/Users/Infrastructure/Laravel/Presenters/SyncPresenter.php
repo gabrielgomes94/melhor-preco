@@ -3,7 +3,7 @@
 namespace Src\Users\Infrastructure\Laravel\Presenters;
 
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository as CostsRepository;
-use Src\Prices\Infrastructure\Laravel\Repositories\Repository as PriceRepository;
+use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository as PriceRepository;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository as SalesRepository;
