@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services;
+namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
 use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
