@@ -6,12 +6,12 @@ use Src\Calculator\Application\Services\CalculatePrice as CalculatePriceService;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\UseCases\Contracts\CalculatePrice as CalculatePriceInterface;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
-use Src\Products\Domain\Models\Product\Contracts\Post;
-use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\PostRepository;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Domain\Models\Post\Contracts\Post;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Products\Domain\Repositories\PostRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
 
 class CalculatePrice implements CalculatePriceInterface
 {
@@ -21,7 +21,8 @@ class CalculatePrice implements CalculatePriceInterface
         private PostFactory $postFactory,
         private PostRepository $postRepository,
         private CalculatePriceService $calculatePrice
-    ) {}
+    ) {
+    }
 
     public function calculate(array $data): Post
     {

@@ -2,7 +2,7 @@
 
 namespace Src\Calculator\Domain\UseCases\Contracts;
 
-use Src\Products\Domain\Models\Product\Contracts\Post;
+use Src\Products\Domain\Models\Post\Contracts\Post;
 
 interface CalculatePrice
 {

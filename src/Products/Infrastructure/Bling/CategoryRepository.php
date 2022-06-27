@@ -3,8 +3,8 @@
 namespace Src\Products\Infrastructure\Bling;
 
 use Src\Integrations\Bling\Categories\Client;
-use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\Erp\CategoryRepository as CategoryRepositoryInterface;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Domain\Repositories\Erp\CategoryRepository as CategoryRepositoryInterface;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -15,13 +15,13 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->client = $client;
     }
 
-    public function list(): array
+    public function list(string $erpToken): array
     {
         $categories = [];
         $page = 0;
 
         do {
-            $data = $this->client->list(++$page);
+            $data = $this->client->list($erpToken, ++$page);
             $categories = array_merge($categories, $data);
         } while (!empty($data));
 

@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
-use Src\Prices\Domain\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 
 class Repository
 {

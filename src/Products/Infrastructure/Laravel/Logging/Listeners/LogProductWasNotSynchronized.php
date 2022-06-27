@@ -3,8 +3,8 @@
 namespace Src\Products\Infrastructure\Laravel\Logging\Listeners;
 
 use Illuminate\Support\Facades\Log;
-use Src\Products\Domain\Events\Product\ProductSynchronized;
-use Src\Products\Domain\Events\Product\ProductWasNotSynchronized;
+use Src\Products\Domain\Events\ProductSynchronized;
+use Src\Products\Domain\Events\ProductWasNotSynchronized;
 
 class LogProductWasNotSynchronized
 {

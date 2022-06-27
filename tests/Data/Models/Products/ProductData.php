@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Models\Products;
 
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class ProductData

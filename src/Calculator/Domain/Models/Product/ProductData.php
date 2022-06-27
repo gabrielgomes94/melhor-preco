@@ -3,11 +3,14 @@
 namespace Src\Calculator\Domain\Models\Product;
 
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData as ProductDataInterface;
-use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
-use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
+/**
+ * @depreacted Remover essa classe da aplicação. Utilizar Products/Product no lugar.
+ */
 class ProductData implements ProductDataInterface
 {
     public readonly Costs $costs;

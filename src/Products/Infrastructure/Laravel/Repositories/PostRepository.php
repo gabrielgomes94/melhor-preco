@@ -2,12 +2,12 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories;
 
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Post\Post;
-use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\PostRepository as PostRepositoryInterface;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Products\Domain\Repositories\PostRepository as PostRepositoryInterface;
 
 class PostRepository implements PostRepositoryInterface
 {

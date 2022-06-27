@@ -3,9 +3,9 @@
 namespace Src\Sales\Application\UseCases\Reports;
 
 use Src\Sales\Application\Data\Reports\SalesReport;
-use Src\Products\Application\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Services\Contracts\GetProductSales;
 
 class ReportProductSales
@@ -13,7 +13,8 @@ class ReportProductSales
     public function __construct(
         private ProductRepository $repository,
         private GetProductSales $getProductSales
-    ) {}
+    ) {
+    }
 
     public function report(string $sku): SalesReport
     {

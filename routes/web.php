@@ -1,8 +1,8 @@
 <?php
 
-use Src\Dashboard\Presentation\Http\Controllers\DashboardController;
+use Src\Users\Infrastructure\Laravel\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use Src\Dashboard\Presentation\Http\Controllers\SynchronizationController;
+use Src\Users\Infrastructure\Laravel\Http\Controllers\SynchronizationController;
 
 /*
 |--------------------------------------------------------------------------

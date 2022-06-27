@@ -2,9 +2,9 @@
 
 namespace Src\Calculator\Domain\Models\Product\Contracts;
 
-use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
-use Src\Products\Domain\Models\Product\Data\Dimensions\Dimensions;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 
 interface ProductData
 {

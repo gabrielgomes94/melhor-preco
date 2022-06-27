@@ -5,7 +5,7 @@ namespace Src\Calculator\Application\Services;
 use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost as CalculatePostInterface;
-use Src\Prices\Domain\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 
 class CalculatePost implements CalculatePostInterface
 {

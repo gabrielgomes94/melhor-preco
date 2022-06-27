@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Domain\Repositories;
 
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 
 interface MarketplaceRepository

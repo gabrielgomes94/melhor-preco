@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ImportCostsBackup extends Command
 {

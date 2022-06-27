@@ -4,7 +4,7 @@ namespace Src\Costs\Infrastructure\Laravel\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Src\Costs\Domain\UseCases\ShowProductCosts;
-use Src\Products\Presentation\Presenters\Reports\CostsPresenter;
+use Src\Products\Infrastructure\Laravel\Presenters\CostsPresenter;
 
 class ShowCostsController extends Controller
 {

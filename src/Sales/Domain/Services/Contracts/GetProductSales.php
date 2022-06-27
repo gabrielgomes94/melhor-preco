@@ -2,8 +2,8 @@
 
 namespace Src\Sales\Domain\Services\Contracts;
 
-use Src\Marketplaces\Application\Models\Marketplace;
-use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Application\Data\MarketplaceSaleItems;
 use Src\Sales\Application\Data\Reports\SaleItemsInMarketplaces;
 use Src\Sales\Application\Data\SaleItemsCollection;

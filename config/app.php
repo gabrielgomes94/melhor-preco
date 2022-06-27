@@ -189,7 +189,7 @@ return [
         /**
          * Dashboard module Service Provier
          */
-        \Src\Dashboard\Infrastructure\Container\UseCasesServiceProvider::class,
+        \Src\Users\Infrastructure\Laravel\Providers\UseCasesServiceProvider::class,
 
         /**
          * Notifications' module Service Providers...
@@ -201,8 +201,8 @@ return [
         /**
          * Prices' module Service Providers...
          */
-        Src\Prices\Infrastructure\Laravel\ServiceProviders\BladeServiceProvider::class,
-        Src\Prices\Infrastructure\Laravel\ServiceProviders\EventServiceProvider::class,
+        Src\Prices\Infrastructure\Laravel\Providers\BladeServiceProvider::class,
+        Src\Prices\Infrastructure\Laravel\Providers\EventServiceProvider::class,
 
         /**
          * Calculator module Services Providers...
@@ -212,20 +212,20 @@ return [
         /**
          * Prices' module Services Providers...
          */
-        \Src\Prices\Infrastructure\Laravel\ServiceProviders\PricesServiceProvider::class,
+        \Src\Prices\Infrastructure\Laravel\Providers\PricesServiceProvider::class,
 
         /**
          * Products' module Service Providers...
          */
-        Src\Products\Infrastructure\Laravel\ServiceProviders\EventServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\ServiceProviders\ProductServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\ServiceProviders\UseCasesServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\ServiceProviders\RepositoryServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\EventServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\ProductServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\UseCasesServiceProvider::class,
+        Src\Products\Infrastructure\Laravel\Providers\RepositoryServiceProvider::class,
 
         /**
          * Promotions' module Service Providers...
          */
-        Src\Promotions\Infrastructure\Laravel\Providers\PromotionsServiceProvider::class,
+        \Src\Prices\Infrastructure\Laravel\Providers\PromotionsServiceProvider::class,
 
         /**
          * Sales' module Service Providers...
@@ -239,7 +239,7 @@ return [
         /**
          * Marketplaces' module Service Providers...
          */
-        Src\Marketplaces\Infrastructure\Laravel\ServiceProviders\MarketplacesServiceProvider::class,
+        \Src\Marketplaces\Infrastructure\Laravel\Providers\MarketplacesServiceProvider::class,
 
         /**
          * Users' module Service Providers

@@ -3,50 +3,62 @@
 namespace Src\Products\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
-use Src\Products\Domain\Models\Categories\Category;
-use Src\Products\Domain\Repositories\Contracts\CategoryRepository as CategoryRepositoryInterface;
+use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Domain\Repositories\CategoryRepository as CategoryRepositoryInterface;
+use Src\Users\Domain\Exceptions\UserNotAuthenticated;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
+    private string $userId;
+
+    public function __construct()
+    {
+        if (!$user = auth()->user()) {
+            throw new UserNotAuthenticated();
+        }
+
+        $this->userId = $user->getAuthIdentifier();
+    }
+
+    public function exists(string $categoryId): bool
+    {
+        return (bool) $this->get($categoryId);
+    }
+
     public function get(string $categoryId): ?Category
     {
-        return Category::where('category_id', $categoryId)->first();
+        return Category::fromUser((int) $this->userId)
+            ->withId($categoryId)
+            ->first();
     }
 
-    public function getParent(string $categoryId)
+    public function getParent(string $categoryId): ?Category
     {
-        return Category::first('category_id', $categoryId)->parent();
+        $category = $this->get($categoryId);
+
+        return $category->parent;
     }
 
-    public function insert(Category $category, string $userId): bool
+    public function insert(Category $category): bool
     {
-        $category->user_id = $userId;
+        $category->user_id = $this->userId;
 
         return $category->save();
     }
 
     public function list()
     {
-        return Category::all();
-    }
-
-    public function exists(string $categoryId): bool
-    {
-        return (bool) Category::where('category_id', $categoryId)->first();
+        return Category::fromUser($this->userId)->get()->all();
     }
 
     public function count(): int
     {
-        $userId = auth()->user()->id;
-
-        return Category::where('user_id', $userId)->count();
+        return Category::fromUser($this->userId)->count();
     }
 
     public function getLastUpdatedAt(): ?Carbon
     {
-        $userId = auth()->user()->id;
-
-        return Category::where('user_id', $userId)
+        return Category::fromUser($this->userId)
             ->orderByDesc('updated_at')
             ->first()
             ?->updated_at;

@@ -3,16 +3,16 @@
 namespace Src\Sales\Application\Services;
 
 use Money\Money;
-use Src\Marketplaces\Application\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData as PriceProductData;
 use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Math\MoneyTransformer;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
-use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\PostRepository;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Products\Domain\Repositories\PostRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Services\Contracts\CalculateTotalProfit as CalculateTotalProfitInterface;

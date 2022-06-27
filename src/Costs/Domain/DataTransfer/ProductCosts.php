@@ -3,7 +3,7 @@
 namespace Src\Costs\Domain\DataTransfer;
 
 use Src\Costs\Domain\Models\Contracts\PurchaseItem;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ProductCosts
 {
@@ -13,7 +13,6 @@ class ProductCosts
     public function __construct(
         public readonly Product $product,
         public readonly array $purchaseItemCosts,
-    )
-    {
+    ) {
     }
 }

@@ -5,24 +5,33 @@ namespace Src\Products\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
-use Src\Products\Application\Data\FilterOptions;
-use Src\Products\Domain\Models\Product\Data\Costs\Costs;
-use Src\Products\Domain\Models\Product\Product;
-use Src\Products\Domain\Repositories\Contracts\ProductRepository as ProductRepositoryInterface;
+use Src\Products\Domain\DataTransfer\FilterOptions;
+use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Products\Domain\Repositories\ProductRepository as ProductRepositoryInterface;
 
 class ProductRepository implements ProductRepositoryInterface
 {
     private const PER_PAGE = 15;
 
+    private string $userId;
+
+    public function __construct()
+    {
+        $this->userId = auth()->user()->getAuthIdentifier();
+    }
+
     public function all(): Collection
     {
-        return Product::active()->get();
+        return Product::fromUser($this->userId)
+            ->active()
+            ->get();
     }
 
     public function allFiltered(FilterOptions $filter): LengthAwarePaginator
     {
-        $query = Product::active();
+        $query = Product::fromUser($this->userId)
+            ->active();
 
         if ($filter->hasSku()) {
             $query = $query->withSku($filter->sku);
@@ -37,13 +46,11 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function get(string $sku): ?Product
     {
-        $product = Product::where('sku', $sku)->first();
+        $product = Product::fromUser($this->userId)
+            ->where('sku', $sku)
+            ->first();
 
         if (!$product) {
-            Log::info('Produto não encontrado.', [
-                'sku' => $sku,
-            ]);
-
             return null;
         }
 
@@ -52,87 +59,30 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getLastSynchronizationDateTime(): ?Carbon
     {
-        $lastUpdatedProduct = Product::query()->orderByDesc('updated_at')->first();
+        $lastUpdatedProduct = Product::fromUser($this->userId)
+            ->orderByDesc('updated_at')
+            ->first();
 
         return $lastUpdatedProduct?->getLastUpdate();
     }
 
     public function count(): int
     {
-        $userId = auth()->user()->id;
-
-        return Product::query()->where('user_id', $userId)->count();
+        return Product::fromUser($this->userId)->count();
     }
 
     public function countActives(): int
     {
-        return Product::active()->count();
-    }
-
-    public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator
-    {
-        return Product::with(
-            [
-                'prices' => function ($query) use ($storeSlug) {
-                    $query->where('store', '=', $storeSlug);
-                }
-            ]
-        )
+        return Product::fromUser($this->userId)
             ->active()
-            ->isOnStore($storeSlug)
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    // @deprecated
-    public function listProductsBySku(string $storeSlug, string $sku, int $page = 1): LengthAwarePaginator
-    {
-        return Product::with([
-            'prices' => function ($query) use ($storeSlug) {
-                $query->where('store', '=', $storeSlug);
-            }
-        ])
-            ->active()
-            ->isOnStore($storeSlug)
-            ->withSku($sku)
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    // @deprecated
-    public function listCompositionProducts(string $storeSlug, int $page): LengthAwarePaginator
-    {
-        return Product::with([
-            'prices' => function ($query) use ($storeSlug) {
-                $query->where('store', '=', $storeSlug);
-            }
-        ])
-            ->active()
-            ->isOnStore($storeSlug)
-            ->whereNull('parent_sku')
-            ->whereNotIn('composition_products', ['[]'])
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
-    }
-
-    // @deprecated
-    public function listProductsByCategory(string $storeSlug, string $categoryId, int $page = 1): LengthAwarePaginator
-    {
-        return Product::with([
-            'prices' => function ($query) use ($storeSlug) {
-                $query->where('store', '=', $storeSlug);
-            }
-        ])
-            ->active()
-            ->isOnStore($storeSlug)
-            ->where('category_id', $categoryId)
-            ->orderBySku()
-            ->paginate(perPage: self::PER_PAGE, page: $page);
+            ->count();
     }
 
     public function getProductByEan(string $ean): ?Product
     {
-        return Product::where('ean', $ean)->first();
+        return Product::fromUser($this->userId)
+            ->where('ean', $ean)
+            ->first();
     }
 
     public function getProductsAndVariations(string $sku): array
@@ -155,6 +105,13 @@ class ProductRepository implements ProductRepositoryInterface
     public function updateCosts(Product $product, Costs $costs): bool
     {
         $product->setCosts($costs);
+
+        return $product->save();
+    }
+
+    public function save(Product $product, string $userId): bool
+    {
+        $product->user_id = $userId;
 
         return $product->save();
     }

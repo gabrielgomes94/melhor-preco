@@ -4,7 +4,7 @@ namespace Src\Sales\Presentation\Presenters;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MathPresenter;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Sales\Domain\Models\SaleOrder;
 
 class ListSalesPresenter

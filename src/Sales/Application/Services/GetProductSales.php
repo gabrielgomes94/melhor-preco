@@ -3,8 +3,8 @@
 namespace Src\Sales\Application\Services;
 
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Marketplaces\Infrastructure\Laravel\Eloquent\MarketplaceRepository;
-use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Application\Data\MarketplaceSaleItems;
 use Src\Sales\Application\Data\Reports\SaleItemsInMarketplaces;
 use Src\Sales\Application\Data\SaleItemsCollection;
@@ -15,7 +15,8 @@ class GetProductSales implements GetProductSalesInterface
 {
     public function __construct(
         private MarketplaceRepository $marketplaceRepository
-    ){}
+    ) {
+    }
 
     public function getLastSaleItems(Product $product, int $limit = 5): SaleItemsCollection
     {
@@ -32,7 +33,7 @@ class GetProductSales implements GetProductSalesInterface
     {
         $marketplaces = $this->marketplaceRepository->list();
 
-        $salesInMarketplaces = $marketplaces->map(function(Marketplace $marketplace) use ($product) {
+        $salesInMarketplaces = $marketplaces->map(function (Marketplace $marketplace) use ($product) {
             $sales = $this->getSaleItemsByMarketplace($product, $marketplace);
 
             return $sales;

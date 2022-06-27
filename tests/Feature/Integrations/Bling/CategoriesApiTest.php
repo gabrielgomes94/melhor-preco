@@ -17,7 +17,7 @@ class CategoriesApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Categories/list-categories-sanitized.json');
 
         // Act
-        $result = $client->list();
+        $result = $client->list('token');
 
         // Assert
         $this->assertSame($expected, $result);
@@ -34,7 +34,6 @@ class CategoriesApiTest extends TestCase
 
     private function setupClient(): Client
     {
-        config(['integrations.bling.auth.apikey' => 'token']);
         $sanitizer = new Sanitizer();
 
         return new Client($sanitizer);

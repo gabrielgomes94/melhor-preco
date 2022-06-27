@@ -2,9 +2,9 @@
 
 namespace Src\Products\Domain\Models\Post\Factories;
 
-use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Calculator\Application\Services\CalculatePost;
-use Src\Prices\Domain\Models\Price as PriceModel;
+use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
+use Src\Prices\Infrastructure\Laravel\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Models\Post\MagaluPost;
 use Src\Products\Domain\Models\Post\Post;

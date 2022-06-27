@@ -2,7 +2,7 @@
 
 namespace Src\Costs\Infrastructure\Laravel\Presenters;
 
-use Src\Products\Application\Data\FilterOptions;
+use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\DataTransfer\ProductsPaginated;
 
 class ListProductCostsPresenter

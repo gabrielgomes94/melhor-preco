@@ -2,7 +2,7 @@
 
 namespace Src\Costs\Domain\UseCases\Contracts;
 
-use Src\Products\Application\Exceptions\ProductNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 
 interface UpdateCosts
 {

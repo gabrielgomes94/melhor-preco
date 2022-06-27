@@ -5,7 +5,7 @@ namespace Src\Sales\Domain\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Sales\Domain\Models\Item as ItemModel;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item as ItemData;
 

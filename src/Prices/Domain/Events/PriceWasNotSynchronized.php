@@ -5,7 +5,7 @@ namespace Src\Prices\Domain\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Src\Prices\Domain\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 
 class PriceWasNotSynchronized
 {

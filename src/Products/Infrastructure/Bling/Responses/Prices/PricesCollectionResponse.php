@@ -3,7 +3,7 @@
 namespace Src\Products\Infrastructure\Bling\Responses\Prices;
 
 use Src\Integrations\Bling\Base\Responses\BaseResponse;
-use Src\Prices\Domain\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 
 class PricesCollectionResponse extends BaseResponse
 {

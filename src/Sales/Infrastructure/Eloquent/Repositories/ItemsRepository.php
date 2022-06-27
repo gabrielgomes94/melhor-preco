@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Src\Products\Domain\Models\Product\Contracts\Product;
+use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Domain\Events\ItemSynchronized;
 use Src\Sales\Domain\Events\ItemWasNotSynchronized;
 use Src\Sales\Domain\Models\Item;
@@ -57,8 +57,7 @@ class ItemsRepository implements ItemRepositoryRepository
 
             $internalSaleOrder->items()->save($itemModel)
                 ? event(new ItemSynchronized($itemModel->id))
-                : event(new ItemWasNotSynchronized($itemModel->id)
-            );
+                : event(new ItemWasNotSynchronized($itemModel->id));
         }
     }
 }

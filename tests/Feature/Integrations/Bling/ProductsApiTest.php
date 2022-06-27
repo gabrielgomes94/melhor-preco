@@ -22,7 +22,7 @@ class ProductsApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Products/single-product-sanitized.json');
 
         // Act
-        $result = $client->get($sku);
+        $result = $client->get('token', $sku);
 
         // Assert
         $this->assertSame($expected, $result);
@@ -42,7 +42,7 @@ class ProductsApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Products/single-product-store-sanitized.json');
 
         // Act
-        $result = $client->getPrice($sku, $storeCode);
+        $result = $client->getPrice('token', $sku, $storeCode);
 
         // Assert
         $this->assertSame($expected, $result);
@@ -60,7 +60,7 @@ class ProductsApiTest extends TestCase
         );
 
         // Act
-        $result = $client->get($sku);
+        $result = $client->get('token', $sku);
 
         // Assert
         $this->assertSame(['error' => 'A informacao desejada nao foi encontrada'], $result);
@@ -77,7 +77,7 @@ class ProductsApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Products/list-products-sanitized.json');
 
         // Act
-        $result = $client->list();
+        $result = $client->list('token');
 
         // Assert
         $this->assertSame($expected, $result);
@@ -94,7 +94,7 @@ class ProductsApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Products/list-products-store-sanitized.json');
 
         // Act
-        $result = $client->listPrice($storeCode);
+        $result = $client->listPrice('token', $storeCode);
 
         // Assert
         $this->assertSame($expected, $result);
@@ -129,7 +129,7 @@ class ProductsApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Products/single-product-sanitized.json');
 
         // Act
-        $result = $client->update($sku, $storeCode);
+        $result = $client->update('token', $sku, $storeCode);
 
         // Assert
         $this->assertSame($expected, $result);
@@ -148,7 +148,7 @@ class ProductsApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Products/price-updated-sanitized.json');
 
         // Act
-        $result = $client->updatePrice($sku, $storeCode, $productStoreSku, $priceValue);
+        $result = $client->updatePrice('token', $sku, $storeCode, $productStoreSku, $priceValue);
 
         // Assert
         $this->assertSame($expected, $result);
