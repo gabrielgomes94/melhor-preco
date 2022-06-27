@@ -6,6 +6,7 @@ use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 
+// @todo: mover método para repositório?
 class UpdatePrice
 {
     public function execute(Price $model, CalculatedPrice $price): bool
