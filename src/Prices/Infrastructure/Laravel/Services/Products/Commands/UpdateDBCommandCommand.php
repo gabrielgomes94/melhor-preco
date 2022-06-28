@@ -23,6 +23,6 @@ class UpdateDBCommandCommand implements UpdateDBInterface
 
         $price = $post->getCalculatedPrice();
 
-        return $this->priceRepository->update($priceModel, $price);
+        return $this->priceRepository->updateFromCalculatedPrice($priceModel, $price);
     }
 }

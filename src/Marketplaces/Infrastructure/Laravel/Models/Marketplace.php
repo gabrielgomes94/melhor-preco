@@ -3,6 +3,7 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
@@ -12,6 +13,7 @@ use Src\Marketplaces\Domain\Models\ValueObjects\CategoryCommission;
 use Src\Math\Percentage;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Marketplace extends Model implements MarketplaceInterface
 {
@@ -53,6 +55,11 @@ class Marketplace extends Model implements MarketplaceInterface
         return $this->hasMany(Price::class, 'marketplace_erp_id', 'erp_id');
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function getCommissionType(): string
     {
         return $this->extra['commissionType'];
@@ -76,6 +83,11 @@ class Marketplace extends Model implements MarketplaceInterface
     public function getUuid(): string
     {
         return $this->uuid;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
     }
 
     public function getCommissionValues(): array

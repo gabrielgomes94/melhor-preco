@@ -4,6 +4,7 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission as GetCommissionInterface;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
 
 class GetCommission implements GetCommissionInterface
@@ -35,5 +36,13 @@ class GetCommission implements GetCommissionInterface
         }
 
         return 0.0;
+    }
+
+    public function getFromPrice(Price $price): float
+    {
+        return $this->get(
+            $price->getMarketplaceErpId(),
+            $price->getProductSku()
+        );
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Src\Products\Domain\Repositories\Erp;
 
+use Src\Integrations\Bling\Base\Responses\BaseResponse;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 
 interface ProductRepository
 {
@@ -14,7 +14,7 @@ interface ProductRepository
         Marketplace $marketplace,
         string $status,
         int $page
-    ): PricesCollectionResponse;
+    ): BaseResponse;
 
     public function get(string $erpToken, string $sku);
 

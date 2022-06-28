@@ -2,32 +2,31 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 use Src\Calculator\Application\Services\CalculateProfit;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission;
-use Src\Prices\Domain\Events\PriceSynchronized;
-use Src\Prices\Domain\Events\PriceWasNotSynchronized;
-use Src\Prices\Infrastructure\Laravel\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
-use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Throwable;
 
 class SynchronizeFromMarketplace
 {
     public function __construct(
         private BlingRepository $erpRepository,
         private CalculateProfit $calculateProfit,
-        private GetCommission $getCommission
+        private GetCommission $getCommission,
+        private PriceRepository $priceRepository
     ) {
     }
 
-    public function sync(Marketplace $marketplace, string $erpToken, int $page = 1): bool
+    public function sync(Marketplace $marketplace, int $page = 1): bool
     {
+        $user = $marketplace->getUser();
+
         $prices = $this->erpRepository->allInMarketplace(
-            $erpToken,
+            $user->getErpToken(),
             $marketplace,
             Config::ACTIVE,
             $page
@@ -45,79 +44,22 @@ class SynchronizeFromMarketplace
     public function save(PricesCollectionResponse $prices): void
     {
         foreach ($prices->data() as $price) {
-            try {
-                $priceModels = $this->getPrices($price);
-                if ($priceModels->count() === 0) {
-                    $this->insertPrice($price);
+            $priceModels = $this->priceRepository->getPriceFromMarketplace(
+                $price->store, $price->store_sku_id, $price->product_sku
+            );
 
-                    continue;
-                }
+            $commission = $this->getCommission->getFromPrice($price);
+            $profit = $this->calculateProfit->fromModel($price);
 
-                foreach ($priceModels as $priceModel) {
-                    $this->updatePrice($priceModel, $price->value);
-                }
-            } catch (\Throwable $error) {
-                $this->logErrors($error->getMessage(), $price->toArray());
+            if ($priceModels->count() === 0) {
+                $this->priceRepository->insert($price, $commission, $profit);
 
                 continue;
             }
+
+            foreach ($priceModels as $priceModel) {
+                $this->priceRepository->update($priceModel, $price->value, $profit, $commission);
+            }
         }
-    }
-
-    private function getPrices(Price $price): Collection
-    {
-        return Price::where('store', $price->store)
-            ->where('store_sku_id', $price->store_sku_id)
-            ->where('product_sku', $price->product_sku)
-            ->get();
-    }
-
-    private function insertPrice(Price $price): void
-    {
-        $product = Product::where('sku', $price->product_sku)->get()->first();
-        $price = $this->updateCommissionAndProfit($price);
-        $price->product()->associate($product);
-        $price->user_id = $price->getMarketplace()->user_id;
-
-        $this->savePrice($price);
-    }
-
-    private function logErrors(string $message, array $price): void
-    {
-        Log::info('[Price]: Erro na sincronização de preços', [
-            'error' => $message,
-            'price' => $price,
-        ]);
-    }
-
-    private function savePrice(Price $price)
-    {
-        $price->save()
-            ? event(new PriceSynchronized($price))
-            : event(new PriceWasNotSynchronized($price));
-    }
-
-    private function updatePrice(Price $price, float $value): void
-    {
-        $price->value = $value;
-        $price = $this->updateCommissionAndProfit($price);
-
-        $this->savePrice($price);
-    }
-
-    private function updateCommissionAndProfit(Price $price): Price
-    {
-        $commission = $this->getCommission->get(
-            $price->getMarketplaceErpId(),
-            $price->getProductSku()
-        );
-        $profit = $this->calculateProfit->fromModel($price);
-
-        $price->fill([
-            'commission' => $commission,
-            'profit' => $profit,
-        ]);
-
-        return $price;
     }
 }

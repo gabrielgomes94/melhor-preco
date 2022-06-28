@@ -34,9 +34,9 @@ class CostPrice
 
     public function differenceICMS(): Money
     {
-        $baseICMS = $this->purchasePrice->divide(1 - $this->taxICMSOutterState);
+        $baseICMS = $this->purchasePrice->divide((string) (1 - $this->taxICMSOutterState));
         $outerStateICMSValue = $baseICMS->multiply($this->taxICMSOutterState);
-        $baseDIFAL = $this->purchasePrice->divide(1 - $this->taxICMSInnerState);
+        $baseDIFAL = $this->purchasePrice->divide((string)(1 - $this->taxICMSInnerState));
 
         $difal = $baseDIFAL
             ->multiply($this->taxICMSInnerState)
