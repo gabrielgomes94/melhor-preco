@@ -2,29 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\CalculateController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\CalculatorController;
 use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\SyncController;
 use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\UpdateController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceList\IndexController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceList\ShowController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\IndexController;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\ListController;
 use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceLog\PriceLogController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('pricing')
         ->name('pricing')
         ->group(function () {
-            Route::prefix('/calculator')
-                ->name('.calculator')
-                ->group(function () {
-                    Route::get('/{$store}', [CalculatorController::class, 'massCalculation'])
-                        ->name('.massCalculation');
-                });
-
             Route::prefix('/price_list')
                 ->name('.priceList')
                 ->group(function () {
                     Route::get('/', [IndexController::class, 'index'])->name('.index');
-                    Route::get('/{store}', [ShowController::class, 'show'])->name('.byStore');
+                    Route::get('/{store}', [ListController::class, 'show'])->name('.byStore');
                 });
 
             Route::prefix('/{store_slug}/products')

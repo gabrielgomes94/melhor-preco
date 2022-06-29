@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceList;
+namespace Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
@@ -11,7 +11,7 @@ use Src\Prices\Infrastructure\Laravel\Presentation\Presenters\PriceListPresenter
 use Src\Prices\Infrastructure\Laravel\Services\Products\ListProducts;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
-class ShowController extends Controller
+class ListController extends Controller
 {
     private ListProducts $listProductsService;
     private PriceListPresenter $priceListPresenter;

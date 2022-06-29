@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceList;
+namespace Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
@@ -9,10 +9,7 @@ use Illuminate\Contracts\View\View;
 
 class IndexController extends Controller
 {
-    /**
-     * @return Application|ViewFactory|View
-     */
-    public function index()
+    public function index(): Application|ViewFactory|View
     {
         return view('pages.pricing.price-list.index');
     }

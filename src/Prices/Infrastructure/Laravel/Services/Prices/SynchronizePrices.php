@@ -11,7 +11,7 @@ use Src\Prices\Infrastructure\Laravel\Jobs\SyncPrices;
 class SynchronizePrices implements SynchronizePricesInterface
 {
     public function __construct(
-        private MarketplaceRepository $marketplaceRepository
+        private readonly MarketplaceRepository $marketplaceRepository
     ) {}
 
     public function syncAll(): void
