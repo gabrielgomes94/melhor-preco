@@ -4,9 +4,10 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Services\GetCategoryWithCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
-use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType;
 use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
@@ -17,19 +18,15 @@ use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUnique
 class CommissionController extends Controller
 {
     public function __construct(
-        private GetCommissionType $getCommissionType,
         private GetCategoryWithCommission $getCategoryWithCommission,
-        private UpdateCommission $updateCommission
+        private UpdateCommission $updateCommission,
+        private MarketplaceRepository $marketplaceRepository
     ) {}
 
     public function setCommission(string $marketplaceSlug)
     {
         $userId = auth()->user()->getAuthIdentifier();
-        try {
-            $commissionType = $this->getCommissionType->get($marketplaceSlug);
-        } catch (\Throwable $exception) {
-            abort(404);
-        }
+        $commissionType = $this->getCommissionType($marketplaceSlug);
 
         if ($commissionType === CommissionType::CATEGORY_COMMISSION) {
             $data = $this->getCategoryWithCommission->get($marketplaceSlug, $userId);
@@ -75,5 +72,19 @@ class CommissionController extends Controller
         }
 
         return $transformed ?? [];
+    }
+
+    /**
+     * @throws MarketplaceNotFoundException
+     */
+    public function getCommissionType(string $marketplaceSlug): string
+    {
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
+
+        if (!$marketplace) {
+            throw new MarketplaceNotFoundException($marketplaceSlug);
+        }
+
+        return $marketplace->getCommissionType();
     }
 }
