@@ -18,7 +18,9 @@ class ListCostsController extends Controller
     public function __invoke(ListProductCostsRequest $request)
     {
         $options = $request->getOptions();
-        $data = $this->listProducts->list($options);
+        $user = auth()->user()->getAuthIdentifier();
+
+        $data = $this->listProducts->list($options, $user);
         $data = $this->presenter->present($data, $options);
 
         return view('pages.costs.products.list', $data);
