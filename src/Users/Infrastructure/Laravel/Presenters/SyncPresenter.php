@@ -28,8 +28,8 @@ class SyncPresenter
                 'route' => 'categories.sync',
             ],
             'prices' => [
-                'quantity' => $this->priceRepository->count(),
-                'syncedAt' => $this->priceRepository->getLastSynchronizationDateTime()?->format('d/m/Y H:i'),
+                'quantity' => $this->priceRepository->count($userId),
+                'syncedAt' => $this->priceRepository->getLastSynchronizationDateTime($userId)?->format('d/m/Y H:i'),
                 'route' => 'pricing.syncAll',
             ],
             'products' => [

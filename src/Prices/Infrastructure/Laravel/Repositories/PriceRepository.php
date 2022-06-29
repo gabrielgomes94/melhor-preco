@@ -16,16 +16,13 @@ class PriceRepository
     )
     {}
 
-    public function count(): int
+    public function count(string $userId): int
     {
-        $userId = auth()->user()->id;
-
         return Price::where('user_id', $userId)->count();
     }
 
-    public function getLastSynchronizationDateTime(): ?Carbon
+    public function getLastSynchronizationDateTime(string $userId): ?Carbon
     {
-        $userId = auth()->user()->id;
         $lastUpdatedProduct = Price::where('user_id', $userId)
             ->orderByDesc('updated_at')
             ->first();
@@ -46,7 +43,7 @@ class PriceRepository
             'profit' => $profit,
         ]);
         $price->product()->associate($product);
-        $price->user_id = $price->getMarketplace()->user_id;
+        $price->user_id = $userId;
 
         return $price->save();
     }
