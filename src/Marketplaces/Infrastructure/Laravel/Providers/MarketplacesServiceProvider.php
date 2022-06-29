@@ -6,8 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Src\Marketplaces\Infrastructure\Laravel\Services\GetCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Services\UpdateCommission;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
-use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission as GetCommissionInterface;
-use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission as UpdateCommissionInterface;
+use Src\Marketplaces\Domain\Services\GetCommission as GetCommissionInterface;
+use Src\Marketplaces\Domain\Services\UpdateCommission as UpdateCommissionInterface;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 
 class MarketplacesServiceProvider extends ServiceProvider

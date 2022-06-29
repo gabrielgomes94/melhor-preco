@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission as GetCommissionInterface;
+use Src\Marketplaces\Domain\Services\GetCommission as GetCommissionInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Users\Domain\Entities\User;

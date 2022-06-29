@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Domain\UseCases\Contracts;
+namespace Src\Marketplaces\Domain\Services;
 
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Users\Domain\Entities\User;

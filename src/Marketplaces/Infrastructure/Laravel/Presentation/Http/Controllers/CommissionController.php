@@ -8,7 +8,7 @@ use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Services\GetCategoryWithCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
-use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission;
+use Src\Marketplaces\Domain\Services\UpdateCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
 
@@ -52,6 +52,7 @@ class CommissionController extends Controller
 
     public function doSetUniqueCommission(string $marketplaceSlug, SetUniqueCommissionRequest $request)
     {
+
         $this->updateCommission->update($marketplaceSlug, (float) $request->validated()['commission']);
 
         return redirect()->route('marketplaces.list');

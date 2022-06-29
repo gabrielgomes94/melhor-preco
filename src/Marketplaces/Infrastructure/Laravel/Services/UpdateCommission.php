@@ -4,7 +4,7 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Models\ValueObjects\CategoryCommission;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission as UpdateCommissionInterface;
+use Src\Marketplaces\Domain\Services\UpdateCommission as UpdateCommissionInterface;
 
 class UpdateCommission implements UpdateCommissionInterface
 {
