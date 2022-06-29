@@ -18,7 +18,7 @@ class UpdateCostsController extends Controller
     public function __invoke(string $productId, UpdateCostsRequest $request)
     {
         try {
-            $this->updateService->execute($productId, $request->validated());
+            $this->updateService->execute($productId, $request->validated(), auth()->user()->getAuthIdentifier());
 
             session()->flash('message', "Produto {$productId} teve seu custo atualizado com sucesso.");
         } catch (ProductNotFoundException $exception) {

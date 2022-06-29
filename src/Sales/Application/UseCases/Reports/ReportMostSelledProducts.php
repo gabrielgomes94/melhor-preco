@@ -24,13 +24,10 @@ class ReportMostSelledProducts implements ReportMostSelledProductsAlias
         $this->itemsRepository = $itemsRepository;
     }
 
-    public function report(ListSalesFilter $options)
+    public function report(ListSalesFilter $options, string $userId)
     {
         $items = $this->itemsRepository->groupSaleItemsByProduct($options);
         $items = $items->transform(
-                /**
-                 * @var $collection Collection<Item>
-                 */
                 function (Collection $collection) {
                     return $this->transformItem($collection);
                 }

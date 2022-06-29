@@ -19,7 +19,7 @@ class SyncPresenter
     ) {
     }
 
-    public function present(): array
+    public function present(string $userId): array
     {
         return [
             'categories' => [
@@ -33,8 +33,8 @@ class SyncPresenter
                 'route' => 'pricing.syncAll',
             ],
             'products' => [
-                'quantity' => $this->productRepository->count(),
-                'syncedAt' => $this->productRepository->getLastSynchronizationDateTime()?->format('d/m/Y H:i'),
+                'quantity' => $this->productRepository->count($userId),
+                'syncedAt' => $this->productRepository->getLastSynchronizationDateTime($userId)?->format('d/m/Y H:i'),
                 'route' => 'products.sync',
             ],
             'purchaseInvoices' => [

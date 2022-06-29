@@ -20,16 +20,17 @@ class UpdateCosts implements UpdateCostsInterface
      * @throws ProductNotFoundException
      * @throws UpdateCostsException
      */
-    public function execute(string $sku, array $data): bool
+    public function execute(string $sku, array $data, string $userId): bool
     {
-        if (!$products = $this->productRepository->getProductsAndVariations($sku)) {
+        if (!$products = $this->productRepository->getProductsAndVariations($sku, $userId)) {
             throw new ProductNotFoundException($sku);
         }
 
         foreach ($products as $product) {
             $result = $this->productRepository->updateCosts(
                 $product,
-                Costs::make($data, $product)
+                Costs::make($data, $product),
+                $userId
             );
 
             if (!$result) {

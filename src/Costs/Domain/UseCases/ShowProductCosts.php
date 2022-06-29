@@ -16,9 +16,12 @@ class ShowProductCosts
         $this->repository = $repository;
     }
 
-    public function show(string $sku): ProductCosts
+    /**
+     * @throws ProductNotFoundException
+     */
+    public function show(string $sku, string $userId): ProductCosts
     {
-        if (!$product = $this->repository->get($sku)) {
+        if (!$product = $this->repository->get($sku, $userId)) {
             throw new ProductNotFoundException($sku);
         }
 

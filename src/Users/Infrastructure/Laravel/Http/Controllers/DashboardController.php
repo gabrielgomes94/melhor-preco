@@ -18,7 +18,8 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->getSynchronizationInfo->get();
+        $userId = auth()->user()->getAuthIdentifier();
+        $data = $this->getSynchronizationInfo->get($userId);
 
         return view('pages.dashboard', ['data' => $data]);
     }

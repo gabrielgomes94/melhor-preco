@@ -14,18 +14,15 @@ class ProductRepository implements ProductRepositoryInterface
 {
     private const PER_PAGE = 15;
 
-    public function all(): Collection
+    public function all(string $userId): Collection
     {
-        $userId = $this->getUserIdentifier();
-
         return Product::fromUser($userId)
             ->active()
             ->get();
     }
 
-    public function allFiltered(FilterOptions $filter): LengthAwarePaginator
+    public function allFiltered(FilterOptions $filter, string $userId): LengthAwarePaginator
     {
-        $userId = $this->getUserIdentifier();
         $query = Product::fromUser($userId)
             ->active();
 
@@ -40,9 +37,8 @@ class ProductRepository implements ProductRepositoryInterface
         return $query->paginate(perPage: self::PER_PAGE, page: $filter->page);
     }
 
-    public function get(string $sku): ?Product
+    public function get(string $sku, string $userId): ?Product
     {
-        $userId = $this->getUserIdentifier();
         $product = Product::fromUser($userId)
             ->where('sku', $sku)
             ->first();
@@ -54,9 +50,8 @@ class ProductRepository implements ProductRepositoryInterface
         return $product;
     }
 
-    public function getLastSynchronizationDateTime(): ?Carbon
+    public function getLastSynchronizationDateTime(string $userId): ?Carbon
     {
-        $userId = $this->getUserIdentifier();
         $lastUpdatedProduct = Product::fromUser($userId)
             ->orderByDesc('updated_at')
             ->first();
@@ -64,31 +59,28 @@ class ProductRepository implements ProductRepositoryInterface
         return $lastUpdatedProduct?->getLastUpdate();
     }
 
-    public function count(): int
+    public function count(string $userId): int
     {
-        $userId = $this->getUserIdentifier();
         return Product::fromUser($userId)->count();
     }
 
-    public function countActives(): int
+    public function countActives(string $userId): int
     {
-        return Product::fromUser($this->userId)
+        return Product::fromUser($userId)
             ->active()
             ->count();
     }
 
-    public function getProductByEan(string $ean): ?Product
+    public function getProductByEan(string $ean, string $userId): ?Product
     {
-        $userId = $this->getUserIdentifier();
-
         return Product::fromUser($userId)
             ->where('ean', $ean)
             ->first();
     }
 
-    public function getProductsAndVariations(string $sku): array
+    public function getProductsAndVariations(string $sku, string $userId): array
     {
-        if (!$product = $this->get($sku)) {
+        if (!$product = $this->get($sku, $userId)) {
             return [];
         }
 
@@ -96,14 +88,14 @@ class ProductRepository implements ProductRepositoryInterface
 
 
         foreach ($product->getVariations()->get() as $variation) {
-            $variationModel = $this->get($variation->getSku());
+            $variationModel = $this->get($variation->getSku(), $userId);
             $products[] = $variationModel;
         }
 
         return $products;
     }
 
-    public function updateCosts(Product $product, Costs $costs): bool
+    public function updateCosts(Product $product, Costs $costs, string $userId): bool
     {
         $product->setCosts($costs);
 
@@ -115,10 +107,5 @@ class ProductRepository implements ProductRepositoryInterface
         $product->user_id = $userId;
 
         return $product->save();
-    }
-
-    private function getUserIdentifier(): string
-    {
-        return auth()->user()->getAuthIdentifier();
     }
 }

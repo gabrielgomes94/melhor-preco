@@ -6,6 +6,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetCommission as GetCommissionInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Users\Domain\Entities\User;
 
 class GetCommission implements GetCommissionInterface
 {
@@ -20,10 +21,10 @@ class GetCommission implements GetCommissionInterface
         $this->productRepository = $productRepository;
     }
 
-    public function get(string $marketplaceErpId, string $productSku): float
+    public function get(string $marketplaceErpId, string $productSku, string $userId): float
     {
         $marketplace = $this->marketplaceRepository->getByErpId($marketplaceErpId);
-        $product = $this->productRepository->get($productSku);
+        $product = $this->productRepository->get($productSku, $userId);
 
         if ($marketplace->hasUniqueCommission()) {
             return $marketplace->getUniqueCommission()->getFraction();
@@ -38,11 +39,12 @@ class GetCommission implements GetCommissionInterface
         return 0.0;
     }
 
-    public function getFromPrice(Price $price): float
+    public function getFromPrice(Price $price, User $user): float
     {
         return $this->get(
             $price->getMarketplaceErpId(),
-            $price->getProductSku()
+            $price->getProductSku(),
+            $user->getId()
         );
     }
 }

@@ -19,7 +19,7 @@ class SynchronizeData implements SyncProductsInterface
     public function sync(User $user): void
     {
         $this->syncProductsService->sync($user);
-        $this->updateCostsService->sync();
-        $this->syncPricesService->syncAll();
+        $this->updateCostsService->sync($user);
+        $this->syncPricesService->syncAll($user);
     }
 }

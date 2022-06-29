@@ -24,7 +24,6 @@ class SyncPrices implements ShouldQueue
 
     public function __construct(
         Marketplace $marketplace,
-        string $erpToken,
         int $page
     )
     {
@@ -34,7 +33,7 @@ class SyncPrices implements ShouldQueue
 
     public function handle(SynchronizeFromMarketplace $synchronizeFromMarketplace): void
     {
-        $result = $synchronizeFromMarketplace->sync($this->marketplace, '', $this->page);
+        $result = $synchronizeFromMarketplace->sync($this->marketplace, $this->page);
 
         if (!$result) {
             return;

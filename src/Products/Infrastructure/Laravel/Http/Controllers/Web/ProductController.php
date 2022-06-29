@@ -18,8 +18,10 @@ class ProductController extends Controller
 
     public function get(Request $request, string $sku)
     {
+        $userId = $request->user()->getAuthIdentifier();
+
         try {
-            $data = $this->reportProduct->get($sku);
+            $data = $this->reportProduct->get($sku, $userId);
             $data = $this->productReportPresenter->present($data);
         } catch (ProductNotFoundException $exception) {
             abort(404);

@@ -19,7 +19,7 @@ class ProductInformationsReport
     public function __invoke(ReportProductRequest $request)
     {
         $filter = $request->transform();
-        $data = $this->reportInformations->report($filter);
+        $data = $this->reportInformations->report($filter, $request->user());
 
         $categories = $this->getCategories();
 

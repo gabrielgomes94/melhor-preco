@@ -20,7 +20,7 @@ class SynchronizeProducts
         $products = $this->erpRepository->all($user->getErpToken());
 
         foreach ($products as $erpProduct) {
-            $product = $this->dbRepository->get($erpProduct->getSku());
+            $product = $this->dbRepository->get($erpProduct->getSku(), $user->getId());
 
             if (!$product) {
                 $this->dbRepository->save($erpProduct, $user->id);

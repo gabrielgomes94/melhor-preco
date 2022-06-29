@@ -33,9 +33,9 @@ class PriceRepository
         return $lastUpdatedProduct?->getLastUpdate();
     }
 
-    public function insert(Price $price, float $commission, float $profit): bool
+    public function insert(Price $price, float $commission, float $profit, string $userId): bool
     {
-        $product = $this->productRepository->get($price->product_sku);
+        $product = $this->productRepository->get($price->product_sku, $userId);
 
         if (!$product) {
             return false;
@@ -73,11 +73,10 @@ class PriceRepository
     public function getPriceFromMarketplace(
         string $marketplaceSlug,
         string $marketplaceSkuId,
-        string $productSku
+        string $productSku,
+        string $userId
     ): Collection
     {
-        $userId = auth()->user()->getAuthIdentifier();
-
         return Price::where('user_id', $userId)
             ->where('store', $marketplaceSlug)
             ->where('store_sku_id', $marketplaceSkuId)

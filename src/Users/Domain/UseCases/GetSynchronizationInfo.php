@@ -4,5 +4,5 @@ namespace Src\Users\Domain\UseCases;
 
 interface GetSynchronizationInfo
 {
-    public function get(): array;
+    public function get(string $userId): array;
 }

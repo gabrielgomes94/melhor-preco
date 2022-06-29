@@ -4,6 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Users\Domain\Entities\User;
 
 class UpdateProductCosts
 {
@@ -14,9 +15,9 @@ class UpdateProductCosts
         $this->repository = $repository;
     }
 
-    public function sync(): void
+    public function sync(User $user): void
     {
-        $products = $this->repository->all();
+        $products = $this->repository->all($user->getId());
 
         foreach ($products as $product) {
             $item = $product->getLatestPurchaseItem();

@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/{store_slug}/sync', [SyncController::class, 'sync'])
                 ->name('.sync');
 
-            Route::post('/sync', [SyncController::class, 'sync'])
+            Route::post('/sync', [SyncController::class, 'syncAll'])
                 ->name('.syncAll');
 
             Route::prefix('/price_log')

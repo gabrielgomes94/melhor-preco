@@ -6,5 +6,5 @@ use Src\Sales\Domain\Models\SaleOrder;
 
 interface CalculateTotalProfit
 {
-    public function execute(SaleOrder $saleOrder): float;
+    public function execute(SaleOrder $saleOrder, string $userId): float;
 }

@@ -3,6 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Prices\Domain\UseCases\Price\SynchronizePrices;
 
@@ -14,14 +15,14 @@ class SyncController extends Controller
     ) {
     }
 
-    public function sync(string $storeSlug)
+    public function sync(string $storeSlug): RedirectResponse
     {
         $this->synchronizePrices->syncMarketplace($storeSlug);
 
         return redirect()->back();
     }
 
-    public function syncAll(string $storeSlug)
+    public function syncAll(): RedirectResponse
     {
         $marketplaces = $this->marketplaceRepository->list();
 

@@ -42,9 +42,14 @@ class CalculatePrice implements CalculatePriceInterface
         return $this->postFactory->updatePrice($post, $price);
     }
 
+    /**
+     * @todo: mover essa lógica de autenticação para uma camada mais próxima da apresentação
+     * @throws ProductNotFoundException
+     */
     private function getProduct(string $productSku): Product
     {
-        $product = $this->productRepository->get($productSku);
+        $userId = auth()->user()->getAuthIdentifier();
+        $product = $this->productRepository->get($productSku, $userId);
 
         if (!$product) {
             throw new ProductNotFoundException($productSku);
