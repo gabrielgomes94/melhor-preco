@@ -16,9 +16,9 @@ class ReportProductSales
     ) {
     }
 
-    public function report(string $sku): SalesReport
+    public function report(string $sku, string $userId): SalesReport
     {
-        $product = $this->getProduct($sku);
+        $product = $this->getProduct($sku, $userId);
         $salesInMarketplaces = $this->getProductSales->getSaleItemsInAllMarketplaces($product);
         $lastSales = $this->getProductSales->getLastSaleItems($product);
         $totalItemsSelled = $this->getProductSales->getTotalSaleItems($product);
@@ -33,9 +33,9 @@ class ReportProductSales
         return $salesReport;
     }
 
-    private function getProduct(string $sku): Product
+    private function getProduct(string $sku, string $userId): Product
     {
-        $product = $this->repository->get($sku);
+        $product = $this->repository->get($sku, $userId);
 
         if (!$product) {
             throw new ProductNotFoundException($sku);

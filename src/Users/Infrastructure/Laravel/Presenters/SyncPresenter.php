@@ -3,7 +3,7 @@
 namespace Src\Users\Infrastructure\Laravel\Presenters;
 
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository as CostsRepository;
-use Src\Prices\Infrastructure\Laravel\Repositories\Repository as PriceRepository;
+use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository as PriceRepository;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository as SalesRepository;
@@ -19,22 +19,22 @@ class SyncPresenter
     ) {
     }
 
-    public function present(): array
+    public function present(string $userId): array
     {
         return [
             'categories' => [
-                'quantity' => $this->categoryRepository->count(),
-                'syncedAt' => $this->categoryRepository->getLastUpdatedAt()?->format('d/m/Y H:i'),
+                'quantity' => $this->categoryRepository->count($userId),
+                'syncedAt' => $this->categoryRepository->getLastUpdatedAt($userId)?->format('d/m/Y H:i'),
                 'route' => 'categories.sync',
             ],
             'prices' => [
-                'quantity' => $this->priceRepository->count(),
-                'syncedAt' => $this->priceRepository->getLastSynchronizationDateTime()?->format('d/m/Y H:i'),
+                'quantity' => $this->priceRepository->count($userId),
+                'syncedAt' => $this->priceRepository->getLastSynchronizationDateTime($userId)?->format('d/m/Y H:i'),
                 'route' => 'pricing.syncAll',
             ],
             'products' => [
-                'quantity' => $this->productRepository->count(),
-                'syncedAt' => $this->productRepository->getLastSynchronizationDateTime()?->format('d/m/Y H:i'),
+                'quantity' => $this->productRepository->count($userId),
+                'syncedAt' => $this->productRepository->getLastSynchronizationDateTime($userId)?->format('d/m/Y H:i'),
                 'route' => 'products.sync',
             ],
             'purchaseInvoices' => [

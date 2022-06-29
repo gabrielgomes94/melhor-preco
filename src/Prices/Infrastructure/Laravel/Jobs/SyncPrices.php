@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Prices\Infrastructure\Laravel\Services\Prices\SavePrices;
+use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizeFromMarketplace;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 
 class SyncPrices implements ShouldQueue
@@ -31,19 +31,14 @@ class SyncPrices implements ShouldQueue
         $this->page = $page;
     }
 
-    public function handle(BlingRepository $erpRepository, SavePrices $savePrices): void
+    public function handle(SynchronizeFromMarketplace $synchronizeFromMarketplace): void
     {
-        $prices = $erpRepository->allInMarketplace(
-            $this->marketplace,
-            Config::ACTIVE,
-            $this->page
-        );
+        $result = $synchronizeFromMarketplace->sync($this->marketplace, $this->page);
 
-        if (empty($prices->data())) {
+        if (!$result) {
             return;
         }
 
-        $savePrices->save($prices);
         SyncPrices::dispatch($this->marketplace, $this->page + 1);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Domain\Repositories\Erp\CategoryRepository as ErpCategoryRepository;

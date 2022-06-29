@@ -9,6 +9,7 @@ use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
+use Src\Users\Domain\Entities\User;
 
 
 class GetProductsInformationReport
@@ -20,9 +21,9 @@ class GetProductsInformationReport
     ) {
     }
 
-    public function report(FilterOptions $filter): array
+    public function report(FilterOptions $filter, User $user): array
     {
-        $productsPaginator = $this->getProducts($filter);
+        $productsPaginator = $this->getProducts($filter, $user);
 
         $products = collect($productsPaginator->items());
         $products = $products->map(function (Product $product) {
@@ -56,8 +57,8 @@ class GetProductsInformationReport
         return $product->postedOnMarketplace($marketplace);
     }
 
-    private function getProducts(FilterOptions $filter): LengthAwarePaginator
+    private function getProducts(FilterOptions $filter, User $user): LengthAwarePaginator
     {
-        return $this->productRepository->allFiltered($filter);
+        return $this->productRepository->allFiltered($filter, $user->getId());
     }
 }

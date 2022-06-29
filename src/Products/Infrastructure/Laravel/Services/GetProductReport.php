@@ -11,19 +11,18 @@ use Src\Sales\Application\UseCases\Reports\ReportProductSales;
 class GetProductReport
 {
     public function __construct(
-        private ProductRepository $productRepository,
         private ShowProductCosts   $showProductCosts,
         private ReportProductSales $reportProductSales
     ){}
 
-    public function get(string $sku)
+    public function get(string $sku, string $userId)
     {
-        $data = $this->showProductCosts->show($sku);
+        $data = $this->showProductCosts->show($sku, $userId);
 
         return new ProductInfoReport(
             costsItems: $data['costs'],
             product: $data['product'],
-            salesReport: $this->reportProductSales->report($sku)
+            salesReport: $this->reportProductSales->report($sku, $userId)
         );
     }
 }

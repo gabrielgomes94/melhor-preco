@@ -25,14 +25,14 @@ class PriceListPresenter
         $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function list(LengthAwarePaginator $paginator, string $store, array $parameters)
+    public function list(LengthAwarePaginator $paginator, string $store, array $parameters, string $userId)
     {
         $store = new StorePresenter(
             name: $store,
             slug: $store
         );
 
-        $categories = $this->categoryRepository->list();
+        $categories = $this->categoryRepository->list($userId);
         $categories = $categories->map(function (Category $category) {
             return [
                 'name' => $category->getFullName(),

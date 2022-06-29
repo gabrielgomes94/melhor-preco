@@ -23,7 +23,7 @@ class SynchronizeCategories implements SyncCategories
         $data = $this->erpCategoryRepository->list($user->getErpToken());
 
         foreach ($data as $category) {
-            if ($this->categoryRepository->exists($category->getCategoryId())) {
+            if ($this->categoryRepository->exists($category->getCategoryId(), $user->getId())) {
                 continue;
             }
 

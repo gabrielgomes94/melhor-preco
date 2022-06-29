@@ -9,5 +9,5 @@ interface UpdateCosts
     /**
      * @throws ProductNotFoundException
      */
-    public function execute(string $sku, array $data): bool;
+    public function execute(string $sku, array $data, string $userId): bool;
 }

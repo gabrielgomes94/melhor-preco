@@ -19,10 +19,10 @@ class GetCategoryWithCommission
         $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function get(string $marketplaceSlug): array
+    public function get(string $marketplaceSlug, string $userId): array
     {
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
-        $categories = $this->repository->list();
+        $categories = $this->repository->list($userId);
 
         return $categories->map(function (Category $category) use ($marketplace) {
             $categoryId = $category->getCategoryId();

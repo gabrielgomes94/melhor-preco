@@ -9,56 +9,45 @@ use Src\Users\Domain\Exceptions\UserNotAuthenticated;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    private string $userId;
-
-    public function __construct()
+    public function exists(string $categoryId, string $userId): bool
     {
-        if (!$user = auth()->user()) {
-            throw new UserNotAuthenticated();
-        }
-
-        $this->userId = $user->getAuthIdentifier();
+        return (bool) $this->get($categoryId, $userId);
     }
 
-    public function exists(string $categoryId): bool
+    public function get(string $categoryId, string $userId): ?Category
     {
-        return (bool) $this->get($categoryId);
-    }
-
-    public function get(string $categoryId): ?Category
-    {
-        return Category::fromUser((int) $this->userId)
+        return Category::fromUser((int) $userId)
             ->withId($categoryId)
             ->first();
     }
 
-    public function getParent(string $categoryId): ?Category
+    public function getParent(string $categoryId, string $userId): ?Category
     {
-        $category = $this->get($categoryId);
+        $category = $this->get($categoryId, $userId);
 
         return $category->parent;
     }
 
-    public function insert(Category $category): bool
+    public function insert(Category $category, string $userId): bool
     {
-        $category->user_id = $this->userId;
+        $category->user_id = $userId;
 
         return $category->save();
     }
 
-    public function list()
+    public function list(string $userId)
     {
-        return Category::fromUser($this->userId)->get()->all();
+        return Category::fromUser($userId)->get()->all();
     }
 
-    public function count(): int
+    public function count(string $userId): int
     {
-        return Category::fromUser($this->userId)->count();
+        return Category::fromUser($userId)->count();
     }
 
-    public function getLastUpdatedAt(): ?Carbon
+    public function getLastUpdatedAt(string $userId): ?Carbon
     {
-        return Category::fromUser($this->userId)
+        return Category::fromUser($userId)
             ->orderByDesc('updated_at')
             ->first()
             ?->updated_at;

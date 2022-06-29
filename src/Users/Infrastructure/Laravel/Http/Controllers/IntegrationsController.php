@@ -24,7 +24,7 @@ class IntegrationsController
             'pages.users.integrations',
             array_merge(
                 ['erpToken' => $user->getErpToken()],
-                $this->presenter->present()
+                $this->presenter->present($user->getAuthIdentifier())
             )
         );
     }

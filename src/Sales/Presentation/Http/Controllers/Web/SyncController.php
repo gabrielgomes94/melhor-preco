@@ -4,6 +4,7 @@ namespace Src\Sales\Presentation\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Src\Sales\Application\Jobs\SyncSales as SyncSalesJob;
 use Src\Sales\Application\UseCases\SyncSales;
 
 class SyncController extends Controller
@@ -17,8 +18,9 @@ class SyncController extends Controller
 
     public function sync(Request $request)
     {
-        $this->syncSales->sync();
+        $userId = auth()->user()->getAuthIdentifier();
+        SyncSalesJob::dispatch($userId);
 
-        return redirect()->route('sales.list');
+        return redirect()->back();
     }
 }

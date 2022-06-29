@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
@@ -47,6 +48,11 @@ class Price extends Model
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getLastUpdate(): Carbon
+    {
+        return $this->updated_at;
     }
 
     public function getMargin(): Percentage

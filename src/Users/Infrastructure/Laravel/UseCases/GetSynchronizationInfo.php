@@ -26,12 +26,12 @@ class GetSynchronizationInfo implements GetSynchronizationInfoInterface
         $this->salesRepository = $salesRepository;
     }
 
-    public function get(): array
+    public function get(string $userId): array
     {
         return [
             'products' => [
-                'syncedQuantity' => $this->repository->count(),
-                'activeQuantity' => $this->repository->countActives(),
+                'syncedQuantity' => $this->repository->count($userId),
+                'activeQuantity' => $this->repository->countActives($userId),
                 'lastUpdatedAt' => $this->formatDate(
                     $this->costsRepository->getLastSynchronizationDateTime()
                 ),

@@ -10,7 +10,7 @@ use Src\Prices\Domain\UseCases\Products\UpdateERPCommand as UpdateERPInterface;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 use Src\Products\Infrastructure\Bling\Responses\Product\Factory;
 
-class UpdateERPCommandCommand implements UpdateERPInterface
+class UpdateERPCommand implements UpdateERPInterface
 {
     private DecimalMoneyFormatter $formatter;
     private Client $client;
@@ -23,7 +23,7 @@ class UpdateERPCommandCommand implements UpdateERPInterface
         $this->formatter = new DecimalMoneyFormatter(new ISOCurrencies());
     }
 
-    public function execute(string $sku, Post $post): bool
+    public function execute(string $erpToken, string $sku, Post $post): bool
     {
         // To Do: criar feature repository
         if (!config('features.integrations.bling.update_price.enabled')) {
@@ -31,6 +31,7 @@ class UpdateERPCommandCommand implements UpdateERPInterface
         }
 
         $response = $this->client->updatePrice(
+            $erpToken,
             $sku,
             $post->getMarketplace()->getErpId(),
             $post->getIdentifiers()->getStoreSkuId(),

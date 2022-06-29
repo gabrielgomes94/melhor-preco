@@ -9,6 +9,7 @@ use Src\Math\Percentage;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Users\Domain\Entities\User;
 
 class CalculateProfit
 {
@@ -27,18 +28,16 @@ class CalculateProfit
     }
 
     /**
-     * @param Price $price
-     * @return float
      * @throws ProductNotFoundException
      */
-    public function fromModel(Price $price): float
+    public function fromModel(Price $price, User $user): float
     {
         $sku = $price->product_sku;
         $marketplace = $this->marketplaceRepository->getByErpId(
             $price->getMarketplaceErpId()
         );
 
-        if (!$product = $this->productRepository->get($sku)) {
+        if (!$product = $this->productRepository->get($sku, $user->getId())) {
             throw new ProductNotFoundException($sku);
         }
 

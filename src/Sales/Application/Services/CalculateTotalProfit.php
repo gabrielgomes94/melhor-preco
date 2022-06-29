@@ -9,7 +9,6 @@ use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData as PriceProductData;
 use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Math\MoneyTransformer;
-use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\PostRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
@@ -37,21 +36,21 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function execute(SaleOrder $saleOrder): float
+    public function execute(SaleOrder $saleOrder, string $userId): float
     {
         $profit = Money::BRL(0);
         $items = $saleOrder->getItems()->get();
 
         foreach ($items as $item) {
-            $this->calculateProfit($profit, $saleOrder, $item);
+            $this->calculateProfit($profit, $saleOrder, $item, $userId);
         }
 
         return MoneyTransformer::toFloat($profit ?? Money::BRL(0));
     }
 
-    private function calculateProfit(Money &$profit, SaleOrder $saleOrder, Item $item)
+    private function calculateProfit(Money &$profit, SaleOrder $saleOrder, Item $item, string $userId)
     {
-        if (!$product = $this->productRepository->get($item->sku())) {
+        if (!$product = $this->productRepository->get($item->sku(), $userId)) {
             return;
         }
 

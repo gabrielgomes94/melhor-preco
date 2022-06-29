@@ -61,7 +61,7 @@ class Synchronize
 
         $this->repository->update(
             saleOrder: $saleOrderModel,
-            profit: $this->calculateTotalProfit->execute($saleOrderModel)
+            profit: $this->calculateTotalProfit->execute($saleOrderModel, $userId)
         );
     }
 

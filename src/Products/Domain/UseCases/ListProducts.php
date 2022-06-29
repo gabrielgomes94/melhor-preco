@@ -7,5 +7,5 @@ use Src\Products\Domain\DataTransfer\ProductsPaginated;
 
 interface ListProducts
 {
-    public function list(FilterOptions $options): ProductsPaginated;
+    public function list(FilterOptions $options, string $userId): ProductsPaginated;
 }

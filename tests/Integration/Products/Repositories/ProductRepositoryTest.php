@@ -24,13 +24,12 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user);
         ProductData::makePersisted($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->all();
+        $result = $repository->all($user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(Product::class, $result);
@@ -41,13 +40,12 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user, ['sku' => '100']);
         ProductData::makePersisted($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->allFiltered(new FilterOptions(sku: '100'));
+        $result = $repository->allFiltered(new FilterOptions(sku: '100'), $user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(Product::class, $result);
@@ -58,13 +56,12 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user, ['category_id' => '123']);
         ProductData::makePersisted($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->allFiltered(new FilterOptions(category: '123'));
+        $result = $repository->allFiltered(new FilterOptions(category: '123'), $user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(Product::class, $result);
@@ -75,12 +72,11 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user, ['sku' => '1234']);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->get('1234');
+        $result = $repository->get('1234', $user->getId());
 
         // Assert
         $this->assertInstanceOf(Product::class, $result);
@@ -90,11 +86,10 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->get('1234');
+        $result = $repository->get('1234', $user->getId());
 
         // Assert
         $this->assertNull($result);
@@ -104,12 +99,12 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
+
         ProductData::makePersisted($user, ['sku' => '1234']);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->getLastSynchronizationDateTime('1234');
+        $result = $repository->getLastSynchronizationDateTime($user->getId());
 
         // Assert
         $this->assertInstanceOf(Carbon::class, $result);
@@ -119,14 +114,13 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user, ['sku' => '1234']);
         ProductData::makePersisted($user);
         ProductData::makePersisted($user, ['is_active' => false]);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->count('1234');
+        $result = $repository->count($user->getId());
 
         // Assert
         $this->assertSame(3, $result);
@@ -136,14 +130,13 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user, ['sku' => '1234']);
         ProductData::makePersisted($user);
         ProductData::makePersisted($user, ['is_active' => false]);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->countActives('1234');
+        $result = $repository->countActives($user->getId());
 
         // Assert
         $this->assertSame(2, $result);
@@ -153,12 +146,11 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user, ['ean' => '123456789']);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->getProductByEan('123456789');
+        $result = $repository->getProductByEan('123456789', $user->getId());
 
         // Assert
         $this->assertInstanceOf(Product::class, $result);
@@ -167,7 +159,6 @@ class ProductRepositoryTest extends TestCase
     public function test_should_get_products_and_variation(): void
     {
         $user = UserData::make();
-        $this->actingAs($user);
         ProductData::makePersisted($user, ['ean' => '123456789', 'sku' => '100']);
         ProductData::makePersisted($user, ['ean' => '123456789', 'parent_sku' => '100', 'sku' => '101']);
         ProductData::makePersisted($user, ['ean' => '123456789', 'parent_sku' => '100', 'sku' => '102']);
@@ -176,7 +167,7 @@ class ProductRepositoryTest extends TestCase
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->getProductsAndVariations('100');
+        $result = $repository->getProductsAndVariations('100', $user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(Product::class, $result);
@@ -186,7 +177,6 @@ class ProductRepositoryTest extends TestCase
     public function test_should_update_costs(): void
     {
         $user = UserData::make();
-        $this->actingAs($user);
         $product = ProductData::makePersisted(
             $user,
             [
@@ -199,7 +189,7 @@ class ProductRepositoryTest extends TestCase
         $costs = new Costs(105.0, 5.5, 8);
 
         // Act
-        $result = $repository->updateCosts($product, $costs);
+        $repository->updateCosts($product, $costs, $user->getId());
 
         // Assert
         $product = ProductModel::where('sku', '100')->first();
@@ -211,12 +201,11 @@ class ProductRepositoryTest extends TestCase
     public function test_should_save()
     {
         $user = UserData::make();
-        $this->actingAs($user);
         $product = ProductData::make();
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->save($product, $user->id);
+        $result = $repository->save($product, $user->getId());
 
         // Assert
         $this->assertTrue($result);

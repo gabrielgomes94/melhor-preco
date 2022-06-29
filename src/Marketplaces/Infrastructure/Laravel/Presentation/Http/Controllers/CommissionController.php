@@ -11,6 +11,9 @@ use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
 
+/**
+ * @todo: remove logic from controller
+ */
 class CommissionController extends Controller
 {
     public function __construct(
@@ -21,6 +24,7 @@ class CommissionController extends Controller
 
     public function setCommission(string $marketplaceSlug)
     {
+        $userId = auth()->user()->getAuthIdentifier();
         try {
             $commissionType = $this->getCommissionType->get($marketplaceSlug);
         } catch (\Throwable $exception) {
@@ -28,7 +32,7 @@ class CommissionController extends Controller
         }
 
         if ($commissionType === CommissionType::CATEGORY_COMMISSION) {
-            $data = $this->getCategoryWithCommission->get($marketplaceSlug);
+            $data = $this->getCategoryWithCommission->get($marketplaceSlug, $userId);
 
             return view('pages.marketplaces.set-commission.category', [
                 'categories' => $data,

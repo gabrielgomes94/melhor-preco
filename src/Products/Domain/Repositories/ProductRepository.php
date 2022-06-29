@@ -12,23 +12,23 @@ use Src\Users\Domain\Entities\User;
 
 interface ProductRepository
 {
-    public function all(): Collection;
+    public function all(string $userId): Collection;
 
-    public function allFiltered(FilterOptions $filter): LengthAwarePaginator;
+    public function allFiltered(FilterOptions $filter, string $userId): LengthAwarePaginator;
 
-    public function count(): int;
+    public function count(string $userId): int;
 
-    public function countActives(): int;
+    public function countActives(string $userId): int;
 
-    public function get(string $sku): ?Product;
+    public function get(string $sku, string $userId): ?Product;
 
-    public function getProductsAndVariations(string $sku): array;
+    public function getProductsAndVariations(string $sku, string $userId): array;
 
-    public function getProductByEan(string $ean): ?Product;
+    public function getProductByEan(string $ean, string $userId): ?Product;
 
-    public function getLastSynchronizationDateTime(): ?Carbon;
+    public function getLastSynchronizationDateTime(string $userId): ?Carbon;
 
     public function save(Product $product, string $userId): bool;
 
-    public function updateCosts(Product $product, Costs $costs): bool;
+    public function updateCosts(Product $product, Costs $costs, string $userId): bool;
 }

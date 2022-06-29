@@ -25,8 +25,9 @@ class ReportsController extends Controller
                 'page' => $page = (int) $request->input('page') ?? 1,
             ]
         );
+        $userId = auth()->user()->getAuthIdentifier();
 
-        $data = $this->reportMostSelledProducts->report($options);
+        $data = $this->reportMostSelledProducts->report($options, $userId);
 
         return view('pages.sales.reports.most-selled-products', ['products' => $data]);
     }

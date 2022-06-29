@@ -6,6 +6,8 @@ use Src\Users\Domain\DataTransfer\Erp;
 
 interface User
 {
+    public function getId(): string;
+
     public function getName(): string;
 
     public function getEmail(): string;

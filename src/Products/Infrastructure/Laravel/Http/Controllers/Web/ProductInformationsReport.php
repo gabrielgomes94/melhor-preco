@@ -19,9 +19,10 @@ class ProductInformationsReport
     public function __invoke(ReportProductRequest $request)
     {
         $filter = $request->transform();
-        $data = $this->reportInformations->report($filter);
+        $data = $this->reportInformations->report($filter, $request->user());
+        $userId = auth()->user()->getAuthIdentifier();
 
-        $categories = $this->getCategories();
+        $categories = $this->getCategories($userId);
 
         return view('pages.products.reports.product_information', [
             'data' => $data['data'],
@@ -35,9 +36,9 @@ class ProductInformationsReport
         ]);
     }
 
-    private function getCategories(): array
+    private function getCategories(string $userId): array
     {
-        $categories = $this->categoryRepository->list();
+        $categories = $this->categoryRepository->list($userId);
 
         $categories = $categories->map(function (Category $category) {
             return [

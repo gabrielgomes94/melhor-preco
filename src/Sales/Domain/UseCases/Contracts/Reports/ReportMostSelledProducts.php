@@ -6,5 +6,5 @@ use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 
 interface ReportMostSelledProducts
 {
-    public function report(ListSalesFilter $options);
+    public function report(ListSalesFilter $options, string $userId);
 }
