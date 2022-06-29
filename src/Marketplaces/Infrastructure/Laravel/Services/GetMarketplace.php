@@ -7,6 +7,9 @@ use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\UseCases\Contracts\GetMarketplace as GetMarketplaceInterface;
 
+/**
+ * @deprecated Use repository instead
+ */
 class GetMarketplace implements GetMarketplaceInterface
 {
     public function __construct(

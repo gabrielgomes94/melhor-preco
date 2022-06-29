@@ -11,6 +11,9 @@ use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
 
+/**
+ * @todo: remove logic from controller
+ */
 class CommissionController extends Controller
 {
     public function __construct(
