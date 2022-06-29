@@ -7,20 +7,18 @@ use Src\Prices\Domain\Exceptions\UpdateDBException;
 use Src\Prices\Domain\UseCases\Products\UpdateCommand as UpdateInterface;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 
-// @todo: renomear para Commands
-class UpdateCommandCommand implements UpdateInterface
+class UpdateCommand implements UpdateInterface
 {
-    private UpdateDBCommandCommand $updatePriceServiceDB;
-    private UpdateERPCommandCommand $updatePriceServiceERP;
+    private UpdateDBCommand $updatePriceServiceDB;
+    private UpdateERPCommand $updatePriceServiceERP;
 
-    public function __construct(UpdateDBCommandCommand $updatePriceServiceDB, UpdateERPCommandCommand $updatePriceServiceERP)
+    public function __construct(UpdateDBCommand $updatePriceServiceDB, UpdateERPCommand $updatePriceServiceERP)
     {
         $this->updatePriceServiceDB = $updatePriceServiceDB;
         $this->updatePriceServiceERP = $updatePriceServiceERP;
     }
 
     /**
-     * @throws SyncERPException
      * @throws UpdateDBException
      */
     public function execute(string $sku, Post $post): bool
@@ -29,9 +27,9 @@ class UpdateCommandCommand implements UpdateInterface
             throw new UpdateDBException();
         }
 
-        if (!$this->updatePriceServiceERP->execute($sku, $post)) {
-            throw new SyncERPException();
-        }
+//        if (!$this->updatePriceServiceERP->execute($sku, $post)) {
+//            throw new SyncERPException();
+//        }
 
         return true;
     }

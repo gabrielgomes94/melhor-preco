@@ -7,7 +7,7 @@ use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 
-class UpdateDBCommandCommand implements UpdateDBInterface
+class UpdateDBCommand implements UpdateDBInterface
 {
     public function __construct(private PriceRepository $priceRepository)
     {

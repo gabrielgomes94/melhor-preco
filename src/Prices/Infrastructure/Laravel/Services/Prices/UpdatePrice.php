@@ -7,7 +7,7 @@ use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
 use Src\Math\Percentage;
 use Src\Prices\Domain\UseCases\Price\UpdatePrice as UpdatePriceInterface;
-use Src\Prices\Infrastructure\Laravel\Services\Products\Commands\UpdateCommandCommand;
+use Src\Prices\Infrastructure\Laravel\Services\Products\Commands\UpdateCommand;
 use Src\Products\Domain\Models\Post\Factories\Factory as PostFactory;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Repositories\PostRepository;
@@ -16,15 +16,15 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 class UpdatePrice implements UpdatePriceInterface
 {
     private CalculatePrice $calculatePrice;
-    private UpdateCommandCommand $updatePriceService;
+    private UpdateCommand $updatePriceService;
     private PostRepository $postRepository;
     private PostFactory $postFactory;
 
     public function __construct(
-        CalculatePrice       $calculatePrice,
-        UpdateCommandCommand $updatePriceService,
-        PostRepository       $postRepository,
-        PostFactory          $postFactory
+        CalculatePrice $calculatePrice,
+        UpdateCommand  $updatePriceService,
+        PostRepository $postRepository,
+        PostFactory    $postFactory
     ) {
         $this->calculatePrice = $calculatePrice;
         $this->updatePriceService = $updatePriceService;
@@ -32,7 +32,12 @@ class UpdatePrice implements UpdatePriceInterface
         $this->postFactory = $postFactory;
     }
 
-    public function updatePrice(Product $product, Marketplace $marketplace, float $priceValue, ?float $commission = null): bool
+    public function updatePrice(
+        Product $product,
+        Marketplace $marketplace,
+        float $priceValue,
+        ?float $commission = null
+    ): bool
     {
         $products = $this->getProducts($product);
 
