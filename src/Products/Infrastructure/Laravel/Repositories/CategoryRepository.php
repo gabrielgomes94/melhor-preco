@@ -9,56 +9,47 @@ use Src\Users\Domain\Exceptions\UserNotAuthenticated;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    public function exists(string $categoryId): bool
+    public function exists(string $categoryId, string $userId): bool
     {
-        return (bool) $this->get($categoryId);
+        return (bool) $this->get($categoryId, $userId);
     }
 
-    public function get(string $categoryId): ?Category
+    public function get(string $categoryId, string $userId): ?Category
     {
-        $userId = $this->getUserIdentifier();
         return Category::fromUser((int) $userId)
             ->withId($categoryId)
             ->first();
     }
 
-    public function getParent(string $categoryId): ?Category
+    public function getParent(string $categoryId, string $userId): ?Category
     {
-        $category = $this->get($categoryId);
+        $category = $this->get($categoryId, $userId);
 
         return $category->parent;
     }
 
-    public function insert(Category $category): bool
+    public function insert(Category $category, string $userId): bool
     {
-        $category->user_id = $this->userId;
+        $category->user_id = $userId;
 
         return $category->save();
     }
 
-    public function list()
+    public function list(string $userId)
     {
-        $userId = $this->getUserIdentifier();
         return Category::fromUser($userId)->get()->all();
     }
 
-    public function count(): int
+    public function count(string $userId): int
     {
-        $userId = $this->getUserIdentifier();
         return Category::fromUser($userId)->count();
     }
 
-    public function getLastUpdatedAt(): ?Carbon
+    public function getLastUpdatedAt(string $userId): ?Carbon
     {
-        $userId = $this->getUserIdentifier();
         return Category::fromUser($userId)
             ->orderByDesc('updated_at')
             ->first()
             ?->updated_at;
-    }
-
-    private function getUserIdentifier(): string
-    {
-        return auth()->user()->getAuthIdentifier();
     }
 }

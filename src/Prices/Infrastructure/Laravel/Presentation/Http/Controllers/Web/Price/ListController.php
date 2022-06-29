@@ -29,11 +29,12 @@ class ListController extends Controller
      */
     public function show(string $store, ShowRequest $request)
     {
+        $userId = auth()->user()->getAuthIdentifier();
         $paginator = $this->listProductsService->listPaginate(
             $this->getOptions($store, $request)
         );
 
-        $data = $this->priceListPresenter->list($paginator, $store, $request->all());
+        $data = $this->priceListPresenter->list($paginator, $store, $request->all(), $userId);
 
         return view('pages.pricing.price-list.show', $data);
     }

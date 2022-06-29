@@ -156,44 +156,44 @@ class CategoryRepositoryTest extends TestCase
     private function when_i_want_to_get_parent_from_repository(): void
     {
         $this->repository = $this->app->make(CategoryRepository::class);
-        $this->result = $this->repository->getParent('10');
+        $this->result = $this->repository->getParent('10', $this->user->getId());
     }
 
     private function when_i_want_to_get_from_repository(): void
     {
         $this->repository = $this->app->make(CategoryRepository::class);
-        $this->result = $this->repository->get('1');
+        $this->result = $this->repository->get('1', $this->user->getId());
     }
 
     private function when_i_want_to_insert_category(): void
     {
         $this->repository = $this->app->make(CategoryRepository::class);
         $category = new Category(CategoryData::withParent());
-        $this->result = $this->repository->insert($category);
+        $this->result = $this->repository->insert($category, $this->user->getId());
     }
 
     private function when_i_want_to_list_categories(): void
     {
         $this->repository = $this->app->make(CategoryRepository::class);
-        $this->result = $this->repository->list();
+        $this->result = $this->repository->list($this->user->getId());
     }
 
     private function when_i_want_to_check_if_category_exists(): void
     {
         $this->repository = $this->app->make(CategoryRepository::class);
-        $this->result = $this->repository->exists('1');
+        $this->result = $this->repository->exists('1', $this->user->getId());
     }
 
     private function when_i_want_to_count_categories(): void
     {
         $this->repository = $this->app->make(CategoryRepository::class);
-        $this->result = $this->repository->count();
+        $this->result = $this->repository->count($this->user->getId());
     }
 
     private function when_i_want_to_get_the_last_updated_datetime()
     {
         $this->repository = $this->app->make(CategoryRepository::class);
-        $this->result = $this->repository->getLastUpdatedAt();
+        $this->result = $this->repository->getLastUpdatedAt($this->user->getId());
     }
 
     private function then_i_must_get_the_last_updated_datetime()
