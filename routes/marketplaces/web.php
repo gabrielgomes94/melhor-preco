@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
                 [CommissionController::class, 'doSetUniqueCommission']
             )->name('.doSetUniqueCommission');
 
-            Route::get('/{marketplace_slug}/comissao/', [CommissionController::class, 'setCommission'])
+            Route::get('/{marketplace_slug}/comissao', [CommissionController::class, 'setCommission'])
                 ->name('.setCommission');
         });
 });

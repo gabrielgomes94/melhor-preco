@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Domain\UseCases\Contracts;
+namespace Src\Marketplaces\Domain\Services;
 
 interface UpdateCommission
 {

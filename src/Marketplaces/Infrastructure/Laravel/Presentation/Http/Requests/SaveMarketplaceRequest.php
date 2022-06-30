@@ -35,7 +35,10 @@ class SaveMarketplaceRequest extends FormRequest
     public function rules()
     {
         return [
-            'commissionType' => 'required',
+            'commissionType' => [
+                'required',
+                'in:categoryCommission,skuCommission,uniqueCommission'
+            ],
             'erpId' => 'required',
             'name' => 'required',
             'is_active' => 'boolean',

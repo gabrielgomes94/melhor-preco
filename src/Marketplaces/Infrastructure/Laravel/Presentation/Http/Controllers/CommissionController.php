@@ -2,42 +2,36 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Services\GetCategoryWithCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
-use Src\Marketplaces\Domain\UseCases\Contracts\GetCommissionType;
-use Src\Marketplaces\Domain\UseCases\Contracts\UpdateCommission;
+use Src\Marketplaces\Domain\Services\UpdateCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
 
-/**
- * @todo: remove logic from controller
- */
 class CommissionController extends Controller
 {
     public function __construct(
-        private GetCommissionType $getCommissionType,
         private GetCategoryWithCommission $getCategoryWithCommission,
-        private UpdateCommission $updateCommission
+        private UpdateCommission $updateCommission,
+        private MarketplaceRepository $marketplaceRepository
     ) {}
 
-    public function setCommission(string $marketplaceSlug)
+    /**
+     * @throws MarketplaceNotFoundException
+     */
+    public function setCommission(string $marketplaceSlug): View|Factory
     {
-        $userId = auth()->user()->getAuthIdentifier();
-        try {
-            $commissionType = $this->getCommissionType->get($marketplaceSlug);
-        } catch (\Throwable $exception) {
-            abort(404);
-        }
+        $marketplace = $this->getMarketplace($marketplaceSlug);
 
-        if ($commissionType === CommissionType::CATEGORY_COMMISSION) {
-            $data = $this->getCategoryWithCommission->get($marketplaceSlug, $userId);
-
-            return view('pages.marketplaces.set-commission.category', [
-                'categories' => $data,
-                'marketplaceSlug' => $marketplaceSlug,
-            ]);
+        if ($marketplace->getCommissionType() === CommissionType::CATEGORY_COMMISSION) {
+            return $this->renderSetCommissionCategoryView($marketplace);
         }
 
         return view('pages.marketplaces.set-commission.unique', [
@@ -45,35 +39,48 @@ class CommissionController extends Controller
         ]);
     }
 
-    public function doSetCommissionByCategory(string $marketplaceSlug, SetCommissionByCategoryRequest $request)
+    public function doSetCommissionByCategory(
+        string $marketplaceSlug,
+        SetCommissionByCategoryRequest $request
+    ): RedirectResponse
     {
-        $data = $this->transformInput($request);
-        $this->updateCommission->massUpdate($marketplaceSlug, $data);
+        $this->updateCommission->massUpdate($marketplaceSlug, $request->transform());
 
         return redirect()->route('marketplaces.list');
     }
 
-    public function doSetUniqueCommission(string $marketplaceSlug, SetUniqueCommissionRequest $request)
+    public function doSetUniqueCommission(
+        string $marketplaceSlug,
+        SetUniqueCommissionRequest $request
+    ): RedirectResponse
     {
         $this->updateCommission->update($marketplaceSlug, (float) $request->validated()['commission']);
 
         return redirect()->route('marketplaces.list');
     }
 
-    private function transformInput(Request $request)
+    /**
+     * @throws MarketplaceNotFoundException
+     */
+    private function getMarketplace(string $marketplaceSlug): Marketplace
     {
-        $data = $request->all();
-        $count = count($data['commission']);
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
 
-        for ($i = 0; $i < $count; $i++) {
-            $transformed[] = [
-                'commission' => $data['commission'][$i],
-                'categoryName' => $data['categoryName'][$i],
-                'categoryId' => $data['categoryId'][$i],
-            ];
-
+        if (!$marketplace) {
+            throw new MarketplaceNotFoundException($marketplaceSlug);
         }
 
-        return $transformed ?? [];
+        return $marketplace;
+    }
+
+    private function renderSetCommissionCategoryView(Marketplace $marketplace):  View|Factory
+    {
+        $userId = auth()->user()->getAuthIdentifier();
+        $data = $this->getCategoryWithCommission->get($marketplace, $userId);
+
+        return view('pages.marketplaces.set-commission.category', [
+            'categories' => $data,
+            'marketplaceSlug' => $marketplace->getSlug(),
+        ]);
     }
 }
