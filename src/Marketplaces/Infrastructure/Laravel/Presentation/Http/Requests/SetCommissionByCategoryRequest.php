@@ -3,30 +3,36 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
 
 class SetCommissionByCategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'commission' => 'array',
-            'categoryName' => 'array',
             'categoryId' => 'array',
         ];
+    }
+
+    public function transform(): array
+    {
+        $data = $this->all();
+        $count = count($data['commission']);
+
+        for ($i = 0; $i < $count; $i++) {
+            $transformed[] = new CategoryCommission([
+                'commission' => $data['commission'][$i],
+                'categoryId' => $data['categoryId'][$i],
+            ]);
+
+        }
+
+        return $transformed ?? [];
     }
 }

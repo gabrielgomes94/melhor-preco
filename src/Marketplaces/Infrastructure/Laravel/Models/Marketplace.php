@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
-use Src\Marketplaces\Domain\Models\ValueObjects\CategoryCommission;
+use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
 use Src\Math\Percentage;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
@@ -137,11 +137,6 @@ class Marketplace extends Model implements MarketplaceInterface
         }
 
         return Percentage::fromPercentage($data['commission']);
-    }
-
-    public function setCommissionByCategory(CategoryCommission $categoryCommission)
-    {
-        // @todo: add logic
     }
 
     public function setCommissionsByCategory(Collection $commissions)

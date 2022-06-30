@@ -3,26 +3,20 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\CategoryRepository;
 
 class GetCategoryWithCommission
 {
-    private CategoryRepository $repository;
-    private MarketplaceRepository $marketplaceRepository;
-
     public function __construct(
-        CategoryRepository $repository,
-        MarketplaceRepository $marketplaceRepository
-    ) {
-        $this->repository = $repository;
-        $this->marketplaceRepository = $marketplaceRepository;
-    }
+        private readonly CategoryRepository $repository,
+    ) {}
 
-    public function get(string $marketplaceSlug, string $userId): array
+    public function get(Marketplace $marketplace, string $userId): array
     {
-        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
         $categories = $this->repository->list($userId);
+        $categories = collect($categories);
 
         return $categories->map(function (Category $category) use ($marketplace) {
             $categoryId = $category->getCategoryId();

@@ -2,28 +2,21 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
-use Src\Marketplaces\Domain\Models\ValueObjects\CategoryCommission;
+use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Domain\Services\UpdateCommission as UpdateCommissionInterface;
 
 class UpdateCommission implements UpdateCommissionInterface
 {
-    private MarketplaceRepository $marketplaceRepository;
-
-    public function __construct(MarketplaceRepository $marketplaceRepository)
-    {
-        $this->marketplaceRepository = $marketplaceRepository;
+    public function __construct(
+        private readonly MarketplaceRepository $marketplaceRepository
+    ) {
     }
 
     public function massUpdate(string $marketplaceSlug, array $data): bool
     {
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
-
-        $data = collect($data)->map(function (array $commission) {
-            return new CategoryCommission($commission);
-        });
-
-        $marketplace->setCommissionsByCategory($data);
+        $marketplace->setCommissionsByCategory(collect($data));
 
         return $marketplace->save();
     }
