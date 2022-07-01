@@ -26,7 +26,7 @@ class MarketplaceData
 
     public static function make(array $data = [], ?string $method = null): Marketplace
     {
-        $data = array_replace_recursive(
+        $data = array_replace(
             [
                 'erp_id' => '123456',
                 'erp_name' => 'bling',
