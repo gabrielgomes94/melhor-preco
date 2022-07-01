@@ -3,10 +3,12 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
@@ -188,9 +190,11 @@ class Marketplace extends Model implements MarketplaceInterface
 
     public function slugsExists(): bool
     {
-        $count = self::where('user_id', $this->getUser()->getId())
+        $userId = $this->getUser()->getId();
+
+        $count = self::where('user_id', $userId)
             ->where('slug', $this->getSlug())
-            ->whereNot('uuid', $this->getUuid())
+            ->where('uuid', '!=',  $this->getUuid())
             ->count();
 
         return $count > 0;
@@ -199,5 +203,20 @@ class Marketplace extends Model implements MarketplaceInterface
     public function getUserId(): string
     {
         return $this->getUser()->getId();
+    }
+
+    public function scopeWithErpId(Builder $query, string $erpId): Builder
+    {
+        return $query->where('erp_id', $erpId);
+    }
+
+    public function scopeWithUser(Builder $query, string $userId): Builder
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    public function scopeWithSlug(Builder $query, string $slug): Builder
+    {
+        return $query->where('slug', $slug);
     }
 }

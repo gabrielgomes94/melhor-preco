@@ -2,7 +2,6 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
@@ -15,14 +14,14 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
     /**
      * @throws MarketplaceSlugAlreadyExists
      */
-    public function create(MarketplaceSettings $data): Marketplace
+    public function create(MarketplaceSettings $settings): Marketplace
     {
-        $data = $this->prepareData($data);
-        $marketplace = new Marketplace([
-            array_merge($data, [
-                'uuid' => Uuid::uuid4(),
-            ])
-        ]);
+        $data = array_merge(
+            $this->prepareData($settings),
+            ['uuid' => Uuid::uuid4()]
+        );
+        $marketplace = new Marketplace($data);
+        $marketplace->user_id = $settings->userId;
 
         if ($marketplace->slugsExists()) {
             throw new MarketplaceSlugAlreadyExists($marketplace);
@@ -33,31 +32,25 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return $marketplace->refresh();
     }
 
-    public function exists(string $marketplaceUuid): bool
+    public function getByErpId(string $marketplaceErpId, string $userId): ?Marketplace
     {
-        $marketplace = Marketplace::where('uuid', $marketplaceUuid)->get();
-
-        return $marketplace->count() > 0;
+        return Marketplace::withErpId($marketplaceErpId)
+            ->withUser($userId)
+            ->first();
     }
 
-    public function getByErpId(string $marketplaceErpId): ?Marketplace
+    public function getBySlug(string $marketplaceSlug, string $userId): ?Marketplace
     {
-        return Marketplace::where('erp_id', $marketplaceErpId)->first();
+        return Marketplace::withSlug($marketplaceSlug)
+            ->withUser($userId)
+            ->first();
     }
 
-    public function getBySlug(string $marketplaceSlug): ?Marketplace
+    public function list(string $userId): array
     {
-        return Marketplace::where('slug', $marketplaceSlug)->first();
-    }
-
-    public function getByUuid(string $marketplaceUuid): ?Marketplace
-    {
-        return Marketplace::where('uuid', $marketplaceUuid)->first();
-    }
-
-    public function list(): Collection
-    {
-        return Marketplace::all();
+        return Marketplace::withUser($userId)
+            ->get()
+            ->all();
     }
 
     /**
@@ -86,7 +79,6 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
             'is_active' => $data->isActive,
             'name' => $data->name,
             'slug' => Str::slug($data->name),
-            'user_id' => $data->userId
         ];
     }
 }
