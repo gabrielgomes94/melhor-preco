@@ -1,19 +1,22 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\Services;
+namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Domain\Services\UpdateCommission as UpdateCommissionInterface;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
 
-class UpdateCommission implements UpdateCommissionInterface
+class CommissionRepository implements CommissionRepositoryInterface
 {
     public function __construct(
         private readonly MarketplaceRepository $marketplaceRepository
     ) {
     }
 
-    public function massUpdate(string $marketplaceSlug, array $data): bool
+    /**
+     * @param CategoryCommission[] $data
+     */
+    public function updateCategoryCommissions(string $marketplaceSlug, array $data): bool
     {
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
         $marketplace->setCommissionsByCategory(collect($data));
@@ -21,7 +24,7 @@ class UpdateCommission implements UpdateCommissionInterface
         return $marketplace->save();
     }
 
-    public function update(string $marketplaceSlug, float $commission): bool
+    public function updateUniqueCommission(string $marketplaceSlug, float $commission): bool
     {
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
         $marketplace->setCommissionByUniqueValue($commission);

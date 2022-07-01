@@ -2,8 +2,12 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SaveMarketplaceRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters\MarketplacePresenter;
@@ -11,24 +15,22 @@ use Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters\MarketplaceP
 class MarketplacesController extends Controller
 {
     public function __construct(
-        private MarketplacePresenter $marketplacePresenter,
-        private MarketplaceRepository $marketplaceRepository
+        private readonly MarketplacePresenter $marketplacePresenter,
+        private readonly MarketplaceRepository $marketplaceRepository
     ) {
     }
 
-    public function create()
+    public function create(): View|Factory
     {
         return view('pages.marketplaces.create');
     }
 
-    public function edit(string $marketplaceUuid)
+    /**
+     * @throws MarketplaceNotFoundException
+     */
+    public function edit(string $marketplaceSlug): View|Factory
     {
-        $marketplace = $this->marketplaceRepository->getByUuid($marketplaceUuid);
-
-        if (!$marketplace) {
-            throw new MarketplaceNotFoundException($marketplaceUuid);
-        }
-
+        $marketplace = $this->getMarketplace($marketplaceSlug);
         $marketplace = $this->marketplacePresenter->present($marketplace);
 
         return view('pages.marketplaces.edit', [
@@ -36,7 +38,7 @@ class MarketplacesController extends Controller
         ]);
     }
 
-    public function list()
+    public function list(): View|Factory
     {
         $marketplaces = $this->marketplaceRepository->list();
         $data = $this->marketplacePresenter->presentList($marketplaces);
@@ -44,17 +46,35 @@ class MarketplacesController extends Controller
         return view('pages.marketplaces.list', $data);
     }
 
-    public function store(SaveMarketplaceRequest $request)
+    public function store(SaveMarketplaceRequest $request): RedirectResponse
     {
         $this->marketplaceRepository->create($request->transform());
 
         return redirect()->route('marketplaces.list');
     }
 
-    public function update(SaveMarketplaceRequest $request, string $marketplaceId)
+    /**
+     * @throws MarketplaceNotFoundException
+     */
+    public function update(SaveMarketplaceRequest $request, string $marketplaceSlug): RedirectResponse
     {
-        $this->marketplaceRepository->update($request->transform(), $marketplaceId);
+        $marketplace = $this->getMarketplace($marketplaceSlug);
+        $this->marketplaceRepository->update($marketplace, $request->transform());
 
         return redirect()->route('marketplaces.list');
+    }
+
+    /**
+     * @throws MarketplaceNotFoundException
+     */
+    private function getMarketplace(string $marketplaceSlug): Marketplace
+    {
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
+
+        if (!$marketplace) {
+            throw new MarketplaceNotFoundException($marketplaceSlug);
+        }
+
+        return $marketplace;
     }
 }

@@ -20,5 +20,5 @@ interface MarketplaceRepository
 
     public function list(): Collection;
 
-    public function update(MarketplaceSettings $data, string $marketplaceId): bool;
+    public function update(Marketplace $marketplace, MarketplaceSettings $data): bool;
 }

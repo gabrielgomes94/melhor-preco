@@ -5,21 +5,32 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
 
 class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
+    /**
+     * @throws MarketplaceSlugAlreadyExists
+     */
     public function create(MarketplaceSettings $data): Marketplace
     {
         $data = $this->prepareData($data);
-
-        return Marketplace::create(
+        $marketplace = new Marketplace([
             array_merge($data, [
                 'uuid' => Uuid::uuid4(),
             ])
-        );
+        ]);
+
+        if ($marketplace->slugsExists()) {
+            throw new MarketplaceSlugAlreadyExists($marketplace);
+        }
+
+        $marketplace->save();
+
+        return $marketplace->refresh();
     }
 
     public function exists(string $marketplaceUuid): bool
@@ -49,24 +60,23 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return Marketplace::all();
     }
 
-    public function update(MarketplaceSettings $data, string $marketplaceId): bool
+    /**
+     * @throws MarketplaceSlugAlreadyExists
+     */
+    public function update(Marketplace $marketplace, MarketplaceSettings $data): bool
     {
-        $marketplace = $this->getByUuid($marketplaceId);
-
-        if (!$marketplace) {
-            return false;
-        }
-
         $data = $this->prepareData($data);
         $marketplace->fill($data);
+
+        if ($marketplace->slugsExists()) {
+            throw new MarketplaceSlugAlreadyExists($marketplace);
+        }
 
         return $marketplace->save();
     }
 
     private function prepareData(MarketplaceSettings $data): array
     {
-        $slug = Str::slug($data->name);
-
         return [
             'erp_id' => $data->erpId,
             'erp_name' => 'bling',
@@ -75,7 +85,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
             ],
             'is_active' => $data->isActive,
             'name' => $data->name,
-            'slug' => $slug,
+            'slug' => Str::slug($data->name),
             'user_id' => $data->userId
         ];
     }

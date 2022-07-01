@@ -7,20 +7,20 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Marketplaces\Infrastructure\Laravel\Services\GetCategoryWithCommission;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
-use Src\Marketplaces\Domain\Services\UpdateCommission;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
+use Src\Marketplaces\Infrastructure\Laravel\Services\GetCategoriesWithCommissions;
 
 class CommissionController extends Controller
 {
     public function __construct(
-        private GetCategoryWithCommission $getCategoryWithCommission,
-        private UpdateCommission $updateCommission,
-        private MarketplaceRepository $marketplaceRepository
+        private GetCategoriesWithCommissions $getCategoryWithCommission,
+        private CommissionRepository         $commissionRepository,
+        private MarketplaceRepository        $marketplaceRepository
     ) {}
 
     /**
@@ -44,7 +44,7 @@ class CommissionController extends Controller
         SetCommissionByCategoryRequest $request
     ): RedirectResponse
     {
-        $this->updateCommission->massUpdate($marketplaceSlug, $request->transform());
+        $this->commissionRepository->updateCategoryCommissions($marketplaceSlug, $request->transform());
 
         return redirect()->route('marketplaces.list');
     }
@@ -54,7 +54,7 @@ class CommissionController extends Controller
         SetUniqueCommissionRequest $request
     ): RedirectResponse
     {
-        $this->updateCommission->update($marketplaceSlug, (float) $request->validated()['commission']);
+        $this->commissionRepository->updateUniqueCommission($marketplaceSlug, $request->transform());
 
         return redirect()->route('marketplaces.list');
     }

@@ -29,7 +29,7 @@
 
             <br>
 
-            <a href="{{ route('marketplaces.edit', $marketplace['uuid']) }}"
+            <a href="{{ route('marketplaces.edit', $marketplace['slug']) }}"
                class="link-info"
             >
                 Editar

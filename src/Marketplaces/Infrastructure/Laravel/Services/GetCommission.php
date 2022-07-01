@@ -24,13 +24,14 @@ class GetCommission implements GetCommissionInterface
     public function get(string $marketplaceErpId, string $productSku, string $userId): float
     {
         $marketplace = $this->marketplaceRepository->getByErpId($marketplaceErpId);
-        $product = $this->productRepository->get($productSku, $userId);
 
         if ($marketplace->hasUniqueCommission()) {
             return $marketplace->getUniqueCommission()->getFraction();
         }
 
         if ($marketplace->hasCommissionByCategory()) {
+            $product = $this->productRepository->get($productSku, $userId);
+
             return $marketplace->getCommissionByCategory(
                 $product->getCategoryId()
             )?->getFraction() ?? 0.0;

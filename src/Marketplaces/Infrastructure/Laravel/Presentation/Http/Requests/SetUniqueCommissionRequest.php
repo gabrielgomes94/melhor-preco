@@ -17,4 +17,9 @@ class SetUniqueCommissionRequest extends FormRequest
             'commission' => 'numeric',
         ];
     }
+
+    public function transform(): float
+    {
+        return  (float) $this->validated()['commission'];
+    }
 }

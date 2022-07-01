@@ -1,4 +1,4 @@
-<x-bootstrap.forms.form.post action="{{ route('marketplaces.update', $marketplace['uuid']) }}">
+<x-bootstrap.forms.form.post action="{{ route('marketplaces.update', $marketplace['slug']) }}">
     <div class="mt-1">
         <x-bootstrap.forms.input.text
             attribute="erpId"

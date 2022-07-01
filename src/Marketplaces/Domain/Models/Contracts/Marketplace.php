@@ -25,6 +25,8 @@ interface Marketplace
 
     public function getUuid(): string;
 
+    public function getUserId(): string;
+
     public function isActive(): bool;
 
     public function hasUniqueCommission(): bool;

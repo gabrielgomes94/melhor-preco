@@ -2,6 +2,7 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -109,7 +110,7 @@ class Marketplace extends Model implements MarketplaceInterface
     public function getCommissionByCategory(?string $categoryId = null): ?Percentage
     {
         if (!$this->hasCommissionByCategory()) {
-            throw new \Exception('Marketplace não possui comissões por categorias.');
+            throw new Exception('Marketplace não possui comissões por categorias.');
         }
 
         $commissions = $this->getCommissions();
@@ -126,7 +127,7 @@ class Marketplace extends Model implements MarketplaceInterface
     public function getUniqueCommission(): ?Percentage
     {
         if (!$this->hasUniqueCommission()) {
-            throw new \Exception('Marketplace possui varias commissões');
+            throw new Exception('Marketplace possui varias commissões');
         }
 
         $commissions = $this->getCommissions();
@@ -183,5 +184,20 @@ class Marketplace extends Model implements MarketplaceInterface
     public function getPrices(): iterable
     {
         return $this->prices;
+    }
+
+    public function slugsExists(): bool
+    {
+        $count = self::where('user_id', $this->getUser()->getId())
+            ->where('slug', $this->getSlug())
+            ->whereNot('uuid', $this->getUuid())
+            ->count();
+
+        return $count > 0;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->getUser()->getId();
     }
 }

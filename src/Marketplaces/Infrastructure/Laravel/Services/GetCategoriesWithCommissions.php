@@ -2,12 +2,12 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Services;
 
-use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Domain\Services\GetCategoriesWithCommissions as GetCategoriesWithCommissionsInterface;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\CategoryRepository;
 
-class GetCategoryWithCommission
+class GetCategoriesWithCommissions implements GetCategoriesWithCommissionsInterface
 {
     public function __construct(
         private readonly CategoryRepository $repository,
