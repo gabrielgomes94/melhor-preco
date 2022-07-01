@@ -58,13 +58,13 @@ class SynchronizeFromMarketplace
             $profit = $this->calculateProfit->fromModel($price, $user);
 
             if ($priceModels->count() === 0) {
-                $this->priceRepository->insert($price, $commission, $profit, $user->getId());
+                $this->priceRepository->insert($price, $commission->get(), $profit, $user->getId());
 
                 continue;
             }
 
             foreach ($priceModels as $priceModel) {
-                $this->priceRepository->update($priceModel, $price->value, $profit, $commission);
+                $this->priceRepository->update($priceModel, $price->value, $profit, $commission->get());
             }
         }
     }

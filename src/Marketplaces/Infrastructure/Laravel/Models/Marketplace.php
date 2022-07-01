@@ -118,7 +118,7 @@ class Marketplace extends Model implements MarketplaceInterface
         $commissions = $this->getCommissions();
 
         foreach ($commissions as $data) {
-            if ($data['categoryId'] === $categoryId) {
+            if ($data['categoryId'] == $categoryId) {
                 return Percentage::fromPercentage($data['commission']);
             }
         }

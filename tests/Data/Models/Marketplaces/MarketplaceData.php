@@ -8,9 +8,9 @@ use Src\Users\Infrastructure\Laravel\Models\User;
 
 class MarketplaceData
 {
-    public static function persisted(User $user, array $data = []): Marketplace
+    public static function persisted(User $user, array $data = [], ?string $method = null): Marketplace
     {
-        $marketplace = self::make($data);
+        $marketplace = self::make($data, $method);
 
         if (empty($data['uuid'])) {
             $marketplace->uuid = Uuid::uuid4();
@@ -24,7 +24,7 @@ class MarketplaceData
         return $marketplace;
     }
 
-    public static function make(array $data = []): Marketplace
+    public static function make(array $data = [], ?string $method = null): Marketplace
     {
         $data = array_replace_recursive(
             [
@@ -32,20 +32,38 @@ class MarketplaceData
                 'erp_name' => 'bling',
                 'name' => 'Magalu',
                 'slug' => 'magalu',
-                'extra' => [
-                    'commissionValues' => [
-                        [
-                            'categoryId' => null,
-                            'commission' => 12.8,
-                        ]
-                    ],
-                    'commissionType' => 'uniqueCommission'
-                ],
                 'is_active' => true,
+                'extra' => $method ? self::$method() : self::uniqueCommission(),
             ],
             $data
         );
 
         return new Marketplace($data);
+    }
+
+    private static function categoryCommission(): array
+    {
+        return [
+            'commissionValues' => [
+                [
+                    'categoryId' => 1,
+                    'commission' => 12.8,
+                ]
+            ],
+            'commissionType' => 'categoryCommission',
+        ];
+    }
+
+    private static function uniqueCommission(): array
+    {
+        return [
+            'commissionValues' => [
+                [
+                    'categoryId' => null,
+                    'commission' => 12.8,
+                ]
+            ],
+            'commissionType' => 'uniqueCommission',
+        ];
     }
 }

@@ -44,7 +44,8 @@ class CommissionController extends Controller
         SetCommissionByCategoryRequest $request
     ): RedirectResponse
     {
-        $this->commissionRepository->updateCategoryCommissions($marketplaceSlug, $request->transform());
+        $marketplace = $this->getMarketplace($marketplaceSlug);
+        $this->commissionRepository->updateCategoryCommissions($marketplace, $request->transform());
 
         return redirect()->route('marketplaces.list');
     }
@@ -54,7 +55,8 @@ class CommissionController extends Controller
         SetUniqueCommissionRequest $request
     ): RedirectResponse
     {
-        $this->commissionRepository->updateUniqueCommission($marketplaceSlug, $request->transform());
+        $marketplace = $this->getMarketplace($marketplaceSlug);
+        $this->commissionRepository->updateUniqueCommission($marketplace, $request->transform());
 
         return redirect()->route('marketplaces.list');
     }

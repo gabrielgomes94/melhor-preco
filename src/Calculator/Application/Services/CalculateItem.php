@@ -35,7 +35,7 @@ class CalculateItem implements CalculateItemInterface
             productData: ProductData::fromModel($item->getProduct()),
             marketplace: $marketplace,
             value: $item->getTotalValue(),
-            commission: Percentage::fromPercentage($commission)
+            commission: $commission
         );
     }
 }
