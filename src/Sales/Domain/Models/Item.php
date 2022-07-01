@@ -40,6 +40,11 @@ class Item extends Model
         return $this?->getSaleOrder()?->getMarketplace();
     }
 
+    public function getProduct(): Product
+    {
+        return $this->product;
+    }
+
     public function getQuantity(): float
     {
         return $this->quantity;

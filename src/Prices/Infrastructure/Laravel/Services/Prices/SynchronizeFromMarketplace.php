@@ -5,19 +5,19 @@ namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 use Src\Calculator\Application\Services\CalculateProfit;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
-use Src\Marketplaces\Domain\Services\GetCommission;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 use Src\Users\Infrastructure\Laravel\Models\User;
-use Throwable;
 
 class SynchronizeFromMarketplace
 {
     public function __construct(
         private BlingRepository $erpRepository,
         private CalculateProfit $calculateProfit,
-        private GetCommission $getCommission,
+        private CommissionRepository $commissionRepository,
         private PriceRepository $priceRepository
     ) {
     }
@@ -44,12 +44,17 @@ class SynchronizeFromMarketplace
 
     public function save(PricesCollectionResponse $prices, User $user): void
     {
+        /**
+         * @var Price $price
+         */
         foreach ($prices->data() as $price) {
             $priceModels = $this->priceRepository->getPriceFromMarketplace(
                 $price->store, $price->store_sku_id, $price->product_sku, $user->getId()
             );
-
-            $commission = $this->getCommission->getFromPrice($price, $user);
+            $commission = $this->commissionRepository->get(
+                $price->getMarketplace(),
+                $price->getProduct()
+            );
             $profit = $this->calculateProfit->fromModel($price, $user);
 
             if ($priceModels->count() === 0) {

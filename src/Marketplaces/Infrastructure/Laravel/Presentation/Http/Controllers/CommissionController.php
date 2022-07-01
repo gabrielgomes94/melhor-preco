@@ -26,7 +26,7 @@ class CommissionController extends Controller
     /**
      * @throws MarketplaceNotFoundException
      */
-    public function setCommission(string $marketplaceSlug): View|Factory
+    public function editCommission(string $marketplaceSlug): View|Factory
     {
         $marketplace = $this->getMarketplace($marketplaceSlug);
 
