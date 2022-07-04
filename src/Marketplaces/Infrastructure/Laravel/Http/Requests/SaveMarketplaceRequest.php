@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests;
+namespace Src\Marketplaces\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;

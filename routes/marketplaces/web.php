@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers\CommissionController;
-use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers\MarketplacesController;
+use Src\Marketplaces\Infrastructure\Laravel\Http\Controllers\CommissionController;
+use Src\Marketplaces\Infrastructure\Laravel\Http\Controllers\MarketplacesController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('marketplaces')

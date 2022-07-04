@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Controllers;
+namespace Src\Marketplaces\Infrastructure\Laravel\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SaveMarketplaceRequest;
+use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\SaveMarketplaceRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presenters\MarketplacePresenter;
 
 class MarketplacesController extends Controller
