@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Products\ProductData;
@@ -80,10 +81,7 @@ class CommissionRepositoryTest extends TestCase
             'categoryCommission'
         );
         $data = [
-            new CategoryCommission([
-                'commission' => 10.0,
-                'categoryId' => 1,
-            ])
+            new CategoryCommission(Percentage::fromPercentage(10.0), '1')
         ];
 
         $repository = $this->app->get(CommissionRepository::class);

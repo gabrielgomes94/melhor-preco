@@ -4,6 +4,7 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
+use Src\Math\Percentage;
 
 class SetCommissionByCategoryRequest extends FormRequest
 {
@@ -26,11 +27,12 @@ class SetCommissionByCategoryRequest extends FormRequest
         $count = count($data['commission']);
 
         for ($i = 0; $i < $count; $i++) {
-            $transformed[] = new CategoryCommission([
-                'commission' => $data['commission'][$i],
-                'categoryId' => $data['categoryId'][$i],
-            ]);
+            $commission = (float) $data['commission'][$i] ?? 0.0;
 
+            $transformed[] = new CategoryCommission(
+                Percentage::fromPercentage($commission),
+                (string) $data['categoryId'][$i],
+            );
         }
 
         return $transformed ?? [];

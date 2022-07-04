@@ -2,7 +2,8 @@
 
 namespace Tests\Unit\Marketplaces\Infrastructure\Laravel\Presenters;
 
-class MarketplacePresenterTest
-{
+use Tests\TestCase;
 
+class MarketplacePresenterTest extends TestCase
+{
 }
