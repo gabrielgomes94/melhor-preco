@@ -3,23 +3,26 @@
 namespace Tests\Unit\Marketplaces\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Marketplaces\Domain\Services\GetCategoriesWithCommissions;
+use Mockery as m;
+use Src\Marketplaces\Infrastructure\Laravel\Presenters\CategoriesPresenter;
+use Src\Products\Domain\Repositories\CategoryRepository;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
-// @todo: refatorar esse teste para ele ficar mais unitário
-class GetCategoriesWithCommissionTest extends TestCase
+class CategoriesPresenterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_should_get_categories_with_commission(): void
+    public function test_should_present_categories_with_commission(): void
     {
         // Arrange
+        $repository = m::mock(CategoryRepository::class);
+        $presenter = new CategoriesPresenter($repository);
+
         $user = UserData::make();
-        CategoryData::persisted('withoutParent', $user, ['category_id' => '1']);
-        CategoryData::persisted('withParent', $user, ['category_id' => '10']);
+
         $marketplace = MarketplaceData::persisted(
             $user,
             [
@@ -39,7 +42,7 @@ class GetCategoriesWithCommissionTest extends TestCase
             ],
             'categoryCommission'
         );
-        $getCategoriesWithCommissions = $this->app->get(GetCategoriesWithCommissions::class);
+
         $expected = [
             [
                 'name' => 'Carrinhos',
@@ -55,11 +58,18 @@ class GetCategoriesWithCommissionTest extends TestCase
             ],
         ];
 
+        // Expect
+        $repository->expects()
+            ->list('1')
+            ->andReturn([
+                CategoryData::persisted($user, ['category_id' => '1'], 'withoutParent'),
+                CategoryData::persisted($user, ['category_id' => '10', 'parent_id' => '1']),
+            ]);
+
         // Act
-        $result = $getCategoriesWithCommissions->get($marketplace, $user->getId());
+        $result = $presenter->presentWithCommission($marketplace, '1');
 
         // Assert
         $this->assertSame($expected, $result);
-
     }
 }

@@ -7,14 +7,20 @@ use Src\Users\Infrastructure\Laravel\Models\User;
 
 class CategoryData
 {
-    public static function persisted(string $method, User $user, array $data = []): Category
+    public static function persisted(User $user, array $data = [], string $method = 'withParent'): Category
+    {
+        $category = self::make($user, $data, $method);
+        $category->save();
+
+        return $category;
+    }
+
+    public static function make(User $user, array $data = [], string $method = 'withParent')
     {
         $category = new Category(
             array_merge(self::$method(), $data)
         );
-
         $category->user_id = $user->getId();
-        $category->save();
 
         return $category;
     }

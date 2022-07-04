@@ -5,7 +5,6 @@ namespace Tests\Integration\Marketplaces\Repositories;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
@@ -36,12 +35,8 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $category = CategoryData::persisted('withoutParent', $user, [
-            'category_id' => '1',
-        ]);
-        $product = ProductData::makePersisted($user, [
-            'category_id' => $category->getCategoryId()
-        ]);
+        $category = CategoryData::persisted($user, ['category_id' => '1'], 'withoutParent');
+        $product = ProductData::makePersisted($user, ['category_id' => $category->getCategoryId()]);
         $marketplace = MarketplaceData::persisted($user, [], 'categoryCommission');
         $repository = $this->app->get(CommissionRepository::class);
 

@@ -67,8 +67,8 @@ class SetCommissionTest extends FeatureTestCase
             'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
         ]);
 
-        CategoryData::persisted('withoutParent', $this->user);
-        CategoryData::persisted('withParent', $this->user);
+        CategoryData::persisted(user: $this->user, method: 'withoutParent');
+        CategoryData::persisted($this->user);
     }
 
     private function when_i_want_to_see_the_set_commision_page(): void
