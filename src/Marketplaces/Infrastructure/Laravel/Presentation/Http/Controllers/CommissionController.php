@@ -13,7 +13,7 @@ use Src\Marketplaces\Domain\Models\CommissionType;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
-use Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters\CategoriesPresenter;
+use Src\Marketplaces\Infrastructure\Laravel\Presenters\CategoriesPresenter;
 
 class CommissionController extends Controller
 {

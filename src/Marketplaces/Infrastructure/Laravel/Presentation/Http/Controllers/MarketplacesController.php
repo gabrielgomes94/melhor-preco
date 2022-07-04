@@ -10,7 +10,7 @@ use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SaveMarketplaceRequest;
-use Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters\MarketplacePresenter;
+use Src\Marketplaces\Infrastructure\Laravel\Presenters\MarketplacePresenter;
 
 class MarketplacesController extends Controller
 {

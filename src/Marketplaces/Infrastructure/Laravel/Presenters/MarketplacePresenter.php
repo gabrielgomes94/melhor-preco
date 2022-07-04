@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters;
+namespace Src\Marketplaces\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
