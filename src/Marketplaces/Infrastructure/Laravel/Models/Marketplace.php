@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Domain\Models\Contracts\Marketplace as MarketplaceInterface;
@@ -153,7 +152,10 @@ class Marketplace extends Model implements MarketplaceInterface
             }
         )->toArray();
 
-        $this->extra = array_merge($this->extra, $extra);
+        $this->extra = [
+            'commissionValues' => $extra['commissionValues'],
+            'commissionType' => CommissionType::CATEGORY_COMMISSION,
+        ];
     }
 
     public function setCommissionByUniqueValue(float $commission)
@@ -165,7 +167,10 @@ class Marketplace extends Model implements MarketplaceInterface
             ],
         ];
 
-        $this->extra = array_merge($this->extra, $extra);
+        $this->extra = [
+            'commissionValues' => $extra['commissionValues'],
+            'commissionType' => CommissionType::UNIQUE_COMMISSION,
+        ];
     }
 
     public function hasUniqueCommission(): bool

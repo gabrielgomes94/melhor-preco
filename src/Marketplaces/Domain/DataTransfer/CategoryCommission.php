@@ -4,9 +4,6 @@ namespace Src\Marketplaces\Domain\DataTransfer;
 
 use Src\Math\Percentage;
 
-/**
- * @todo: mover para contexto de DataTransfer
- */
 class CategoryCommission
 {
     public readonly Percentage $commission;
