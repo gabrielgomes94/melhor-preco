@@ -40,8 +40,9 @@ class MarketplacesController extends Controller
 
     public function list(): View|Factory
     {
-        $marketplaces = $this->marketplaceRepository->list();
-        $data = $this->marketplacePresenter->presentList($marketplaces);
+        $userId = auth()->user()->getAuthIdentifier();
+        $marketplaces = $this->marketplaceRepository->list($userId);
+        $data = $this->marketplacePresenter->presentList(collect($marketplaces));
 
         return view('pages.marketplaces.list', $data);
     }
