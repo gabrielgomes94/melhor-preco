@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Domain\Models\Contracts;
+namespace Src\Marketplaces\Domain\Models;
 
 use Illuminate\Support\Collection;
 use Src\Math\Percentage;

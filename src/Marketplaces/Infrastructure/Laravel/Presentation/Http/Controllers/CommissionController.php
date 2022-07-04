@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
+use Src\Marketplaces\Domain\Models\CommissionType;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;

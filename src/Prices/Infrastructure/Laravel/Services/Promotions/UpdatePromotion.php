@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Services\Promotions;
 
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Prices\Domain\DataTransfer\PromotionSetup;
 use Src\Prices\Domain\Models\Promotion;

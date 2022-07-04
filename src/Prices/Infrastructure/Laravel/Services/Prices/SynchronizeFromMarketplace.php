@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
 use Src\Calculator\Application\Services\CalculateProfit;
 use Src\Integrations\Bling\Products\Requests\Config;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository;

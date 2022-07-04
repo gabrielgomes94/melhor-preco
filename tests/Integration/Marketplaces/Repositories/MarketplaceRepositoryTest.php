@@ -4,7 +4,7 @@ namespace Tests\Integration\Marketplaces\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace as MarketplaceModel;
 use Tests\Data\Models\Marketplaces\MarketplaceData;

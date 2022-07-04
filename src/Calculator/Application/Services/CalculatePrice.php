@@ -3,7 +3,7 @@
 namespace Src\Calculator\Application\Services;
 
 use Src\Calculator\Domain\Models\Price\PriceFactory;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Models\Price\Contracts\Price;

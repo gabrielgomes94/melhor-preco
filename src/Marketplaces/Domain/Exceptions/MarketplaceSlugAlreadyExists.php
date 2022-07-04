@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Domain\Exceptions;
 
 use Exception;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 
 class MarketplaceSlugAlreadyExists extends Exception
 {

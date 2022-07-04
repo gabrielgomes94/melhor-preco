@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Domain\Models\Contracts;
+namespace Src\Marketplaces\Domain\Models;
 
 interface CommissionType
 {
