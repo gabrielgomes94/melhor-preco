@@ -1,19 +1,18 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\Services;
+namespace Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters;
 
-use Src\Marketplaces\Domain\Services\GetCategoriesWithCommissions as GetCategoriesWithCommissionsInterface;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\CategoryRepository;
 
-class GetCategoriesWithCommissions implements GetCategoriesWithCommissionsInterface
+class CategoriesPresenter
 {
     public function __construct(
         private readonly CategoryRepository $repository,
     ) {}
 
-    public function get(Marketplace $marketplace, string $userId): array
+    public function presentWithCommission(Marketplace $marketplace, string $userId): array
     {
         $categories = $this->repository->list($userId);
         $categories = collect($categories);

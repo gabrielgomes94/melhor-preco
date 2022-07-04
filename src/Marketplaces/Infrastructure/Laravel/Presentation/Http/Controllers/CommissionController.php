@@ -13,14 +13,14 @@ use Src\Marketplaces\Domain\Models\Contracts\CommissionType;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presentation\Http\Requests\SetUniqueCommissionRequest;
-use Src\Marketplaces\Infrastructure\Laravel\Services\GetCategoriesWithCommissions;
+use Src\Marketplaces\Infrastructure\Laravel\Presentation\Presenters\CategoriesPresenter;
 
 class CommissionController extends Controller
 {
     public function __construct(
-        private GetCategoriesWithCommissions $getCategoryWithCommission,
-        private CommissionRepository         $commissionRepository,
-        private MarketplaceRepository        $marketplaceRepository
+        private CategoriesPresenter   $getCategoryWithCommission,
+        private CommissionRepository  $commissionRepository,
+        private MarketplaceRepository $marketplaceRepository
     ) {}
 
     /**
@@ -78,7 +78,7 @@ class CommissionController extends Controller
     private function renderSetCommissionCategoryView(Marketplace $marketplace):  View|Factory
     {
         $userId = auth()->user()->getAuthIdentifier();
-        $data = $this->getCategoryWithCommission->get($marketplace, $userId);
+        $data = $this->getCategoryWithCommission->presentWithCommission($marketplace, $userId);
 
         return view('pages.marketplaces.set-commission.category', [
             'categories' => $data,

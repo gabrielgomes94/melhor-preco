@@ -1,16 +1,15 @@
 <?php
 
-namespace Tests\Integration\Marketplaces\Services;
+namespace Tests\Unit\Marketplaces\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Services\GetCategoriesWithCommissions;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
-use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
+// @todo: refatorar esse teste para ele ficar mais unitário
 class GetCategoriesWithCommissionTest extends TestCase
 {
     use RefreshDatabase;
