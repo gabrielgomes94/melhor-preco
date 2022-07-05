@@ -36,14 +36,6 @@
             value="categoryCommission"
             active="{{ ($marketplace['commissionType'] === 'categoryCommission') ? true : false }}"
         ></x-bootstrap.forms.check.radio>
-
-        <x-bootstrap.forms.check.radio
-            id="commissionType-sku-radio"
-            label="Por SKUs"
-            name="commissionType"
-            value="skuCommission"
-            active="{{ ($marketplace['commissionType'] === 'skuCommission') ? true : false }}"
-        ></x-bootstrap.forms.check.radio>
     </div>
 
     <div class="mt-2">

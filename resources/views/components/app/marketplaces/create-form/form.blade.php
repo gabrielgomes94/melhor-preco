@@ -32,13 +32,6 @@
             name="commissionType"
             value="categoryCommission"
         />
-
-        <x-bootstrap.forms.check.radio
-            id="commissionType-sku-radio"
-            label="Por SKUs"
-            name="commissionType"
-            value="skuCommission"
-        />
     </div>
 
     <div class="mt-2">

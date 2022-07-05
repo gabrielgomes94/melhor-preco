@@ -37,7 +37,7 @@ class SaveMarketplaceRequest extends FormRequest
         return [
             'commissionType' => [
                 'required',
-                'in:categoryCommission,skuCommission,uniqueCommission'
+                'in:categoryCommission,uniqueCommission'
             ],
             'erpId' => 'required',
             'name' => 'required',
