@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\Models\Commission\Commission;
 use Src\Marketplaces\Domain\Models\Marketplace as MarketplaceInterface;
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\CommissionCast;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceScopes;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
@@ -92,10 +92,7 @@ class Marketplace extends Model implements MarketplaceInterface
         return $this->user;
     }
 
-    /**
-     * @param CommissionValue[] $commissions
-     */
-    public function setCommissions(array $commissions)
+    public function setCommissions(CommissionValues $commissions)
     {
         $this->commission = Commission::fromArray(
             $this->getCommission()->getType(),

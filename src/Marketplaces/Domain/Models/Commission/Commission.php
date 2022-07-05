@@ -2,6 +2,7 @@
 
 namespace Src\Marketplaces\Domain\Models\Commission;
 
+use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
 
 abstract class Commission
@@ -22,7 +23,7 @@ abstract class Commission
     /**
      * @throws InvalidCommissionTypeException
      */
-    public static function fromArray(string $type, array $values = []): self
+    public static function fromArray(string $type, CommissionValues $values): self
     {
         if (!in_array($type, self::$validTypes)) {
             throw new InvalidCommissionTypeException($type);
@@ -32,7 +33,7 @@ abstract class Commission
             return new CategoryCommission($type, $values);
         }
 
-        return new UniqueCommission($type, array_shift($values));
+        return new UniqueCommission($type, $values);
     }
 
     public function getType(): string

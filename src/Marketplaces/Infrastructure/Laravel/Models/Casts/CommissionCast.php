@@ -5,28 +5,32 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Models\Casts;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
-use Src\Marketplaces\Domain\Models\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Commission;
+use Src\Marketplaces\Infrastructure\Laravel\Collections\CommissionValues;
 use Src\Math\Percentage;
 
 class CommissionCast implements CastsAttributes
 {
     /**
      * @inheritDoc
-     * @throws \Exception
      */
     public function get($model, string $key, $value, array $attributes)
     {
         $commission = json_decode($value, true);
-        $values = collect($commission['values'] ?? [])
+        $commissionValues = collect($commission['values'] ?? [])
             ->map(
-                fn (array $value) => new CommissionValue(
-                    $this->getCommission($value['commission']),
-                    $value['categoryId']
-                )
+                function (array $value) {
+                    $commission = $this->getCommission($value['commission']);
+
+                    return new CommissionValue($commission, $value['categoryId']);
+                }
             )
             ->toArray();
 
-        return Commission::fromArray($commission['type'], $values ?? []);
+        return Commission::fromArray(
+            $commission['type'],
+            new CommissionValues($commissionValues)
+        );
     }
 
     /**

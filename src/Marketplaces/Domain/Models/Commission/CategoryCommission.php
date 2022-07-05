@@ -2,6 +2,7 @@
 
 namespace Src\Marketplaces\Domain\Models\Commission;
 
+use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Math\Percentage;
 
@@ -12,10 +13,10 @@ class CategoryCommission extends Commission
      */
     protected array $values;
 
-    public function __construct(string $type, array $values = [])
+    public function __construct(string $type, CommissionValues $values)
     {
         $this->type = $type;
-        $this->values = collect($values)
+        $this->values = $values
             ->map(fn (CommissionValue $categoryCommission) => $categoryCommission)
             ->toArray();
     }

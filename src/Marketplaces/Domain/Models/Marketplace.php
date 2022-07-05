@@ -2,9 +2,7 @@
 
 namespace Src\Marketplaces\Domain\Models;
 
-use Illuminate\Support\Collection;
-use Src\Marketplaces\Domain\Models\Commission;
-use Src\Math\Percentage;
+use Src\Marketplaces\Domain\Models\Commission\Commission;
 
 interface Marketplace
 {

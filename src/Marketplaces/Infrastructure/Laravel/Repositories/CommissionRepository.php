@@ -2,10 +2,12 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
+use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
 use Src\Marketplaces\Domain\Models\Commission\CategoryCommission;
 use Src\Marketplaces\Domain\Models\Commission\UniqueCommission;
+use Src\Marketplaces\Infrastructure\Laravel\Collections\CommissionValues as CommissionValuesCollection;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\Percentage;
 
@@ -26,10 +28,7 @@ class CommissionRepository implements CommissionRepositoryInterface
         return Percentage::fromPercentage(0.0);
     }
 
-    /**
-     * @param CommissionValue[] $data
-     */
-    public function updateCategoryCommissions(Marketplace $marketplace, array $data): bool
+    public function updateCategoryCommissions(Marketplace $marketplace, CommissionValues $data): bool
     {
         $marketplace->setCommissions($data);
 
@@ -38,9 +37,11 @@ class CommissionRepository implements CommissionRepositoryInterface
 
     public function updateUniqueCommission(Marketplace $marketplace, float $commission): bool
     {
-        $marketplace->setCommissions([
-            new CommissionValue(Percentage::fromPercentage($commission))
-        ]);
+        $commissionValue = new CommissionValue(Percentage::fromPercentage($commission));
+
+        $marketplace->setCommissions(
+            new CommissionValuesCollection([$commissionValue])
+        );
 
         return $marketplace->save();
     }

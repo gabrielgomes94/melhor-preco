@@ -2,6 +2,7 @@
 
 namespace Src\Marketplaces\Domain\Models\Commission;
 
+use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Math\Percentage;
 
@@ -9,10 +10,10 @@ class UniqueCommission extends Commission
 {
     private CommissionValue $value;
 
-    public function __construct(string $type, ?CommissionValue $commission)
+    public function __construct(string $type, CommissionValues $values)
     {
         $this->type = $type;
-        $this->value = $commission ?? new CommissionValue(Percentage::fromPercentage(0.0));
+        $this->value = $values->first() ?? new CommissionValue(Percentage::fromPercentage(0.0));
     }
 
     public function get(): Percentage
