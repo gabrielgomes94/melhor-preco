@@ -6,7 +6,7 @@ use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Math\Percentage;
 use Tests\TestCase;
 
-class CategoryCommissionTest extends TestCase
+class CommissionValueTest extends TestCase
 {
     public function test_should_instantiate_category_commission(): void
     {
