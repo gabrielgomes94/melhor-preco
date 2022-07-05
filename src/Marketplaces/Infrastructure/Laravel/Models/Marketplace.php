@@ -2,13 +2,10 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Collection;
-use Src\Marketplaces\Domain\Models\CommissionType;
 use Src\Marketplaces\Domain\Models\Marketplace as MarketplaceInterface;
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\CommissionCast;
@@ -28,7 +25,6 @@ class Marketplace extends Model implements MarketplaceInterface
         'erp_name',
         'name',
         'slug',
-        'extra',
         'commission',
         'is_active',
         'uuid',
@@ -36,7 +32,6 @@ class Marketplace extends Model implements MarketplaceInterface
     ];
 
     protected $casts = [
-        'extra' => 'json',
         'commission' => CommissionCast::class,
     ];
 
@@ -101,20 +96,10 @@ class Marketplace extends Model implements MarketplaceInterface
      */
     public function setCommissions(array $commissions)
     {
-        $this->commission = new Commission(
+        $this->commission = Commission::fromArray(
             $this->getCommission()->getType(),
             $commissions
         );
-    }
-
-    public function hasUniqueCommission(): bool
-    {
-        return $this->getCommission()->hasUniqueCommission();
-    }
-
-    public function hasCommissionByCategory(): bool
-    {
-        return $this->getCommission()->hasCommissionByCategory();
     }
 
     public function isActive(): bool

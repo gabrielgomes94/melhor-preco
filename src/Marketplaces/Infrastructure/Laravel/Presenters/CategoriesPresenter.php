@@ -2,6 +2,7 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Presenters;
 
+use Src\Marketplaces\Infrastructure\Laravel\Models\Commission\CategoryCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\CategoryRepository;
@@ -17,9 +18,15 @@ class CategoriesPresenter
         $categories = $this->repository->list($userId);
         $categories = collect($categories);
 
-        return $categories->map(function (Category $category) use ($marketplace) {
+        if (!$marketplace->getCommission() instanceof CategoryCommission) {
+            return [];
+        }
+
+        $commission = $marketplace->getCommission();
+
+        return $categories->map(function (Category $category) use ($commission) {
             $categoryId = $category->getCategoryId();
-            $commission = $marketplace->getCommission()->getCommissionByCategory($categoryId);
+            $commission = $commission->get($categoryId);
 
             return [
                 'name' => $category->getFullName(),

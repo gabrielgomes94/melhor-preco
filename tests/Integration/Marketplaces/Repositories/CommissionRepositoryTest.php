@@ -88,7 +88,7 @@ class CommissionRepositoryTest extends TestCase
         $this->assertTrue($result);
 
         $marketplace = $marketplace->refresh();
-        $this->assertSame(10.0, $marketplace->getCommission()->getCommissionByCategory(1)->get());
+        $this->assertSame(10.0, $marketplace->getCommission()->get(1)->get());
     }
 
     public function test_should_update_unique_commission(): void
@@ -108,6 +108,6 @@ class CommissionRepositoryTest extends TestCase
         $this->assertTrue($result);
 
         $marketplace = $marketplace->refresh();
-        $this->assertSame(5.0, $marketplace->getCommission()->getUniqueCommission()->get());
+        $this->assertSame(5.0, $marketplace->getCommission()->get()->get());
     }
 }

@@ -39,6 +39,9 @@ class CommissionController extends Controller
         ]);
     }
 
+    /**
+     * @throws MarketplaceNotFoundException
+     */
     public function doSetCommissionByCategory(
         string $marketplaceSlug,
         SetCommissionByCategoryRequest $request
@@ -50,6 +53,9 @@ class CommissionController extends Controller
         return redirect()->route('marketplaces.list');
     }
 
+    /**
+     * @throws MarketplaceNotFoundException
+     */
     public function doSetUniqueCommission(
         string $marketplaceSlug,
         SetUniqueCommissionRequest $request

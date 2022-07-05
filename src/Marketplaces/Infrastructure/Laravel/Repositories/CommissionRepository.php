@@ -4,21 +4,23 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Commission\CategoryCommission;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Commission\UniqueCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\Percentage;
-use Src\Products\Domain\Models\Product\Product;
 
 class CommissionRepository implements CommissionRepositoryInterface
 {
-    public function get(Marketplace $marketplace, Product $product): Percentage
+    public function get(Marketplace $marketplace, ?string $categoryId = null): Percentage
     {
-        if ($marketplace->hasUniqueCommission()) {
-            return $marketplace->getCommission()->getUniqueCommission();
+        $commission = $marketplace->getCommission();
+
+        if ($commission instanceof UniqueCommission) {
+            return $commission->get();
         }
 
-        if ($marketplace->hasCommissionByCategory()) {
-            return $marketplace->getCommission()->getCommissionByCategory($product->getCategoryId())
-                ?? Percentage::fromPercentage(0.0);
+        if ($commission instanceof CategoryCommission) {
+            return $commission->get($categoryId) ?? Percentage::fromPercentage(0.0);
         }
 
         return Percentage::fromPercentage(0.0);

@@ -3,6 +3,7 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Support\Collection;
+use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 
 class MarketplacePresenter
@@ -37,12 +38,18 @@ class MarketplacePresenter
 
     private function presentCommissions(Marketplace $marketplace): array
     {
-        $commissions = $marketplace->getCommission()->getOnlyValues();
+        $commissions = $marketplace->getCommission()->getValues();
 
-        foreach ($commissions as $key => $commission) {
-            $commissions[$key] = number_format($commission, '2', ',') . '%';
-        }
+        return collect($commissions)
+            ->map(fn (CommissionValue $data) => $data->commission->get() ?? null)
+            ->unique()
+            ->sort()
+            ->transform(fn (float $data) => $this->formatNumber($data))
+            ->toArray();
+    }
 
-        return $commissions;
+    private function formatNumber(float $data): string
+    {
+        return number_format($data, '2', ',') . '%';
     }
 }

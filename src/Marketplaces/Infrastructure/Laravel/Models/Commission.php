@@ -2,63 +2,35 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
-use Exception;
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
 use Src\Marketplaces\Domain\Models\CommissionType;
-use Src\Math\Percentage;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Commission\CategoryCommission;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Commission\UniqueCommission;
 
-class Commission implements CommissionType
+abstract class Commission implements CommissionType
 {
-    private string $type;
-    private array $values;
+    protected string $type;
 
-    private array $validTypes = [
-        self::CATEGORY_COMMISSION,
-        self::UNIQUE_COMMISSION,
-    ];
+    abstract public function getValues(): array;
 
-    /**
-     * @param CommissionValue[] $values
-     * @throws \Exception
-     */
-    public function __construct(string $type, array $values = [])
+    public static function fromArray(string $type, array $values = []): self
     {
-        if (!in_array($type, $this->validTypes)) {
-            throw new InvalidCommissionTypeException($type);
+        if ($type === self::CATEGORY_COMMISSION) {
+            return new CategoryCommission($type, $values);
         }
 
-        $this->type = $type;
+        if ($type === self::UNIQUE_COMMISSION) {
+            $value = array_shift($values);
 
-        if ($this->hasCommissionByCategory()) {
-            $this->setCommissionsByCategory($values);
+            return new UniqueCommission($type, $value);
         }
 
-        if ($this->hasUniqueCommission()) {
-            $this->setCommissionByUniqueValue(array_shift($values));
-        }
+        throw new InvalidCommissionTypeException($type);
     }
-
 
     public function getType(): string
     {
         return $this->type;
-    }
-
-    public function getOnlyValues(): array
-    {
-        $commissions = $this->values;
-
-        foreach ($commissions as $data) {
-            $commissionList[] = $data['commission'] ?? null;
-        }
-
-        return array_unique($commissionList ?? []);
-    }
-
-    public function getValues(): array
-    {
-        return $this->values;
     }
 
     public function hasCommissionByCategory(): bool
@@ -69,58 +41,5 @@ class Commission implements CommissionType
     public function hasUniqueCommission(): bool
     {
         return $this->type === CommissionType::UNIQUE_COMMISSION;
-    }
-
-    public function getCommissionByCategory(?string $categoryId = null): ?Percentage
-    {
-        if (!$this->hasCommissionByCategory()) {
-            throw new Exception('Marketplace não possui comissões por categorias.');
-        }
-
-        $commissions = $this->values;
-
-        foreach ($commissions as $data) {
-            if ($data['categoryId'] == $categoryId) {
-                return Percentage::fromPercentage($data['commission']);
-            }
-        }
-
-        return null;
-    }
-
-    public function getUniqueCommission(): ?Percentage
-    {
-        if (!$this->hasUniqueCommission()) {
-            throw new Exception('Marketplace possui varias commissões');
-        }
-
-        $commissions = $this->values;
-        $data = array_shift($commissions);
-
-        if (empty($data['commission'])) {
-            return null;
-        }
-
-        return Percentage::fromPercentage($data['commission']);
-    }
-
-    public function setCommissionsByCategory(array $commissions): void
-    {
-        $commissions = collect($commissions);
-
-        $this->values = $commissions->map(
-            fn (CommissionValue $categoryCommission) => $categoryCommission->toArray()
-        )->toArray();
-    }
-
-    public function setCommissionByUniqueValue(?CommissionValue $commission): void
-    {
-        if (!$commission) {
-            $this->values = [];
-
-            return;
-        }
-
-        $this->values = [$commission->toArray()];
     }
 }

@@ -10,13 +10,11 @@ use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Models\Price\Contracts\Price;
 use Src\Calculator\Domain\Services\Contracts\CalculatePrices;
 
-// @todo: Talvez seja interessante disponibilizar uma classe CalculateProduct
 class CalculatePrice implements CalculatePrices
 {
     public function __construct(
         private CommissionRepository $commissionRepository
-    )
-    {
+    ) {
     }
 
     public function calculate(
@@ -35,28 +33,18 @@ class CalculatePrice implements CalculatePrices
         );
     }
 
-    /**
-     * @deprecated Usar o método get do repositório de comissões no lugar. Parar de transitar esse ProductData
-     */
     private function getCommission(Marketplace $marketplace, ProductData $productData, ?Percentage $commission): float
     {
         if ($commission) {
             return $commission->getFraction();
         }
 
-        if ($marketplace->hasUniqueCommission()) {
-            return $marketplace->getCommission()
-                ->getUniqueCommission()
-                ->getFraction();
-        }
+        $commission = $this->commissionRepository->get(
+            $marketplace,
+            $productData->getCategory()->getCategoryId()
+        );
 
-        if ($marketplace->hasCommissionByCategory()) {
-            return $marketplace->getCommission()->getCommissionByCategory(
-                $productData->getCategory()->getCategoryId()
-            )->getFraction();
-        }
-
-        return 0.0;
+        return $commission->get();
     }
 
     private function getOptions(array $options): array
