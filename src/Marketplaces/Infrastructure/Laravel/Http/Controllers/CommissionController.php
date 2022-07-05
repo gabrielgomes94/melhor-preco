@@ -9,7 +9,6 @@ use Illuminate\Routing\Controller;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Domain\Models\CommissionType;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\SetCommissionByCategoryRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\SetUniqueCommissionRequest;
@@ -30,7 +29,7 @@ class CommissionController extends Controller
     {
         $marketplace = $this->getMarketplace($marketplaceSlug);
 
-        if ($marketplace->getCommission()->hasCommissionByCategory()) {//Type() === CommissionType::CATEGORY_COMMISSION) {
+        if ($marketplace->getCommission()->hasCommissionByCategory()) {
             return $this->renderSetCommissionCategoryView($marketplace);
         }
 

@@ -4,8 +4,9 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
+use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Commission;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
@@ -14,7 +15,6 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
     /**
      * @throws MarketplaceSlugAlreadyExists
-     * @throws \Exception
      */
     public function create(MarketplaceSettings $settings): Marketplace
     {
@@ -71,7 +71,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
     }
 
     /**
-     * @throws \Exception
+     * @throws InvalidCommissionTypeException
      */
     private function prepareData(MarketplaceSettings $data): array
     {

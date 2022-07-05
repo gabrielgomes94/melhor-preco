@@ -4,8 +4,8 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Commission\CategoryCommission;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Commission\UniqueCommission;
+use Src\Marketplaces\Domain\Models\Commission\CategoryCommission;
+use Src\Marketplaces\Domain\Models\Commission\UniqueCommission;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\Percentage;
 

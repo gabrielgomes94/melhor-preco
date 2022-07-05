@@ -5,7 +5,7 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Models\Casts;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Commission;
+use Src\Marketplaces\Domain\Models\Commission;
 use Src\Math\Percentage;
 
 class CommissionCast implements CastsAttributes

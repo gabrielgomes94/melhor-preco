@@ -1,9 +1,8 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Laravel\Models\Commission;
+namespace Src\Marketplaces\Domain\Models\Commission;
 
 use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Commission;
 use Src\Math\Percentage;
 
 class CategoryCommission extends Commission

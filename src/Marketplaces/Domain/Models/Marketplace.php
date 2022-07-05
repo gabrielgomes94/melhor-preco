@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Domain\Models;
 
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Commission;
+use Src\Marketplaces\Domain\Models\Commission;
 use Src\Math\Percentage;
 
 interface Marketplace
