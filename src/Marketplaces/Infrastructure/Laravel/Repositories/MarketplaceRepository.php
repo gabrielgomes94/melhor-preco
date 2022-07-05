@@ -78,7 +78,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return [
             'erp_id' => $data->erpId,
             'erp_name' => 'bling',
-            'commission' => new Commission($data->commissionType, []),
+            'commission' => Commission::fromArray($data->commissionType, []),
             'is_active' => $data->isActive,
             'name' => $data->name,
             'slug' => Str::slug($data->name),
