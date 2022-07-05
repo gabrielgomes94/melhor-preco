@@ -19,7 +19,7 @@ class CategoriesPresenter
 
         return $categories->map(function (Category $category) use ($marketplace) {
             $categoryId = $category->getCategoryId();
-            $commission = $marketplace->getCommissionByCategory($categoryId);
+            $commission = $marketplace->getCommission()->getCommissionByCategory($categoryId);
 
             return [
                 'name' => $category->getFullName(),

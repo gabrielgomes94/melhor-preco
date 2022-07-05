@@ -70,7 +70,8 @@ class MarketplacesController extends Controller
      */
     private function getMarketplace(string $marketplaceSlug): Marketplace
     {
-        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
+        $userId = auth()->user()->getAuthIdentifier();
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
 
         if (!$marketplace) {
             throw new MarketplaceNotFoundException($marketplaceSlug);

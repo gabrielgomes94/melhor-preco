@@ -5,6 +5,7 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Commission;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
@@ -13,6 +14,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
     /**
      * @throws MarketplaceSlugAlreadyExists
+     * @throws \Exception
      */
     public function create(MarketplaceSettings $settings): Marketplace
     {
@@ -68,14 +70,15 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return $marketplace->save();
     }
 
+    /**
+     * @throws \Exception
+     */
     private function prepareData(MarketplaceSettings $data): array
     {
         return [
             'erp_id' => $data->erpId,
             'erp_name' => 'bling',
-            'extra' => [
-                'commissionType' => $data->commissionType,
-            ],
+            'commission' => new Commission($data->commissionType, []),
             'is_active' => $data->isActive,
             'name' => $data->name,
             'slug' => Str::slug($data->name),

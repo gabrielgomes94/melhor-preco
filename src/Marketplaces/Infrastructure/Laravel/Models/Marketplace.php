@@ -3,7 +3,6 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,14 +10,17 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\CommissionType;
 use Src\Marketplaces\Domain\Models\Marketplace as MarketplaceInterface;
-use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
-use Src\Math\Percentage;
+use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\CommissionCast;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceScopes;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Marketplace extends Model implements MarketplaceInterface
 {
+    use MarketplaceScopes;
+
     public $incrementing = false;
 
     protected $fillable = [
@@ -27,6 +29,7 @@ class Marketplace extends Model implements MarketplaceInterface
         'name',
         'slug',
         'extra',
+        'commission',
         'is_active',
         'uuid',
         'user_id',
@@ -34,6 +37,7 @@ class Marketplace extends Model implements MarketplaceInterface
 
     protected $casts = [
         'extra' => 'json',
+        'commission' => CommissionCast::class,
     ];
 
     protected $primaryKey = 'uuid';
@@ -62,9 +66,9 @@ class Marketplace extends Model implements MarketplaceInterface
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getCommissionType(): string
+    public function getCommission(): Commission
     {
-        return $this->extra['commissionType'];
+        return $this->commission;
     }
 
     public function getErpId(): string
@@ -92,95 +96,25 @@ class Marketplace extends Model implements MarketplaceInterface
         return $this->user;
     }
 
-    public function getCommissionValues(): array
+    /**
+     * @param CommissionValue[] $commissions
+     */
+    public function setCommissions(array $commissions)
     {
-        $commissions = $this->getCommissions();
-
-        foreach ($commissions as $data) {
-            $commissionList[] = $data['commission'] ?? null;
-        }
-
-        return array_unique($commissionList ?? []);
-    }
-
-    public function getCommissions(): array
-    {
-        return $this->extra['commissionValues'] ?? [];
-    }
-
-    public function getCommissionByCategory(?string $categoryId = null): ?Percentage
-    {
-        if (!$this->hasCommissionByCategory()) {
-            throw new Exception('Marketplace não possui comissões por categorias.');
-        }
-
-        $commissions = $this->getCommissions();
-
-        foreach ($commissions as $data) {
-            if ($data['categoryId'] == $categoryId) {
-                return Percentage::fromPercentage($data['commission']);
-            }
-        }
-
-        return null;
-    }
-
-    public function getUniqueCommission(): ?Percentage
-    {
-        if (!$this->hasUniqueCommission()) {
-            throw new Exception('Marketplace possui varias commissões');
-        }
-
-        $commissions = $this->getCommissions();
-        $data = array_shift($commissions);
-
-        if (empty($data['commission'])) {
-            return null;
-        }
-
-        return Percentage::fromPercentage($data['commission']);
-    }
-
-    public function setCommissionsByCategory(Collection $commissions)
-    {
-        $extra['commissionValues'] = $commissions->map(
-            function (CategoryCommission $categoryCommission) {
-                return [
-                    'categoryId' => $categoryCommission->categoryId,
-                    'commission' => $categoryCommission->commission->get()
-                ];
-            }
-        )->toArray();
-
-        $this->extra = [
-            'commissionValues' => $extra['commissionValues'],
-            'commissionType' => CommissionType::CATEGORY_COMMISSION,
-        ];
-    }
-
-    public function setCommissionByUniqueValue(float $commission)
-    {
-        $extra['commissionValues'] = [
-            [
-                'categoryId' => null,
-                'commission' => $commission,
-            ],
-        ];
-
-        $this->extra = [
-            'commissionValues' => $extra['commissionValues'],
-            'commissionType' => CommissionType::UNIQUE_COMMISSION,
-        ];
+        $this->commission = new Commission(
+            $this->getCommission()->getType(),
+            $commissions
+        );
     }
 
     public function hasUniqueCommission(): bool
     {
-        return $this->getCommissionType() === CommissionType::UNIQUE_COMMISSION;
+        return $this->getCommission()->hasUniqueCommission();
     }
 
     public function hasCommissionByCategory(): bool
     {
-        return $this->getCommissionType() === CommissionType::CATEGORY_COMMISSION;
+        return $this->getCommission()->hasCommissionByCategory();
     }
 
     public function isActive(): bool
@@ -208,20 +142,5 @@ class Marketplace extends Model implements MarketplaceInterface
     public function getUserId(): string
     {
         return $this->getUser()->getId();
-    }
-
-    public function scopeWithErpId(Builder $query, string $erpId): Builder
-    {
-        return $query->where('erp_id', $erpId);
-    }
-
-    public function scopeWithUser(Builder $query, string $userId): Builder
-    {
-        return $query->where('user_id', $userId);
-    }
-
-    public function scopeWithSlug(Builder $query, string $slug): Builder
-    {
-        return $query->where('slug', $slug);
     }
 }

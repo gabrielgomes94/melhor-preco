@@ -13,7 +13,7 @@ class MarketplacePresenter
         $status = $marketplace->isActive() ? 'Ativo' : 'Inativo';
 
         return [
-            'commissionType' => $marketplace->getCommissionType(),
+            'commissionType' => $marketplace->getCommission()->getType(),
             'commissions' => $commissions,
             'erpId' => $marketplace->getErpId(),
             'isActive' => $marketplace->isActive(),
@@ -37,7 +37,7 @@ class MarketplacePresenter
 
     private function presentCommissions(Marketplace $marketplace): array
     {
-        $commissions = $marketplace->getCommissionValues();
+        $commissions = $marketplace->getCommission()->getOnlyValues();
 
         foreach ($commissions as $key => $commission) {
             $commissions[$key] = number_format($commission, '2', ',') . '%';

@@ -3,7 +3,7 @@
 namespace Tests\Integration\Marketplaces\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Marketplaces\Domain\DataTransfer\CategoryCommission;
+use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
@@ -76,7 +76,7 @@ class CommissionRepositoryTest extends TestCase
             'categoryCommission'
         );
         $data = [
-            new CategoryCommission(Percentage::fromPercentage(10.0), '1')
+            new CommissionValue(Percentage::fromPercentage(10.0), '1')
         ];
 
         $repository = $this->app->get(CommissionRepository::class);
@@ -88,7 +88,7 @@ class CommissionRepositoryTest extends TestCase
         $this->assertTrue($result);
 
         $marketplace = $marketplace->refresh();
-        $this->assertSame(10.0, $marketplace->getCommissionByCategory(1)->get());
+        $this->assertSame(10.0, $marketplace->getCommission()->getCommissionByCategory(1)->get());
     }
 
     public function test_should_update_unique_commission(): void
@@ -108,6 +108,6 @@ class CommissionRepositoryTest extends TestCase
         $this->assertTrue($result);
 
         $marketplace = $marketplace->refresh();
-        $this->assertSame(5.0, $marketplace->getUniqueCommission()->get());
+        $this->assertSame(5.0, $marketplace->getCommission()->getUniqueCommission()->get());
     }
 }

@@ -30,7 +30,7 @@ class CommissionController extends Controller
     {
         $marketplace = $this->getMarketplace($marketplaceSlug);
 
-        if ($marketplace->getCommissionType() === CommissionType::CATEGORY_COMMISSION) {
+        if ($marketplace->getCommission()->hasCommissionByCategory()) {//Type() === CommissionType::CATEGORY_COMMISSION) {
             return $this->renderSetCommissionCategoryView($marketplace);
         }
 
@@ -66,7 +66,8 @@ class CommissionController extends Controller
      */
     private function getMarketplace(string $marketplaceSlug): Marketplace
     {
-        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
+        $userId = auth()->user()->getAuthIdentifier();
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
 
         if (!$marketplace) {
             throw new MarketplaceNotFoundException($marketplaceSlug);
