@@ -8,7 +8,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace as MarketplaceModel;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
-use Tests\Data\Models\Marketplaces\MarketplaceSettingsData;
+use Tests\Data\Domain\Marketplaces\DataTransfer\MarketplaceSettingsData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 

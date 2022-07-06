@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests\Data\Models\Marketplaces;
+namespace Tests\Data\Domain\Marketplaces\DataTransfer;
 
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 
+// @todo: mover para pasta Data/Domain/Marketplaces/DataTransfer
 class MarketplaceSettingsData
 {
     public static function make(array $data = []): MarketplaceSettings
