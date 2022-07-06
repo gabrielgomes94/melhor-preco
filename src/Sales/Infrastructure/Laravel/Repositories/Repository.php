@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Eloquent\Repositories;
+namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Src\Marketplaces\Domain\Models\Marketplace;

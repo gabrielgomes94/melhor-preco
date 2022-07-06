@@ -1,14 +1,14 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Eloquent;
+namespace Src\Sales\Infrastructure\Laravel\Container;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
-use Src\Sales\Infrastructure\Eloquent\Repositories\ItemsRepository as ItemRepositoryImpl;
-use Src\Sales\Infrastructure\Eloquent\Repositories\Repository as RepositoryImpl;
-use Src\Sales\Infrastructure\Eloquent\Repositories\SyncRepository;
+use Src\Sales\Infrastructure\Laravel\Repositories\ItemsRepository as ItemRepositoryImpl;
+use Src\Sales\Infrastructure\Laravel\Repositories\Repository as RepositoryImpl;
+use Src\Sales\Infrastructure\Laravel\Repositories\SyncRepository;
 
 class RepositoryServiceProvider extends BaseServiceProvider
 {

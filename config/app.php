@@ -234,7 +234,7 @@ return [
         Src\Sales\Infrastructure\Laravel\Container\EventServiceProvider::class,
         Src\Sales\Infrastructure\Laravel\Container\ServiceProvider::class,
         Src\Sales\Infrastructure\Logging\ServiceProvider::class,
-        Src\Sales\Infrastructure\Eloquent\RepositoryServiceProvider::class,
+        \Src\Sales\Infrastructure\Laravel\Container\RepositoryServiceProvider::class,
 
         /**
          * Marketplaces' module Service Providers...

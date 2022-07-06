@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Eloquent\Repositories;
+namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Src\Sales\Domain\Factories\Address as AddressFactory;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
