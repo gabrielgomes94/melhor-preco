@@ -39,12 +39,14 @@ class UpdateMarketplaceTest extends FeatureTestCase
     {
         MarketplaceData::persisted($this->user, [
             'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
+            'slug' => 'magalu',
+            'name' => 'Magalu',
         ]);
     }
 
     private function when_i_want_to_see_the_edit_page(): void
     {
-        $this->response = $this->get('/marketplaces/0ba73120-6944-4ac4-8357-cef9b410ff54/editar');
+        $this->response = $this->get('/marketplaces/magalu/editar');
     }
 
     private function then_it_must_be_rendered_the_edit_page(): void
@@ -66,7 +68,7 @@ class UpdateMarketplaceTest extends FeatureTestCase
 
     private function when_i_want_to_update_the_marketplace(): void
     {
-        $this->response = $this->post('/marketplaces/0ba73120-6944-4ac4-8357-cef9b410ff54/editar', [
+        $this->response = $this->post('/marketplaces/magalu/editar', [
             'status' => true,
             'commissionType' => 'uniqueCommission',
             'erpId' => '123456',
@@ -79,6 +81,6 @@ class UpdateMarketplaceTest extends FeatureTestCase
         $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
         $this->assertSame('Magazine Luiza', $marketplace->getName());
         $this->assertSame('magazine-luiza', $marketplace->getSlug());
-        $this->assertSame('uniqueCommission', $marketplace->getCommissionType());
+        $this->assertSame('uniqueCommission', $marketplace->getCommission()->getType());
     }
 }

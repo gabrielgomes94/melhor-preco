@@ -4,7 +4,11 @@ namespace Tests\Unit\Marketplaces\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery as m;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Infrastructure\Laravel\Presenters\CategoriesPresenter;
+use Src\Math\Percentage;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
@@ -26,19 +30,17 @@ class CategoriesPresenterTest extends TestCase
         $marketplace = MarketplaceData::persisted(
             $user,
             [
-                'extra' => [
-                    'commissionValues' => [
-                        [
-                            'categoryId' => 1,
-                            'commission' => 12.8,
-                        ],
-                        [
-                            'categoryId' => 10,
-                            'commission' => 8.8,
-                        ],
-                    ],
-                    'commissionType' => 'categoryCommission',
-                ]
+                'commission' => Commission::fromArray(
+                    Commission::CATEGORY_COMMISSION,
+                    new CommissionValuesCollection([
+                        new CommissionValue(
+                            Percentage::fromPercentage(12.8), '1'
+                        ),
+                        new CommissionValue(
+                            Percentage::fromPercentage(8.8), '10'
+                        ),
+                    ])
+                ),
             ],
             'categoryCommission'
         );

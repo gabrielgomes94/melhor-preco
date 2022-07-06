@@ -31,7 +31,7 @@ class MarketplaceTest extends TestCase
                 new CommissionValue(Percentage::fromPercentage(12.8))
             ])
         );
-        $user = UserData::make();
+        $user = UserData::make(['id' => 1]);
 
         // Act
         $result = MarketplaceData::persisted($user);
