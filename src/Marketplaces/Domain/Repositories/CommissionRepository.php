@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Domain\Repositories;
 
 use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\Percentage;
 
 interface CommissionRepository

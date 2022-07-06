@@ -7,7 +7,8 @@ use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
 use Src\Marketplaces\Domain\Models\Commission\Commission;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace as MarketplaceModel;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
 
@@ -22,7 +23,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
             $this->prepareData($settings),
             ['uuid' => Uuid::uuid4()]
         );
-        $marketplace = new Marketplace($data);
+        $marketplace = new MarketplaceModel($data);
         $marketplace->user_id = $settings->userId;
 
         if ($marketplace->slugsExists()) {
@@ -36,21 +37,21 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
 
     public function getByErpId(string $marketplaceErpId, string $userId): ?Marketplace
     {
-        return Marketplace::withErpId($marketplaceErpId)
+        return MarketplaceModel::withErpId($marketplaceErpId)
             ->withUser($userId)
             ->first();
     }
 
     public function getBySlug(string $marketplaceSlug, string $userId): ?Marketplace
     {
-        return Marketplace::withSlug($marketplaceSlug)
+        return MarketplaceModel::withSlug($marketplaceSlug)
             ->withUser($userId)
             ->first();
     }
 
     public function list(string $userId): array
     {
-        return Marketplace::withUser($userId)
+        return MarketplaceModel::withUser($userId)
             ->get()
             ->all();
     }

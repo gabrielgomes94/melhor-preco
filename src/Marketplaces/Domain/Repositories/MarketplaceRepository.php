@@ -2,8 +2,8 @@
 
 namespace Src\Marketplaces\Domain\Repositories;
 
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
+use Src\Marketplaces\Domain\Models\Marketplace;
 
 interface MarketplaceRepository
 {
@@ -12,8 +12,6 @@ interface MarketplaceRepository
     public function getByErpId(string $marketplaceErpId, string $userId): ?Marketplace;
 
     public function getBySlug(string $marketplaceSlug, string $userId): ?Marketplace;
-
-//    public function getByUuid(string $marketplaceUuid): ?Marketplace;
 
     public function list(string $userId): array;
 

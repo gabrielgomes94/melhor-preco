@@ -3,20 +3,17 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\Models\Commission\Commission;
 use Src\Marketplaces\Domain\Models\Marketplace as MarketplaceInterface;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\CommissionCast;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceRelationships;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceScopes;
-use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Marketplace extends Model implements MarketplaceInterface
 {
+    use MarketplaceRelationships;
     use MarketplaceScopes;
 
     public $incrementing = false;
@@ -39,28 +36,6 @@ class Marketplace extends Model implements MarketplaceInterface
     protected $primaryKey = 'uuid';
 
     public $keyType = 'string';
-
-    public function products(): HasManyThrough
-    {
-        return $this->hasManyThrough(
-            Product::class,
-            Price::class,
-            'marketplace_erp_id',
-            'sku',
-            'erp_id',
-            'product_sku'
-        );
-    }
-
-    public function prices(): HasMany
-    {
-        return $this->hasMany(Price::class, 'marketplace_erp_id', 'erp_id');
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 
     public function getCommission(): Commission
     {
@@ -92,14 +67,6 @@ class Marketplace extends Model implements MarketplaceInterface
         return $this->user;
     }
 
-    public function setCommissions(CommissionValues $commissions)
-    {
-        $this->commission = Commission::fromArray(
-            $this->getCommission()->getType(),
-            $commissions
-        );
-    }
-
     public function isActive(): bool
     {
         return $this->is_active;
@@ -114,8 +81,8 @@ class Marketplace extends Model implements MarketplaceInterface
     {
         $userId = $this->getUser()->getId();
 
-        $count = self::where('user_id', $userId)
-            ->where('slug', $this->getSlug())
+        $count = self::withUser($userId)
+            ->withSlug($this->getSlug())
             ->where('uuid', '!=',  $this->getUuid())
             ->count();
 
@@ -125,5 +92,13 @@ class Marketplace extends Model implements MarketplaceInterface
     public function getUserId(): string
     {
         return $this->getUser()->getId();
+    }
+
+    public function setCommissions(CommissionValues $commissions): void
+    {
+        $this->commission = Commission::fromArray(
+            $this->getCommission()->getType(),
+            $commissions
+        );
     }
 }

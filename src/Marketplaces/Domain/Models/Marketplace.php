@@ -2,10 +2,13 @@
 
 namespace Src\Marketplaces\Domain\Models;
 
+use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\Models\Commission\Commission;
 
 interface Marketplace
 {
+    public function getCommission(): Commission;
+
     public function getErpId(): string;
 
     public function getName(): string;
@@ -20,5 +23,7 @@ interface Marketplace
 
     public function isActive(): bool;
 
-    public function getCommission(): Commission;
+    public function setCommissions(CommissionValues $commissions): void;
+
+    public function slugsExists(): bool;
 }

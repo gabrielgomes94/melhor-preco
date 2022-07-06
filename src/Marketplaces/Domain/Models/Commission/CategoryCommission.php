@@ -3,22 +3,16 @@
 namespace Src\Marketplaces\Domain\Models\Commission;
 
 use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
 use Src\Math\Percentage;
 
 class CategoryCommission extends Commission
 {
-    /**
-     * @var CommissionValue[] $values
-     */
-    protected array $values;
+    protected CommissionValues $values;
 
     public function __construct(string $type, CommissionValues $values)
     {
         $this->type = $type;
-        $this->values = $values
-            ->map(fn (CommissionValue $categoryCommission) => $categoryCommission)
-            ->toArray();
+        $this->values = $values;
     }
 
     public function get(?string $categoryId = null): ?Percentage
@@ -32,7 +26,7 @@ class CategoryCommission extends Commission
         return null;
     }
 
-    public function getValues(): array
+    public function getValues(): CommissionValues
     {
         return $this->values;
     }

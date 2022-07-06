@@ -17,19 +17,10 @@ class CommissionCast implements CastsAttributes
     public function get($model, string $key, $value, array $attributes)
     {
         $commission = json_decode($value, true);
-        $commissionValues = collect($commission['values'] ?? [])
-            ->map(
-                function (array $value) {
-                    $commission = $this->getCommission($value['commission']);
-
-                    return new CommissionValue($commission, $value['categoryId']);
-                }
-            )
-            ->toArray();
 
         return Commission::fromArray(
             $commission['type'],
-            new CommissionValues($commissionValues)
+            $this->getCommissionValues($commission)
         );
     }
 
@@ -42,8 +33,9 @@ class CommissionCast implements CastsAttributes
             throw new InvalidArgumentException('The given value is not a Commission instance.');
         }
 
-        $commissionValues = collect($value->getValues())
-            ->map(fn (CommissionValue $value) => $value->toArray());
+        $commissionValues = $value->getValues()->map(
+            fn (CommissionValue $value) => $value->toArray()
+        );
 
         return [
             'commission' => [
@@ -63,5 +55,20 @@ class CommissionCast implements CastsAttributes
         }
 
         return Percentage::fromPercentage($commission);
+    }
+
+    private function getCommissionValues(array $commission): CommissionValues
+    {
+        $commissionValues = collect($commission['values'] ?? [])
+            ->map(
+                function (array $data) {
+                    $commission = $this->getCommission($data['commission']);
+
+                    return new CommissionValue($commission, $data['categoryId']);
+                }
+            )
+            ->toArray();
+
+        return new CommissionValues($commissionValues);
     }
 }

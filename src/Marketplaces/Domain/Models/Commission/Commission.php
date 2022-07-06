@@ -18,7 +18,7 @@ abstract class Commission
         self::UNIQUE_COMMISSION,
     ];
 
-    abstract public function getValues(): array;
+    abstract public function getValues(): CommissionValues;
 
     /**
      * @throws InvalidCommissionTypeException
