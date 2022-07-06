@@ -4,9 +4,9 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Models\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
-use Src\Marketplaces\Domain\Models\Commission\Commission;
-use Src\Marketplaces\Infrastructure\Laravel\Collections\CommissionValues;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Math\Percentage;
 
 class CommissionCast implements CastsAttributes
@@ -33,7 +33,8 @@ class CommissionCast implements CastsAttributes
             throw new InvalidArgumentException('The given value is not a Commission instance.');
         }
 
-        $commissionValues = $value->getValues()->map(
+        $commissionValuesCollection = collect($value->getValues()->get());
+        $commissionValues = $commissionValuesCollection->map(
             fn (CommissionValue $value) => $value->toArray()
         );
 
@@ -57,7 +58,7 @@ class CommissionCast implements CastsAttributes
         return Percentage::fromPercentage($commission);
     }
 
-    private function getCommissionValues(array $commission): CommissionValues
+    private function getCommissionValues(array $commission): CommissionValuesCollection
     {
         $commissionValues = collect($commission['values'] ?? [])
             ->map(
@@ -69,6 +70,6 @@ class CommissionCast implements CastsAttributes
             )
             ->toArray();
 
-        return new CommissionValues($commissionValues);
+        return new CommissionValuesCollection($commissionValues);
     }
 }

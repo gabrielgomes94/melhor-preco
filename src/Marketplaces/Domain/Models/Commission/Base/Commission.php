@@ -1,9 +1,10 @@
 <?php
 
-namespace Src\Marketplaces\Domain\Models\Commission;
+namespace Src\Marketplaces\Domain\Models\Commission\Base;
 
-use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
 use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
+use Src\Marketplaces\Domain\Models\Commission\CategoryCommission;
+use Src\Marketplaces\Domain\Models\Commission\UniqueCommission;
 
 abstract class Commission
 {
@@ -13,17 +14,17 @@ abstract class Commission
 
     protected string $type;
 
+    protected CommissionValuesCollection $values;
+
     private static array $validTypes = [
         self::CATEGORY_COMMISSION,
         self::UNIQUE_COMMISSION,
     ];
 
-    abstract public function getValues(): CommissionValues;
-
     /**
      * @throws InvalidCommissionTypeException
      */
-    public static function fromArray(string $type, CommissionValues $values): self
+    public static function fromArray(string $type, CommissionValuesCollection $values): self
     {
         if (!in_array($type, self::$validTypes)) {
             throw new InvalidCommissionTypeException($type);
@@ -39,6 +40,11 @@ abstract class Commission
     public function getType(): string
     {
         return $this->type;
+    }
+
+    public function getValues(): CommissionValuesCollection
+    {
+        return $this->values;
     }
 
     public function hasCommissionByCategory(): bool

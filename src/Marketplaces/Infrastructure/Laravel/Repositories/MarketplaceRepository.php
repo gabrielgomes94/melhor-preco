@@ -4,13 +4,14 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
+use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
-use Src\Marketplaces\Domain\Models\Commission\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace as MarketplaceModel;
-use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace as MarketplaceModel;
 
 class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
@@ -79,7 +80,10 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return [
             'erp_id' => $data->erpId,
             'erp_name' => 'bling',
-            'commission' => Commission::fromArray($data->commissionType, []),
+            'commission' => Commission::fromArray(
+                $data->commissionType,
+                new CommissionValuesCollection([])
+            ),
             'is_active' => $data->isActive,
             'name' => $data->name,
             'slug' => Str::slug($data->name),

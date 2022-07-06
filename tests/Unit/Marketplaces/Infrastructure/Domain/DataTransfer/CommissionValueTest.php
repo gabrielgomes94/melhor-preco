@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Marketplaces\Infrastructure\Domain\DataTransfer;
 
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
 use Src\Math\Percentage;
 use Tests\TestCase;
 

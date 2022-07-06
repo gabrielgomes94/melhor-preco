@@ -3,8 +3,8 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
-use Src\Marketplaces\Infrastructure\Laravel\Collections\CommissionValues;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Math\Percentage;
 
 class SetCommissionByCategoryRequest extends FormRequest
@@ -22,7 +22,7 @@ class SetCommissionByCategoryRequest extends FormRequest
         ];
     }
 
-    public function transform(): CommissionValues
+    public function transform(): CommissionValuesCollection
     {
         $data = $this->all();
         $count = count($data['commission']);
@@ -36,6 +36,6 @@ class SetCommissionByCategoryRequest extends FormRequest
             );
         }
 
-        return new CommissionValues($transformed ?? []);
+        return new CommissionValuesCollection($transformed ?? []);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Marketplaces\Domain\DataTransfer;
+namespace Src\Marketplaces\Domain\Models\Commission\Base;
 
 use Src\Math\Percentage;
 

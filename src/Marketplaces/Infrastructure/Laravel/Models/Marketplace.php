@@ -3,8 +3,8 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
-use Src\Marketplaces\Domain\Models\Commission\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Domain\Models\Marketplace as MarketplaceInterface;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\CommissionCast;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceRelationships;
@@ -94,7 +94,7 @@ class Marketplace extends Model implements MarketplaceInterface
         return $this->getUser()->getId();
     }
 
-    public function setCommissions(CommissionValues $commissions): void
+    public function setCommissions(CommissionValuesCollection $commissions): void
     {
         $this->commission = Commission::fromArray(
             $this->getCommission()->getType(),

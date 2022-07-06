@@ -3,7 +3,7 @@
 namespace Tests\Integration\Marketplaces\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;

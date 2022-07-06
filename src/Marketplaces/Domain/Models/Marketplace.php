@@ -2,8 +2,8 @@
 
 namespace Src\Marketplaces\Domain\Models;
 
-use Src\Marketplaces\Domain\DataTransfer\Collections\CommissionValues;
-use Src\Marketplaces\Domain\Models\Commission\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 
 interface Marketplace
 {
@@ -23,7 +23,7 @@ interface Marketplace
 
     public function isActive(): bool;
 
-    public function setCommissions(CommissionValues $commissions): void;
+    public function setCommissions(CommissionValuesCollection $commissions): void;
 
     public function slugsExists(): bool;
 }

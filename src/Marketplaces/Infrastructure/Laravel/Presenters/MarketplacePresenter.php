@@ -3,7 +3,7 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Support\Collection;
-use Src\Marketplaces\Domain\DataTransfer\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
 use Src\Marketplaces\Domain\Models\Marketplace;
 
 class MarketplacePresenter
@@ -38,9 +38,9 @@ class MarketplacePresenter
 
     private function presentCommissions(Marketplace $marketplace): array
     {
-        $commissions = $marketplace->getCommission()->getValues();
+        $commissions = $marketplace->getCommission()->getValues()->get();
 
-        return $commissions
+        return collect($commissions)
             ->map(fn (CommissionValue $data) => $data->commission->get() ?? null)
             ->unique()
             ->sort()
