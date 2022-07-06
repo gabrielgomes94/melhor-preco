@@ -11,10 +11,10 @@ class UniqueCommission extends Commission
 {
     private CommissionValue $value;
 
-    protected function __construct(string $type, CommissionValuesCollection $values)
+    protected function __construct(string $type, ?CommissionValuesCollection $values = null)
     {
         $this->type = $type;
-        $this->value = $values->first() ?? new CommissionValue(Percentage::fromPercentage(0));
+        $this->value = $values?->first() ?? new CommissionValue(Percentage::fromPercentage(0));
     }
 
     public function get(): Percentage

@@ -3,7 +3,9 @@
 namespace Tests\Integration\Marketplaces\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
@@ -41,7 +43,7 @@ class CommissionRepositoryTest extends TestCase
         $repository = $this->app->get(CommissionRepository::class);
 
         // Act
-        $result = $repository->get($marketplace, $product);
+        $result = $repository->get($marketplace, '1');
 
         // Assert
         $this->assertSame(0.128, $result->getFraction());
@@ -53,9 +55,9 @@ class CommissionRepositoryTest extends TestCase
         $user = UserData::make();
         $product = ProductData::makePersisted($user);
         $marketplace = MarketplaceData::persisted($user, [
-            'extra' => [
-                'commissionType' => '',
-            ]
+            'commission' => Commission::fromArray(
+                Commission::UNIQUE_COMMISSION
+            )
         ]);
         $repository = $this->app->get(CommissionRepository::class);
 
@@ -75,9 +77,9 @@ class CommissionRepositoryTest extends TestCase
             ['slug' => 'magalu'],
             'categoryCommission'
         );
-        $data = [
+        $data = new CommissionValuesCollection([
             new CommissionValue(Percentage::fromPercentage(10.0), '1')
-        ];
+        ]);
 
         $repository = $this->app->get(CommissionRepository::class);
 

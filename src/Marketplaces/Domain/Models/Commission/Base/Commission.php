@@ -24,7 +24,7 @@ abstract class Commission
     /**
      * @throws InvalidCommissionTypeException
      */
-    public static function fromArray(string $type, CommissionValuesCollection $values): self
+    public static function fromArray(string $type, ?CommissionValuesCollection $values = null): self
     {
         if (!in_array($type, self::$validTypes)) {
             throw new InvalidCommissionTypeException($type);

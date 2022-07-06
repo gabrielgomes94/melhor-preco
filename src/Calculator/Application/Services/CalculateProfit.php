@@ -34,7 +34,8 @@ class CalculateProfit
     {
         $sku = $price->product_sku;
         $marketplace = $this->marketplaceRepository->getByErpId(
-            $price->getMarketplaceErpId()
+            $price->getMarketplaceErpId(),
+            $user->getId()
         );
 
         if (!$product = $this->productRepository->get($sku, $user->getId())) {
