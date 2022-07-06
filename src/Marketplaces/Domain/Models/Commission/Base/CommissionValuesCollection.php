@@ -22,7 +22,7 @@ class CommissionValuesCollection
         return $this->items;
     }
 
-    public function first(): CommissionValue
+    public function first(): ?CommissionValue
     {
         $items = $this->items;
 

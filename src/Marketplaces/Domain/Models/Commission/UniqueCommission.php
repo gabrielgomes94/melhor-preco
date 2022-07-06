@@ -14,7 +14,7 @@ class UniqueCommission extends Commission
     protected function __construct(string $type, CommissionValuesCollection $values)
     {
         $this->type = $type;
-        $this->value = $values->first();
+        $this->value = $values->first() ?? new CommissionValue(Percentage::fromPercentage(0));
     }
 
     public function get(): Percentage

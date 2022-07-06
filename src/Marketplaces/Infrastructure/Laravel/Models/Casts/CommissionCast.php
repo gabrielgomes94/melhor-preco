@@ -36,14 +36,14 @@ class CommissionCast implements CastsAttributes
         $commissionValuesCollection = collect($value->getValues()->get());
         $commissionValues = $commissionValuesCollection->map(
             fn (CommissionValue $value) => $value->toArray()
-        );
+        )->toArray();
 
-        return [
-            'commission' => [
-                'type' => $value->getType(),
-                'values' => $commissionValues,
-            ]
+        $data = [
+            'type' => $value->getType(),
+            'values' => $commissionValues,
         ];
+
+        return json_encode($data);
     }
 
     /**

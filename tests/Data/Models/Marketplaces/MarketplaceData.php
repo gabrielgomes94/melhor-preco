@@ -3,7 +3,11 @@
 namespace Tests\Data\Models\Marketplaces;
 
 use Ramsey\Uuid\Uuid;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Math\Percentage;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class MarketplaceData
@@ -26,44 +30,41 @@ class MarketplaceData
 
     public static function make(array $data = [], ?string $method = null): Marketplace
     {
-        $data = array_replace(
+        return new Marketplace(self::data($data, $method));
+    }
+
+    public static function data(array $data = [], ?string $method = null): array
+    {
+        return array_replace(
             [
                 'erp_id' => '123456',
                 'erp_name' => 'bling',
                 'name' => 'Magalu',
                 'slug' => 'magalu',
                 'is_active' => true,
-                'extra' => $method ? self::$method() : self::uniqueCommission(),
+                'commission' => $method ? self::$method() : self::uniqueCommission(),
             ],
             $data
         );
-
-        return new Marketplace($data);
     }
 
-    private static function categoryCommission(): array
+    private static function categoryCommission(): Commission
     {
-        return [
-            'commissionValues' => [
-                [
-                    'categoryId' => 1,
-                    'commission' => 12.8,
-                ]
-            ],
-            'commissionType' => 'categoryCommission',
-        ];
+        return Commission::fromArray(
+            'categoryCommission',
+            new CommissionValuesCollection([
+                new CommissionValue(Percentage::fromPercentage(12.8), '1')
+            ])
+        );
     }
 
-    private static function uniqueCommission(): array
+    private static function uniqueCommission(): Commission
     {
-        return [
-            'commissionValues' => [
-                [
-                    'categoryId' => null,
-                    'commission' => 12.8,
-                ]
-            ],
-            'commissionType' => 'uniqueCommission',
-        ];
+        return Commission::fromArray(
+            'uniqueCommission',
+            new CommissionValuesCollection([
+                new CommissionValue(Percentage::fromPercentage(12.8))
+            ])
+        );
     }
 }
