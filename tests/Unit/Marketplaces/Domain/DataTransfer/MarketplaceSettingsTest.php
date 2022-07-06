@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Unit\Marketplaces\Infrastructure\Domain\DataTransfer;
+namespace Src\Marketplaces\Domain\DataTransfer;
 
-use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Tests\TestCase;
 
 class MarketplaceSettingsTest extends TestCase

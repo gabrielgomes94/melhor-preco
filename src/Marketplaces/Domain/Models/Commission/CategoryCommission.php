@@ -8,7 +8,9 @@ use Src\Math\Percentage;
 
 class CategoryCommission extends Commission
 {
-    public function __construct(string $type, CommissionValuesCollection $values)
+    private CommissionValuesCollection $values;
+
+    protected function __construct(string $type, CommissionValuesCollection $values)
     {
         $this->type = $type;
         $this->values = $values;
@@ -23,5 +25,10 @@ class CategoryCommission extends Commission
         }
 
         return null;
+    }
+
+    public function getValues(): CommissionValuesCollection
+    {
+        return $this->values;
     }
 }

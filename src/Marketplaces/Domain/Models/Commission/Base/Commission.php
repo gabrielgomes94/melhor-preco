@@ -12,14 +12,14 @@ abstract class Commission
 
     public const UNIQUE_COMMISSION = 'uniqueCommission';
 
-    protected string $type;
-
-    protected CommissionValuesCollection $values;
-
     private static array $validTypes = [
         self::CATEGORY_COMMISSION,
         self::UNIQUE_COMMISSION,
     ];
+
+    protected string $type;
+
+    abstract public function getValues(): CommissionValuesCollection;
 
     /**
      * @throws InvalidCommissionTypeException
@@ -40,11 +40,6 @@ abstract class Commission
     public function getType(): string
     {
         return $this->type;
-    }
-
-    public function getValues(): CommissionValuesCollection
-    {
-        return $this->values;
     }
 
     public function hasCommissionByCategory(): bool
