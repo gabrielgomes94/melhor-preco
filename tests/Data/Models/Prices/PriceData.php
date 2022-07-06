@@ -2,7 +2,6 @@
 
 namespace Tests\Data\Models\Prices;
 
-//use Src\Calculator\Domain\Models\Price\Price;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
