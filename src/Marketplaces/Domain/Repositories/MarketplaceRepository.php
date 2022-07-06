@@ -2,23 +2,18 @@
 
 namespace Src\Marketplaces\Domain\Repositories;
 
-use Illuminate\Support\Collection;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
+use Src\Marketplaces\Domain\Models\Marketplace;
 
 interface MarketplaceRepository
 {
     public function create(MarketplaceSettings $data): Marketplace;
 
-    public function exists(string $marketplaceUuid): bool;
+    public function getByErpId(string $marketplaceErpId, string $userId): ?Marketplace;
 
-    public function getByErpId(string $marketplaceErpId): ?Marketplace;
+    public function getBySlug(string $marketplaceSlug, string $userId): ?Marketplace;
 
-    public function getBySlug(string $marketplaceSlug): ?Marketplace;
+    public function list(string $userId): array;
 
-    public function getByUuid(string $marketplaceUuid): ?Marketplace;
-
-    public function list(): Collection;
-
-    public function update(MarketplaceSettings $data, string $marketplaceId): bool;
+    public function update(Marketplace $marketplace, MarketplaceSettings $data): bool;
 }

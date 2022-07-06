@@ -80,6 +80,7 @@
     "autoload-dev": {
         "psr-4": {
             "Src\\Costs\\": "tests/Costs/Unit/",
+            "Src\\Marketplaces\\": "tests/Unit/Marketplaces/",
             "Src\\Users\\": "tests/Users/Unit/",
             "Tests\\": "tests/",
             "Tests\\Unit\\App\\": "tests/Unit/app/",

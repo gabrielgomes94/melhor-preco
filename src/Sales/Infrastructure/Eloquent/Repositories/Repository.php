@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Eloquent\Repositories;
 
 use Carbon\Carbon;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Domain\Events\SaleSynchronized;

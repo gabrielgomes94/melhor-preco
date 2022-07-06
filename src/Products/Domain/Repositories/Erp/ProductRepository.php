@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Repositories\Erp;
 
 use Src\Integrations\Bling\Base\Responses\BaseResponse;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 
 interface ProductRepository
 {

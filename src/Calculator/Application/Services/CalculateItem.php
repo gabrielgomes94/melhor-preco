@@ -3,42 +3,39 @@
 namespace Src\Calculator\Application\Services;
 
 use Src\Calculator\Domain\Models\Price\Contracts\Price;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Marketplaces\Domain\Services\GetCommission;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculateItem as CalculateItemInterface;
 use Src\Sales\Domain\Models\Item;
 
+/**
+ * @todo: talvez valha a pena contextualizar esse serviço em Sales
+ */
 class CalculateItem implements CalculateItemInterface
 {
-    private CalculatePrice $calculatePrice;
-    private MarketplaceRepository $marketplaceRepository;
-    private GetCommission $getCommission;
-
     public function __construct(
-        CalculatePrice $calculatePrice,
-        MarketplaceRepository $marketplaceRepository,
-        GetCommission $getCommission
+        private CalculatePrice $calculatePrice,
+        private CommissionRepository $commissionRepository,
+        private MarketplaceRepository $marketplaceRepository,
     ) {
-        $this->calculatePrice = $calculatePrice;
-        $this->marketplaceRepository = $marketplaceRepository;
-        $this->getCommission = $getCommission;
     }
 
     public function calculate(Item $item): Price
     {
         $marketplaceErpId = $item->saleOrder->getIdentifiers()->storeId() ?? '';
         $marketplace = $this->marketplaceRepository->getByErpId($marketplaceErpId);
+        $commission = $this->commissionRepository->get(
+            $marketplace,
+            $item->product
+        );
 
         return $this->calculatePrice->calculate(
-            productData: ProductData::fromModel($item->product),
+            productData: ProductData::fromModel($item->getProduct()),
             marketplace: $marketplace,
             value: $item->getTotalValue(),
-            commission: Percentage::fromPercentage($this->getCommission->get(
-                $marketplace->getErpId(),
-                $item->product->getSku()
-            ))
+            commission: $commission
         );
     }
 }

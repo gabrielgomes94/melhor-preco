@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
 use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\Percentage;
 use Src\Prices\Domain\UseCases\Price\UpdatePrice as UpdatePriceInterface;
 use Src\Prices\Infrastructure\Laravel\Services\Products\Commands\UpdateCommand;

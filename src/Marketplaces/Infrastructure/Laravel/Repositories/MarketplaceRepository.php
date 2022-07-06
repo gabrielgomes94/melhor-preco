@@ -2,81 +2,91 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
+use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace as MarketplaceModel;
 
 class MarketplaceRepository implements MarketplaceRepositoryInterface
 {
-    public function create(MarketplaceSettings $data): Marketplace
+    /**
+     * @throws MarketplaceSlugAlreadyExists
+     */
+    public function create(MarketplaceSettings $settings): Marketplace
     {
-        $data = $this->prepareData($data);
-
-        return Marketplace::create(
-            array_merge($data, [
-                'uuid' => Uuid::uuid4(),
-            ])
+        $data = array_merge(
+            $this->prepareData($settings),
+            ['uuid' => Uuid::uuid4()]
         );
-    }
+        $marketplace = new MarketplaceModel($data);
+        $marketplace->user_id = $settings->userId;
 
-    public function exists(string $marketplaceUuid): bool
-    {
-        $marketplace = Marketplace::where('uuid', $marketplaceUuid)->get();
-
-        return $marketplace->count() > 0;
-    }
-
-    public function getByErpId(string $marketplaceErpId): ?Marketplace
-    {
-        return Marketplace::where('erp_id', $marketplaceErpId)->first();
-    }
-
-    public function getBySlug(string $marketplaceSlug): ?Marketplace
-    {
-        return Marketplace::where('slug', $marketplaceSlug)->first();
-    }
-
-    public function getByUuid(string $marketplaceUuid): ?Marketplace
-    {
-        return Marketplace::where('uuid', $marketplaceUuid)->first();
-    }
-
-    public function list(): Collection
-    {
-        return Marketplace::all();
-    }
-
-    public function update(MarketplaceSettings $data, string $marketplaceId): bool
-    {
-        $marketplace = $this->getByUuid($marketplaceId);
-
-        if (!$marketplace) {
-            return false;
+        if ($marketplace->slugsExists()) {
+            throw new MarketplaceSlugAlreadyExists($marketplace);
         }
 
+        $marketplace->save();
+
+        return $marketplace->refresh();
+    }
+
+    public function getByErpId(string $marketplaceErpId, string $userId): ?Marketplace
+    {
+        return MarketplaceModel::withErpId($marketplaceErpId)
+            ->withUser($userId)
+            ->first();
+    }
+
+    public function getBySlug(string $marketplaceSlug, string $userId): ?Marketplace
+    {
+        return MarketplaceModel::withSlug($marketplaceSlug)
+            ->withUser($userId)
+            ->first();
+    }
+
+    public function list(string $userId): array
+    {
+        return MarketplaceModel::withUser($userId)
+            ->get()
+            ->all();
+    }
+
+    /**
+     * @throws MarketplaceSlugAlreadyExists
+     */
+    public function update(Marketplace $marketplace, MarketplaceSettings $data): bool
+    {
         $data = $this->prepareData($data);
         $marketplace->fill($data);
+
+        if ($marketplace->slugsExists()) {
+            throw new MarketplaceSlugAlreadyExists($marketplace);
+        }
 
         return $marketplace->save();
     }
 
+    /**
+     * @throws InvalidCommissionTypeException
+     */
     private function prepareData(MarketplaceSettings $data): array
     {
-        $slug = Str::slug($data->name);
-
         return [
             'erp_id' => $data->erpId,
             'erp_name' => 'bling',
-            'extra' => [
-                'commissionType' => $data->commissionType,
-            ],
+            'commission' => Commission::fromArray(
+                $data->commissionType,
+                new CommissionValuesCollection([])
+            ),
             'is_active' => $data->isActive,
             'name' => $data->name,
-            'slug' => $slug,
-            'user_id' => $data->userId
+            'slug' => Str::slug($data->name),
         ];
     }
 }

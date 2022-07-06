@@ -10,7 +10,7 @@ use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 

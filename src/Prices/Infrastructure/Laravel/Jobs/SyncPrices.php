@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Src\Integrations\Bling\Products\Requests\Config;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizeFromMarketplace;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 

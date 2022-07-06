@@ -105,13 +105,13 @@ class CategoryRepositoryTest extends TestCase
 
     private function given_i_have_a_category(): void
     {
-        CategoryData::persisted('withoutParent', $this->user);
+        CategoryData::persisted($this->user, [], 'withoutParent');
     }
 
     private function given_i_have_a_category_with_parent(): void
     {
-        CategoryData::persisted('withoutParent', $this->user);
-        CategoryData::persisted('withParent', $this->user);
+        CategoryData::persisted($this->user, [], 'withoutParent');
+        CategoryData::persisted($this->user, []);
     }
 
     private function given_i_have_two_categories(): void

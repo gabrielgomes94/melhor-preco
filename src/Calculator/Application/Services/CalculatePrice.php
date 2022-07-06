@@ -3,15 +3,20 @@
 namespace Src\Calculator\Application\Services;
 
 use Src\Calculator\Domain\Models\Price\PriceFactory;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Models\Price\Contracts\Price;
 use Src\Calculator\Domain\Services\Contracts\CalculatePrices;
 
-// @todo: Talvez seja interessante disponibilizar uma classe CalculateProduct
 class CalculatePrice implements CalculatePrices
 {
+    public function __construct(
+        private CommissionRepository $commissionRepository
+    ) {
+    }
+
     public function calculate(
         ProductData $productData,
         Marketplace $marketplace,
@@ -34,17 +39,12 @@ class CalculatePrice implements CalculatePrices
             return $commission->getFraction();
         }
 
-        if ($marketplace->hasUniqueCommission()) {
-            return $marketplace->getUniqueCommission()->getFraction();
-        }
+        $commission = $this->commissionRepository->get(
+            $marketplace,
+            $productData->getCategory()->getCategoryId()
+        );
 
-        if ($marketplace->hasCommissionByCategory()) {
-            return $marketplace->getCommissionByCategory(
-                $productData->getCategory()->getCategoryId()
-            )->getFraction();
-        }
-
-        return 0.0;
+        return $commission->get();
     }
 
     private function getOptions(array $options): array

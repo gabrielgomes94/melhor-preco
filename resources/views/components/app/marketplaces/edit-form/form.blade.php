@@ -1,4 +1,4 @@
-<x-bootstrap.forms.form.post action="{{ route('marketplaces.update', $marketplace['uuid']) }}">
+<x-bootstrap.forms.form.post action="{{ route('marketplaces.update', $marketplace['slug']) }}">
     <div class="mt-1">
         <x-bootstrap.forms.input.text
             attribute="erpId"
@@ -35,14 +35,6 @@
             name="commissionType"
             value="categoryCommission"
             active="{{ ($marketplace['commissionType'] === 'categoryCommission') ? true : false }}"
-        ></x-bootstrap.forms.check.radio>
-
-        <x-bootstrap.forms.check.radio
-            id="commissionType-sku-radio"
-            label="Por SKUs"
-            name="commissionType"
-            value="skuCommission"
-            active="{{ ($marketplace['commissionType'] === 'skuCommission') ? true : false }}"
         ></x-bootstrap.forms.check.radio>
     </div>
 

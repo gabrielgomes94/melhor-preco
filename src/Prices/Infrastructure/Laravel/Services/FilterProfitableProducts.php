@@ -5,7 +5,7 @@ namespace Src\Prices\Infrastructure\Laravel\Services;
 use Illuminate\Support\Collection;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
-use Src\Marketplaces\Domain\Models\Contracts\Marketplace;
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\PromotionSetup;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
