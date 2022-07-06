@@ -53,7 +53,8 @@ class MarketplaceData
         return Commission::fromArray(
             'categoryCommission',
             new CommissionValuesCollection([
-                new CommissionValue(Percentage::fromPercentage(12.8), '1')
+                new CommissionValue(Percentage::fromPercentage(12.8), '1'),
+                new CommissionValue(Percentage::fromPercentage(12.8), '10')
             ])
         );
     }

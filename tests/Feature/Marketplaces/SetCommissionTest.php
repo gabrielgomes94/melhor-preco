@@ -2,7 +2,11 @@
 
 namespace Tests\Feature\Marketplaces;
 
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Users\UserData;
@@ -65,7 +69,7 @@ class SetCommissionTest extends FeatureTestCase
                 'commissionType' => 'categoryCommission',
             ],
             'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
-        ]);
+        ], 'categoryCommission');
 
         CategoryData::persisted(user: $this->user, method: 'withoutParent');
         CategoryData::persisted($this->user);
@@ -85,13 +89,13 @@ class SetCommissionTest extends FeatureTestCase
                     'name' => 'Carrinhos',
                     'categoryId' => '1',
                     'parentId' => '',
-                    'commission' => null,
+                    'commission' => 12.8,
                 ],
                 [
                     'name' => 'Carrinhos / Carrinhos de supermercado',
                     'categoryId' => '10',
                     'parentId' => '1',
-                    'commission' => null,
+                    'commission' => 12.8,
                 ],
             ],
             'marketplaceSlug' => 'magalu',
@@ -130,21 +134,15 @@ class SetCommissionTest extends FeatureTestCase
     private function then_the_marketplace_commission_must_be_updated_in_database(): void
     {
         $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
-        $commissionJson = [
-            'commissionType' => 'categoryCommission',
-            'commissionValues' => [
-                [
-                    'categoryId' => '1',
-                    'commission' => 10,
-                ],
-                [
-                    'categoryId' => '10',
-                    'commission' => 12.2,
-                ],
-            ],
-        ];
+        $commission = Commission::fromArray(
+            'categoryCommission',
+            new CommissionValuesCollection([
+                new CommissionValue(Percentage::fromPercentage(10.0), '1'),
+                new CommissionValue(Percentage::fromPercentage(12.2), '10'),
+            ])
+        );
 
-        $this->assertSame($commissionJson, $marketplace->extra);
+        $this->assertEquals($commission, $marketplace->commission);
     }
 
     private function when_i_want_to_update_unique_commission(): void
@@ -157,16 +155,13 @@ class SetCommissionTest extends FeatureTestCase
     private function then_the_marketplace_unique_commission_must_be_updated_in_database(): void
     {
         $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
-        $commissionJson = [
-            'commissionType' => 'uniqueCommission',
-            'commissionValues' => [
-                [
-                    'categoryId' => null,
-                    'commission' => 10.5,
-                ],
-            ],
-        ];
+        $commission = Commission::fromArray(
+            'uniqueCommission',
+            new CommissionValuesCollection([
+                new CommissionValue(Percentage::fromPercentage(10.5)),
+            ])
+        );
 
-        $this->assertSame($commissionJson, $marketplace->extra);
+        $this->assertEquals($commission, $marketplace->commission);
     }
 }
