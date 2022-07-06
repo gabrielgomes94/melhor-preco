@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Container;
+namespace Src\Sales\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Src\Sales\Application\Services\GetProductSales;
