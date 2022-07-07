@@ -5,7 +5,7 @@ namespace Src\Sales\Application\UseCases;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Math\MathPresenter;
-use Src\Sales\Presentation\Presenters\ListSalesPresenter;
+use Src\Sales\Infrastructure\Laravel\Presenters\ListSalesPresenter;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\ListSales as ListSalesInterface;

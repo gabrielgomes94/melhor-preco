@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Presentation\Presenters;
+namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MathPresenter;
