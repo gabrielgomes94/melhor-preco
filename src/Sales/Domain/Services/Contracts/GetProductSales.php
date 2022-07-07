@@ -4,9 +4,9 @@ namespace Src\Sales\Domain\Services\Contracts;
 
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Sales\Application\Data\MarketplaceSaleItems;
-use Src\Sales\Application\Data\Reports\SaleItemsInMarketplaces;
-use Src\Sales\Application\Data\SaleItemsCollection;
+use Src\Sales\Domain\DataTransfer\MarketplaceSaleItems;
+use Src\Sales\Domain\DataTransfer\Reports\SaleItemsInMarketplaces;
+use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 
 // @todo: avaliar a possibilidade de permitir a passagem de um parâmetro do tipo DateInterval
 interface GetProductSales

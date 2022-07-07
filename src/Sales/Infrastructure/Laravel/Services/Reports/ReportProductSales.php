@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Services\Reports;
 
-use Src\Sales\Application\Data\Reports\SalesReport;
+use Src\Sales\Domain\DataTransfer\Reports\SalesReport;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\ProductRepository;

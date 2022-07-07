@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\Data;
+namespace Src\Sales\Domain\DataTransfer;
 
 use Illuminate\Support\Collection;
 use Src\Sales\Domain\Models\Item;

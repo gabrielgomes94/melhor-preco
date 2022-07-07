@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Sales\Application\Data\Reports;
+namespace Src\Sales\Domain\DataTransfer\Reports;
 
 use Illuminate\Support\Collection;
-use Src\Sales\Application\Data\MarketplaceSaleItems;
+use Src\Sales\Domain\DataTransfer\MarketplaceSaleItems;
 
 class SaleItemsInMarketplaces
 {

@@ -5,8 +5,8 @@ namespace Src\Products\Infrastructure\Laravel\Presenters;
 use Src\Math\MathPresenter;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Products\Infrastructure\Laravel\Presenters\ProductPresenter;
-use Src\Sales\Application\Data\MarketplaceSaleItems;
-use Src\Sales\Application\Data\Reports\SalesReport;
+use Src\Sales\Domain\DataTransfer\MarketplaceSaleItems;
+use Src\Sales\Domain\DataTransfer\Reports\SalesReport;
 use Src\Sales\Domain\Models\Item;
 
 class ProductReportPresenter

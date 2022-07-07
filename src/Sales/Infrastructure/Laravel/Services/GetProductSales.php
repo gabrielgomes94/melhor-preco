@@ -5,9 +5,9 @@ namespace Src\Sales\Infrastructure\Laravel\Services;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Sales\Application\Data\MarketplaceSaleItems;
-use Src\Sales\Application\Data\Reports\SaleItemsInMarketplaces;
-use Src\Sales\Application\Data\SaleItemsCollection;
+use Src\Sales\Domain\DataTransfer\MarketplaceSaleItems;
+use Src\Sales\Domain\DataTransfer\Reports\SaleItemsInMarketplaces;
+use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Services\Contracts\GetProductSales as GetProductSalesInterface;
 

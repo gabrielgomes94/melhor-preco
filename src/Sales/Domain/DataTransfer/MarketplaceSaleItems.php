@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\Data;
+namespace Src\Sales\Domain\DataTransfer;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
 

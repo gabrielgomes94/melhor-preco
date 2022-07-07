@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Sales\Application\Data\Reports;
+namespace Src\Sales\Domain\DataTransfer\Reports;
 
 use Src\Products\Domain\Models\Product\Product;
-use Src\Sales\Application\Data\SaleItemsCollection;
+use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 
 class SalesReport
 {
