@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Src\Sales\Application\UseCases\Filters\ListSalesFilter;
+use Src\Sales\Infrastructure\Laravel\Services\Filters\ListSalesFilter;
 use Src\Sales\Domain\UseCases\Contracts\ListSales;
 
 class ListController extends Controller

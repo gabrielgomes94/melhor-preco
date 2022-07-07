@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\UseCases\Reports;
+namespace Src\Sales\Infrastructure\Laravel\Services\Reports;
 
 use Closure;
 use Illuminate\Support\Collection;

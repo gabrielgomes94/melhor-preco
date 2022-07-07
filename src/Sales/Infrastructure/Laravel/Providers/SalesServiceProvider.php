@@ -3,10 +3,10 @@
 namespace Src\Sales\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Sales\Application\UseCases\SyncSales as SyncSalesImpl;
+use Src\Sales\Infrastructure\Laravel\Services\SyncSales as SyncSalesImpl;
 use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
 use Src\Sales\Domain\UseCases\Contracts\ListSales;
-use Src\Sales\Application\UseCases\ListSales as ListSalesImpl;
+use Src\Sales\Infrastructure\Laravel\Services\ListSales as ListSalesImpl;
 use Src\Sales\Domain\UseCases\Contracts\SyncSales;
 use Src\Sales\Infrastructure\Bling\Repository;
 

@@ -7,8 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Src\Sales\Application\Services\CalculateTotalProfit;
-use Src\Sales\Application\Services\Synchronize;
+use Src\Sales\Infrastructure\Laravel\Services\CalculateTotalProfit;
+use Src\Sales\Infrastructure\Laravel\Services\Synchronize;
 use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
 
 class SyncSales implements ShouldQueue

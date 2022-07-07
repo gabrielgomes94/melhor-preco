@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\Services;
+namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Exception;
 use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\Services;
+namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;

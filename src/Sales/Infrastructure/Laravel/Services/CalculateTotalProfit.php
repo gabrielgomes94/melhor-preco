@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\Services;
+namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Money\Money;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;

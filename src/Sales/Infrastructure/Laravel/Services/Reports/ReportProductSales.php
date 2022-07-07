@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\UseCases\Reports;
+namespace Src\Sales\Infrastructure\Laravel\Services\Reports;
 
 use Src\Sales\Application\Data\Reports\SalesReport;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;

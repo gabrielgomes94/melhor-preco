@@ -6,7 +6,7 @@ use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
-use Src\Sales\Application\UseCases\Reports\ReportProductSales;
+use Src\Sales\Infrastructure\Laravel\Services\Reports\ReportProductSales;
 
 class GetProductReport
 {

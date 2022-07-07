@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\UseCases;
+namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;

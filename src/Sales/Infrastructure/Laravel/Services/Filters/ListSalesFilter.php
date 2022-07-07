@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\UseCases\Filters;
+namespace Src\Sales\Infrastructure\Laravel\Services\Filters;
 
 use Carbon\Carbon;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
