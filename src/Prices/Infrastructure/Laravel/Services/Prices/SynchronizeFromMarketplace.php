@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
+use Illuminate\Support\Facades\Log;
 use Src\Calculator\Application\Services\CalculateProfit;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
@@ -22,16 +23,19 @@ class SynchronizeFromMarketplace
     ) {
     }
 
-    public function sync(Marketplace $marketplace, int $page = 1): bool
+    public function sync(Marketplace $marketplace, int $page = 1, string $status = Config::ACTIVE): bool
     {
         $user = $marketplace->getUser();
 
         $prices = $this->erpRepository->allInMarketplace(
             $user->getErpToken(),
             $marketplace,
-            Config::ACTIVE,
+            $status,
             $page
         );
+
+        $count = count($prices->data());
+        Log::info("Marketplace {$marketplace->getName()} - $count preços");
 
         if (empty($prices->data())) {
             return false;

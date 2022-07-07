@@ -14,14 +14,16 @@ class SyncController extends Controller
 
     public function sync(string $storeSlug): RedirectResponse
     {
-        $this->synchronizePrices->syncMarketplace($storeSlug);
+        $userId = auth()->user()->getAuthIdentifier();
+        $this->synchronizePrices->syncMarketplace($storeSlug, $userId);
 
         return redirect()->back();
     }
 
     public function syncAll(): RedirectResponse
     {
-        $this->synchronizePrices->syncAll();
+        $userId = auth()->user()->getAuthIdentifier();
+        $this->synchronizePrices->syncAll($userId);
 
         return redirect()->back();
     }
