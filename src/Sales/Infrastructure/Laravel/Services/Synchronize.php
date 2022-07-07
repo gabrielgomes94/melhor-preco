@@ -39,7 +39,7 @@ class Synchronize
                     continue;
                 }
 
-                $this->updateSaleOrder($saleOrderModel, $saleOrder);
+                $this->updateSaleOrder($saleOrderModel, $saleOrder, $userId);
             } catch (Exception $exception) {
                 event(new SaleOrderWasNotSynchronized($exception->getMessage()));
             }
@@ -65,11 +65,11 @@ class Synchronize
         );
     }
 
-    private function updateSaleOrder(SaleOrder $saleOrder, SaleOrderInterface $externalSaleOrder): void
+    private function updateSaleOrder(SaleOrder $saleOrder, SaleOrderInterface $externalSaleOrder, string $userId): void
     {
         $this->repository->update(
             saleOrder: $saleOrder,
-            profit: $this->calculateTotalProfit->execute($saleOrder),
+            profit: $this->calculateTotalProfit->execute($saleOrder, $userId),
             status: (string) $externalSaleOrder->getStatus()
         );
     }

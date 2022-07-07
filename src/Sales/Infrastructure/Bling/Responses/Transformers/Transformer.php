@@ -141,7 +141,7 @@ class Transformer
 
     private static function makeShipment(array $data)
     {
-        if (!isset($data['transporte'])) {
+        if (!isset($data['transporte']['enderecoEntrega'])) {
             return null;
         }
 
