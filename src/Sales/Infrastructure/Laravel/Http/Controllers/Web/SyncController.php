@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Sales\Application\Jobs\SyncSales as SyncSalesJob;
+use Src\Sales\Infrastructure\Laravel\Jobs\SyncSales as SyncSalesJob;
 
 class SyncController extends Controller
 {

@@ -5,7 +5,7 @@ namespace Src\Users\Infrastructure\Laravel\Services;
 use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
 use Src\Products\Infrastructure\Laravel\Jobs\SyncCategories;
 use Src\Products\Infrastructure\Laravel\Jobs\SyncProducts;
-use Src\Sales\Application\Jobs\SyncSales;
+use Src\Sales\Infrastructure\Laravel\Jobs\SyncSales;
 
 class SynchronizeData
 {

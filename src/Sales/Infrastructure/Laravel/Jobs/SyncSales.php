@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Application\Jobs;
+namespace Src\Sales\Infrastructure\Laravel\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
