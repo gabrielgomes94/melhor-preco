@@ -16,7 +16,7 @@ class ListSalesPresenter
         $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function listSaleOrder(array $saleOrders): array
+    public function listSaleOrder(array $saleOrders, string $userId): array
     {
         foreach ($saleOrders as $saleOrder) {
             $identifiers = $saleOrder->getIdentifiers();
@@ -33,7 +33,7 @@ class ListSalesPresenter
                 'purchaseSaleOrderId' => $identifiers->purchaseSaleOrderId(),
                 'storeSaleOrderId' => $identifiers->storeSaleOrderId(),
                 'selledAt' => $this->presentSelledAt($saleOrder),
-                'store' => $this->presentStore($identifiers),
+                'store' => $this->presentStore($identifiers, $userId),
                 'value' => MathPresenter::money($saleValue->totalValue()),
                 'products' => $products,
                 'productsInTooltip' => $this->presentProductsInTooltip($products),
@@ -69,9 +69,9 @@ class ListSalesPresenter
         return $saleOrder->getSaleDates()->selledAt()->format('d/m/Y');
     }
 
-    private function presentStore($identifiers): string
+    private function presentStore($identifiers, string $userId): string
     {
-        $marketplace = $this->marketplaceRepository->getByErpId($identifiers->storeId());
+        $marketplace = $this->marketplaceRepository->getByErpId($identifiers->storeId(), $userId);
 
         if (!$marketplace) {
             return '';

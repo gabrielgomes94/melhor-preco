@@ -61,9 +61,10 @@ class Repository implements RepositoryInterface
             ->count();
     }
 
-    public function getTotalStoresCount(Carbon $beginDate, Carbon $endDate)
+    public function getTotalStoresCount(Carbon $beginDate, Carbon $endDate, string $userId)
     {
-        $marketplaces = $this->marketplaceRepository->list();
+        $marketplaces = $this->marketplaceRepository->list($userId);
+        $marketplaces = collect($marketplaces);
 
         return $marketplaces->mapWithKeys(function (Marketplace $marketplace) use ($beginDate, $endDate) {
             return $this->mapMarketplaceCount($marketplace, $beginDate, $endDate);

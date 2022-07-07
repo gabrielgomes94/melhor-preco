@@ -32,20 +32,22 @@ class ListSales implements ListSalesInterface
             page: $options->getPage(),
         );
 
+        $userId = auth()->user()->getAuthIdentifier();
+
         return [
-            'saleOrders' => $this->presenter->listSaleOrder($sales->items()),
-            'meta' => $this->getMetaData($beginDate, $endDate),
+            'saleOrders' => $this->presenter->listSaleOrder($sales->items(), $userId),
+            'meta' => $this->getMetaData($beginDate, $endDate, $userId),
             'paginator' => $this->getPaginator($sales, $options),
         ];
     }
 
-    private function getMetaData(Carbon $beginDate, Carbon $endDate): array
+    private function getMetaData(Carbon $beginDate, Carbon $endDate, string $userId): array
     {
         $totalValue = $this->repository->getTotalValueSum($beginDate, $endDate);
         $totalProfit = $this->repository->getTotalProfitSum($beginDate, $endDate);
         $salesCount = $this->repository->getTotalSalesCount($beginDate, $endDate);
         $productsCount = $this->repository->getTotalProductsCount($beginDate, $endDate);
-        $storesCount = $this->repository->getTotalStoresCount($beginDate, $endDate);
+        $storesCount = $this->repository->getTotalStoresCount($beginDate, $endDate, $userId);
 
         return [
             'beginDate' => $beginDate->format('d/m/Y'),
