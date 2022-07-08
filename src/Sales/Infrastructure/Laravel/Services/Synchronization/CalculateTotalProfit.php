@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Services;
+namespace Src\Sales\Infrastructure\Laravel\Services\Synchronization;
 
 use Money\Money;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
@@ -17,6 +17,7 @@ use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Services\Contracts\CalculateTotalProfit as CalculateTotalProfitInterface;
 use Src\Sales\Infrastructure\Logging\Logging;
 
+// @todo: simplify this class
 class CalculateTotalProfit implements CalculateTotalProfitInterface
 {
     private CalculatePrice $calculatePrice;
@@ -68,6 +69,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         Logging::priceCalculated($profit);
     }
 
+    // @todo: usar o repositório de commissões ao invés dessa lógica
     private function getCommission(Product $product, Marketplace $marketplace): Percentage
     {
         $post = $this->postRepository->get($product, $marketplace);

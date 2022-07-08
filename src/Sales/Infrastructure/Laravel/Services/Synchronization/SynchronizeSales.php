@@ -1,14 +1,16 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Services;
+namespace Src\Sales\Infrastructure\Laravel\Services\Synchronization;
 
 use Exception;
 use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
+use Src\Sales\Infrastructure\Laravel\Services\Synchronization\CalculateTotalProfit;
 
 class SynchronizeSales
 {
@@ -16,26 +18,31 @@ class SynchronizeSales
     private ItemsRepository $itemsRepository;
     private Repository $repository;
     private SynchronizationRepository $syncRepository;
+    private ErpRepository $erpRepository;
 
     public function __construct(
         CalculateTotalProfit $calculateTotalProfit,
         ItemsRepository $itemRepository,
         Repository $repository,
-        SynchronizationRepository $syncRepository
+        SynchronizationRepository $syncRepository,
+        ErpRepository $erpRepository
     ) {
         $this->calculateTotalProfit = $calculateTotalProfit;
         $this->itemsRepository = $itemRepository;
         $this->repository = $repository;
         $this->syncRepository = $syncRepository;
+        $this->erpRepository = $erpRepository;
     }
 
-    public function sync(array $data, string $userId)
+    public function sync(string $userId)
     {
+        $data = $this->erpRepository->list();
+
         foreach ($data as $saleOrder) {
             try {
                 if (!$saleOrderModel = $this->getSaleOrder($saleOrder)) {
-
                     $this->insertSaleOrder($saleOrder, $userId);
+
                     continue;
                 }
 

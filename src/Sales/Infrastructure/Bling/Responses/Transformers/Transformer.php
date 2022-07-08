@@ -23,7 +23,7 @@ class Transformer
     {
         $identifiers = new Identifiers(
             id: $data['numero'],
-            purchaseOrderId: $data['numeroOrdemCompra'],
+            purchaseOrderId: $data['numeroOrdemCompra'] ?? '',
             integration: $data['tipoIntegracao'] ?? null,
             storeId: $data['loja'] ?? null,
             storeSaleOrderId: $data['numeroPedidoLoja'] ?? null

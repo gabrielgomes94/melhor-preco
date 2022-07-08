@@ -5,14 +5,14 @@ namespace Src\Sales\Domain\Models\ValueObjects\Identifiers;
 class Identifiers
 {
     private string $id;
-    private string $purchaseOrderId;
+    private ?string $purchaseOrderId;
     private ?string $integration;
     private ?string $storeId;
     private ?string $storeSaleOrderId;
 
     public function __construct(
         string $id,
-        string $purchaseOrderId,
+        ?string $purchaseOrderId,
         ?string $integration,
         ?string $storeId,
         ?string $storeSaleOrderId
@@ -34,7 +34,7 @@ class Identifiers
         return $this->integration;
     }
 
-    public function purchaseSaleOrderId(): string
+    public function purchaseSaleOrderId(): ?string
     {
         return $this->purchaseOrderId;
     }
