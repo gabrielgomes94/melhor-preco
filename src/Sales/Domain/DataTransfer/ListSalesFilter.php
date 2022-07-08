@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Services\Filters;
+namespace Src\Sales\Domain\DataTransfer;
 
 use Carbon\Carbon;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
@@ -15,13 +15,15 @@ class ListSalesFilter implements ListSalesFilterInterface
     private int $page;
     private int $perPage = RepositoryInterface::PER_PAGE;
     private string $url;
+    private string $userId;
 
     public function __construct(array $options = [])
     {
         $this->beginDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['beginDate'] ?? '01/01/1970');
         $this->endDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['endDate'] ?? '31/12/9999');
         $this->page = $options['page'] ?? 1;
-        $this->url = $options['url'];
+        $this->url = $options['url'] ?? '';
+        $this->userId = $options['userId'];
     }
 
     public function getBeginDate(): Carbon
@@ -47,6 +49,11 @@ class ListSalesFilter implements ListSalesFilterInterface
     public function getUrl(): string
     {
         return $this->url;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->userId;
     }
 }
 

@@ -5,12 +5,9 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
-
-use function event;
 
 class Repository implements RepositoryInterface
 {
@@ -31,44 +28,6 @@ class Repository implements RepositoryInterface
             ->inDateInterval($beginDate, $endDate)
             ->defaultOrder()
             ->paginate(page: $page, perPage: $perPage);
-    }
-
-    public function getTotalValueSum(Carbon $beginDate, Carbon $endDate)
-    {
-        return SaleOrder::valid()
-            ->inDateInterval($beginDate, $endDate)
-            ->sum('total_value');
-    }
-
-    public function getTotalProfitSum(Carbon $beginDate, Carbon $endDate)
-    {
-        return SaleOrder::valid()
-            ->inDateInterval($beginDate, $endDate)
-            ->sum('total_profit');
-    }
-
-    public function getTotalSalesCount(Carbon $beginDate, Carbon $endDate)
-    {
-        return SaleOrder::valid()
-            ->inDateInterval($beginDate, $endDate)
-            ->count();
-    }
-
-    public function getTotalProductsCount(Carbon $beginDate, Carbon $endDate)
-    {
-        return SaleOrder::withCount('items')
-            ->inDateInterval($beginDate, $endDate)
-            ->count();
-    }
-
-    public function getTotalStoresCount(Carbon $beginDate, Carbon $endDate, string $userId)
-    {
-        $marketplaces = $this->marketplaceRepository->list($userId);
-        $marketplaces = collect($marketplaces);
-
-        return $marketplaces->mapWithKeys(function (Marketplace $marketplace) use ($beginDate, $endDate) {
-            return $this->mapMarketplaceCount($marketplace, $beginDate, $endDate);
-        })->all();
     }
 
     public function update(SaleOrder $saleOrder, ?float $profit = null, ?string $status = null): void

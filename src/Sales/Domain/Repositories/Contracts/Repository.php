@@ -10,10 +10,6 @@ interface Repository
 {
     public const PER_PAGE = 40;
 
-    public function getTotalValueSum(Carbon $beginDate, Carbon $endDate);
-
-    public function getTotalProfitSum(Carbon $beginDate, Carbon $endDate);
-
     public function listPaginate(
         Carbon $beginDate,
         Carbon $endDate,

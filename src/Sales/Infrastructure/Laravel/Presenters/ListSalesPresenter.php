@@ -22,10 +22,6 @@ class ListSalesPresenter
             $identifiers = $saleOrder->getIdentifiers();
             $saleValue = $saleOrder->getSaleValue();
 
-            if (!$identifiers->storeId()) {
-                continue;
-            }
-
             $products = $this->presentProducts($saleOrder);
 
             $presented[] = [

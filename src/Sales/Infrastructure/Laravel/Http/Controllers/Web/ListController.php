@@ -4,35 +4,46 @@ namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Src\Sales\Infrastructure\Laravel\Services\Filters\ListSalesFilter;
-use Src\Sales\Domain\UseCases\Contracts\ListSales;
+use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Infrastructure\Laravel\Presenters\ListSalesReport;
+use Src\Sales\Infrastructure\Laravel\Repositories\SalesReportsRepository;
 
 class ListController extends Controller
 {
-    private ListSales $listSales;
-
-    public function __construct(ListSales $listSales)
+    public function __construct(
+        private readonly SalesReportsRepository $salesReportsRepository,
+        private readonly ListSalesReport $listSalesReport
+    )
     {
-        $this->listSales = $listSales;
     }
 
     public function list(Request $request)
     {
-        $options = new ListSalesFilter(
+        $options = $this->getFilter($request);
+        $listReport = $this->salesReportsRepository->list($options);
+        $data = $this->listSalesReport->present($listReport);
+
+        return view('pages.sales.list', $data);
+    }
+
+    private function getFilter(Request $request)
+    {
+        return new ListSalesFilter(
             [
                 'beginDate' => $request->input('beginDate'),
                 'endDate' => $request->input('endDate'),
                 'page' => (int) $request->input('page') ?? 1,
-                'url' => $request->fullUrlWithQuery($request->query())
+                'url' => $request->fullUrlWithQuery($request->query()),
+                'userId' => auth()->user()->getAuthIdentifier(),
             ]
         );
+    }
 
-        $saleOrders = $this->listSales->list($options);
-
-        return view('pages.sales.list', [
-            'saleOrders' => $saleOrders['saleOrders'],
-            'total' => $saleOrders['meta'],
-            'paginator' => $saleOrders['paginator'],
-        ]);
+    /**
+     * @todo: implement show sales view
+     */
+    public function show()
+    {
+        dd('asdasdasda');
     }
 }

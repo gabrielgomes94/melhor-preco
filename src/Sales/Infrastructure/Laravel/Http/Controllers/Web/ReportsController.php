@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Src\Sales\Infrastructure\Laravel\Services\Filters\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\ListSalesFilter;
 use Src\Sales\Infrastructure\Laravel\Services\Reports\ReportMostSelledProducts;
 
 class ReportsController extends Controller

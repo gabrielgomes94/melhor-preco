@@ -10,7 +10,7 @@ use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
 
-class Synchronize
+class SynchronizeSales
 {
     private CalculateTotalProfit $calculateTotalProfit;
     private ItemsRepository $itemsRepository;

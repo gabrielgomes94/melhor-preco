@@ -10,7 +10,7 @@ Route::middleware('auth')->group(function () {
         ->name('sales')
         ->group(function () {
             Route::get('/list', [ListController::class, 'list'])->name('.list');
-            Route::get('/show', [ListController::class, 'list'])->name('.show');
+            Route::get('/show', [ListController::class, 'show'])->name('.show');
             Route::post('/sync', [SyncController::class, 'sync'])->name('.sync');
 
             Route::prefix('/reports')

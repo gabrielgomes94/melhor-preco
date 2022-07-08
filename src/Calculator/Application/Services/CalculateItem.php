@@ -22,13 +22,18 @@ class CalculateItem implements CalculateItemInterface
     ) {
     }
 
+    /**
+     * @todo: fix the user contextualization later
+     */
     public function calculate(Item $item): Price
     {
         $marketplaceErpId = $item->saleOrder->getIdentifiers()->storeId() ?? '';
-        $marketplace = $this->marketplaceRepository->getByErpId($marketplaceErpId);
+        $userId = auth()->user()->getAuthIdentifier();
+        $marketplace = $this->marketplaceRepository->getByErpId($marketplaceErpId, $userId);
+
         $commission = $this->commissionRepository->get(
             $marketplace,
-            $item->product
+            $item->product->getCategoryId()
         );
 
         return $this->calculatePrice->calculate(

@@ -6,7 +6,7 @@ trait SaleOrderScopes
 {
     public function scopeValid($query)
     {
-        return $query->where('status', '<>', 'Cancelado');
+        return $query->where('status', '<>', 'Cancelado')->where('store_id', '<>', '');
     }
 
     public function scopeInDateInterval($query, $beginDate, $endDate)
