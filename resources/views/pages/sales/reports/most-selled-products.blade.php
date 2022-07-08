@@ -1,6 +1,6 @@
 <x-layout>
-    <x-slot name="header">
-        Produtos mais vendidos
+    <x-slot name="navbar">
+        <x-app.sales.navbar />
     </x-slot>
 
     <div class="container">

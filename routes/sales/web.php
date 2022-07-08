@@ -6,17 +6,17 @@ use Src\Sales\Infrastructure\Laravel\Http\Controllers\Web\ReportsController;
 use Src\Sales\Infrastructure\Laravel\Http\Controllers\Web\SyncController;
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('sales')
+    Route::prefix('vendas')
         ->name('sales')
         ->group(function () {
-            Route::get('/list', [ListController::class, 'list'])->name('.list');
-            Route::get('/show', [ListController::class, 'show'])->name('.show');
+            Route::get('/lista', [ListController::class, 'list'])->name('.list');
+            Route::get('/detalhes/{saleId}', [ListController::class, 'show'])->name('.show');
             Route::post('/sync', [SyncController::class, 'sync'])->name('.sync');
 
-            Route::prefix('/reports')
+            Route::prefix('/relatorios')
                 ->name('.reports')
                 ->group(function () {
-                    Route::get('/most-selled-products', [ReportsController::class, 'mostSelledProducts'])
+                    Route::get('/produtos-mais-vendidos', [ReportsController::class, 'mostSelledProducts'])
                         ->name('.mostSelledProducts');
                 });
         });
