@@ -6,7 +6,7 @@ use Src\Sales\Domain\DataTransfer\ListSalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListMetadata;
 use Src\Sales\Domain\Models\SaleOrder;
 
-class MetadataSales
+class SalesMetadata
 {
     public function __construct(
         private readonly MarketplacesSalesCount $marketplaceSalesCount

@@ -9,7 +9,7 @@ use Src\Sales\Infrastructure\Laravel\Repositories\Queries\SalesQuery;
 class SalesList
 {
     public function __construct(
-        private readonly MetadataSales $metadataSales
+        private readonly SalesMetadata $metadataSales
     )
     {
     }
