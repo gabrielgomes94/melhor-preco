@@ -7,7 +7,7 @@ use Src\Sales\Domain\Models\Item;
 
 class SaleItemsCollection
 {
-    public readonly array $saleItems;
+    public array $saleItems = [];
 
     public function __construct(array $saleItems)
     {
