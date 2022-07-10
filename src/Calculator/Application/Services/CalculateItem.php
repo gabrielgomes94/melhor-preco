@@ -3,6 +3,7 @@
 namespace Src\Calculator\Application\Services;
 
 use Src\Calculator\Domain\Models\Price\Contracts\Price;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
@@ -28,8 +29,13 @@ class CalculateItem implements CalculateItemInterface
     public function calculate(Item $item): Price
     {
         $marketplaceErpId = $item->saleOrder->getIdentifiers()->storeId() ?? '';
+
         $userId = auth()->user()->getAuthIdentifier();
         $marketplace = $this->marketplaceRepository->getByErpId($marketplaceErpId, $userId);
+
+        if (!$marketplace) {
+            throw new MarketplaceNotFoundException($marketplaceErpId);
+        }
 
         $commission = $this->commissionRepository->get(
             $marketplace,

@@ -20,7 +20,7 @@ class ListController extends Controller
     public function list(Request $request)
     {
         $options = $this->getFilter($request);
-        $listReport = $this->salesReportsRepository->list($options);
+        $listReport = $this->salesReportsRepository->listSales($options);
         $data = $this->listSalesReport->present($listReport);
 
         return view('pages.sales.list', $data);
