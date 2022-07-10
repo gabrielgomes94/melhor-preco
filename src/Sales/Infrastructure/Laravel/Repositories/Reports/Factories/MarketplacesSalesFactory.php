@@ -1,15 +1,15 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
+namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories;
 
-use Carbon\Carbon;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\DataTransfer\ListSalesFilter;
-use Src\Sales\Domain\DataTransfer\Reports\MarketplaceSalesReport;
+use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
+use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 use Src\Sales\Domain\Models\SaleOrder;
 
-class MarketplacesSalesCount
+class MarketplacesSalesFactory
 {
     public function __construct(
         private readonly MarketplaceRepository $marketplaceRepository
@@ -18,7 +18,7 @@ class MarketplacesSalesCount
     }
 
     /*
-     * @return MarketplaceSalesReport[]
+     * @return MarketplaceSaleItems[]
      */
     public function report(ListSalesFilter $options): array
     {
@@ -34,10 +34,13 @@ class MarketplacesSalesCount
                     )
                     ->defaultOrder();
 
-                return new MarketplaceSalesReport(
+                return new MarketplaceSales(
                     $marketplace,
-                    $query->where('store_id', $marketplace->getErpId())
-                        ->count()
+                    new SaleItemsCollection(
+                        $query->where('store_id', $marketplace->getErpId())
+                        ->get()
+                        ->toArray()
+                    )
                 );
             })->all();
     }

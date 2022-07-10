@@ -5,7 +5,7 @@ namespace Src\Sales\Infrastructure\Laravel\Presenters;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Math\MathPresenter;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
-use Src\Sales\Domain\DataTransfer\Reports\MarketplaceSalesReport;
+use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 
 class ListSalesReport
@@ -48,13 +48,13 @@ class ListSalesReport
         $marketplacesCount = collect($marketplacesCount);
 
         return $marketplacesCount->mapWithKeys(
-            function(MarketplaceSalesReport $report) {
+            function(MarketplaceSales $report) {
                 $marketplace = $report->marketplace;
                 $slug = $marketplace->getSlug();
 
                 return [
                     $slug => [
-                        'count' => $report->salesCount,
+                        'count' => collect($report->sales->get())->count(),
                         'name' => $marketplace->getName(),
                     ],
                 ];

@@ -11,7 +11,7 @@ class MarketplaceSlugAlreadyExists extends Exception
     {
         $slug = $marketplace->getSlug();
         $userId = $marketplace->getUserId();
-        $message = "Marketplace slug $slug already exists for user $userId";
+        $message = "Marketplaces slug $slug already exists for user $userId";
 
         parent::__construct($message);
     }

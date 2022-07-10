@@ -7,16 +7,18 @@ use Src\Sales\Domain\Models\Item;
 
 class SaleItemsCollection
 {
-    public readonly Collection $saleItems;
+    public readonly array $saleItems;
 
-    public function __construct(Collection $saleItems){
-
-        $this->saleItems = $saleItems->map(function (Item $saleItem) {
-            return $saleItem;
-        });
+    public function __construct(array $saleItems)
+    {
+        foreach ($saleItems as $saleItem) {
+            if ($saleItem instanceof Item) {
+                $this->saleItems[] = $saleItem;
+            }
+        }
     }
 
-    public function get(): Collection
+    public function get(): array
     {
         return $this->saleItems;
     }

@@ -35,7 +35,7 @@ class SynchronizeFromMarketplace
         );
 
         $count = count($prices->data());
-        Log::info("Marketplace {$marketplace->getName()} - $count preços");
+        Log::info("Marketplaces {$marketplace->getName()} - $count preços");
 
         if (empty($prices->data())) {
             return false;

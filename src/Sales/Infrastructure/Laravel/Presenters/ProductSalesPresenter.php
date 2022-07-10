@@ -4,8 +4,8 @@ namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
 use Src\Math\Money;
 use Src\Math\Percentage;
-use Src\Sales\Domain\DataTransfer\Reports\ProductSales;
-use Src\Sales\Domain\DataTransfer\Reports\ProductSalesCollection;
+use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
+use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSalesCollection;
 
 class ProductSalesPresenter
 {

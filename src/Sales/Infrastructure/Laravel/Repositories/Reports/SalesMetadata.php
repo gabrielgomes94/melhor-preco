@@ -5,11 +5,12 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
 use Src\Sales\Domain\DataTransfer\ListSalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListMetadata;
 use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\MarketplacesSalesFactory;
 
 class SalesMetadata
 {
     public function __construct(
-        private readonly MarketplacesSalesCount $marketplaceSalesCount
+        private readonly MarketplacesSalesFactory $marketplaceSalesCount
     )
     {
     }

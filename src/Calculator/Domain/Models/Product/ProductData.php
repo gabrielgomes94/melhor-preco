@@ -9,7 +9,7 @@ use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 /**
- * @depreacted Remover essa classe da aplicação. Utilizar Products/Product no lugar.
+ * @depreacted Remover essa classe da aplicação. Utilizar Products/Products no lugar.
  */
 class ProductData implements ProductDataInterface
 {
