@@ -19,24 +19,12 @@ class ListController extends Controller
 
     public function list(Request $request)
     {
-        $options = $this->getFilter($request);
-        $listReport = $this->salesReportsRepository->listSales($options);
+        $listReport = $this->salesReportsRepository->listSales(
+            $request->transform()
+        );
         $data = $this->listSalesReport->present($listReport);
 
         return view('pages.sales.list', $data);
-    }
-
-    private function getFilter(Request $request)
-    {
-        return new ListSalesFilter(
-            [
-                'beginDate' => $request->input('beginDate'),
-                'endDate' => $request->input('endDate'),
-                'page' => (int) $request->input('page') ?? 1,
-                'url' => $request->fullUrlWithQuery($request->query()),
-                'userId' => auth()->user()->getAuthIdentifier(),
-            ]
-        );
     }
 
     /**
