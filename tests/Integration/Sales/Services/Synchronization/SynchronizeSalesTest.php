@@ -5,7 +5,7 @@ namespace Tests\Integration\Sales\Services\Synchronization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Src\Sales\Domain\Models\SaleOrder;
-use Src\Sales\Infrastructure\Laravel\Services\Synchronization\SynchronizeSales;
+use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Products\ProductData;

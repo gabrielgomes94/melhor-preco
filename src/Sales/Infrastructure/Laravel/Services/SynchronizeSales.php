@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Services\Synchronization;
+namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Exception;
 use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
@@ -10,7 +10,7 @@ use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
-use Src\Sales\Infrastructure\Laravel\Services\Synchronization\CalculateTotalProfit;
+use Src\Sales\Infrastructure\Laravel\Services\CalculateTotalProfit;
 
 class SynchronizeSales
 {
