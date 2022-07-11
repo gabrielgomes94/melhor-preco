@@ -20,11 +20,6 @@ class SaleOrder
             $items[] = Item::make($item);
         }
 
-        foreach ($model->payments ?? [] as $payment)
-        {
-            $instalments[] = PaymentInstallment::make($payment);
-        }
-
         return new SaleOrderData(
             identifiers: new Identifiers(
                 id: $model->sale_order_id,

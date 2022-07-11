@@ -2,7 +2,6 @@
 
 namespace Src\Sales\Domain\Models\Contracts;
 
-//use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection;
 use Src\Sales\Domain\Models\ValueObjects\Customer\Customer;
 use Src\Sales\Domain\Models\ValueObjects\Identifiers\Identifiers;
@@ -21,14 +20,9 @@ interface SaleOrder
 
     public function getIdentifiers(): Identifiers;
 
-    /**
-     * @return Collection<Item>
-     */
     public function getItems(): Items;
 
     public function getInvoice(): ?InvoiceData;
-
-    public function getPayment(): ?Payment;
 
     public function getSaleDates(): SaleDates;
 

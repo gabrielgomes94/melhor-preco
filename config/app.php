@@ -230,7 +230,6 @@ return [
         /**
          * Sales' module Service Providers...
          */
-        Src\Sales\Infrastructure\Laravel\Providers\SalesServiceProvider::class,
         Src\Sales\Infrastructure\Laravel\Providers\EventServiceProvider::class,
         Src\Sales\Infrastructure\Laravel\Providers\ServiceProvider::class,
         Src\Sales\Infrastructure\Logging\ServiceProvider::class,
