@@ -4,17 +4,9 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Domain\Events\CustomerSynchronized;
-use Src\Sales\Domain\Factories\Address as AddressFactory;
-use Src\Sales\Domain\Factories\Customer as CustomerFactory;
-use Src\Sales\Domain\Factories\Invoice as InvoiceFactory;
-use Src\Sales\Domain\Factories\Item;
-use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
-use Src\Sales\Domain\Factories\Shipment;
-use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
-use Src\Sales\Infrastructure\Laravel\Models\Customer as CustomerModel;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
+use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 
 class SaleOrderRepository implements SaleOrderRepositoryInterface
 {
@@ -52,75 +44,64 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
             );
     }
 
-    public function syncCustomer(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
+    public function syncCustomer(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         $customer = $externalSaleOrder->getCustomer();
-        $fiscalId = $customer->getFiscalId();
+        $address = $customer->getAddress();
+        $customer->save();
+        $customer->address()->save($address);
 
-        if (!$customerModel = CustomerModel::where('fiscal_id', $fiscalId)->first()) {
-            $address = AddressFactory::makeModel($customer->getAddress());
-
-            $customerModel = CustomerFactory::makeModel($customer);
-            $customerModel->save();
-            $customerModel->address()->save($address);
-        }
-
-        $internalSaleOrder->customer()->associate($customerModel);
+        $internalSaleOrder->customer()->associate($customer);
+        $internalSaleOrder->save();
     }
 
 
-    public function syncInvoice(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
+    public function syncInvoice(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         if (!$invoice = $externalSaleOrder->getInvoice()) {
             return;
         }
 
-        $invoice = InvoiceFactory::makeModel($invoice);
         $internalSaleOrder->invoice()->save($invoice);
     }
 
-    public function syncItems(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
+    public function syncItems(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         foreach ($externalSaleOrder->getItems() as $item) {
-            $itemModel = Item::makeModel($item);
-
-            $internalSaleOrder->items()->save($itemModel);
+            $internalSaleOrder->items()->save($item);
         }
     }
 
-    public function syncShipment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
+    public function syncShipment(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
     {
         if (!$shipment = $externalSaleOrder->getShipment()) {
             return;
         }
 
-        $shipmentModel = Shipment::makeModel($shipment);
-        $internalSaleOrder->shipment()->save($shipmentModel);
+        $internalSaleOrder->shipment()->save($shipment);
 
-        $shipmentAddress = AddressFactory::makeModel($shipment->getDeliveryAddress());
-        $shipmentModel->address()->save($shipmentAddress);
+        $shipmentAddress = $shipment->getAddress();
+        $shipment->address()->save($shipmentAddress);
     }
 
-    public function syncSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrder
+    public function syncSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrderInterface
     {
-        $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
+        $internalSaleOrder = $externalSaleOrder;
         $internalSaleOrder->user_id = $userId;
-
-        $internalSaleOrder->save();
 
         return $internalSaleOrder;
     }
 
-    public function updateProfit(SaleOrder $saleOrder, string $profit): bool
+    public function updateProfit(SaleOrderInterface $saleOrder, string $profit): bool
     {
         $saleOrder->total_profit = $profit;
 
         return $saleOrder->save();
     }
 
-    public function updateStatus(SaleOrder $saleOrder, string $status): bool
+    public function updateStatus(SaleOrderInterface $saleOrder, string $status): bool
     {
-        $saleOrder->status = $status;
+        $saleOrder->setStatus($status);
 
         return $saleOrder->save();
     }

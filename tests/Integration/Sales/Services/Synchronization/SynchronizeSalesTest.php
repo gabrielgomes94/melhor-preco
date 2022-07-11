@@ -3,6 +3,7 @@
 namespace Tests\Integration\Sales\Services\Synchronization;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
@@ -76,7 +77,9 @@ class SynchronizeSalesTest extends TestCase
 
     private function then_i_must_have_the_sales_persisted_in_database(): void
     {
-        $saleOrder = SaleOrder::where('user_id', $this->user->getId())->get();
+        $saleOrder = SaleOrder::where('user_id', $this->user->getId())
+            ->get();
+
         $this->assertCount(1, $saleOrder);
     }
 }

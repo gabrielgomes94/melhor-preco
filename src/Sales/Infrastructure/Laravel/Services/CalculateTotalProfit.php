@@ -12,9 +12,9 @@ use Src\Math\MoneyTransformer;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\PostRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
-use Src\Sales\Domain\Models\ValueObjects\Items\Item;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Domain\Models\Contracts\SaleOrder;
 use Src\Sales\Domain\Services\Contracts\CalculateTotalProfit as CalculateTotalProfitInterface;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Infrastructure\Logging\Logging;
 
 // @todo: simplify this class
@@ -40,7 +40,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
     public function execute(SaleOrder $saleOrder, string $userId): float
     {
         $profit = Money::BRL(0);
-        $items = $saleOrder->getItems()->get();
+        $items = $saleOrder->getItems();
 
         foreach ($items as $item) {
             $this->calculateProfit($profit, $saleOrder, $item, $userId);
@@ -51,7 +51,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
 
     private function calculateProfit(Money &$profit, SaleOrder $saleOrder, Item $item, string $userId)
     {
-        if (!$product = $this->productRepository->get($item->sku(), $userId)) {
+        if (!$product = $this->productRepository->get($item->getSku(), $userId)) {
             return;
         }
 
@@ -105,7 +105,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         );
 
         $profit = $profit->add(
-            $price->getProfit()->multiply($item->quantity())
+            $price->getProfit()->multiply($item->getQuantity())
         );
 
         return $profit;
@@ -113,8 +113,8 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
 
     private function getValue(Item $item): float
     {
-        $unitValue = MoneyTransformer::toMoney($item->unitValue());
-        $discount = MoneyTransformer::toMoney($item->discount());
+        $unitValue = MoneyTransformer::toMoney($item->getUnitValue());
+        $discount = MoneyTransformer::toMoney($item->getDiscount());
         $value = $unitValue->subtract($discount);
 
         return MoneyTransformer::toFloat($value);

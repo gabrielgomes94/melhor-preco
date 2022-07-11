@@ -6,9 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Sales\Domain\Models\Item as ItemModel;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
-use Src\Sales\Domain\Models\ValueObjects\Items\Item as ItemData;
 
 class Item extends Model
 {
@@ -71,14 +68,13 @@ class Item extends Model
         return ($this->unit_value - $this->discount) * $this->quantity;
     }
 
-    public static function fromValueObject(ItemData $item): self
+    public function getUnitValue(): float
     {
-        return new self([
-            'sku' => $item->sku(),
-            'name' => $item->name(),
-            'quantity' => $item->quantity(),
-            'unit_value' => $item->unitValue(),
-            'discount' => $item->discount(),
-        ]);
+        return $this->unit_value;
+    }
+
+    public function getDiscount(): float
+    {
+        return $this->discount;
     }
 }

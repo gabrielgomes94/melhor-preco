@@ -5,21 +5,19 @@ namespace Src\Sales\Infrastructure\Laravel\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Sales\Domain\Models\ValueObjects\Identifiers\Identifiers;
-use Src\Sales\Domain\Models\ValueObjects\Sale\SaleDates;
-use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
-use Src\Sales\Domain\Models\ValueObjects\Status\Status;
+use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
+use Src\Sales\Domain\Models\ValueObjects\SaleDates;
+use Src\Sales\Domain\Models\ValueObjects\SaleValue;
+use Src\Sales\Domain\Models\ValueObjects\Status;
 use Src\Sales\Infrastructure\Laravel\Models\Casts\IdentifiersCast;
 use Src\Sales\Infrastructure\Laravel\Models\Casts\SaleDatesCast;
 use Src\Sales\Infrastructure\Laravel\Models\Casts\SaleValueCast;
-use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderGetters;
 use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderRelationships;
 use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderScopes;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 
 class SaleOrder extends Model implements SaleOrderInterface
 {
-    use SaleOrderGetters;
     use SaleOrderRelationships;
     use SaleOrderScopes;
 
@@ -29,7 +27,7 @@ class SaleOrder extends Model implements SaleOrderInterface
         'dispatched_at' => 'datetime',
         'expected_arrival_at' => 'datetime',
         'identifiers' => IdentifiersCast::class,
-        'value' => SaleValueCast::class,
+        'sale_values' => SaleValueCast::class,
         'sale_dates' => SaleDatesCast::class,
     ];
 
@@ -50,14 +48,29 @@ class SaleOrder extends Model implements SaleOrderInterface
         'total_value',
     ];
 
-    public function getIdentifiers(): Identifiers
+    public function getCustomer(): Customer
+    {
+        return $this->customer;
+    }
+
+    public function getIdentifiers(): SaleIdentifiers
     {
         return $this->identifiers;
     }
 
+    public function getItems(): array
+    {
+        return $this->items->all();
+    }
+
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
     public function getSaleValue(): SaleValue
     {
-        return $this->value;
+        return $this->sale_values;
     }
 
     public function getSaleDates(): SaleDates
@@ -80,6 +93,11 @@ class SaleOrder extends Model implements SaleOrderInterface
         return $this->selled_at;
     }
 
+    public function getShipment(): ?Shipment
+    {
+        return $this->shipment;
+    }
+
     public function getLastUpdate(): Carbon
     {
         return $this->getSaleDates()->selledAt();
@@ -88,5 +106,10 @@ class SaleOrder extends Model implements SaleOrderInterface
     public function getStatus(): Status
     {
         return new Status($this->status);
+    }
+
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
     }
 }

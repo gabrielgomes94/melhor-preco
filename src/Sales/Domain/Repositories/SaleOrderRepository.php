@@ -3,10 +3,8 @@
 namespace Src\Sales\Domain\Repositories;
 
 use Carbon\Carbon;
-//use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Domain\Models\Contracts\SaleOrder;
 
 interface SaleOrderRepository
 {
@@ -16,15 +14,15 @@ interface SaleOrderRepository
 
     public function listPaginate(SalesFilter $options);
 
-    public function syncCustomer(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
+    public function syncCustomer(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function syncInvoice(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
+    public function syncInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function syncItems(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
+    public function syncItems(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function syncSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrder;
+    public function syncSaleOrder(SaleOrder $externalSaleOrder, string $userId): SaleOrder;
 
-    public function syncShipment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
+    public function syncShipment(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
     public function updateProfit(SaleOrder $saleOrder, string $profit): bool;
 

@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Models\Casts;
 
 use Exception;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
+use Src\Sales\Domain\Models\ValueObjects\SaleValue;
 
 class SaleValueCast implements CastsAttributes
 {

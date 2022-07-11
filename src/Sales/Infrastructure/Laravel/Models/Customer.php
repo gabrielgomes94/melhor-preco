@@ -5,8 +5,6 @@ namespace Src\Sales\Infrastructure\Laravel\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
-use Src\Sales\Infrastructure\Laravel\Models\Address;
 
 class Customer extends Model
 {
@@ -28,6 +26,11 @@ class Customer extends Model
         return $this->morphOne(related: Address::class, name: 'addressable');
     }
 
+    public function getAddress(): Address
+    {
+        return $this->address;
+    }
+
     public function saleOrders(): HasMany
     {
         return $this->hasMany(SaleOrder::class);
@@ -36,5 +39,10 @@ class Customer extends Model
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getFiscalId(): string
+    {
+        return $this->fiscal_id;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Domain\Services\Contracts;
 
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Domain\Models\Contracts\SaleOrder;
 
 interface CalculateTotalProfit
 {

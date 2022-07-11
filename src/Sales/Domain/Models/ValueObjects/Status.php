@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Models\ValueObjects\Status;
+namespace Src\Sales\Domain\Models\ValueObjects;
 
 class Status
 {

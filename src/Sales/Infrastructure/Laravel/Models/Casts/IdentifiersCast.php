@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Models\Casts;
 
 use Exception;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Src\Sales\Domain\Models\ValueObjects\Identifiers\Identifiers;
+use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 
 class IdentifiersCast implements CastsAttributes
 {
@@ -13,7 +13,7 @@ class IdentifiersCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        return new Identifiers(
+        return new SaleIdentifiers(
             id: $model->sale_order_id,
             purchaseOrderId: $model->purchase_order_id,
             integration: $model->integration,
@@ -27,7 +27,7 @@ class IdentifiersCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        if (!$value instanceof Identifiers) {
+        if (!$value instanceof SaleIdentifiers) {
             throw new Exception('Invalid type of value');
         }
 

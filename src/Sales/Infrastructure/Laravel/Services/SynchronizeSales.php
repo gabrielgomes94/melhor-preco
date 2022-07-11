@@ -3,6 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
@@ -13,8 +14,8 @@ use Src\Users\Domain\Repositories\Repository as UserRepository;
 class SynchronizeSales
 {
     public function __construct(
-        private readonly CalculateTotalProfit         $calculateTotalProfit,
-        private readonly ErpRepository                $erpRepository,
+        private readonly CalculateTotalProfit$calculateTotalProfit,
+        private readonly ErpRepository $erpRepository,
         private readonly SaleOrderRepositoryInterface $saleOrderRepository,
         private readonly UserRepository $userRepository
     ) {
@@ -53,14 +54,17 @@ class SynchronizeSales
 
     private function insertSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): void
     {
-        $internalSaleOrder = $this->saleOrderRepository->syncSaleOrder($externalSaleOrder, $userId);
+        DB::transaction(function () use ($externalSaleOrder, $userId) {
+            $internalSaleOrder = $this->saleOrderRepository->syncSaleOrder($externalSaleOrder, $userId);
+            $this->saleOrderRepository->syncCustomer($internalSaleOrder, $externalSaleOrder);
 
-        $this->saleOrderRepository->syncCustomer($internalSaleOrder, $externalSaleOrder);
-        $this->saleOrderRepository->syncInvoice($internalSaleOrder, $externalSaleOrder);
-        $this->saleOrderRepository->syncShipment($internalSaleOrder, $externalSaleOrder);
+            $this->saleOrderRepository->syncInvoice($internalSaleOrder, $externalSaleOrder);
+            $this->saleOrderRepository->syncShipment($internalSaleOrder, $externalSaleOrder);
 
-        $profit = $this->calculateTotalProfit->execute($internalSaleOrder, $userId);
-        $this->saleOrderRepository->updateProfit($internalSaleOrder, $profit);
+            $profit = $this->calculateTotalProfit->execute($internalSaleOrder, $userId);
+
+            $this->saleOrderRepository->updateProfit($internalSaleOrder, $profit);
+        });
     }
 
     private function updateSaleOrder(SaleOrder $saleOrder, SaleOrderInterface $externalSaleOrder, string $userId): void

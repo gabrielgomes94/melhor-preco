@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Models\ValueObjects\Sale;
+namespace Src\Sales\Domain\Models\ValueObjects;
 
 class SaleValue
 {

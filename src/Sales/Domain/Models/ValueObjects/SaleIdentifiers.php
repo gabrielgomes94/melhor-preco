@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Sales\Domain\Models\ValueObjects\Identifiers;
+namespace Src\Sales\Domain\Models\ValueObjects;
 
-class Identifiers
+class SaleIdentifiers
 {
     private string $id;
     private ?string $purchaseOrderId;

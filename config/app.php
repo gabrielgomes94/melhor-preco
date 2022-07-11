@@ -189,7 +189,7 @@ return [
         /**
          * Dashboard module Service Provier
          */
-        \Src\Users\Infrastructure\Laravel\Providers\UseCasesServiceProvider::class,
+        \Src\Users\Infrastructure\Laravel\Providers\UsersServiceProvider::class,
 
         /**
          * Notifications' module Service Providers...

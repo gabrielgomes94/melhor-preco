@@ -4,8 +4,6 @@ namespace Src\Sales\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Src\Sales\Domain\Factories\Address as AddressFactory;
-use Src\Sales\Domain\Models\ValueObjects\Address\Address as AddressData;
 
 class Address extends Model
 {
@@ -24,10 +22,5 @@ class Address extends Model
     public function addressable(): MorphTo
     {
         return $this->morphTo();
-    }
-
-    public function data(): AddressData
-    {
-        return AddressFactory::make($this);
     }
 }
