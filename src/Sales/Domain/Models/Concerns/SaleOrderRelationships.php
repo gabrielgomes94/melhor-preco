@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Sales\Domain\Models\Customer;
+use Src\Sales\Domain\Models\Invoice;
 use Src\Sales\Domain\Models\Item;
 use Src\Sales\Domain\Models\Shipment;
 
@@ -19,7 +20,7 @@ trait SaleOrderRelationships
 
     public function invoice(): HasOne
     {
-        return $this->hasOne(\Src\Sales\Domain\Models\Invoice::class);
+        return $this->hasOne(Invoice::class);
     }
 
     public function items(): HasMany
@@ -30,11 +31,6 @@ trait SaleOrderRelationships
     public function marketplace(): BelongsTo
     {
         return $this->belongsTo(Marketplace::class, 'store_id', 'erp_id');
-    }
-
-    public function payment(): HasMany
-    {
-        return $this->hasMany(\Src\Sales\Domain\Models\PaymentInstallment::class);
     }
 
     public function shipment(): HasOne

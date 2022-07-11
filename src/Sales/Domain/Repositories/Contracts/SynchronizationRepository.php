@@ -10,8 +10,6 @@ interface SynchronizationRepository
 {
     public function insert(SaleOrderData $externalSaleOrder, string $userId): SaleOrder;
 
-    public static function syncPayment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
-
     public static function syncInvoice(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
 
     public static function syncShipment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;

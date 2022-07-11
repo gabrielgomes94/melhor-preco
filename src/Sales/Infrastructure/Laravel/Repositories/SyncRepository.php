@@ -5,12 +5,10 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 use Src\Sales\Domain\Events\CustomerSynchronized;
 use Src\Sales\Domain\Events\InvoiceSynchronized;
 use Src\Sales\Domain\Events\ItemSynchronized;
-use Src\Sales\Domain\Events\PaymentSynchronized;
 use Src\Sales\Domain\Events\ShipmentSynchronized;
 use Src\Sales\Domain\Factories\Address as AddressFactory;
 use Src\Sales\Domain\Factories\Invoice as InvoiceFactory;
 use Src\Sales\Domain\Factories\Item;
-use Src\Sales\Domain\Factories\PaymentInstallment as PaymentInstallmentFactory;
 use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
 use Src\Sales\Domain\Factories\Shipment;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
@@ -34,24 +32,6 @@ class SyncRepository implements SynchronizationRepository
         }
 
         return $internalSaleOrder;
-    }
-
-    /**
-     * @deprecated
-     */
-    public static function syncPayment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
-    {
-        if (!$payment = $externalSaleOrder->getPayment()) {
-            return;
-        }
-
-        foreach ($payment->get() as $installment) {
-            $installmentModel = PaymentInstallmentFactory::makeModel($installment);
-
-            if ($internalSaleOrder->payment()->save($installmentModel))  {
-                event(new PaymentSynchronized($installmentModel->id));
-            }
-        }
     }
 
     /**

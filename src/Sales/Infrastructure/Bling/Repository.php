@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Bling;
 
 use Src\Integrations\Bling\SaleOrders\Client;
-use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
+use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Infrastructure\Bling\Responses\ResponseFactory;
 
 class Repository implements ErpRepository

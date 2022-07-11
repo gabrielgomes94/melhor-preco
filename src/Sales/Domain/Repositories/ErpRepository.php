@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Repositories\Contracts;
+namespace Src\Sales\Domain\Repositories;
 
 interface ErpRepository
 {

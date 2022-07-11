@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
 
-use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListMetadata;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\MarketplacesSalesFactory;
@@ -15,7 +15,7 @@ class SalesMetadata
     {
     }
 
-    public function report(ListSalesFilter $options): ListMetadata
+    public function report(SalesFilter $options): ListMetadata
     {
         $salesQuery = SaleOrder::valid()
             ->inDateInterval($options->getBeginDate(), $options->getEndDate())

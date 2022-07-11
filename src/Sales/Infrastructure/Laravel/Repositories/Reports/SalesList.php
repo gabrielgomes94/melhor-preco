@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
 
-use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
 use Src\Sales\Infrastructure\Laravel\Repositories\Queries\SalesQuery;
 
@@ -14,7 +14,7 @@ class SalesList
     {
     }
 
-    public function report(ListSalesFilter $options): ListReport
+    public function report(SalesFilter $options): ListReport
     {
         $metadata = $this->metadataSales->report($options);
         $salesQuery = SalesQuery::salesInInterval($options);

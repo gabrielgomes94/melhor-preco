@@ -11,7 +11,6 @@ use Src\Sales\Domain\Events\CustomerSynchronized;
 use Src\Sales\Domain\Events\InvoiceSynchronized;
 use Src\Sales\Domain\Events\ItemSynchronized;
 use Src\Sales\Domain\Events\ItemWasNotSynchronized;
-use Src\Sales\Domain\Events\PaymentSynchronized;
 use Src\Sales\Domain\Events\SaleSynchronized;
 use Src\Sales\Domain\Events\ShipmentSynchronized;
 

@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
-use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Repositories\SalesReportsRepository;
 
 class GetProductReport
@@ -23,7 +23,7 @@ class GetProductReport
             product: $data['product'],
             salesReport: $this->salesReportsRepository->listProductSales(
                 $sku,
-                new ListSalesFilter([
+                new SalesFilter([
                     'page' => 1,
                     'userId' => $userId,
                 ])

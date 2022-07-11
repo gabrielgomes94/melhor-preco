@@ -6,7 +6,7 @@ use Exception;
 use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\SaleOrder;
-use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
+use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository;

@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 
 class SalesReportsRequest extends FormRequest
 {
@@ -17,9 +17,9 @@ class SalesReportsRequest extends FormRequest
         return [];
     }
 
-    public function transform(): ListSalesFilter
+    public function transform(): SalesFilter
     {
-        return new ListSalesFilter(
+        return new SalesFilter(
             [
                 'beginDate' => $this->input('beginDate') ?? null,
                 'endDate' => $this->input('endDate') ?? null,

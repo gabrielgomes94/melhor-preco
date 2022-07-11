@@ -7,7 +7,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
@@ -25,7 +25,7 @@ class ProductSalesList
     ) {
     }
 
-    public function report(string $sku, ListSalesFilter $options): ProductSalesReport
+    public function report(string $sku, SalesFilter $options): ProductSalesReport
     {
         $product = $this->repository->get($sku, $options->getUserId());
 

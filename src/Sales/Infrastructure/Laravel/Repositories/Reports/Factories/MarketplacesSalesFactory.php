@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 use Src\Sales\Domain\Models\SaleOrder;
@@ -20,7 +20,7 @@ class MarketplacesSalesFactory
     /*
      * @return MarketplaceSaleItems[]
      */
-    public function report(ListSalesFilter $options): array
+    public function report(SalesFilter $options): array
     {
         $marketplaces = $this->marketplaceRepository->list($options->getUserId());
         $marketplaces = collect($marketplaces);

@@ -8,6 +8,9 @@ use Src\Sales\Domain\Models\Customer as CustomerModel;
 use Src\Sales\Domain\Models\ValueObjects\Customer\Customer as CustomerData;
 use Src\Sales\Domain\Repositories\Contracts\CustomerRepository as CustomerRepositoryInterface;
 
+/**
+ * @deprecated
+ */
 class CustomerRepository implements CustomerRepositoryInterface
 {
     public static function create(CustomerData $customer): CustomerModel

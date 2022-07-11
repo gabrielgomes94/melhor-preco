@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
+use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Infrastructure\Bling\Repository;
 
 class SalesServiceProvider extends ServiceProvider

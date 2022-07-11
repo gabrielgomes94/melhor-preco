@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Src\Sales\Infrastructure\Laravel\Services\CalculateTotalProfit;
 use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
-use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
+use Src\Sales\Domain\Repositories\ErpRepository;
 
 class SyncSales implements ShouldQueue
 {

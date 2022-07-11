@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
 
 use Illuminate\Support\Collection;
-use Src\Sales\Domain\DataTransfer\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSalesCollection;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
@@ -21,7 +21,7 @@ class MostSelledProducts
     /**
      * @return ProductSalesFactory[]
      */
-    public function report(ListSalesFilter $options): ProductSalesCollection
+    public function report(SalesFilter $options): ProductSalesCollection
     {
         $items = $this->itemsRepository->groupSaleItemsByProduct($options);
 

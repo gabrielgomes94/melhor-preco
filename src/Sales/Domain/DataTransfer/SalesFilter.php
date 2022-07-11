@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter as ListSalesFilterInterface;
 
-class ListSalesFilter implements ListSalesFilterInterface
+class SalesFilter implements ListSalesFilterInterface
 {
     private const DATE_FORMAT = 'd/m/Y';
 
