@@ -10,10 +10,7 @@ use Src\Sales\Infrastructure\Laravel\Repositories\Reports\MostSelledProducts;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\ProductSalesList;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\SalesList;
 
-/**
- * @deprecated
- */
-class SalesReportsRepository
+class ReportsRepository
 {
     public function __construct(
         private readonly MostSelledProducts $mostSelledProducts,

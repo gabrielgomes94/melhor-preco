@@ -7,13 +7,13 @@ use App\Http\Controllers\Controller;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Http\Requests\SalesReportsRequest;
 use Src\Sales\Infrastructure\Laravel\Presenters\ListSalesReport;
-use Src\Sales\Infrastructure\Laravel\Repositories\SalesReportsRepository;
+use Src\Sales\Infrastructure\Laravel\Repositories\ReportsRepository;
 
 class ListController extends Controller
 {
     public function __construct(
-        private readonly SalesReportsRepository $salesReportsRepository,
-        private readonly ListSalesReport $listSalesReport
+        private readonly ReportsRepository $salesReportsRepository,
+        private readonly ListSalesReport   $listSalesReport
     )
     {
     }
