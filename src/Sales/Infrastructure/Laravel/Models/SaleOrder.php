@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Sales\Domain\Models;
+namespace Src\Sales\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Src\Sales\Domain\Models\Concerns\SaleOrderGetters;
-use Src\Sales\Domain\Models\Concerns\SaleOrderRelationships;
-use Src\Sales\Domain\Models\Concerns\SaleOrderScopes;
+use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderGetters;
+use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderRelationships;
+use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderScopes;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 
 class SaleOrder extends Model implements SaleOrderInterface

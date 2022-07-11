@@ -6,7 +6,7 @@ use Carbon\Carbon;
 //use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
-use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 
 interface SaleOrderRepository
 {

@@ -1,12 +1,13 @@
 <?php
 
-namespace Src\Sales\Domain\Models;
+namespace Src\Sales\Infrastructure\Laravel\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Sales\Domain\Models\Item as ItemModel;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item as ItemData;
 
 class Item extends Model

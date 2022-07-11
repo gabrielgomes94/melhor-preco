@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Models\Concerns;
+namespace Src\Sales\Infrastructure\Laravel\Models\Concerns;
 
 trait SaleOrderScopes
 {

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Src\Sales\Domain\Events\Contracts\ModelSynchronized;
-use Src\Sales\Domain\Models\Shipment;
+use Src\Sales\Infrastructure\Laravel\Models\Shipment;
 
 class ShipmentSynchronized implements ModelSynchronized
 {

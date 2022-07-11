@@ -2,7 +2,7 @@
 
 namespace Src\Calculator\Domain\Services\Contracts;
 
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 interface CalculateItem extends CalculatorOptions
 {

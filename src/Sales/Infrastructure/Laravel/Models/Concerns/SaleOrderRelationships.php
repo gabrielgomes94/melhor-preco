@@ -1,15 +1,15 @@
 <?php
 
-namespace Src\Sales\Domain\Models\Concerns;
+namespace Src\Sales\Infrastructure\Laravel\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Sales\Domain\Models\Customer;
-use Src\Sales\Domain\Models\Invoice;
-use Src\Sales\Domain\Models\Item;
-use Src\Sales\Domain\Models\Shipment;
+use Src\Sales\Infrastructure\Laravel\Models\Customer;
+use Src\Sales\Infrastructure\Laravel\Models\Invoice;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Shipment;
 
 trait SaleOrderRelationships
 {

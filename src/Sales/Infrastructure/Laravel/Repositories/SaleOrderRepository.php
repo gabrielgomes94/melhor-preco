@@ -12,8 +12,8 @@ use Src\Sales\Domain\Factories\Item;
 use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
 use Src\Sales\Domain\Factories\Shipment;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
-use Src\Sales\Domain\Models\Customer as CustomerModel;
-use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Infrastructure\Laravel\Models\Customer as CustomerModel;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
 
 class SaleOrderRepository implements SaleOrderRepositoryInterface

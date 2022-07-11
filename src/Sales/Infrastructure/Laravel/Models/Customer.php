@@ -1,10 +1,12 @@
 <?php
 
-namespace Src\Sales\Domain\Models;
+namespace Src\Sales\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Infrastructure\Laravel\Models\Address;
 
 class Customer extends Model
 {

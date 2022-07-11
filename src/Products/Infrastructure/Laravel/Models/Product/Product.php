@@ -19,7 +19,7 @@ use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
 use Src\Products\Domain\Models\Product\ValueObjects\Variations\Variations;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class Product extends Model implements ProductModelInterface
 {

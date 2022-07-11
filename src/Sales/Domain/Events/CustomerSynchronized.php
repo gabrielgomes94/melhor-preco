@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Src\Sales\Domain\Events\Contracts\ModelSynchronized;
-use Src\Sales\Domain\Models\Customer;
+use Src\Sales\Infrastructure\Laravel\Models\Customer;
 
 class CustomerSynchronized implements ModelSynchronized
 {

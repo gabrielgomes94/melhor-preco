@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Domain\Factories;
 
-use Src\Sales\Domain\Models\Customer as CustomerModel;
+use Src\Sales\Infrastructure\Laravel\Models\Customer as CustomerModel;
 use Src\Sales\Domain\Models\ValueObjects\Customer\Customer as CustomerData;
 
 class Customer

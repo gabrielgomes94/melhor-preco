@@ -9,7 +9,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculateItem as CalculateItemInterface;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 /**
  * @todo: talvez valha a pena contextualizar esse serviço em Sales

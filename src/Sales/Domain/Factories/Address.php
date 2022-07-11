@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Domain\Factories;
 
-use Src\Sales\Domain\Models\Address as AddressModel;
+use Src\Sales\Infrastructure\Laravel\Models\Address as AddressModel;
 use Src\Sales\Domain\Models\ValueObjects\Address\Address as AddressData;
 
 class Address

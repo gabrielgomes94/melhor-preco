@@ -13,7 +13,7 @@ use Src\Sales\Domain\Models\ValueObjects\Sale\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
 use Src\Sales\Domain\Models\ValueObjects\Shipment\Shipment as ShipmentData;
 use Src\Sales\Domain\Models\ValueObjects\Status\Status;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 interface SaleOrder
 {

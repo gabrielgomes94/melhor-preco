@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\Factories;
 
 use Src\Sales\Domain\Models\ValueObjects\Items\Item as ItemData;
-use Src\Sales\Domain\Models\Item as ItemModel;
+use Src\Sales\Infrastructure\Laravel\Models\Item as ItemModel;
 
 class Item
 {

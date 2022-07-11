@@ -4,7 +4,7 @@ namespace Src\Sales\Domain\DataTransfer;
 
 use Illuminate\Support\Collection;
 use Src\Sales\Domain\Models\Contracts\SaleOrder;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class SaleOrdersCollection extends Collection
 {

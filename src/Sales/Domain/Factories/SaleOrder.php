@@ -10,7 +10,7 @@ use Src\Sales\Domain\Models\ValueObjects\Sale\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\Sale\SaleValue;
 use Src\Sales\Infrastructure\Bling\Data\SaleOrder as SaleOrderData;
 use Src\Sales\Domain\Models\ValueObjects\Status\Status;
-use Src\Sales\Domain\Models\SaleOrder as SaleOrderModel;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder as SaleOrderModel;
 
 class SaleOrder
 {

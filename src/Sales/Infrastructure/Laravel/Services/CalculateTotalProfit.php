@@ -13,7 +13,7 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\PostRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Models\ValueObjects\Items\Item;
-use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Services\Contracts\CalculateTotalProfit as CalculateTotalProfitInterface;
 use Src\Sales\Infrastructure\Logging\Logging;
 

@@ -7,7 +7,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
-use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 
 class MarketplacesSalesFactory
 {

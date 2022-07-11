@@ -4,7 +4,7 @@ namespace Src\Sales\Domain\Factories;
 
 use Src\Sales\Domain\Models\ValueObjects\Invoice\Invoice as InvoiceData;
 use Src\Sales\Domain\Models\ValueObjects\Invoice\NullInvoice;
-use Src\Sales\Domain\Models\Invoice as InvoiceModel;
+use Src\Sales\Infrastructure\Laravel\Models\Invoice as InvoiceModel;
 
 class Invoice
 {

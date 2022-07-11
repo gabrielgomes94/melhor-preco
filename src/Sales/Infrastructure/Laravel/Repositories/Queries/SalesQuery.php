@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 
 class SalesQuery
 {

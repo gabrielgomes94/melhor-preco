@@ -5,7 +5,7 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Domain\Repositories\SaleItemsRepository as ItemRepositoryRepository;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 

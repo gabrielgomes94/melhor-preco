@@ -7,7 +7,7 @@ use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Products\Infrastructure\Laravel\Presenters\ProductPresenter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class ProductReportPresenter
 {
