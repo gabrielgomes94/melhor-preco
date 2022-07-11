@@ -3,17 +3,19 @@
 namespace Src\Sales\Domain\DataTransfer;
 
 use Carbon\Carbon;
-use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
+//use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter as ListSalesFilterInterface;
 
 class SalesFilter implements ListSalesFilterInterface
 {
+    public const PER_PAGE = 40;
+
     private const DATE_FORMAT = 'd/m/Y';
 
     private Carbon $beginDate;
     private Carbon $endDate;
     private int $page;
-    private int $perPage = RepositoryInterface::PER_PAGE;
+    private int $perPage = self::PER_PAGE;
     private string $url;
     private string $userId;
 

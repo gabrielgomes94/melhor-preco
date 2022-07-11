@@ -106,7 +106,6 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
         $internalSaleOrder->user_id = $userId;
 
-
         $internalSaleOrder->save();
 
         return $internalSaleOrder;

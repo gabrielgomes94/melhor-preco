@@ -4,15 +4,10 @@ namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Exception;
 use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
-use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\ErpRepository;
-use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
-use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
-use Src\Sales\Domain\Repositories\Contracts\Repository;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
-use Src\Sales\Infrastructure\Laravel\Services\CalculateTotalProfit;
 use Src\Users\Domain\Repositories\Repository as UserRepository;
 
 class SynchronizeSales
@@ -58,9 +53,7 @@ class SynchronizeSales
 
     private function insertSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): void
     {
-        $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
-        $internalSaleOrder->user_id = $userId;
-        $internalSaleOrder->save();
+        $internalSaleOrder = $this->saleOrderRepository->syncSaleOrder($externalSaleOrder, $userId);
 
         $this->saleOrderRepository->syncCustomer($internalSaleOrder, $externalSaleOrder);
         $this->saleOrderRepository->syncInvoice($internalSaleOrder, $externalSaleOrder);
