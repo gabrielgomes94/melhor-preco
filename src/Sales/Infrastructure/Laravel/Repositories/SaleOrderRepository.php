@@ -4,16 +4,19 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
+use Src\Sales\Domain\Events\CustomerSynchronized;
 use Src\Sales\Domain\Factories\Address as AddressFactory;
 use Src\Sales\Domain\Factories\Customer as CustomerFactory;
 use Src\Sales\Domain\Factories\Invoice as InvoiceFactory;
 use Src\Sales\Domain\Factories\Item;
+use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
 use Src\Sales\Domain\Factories\Shipment;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\Customer as CustomerModel;
 use Src\Sales\Domain\Models\SaleOrder;
+use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
 
-class SaleOrderRepository implements \Src\Sales\Domain\Repositories\SaleOrderRepository
+class SaleOrderRepository implements SaleOrderRepositoryInterface
 {
     public function getLastSaleDateTime(string $userId): ?Carbon
     {
@@ -96,6 +99,17 @@ class SaleOrderRepository implements \Src\Sales\Domain\Repositories\SaleOrderRep
 
         $shipmentAddress = AddressFactory::makeModel($shipment->getDeliveryAddress());
         $shipmentModel->address()->save($shipmentAddress);
+    }
+
+    public function syncSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrder
+    {
+        $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
+        $internalSaleOrder->user_id = $userId;
+
+
+        $internalSaleOrder->save();
+
+        return $internalSaleOrder;
     }
 
     public function updateProfit(SaleOrder $saleOrder, string $profit): bool

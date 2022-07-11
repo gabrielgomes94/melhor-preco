@@ -15,7 +15,7 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\Customer as CustomerModel;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
-use function event;
+
 
 class SyncRepository implements SynchronizationRepository
 {

@@ -12,6 +12,8 @@ interface User
 
     public function getEmail(): string;
 
+    public function getErpToken(): ?string;
+
     public function getFiscalId(): string;
 
     public function getPassword(): string;

@@ -4,39 +4,35 @@ namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Exception;
 use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
+use Src\Sales\Domain\Factories\SaleOrder as SaleOrderFactory;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
 use Src\Sales\Domain\Repositories\Contracts\SynchronizationRepository;
 use Src\Sales\Domain\Repositories\Contracts\Repository;
+use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
 use Src\Sales\Infrastructure\Laravel\Services\CalculateTotalProfit;
+use Src\Users\Domain\Repositories\Repository as UserRepository;
 
 class SynchronizeSales
 {
-    private CalculateTotalProfit $calculateTotalProfit;
-    private ItemsRepository $itemsRepository;
-    private Repository $repository;
-    private SynchronizationRepository $syncRepository;
-    private ErpRepository $erpRepository;
-
     public function __construct(
-        CalculateTotalProfit $calculateTotalProfit,
-        ItemsRepository $itemRepository,
-        Repository $repository,
-        SynchronizationRepository $syncRepository,
-        ErpRepository $erpRepository
+        private readonly CalculateTotalProfit         $calculateTotalProfit,
+        private readonly ErpRepository                $erpRepository,
+        private readonly SaleOrderRepositoryInterface $saleOrderRepository,
+        private readonly UserRepository $userRepository
     ) {
-        $this->calculateTotalProfit = $calculateTotalProfit;
-        $this->itemsRepository = $itemRepository;
-        $this->repository = $repository;
-        $this->syncRepository = $syncRepository;
-        $this->erpRepository = $erpRepository;
     }
 
     public function sync(string $userId)
     {
-        $data = $this->erpRepository->list();
+        $user = $this->userRepository->find($userId);
+        if (!$user) {
+            return;
+        }
+
+        $data = $this->erpRepository->list($user->getErpToken());
 
         foreach ($data as $saleOrder) {
             try {
@@ -62,25 +58,23 @@ class SynchronizeSales
 
     private function insertSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): void
     {
-        $saleOrderModel = $this->syncRepository->insert($externalSaleOrder, $userId);
+        $internalSaleOrder = SaleOrderFactory::makeModel($externalSaleOrder);
+        $internalSaleOrder->user_id = $userId;
+        $internalSaleOrder->save();
 
-        $this->itemsRepository->insert($saleOrderModel, $externalSaleOrder->getItems());
-        $this->syncRepository->syncInvoice($saleOrderModel, $externalSaleOrder);
-        $this->syncRepository->syncShipment($saleOrderModel, $externalSaleOrder);
+        $this->saleOrderRepository->syncCustomer($internalSaleOrder, $externalSaleOrder);
+        $this->saleOrderRepository->syncInvoice($internalSaleOrder, $externalSaleOrder);
+        $this->saleOrderRepository->syncShipment($internalSaleOrder, $externalSaleOrder);
 
-
-        $this->repository->update(
-            saleOrder: $saleOrderModel,
-            profit: $this->calculateTotalProfit->execute($saleOrderModel, $userId)
-        );
+        $profit = $this->calculateTotalProfit->execute($internalSaleOrder, $userId);
+        $this->saleOrderRepository->updateProfit($internalSaleOrder, $profit);
     }
 
     private function updateSaleOrder(SaleOrder $saleOrder, SaleOrderInterface $externalSaleOrder, string $userId): void
     {
-        $this->repository->update(
-            saleOrder: $saleOrder,
-            profit: $this->calculateTotalProfit->execute($saleOrder, $userId),
-            status: (string) $externalSaleOrder->getStatus()
+        $this->saleOrderRepository->updateStatus(
+            $saleOrder,
+            (string) $externalSaleOrder->getStatus()
         );
     }
 }

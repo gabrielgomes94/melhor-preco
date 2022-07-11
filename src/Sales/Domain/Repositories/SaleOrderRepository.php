@@ -22,6 +22,8 @@ interface SaleOrderRepository
 
     public function syncItems(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
 
+    public function syncSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrder;
+
     public function syncShipment(SaleOrder $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void;
 
     public function updateProfit(SaleOrder $saleOrder, string $profit): bool;
