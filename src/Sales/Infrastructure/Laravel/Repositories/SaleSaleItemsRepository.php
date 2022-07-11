@@ -5,15 +5,11 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Product\Product;
-use Src\Sales\Domain\Events\ItemSynchronized;
-use Src\Sales\Domain\Events\ItemWasNotSynchronized;
 use Src\Sales\Domain\Models\Item;
-use Src\Sales\Domain\Models\SaleOrder;
-use Src\Sales\Domain\Models\ValueObjects\Items\Items;
-use Src\Sales\Domain\Repositories\Contracts\ItemsRepository as ItemRepositoryRepository;
+use Src\Sales\Domain\Repositories\SaleItemsRepository as ItemRepositoryRepository;
 use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 
-class ItemsRepository implements ItemRepositoryRepository
+class SaleSaleItemsRepository implements ItemRepositoryRepository
 {
     public function countSalesByProduct(Product $product, Carbon $beginDate, Carbon $endDate): int
     {
@@ -46,18 +42,5 @@ class ItemsRepository implements ItemRepositoryRepository
             ->where('selled_at', '<=', $endDate)
             ->get()
             ->groupBy('sku');
-    }
-
-    public function insert(
-        SaleOrder $internalSaleOrder,
-        Items $items
-    ): void {
-        foreach ($items->get() as $item) {
-            $itemModel = Item::fromValueObject($item);
-
-            $internalSaleOrder->items()->save($itemModel)
-                ? event(new ItemSynchronized($itemModel->id))
-                : event(new ItemWasNotSynchronized($itemModel->id));
-        }
     }
 }

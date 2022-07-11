@@ -10,11 +10,9 @@ use Src\Products\Domain\Models\Product\Product;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
-use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\SalesInMarketplaces;
 use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 use Src\Sales\Domain\Models\Item;
-use Src\Sales\Domain\Reports\ProductSalesReport;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\ProductSalesFactory;
 
 class ProductSalesList
@@ -25,7 +23,7 @@ class ProductSalesList
     ) {
     }
 
-    public function report(string $sku, SalesFilter $options): ProductSalesReport
+    public function report(string $sku, SalesFilter $options): ProductReport
     {
         $product = $this->repository->get($sku, $options->getUserId());
 

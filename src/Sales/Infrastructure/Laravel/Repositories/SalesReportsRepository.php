@@ -2,10 +2,10 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
+use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSalesCollection;
-use Src\Sales\Domain\Reports\ProductSalesReport;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\MostSelledProducts;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\ProductSalesList;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\SalesList;
@@ -23,7 +23,7 @@ class SalesReportsRepository
     {
     }
 
-    public function listProductSales(string $sku, SalesFilter $options): ProductSalesReport
+    public function listProductSales(string $sku, SalesFilter $options): ProductReport
     {
         return $this->productSalesList->report($sku, $options);
     }
