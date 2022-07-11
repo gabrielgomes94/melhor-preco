@@ -9,7 +9,7 @@ use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Domain\Repositories\SaleItemsRepository as ItemRepositoryRepository;
 
-class SaleSaleItemsRepository implements ItemRepositoryRepository
+class SaleItemsRepository implements ItemRepositoryRepository
 {
     public function countSalesByProduct(Product $product, Carbon $beginDate, Carbon $endDate): int
     {
