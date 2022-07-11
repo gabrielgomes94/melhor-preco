@@ -48,7 +48,7 @@ class SynchronizeSales
 
                 $this->updateSaleOrder($saleOrderModel, $saleOrder, $userId);
             } catch (Exception $exception) {
-                event(new SaleOrderWasNotSynchronized($exception->getMessage()));
+                event(new SaleOrderWasNotSynchronized($exception));
             }
         }
     }
@@ -65,6 +65,9 @@ class SynchronizeSales
         $saleOrderModel = $this->syncRepository->insert($externalSaleOrder, $userId);
 
         $this->itemsRepository->insert($saleOrderModel, $externalSaleOrder->getItems());
+        $this->syncRepository->syncInvoice($saleOrderModel, $externalSaleOrder);
+        $this->syncRepository->syncShipment($saleOrderModel, $externalSaleOrder);
+
 
         $this->repository->update(
             saleOrder: $saleOrderModel,

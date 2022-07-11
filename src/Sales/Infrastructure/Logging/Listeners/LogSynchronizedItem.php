@@ -12,6 +12,6 @@ class LogSynchronizedItem implements ShouldQueue
     {
         $model = $event->getModel();
 
-        Log::info('Item was synchronized.', $model->toArray());
+//        Log::info('Item was synchronized.', $model->toArray());
     }
 }

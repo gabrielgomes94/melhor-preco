@@ -58,19 +58,4 @@ class Repository implements RepositoryInterface
 
         return $lastUpdatedProduct?->getLastUpdate();
     }
-
-    private function mapMarketplaceCount(Marketplace $marketplace, Carbon $beginDate, Carbon $endDate): array
-    {
-        $slug = $marketplace->getSlug();
-
-        return [
-            $slug => [
-                'count' => SaleOrder::valid()
-                    ->inDateInterval($beginDate, $endDate)
-                    ->where('store_id', $marketplace->getErpId())
-                    ->count(),
-                'name' => $marketplace->getName(),
-            ],
-        ];
-    }
 }

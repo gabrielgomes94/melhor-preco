@@ -112,6 +112,7 @@ class SyncRepository implements SynchronizationRepository
         if (!$customerModel = CustomerModel::where('fiscal_id', $fiscalId)->first()) {
             $customerModel = CustomerRepository::create($customer);
         }
+
         return $customerModel;
     }
 }

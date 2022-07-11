@@ -17,20 +17,20 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {
-        Event::listen([
-            SaleSynchronized::class,
-        ], LogSynchronizedSales::class);
-
-        Event::listen([
-            ItemSynchronized::class,
-        ], LogSynchronizedItem::class);
-
-        Event::listen([
-            ItemWasNotSynchronized::class,
-        ], LogNotSynchronizedItem::class);
-
-        Event::listen([
-            SaleOrderWasNotSynchronized::class,
-        ], LogException::class);
+//        Event::listen([
+//            SaleSynchronized::class,
+//        ], LogSynchronizedSales::class);
+//
+//        Event::listen([
+//            ItemSynchronized::class,
+//        ], LogSynchronizedItem::class);
+//
+//        Event::listen([
+//            ItemWasNotSynchronized::class,
+//        ], LogNotSynchronizedItem::class);
+//
+//        Event::listen([
+//            SaleOrderWasNotSynchronized::class,
+//        ], LogException::class);
     }
 }
