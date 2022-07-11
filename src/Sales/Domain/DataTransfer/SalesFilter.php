@@ -3,10 +3,8 @@
 namespace Src\Sales\Domain\DataTransfer;
 
 use Carbon\Carbon;
-//use Src\Sales\Domain\Repositories\Contracts\Repository as RepositoryInterface;
-use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter as ListSalesFilterInterface;
 
-class SalesFilter implements ListSalesFilterInterface
+class SalesFilter
 {
     public const PER_PAGE = 40;
 

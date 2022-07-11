@@ -5,9 +5,9 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Product\Product;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Domain\Repositories\SaleItemsRepository as ItemRepositoryRepository;
-use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
 
 class SaleSaleItemsRepository implements ItemRepositoryRepository
 {
@@ -26,7 +26,7 @@ class SaleSaleItemsRepository implements ItemRepositoryRepository
             ->count();
     }
 
-    public function groupSaleItemsByProduct(ListSalesFilter $options): Collection
+    public function groupSaleItemsByProduct(SalesFilter $options): Collection
     {
         $beginDate = $options->getBeginDate();
         $endDate = $options->getEndDate();

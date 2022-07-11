@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Services\Contracts;
+namespace Src\Sales\Domain\Services;
 
 use Src\Sales\Domain\Models\Contracts\SaleOrder;
 

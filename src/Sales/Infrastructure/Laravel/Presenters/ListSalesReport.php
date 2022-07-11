@@ -6,7 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Math\MathPresenter;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
-use Src\Sales\Domain\UseCases\Contracts\Filters\ListSalesFilter;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
 
 class ListSalesReport
 {
@@ -61,7 +61,7 @@ class ListSalesReport
         })->all();
     }
 
-    private function getPaginator(array $sales, ListSalesFilter $options, int $total): LengthAwarePaginator
+    private function getPaginator(array $sales, SalesFilter $options, int $total): LengthAwarePaginator
     {
         return new LengthAwarePaginator(
             $sales,
