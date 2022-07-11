@@ -5,11 +5,12 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
 use Src\Sales\Infrastructure\Laravel\Repositories\Queries\SalesQuery;
+use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\SalesMetadataFactory;
 
 class SalesList
 {
     public function __construct(
-        private readonly SalesMetadata $metadataSales
+        private readonly SalesMetadataFactory $metadataSales
     )
     {
     }

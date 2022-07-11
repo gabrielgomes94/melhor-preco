@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
+namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories;
 
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListMetadata;
 use Src\Sales\Domain\Models\SaleOrder;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\MarketplacesSalesFactory;
 
-class SalesMetadata
+class SalesMetadataFactory
 {
     public function __construct(
         private readonly MarketplacesSalesFactory $marketplaceSalesCount
