@@ -4,6 +4,7 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Freight\FreightTableComponent;
 use Src\Marketplaces\Domain\Models\Marketplace;
 
 class MarketplacePresenter
@@ -22,6 +23,7 @@ class MarketplacePresenter
             'status' => $status,
             'slug' => $marketplace->getSlug(),
             'uuid' => $marketplace->getUuid(),
+            'freight' => $this->presentFreight($marketplace),
         ];
     }
 
@@ -46,6 +48,25 @@ class MarketplacePresenter
             ->sort()
             ->transform(fn (float $data) => $this->formatNumber($data))
             ->toArray();
+    }
+
+    private function presentFreight(Marketplace $marketplace): array
+    {
+        $freight = $marketplace->getFreight();
+        $freightTable = collect($freight->freightTable?->get() ?? []);
+        $freightTable = $freightTable->transform(function(FreightTableComponent $component) {
+            return [
+                'initialCubicWeight' => $component->initialCubicWeight,
+                'endCubicWeight' => $component->endCubicWeight,
+                'value' => $component->value,
+            ];
+        })->toArray();
+
+        return [
+            'defaultValue' => $freight->baseValue,
+            'minimumFreightTableValue' => $freight->minimumFreightTableValue,
+            'freightTable' => $freightTable,
+        ];
     }
 
     private function formatNumber(float $data): string

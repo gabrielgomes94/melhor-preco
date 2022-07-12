@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Marketplaces\Infrastructure\Laravel\Http\Controllers\CommissionController;
+use Src\Marketplaces\Infrastructure\Laravel\Http\Controllers\FreightController;
 use Src\Marketplaces\Infrastructure\Laravel\Http\Controllers\MarketplacesController;
 
 Route::middleware('auth')->group(function () {
@@ -35,5 +36,11 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/{marketplace_slug}/comissao', [CommissionController::class, 'editCommission'])
                 ->name('.setCommission');
+
+            Route::get('/{marketplace_slug}/frete', [FreightController::class, 'edit'])
+                ->name('.setFreight');
+
+            Route::post('/{marketplace_slug}/frete', [FreightController::class, 'update'])
+                ->name('.doSetFreight');
         });
 });
