@@ -15,10 +15,10 @@ class Client
         $this->sanitizer = $sanitizer;
     }
 
-    public function list(int $page = 1): array
+    public function list(string $erpToken, int $page = 1): array
     {
         $response = Http::withOptions(
-            Config::listSalesOptions()
+            Config::listSalesOptions($erpToken)
         )->get(
             Config::listSalesUrl($page)
         );

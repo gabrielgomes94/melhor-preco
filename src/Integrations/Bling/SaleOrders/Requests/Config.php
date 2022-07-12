@@ -4,12 +4,12 @@ namespace Src\Integrations\Bling\SaleOrders\Requests;
 
 class Config
 {
-    public static function listSalesOptions(): array
+    public static function listSalesOptions(string $erpToken): array
     {
         return [
             'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
             ],
         ];
     }

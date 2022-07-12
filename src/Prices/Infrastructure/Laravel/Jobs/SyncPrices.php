@@ -21,24 +21,27 @@ class SyncPrices implements ShouldQueue
 
     private Marketplace $marketplace;
     private int $page;
+    private string $status;
 
     public function __construct(
         Marketplace $marketplace,
-        int $page
+        int $page,
+        string $status
     )
     {
         $this->marketplace = $marketplace;
         $this->page = $page;
+        $this->status = $status;
     }
 
     public function handle(SynchronizeFromMarketplace $synchronizeFromMarketplace): void
     {
-        $result = $synchronizeFromMarketplace->sync($this->marketplace, $this->page);
+        $result = $synchronizeFromMarketplace->sync($this->marketplace, $this->page, $this->status);
 
         if (!$result) {
             return;
         }
 
-        SyncPrices::dispatch($this->marketplace, $this->page + 1);
+        SyncPrices::dispatch($this->marketplace, $this->page + 1, $this->status);
     }
 }

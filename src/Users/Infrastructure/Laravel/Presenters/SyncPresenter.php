@@ -6,7 +6,8 @@ use Src\Costs\Infrastructure\Laravel\Repositories\Repository as CostsRepository;
 use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository as PriceRepository;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
-use Src\Sales\Domain\Repositories\Contracts\Repository as SalesRepository;
+use Src\Sales\Domain\DataTransfer\SalesFilter;
+use Src\Sales\Domain\Repositories\SaleOrderRepository;
 
 class SyncPresenter
 {
@@ -14,7 +15,7 @@ class SyncPresenter
         private CostsRepository $costsRepository,
         private CategoryRepository $categoryRepository,
         private ProductRepository $productRepository,
-        private SalesRepository $salesRepository,
+        private SaleOrderRepository $salesRepository,
         private PriceRepository $priceRepository
     ) {
     }
@@ -43,8 +44,8 @@ class SyncPresenter
                 'route' => 'costs.sync',
             ],
             'sales' => [
-                'quantity' => $this->salesRepository->countSales(),
-                'syncedAt' => $this->salesRepository->getLastSaleDateTime()?->format('d/m/Y H:i'),
+                'quantity' => $this->salesRepository->countSales(new SalesFilter(['userId' => $userId])),
+                'syncedAt' => $this->salesRepository->getLastSaleDateTime($userId)?->format('d/m/Y H:i'),
                 'route' => 'sales.sync',
             ],
         ];

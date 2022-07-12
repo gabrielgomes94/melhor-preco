@@ -4,7 +4,7 @@ namespace Src\Prices\Domain\UseCases\Price;
 
 interface SynchronizePrices
 {
-    public function syncAll(): void;
+    public function syncAll(string $userId): void;
 
-    public function syncMarketplace(string $marketplaceSlug): void;
+    public function syncMarketplace(string $marketplaceSlug, string $userId): void;
 }

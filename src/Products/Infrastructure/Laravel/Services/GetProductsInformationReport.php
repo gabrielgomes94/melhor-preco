@@ -8,7 +8,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
-use Src\Sales\Domain\Repositories\Contracts\ItemsRepository;
+use Src\Sales\Domain\Repositories\SaleItemsRepository;
 use Src\Users\Domain\Entities\User;
 
 
@@ -17,7 +17,7 @@ class GetProductsInformationReport
     public function __construct(
         private ProductRepository $productRepository,
         private MarketplaceRepository $marketplaceRepository,
-        private ItemsRepository $saleItemsRepository
+        private SaleItemsRepository $saleItemsRepository
     ) {
     }
 

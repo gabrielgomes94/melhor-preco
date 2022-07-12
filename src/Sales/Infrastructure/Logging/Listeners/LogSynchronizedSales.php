@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Logging\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
-use Src\Sales\Domain\Events\SaleSynchronized;
+use Src\Sales\Infrastructure\Laravel\Events\SaleSynchronized;
 
 class LogSynchronizedSales implements ShouldQueue
 {

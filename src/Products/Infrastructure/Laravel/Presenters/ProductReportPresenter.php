@@ -5,9 +5,9 @@ namespace Src\Products\Infrastructure\Laravel\Presenters;
 use Src\Math\MathPresenter;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Products\Infrastructure\Laravel\Presenters\ProductPresenter;
-use Src\Sales\Application\Data\MarketplaceSaleItems;
-use Src\Sales\Application\Data\Reports\SalesReport;
-use Src\Sales\Domain\Models\Item;
+use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
+use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class ProductReportPresenter
 {
@@ -35,7 +35,7 @@ class ProductReportPresenter
         ];
     }
 
-    private function getLastSales(SalesReport $salesReport): array
+    private function getLastSales(ProductReport $salesReport): array
     {
         $sales = $salesReport->lastSales->get();
         $sales = $sales->transform(function (Item $saleItem) {
@@ -63,11 +63,11 @@ class ProductReportPresenter
         return $sales->toArray();
     }
 
-    private function getSalesByMarketplace(SalesReport $salesReport): array
+    private function getSalesByMarketplace(ProductReport $salesReport): array
     {
         $marketplaceSales = $salesReport->salesInMarketplaces->marketplacesSales;
 
-        $marketplaceSales = $marketplaceSales->transform(function (MarketplaceSaleItems $marketplaceSales) {
+        $marketplaceSales = $marketplaceSales->transform(function (MarketplaceSales $marketplaceSales) {
             $sales = $marketplaceSales->sales->get();
             $totalValue = $sales->sum(function (Item $saleItem) {
                 return $saleItem->getTotalValue();
@@ -84,7 +84,7 @@ class ProductReportPresenter
         return $marketplaceSales->toArray();
     }
 
-    private function getTotalSales(SalesReport $salesReport): array
+    private function getTotalSales(ProductReport $salesReport): array
     {
         $itemsSelled = $salesReport->itemsSelled->get();
         $totalValue = $itemsSelled->sum(function (Item $saleItem) {

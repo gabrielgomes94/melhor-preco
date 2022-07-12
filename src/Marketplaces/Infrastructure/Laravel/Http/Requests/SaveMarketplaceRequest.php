@@ -49,7 +49,7 @@ class SaveMarketplaceRequest extends FormRequest
     {
         return [
             'commissionType.required' => 'Tipo de Comissão deve ser escolhida.',
-            'erpId.required' => 'ID do Marketplace no Bling deve ser preenchido',
+            'erpId.required' => 'ID do Marketplaces no Bling deve ser preenchido',
             'name.required' => 'Nome do marketplace deve ser preenchido',
         ];
     }

@@ -189,7 +189,7 @@ return [
         /**
          * Dashboard module Service Provier
          */
-        \Src\Users\Infrastructure\Laravel\Providers\UseCasesServiceProvider::class,
+        \Src\Users\Infrastructure\Laravel\Providers\UsersServiceProvider::class,
 
         /**
          * Notifications' module Service Providers...
@@ -230,11 +230,9 @@ return [
         /**
          * Sales' module Service Providers...
          */
-        Src\Sales\Infrastructure\Laravel\Container\SalesServiceProvider::class,
-        Src\Sales\Infrastructure\Laravel\Container\EventServiceProvider::class,
-        Src\Sales\Infrastructure\Laravel\Container\ServiceProvider::class,
+        Src\Sales\Infrastructure\Laravel\Providers\EventServiceProvider::class,
+        Src\Sales\Infrastructure\Laravel\Providers\ServiceProvider::class,
         Src\Sales\Infrastructure\Logging\ServiceProvider::class,
-        Src\Sales\Infrastructure\Eloquent\RepositoryServiceProvider::class,
 
         /**
          * Marketplaces' module Service Providers...

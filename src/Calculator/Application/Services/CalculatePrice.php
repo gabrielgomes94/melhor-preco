@@ -21,7 +21,7 @@ class CalculatePrice implements CalculatePrices
         ProductData $productData,
         Marketplace $marketplace,
         float $value,
-        ?Percentage $commission,
+        ?Percentage $commission = null,
         array $options = []
     ): Price {
         return PriceFactory::make(
@@ -41,7 +41,7 @@ class CalculatePrice implements CalculatePrices
 
         $commission = $this->commissionRepository->get(
             $marketplace,
-            $productData->getCategory()->getCategoryId()
+            $productData->getCategory()?->getCategoryId()
         );
 
         return $commission->get();

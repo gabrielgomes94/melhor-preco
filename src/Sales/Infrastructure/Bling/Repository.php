@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Bling;
 
 use Src\Integrations\Bling\SaleOrders\Client;
-use Src\Sales\Domain\Repositories\Contracts\ErpRepository;
+use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Infrastructure\Bling\Responses\ResponseFactory;
 
 class Repository implements ErpRepository
@@ -17,14 +17,14 @@ class Repository implements ErpRepository
         $this->responseFactory = $responseFactory;
     }
 
-    public function list(): array
+    public function list(string $erpToken): array
     {
         $productsResponse = [];
         $page = 0;
 
         do {
             $response = $this->responseFactory->make(
-                $this->client->list(++$page)
+                $this->client->list($erpToken, ++$page)
             );
 
             $productsResponse = array_merge($productsResponse, $response->data());
