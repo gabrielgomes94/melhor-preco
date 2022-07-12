@@ -5,12 +5,12 @@ namespace Src\Products\Infrastructure\Laravel\Services;
 use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Infrastructure\Laravel\Repositories\ReportsRepository;
+use Src\Sales\Domain\Repositories\ReportsRepository;
 
 class GetProductReport
 {
     public function __construct(
-        private ShowProductCosts   $showProductCosts,
+        private ShowProductCosts $showProductCosts,
         private ReportsRepository $salesReportsRepository
     ){}
 

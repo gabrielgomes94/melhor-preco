@@ -2,12 +2,10 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Src\Sales\Domain\DataTransfer\SalesFilter;
+use Src\Sales\Domain\Repositories\ReportsRepository;
 use Src\Sales\Infrastructure\Laravel\Http\Requests\SalesReportsRequest;
 use Src\Sales\Infrastructure\Laravel\Presenters\ListSalesReport;
-use Src\Sales\Infrastructure\Laravel\Repositories\ReportsRepository;
 
 class ListController extends Controller
 {
