@@ -28,7 +28,13 @@
             </a>
 
             <br>
+            <a href="{{ route('marketplaces.setFreight', $marketplace['slug']) }}"
+               class="link-info"
+            >
+                Configurar frete
+            </a>
 
+            <br>
             <a href="{{ route('marketplaces.edit', $marketplace['slug']) }}"
                class="link-info"
             >
