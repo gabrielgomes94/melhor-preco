@@ -14,7 +14,10 @@
             </x-slot>
 
             <x-slot name="body">
-                <x-app.marketplaces.freight.form :marketplaceSlug="$slug" />
+                <x-app.marketplaces.freight.form
+                    :marketplaceSlug="$slug"
+                    :freight="$freight"
+                />
             </x-slot>
         </x-bootstrap.card.basic-card>
     </div>

@@ -6,7 +6,7 @@
             attribute="baseValue"
             id="base-value-input"
             label="Frete padrão (R$)"
-            value=""
+            value="{{ $freight['defaultValue'] }}"
         />
     </div>
 
@@ -15,7 +15,7 @@
             attribute="minimumFreightTableValue"
             id="minimum-freight-table-value-input"
             label="Valor mínimo para tabela de frete"
-            value=""
+            value="{{ $freight['minimumFreightTableValue'] }}"
         />
     </div>
 
