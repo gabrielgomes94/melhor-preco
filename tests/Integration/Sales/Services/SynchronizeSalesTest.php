@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Integration\Sales\Services\Synchronization;
+namespace Tests\Integration\Sales\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
