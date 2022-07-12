@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Events;
+namespace Src\Sales\Infrastructure\Laravel\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;

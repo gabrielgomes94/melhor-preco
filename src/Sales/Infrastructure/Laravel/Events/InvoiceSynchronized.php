@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Events;
+namespace Src\Sales\Infrastructure\Laravel\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -10,22 +10,27 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Src\Sales\Domain\Events\Contracts\ModelSynchronized;
-use Src\Sales\Infrastructure\Laravel\Models\Shipment;
+use Src\Sales\Infrastructure\Laravel\Events\Contracts\ModelSynchronized;
+use Src\Sales\Infrastructure\Laravel\Models\Invoice;
 
-class ShipmentSynchronized implements ModelSynchronized
+class InvoiceSynchronized implements ModelSynchronized
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private string $shipmentId;
+    private string $invoiceId;
 
-    public function __construct(string $shipmentId)
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct(string $invoiceId)
     {
-        $this->shipmentId = $shipmentId;
+        $this->invoiceId = $invoiceId;
     }
 
     public function getModel(): ?Model
     {
-        return Shipment::find($this->shipmentId);
+        return Invoice::find($this->invoiceId);
     }
 }

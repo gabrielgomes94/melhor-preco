@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Src\Sales\Domain\Events\SaleOrderWasNotSynchronized;
+use Src\Sales\Infrastructure\Laravel\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\ErpRepository;

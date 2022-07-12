@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\Events\Contracts;
+namespace Src\Sales\Infrastructure\Laravel\Events\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 
