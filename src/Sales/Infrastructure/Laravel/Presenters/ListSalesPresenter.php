@@ -44,8 +44,10 @@ class ListSalesPresenter
 
     private function presentProducts(SaleOrder $saleOrder): array
     {
-        foreach ($saleOrder->getItems()->get() as $item) {
-            if (!$product = Product::where('sku', $item->sku())->first()) {
+        foreach ($saleOrder->getItems() as $item) {
+            // @todo: usar repositório de produtos
+            if (!$product = Product::where('sku', $item->getSku())
+                ->first()) {
                 continue;
             }
 

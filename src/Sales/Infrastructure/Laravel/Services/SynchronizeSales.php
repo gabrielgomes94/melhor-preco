@@ -23,8 +23,7 @@ class SynchronizeSales
 
     public function sync(string $userId)
     {
-        $user = $this->userRepository->find($userId);
-        if (!$user) {
+        if (!$user = $this->userRepository->find($userId)) {
             return;
         }
 
@@ -73,5 +72,8 @@ class SynchronizeSales
             $saleOrder,
             (string) $externalSaleOrder->getStatus()
         );
+
+        $profit = $this->calculateTotalProfit->execute($externalSaleOrder, $userId);
+        $this->saleOrderRepository->updateProfit($saleOrder, $profit);
     }
 }
