@@ -4,7 +4,7 @@ namespace Src\Marketplaces\Domain\Models\Freight;
 
 class FreightTable
 {
-    private array $components;
+    private array $components = [];
 
     public function __construct(array $components)
     {

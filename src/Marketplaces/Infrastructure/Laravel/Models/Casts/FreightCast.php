@@ -14,7 +14,7 @@ class FreightCast implements CastsAttributes
     {
         $freight = json_decode($value, true);
 
-        $freightTable = collect($freight['freightTable']);
+        $freightTable = collect($freight['freightTable'] ?? []);
         $freightTable = $freightTable->map(function (array $data) {
             return new FreightTableComponent(
                 $data['value'],
@@ -25,8 +25,8 @@ class FreightCast implements CastsAttributes
         $freightTable = new FreightTable($freightTable);
 
         return new Freight(
-            $freight['defaultValue'],
-            $freight['minimumFreightTableValue'],
+            $freight['defaultValue'] ?? 0.0,
+            $freight['minimumFreightTableValue'] ?? 0.0,
             $freightTable,
         );
     }
