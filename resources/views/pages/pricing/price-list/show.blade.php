@@ -33,7 +33,6 @@
         <div class="col-12">
             <div class="d-flex justify-content-between mb-2">
                 <div class="d-flex flex-column justify-content-center">
-                    <x-app.pricing.price-list.history-link :store="$store" />
                 </div>
 
                 <div class="d-inline-flex flex-row">

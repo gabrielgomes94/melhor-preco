@@ -6,7 +6,6 @@ use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\SyncController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\UpdateController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\IndexController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
-use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\PriceLog\PriceLogController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('pricing')
@@ -31,15 +30,6 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/sync', [SyncController::class, 'syncAll'])
                 ->name('.syncAll');
-
-            Route::prefix('/price_log')
-                ->name('.priceLog')
-                ->group(function () {
-                    Route::get(
-                        '/{store}/last_updated_products',
-                        [PriceLogController::class, 'lastUpdatedProducts']
-                    )->name('.lastUpdatedProducts');
-                });
 
             Route::prefix('/products')
                 ->name('.products')
