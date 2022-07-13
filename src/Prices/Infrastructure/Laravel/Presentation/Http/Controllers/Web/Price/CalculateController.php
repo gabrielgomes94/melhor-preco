@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
-use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Domain\UseCases\GetPost;
 use Src\Prices\Infrastructure\Laravel\Presentation\Presenters\ProductPresenter;
 use Src\Products\Domain\Exceptions\PostNotFoundException;
@@ -32,8 +32,6 @@ class CalculateController extends Controller
         } catch (PostNotFoundException $exception) {
             return view('pages.pricing.products.not-integrated');
         }
-
-//        dd($presented);
 
         return view(
             'pages.pricing.products.show',

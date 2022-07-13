@@ -3,7 +3,9 @@
 namespace Src\Products\Domain\Models\Product;
 
 use Illuminate\Support\Collection;
+//use Src\Calculator\Domain\Models\Price\Price;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Models\Post\Post;
 use Src\Products\Domain\Models\Product\ValueObjects\Composition;
@@ -25,6 +27,8 @@ interface Product
     public function getCosts(): Costs;
 
     public function getDetails(): Details;
+
+    public function getPrice(Marketplace $marketplace): Price;
 
     public function getPrices(): Collection;
 

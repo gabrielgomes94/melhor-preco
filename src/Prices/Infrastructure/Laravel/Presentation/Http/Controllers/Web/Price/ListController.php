@@ -36,6 +36,7 @@ class ListController extends Controller
 
         $data = $this->priceListPresenter->list($paginator, $store, $request->all(), $userId);
 
+
         return view('pages.pricing.price-list.show', $data);
     }
 

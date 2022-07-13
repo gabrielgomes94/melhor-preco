@@ -3,8 +3,8 @@
 namespace Src\Prices\Infrastructure\Laravel\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
-use Src\Calculator\Presentation\Http\Requests\CalculatePriceRequest;
-use Src\Calculator\Presentation\Presenters\PricePresenter;
+use Src\Prices\Infrastructure\Laravel\Presentation\Http\Requests\CalculatePriceRequest;
+use Src\Prices\Infrastructure\Laravel\Presentation\Presenters\PricePresenter;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MathPresenter;

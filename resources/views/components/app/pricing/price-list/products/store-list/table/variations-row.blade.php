@@ -2,7 +2,7 @@
     <td colspan="1"></td>
 
     <td colspan="4">
-        {{ $sku }} - {{ $name }}
+        {{ $product['sku'] }} - {{ $product['name'] }}
     </td>
 
     <td colspan="2">

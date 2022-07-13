@@ -22,11 +22,11 @@
         </x-bootstrap.modals.modal>
 
 
-        <x-app.pricing.price-list.mass-calculation.modal.modal
-            :store="$store"
-            :filter="$filter ?? []"
-            :massCalculation="$massCalculation"
-        />
+{{--        <x-app.pricing.price-list.mass-calculation.modal.modal--}}
+{{--            :store="$store"--}}
+{{--            :filter="$filter ?? []"--}}
+{{--            :massCalculation="$massCalculation"--}}
+{{--        />--}}
     </x-slot>
 
     <div class="row">
@@ -41,7 +41,7 @@
 
                     <span class="m-2"></span>
 
-                    <x-app.pricing.price-list.mass-calculation.buttons :store="$store" />
+{{--                    <x-app.pricing.price-list.mass-calculation.buttons :store="$store" />--}}
 
                     <span class="m-2"></span>
 

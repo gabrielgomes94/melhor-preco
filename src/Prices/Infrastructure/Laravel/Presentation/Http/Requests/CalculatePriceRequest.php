@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Calculator\Presentation\Http\Requests;
+namespace Src\Prices\Infrastructure\Laravel\Presentation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;

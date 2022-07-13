@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Calculator\Presentation\Presenters;
+namespace Src\Prices\Infrastructure\Laravel\Presentation\Presenters;
 
 use Money\Money;
 use Src\Math\MathPresenter;

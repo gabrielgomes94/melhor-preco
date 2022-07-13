@@ -331,4 +331,28 @@ class Product extends Model implements ProductModelInterface
     {
         return $this->images;
     }
+
+    public function getUser(): \Src\Users\Domain\Entities\User
+    {
+        return $this->user;
+    }
+
+    public function getPrice(Marketplace $marketplace): Price
+    {
+        $slug = $marketplace->getSlug();
+        $prices = $this->prices;
+
+        foreach ($prices as $price) {
+            if ($price->getMarketplace()->getSlug() === $slug) {
+                return $price;
+            }
+        }
+
+        throw new \Exception('Product has not price in marketplace');
+    }
+
+    public function getQuantity(): float
+    {
+        return $this->quantity;
+    }
 }

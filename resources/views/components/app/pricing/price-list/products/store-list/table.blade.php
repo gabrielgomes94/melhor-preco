@@ -10,7 +10,7 @@
                 :store="$store->slug()"
             />
 
-            @if ($product->hasVariations())
+            @if (!empty($product['variations']))
                 @foreach($product->getVariations() as $variation)
                     <x-app.pricing.price-list.products.store-list.table.variations-row
                         :product="$variation"

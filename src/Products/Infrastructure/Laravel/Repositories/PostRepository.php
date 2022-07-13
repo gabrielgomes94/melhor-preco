@@ -35,7 +35,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function getByMarketplaceSlug(Product $product, string $marketplaceSlug): ?Post
     {
-        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug);
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $product->getUser()->getId());
 
         return $this->get($product, $marketplace);
     }
