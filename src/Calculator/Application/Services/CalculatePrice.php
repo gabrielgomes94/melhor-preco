@@ -7,7 +7,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
-use Src\Prices\Domain\Models\Calculator\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Calculator\Domain\Services\Contracts\CalculatePrices;
 
 /**
@@ -26,7 +26,7 @@ class CalculatePrice implements CalculatePrices
         float $value,
         ?Percentage $commission = null,
         array $options = []
-    ): Price {
+    ): CalculatedPrice {
         return PriceFactory::make(
             product: $productData,
             marketplace: $marketplace,

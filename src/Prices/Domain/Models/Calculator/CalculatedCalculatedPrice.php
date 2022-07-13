@@ -11,7 +11,7 @@ use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Math\Percentage;
 
-class CalculatedPrice implements Contracts\Price
+class CalculatedCalculatedPrice implements Contracts\CalculatedPrice
 {
     public function __construct(
         private CostPrice $costPrice,

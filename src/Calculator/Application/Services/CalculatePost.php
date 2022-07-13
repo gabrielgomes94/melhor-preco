@@ -2,7 +2,7 @@
 
 namespace Src\Calculator\Application\Services;
 
-use Src\Prices\Domain\Models\Calculator\Contracts\Price as CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as CalculatedPrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost as CalculatePostInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;

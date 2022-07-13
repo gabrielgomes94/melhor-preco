@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Services;
 
-use Src\Prices\Domain\Models\Calculator\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Calculator\Domain\Services\Contracts\CalculateItem as CalculateItemInterface;
@@ -18,7 +18,7 @@ class CalculateItem implements CalculateItemInterface
     ) {
     }
 
-    public function calculate(Item $item): Price
+    public function calculate(Item $item): CalculatedPrice
     {
         $marketplaceErpId = $item->saleOrder->getIdentifiers()->storeId() ?? '';
         $product = $item->getProduct();

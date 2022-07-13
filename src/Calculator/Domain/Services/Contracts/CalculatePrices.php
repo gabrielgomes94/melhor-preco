@@ -3,7 +3,7 @@
 namespace Src\Calculator\Domain\Services\Contracts;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Prices\Domain\Models\Calculator\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Math\Percentage;
 
@@ -15,5 +15,5 @@ interface CalculatePrices extends CalculatorOptions
         float $value,
         ?Percentage $commission,
         array $options = []
-    ): Price;
+    ): CalculatedPrice;
 }

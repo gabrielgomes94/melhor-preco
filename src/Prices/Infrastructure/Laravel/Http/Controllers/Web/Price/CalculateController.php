@@ -23,7 +23,6 @@ class CalculateController extends Controller
         private ProductRepository $productRepository,
         private ProductPresenter $productPresenter,
         private CalculatePrice $calculatePrice,
-//        private GetPost $getPost
     ) {}
 
     /**
@@ -32,7 +31,6 @@ class CalculateController extends Controller
     public function __invoke(string $storeSlug, string $productId, CalculatePriceRequest $request)
     {
         try {
-//            $data = $this->getPost->get($productId, $storeSlug, $request->transform());
             $userId = auth()->user()->getAuthIdentifier();
             $product = $this->productRepository->get($productId, $userId);
             $marketplace = $this->marketplaceRepository->getBySlug($storeSlug, $userId);
@@ -49,7 +47,6 @@ class CalculateController extends Controller
             );
 
             $presented = $this->productPresenter->present($product, $marketplace, $calculatedPrice, $request);
-//            $presented = $this->productPresenter->present($data, $request);
         } catch (ProductNotFoundException $exception) {
             abort(404);
         } catch (PostNotFoundException $exception) {

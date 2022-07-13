@@ -2,18 +2,18 @@
 
 namespace Src\Products\Domain\Models\Post\Concerns;
 
-use Src\Prices\Domain\Models\Calculator\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 
 trait SecondaryPrice
 {
-    private Price $secondaryPrice;
+    private CalculatedPrice $secondaryPrice;
 
-    public function getSecondaryPrice(): Price
+    public function getSecondaryPrice(): CalculatedPrice
     {
         return $this->secondaryPrice;
     }
 
-    public function setSecondaryPrice(Price $secondaryPrice): void
+    public function setSecondaryPrice(CalculatedPrice $secondaryPrice): void
     {
         $this->secondaryPrice = $secondaryPrice;
     }

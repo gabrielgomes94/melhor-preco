@@ -3,10 +3,10 @@
 namespace Src\Calculator\Domain\Models\Price;
 
 use Src\Calculator\Domain\Models\Price\Commission\Factories\Factory as CommissionFactory;
-use Src\Prices\Domain\Models\Calculator\Contracts\Price as PriceInterface;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as PriceInterface;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\Factories\Factory;
-use Src\Calculator\Domain\Models\Price\Price;
+use Src\Calculator\Domain\Models\Price\CalculatedPrice;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculatorOptions;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
@@ -27,7 +27,7 @@ class PriceFactory
         $discountRate = $options[CalculatorOptions::DISCOUNT_RATE] ?? Percentage::fromPercentage(0);
         $value = MoneyTransformer::toMoney($value)->multiply(1 - $discountRate->getFraction());
 
-        return new Price(
+        return new CalculatedPrice(
             costPrice: self::getCostPrice($product),
             freight: Factory::make(
                 $marketplace->getSlug(),

@@ -4,14 +4,14 @@ namespace Src\Calculator\Domain\Models\Price;
 
 use Money\Money;
 use Src\Calculator\Domain\Models\Price\Commission\Commission;
-use Src\Prices\Domain\Models\Calculator\Contracts\Price as PriceInterface;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as PriceInterface;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\BaseFreight as Freight;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Src\Math\MoneyTransformer;
 
-class Price implements PriceInterface
+class CalculatedPrice implements PriceInterface
 {
     public function __construct(
         private CostPrice $costPrice,

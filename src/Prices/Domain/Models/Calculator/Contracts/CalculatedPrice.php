@@ -9,7 +9,7 @@ use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
 use Src\Marketplaces\Domain\Models\Marketplace;
 
-interface Price
+interface CalculatedPrice
 {
     public function get(): Money;
 

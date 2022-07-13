@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
-use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\CalculatedCalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Infrastructure\Laravel\Presenters\PricePresenter;
 use Src\Marketplaces\Domain\Models\Marketplace;
@@ -27,7 +27,7 @@ class ProductPresenter
     }
 
 //    public function present(Post $post, CalculatePriceRequest $request)
-    public function present(Product $product, Marketplace $marketplace, CalculatedPrice $calculatedPrice, CalculatePriceRequest $request)
+    public function present(Product $product, Marketplace $marketplace, CalculatedCalculatedPrice $calculatedPrice, CalculatePriceRequest $request)
     {
         $presentedData = [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
@@ -81,7 +81,7 @@ class ProductPresenter
         return false;
     }
 
-    private function getCalculatorForm(Marketplace $marketplace, Product $product, CalculatedPrice $calculatedPrice): array
+    private function getCalculatorForm(Marketplace $marketplace, Product $product, CalculatedCalculatedPrice $calculatedPrice): array
     {
         $commission = $this->commissionRepository->get($marketplace, $product);
 
@@ -117,7 +117,7 @@ class ProductPresenter
         ];
     }
 
-    private function getPrice(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
+    private function getPrice(CalculatedCalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
         return [
             'raw' => $this->calculatorPresenter->transformRaw($calculatedPrice, $marketplace, $product),

@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Models\Post\Factories;
 
 use Src\Calculator\Application\Services\CalculatePost;
-use Src\Prices\Domain\Models\Calculator\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Contracts\Factory as FactoryInterface;
 use Src\Products\Domain\Models\Post\MercadoLivrePost;
@@ -25,7 +25,7 @@ class MercadoLivre implements FactoryInterface
         );
     }
 
-    public function updatePrice(Post $post, Price $calculatedPrice): Post
+    public function updatePrice(Post $post, CalculatedPrice $calculatedPrice): Post
     {
         return new MercadoLivrePost(
             priceModel: $post->getPriceModel(),
