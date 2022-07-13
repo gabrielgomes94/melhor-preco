@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\CalculateController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\SyncController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\UpdateController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\IndexController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\ListController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceLog\PriceLogController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\CalculateController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\SyncController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\UpdateController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\IndexController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\PriceLog\PriceLogController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('pricing')
