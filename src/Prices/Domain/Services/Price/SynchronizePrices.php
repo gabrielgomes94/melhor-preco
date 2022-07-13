@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Domain\UseCases\Price;
+namespace Src\Prices\Domain\Services\Price;
 
 interface SynchronizePrices
 {

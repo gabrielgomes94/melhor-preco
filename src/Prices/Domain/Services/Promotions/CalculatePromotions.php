@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Domain\UseCases\Promotions;
+namespace Src\Prices\Domain\Services\Promotions;
 
 use Src\Prices\Domain\DataTransfer\PromotionSetup;
 use Src\Prices\Domain\Models\Promotion;

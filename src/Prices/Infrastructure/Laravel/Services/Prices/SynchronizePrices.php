@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Prices\Domain\UseCases\Price\SynchronizePrices as SynchronizePricesInterface;
+use Src\Prices\Domain\Services\Price\SynchronizePrices as SynchronizePricesInterface;
 use Src\Prices\Infrastructure\Laravel\Jobs\SyncPrices;
 
 

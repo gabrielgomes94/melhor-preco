@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Promotions;
 
-use Src\Prices\Domain\UseCases\Promotions\ListPromotions;
+use Src\Prices\Domain\Services\Promotions\ListPromotions;
 use Src\Prices\Infrastructure\Laravel\Presenters\Promotions\ListPromotionsPresenter;
 
 class ListPromotionsController

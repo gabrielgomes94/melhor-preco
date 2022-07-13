@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Src\Prices\Domain\UseCases\Price\SynchronizePrices;
+use Src\Prices\Domain\Services\Price\SynchronizePrices;
 
 class SyncController extends Controller
 {
