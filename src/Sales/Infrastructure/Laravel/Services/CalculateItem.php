@@ -5,7 +5,7 @@ namespace Src\Sales\Infrastructure\Laravel\Services;
 use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Calculator\Domain\Services\Contracts\CalculateItem as CalculateItemInterface;
+use Src\Sales\Domain\Services\CalculateItem as CalculateItemInterface;
 use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Sales\Infrastructure\Laravel\Models\Item;

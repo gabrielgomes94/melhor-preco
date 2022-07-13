@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Calculator\Domain\Services\Contracts;
+namespace Src\Sales\Domain\Services;
 
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 
-interface CalculateItem extends CalculatorOptions
+interface CalculateItem
 {
     public function calculate(Item $item);
 }

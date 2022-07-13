@@ -3,7 +3,7 @@
 namespace Src\Prices\Domain\Services;
 
 use Money\Money;
-use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as CalculatedPriceInterface;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
@@ -11,7 +11,7 @@ use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorOptions;
-use Src\Prices\Domain\Models\Calculator\CalculatedCalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Domain\Models\Product\Product;
 
 class CalculatePrice
@@ -27,8 +27,8 @@ class CalculatePrice
         Marketplace $marketplace,
         float $value,
         CalculatorOptions $options
-    ): CalculatedPrice {
-        return new CalculatedCalculatedPrice(
+    ): CalculatedPriceInterface {
+        return new CalculatedPrice(
             $this->getCostPrice($product),
             $this->getValue($value, $options),
             $this->getCommission($marketplace, $product, $options),

@@ -12,7 +12,6 @@ use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Infrastructure\Laravel\Presenters\ProductPresenter;
-use Src\Products\Domain\Exceptions\PostNotFoundException;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
 
@@ -49,8 +48,6 @@ class CalculateController extends Controller
             $presented = $this->productPresenter->present($product, $marketplace, $calculatedPrice, $request);
         } catch (ProductNotFoundException $exception) {
             abort(404);
-        } catch (PostNotFoundException $exception) {
-            return view('pages.pricing.products.not-integrated');
         }
 
         return view(

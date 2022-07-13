@@ -4,8 +4,6 @@ namespace Src\Prices\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as CalculatedPrice;
-use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
 
@@ -55,16 +53,6 @@ class PriceRepository
         $model->commission = $commission;
 
         return $model->save();
-    }
-
-    public function updateFromCalculatedPrice(Price $model, CalculatedPrice $price): bool
-    {
-        return $this->update(
-            $model,
-            MoneyTransformer::toFloat($price->get()),
-            MoneyTransformer::toFloat($price->getProfit()),
-            $price->getCommission()->getCommissionRate()
-        );
     }
 
     public function getPriceFromMarketplace(

@@ -63,7 +63,6 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Src\\": "src/",
-            "Src\\Calculator\\": "src/Calculator",
             "Src\\Costs\\": "src/Costs",
             "Src\\Dashboard\\": "src/Dashboard",
             "Src\\Integrations\\": "src/Integrations",
@@ -72,7 +71,6 @@
             "Src\\Math\\": "src/Math",
             "Src\\Prices\\": "src/Prices",
             "Src\\Products\\": "src/Products",
-            "Src\\Promotions\\": "src/Promotions",
             "Src\\Sales\\": "src/Sales",
             "Src\\Users\\": "src/Users"
         }

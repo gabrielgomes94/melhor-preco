@@ -4,16 +4,13 @@ namespace Src\Prices\Infrastructure\Laravel\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
-use Src\Prices\Domain\Models\Calculator\CalculatedCalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
-use Src\Prices\Infrastructure\Laravel\Presenters\PricePresenter;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
-use Src\Math\Percentage;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Products\Domain\Models\Post\Contracts\Post;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ProductPresenter
@@ -26,8 +23,8 @@ class ProductPresenter
     ) {
     }
 
-//    public function present(Post $post, CalculatePriceRequest $request)
-    public function present(Product $product, Marketplace $marketplace, CalculatedCalculatedPrice $calculatedPrice, CalculatePriceRequest $request)
+
+    public function present(Product $product, Marketplace $marketplace, CalculatedPrice $calculatedPrice, CalculatePriceRequest $request)
     {
         $presentedData = [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
@@ -81,7 +78,7 @@ class ProductPresenter
         return false;
     }
 
-    private function getCalculatorForm(Marketplace $marketplace, Product $product, CalculatedCalculatedPrice $calculatedPrice): array
+    private function getCalculatorForm(Marketplace $marketplace, Product $product, CalculatedPrice $calculatedPrice): array
     {
         $commission = $this->commissionRepository->get($marketplace, $product);
 
@@ -117,7 +114,7 @@ class ProductPresenter
         ];
     }
 
-    private function getPrice(CalculatedCalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
+    private function getPrice(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
         return [
             'raw' => $this->calculatorPresenter->transformRaw($calculatedPrice, $marketplace, $product),

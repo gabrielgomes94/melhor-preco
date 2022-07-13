@@ -2,7 +2,6 @@
 
 namespace Src\Prices\Domain\Models\Calculator;
 
-use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Money\Money;
 use Src\Math\Percentage;
 

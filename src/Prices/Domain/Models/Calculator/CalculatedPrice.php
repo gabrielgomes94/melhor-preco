@@ -3,15 +3,9 @@
 namespace Src\Prices\Domain\Models\Calculator;
 
 use Money\Money;
-use Src\Calculator\Domain\Models\Price\Commission\Commission;
-use Src\Prices\Domain\Models\Calculator\CostPrice;
-use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
-use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
-use Src\Calculator\Domain\Transformer\PercentageTransformer;
-use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Math\Percentage;
 
-class CalculatedCalculatedPrice implements Contracts\CalculatedPrice
+class CalculatedPrice implements Contracts\CalculatedPrice
 {
     public function __construct(
         private CostPrice $costPrice,

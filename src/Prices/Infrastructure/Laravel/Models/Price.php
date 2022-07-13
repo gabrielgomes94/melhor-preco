@@ -5,7 +5,6 @@ namespace Src\Prices\Infrastructure\Laravel\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
@@ -115,13 +114,5 @@ class Price extends Model
         }
 
         return $profit->ratioOf($value);
-    }
-
-    public function isProfitMarginInRange(float $minimumProfit, float $maximumProfit): bool
-    {
-        $minimumProfit = PercentageTransformer::toPercentage($minimumProfit);
-        $maximumProfit = PercentageTransformer::toPercentage($maximumProfit);
-
-        return $minimumProfit <= $this->margin() && $this->margin() <= $maximumProfit;
     }
 }

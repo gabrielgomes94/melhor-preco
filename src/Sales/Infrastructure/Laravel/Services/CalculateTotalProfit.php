@@ -2,12 +2,10 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Services;
 
-use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Calculator\Domain\Models\Product\ProductData as PriceProductData;
-use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Math\MoneyTransformer;
-use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Prices\Domain\DataTransfer\CalculatorOptions;
+use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Models\Contracts\SaleOrder;
 use Src\Sales\Domain\Services\CalculateTotalProfit as CalculateTotalProfitInterface;
@@ -18,8 +16,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
     public function __construct(
         private readonly CalculatePrice $calculatePrice,
         private readonly MarketplaceRepository $marketplaceRepository,
-        private readonly ProductRepository $productRepository,
-        private readonly CommissionRepository $commissionRepository
+        private readonly ProductRepository $productRepository
     ) {
     }
 
@@ -42,10 +39,10 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             }
 
             $price = $this->calculatePrice->calculate(
-                $this->getProductData($product),
+                $product,
                 $marketplace,
                 $this->getValue($item),
-                $this->commissionRepository->get($marketplace, $product->getCategoryId())
+                new CalculatorOptions()
             );
 
             $itemProfit = $price->getProfit()->multiply(
@@ -54,15 +51,6 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
 
             return MoneyTransformer::toFloat($itemProfit);
         });
-    }
-
-    private function getProductData(Product $product): PriceProductData
-    {
-        return new PriceProductData(
-            costs: $product->getCosts(),
-            dimensions: $product->getDimensions(),
-            category: $product->getCategory(),
-        );
     }
 
     private function getValue(Item $item): float

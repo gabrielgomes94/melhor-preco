@@ -7,11 +7,8 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
-use Src\Prices\Domain\Models\Calculator\CalculatedCalculatedPrice;
-use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Math\Percentage;
-use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
-use Src\Products\Domain\Models\Post\Contracts\Post;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class PricePresenter
@@ -21,7 +18,7 @@ class PricePresenter
     )
     {}
 
-    public function transformRaw(CalculatedCalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
+    public function transformRaw(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
         $price = $calculatedPrice;
         $commissionRate = $this->commissionRepository->get($marketplace, $product)->get();
@@ -42,7 +39,7 @@ class PricePresenter
         ];
     }
 
-    public function format(CalculatedCalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
+    public function format(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
         $commissionRate = $this->commissionRepository->get($marketplace, $product)->get();
         $price = $calculatedPrice;
