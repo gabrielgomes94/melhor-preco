@@ -3,29 +3,38 @@
 namespace Src\Prices\Infrastructure\Laravel\Presentation\Presenters;
 
 use Money\Money;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Models\Calculator\Contracts\Price;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Post\Contracts\HasSecondaryPrice;
 use Src\Products\Domain\Models\Post\Contracts\Post;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class PricePresenter
 {
-    public function transformRaw(Post $post): array
+    public function __construct(
+        private CommissionRepository $commissionRepository
+    )
+    {}
+
+    public function transformRaw(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
-        $price = $post->getCalculatedPrice();
-        $commissionRate = $price->getCommission()->getCommissionRate() * 100;
+        $price = $calculatedPrice;
+        $commissionRate = $this->commissionRepository->get($marketplace, $product)->get();
 
         return [
-            'commission' => $this->transformMoney($price->getCommission()->get()),
+            'commission' => $this->transformMoney($price->getCommission()),
             'commissionRate' => $commissionRate,
             'costs' => $this->transformMoney($price->getCosts()),
             'differenceICMS' => $this->transformMoney($price->getDifferenceICMS()),
-            'freight' => $this->transformMoney($price->getFreight()->get()),
+            'freight' => $this->transformMoney($price->getFreight()),
             'margin' => $price->getMargin(),
-            'marketplaceSlug' => $post->getMarketplace()->getSlug(),
-            'priceId' => $post->getId(),
+            'marketplaceSlug' => $marketplace->getSlug(),
+            'priceId' => $product->getPrice($marketplace)->getId(),
             'profit' => $this->transformMoney($price->getProfit()),
             'purchasePrice' => $this->transformMoney($price->getPurchasePrice()),
             'suggestedPrice' => $this->transformMoney($price->get()),
@@ -33,22 +42,22 @@ class PricePresenter
         ];
     }
 
-    public function format(Post $post): array
+    public function format(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
-        $price = $post->getCalculatedPrice();
-        $commissionRate = $price->getCommission()->getCommissionRate() * 100;
+        $commissionRate = $this->commissionRepository->get($marketplace, $product)->get();
+        $price = $calculatedPrice;
 
         return [
-            'commission' => MathPresenter::money($price->getCommission()->get()),
+            'commission' => MathPresenter::money($price->getCommission()),
             'commissionRate' => $commissionRate,
             'costs' => MathPresenter::money($price->getCosts()),
             'differenceICMS' => MathPresenter::money($price->getDifferenceICMS()),
-            'freight' => MathPresenter::money($price->getFreight()->get()),
-            'marketplaceSlug' => $post->getMarketplace()->getSlug(),
+            'freight' => MathPresenter::money($price->getFreight()),
+            'marketplaceSlug' => $marketplace->getSlug(),
             'margin' => MathPresenter::percentage(
                 Percentage::fromPercentage($price->getMargin())
             ),
-            'priceId' => $post->getId(),
+            'priceId' => $product->getPrice($marketplace)->getId(),
             'profit' => MathPresenter::money($price->getProfit()),
             'purchasePrice' => MathPresenter::money($price->getPurchasePrice()),
             'suggestedPrice' => MathPresenter::money($price->get()),

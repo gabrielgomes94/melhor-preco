@@ -66,14 +66,14 @@ class CalculatePrice
         );
     }
 
-    public function getValue(float $value, CalculatorOptions $options): Money
+    private function getValue(float $value, CalculatorOptions $options): Money
     {
         $value = MoneyTransformer::toMoney($value);
 
         return $value->multiply(1 - $options->discountRate->getFraction());
     }
 
-    public function getFreight(Marketplace $marketplace, Product $product, float $value): Money
+    private function getFreight(Marketplace $marketplace, Product $product, float $value): Money
     {
         $freight = $this->freightRepository->get(
             $marketplace,

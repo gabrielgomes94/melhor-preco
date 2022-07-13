@@ -13,6 +13,9 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Domain\Repositories\PostRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
 
+/**
+ * @deprecated
+ */
 class CalculatePrice implements CalculatePriceInterface
 {
     public function __construct(

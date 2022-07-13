@@ -3,6 +3,8 @@
 namespace Src\Prices\Infrastructure\Laravel\Presentation\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Presentation\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Infrastructure\Laravel\Presentation\Presenters\PricePresenter;
 use Src\Marketplaces\Domain\Models\Marketplace;
@@ -19,23 +21,22 @@ class ProductPresenter
     public function __construct(
         private Breadcrumb $breadcrumb,
         private MarketplaceRepository $marketplaceRepository,
-        private PricePresenter $calculatorPresenter
+        private PricePresenter $calculatorPresenter,
+        private CommissionRepository $commissionRepository
     ) {
     }
 
-    public function present(Post $post, CalculatePriceRequest $request)
+//    public function present(Post $post, CalculatePriceRequest $request)
+    public function present(Product $product, Marketplace $marketplace, CalculatedPrice $calculatedPrice, CalculatePriceRequest $request)
     {
-        $marketplace = $post->getMarketplace();
-        $product = $post->getProduct();
-
         $presentedData = [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
-            'calculatorForm' => $this->getCalculatorForm($post),
-            'productInfo' => $this->getProductInfo($post),
+            'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice),
+            'productInfo' => $this->getProductInfo($marketplace, $product),
             'costsForm' => $this->getCostsForm($product),
-            'calculatedPrice' => $this->getPrice($post),
-            'navbar' => $this->getNavbar($marketplace),
-            'marketplacesList' => $this->getMarketplacesList($post),
+            'calculatedPrice' => $this->getPrice($calculatedPrice, $marketplace, $product),
+            'navbar' => $this->getNavbar($marketplace, $product->getUser()->getId()),
+            'marketplacesList' => $this->getMarketplacesList($marketplace, $product),
         ];
 
         return $this->mergeRequest($presentedData, $request);
@@ -80,33 +81,28 @@ class ProductPresenter
         return false;
     }
 
-    private function getCalculatorForm(Post $post): array
+    private function getCalculatorForm(Marketplace $marketplace, Product $product, CalculatedPrice $calculatedPrice): array
     {
-        $price = $post->getCalculatedPrice();
-        $commissionRate = $price->getCommission()->getCommissionRate();
-        $commission = Percentage::fromFraction($commissionRate)->get();
-        $marketplace = $post->getMarketplace();
+        $commission = $this->commissionRepository->get($marketplace, $product);
 
         return [
             'marketplaceName' => $marketplace->getName(),
             'marketplaceSlug' => $marketplace->getSlug(),
-            'commission' => $commission,
-            'desiredPrice' => MoneyTransformer::toFloat($price->get()),
+            'commission' => $commission->get(),
+            'desiredPrice' => MoneyTransformer::toFloat($calculatedPrice->get()),
             'isFreeFreightDisabled' => $this->isFreeFreightDisabled($marketplace),
-            'priceId' => $post->getId(),
-            'productId' => $post->getProduct()->getSku(),
+            'priceId' => $product->getPrice($marketplace)->getId(),
+            'productId' => $product->getSku(),
         ];
     }
 
-    private function getProductInfo(Post $post): array
+    private function getProductInfo(Marketplace $marketplace, Product $product): array
     {
-        $product = $post->getProduct();
-
         return [
             'product' => $product,
             'id' => $product->getSku(),
             'header' => $this->getProductHeader($product),
-            'currentPrice' => MathPresenter::money($post->getPrice()->getValue()),
+            'currentPrice' => MathPresenter::money($product->getPrice($marketplace)->getValue()),
         ];
     }
 
@@ -121,27 +117,26 @@ class ProductPresenter
         ];
     }
 
-    private function getPrice(Post $post): array
+    private function getPrice(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
         return [
-            'raw' => $this->calculatorPresenter->transformRaw($post),
-            'formatted' => $this->calculatorPresenter->format($post)
+            'raw' => $this->calculatorPresenter->transformRaw($calculatedPrice, $marketplace, $product),
+            'formatted' => $this->calculatorPresenter->format($calculatedPrice, $marketplace, $product)
         ];
     }
 
-    private function getNavbar(Marketplace $marketplace): array
+    private function getNavbar(Marketplace $marketplace, string $userId): array
     {
         return [
-            'marketplaces' => $this->marketplaceRepository->list(),
+            'marketplaces' => $this->marketplaceRepository->list($userId),
             'selected' => $marketplace->getSlug(),
         ];
     }
 
-    private function getMarketplacesList(Post $post): array
+    private function getMarketplacesList(Marketplace $marketplace, Product $product): array
     {
-        $product = $post->getProduct();
         $prices = $product->getPrices();
-        $currentMarketplaceSlug = $post->getMarketplace()->getSlug();
+        $currentMarketplaceSlug = $marketplace->getSlug();
 
         return $prices->transform(function (Price $price) use ($currentMarketplaceSlug) {
             $marketplace = $price->getMarketplace();
