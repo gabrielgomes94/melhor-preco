@@ -1,7 +1,8 @@
 <?php
 
-namespace Src\Calculator\Application\Services;
+namespace Src\Prices\Domain\Services;
 
+use Src\Calculator\Application\Services\CalculatePrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MoneyTransformer;

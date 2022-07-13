@@ -3,8 +3,8 @@
 namespace Src\Calculator\Domain\Models\Price;
 
 use Src\Calculator\Domain\Models\Price\Commission\Factories\Factory as CommissionFactory;
-use Src\Calculator\Domain\Models\Price\Contracts\Price as PriceInterface;
-use Src\Calculator\Domain\Models\Price\Costs\CostPrice;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price as PriceInterface;
+use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Calculator\Domain\Models\Price\Freight\Factories\Factory;
 use Src\Calculator\Domain\Models\Price\Price;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
@@ -14,6 +14,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 
+// @deprecated
 class PriceFactory
 {
     public static function make(
@@ -46,7 +47,8 @@ class PriceFactory
         return new CostPrice(
             MoneyTransformer::toMoney($costs->purchasePrice()),
             MoneyTransformer::toMoney($costs->additionalCosts()),
-            PercentageTransformer::toPercentage($costs->taxICMS())
+            PercentageTransformer::toPercentage($costs->taxICMS()),
+            PercentageTransformer::toPercentage(config('taxes.simples_nacional'))
         );
     }
 }

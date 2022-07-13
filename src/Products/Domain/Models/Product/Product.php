@@ -12,6 +12,7 @@ use Src\Products\Domain\Models\Product\ValueObjects\Details;
 use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
 use Src\Products\Domain\Models\Product\ValueObjects\Variations\Variations;
+use Src\Users\Domain\Entities\User;
 
 interface Product
 {
@@ -40,4 +41,6 @@ interface Product
     public function postedOnMarketplace(Marketplace $marketplace): bool;
 
     public function getImages(): array;
+
+    public function getUser(): User;
 }

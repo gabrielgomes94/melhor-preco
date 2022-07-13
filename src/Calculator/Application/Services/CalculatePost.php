@@ -2,11 +2,14 @@
 
 namespace Src\Calculator\Application\Services;
 
-use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price as CalculatedPrice;
 use Src\Calculator\Domain\Models\Product\ProductData;
 use Src\Calculator\Domain\Services\Contracts\CalculatePost as CalculatePostInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 
+/**
+ * @deprecated
+ */
 class CalculatePost implements CalculatePostInterface
 {
     private CalculatePrice $service;

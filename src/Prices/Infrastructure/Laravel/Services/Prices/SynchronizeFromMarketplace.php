@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
 use Illuminate\Support\Facades\Log;
-use Src\Calculator\Application\Services\CalculateProfit;
+use Src\Prices\Domain\Services\CalculateProfit;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;

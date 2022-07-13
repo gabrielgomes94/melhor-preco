@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price as CalculatedPrice;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;

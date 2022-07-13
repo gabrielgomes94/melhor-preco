@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Models\Post\Concerns;
 
-use Src\Calculator\Domain\Models\Price\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price;
 
 trait SecondaryPrice
 {

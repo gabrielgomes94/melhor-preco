@@ -1,33 +1,36 @@
 <?php
 
-namespace Src\Calculator\Domain\Models\Price;
+namespace Src\Prices\Domain\Models\Calculator;
 
 use Money\Money;
 use Src\Calculator\Domain\Models\Price\Commission\Commission;
-use Src\Prices\Domain\Models\Calculator\Contracts\Price as PriceInterface;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
-use Src\Calculator\Domain\Models\Price\Freight\BaseFreight as Freight;
+use Src\Calculator\Domain\Models\Price\Freight\BaseFreight;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
-use Src\Math\MoneyTransformer;
+use Src\Marketplaces\Domain\Models\Freight\Freight;
+use Src\Math\Percentage;
 
-class Price implements PriceInterface
+class CalculatedPrice implements Contracts\Price
 {
     public function __construct(
         private CostPrice $costPrice,
-        private Freight $freight,
-        private Commission $commission,
-        private Money $value
-    ) {}
+        private Money $value,
+        private Percentage $commission,
+        private Money $freight
+    ) {
+    }
 
     public function get(): Money
     {
         return $this->value;
     }
 
-    public function getCommission(): Commission
+    public function getCommission(): Money
     {
-        return $this->commission;
+        return $this->value->multiply(
+            $this->commission->getFraction()
+        );
     }
 
     public function getCostPrice(): CostPrice
@@ -38,9 +41,9 @@ class Price implements PriceInterface
     public function getCosts(): Money
     {
         return $this->getCostPrice()->get()
-            ->add($this->getCommission()->get())
+            ->add($this->getCommission())
             ->add($this->getSimplesNacional())
-            ->add($this->getFreight()->get());
+            ->add($this->getFreight());
     }
 
     public function getDifferenceICMS(): Money
@@ -48,7 +51,7 @@ class Price implements PriceInterface
         return $this->costPrice->differenceICMS();
     }
 
-    public function getFreight(): Freight
+    public function getFreight(): Money
     {
         return $this->freight;
     }
@@ -64,14 +67,11 @@ class Price implements PriceInterface
         return round($margin * 100, 2);
     }
 
-    public function getProductData(): ProductData
-    {
-        return $this->product;
-    }
-
     public function getProfit(): Money
     {
-        return $this->value->subtract($this->getCosts());
+        return $this->value->subtract(
+            $this->getCosts()
+        );
     }
 
     public function getPurchasePrice(): Money
@@ -82,13 +82,8 @@ class Price implements PriceInterface
     public function getSimplesNacional(): Money
     {
         return $this->value->multiply(
-            PercentageTransformer::toPercentage(config('taxes.simples_nacional'))
+            $this->costPrice->simplesNacional()
         );
-    }
-
-    public function __toString(): string
-    {
-        return MoneyTransformer::toString($this->value);
     }
 
     public function isProfitable(): bool

@@ -7,9 +7,12 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\Percentage;
 use Src\Calculator\Domain\Models\Product\Contracts\ProductData;
-use Src\Calculator\Domain\Models\Price\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price;
 use Src\Calculator\Domain\Services\Contracts\CalculatePrices;
 
+/**
+ * @deprecated
+ */
 class CalculatePrice implements CalculatePrices
 {
     public function __construct(

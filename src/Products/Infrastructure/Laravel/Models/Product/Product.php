@@ -20,6 +20,7 @@ use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
 use Src\Products\Domain\Models\Product\ValueObjects\Variations\Variations;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Product extends Model implements ProductModelInterface
 {
@@ -78,6 +79,11 @@ class Product extends Model implements ProductModelInterface
     public function itemsCosts(): HasMany
     {
         return $this->hasMany(PurchaseItem::class, 'ean', 'ean');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getLatestPurchaseItem(): ?PurchaseItem

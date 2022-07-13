@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Models\Post;
 
 use Money\Money;
-use Src\Calculator\Domain\Models\Price\Contracts\Price as CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price as CalculatedPrice;
 use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Models\Price as PriceModel;

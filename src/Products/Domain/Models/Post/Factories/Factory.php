@@ -3,7 +3,7 @@
 namespace Src\Products\Domain\Models\Post\Factories;
 
 use Src\Calculator\Application\Services\CalculatePost;
-use Src\Calculator\Domain\Models\Price\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price;
 use Src\Prices\Infrastructure\Laravel\Models\Price as PriceModel;
 use Src\Products\Domain\Models\Post\Contracts\Post;
 use Src\Products\Domain\Models\Post\Post as PostObject;

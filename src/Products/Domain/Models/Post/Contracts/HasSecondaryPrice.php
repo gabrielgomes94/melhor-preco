@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Models\Post\Contracts;
 
-use Src\Calculator\Domain\Models\Price\Contracts\Price;
+use Src\Prices\Domain\Models\Calculator\Contracts\Price;
 
 interface HasSecondaryPrice
 {
