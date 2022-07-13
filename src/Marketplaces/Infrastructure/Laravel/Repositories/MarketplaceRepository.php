@@ -8,6 +8,7 @@ use Src\Marketplaces\Domain\DataTransfer\MarketplaceSettings;
 use Src\Marketplaces\Domain\Exceptions\InvalidCommissionTypeException;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
 use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
+use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
@@ -26,6 +27,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         );
         $marketplace = new MarketplaceModel($data);
         $marketplace->user_id = $settings->userId;
+        $marketplace->setFreight(new Freight(0.0));
 
         if ($marketplace->slugsExists()) {
             throw new MarketplaceSlugAlreadyExists($marketplace);

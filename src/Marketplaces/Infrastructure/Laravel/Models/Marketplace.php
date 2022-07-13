@@ -3,10 +3,12 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Domain\Models\Marketplace as MarketplaceInterface;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\CommissionCast;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\FreightCast;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceRelationships;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceScopes;
 use Src\Users\Infrastructure\Laravel\Models\User;
@@ -24,6 +26,7 @@ class Marketplace extends Model implements MarketplaceInterface
         'name',
         'slug',
         'commission',
+        'freight',
         'is_active',
         'uuid',
         'user_id',
@@ -31,6 +34,7 @@ class Marketplace extends Model implements MarketplaceInterface
 
     protected $casts = [
         'commission' => CommissionCast::class,
+        'freight' => FreightCast::class,
     ];
 
     protected $primaryKey = 'uuid';
@@ -100,5 +104,15 @@ class Marketplace extends Model implements MarketplaceInterface
             $this->getCommission()->getType(),
             $commissions
         );
+    }
+
+    public function setFreight(Freight $freight): void
+    {
+        $this->freight = $freight;
+    }
+
+    public function getFreight(): Freight
+    {
+        return $this->freight;
     }
 }
