@@ -6,7 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ProductWithPriceRepository
 {
-    public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator;
+    public function listProducts(string $storeSlug, string $userId, int $page = 1): LengthAwarePaginator;
 
     public function listProductsByCategory(string $storeSlug, string $categoryId, int $page = 1): LengthAwarePaginator;
 

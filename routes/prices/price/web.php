@@ -7,13 +7,13 @@ use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\UpdateControlle
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('pricing')
+    Route::prefix('calculadora')
         ->name('pricing')
         ->group(function () {
-            Route::prefix('/price_list')
+            Route::prefix('/precos')
                 ->name('.priceList')
                 ->group(function () {
-                    Route::get('/{marketplaceSlug?}', [ListController::class, 'show'])->name('.byStore');
+                    Route::get('/{marketplaceSlug?}', ListController::class)->name('.byStore');
                 });
 
             Route::prefix('/{store_slug}/products')

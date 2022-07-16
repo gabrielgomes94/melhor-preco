@@ -10,7 +10,7 @@ class ProductWithPriceRepository implements ProductWithPriceRepositoryInterface
 {
     private const PER_PAGE = 15;
 
-    public function listProducts(string $storeSlug, int $page = 1): LengthAwarePaginator
+    public function listProducts(string $storeSlug, string $userId, int $page = 1): LengthAwarePaginator
     {
         return Product::with(
             [
@@ -19,8 +19,10 @@ class ProductWithPriceRepository implements ProductWithPriceRepositoryInterface
                 }
             ]
         )
+            ->where('user_id', $userId)
             ->active()
             ->isOnStore($storeSlug)
+            ->isNotVariation()
             ->orderBySku()
             ->paginate(perPage: self::PER_PAGE, page: $page);
     }
@@ -63,6 +65,7 @@ class ProductWithPriceRepository implements ProductWithPriceRepositoryInterface
         ])
             ->active()
             ->isOnStore($storeSlug)
+            ->isNotVariation()
             ->where('category_id', $categoryId)
             ->orderBySku()
             ->paginate(perPage: self::PER_PAGE, page: $page);

@@ -42,6 +42,6 @@ class ListProducts
             );
         }
 
-        return $this->repository->listProducts($store, $page);
+        return $this->repository->listProducts($store, $options->getUserId(), $page);
     }
 }

@@ -6,31 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\PriceList\ShowRequest;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceListPresenter;
 use Src\Prices\Infrastructure\Laravel\Services\Products\ListProducts;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class ListController extends Controller
 {
-    private ListProducts $listProductsService;
-    private PriceListPresenter $priceListPresenter;
-    private MarketplaceRepository $marketplaceRepository;
     public function __construct(
-        ListProducts $listProductsService,
-        PriceListPresenter $priceListPresenter,
-        MarketplaceRepository $marketplaceRepository
+        private readonly ListProducts $listProductsService,
+        private readonly PriceListPresenter $priceListPresenter,
+        private readonly MarketplaceRepository $marketplaceRepository
     ) {
-        $this->listProductsService = $listProductsService;
-        $this->priceListPresenter = $priceListPresenter;
-        $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    /**
-     * @return Application|Factory|View
-     */
-    public function show(ShowRequest $request, ?string $marketplaceSlug = null)
+    public function __invoke(ShowRequest $request, ?string $marketplaceSlug = null): Application|Factory|View
     {
         $userId = auth()->user()->getAuthIdentifier();
 
@@ -38,14 +33,22 @@ class ListController extends Controller
             $marketplaceSlug = $this->marketplaceRepository->first($userId)->getSlug();
         }
 
-        $paginator = $this->listProductsService->listPaginate(
+        $products = $this->listProductsService->listPaginate(
             $this->getOptions($marketplaceSlug, $request)
         );
 
-        $data = $this->priceListPresenter->list($paginator, $marketplaceSlug, $request->all(), $userId);
+        $data = $this->priceListPresenter->list(
+            $products,
+            $marketplaceSlug,
+            $this->getOptions($marketplaceSlug, $request),
+            $userId
+        );
 
+        if ($products->isEmpty()) {
+            return view('pages.pricing.prices.empty-list', $data);
+        }
 
-        return view('pages.pricing.price-list.show', $data);
+        return view('pages.pricing.prices.list', $data);
     }
 
     private function getOptions(string $store, ShowRequest $request): Options

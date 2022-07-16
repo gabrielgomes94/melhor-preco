@@ -48,6 +48,24 @@ class MarketplaceData
         );
     }
 
+    public static function magalu(User $user): Marketplace
+    {
+        return self::persisted($user, [
+            'name' => 'Magalu',
+            'slug' => 'magalu',
+            'erp_id' => '123456'
+        ]);
+    }
+
+    public static function shopee(User $user): Marketplace
+    {
+        return self::persisted($user, [
+            'name' => 'Shopee',
+            'slug' => 'shopee',
+            'erp_id' => '123456'
+        ]);
+    }
+
     private static function categoryCommission(): Commission
     {
         return Commission::fromArray(

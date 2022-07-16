@@ -26,6 +26,7 @@ class ShowRequest extends FormRequest
             'page' => $this->input('page') ?? 1,
             'sku' => $this->input('sku') ?? null,
             'categoryId' => $this->input('category') ?? null,
+            'userId' => auth()->user()->getAuthIdentifier(),
         ];
 
         return new Options($data);

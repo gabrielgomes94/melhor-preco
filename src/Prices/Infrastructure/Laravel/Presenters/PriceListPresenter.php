@@ -4,60 +4,43 @@ namespace Src\Prices\Infrastructure\Laravel\Presenters;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MathPresenter;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class PriceListPresenter
 {
-    private Breadcrumb $breadcrumb;
-    private CategoryRepository $categoryRepository;
-    private MarketplaceRepository $marketplaceRepository;
-
     public function __construct(
-        Breadcrumb $breadcrumb,
-        CategoryRepository $categoryRepository,
-        MarketplaceRepository $marketplaceRepository
+        private readonly Breadcrumb $breadcrumb,
+        private readonly CategoryRepository $categoryRepository,
+        private readonly MarketplaceRepository $marketplaceRepository
     ) {
-        $this->breadcrumb = $breadcrumb;
-        $this->categoryRepository = $categoryRepository;
-        $this->marketplaceRepository = $marketplaceRepository;
     }
 
-    public function list(LengthAwarePaginator $paginator, string $store, array $parameters, string $userId)
+    public function list(LengthAwarePaginator $paginator, string $marketplaceSlug, Options $options, string $userId)
     {
-        $store = new StorePresenter(
-            name: $store,
-            slug: $store
-        );
+        $marketplaces = $this->presentMarketplaces($userId);
+        if (!$marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId)) {
+            throw new MarketplaceNotFoundException($marketplaceSlug);
+        }
 
-        $marketplaces = $this->marketplaceRepository->list($userId);
-        $marketplaces = collect($marketplaces);
-        $marketplaces = $marketplaces->map(function(Marketplace $marketplace) {
-            return [
-                'slug' => $marketplace->getSlug(),
-                'name' => $marketplace->getName(),
-            ];
-        })->toArray();
-
-        $marketplace = $this->marketplaceRepository->getBySlug($store->slug(), $userId);
-        $products = $this->presentProducts($paginator->items(), $marketplace);
+        $products = $this->presentProducts($paginator->items(), $marketplace, $options);
 
         return [
             'breadcrumb' => $this->getBreadcrumb($marketplace),
-            'paginator' => $paginator->appends('category', $parameters['category'] ?? null),
-            'products' => $products,
-            'sku' => $parameters['sku'] ?? null,
-            'store' => $store,
-            'filter' => $this->presentFilter($parameters, $userId),
-            'marketplaces' => $marketplaces,
             'currentMarketplace' => [
                 'name' => $marketplace->getName(),
                 'slug' => $marketplace->getSlug(),
             ],
+            'filter' => $this->presentFilter($options, $userId),
+            'marketplaces' => $marketplaces,
+            'paginator' => $paginator->appends('category', $options->getCategoryId() ?? null),
+            'products' => $products,
         ];
     }
 
@@ -69,23 +52,44 @@ class PriceListPresenter
         );
     }
 
-    private function presentProducts(array $items, Marketplace $marketplace): array
+    private function presentProducts(array $items, Marketplace $marketplace, Options $options): array
     {
         $products = collect($items);
 
-        return $products->transform(function (Product $product) use ($marketplace) {
+
+        if ($options->hasProfitFilters()) {
+            $products = $products->filter(
+                function(Product $product) use ($marketplace, $options) {
+                    $price = $product->getPrice($marketplace);
+                    $margin = $price->getMargin()->get();
+
+                    return $margin >= $options->minimumProfit() && $margin <= $options->maximumProfit();
+                }
+            );
+        }
+
+        $products = $products->transform(function (Product $product) use ($marketplace, $options) {
             $price = $product->getPrice($marketplace);
+            $margin = $price?->getMargin()
+                ? MathPresenter::percentage($price?->getMargin())
+                : null;
 
             return [
                 'sku' => $product->getIdentifiers()->getSku(),
                 'name' => $product->getDetails()->getName(),
                 'price' => MathPresenter::money($price?->getValue()),
                 'profit' => MathPresenter::money($price?->getProfit()),
-                'margin' => $price?->getMargin() ?? null,
+                'margin' => $margin,
                 'quantity' => $product->getQuantity(),
-                'variations' => $this->presentProducts($product->getVariations()?->get() ?? [], $marketplace)
+                'variations' => $this->presentProducts(
+                    $product->getVariations()?->get() ?? [],
+                    $marketplace,
+                    $options
+                )
             ];
-        })->toArray();
+        });
+
+        return $products->toBase()->toArray();
     }
 
     public function presentCategories(string $userId): array
@@ -101,15 +105,28 @@ class PriceListPresenter
         )->sortBy('name')->toArray();
     }
 
-    public function presentFilter(array $parameters, string $userId): array
+    public function presentFilter(Options $options, string $userId): array
     {
         $categories = $this->presentCategories($userId);
 
         return [
             'categories' => $categories,
-            'minimumProfit' => $parameters['minProfit'] ?? null,
-            'maximumProfit' => $parameters['maxProfit'] ?? null,
-            'sku' => $parameters['sku'] ?? null,
+            'minimumProfit' => $options->minimumProfit,
+            'maximumProfit' => $options->maximumProfit,
+            'sku' => $options->sku() ?? null,
         ];
+    }
+
+    public function presentMarketplaces(string $userId): array
+    {
+        $marketplaces = $this->marketplaceRepository->list($userId);
+        $marketplaces = collect($marketplaces);
+
+        return $marketplaces->map(
+            fn (Marketplace $marketplace) => [
+                'slug' => $marketplace->getSlug(),
+                'name' => $marketplace->getName(),
+            ]
+        )->toArray();
     }
 }

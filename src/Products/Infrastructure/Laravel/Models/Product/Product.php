@@ -155,13 +155,18 @@ class Product extends Model implements ProductModelInterface
 
     public function getVariations(): ?Variations
     {
-        $variationModels = $this->where('parent_sku', $this->sku)->get();
+        $variationModels = $this->withParentSku($this->getSku())->get();
 
-        foreach ($variationModels as $variation) {
-            $variationProducts[] = $variation->first();
-        }
+//        dd($variationModels->toArray());
 
-        return new Variations($this->parent_sku, $variationProducts ?? []);
+//        foreach ($variationModels as $variation) {
+//            $variationProducts[] = $variation;
+//        }
+
+        return new Variations(
+            $this->getSku(),
+            $variationModels->all()
+        );
     }
 
     public function getCategory(): ?Category
@@ -232,47 +237,52 @@ class Product extends Model implements ProductModelInterface
         return $this->is_active && $this->prices->count() > 0;
     }
 
-    public function setActive(bool $status)
-    {
-        $this->is_active = $status;
-    }
-
-    // @deprecated
-    public function setDetails(Details $details)
-    {
-        $this->name = $details->getName();
-        $this->brand = $details->getBrand();
-    }
-
-    public function setCosts(Costs $costs)
-    {
-        $this->purchase_price = $costs->purchasePrice();
-        $this->tax_icms = $costs->taxICMS();
-        $this->additional_costs = $costs->additionalCosts();
-    }
-
-    public function setCompositionProducts(Composition $composition)
-    {
-        $this->composition_products = $composition->getSkus();
-    }
-
-    public function setDimensions(Dimensions $dimensions)
-    {
-        $this->depth = $dimensions->depth();
-        $this->height = $dimensions->height();
-        $this->width = $dimensions->width();
-        $this->weight = $dimensions->weight();
-    }
-
-    public function setVariations(Variations $variations)
-    {
-        $this->parent_sku = $variations->getParentSku();
-        $this->has_variations = $this->hasVariations();
-    }
+//    public function setActive(bool $status)
+//    {
+//        $this->is_active = $status;
+//    }
+//
+//    // @deprecated
+//    public function setDetails(Details $details)
+//    {
+//        $this->name = $details->getName();
+//        $this->brand = $details->getBrand();
+//    }
+//
+//    public function setCosts(Costs $costs)
+//    {
+//        $this->purchase_price = $costs->purchasePrice();
+//        $this->tax_icms = $costs->taxICMS();
+//        $this->additional_costs = $costs->additionalCosts();
+//    }
+//
+//    public function setCompositionProducts(Composition $composition)
+//    {
+//        $this->composition_products = $composition->getSkus();
+//    }
+//
+//    public function setDimensions(Dimensions $dimensions)
+//    {
+//        $this->depth = $dimensions->depth();
+//        $this->height = $dimensions->height();
+//        $this->width = $dimensions->width();
+//        $this->weight = $dimensions->weight();
+//    }
+//
+//    public function setVariations(Variations $variations)
+//    {
+//        $this->parent_sku = $variations->getParentSku();
+//        $this->has_variations = $this->hasVariations();
+//    }
 
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeWithParentSku($query, string $parentSku)
+    {
+        return $query->where('parent_sku', $parentSku);
     }
 
     public function scopeWithSku($query, string $sku)
@@ -307,10 +317,14 @@ class Product extends Model implements ProductModelInterface
 
     public function scopeIsOnStore($query, string $store)
     {
-
         return $query->whereHas('prices', function (Builder $query) use ($store) {
             $query->where('store', '=', $store);
         });
+    }
+
+    public function scopeIsNotVariation($query)
+    {
+        return $query->where('parent_sku', null);
     }
 
     public function postedOnMarketplace(Marketplace $marketplace): bool

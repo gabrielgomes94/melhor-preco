@@ -1,10 +1,7 @@
 <x-layout>
+
     <x-slot name="navbar">
         <x-app.pricing.navbar />
-    </x-slot>
-
-    <x-slot name="breadcrumb">
-        <x-bootstrap.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
     </x-slot>
 
     <x-slot name="modals">
@@ -15,15 +12,15 @@
             formId="filter-products-form"
         >
             <x-app.pricing.price-list.filters.modal.content
-                :store="$store"
                 :filter="$filter"
                 :currentMarketplace="$currentMarketplace"
+                :marketplaceSlug="$currentMarketplace['slug']"
                 formId="filter-products-form"
             />
         </x-bootstrap.modals.modal>
     </x-slot>
 
-    <div class="row">
+    <div class="row my-2">
         <div class="col-12">
             <div class="d-flex justify-content-between mb-2">
                 <div class="d-flex flex-row justify-content-center">
@@ -38,11 +35,8 @@
                 </div>
 
                 <div class="d-inline-flex flex-row">
-                    <x-app.pricing.price-list.filters.buttons :store="$store" />
-
                     <span class="m-2"></span>
-
-                    <x-app.pricing.price-list.sync.buttons :store="$store->slug()" />
+                    <x-app.pricing.price-list.sync.buttons :marketplaceSlug="$currentMarketplace['slug']" />
                 </div>
             </div>
         </div>
@@ -54,7 +48,7 @@
                 :paginator="$paginator"
                 :products="$products"
                 :currentMarketplace="$currentMarketplace"
-                :store="$store"
+                :breadcrumb="$breadcrumb"
             />
         </div>
     </div>

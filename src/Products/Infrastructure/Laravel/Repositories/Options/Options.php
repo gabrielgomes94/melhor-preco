@@ -14,11 +14,12 @@ class Options
     protected string $path;
     protected ?int $page = null;
     protected ?int $perPage = 40;
-    protected ?float $minimumProfit;
-    protected ?float $maximumProfit;
+    public ?float $minimumProfit;
+    public ?float $maximumProfit;
     protected ?string $store;
     protected ?string $sku;
     private ?string $categoryId;
+    private ?string $userId;
 
     public function __construct(array $data)
     {
@@ -42,6 +43,7 @@ class Options
         $this->query = $data['query'] ?? [];
 
         $this->dimensions = $data['dimensions'] ?? [];
+        $this->userId = $data['userId'] ?? null;
     }
 
     public function hasPagination(): bool
@@ -127,5 +129,10 @@ class Options
     public function hasCategories(): bool
     {
         return (bool) $this->categoryId;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->userId;
     }
 }
