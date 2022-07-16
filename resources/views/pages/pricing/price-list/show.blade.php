@@ -17,30 +17,28 @@
             <x-app.pricing.price-list.filters.modal.content
                 :store="$store"
                 :filter="$filter"
+                :currentMarketplace="$currentMarketplace"
                 formId="filter-products-form"
             />
         </x-bootstrap.modals.modal>
-
-
-{{--        <x-app.pricing.price-list.mass-calculation.modal.modal--}}
-{{--            :store="$store"--}}
-{{--            :filter="$filter ?? []"--}}
-{{--            :massCalculation="$massCalculation"--}}
-{{--        />--}}
     </x-slot>
 
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-between mb-2">
-                <div class="d-flex flex-column justify-content-center">
+                <div class="d-flex flex-row justify-content-center">
+                    <x-app.pricing.price-list.dropdowns.menu />
+
+                    <div class="mx-1"></div>
+
+                    <x-app.pricing.price-list.dropdowns.marketplaces
+                        :marketplaces="$marketplaces"
+                        :currentMarketplace="$currentMarketplace"
+                    />
                 </div>
 
                 <div class="d-inline-flex flex-row">
                     <x-app.pricing.price-list.filters.buttons :store="$store" />
-
-                    <span class="m-2"></span>
-
-{{--                    <x-app.pricing.price-list.mass-calculation.buttons :store="$store" />--}}
 
                     <span class="m-2"></span>
 
@@ -55,6 +53,7 @@
             <x-app.pricing.price-list.card.card
                 :paginator="$paginator"
                 :products="$products"
+                :currentMarketplace="$currentMarketplace"
                 :store="$store"
             />
         </div>

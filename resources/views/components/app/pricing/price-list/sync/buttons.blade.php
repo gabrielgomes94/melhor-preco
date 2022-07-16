@@ -1,4 +1,4 @@
-<div class="h-100 d-flex align-content-end my-2">
+<div class="h-100 d-flex align-content-end">
     <x-bootstrap.forms.form.post
         :action="route('pricing.sync', $store)"
     >

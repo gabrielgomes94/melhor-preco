@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\CalculateController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\SyncController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\UpdateController;
-use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\IndexController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
 
 Route::middleware('auth')->group(function () {
@@ -14,8 +13,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/price_list')
                 ->name('.priceList')
                 ->group(function () {
-                    Route::get('/', [IndexController::class, 'index'])->name('.index');
-                    Route::get('/{store}', [ListController::class, 'show'])->name('.byStore');
+                    Route::get('/{marketplaceSlug?}', [ListController::class, 'show'])->name('.byStore');
                 });
 
             Route::prefix('/{store_slug}/products')

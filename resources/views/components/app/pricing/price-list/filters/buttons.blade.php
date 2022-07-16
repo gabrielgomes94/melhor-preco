@@ -1,4 +1,4 @@
-<div class="h-100 d-inline-flex align-content-end my-2">
+<div class="h-100 d-inline-flex align-content-end">
     <div>
         <a href="{{ route('pricing.priceList.byStore', $store->slug()) }}"
            class="link-primary my-2 px-2">

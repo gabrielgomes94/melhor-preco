@@ -128,7 +128,7 @@
       }
   }
 }
-  
+
 .table  {
     [data-sort] {
         cursor: pointer;
@@ -137,7 +137,7 @@
     .custom-toggle {
         display: block;
     }
-  
+
     .thead-dark {
         [data-sort] {
             &::after {
@@ -154,7 +154,7 @@
                 margin-left: .25rem;
             }
         }
-    } 
+    }
 }
 
 .dataTables_wrapper {
@@ -166,7 +166,7 @@
     .dataTables_paginate{
         padding-right: 1.5rem;
     }
-    
+
     .dataTables_length {
         label{
             padding-left:1.5rem;
@@ -209,7 +209,7 @@
         padding: $pagination-padding-y $pagination-padding-x;
         @include font-size(null);
     }
-    
+
     li {
     @if $pagination-margin-left == (-$pagination-border-width) {
         &:first-child {
@@ -235,14 +235,14 @@
         &:not(:first-child) a {
             margin-left: $pagination-margin-left;
           }
-        
+
           &.active a {
             z-index: 3;
             color: $pagination-active-color;
             @include gradient-bg($pagination-active-bg);
             border-color: $pagination-active-border-color;
           }
-        
+
           &.disabled a {
             color: $pagination-disabled-color;
             pointer-events: none;
@@ -257,7 +257,7 @@
             text-decoration: if($link-decoration == none, null, none);
             background-color: $pagination-bg;
             border: $pagination-border-width solid $pagination-border-color;
-          
+
             &:hover {
               z-index: 2;
               color: $pagination-hover-color;
@@ -265,7 +265,7 @@
               background-color: $pagination-hover-bg;
               border-color: $pagination-hover-border-color;
             }
-          
+
             &:focus {
               z-index: 3;
               outline: $pagination-focus-outline;
@@ -309,7 +309,7 @@
         &::-ms-value {
         // For visual consistency with other platforms/browsers,
         // suppress the default white text on blue background highlight given to
-        // the selected option text when the (still closed) <select> receives focus
+        // the selected option text when the (still closed) <dropdowns> receives focus
         // in Edge.
         // See https://github.com/twbs/bootstrap/issues/19398.
         color: $input-color;
@@ -330,7 +330,7 @@
         border-color: $form-select-disabled-border-color;
     }
 
-    // Remove outline from select box in FF
+    // Remove outline from dropdowns box in FF
     &:-moz-focusring {
         color: transparent;
         text-shadow: 0 0 0 $form-select-color;
@@ -352,7 +352,7 @@
     border: $input-border-width solid $input-border-color;
     appearance: none; // Fix appearance for date inputs in Safari
 
-    // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+    // Note: This has no effect on <dropdowns>s in some browsers, due to the limited stylability of `<dropdowns>`s in CSS.
     @include border-radius($input-border-radius, 0);
 
     @include box-shadow($input-box-shadow);

@@ -2,6 +2,7 @@
     <x-bootstrap.card.basic.card-body>
         <x-app.pricing.price-list.products.store-list.table
             :products="$products"
+            :marketplace="$currentMarketplace"
             :store="$store"
         />
     </x-bootstrap.card.basic.card-body>

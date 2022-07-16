@@ -13,11 +13,10 @@
         {{ $product['name'] }}
     </td>
 
-    <td colspan="2">R$ {{ $product['price'] }} </td>
+    <td colspan="2">{{ $product['price'] }} </td>
 
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
-            preffix="R$"
             value="{{ $product['profit'] }}"
         />
     </td>
@@ -25,7 +24,6 @@
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
             value="{{ $product['margin'] }}"
-            suffix="%"
         />
     </td>
 
@@ -35,8 +33,8 @@
 
     <td colspan="1">
         <a  href="{{
-            route('pricing.products.calculate', ['store_slug' => $store, 'product_id' => $product['sku']])
-            }}"'
+            route('pricing.products.calculate', ['store_slug' => $marketplaceSlug, 'product_id' => $product['sku']])
+            }}"
             role="button"
         >
             <x-app.base.icons.calculator />

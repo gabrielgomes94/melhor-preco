@@ -337,7 +337,7 @@ class Product extends Model implements ProductModelInterface
         return $this->user;
     }
 
-    public function getPrice(Marketplace $marketplace): Price
+    public function getPrice(Marketplace $marketplace): ?Price
     {
         $slug = $marketplace->getSlug();
         $prices = $this->prices;
@@ -348,7 +348,7 @@ class Product extends Model implements ProductModelInterface
             }
         }
 
-        throw new \Exception('Product has not price in marketplace');
+        return null;
     }
 
     public function getQuantity(): float

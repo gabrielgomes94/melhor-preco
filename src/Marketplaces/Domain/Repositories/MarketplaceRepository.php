@@ -9,6 +9,8 @@ interface MarketplaceRepository
 {
     public function create(MarketplaceSettings $data): Marketplace;
 
+    public function first(string $userId): ?Marketplace;
+
     public function getByErpId(string $marketplaceErpId, string $userId): ?Marketplace;
 
     public function getBySlug(string $marketplaceSlug, string $userId): ?Marketplace;

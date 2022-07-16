@@ -16,7 +16,7 @@ class Breadcrumb
     public static function priceListIndex(): array
     {
         return [
-            'link' => route('pricing.priceList.index'),
+            'link' => route('pricing.priceList.byStore'),
             'name' => 'Listas de Preços',
         ];
     }

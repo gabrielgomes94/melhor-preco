@@ -6,6 +6,7 @@ use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Math\MathPresenter;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
@@ -33,15 +34,6 @@ class PriceListPresenter
             slug: $store
         );
 
-        $categories = $this->categoryRepository->list($userId);
-        $categories = collect($categories);
-        $categories = $categories->map(function (Category $category) {
-            return [
-                'name' => $category->getFullName(),
-                'category_id' => $category->getCategoryId(),
-            ];
-        })->sortBy('name');
-
         $marketplaces = $this->marketplaceRepository->list($userId);
         $marketplaces = collect($marketplaces);
         $marketplaces = $marketplaces->map(function(Marketplace $marketplace) {
@@ -49,39 +41,31 @@ class PriceListPresenter
                 'slug' => $marketplace->getSlug(),
                 'name' => $marketplace->getName(),
             ];
-        });
-
+        })->toArray();
 
         $marketplace = $this->marketplaceRepository->getBySlug($store->slug(), $userId);
         $products = $this->presentProducts($paginator->items(), $marketplace);
 
         return [
-            'breadcrumb' => $this->getBreadcrumb($store),
+            'breadcrumb' => $this->getBreadcrumb($marketplace),
             'paginator' => $paginator->appends('category', $parameters['category'] ?? null),
             'products' => $products,
-            'minimumProfit' => $parameters['minProfit'] ?? null,
-            'maximumProfit' => $parameters['maxProfit'] ?? null,
             'sku' => $parameters['sku'] ?? null,
             'store' => $store,
-            'filter' => [
-                'categories' => $categories->toArray(),
-                'minimumProfit' => $parameters['minProfit'] ?? null,
-                'maximumProfit' => $parameters['maxProfit'] ?? null,
-                'sku' => $parameters['sku'] ?? null,
-            ],
-            'massCalculation' => [
-                'margin' => 00.0,
-                'commission' => 0.0,
-            ],
+            'filter' => $this->presentFilter($parameters, $userId),
             'marketplaces' => $marketplaces,
+            'currentMarketplace' => [
+                'name' => $marketplace->getName(),
+                'slug' => $marketplace->getSlug(),
+            ],
         ];
     }
 
-    private function getBreadcrumb(StorePresenter $store): array
+    private function getBreadcrumb(Marketplace $marketplace): array
     {
         return $this->breadcrumb->generate(
             Breadcrumb::priceListIndex(),
-            Breadcrumb::priceListByStore($store->name(), $store->slug())
+            Breadcrumb::priceListByStore($marketplace->getName(), $marketplace->getSlug())
         );
     }
 
@@ -95,12 +79,37 @@ class PriceListPresenter
             return [
                 'sku' => $product->getIdentifiers()->getSku(),
                 'name' => $product->getDetails()->getName(),
-                'price' => $price->getValue(),
-                'profit' => $price->getProfit(),
-                'margin' => $price->getMargin(),
+                'price' => MathPresenter::money($price?->getValue()),
+                'profit' => MathPresenter::money($price?->getProfit()),
+                'margin' => $price?->getMargin() ?? null,
                 'quantity' => $product->getQuantity(),
                 'variations' => $this->presentProducts($product->getVariations()?->get() ?? [], $marketplace)
             ];
         })->toArray();
+    }
+
+    public function presentCategories(string $userId): array
+    {
+        $categories = $this->categoryRepository->list($userId);
+        $categories = collect($categories);
+
+        return $categories->map(
+            fn (Category $category) => [
+                'name' => $category->getFullName(),
+                'category_id' => $category->getCategoryId(),
+            ]
+        )->sortBy('name')->toArray();
+    }
+
+    public function presentFilter(array $parameters, string $userId): array
+    {
+        $categories = $this->presentCategories($userId);
+
+        return [
+            'categories' => $categories,
+            'minimumProfit' => $parameters['minProfit'] ?? null,
+            'maximumProfit' => $parameters['maxProfit'] ?? null,
+            'sku' => $parameters['sku'] ?? null,
+        ];
     }
 }

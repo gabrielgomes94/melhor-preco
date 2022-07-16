@@ -26,7 +26,7 @@ interface Product
 
     public function getDetails(): Details;
 
-    public function getPrice(Marketplace $marketplace): Price;
+    public function getPrice(Marketplace $marketplace): ?Price;
 
     public function getPrices(): Collection;
 
