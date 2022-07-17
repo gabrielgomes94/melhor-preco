@@ -48,7 +48,6 @@
                 :paginator="$paginator"
                 :products="$products"
                 :currentMarketplace="$currentMarketplace"
-                :breadcrumb="$breadcrumb"
             />
         </div>
     </div>

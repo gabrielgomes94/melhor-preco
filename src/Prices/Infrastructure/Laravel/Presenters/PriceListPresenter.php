@@ -16,47 +16,42 @@ use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 class PriceListPresenter
 {
     public function __construct(
-        private readonly Breadcrumb $breadcrumb,
-        private readonly CategoryRepository $categoryRepository,
-        private readonly MarketplaceRepository $marketplaceRepository
+        private readonly FilterPresenter       $filterPresenter,
+        private readonly MarketplacesPresenter $marketplacesPresenter
     ) {
     }
 
-    public function list(LengthAwarePaginator $paginator, string $marketplaceSlug, Options $options, string $userId)
+    public function list(
+        LengthAwarePaginator $paginator,
+        Marketplace $marketplace,
+        Options $options,
+        string $userId
+    ): array
     {
-        $marketplaces = $this->presentMarketplaces($userId);
-        if (!$marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId)) {
-            throw new MarketplaceNotFoundException($marketplaceSlug);
-        }
-
-        $products = $this->presentProducts($paginator->items(), $marketplace, $options);
-
         return [
-            'breadcrumb' => $this->getBreadcrumb($marketplace),
             'currentMarketplace' => [
                 'name' => $marketplace->getName(),
                 'slug' => $marketplace->getSlug(),
             ],
-            'filter' => $this->presentFilter($options, $userId),
-            'marketplaces' => $marketplaces,
-            'paginator' => $paginator->appends('category', $options->getCategoryId() ?? null),
-            'products' => $products,
+            'filter' => $this->filterPresenter->present($options),
+            'marketplaces' => $this->marketplacesPresenter->present($userId),
+            'paginator' => $paginator->appends(
+                'category',
+                $options->getCategoryId() ?? null
+            ),
+            'products' => $this->presentProducts(
+                $paginator->items(),
+                $marketplace,
+                $options
+            ),
         ];
-    }
-
-    private function getBreadcrumb(Marketplace $marketplace): array
-    {
-        return $this->breadcrumb->generate(
-            Breadcrumb::priceListIndex(),
-            Breadcrumb::priceListByStore($marketplace->getName(), $marketplace->getSlug())
-        );
     }
 
     private function presentProducts(array $items, Marketplace $marketplace, Options $options): array
     {
         $products = collect($items);
 
-
+        // @todo: salvar os dados de margin no banco para evitar essa lógica de negócio aqui na apresentação
         if ($options->hasProfitFilters()) {
             $products = $products->filter(
                 function(Product $product) use ($marketplace, $options) {
@@ -90,43 +85,5 @@ class PriceListPresenter
         });
 
         return $products->toBase()->toArray();
-    }
-
-    public function presentCategories(string $userId): array
-    {
-        $categories = $this->categoryRepository->list($userId);
-        $categories = collect($categories);
-
-        return $categories->map(
-            fn (Category $category) => [
-                'name' => $category->getFullName(),
-                'category_id' => $category->getCategoryId(),
-            ]
-        )->sortBy('name')->toArray();
-    }
-
-    public function presentFilter(Options $options, string $userId): array
-    {
-        $categories = $this->presentCategories($userId);
-
-        return [
-            'categories' => $categories,
-            'minimumProfit' => $options->minimumProfit,
-            'maximumProfit' => $options->maximumProfit,
-            'sku' => $options->sku() ?? null,
-        ];
-    }
-
-    public function presentMarketplaces(string $userId): array
-    {
-        $marketplaces = $this->marketplaceRepository->list($userId);
-        $marketplaces = collect($marketplaces);
-
-        return $marketplaces->map(
-            fn (Marketplace $marketplace) => [
-                'slug' => $marketplace->getSlug(),
-                'name' => $marketplace->getName(),
-            ]
-        )->toArray();
     }
 }

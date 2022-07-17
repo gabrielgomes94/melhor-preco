@@ -3,10 +3,6 @@
         <x-app.pricing.navbar />
     </x-slot>
 
-    <x-slot name="breadcrumb">
-        <x-bootstrap.breadcrumb.breadcrumb :breadcrumb="$breadcrumb"/>
-    </x-slot>
-
     <x-slot name="modals">
         <x-bootstrap.modals.modal
             id="filterModal"

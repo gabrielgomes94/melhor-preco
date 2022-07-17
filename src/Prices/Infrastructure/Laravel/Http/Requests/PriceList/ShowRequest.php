@@ -17,18 +17,17 @@ class ShowRequest extends FormRequest
         return [];
     }
 
-    public function getOptions(): Options
+    public function transform(): Options
     {
-        $data = [
-            'minimumProfit' => $this->input('minProfit') ?? null,
-            'maximumProfit' => $this->input('maxProfit') ?? null,
-            'filterKits' => (bool) $this->input('filterKits') ?? false,
-            'page' => $this->input('page') ?? 1,
-            'sku' => $this->input('sku') ?? null,
-            'categoryId' => $this->input('category') ?? null,
-            'userId' => auth()->user()->getAuthIdentifier(),
-        ];
-
-        return new Options($data);
+        return new Options(
+            minimumProfit: $this->input('minProfit') ?? null,
+            maximumProfit: $this->input('maxProfit') ?? null,
+            sku: $this->input('sku') ?? null,
+            categoryId: $this->input('category') ?? null,
+            userId: auth()->user()->getAuthIdentifier(),
+            page: $this->input('page') ?? 1,
+            filterKits: (bool) $this->input('filterKits') ?? false,
+            marketplaceSlug: $this->segment(3) ?? null,
+        );
     }
 }

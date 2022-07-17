@@ -7,48 +7,32 @@ use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 class Options
 {
     private const INFINITE = 100000000000000000;
-    public array $extra;
-    public array $query;
-    protected array $dimensions;
-    protected bool $kits;
-    protected string $path;
-    protected ?int $page = null;
-    protected ?int $perPage = 40;
-    public ?float $minimumProfit;
-    public ?float $maximumProfit;
-    protected ?string $store;
-    protected ?string $sku;
-    private ?string $categoryId;
-    private ?string $userId;
+//    public array $extra;
+//    public array $query;
+//    protected string $path;
+//    protected bool $kits;
+//    protected ?int $page = null;
+//    protected ?int $perPage = 40;
+//    public ?float $minimumProfit;
+//    public ?float $maximumProfit;
+//    protected ?string $store;
+//    protected ?string $marketplaceSlug;
+//    protected ?string $sku;
+//    private ?string $categoryId;
+//    private ?string $userId;
 
-    public function __construct(array $data)
+    public function __construct(
+        public readonly ?float $minimumProfit = null,
+        public readonly ?float $maximumProfit = null,
+        public readonly ?string $sku = null,
+        public readonly ?string $categoryId = null,
+        public readonly ?string $userId = null,
+        public readonly ?int $page = null,
+        public readonly ?int $perPage = 40,
+        public readonly bool $filterKits = false,
+        public ?string $marketplaceSlug = null
+    )
     {
-        $this->minimumProfit = isset($data['minimumProfit'])
-            ? (float) $data['minimumProfit']
-            : null;
-
-        $this->maximumProfit = isset($data['maximumProfit'])
-            ? (float) $data['maximumProfit']
-            : null;
-
-        $this->kits = (bool) ($data['filterKits'] ?? false);
-
-        $this->page = $data['page'] ?? null;
-        $this->store = $data['store'] ?? null;
-        $this->sku = $data['sku'] ?? null;
-        $this->categoryId = $data['categoryId'] ?? null;
-
-        // Gambeta: fix this
-        $this->path = $data['path'] ?? '';
-        $this->query = $data['query'] ?? [];
-
-        $this->dimensions = $data['dimensions'] ?? [];
-        $this->userId = $data['userId'] ?? null;
-    }
-
-    public function hasPagination(): bool
-    {
-        return (bool) $this->page;
     }
 
     public function hasProfitFilters(): bool
@@ -68,7 +52,7 @@ class Options
 
     public function shouldFilterKits(): bool
     {
-        return $this->kits;
+        return $this->filterKits;
     }
 
     public function page(): ?int
@@ -91,39 +75,24 @@ class Options
         return $this->store;
     }
 
-    public function url(): string
-    {
-        return $this->path;
-    }
-
-    public function query(): array
-    {
-        return $this->query;
-    }
+//    public function url(): string
+//    {
+//        return $this->path;
+//    }
+//
+//    public function query(): array
+//    {
+//        return $this->query;
+//    }
 
     public function setStore(string $store): void
     {
         $this->store = $store;
     }
 
-    public function hasDimensionsFilters(): bool
-    {
-        return !empty($this->dimensions);
-    }
-
     public function getCategoryId(): ?string
     {
         return $this->categoryId;
-    }
-
-    public function getDimensions(): Dimensions
-    {
-        return new Dimensions(
-            $this->dimensions['dimensions']['depth'],
-            $this->dimensions['dimensions']['height'],
-            $this->dimensions['dimensions']['width'],
-            $this->dimensions['dimensions']['weight']
-        );
     }
 
     public function hasCategories(): bool

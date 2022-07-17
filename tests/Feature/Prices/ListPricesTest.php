@@ -181,23 +181,11 @@ class ListPricesTest extends FeatureTestCase
     private function then_the_marketplace_error_page_must_be_rendered()
     {
         $this->response->assertViewIs('pages.errors.marketplace-404');
-        $this->response->assertViewHas('products', []);
     }
 
     private function and_then_the_list_must_contains_the_prices(): void
     {
         $this->response->assertViewHasAll([
-            'breadcrumb' => [
-                [
-                    'link' => 'http://localhost/calculadora/precos',
-                    'name' => 'Listas de Preços',
-                ],
-                [
-                    'link' => 'http://localhost/calculadora/precos/magalu',
-                    'name' => 'Magalu',
-
-                ],
-            ],
             'currentMarketplace' => [
                 'name' => 'Magalu',
                 'slug' => 'magalu',

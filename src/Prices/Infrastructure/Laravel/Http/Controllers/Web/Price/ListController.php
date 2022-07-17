@@ -25,23 +25,21 @@ class ListController extends Controller
     ) {
     }
 
+    /**
+     * @throws MarketplaceNotFoundException
+     */
     public function __invoke(ShowRequest $request, ?string $marketplaceSlug = null): Application|Factory|View
     {
-        $userId = auth()->user()->getAuthIdentifier();
+        $marketplace = $this->getMarketplace($marketplaceSlug);
+        $options = $this->getOptions($marketplace->getSlug(), $request);
 
-        if (!$marketplaceSlug) {
-            $marketplaceSlug = $this->marketplaceRepository->first($userId)->getSlug();
-        }
-
-        $products = $this->listProductsService->listPaginate(
-            $this->getOptions($marketplaceSlug, $request)
-        );
+        $products = $this->listProductsService->listPaginate($options);
 
         $data = $this->priceListPresenter->list(
             $products,
-            $marketplaceSlug,
-            $this->getOptions($marketplaceSlug, $request),
-            $userId
+            $marketplace,
+            $options,
+            $this->getUserId()
         );
 
         if ($products->isEmpty()) {
@@ -53,9 +51,23 @@ class ListController extends Controller
 
     private function getOptions(string $store, ShowRequest $request): Options
     {
-        $options = $request->getOptions();
+        $options = $request->transform();
         $options->setStore($store);
 
         return $options;
+    }
+
+    /**
+     * @throws MarketplaceNotFoundException
+     */
+    private function getMarketplace(?string $marketplaceSlug): Marketplace
+    {
+        if (!$marketplaceSlug) {
+            return $this->marketplaceRepository->first($this->getUserId())
+                ?? throw new MarketplaceNotFoundException('');
+        }
+
+        return $this->marketplaceRepository->getBySlug($marketplaceSlug, $this->getUserId())
+            ?? throw new MarketplaceNotFoundException($marketplaceSlug);
     }
 }
