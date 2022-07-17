@@ -7,10 +7,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
-class FilterProducts
+class FilterProductsRepository
 {
     public function __construct()
-    {}
+    {
+    }
 
     public function list(Options $options): LengthAwarePaginator
     {

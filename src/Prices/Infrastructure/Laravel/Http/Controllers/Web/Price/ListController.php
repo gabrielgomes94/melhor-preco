@@ -11,13 +11,13 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\PriceList\ShowRequest;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceListPresenter;
-use Src\Prices\Infrastructure\Laravel\Repositories\FilterProducts;
+use Src\Prices\Infrastructure\Laravel\Repositories\FilterProductsRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class ListController extends Controller
 {
     public function __construct(
-        private readonly FilterProducts $filterProducts,
+        private readonly FilterProductsRepository $filterProducts,
         private readonly PriceListPresenter $priceListPresenter,
         private readonly MarketplaceRepository $marketplaceRepository
     ) {
