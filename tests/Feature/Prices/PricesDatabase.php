@@ -25,6 +25,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 889.90,
                     'profit' => 120.0,
+                    'margin' => (120.0 / 889.90) * 100,
                 ],
             ],
             $categoryCarriage
@@ -38,6 +39,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 499.90,
                     'profit' => 54.45,
+                    'margin' => (54.45 / 499.90) * 100,
                 ],
             ],
             $categoryChair
@@ -51,6 +53,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 9.90,
                     'profit' => 2.00,
+                    'margin' => (2.00 / 9.90) * 100,
                 ],
             ]
         );
@@ -63,6 +66,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 74.90,
                     'profit' => 21.00,
+                    'margin' => (21.00 / 74.90) * 100,
                 ],
             ],
         );
@@ -75,6 +79,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 74.90,
                     'profit' => 21.00,
+                    'margin' => (21.00 / 74.90) * 100,
                 ],
             ],
         );
@@ -87,6 +92,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 74.90,
                     'profit' => 21.00,
+                    'margin' => (21.00 / 74.90) * 100,
                 ],
             ],
         );
@@ -99,6 +105,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 799.90,
                     'profit' => 95.9,
+                    'margin' => (95.9 / 799.90) * 100,
                 ],
             ]
         );
@@ -111,6 +118,7 @@ trait PricesDatabase
                     'store' => 'magalu',
                     'value' => 1499.90,
                     'profit' => 200.9,
+                    'margin' => (200.90 / 1499.90) * 100,
                 ],
             ]
         );

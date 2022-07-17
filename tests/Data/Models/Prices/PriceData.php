@@ -13,6 +13,7 @@ class PriceData
             array_merge([
                 'commission' => 10.0,
                 'profit' => 2.0,
+                'margin' => (2.0 / 10.0) * 100,
                 'store' => 'magalu',
                 'value' => 10.0,
                 'additional_costs' => 0.0,

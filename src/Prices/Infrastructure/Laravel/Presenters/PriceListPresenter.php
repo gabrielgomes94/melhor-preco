@@ -50,19 +50,6 @@ class PriceListPresenter
     private function presentProducts(array $items, Marketplace $marketplace, Options $options): array
     {
         $products = collect($items);
-
-        // @todo: salvar os dados de margin no banco para evitar essa lógica de negócio aqui na apresentação
-        if ($options->hasProfitFilters()) {
-            $products = $products->filter(
-                function(Product $product) use ($marketplace, $options) {
-                    $price = $product->getPrice($marketplace);
-                    $margin = $price->getMargin()->get();
-
-                    return $margin >= $options->minimumProfit() && $margin <= $options->maximumProfit();
-                }
-            );
-        }
-
         $products = $products->transform(function (Product $product) use ($marketplace, $options) {
             $price = $product->getPrice($marketplace);
             $margin = $price?->getMargin()

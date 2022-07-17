@@ -14,6 +14,7 @@ class Price extends Model
 {
     protected $fillable = [
         'commission',
+        'margin',
         'profit',
         'store',
         'store_sku_id',
@@ -56,7 +57,7 @@ class Price extends Model
 
     public function getMargin(): Percentage
     {
-        return Percentage::fromFraction($this->margin());
+        return Percentage::fromPercentage($this->margin);
     }
 
     public function getMarketplace(): Marketplace
@@ -104,6 +105,9 @@ class Price extends Model
         return $this->profit > 0;
     }
 
+    /**
+     * @deprecated
+     */
     public function margin(): float
     {
         $profit = MoneyTransformer::toMoney($this->profit);

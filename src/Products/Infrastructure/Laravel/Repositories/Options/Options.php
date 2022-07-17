@@ -104,4 +104,9 @@ class Options
     {
         return $this->userId;
     }
+
+    public function hasSku(): bool
+    {
+        return (bool) $this->sku;
+    }
 }

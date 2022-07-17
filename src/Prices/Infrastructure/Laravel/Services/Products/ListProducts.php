@@ -14,6 +14,7 @@ class ListProducts
     {
         $this->repository = $repository;
     }
+
     public function listPaginate(Options $options): LengthAwarePaginator
     {
         $page = $options->page();

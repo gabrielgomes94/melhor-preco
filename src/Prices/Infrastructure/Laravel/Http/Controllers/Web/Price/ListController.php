@@ -10,16 +10,14 @@ use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\PriceList\ShowRequest;
-use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceListPresenter;
-use Src\Prices\Infrastructure\Laravel\Services\Products\ListProducts;
-use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Prices\Infrastructure\Laravel\Repositories\FilterProducts;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class ListController extends Controller
 {
     public function __construct(
-        private readonly ListProducts $listProductsService,
+        private readonly FilterProducts $filterProducts,
         private readonly PriceListPresenter $priceListPresenter,
         private readonly MarketplaceRepository $marketplaceRepository
     ) {
@@ -33,7 +31,7 @@ class ListController extends Controller
         $marketplace = $this->getMarketplace($marketplaceSlug);
         $options = $this->getOptions($marketplace->getSlug(), $request);
 
-        $products = $this->listProductsService->listPaginate($options);
+        $products = $this->filterProducts->list($options);
 
         $data = $this->priceListPresenter->list(
             $products,

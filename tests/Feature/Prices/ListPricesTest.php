@@ -312,7 +312,7 @@ class ListPricesTest extends FeatureTestCase
                 'sku' => null,
             ],
             'products' => [
-                2 => [
+                [
                     'sku' => '821',
                     'name' => 'Cobertor',
                     'price' => 'R$ 74,90',
@@ -340,7 +340,7 @@ class ListPricesTest extends FeatureTestCase
                         ]
                     ],
                 ],
-                3 => [
+                [
                     'sku' => '777',
                     'name' => 'Chupeta',
                     'price' => 'R$ 9,90',
@@ -372,7 +372,7 @@ class ListPricesTest extends FeatureTestCase
                 'sku' => null,
             ],
             'products' => [
-                0 => [
+                [
                     'sku' => '1234',
                     'name' => 'Carrinho de Bebê',
                     'price' => 'R$ 889,90',
@@ -381,7 +381,7 @@ class ListPricesTest extends FeatureTestCase
                     'quantity' => 10.0,
                     'variations' => [],
                 ],
-                1 => [
+                [
                     'sku' => '987',
                     'name' => 'Cadeirinha para Carros',
                     'price' => 'R$ 499,90',
@@ -390,7 +390,7 @@ class ListPricesTest extends FeatureTestCase
                     'quantity' => 10.0,
                     'variations' => [],
                 ],
-                4 => [
+                [
                     'sku' => '601',
                     'name' => 'Kit Berço e Carrinho',
                     'price' => 'R$ 1.499,90',
@@ -399,7 +399,7 @@ class ListPricesTest extends FeatureTestCase
                     'quantity' => 10.0,
                     'variations' => [],
                 ],
-                5 => [
+                [
                     'sku' => '589',
                     'name' => 'Berço',
                     'price' => 'R$ 799,90',
@@ -431,7 +431,7 @@ class ListPricesTest extends FeatureTestCase
                 'sku' => null,
             ],
             'products' => [
-                1 => [
+                [
                     'sku' => '987',
                     'name' => 'Cadeirinha para Carros',
                     'price' => 'R$ 499,90',
@@ -440,7 +440,7 @@ class ListPricesTest extends FeatureTestCase
                     'quantity' => 10.0,
                     'variations' => [],
                 ],
-                5 => [
+                [
                     'sku' => '589',
                     'name' => 'Berço',
                     'price' => 'R$ 799,90',
