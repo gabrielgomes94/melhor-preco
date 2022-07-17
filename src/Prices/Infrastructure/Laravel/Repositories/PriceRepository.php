@@ -50,6 +50,8 @@ class PriceRepository
     {
         $model->value = $value;
         $model->profit = $profit;
+        $model->margin = $value != 0 ? ($profit / $value) * 100 : 0;
+
         $model->commission = $commission;
 
         return $model->save();
