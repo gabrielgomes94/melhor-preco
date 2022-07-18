@@ -1,13 +1,12 @@
 <div class="d-flex flex-column justify-content-around">
-    <x-app.pricing.products.single-store.filter-kits :store="$store" />
+    <x-app.pricing.price-list.filters.forms.filter-kits :marketplaceSlug="$marketplaceSlug" />
 
     <x-bootstrap.forms.form.get
-        :action="route('pricing.priceList.byStore', $store->slug())"
+        :action="route('pricing.priceList.byStore', $marketplaceSlug)"
         :formId="$formId"
     >
         <div class="border-top my-2 py-2">
-            <x-app.pricing.products.single-store.filter-by-profit
-                :store="$store"
+            <x-app.pricing.price-list.filters.forms.filter-by-profit
                 :minimumProfit="$filter['minimumProfit'] ?? null"
                 :maximumProfit="$filter['maximumProfit'] ?? null"
                 :sku="$filter['sku'] ?? null"

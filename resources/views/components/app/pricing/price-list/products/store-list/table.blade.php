@@ -7,14 +7,14 @@
         @foreach($products as $product)
             <x-app.pricing.price-list.products.store-list.table.product-row
                 :product="$product"
-                :store="$store->slug()"
+                :marketplaceSlug="$marketplace['slug']"
             />
 
-            @if ($product->hasVariations())
-                @foreach($product->getVariations() as $variation)
+            @if (!empty($product['variations']))
+                @foreach($product['variations'] as $variation)
                     <x-app.pricing.price-list.products.store-list.table.variations-row
                         :product="$variation"
-                        :store="$store->slug()"
+                        :marketplaceSlug="$marketplace['slug']"
                     />
                 @endforeach
             @endif

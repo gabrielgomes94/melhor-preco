@@ -4,9 +4,9 @@ namespace Src\Prices\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Src\Prices\Domain\Repositories\PromotionsRepository as RepositoryInterface;
-use Src\Prices\Domain\UseCases\FilterProfitableProducts as FilterProfitableProductsInterface;
-use Src\Prices\Domain\UseCases\Promotions\ListPromotions as ListPromotionsInterface;
-use Src\Prices\Domain\UseCases\Promotions\ShowPromotion as ShowPromotionInterface;
+use Src\Prices\Domain\Services\Promotions\FilterProfitableProducts as FilterProfitableProductsInterface;
+use Src\Prices\Domain\Services\Promotions\ListPromotions as ListPromotionsInterface;
+use Src\Prices\Domain\Services\Promotions\ShowPromotion as ShowPromotionInterface;
 use Src\Prices\Infrastructure\Laravel\Repositories\PromotionsRepository;
 use Src\Prices\Infrastructure\Laravel\Services\FilterProfitableProducts;
 use Src\Prices\Infrastructure\Laravel\Services\Promotions\ListPromotions;

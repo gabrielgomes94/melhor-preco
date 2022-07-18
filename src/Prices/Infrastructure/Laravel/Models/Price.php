@@ -5,7 +5,6 @@ namespace Src\Prices\Infrastructure\Laravel\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Src\Calculator\Domain\Transformer\PercentageTransformer;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
@@ -15,6 +14,7 @@ class Price extends Model
 {
     protected $fillable = [
         'commission',
+        'margin',
         'profit',
         'store',
         'store_sku_id',
@@ -57,7 +57,7 @@ class Price extends Model
 
     public function getMargin(): Percentage
     {
-        return Percentage::fromFraction($this->margin());
+        return Percentage::fromPercentage($this->margin);
     }
 
     public function getMarketplace(): Marketplace
@@ -105,6 +105,9 @@ class Price extends Model
         return $this->profit > 0;
     }
 
+    /**
+     * @deprecated
+     */
     public function margin(): float
     {
         $profit = MoneyTransformer::toMoney($this->profit);
@@ -115,13 +118,5 @@ class Price extends Model
         }
 
         return $profit->ratioOf($value);
-    }
-
-    public function isProfitMarginInRange(float $minimumProfit, float $maximumProfit): bool
-    {
-        $minimumProfit = PercentageTransformer::toPercentage($minimumProfit);
-        $maximumProfit = PercentageTransformer::toPercentage($maximumProfit);
-
-        return $minimumProfit <= $this->margin() && $this->margin() <= $maximumProfit;
     }
 }

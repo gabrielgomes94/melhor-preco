@@ -91,4 +91,9 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
             'slug' => Str::slug($data->name),
         ];
     }
+
+    public function first(string $userId): ?Marketplace
+    {
+        return MarketplaceModel::withUser($userId)->get()?->first();
+    }
 }

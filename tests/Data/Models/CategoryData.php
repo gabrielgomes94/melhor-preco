@@ -42,4 +42,31 @@ class CategoryData
             'name' => 'Carrinhos de supermercado',
         ];
     }
+
+    public static function babyCarriage(User $user): Category
+    {
+        return self::persisted($user, [
+            'name' => 'Carrinhos de Bebê',
+            'category_id' => '10',
+            'parent_category_id' => '1',
+        ]);
+    }
+
+    public static function babyChair(User $user): Category
+    {
+        return self::persisted($user, [
+            'name' => 'Cadeira de Bebê',
+            'category_id' => '11',
+            'parent_category_id' => '1',
+        ]);
+    }
+
+    public static function travel(User $user)
+    {
+        return self::persisted($user, [
+            'name' => 'Passeio do Bebê',
+            'category_id' => '1',
+            'parent_category_id' => null,
+        ]);
+    }
 }

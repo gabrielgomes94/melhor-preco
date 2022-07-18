@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
 use Illuminate\Support\Facades\Log;
-use Src\Calculator\Application\Services\CalculateProfit;
+use Src\Prices\Domain\Services\CalculateProfit;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
@@ -33,9 +33,6 @@ class SynchronizeFromMarketplace
             $status,
             $page
         );
-
-        $count = count($prices->data());
-        Log::info("Marketplaces {$marketplace->getName()} - $count preços");
 
         if (empty($prices->data())) {
             return false;

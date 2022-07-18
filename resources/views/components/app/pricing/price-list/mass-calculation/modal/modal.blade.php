@@ -4,10 +4,10 @@
     actionLabel="Calcular"
     formId="mass-calculation-form"
 >
-    <x-app.pricing.price-list.mass-calculation.modal.content
-        :store="$store"
-        formId="mass-calculation-form"
-        :filter="$filter"
-        :massCalculation="$massCalculation"
-    />
+{{--    <x-app.pricing.prices.mass-calculation.modal.content--}}
+{{--        :store="$store"--}}
+{{--        formId="mass-calculation-form"--}}
+{{--        :filter="$filter"--}}
+{{--        :massCalculation="$massCalculation"--}}
+{{--    />--}}
 </x-bootstrap.modals.modal>

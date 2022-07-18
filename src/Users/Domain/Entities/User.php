@@ -20,6 +20,10 @@ interface User
 
     public function getPhone(): string;
 
+    public function getSimplesNacionalTaxRate(): float;
+
+    public function getIcmsInnerStateTaxRate(): float;
+
     public function setErp(Erp $erp): void;
 
     public function setPassword(string $hashedPassword): void;

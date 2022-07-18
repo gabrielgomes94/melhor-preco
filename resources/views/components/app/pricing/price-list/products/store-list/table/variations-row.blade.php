@@ -1,33 +1,44 @@
-<tr class="d-flex">
+<tr>
     <td colspan="1"></td>
 
     <td colspan="4">
-        {{ $sku }} - {{ $name }}
+        {{ $product['sku'] }} - {{ $product['name'] }}
     </td>
 
     <td colspan="2">
-        R$ {{ $price }}
+        {{ $price ?? null}}
     </td>
 
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
             preffix="R$"
-            value="{{ $profit }}"
+            value="{{ $profit ?? null }}"
         />
     </td>
 
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
-            value="{{ $margin }}"
+            value="{{ $margin ?? null}}"
             suffix="%"
         />
     </td>
 
     <td colspan="1">
-        <a  href="{{ route('pricing.products.calculate', ['store' => $store, 'product_id' => $sku])}}"
+        {{ $product['quantity'] }}
+    </td>
+
+    <td colspan="1">
+        <a  href="{{
+                route('pricing.products.calculate', [
+                    'store_slug' => $marketplaceSlug,
+                    'product_id' => $product['sku']
+                ])
+            }}"
             role="button"
         >
             <x-app.base.icons.calculator />
         </a>
     </td>
+
+
 </tr>

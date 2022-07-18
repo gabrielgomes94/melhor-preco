@@ -1,40 +1,40 @@
 <tr>
     <td colspan="1">
-        <x-bootstrap.links.link :route="route('products.reports.show', ['sku' => $sku])">
-            {{ $sku }}
+        <x-bootstrap.links.link :route="route('products.reports.show', ['sku' => $product['sku']])">
+            {{ $product['sku'] }}
         </x-bootstrap.links.link>
     </td>
 
     <td colspan="4"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
-        title="{{ $name }}"
+        title="{{ $product['name'] }}"
     >
-        {{ $name }}
+        {{ $product['name'] }}
     </td>
 
-    <td colspan="2">R$ {{ $price }} </td>
+    <td colspan="2">{{ $product['price'] }} </td>
 
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
-            preffix="R$"
-            value="{{ $profit }}"
+            value="{{ $product['profit'] }}"
         />
     </td>
 
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
-            value="{{ $margin }}"
-            suffix="%"
+            value="{{ $product['margin'] }}"
         />
     </td>
 
     <td colspan="1">
-        {{ $quantity }}
+        {{ $product['quantity'] }}
     </td>
 
     <td colspan="1">
-        <a  href="{{ route('pricing.products.calculate', ['store_slug' => $store, 'product_id' => $sku])}}"
+        <a  href="{{
+            route('pricing.products.calculate', ['store_slug' => $marketplaceSlug, 'product_id' => $product['sku']])
+            }}"
             role="button"
         >
             <x-app.base.icons.calculator />

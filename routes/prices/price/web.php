@@ -1,22 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\CalculateController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\SyncController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\UpdateController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\IndexController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\Price\ListController;
-use Src\Prices\Infrastructure\Laravel\Presentation\Http\Controllers\Web\PriceLog\PriceLogController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\CalculateController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\SyncController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\UpdateController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('pricing')
+    Route::prefix('calculadora')
         ->name('pricing')
         ->group(function () {
-            Route::prefix('/price_list')
+            Route::prefix('/precos')
                 ->name('.priceList')
                 ->group(function () {
-                    Route::get('/', [IndexController::class, 'index'])->name('.index');
-                    Route::get('/{store}', [ListController::class, 'show'])->name('.byStore');
+                    Route::get('/{marketplaceSlug?}', ListController::class)->name('.byStore');
                 });
 
             Route::prefix('/{store_slug}/products')
@@ -31,15 +28,6 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/sync', [SyncController::class, 'syncAll'])
                 ->name('.syncAll');
-
-            Route::prefix('/price_log')
-                ->name('.priceLog')
-                ->group(function () {
-                    Route::get(
-                        '/{store}/last_updated_products',
-                        [PriceLogController::class, 'lastUpdatedProducts']
-                    )->name('.lastUpdatedProducts');
-                });
 
             Route::prefix('/products')
                 ->name('.products')

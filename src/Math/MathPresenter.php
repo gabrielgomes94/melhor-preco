@@ -14,8 +14,12 @@ class MathPresenter
         return number_format($value, $decimalDigits, ',', '.');
     }
 
-    public static function money(float|Money $value): string
+    public static function money(null|float|Money $value): string
     {
+        if (!$value) {
+            return '';
+        }
+
         $formatter = new IntlMoneyFormatter(
             new NumberFormatter('pt_BR', NumberFormatter::CURRENCY),
             new ISOCurrencies()

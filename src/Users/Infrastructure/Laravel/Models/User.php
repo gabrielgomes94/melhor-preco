@@ -102,6 +102,11 @@ class User extends Authenticatable implements UserInterface
         return $this->tax_rate ?? 0.0;
     }
 
+    public function getIcmsInnerStateTaxRate(): float
+    {
+        return config('taxes.ICMS.MG');
+    }
+
     public function setErp(Erp $erp): void
     {
         $this->erp = $erp->name;

@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories;
 
 use Illuminate\Support\Collection;
-use Src\Calculator\Application\Services\CalculateItem;
+use Src\Sales\Infrastructure\Laravel\Services\CalculateItem;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Math\MoneyTransformer;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;

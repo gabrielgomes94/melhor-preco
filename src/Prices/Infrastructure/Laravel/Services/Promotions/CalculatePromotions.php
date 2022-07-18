@@ -7,8 +7,8 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Prices\Domain\DataTransfer\PromotionSetup;
 use Src\Prices\Domain\Models\Promotion;
 use Src\Prices\Domain\Repositories\PromotionsRepository;
-use Src\Prices\Domain\UseCases\FilterProfitableProducts;
-use Src\Prices\Domain\UseCases\Promotions\CalculatePromotions as CalculatePromotionsInterface;
+use Src\Prices\Domain\Services\Promotions\FilterProfitableProducts;
+use Src\Prices\Domain\Services\Promotions\CalculatePromotions as CalculatePromotionsInterface;
 
 class CalculatePromotions implements CalculatePromotionsInterface
 {

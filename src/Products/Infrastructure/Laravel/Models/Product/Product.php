@@ -19,10 +19,14 @@ use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
 use Src\Products\Domain\Models\Product\ValueObjects\Variations\Variations;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Product\Traits\ProductScopes;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Product extends Model implements ProductModelInterface
 {
+    use ProductScopes;
+
     protected $fillable = [
         'id',
         'erp_id',
@@ -78,6 +82,11 @@ class Product extends Model implements ProductModelInterface
     public function itemsCosts(): HasMany
     {
         return $this->hasMany(PurchaseItem::class, 'ean', 'ean');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getLatestPurchaseItem(): ?PurchaseItem
@@ -149,13 +158,18 @@ class Product extends Model implements ProductModelInterface
 
     public function getVariations(): ?Variations
     {
-        $variationModels = $this->where('parent_sku', $this->sku)->get();
+        $variationModels = $this->withParentSku($this->getSku())->get();
 
-        foreach ($variationModels as $variation) {
-            $variationProducts[] = $variation->first();
-        }
+//        dd($variationModels->toArray());
 
-        return new Variations($this->parent_sku, $variationProducts ?? []);
+//        foreach ($variationModels as $variation) {
+//            $variationProducts[] = $variation;
+//        }
+
+        return new Variations(
+            $this->getSku(),
+            $variationModels->all()
+        );
     }
 
     public function getCategory(): ?Category
@@ -226,86 +240,45 @@ class Product extends Model implements ProductModelInterface
         return $this->is_active && $this->prices->count() > 0;
     }
 
-    public function setActive(bool $status)
-    {
-        $this->is_active = $status;
-    }
+//    public function setActive(bool $status)
+//    {
+//        $this->is_active = $status;
+//    }
+//
+//    // @deprecated
+//    public function setDetails(Details $details)
+//    {
+//        $this->name = $details->getName();
+//        $this->brand = $details->getBrand();
+//    }
+//
+//    public function setCosts(Costs $costs)
+//    {
+//        $this->purchase_price = $costs->purchasePrice();
+//        $this->tax_icms = $costs->taxICMS();
+//        $this->additional_costs = $costs->additionalCosts();
+//    }
+//
+//    public function setCompositionProducts(Composition $composition)
+//    {
+//        $this->composition_products = $composition->getSkus();
+//    }
+//
+//    public function setDimensions(Dimensions $dimensions)
+//    {
+//        $this->depth = $dimensions->depth();
+//        $this->height = $dimensions->height();
+//        $this->width = $dimensions->width();
+//        $this->weight = $dimensions->weight();
+//    }
+//
+//    public function setVariations(Variations $variations)
+//    {
+//        $this->parent_sku = $variations->getParentSku();
+//        $this->has_variations = $this->hasVariations();
+//    }
 
-    // @deprecated
-    public function setDetails(Details $details)
-    {
-        $this->name = $details->getName();
-        $this->brand = $details->getBrand();
-    }
 
-    public function setCosts(Costs $costs)
-    {
-        $this->purchase_price = $costs->purchasePrice();
-        $this->tax_icms = $costs->taxICMS();
-        $this->additional_costs = $costs->additionalCosts();
-    }
-
-    public function setCompositionProducts(Composition $composition)
-    {
-        $this->composition_products = $composition->getSkus();
-    }
-
-    public function setDimensions(Dimensions $dimensions)
-    {
-        $this->depth = $dimensions->depth();
-        $this->height = $dimensions->height();
-        $this->width = $dimensions->width();
-        $this->weight = $dimensions->weight();
-    }
-
-    public function setVariations(Variations $variations)
-    {
-        $this->parent_sku = $variations->getParentSku();
-        $this->has_variations = $this->hasVariations();
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
-    public function scopeWithSku($query, string $sku)
-    {
-        return $query->where('sku', $sku)
-            ->orWhere(function ($query) use ($sku) {
-                $query->where('parent_sku', $sku)
-                    ->active();
-            })
-            ->orWhere(function ($query) use ($sku) {
-                $sku = "%{$sku}%";
-
-                $query->where('composition_products', 'like', $sku)
-                    ->active();
-            });
-    }
-
-    public function scopeInCategory($query, string $categoryId)
-    {
-        return $query->where('category_id', $categoryId);
-    }
-
-    public function scopeFromUser($query, string $userId)
-    {
-        return $query->where('user_id', $userId);
-    }
-
-    public function scopeOrderBySku($query)
-    {
-        return $query->orderByRaw('CAST(sku AS INTEGER) DESC');
-    }
-
-    public function scopeIsOnStore($query, string $store)
-    {
-
-        return $query->whereHas('prices', function (Builder $query) use ($store) {
-            $query->where('store', '=', $store);
-        });
-    }
 
     public function postedOnMarketplace(Marketplace $marketplace): bool
     {
@@ -324,5 +297,29 @@ class Product extends Model implements ProductModelInterface
     public function getImages(): array
     {
         return $this->images;
+    }
+
+    public function getUser(): \Src\Users\Domain\Entities\User
+    {
+        return $this->user;
+    }
+
+    public function getPrice(Marketplace $marketplace): ?Price
+    {
+        $slug = $marketplace->getSlug();
+        $prices = $this->prices;
+
+        foreach ($prices as $price) {
+            if ($price->getMarketplace()->getSlug() === $slug) {
+                return $price;
+            }
+        }
+
+        return null;
+    }
+
+    public function getQuantity(): float
+    {
+        return $this->quantity;
     }
 }
