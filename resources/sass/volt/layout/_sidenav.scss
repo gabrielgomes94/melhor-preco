@@ -12,7 +12,7 @@
 	overflow-y: auto;
 	width: 100%;
 	@include transition(max-width .1s);
-	
+
 	@include media-breakpoint-up(md) {
 		width: 100%;
 		max-width: 260px;
@@ -139,7 +139,7 @@
 		@include media-breakpoint-up(md) {
 			& + .content {
 				margin-left: 95px;
-				
+
 			}
 		}
 
