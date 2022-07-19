@@ -1,8 +1,4 @@
 <x-layout>
-    <x-slot name="navbar">
-        <x-app.pricing.navbar />
-    </x-slot>
-
     <div class="row mb-4">
         <div class="d-flex justify-content-between mb-2">
             <x-app.pricing.navigation

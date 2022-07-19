@@ -1,8 +1,4 @@
 <x-layout>
-    <x-slot name="navbar">
-        <x-app.pricing.navbar />
-    </x-slot>
-
     <div class="row full-height">
         <div class="col-1"></div>
         <div class="col-10">

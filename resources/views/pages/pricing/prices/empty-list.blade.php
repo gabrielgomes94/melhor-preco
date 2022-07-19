@@ -1,8 +1,4 @@
 <x-layout>
-    <x-slot name="navbar">
-        <x-app.pricing.navbar />
-    </x-slot>
-
     <x-slot name="modals">
         <x-bootstrap.modals.modal
             id="filterModal"
