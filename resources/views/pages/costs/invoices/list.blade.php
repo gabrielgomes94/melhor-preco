@@ -9,8 +9,10 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-between mb-2">
-                <x-app.pricing.dropdown.menu />
+            <div class="d-flex mb-2">
+                <x-app.pricing.navigation
+                    :activeNavPurchaseInvoices="true"
+                />
             </div>
 
             <x-app.costs.purchase-invoices.card :data="$data" />

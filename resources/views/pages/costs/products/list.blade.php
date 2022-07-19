@@ -5,8 +5,10 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-between mb-2">
-                <x-app.pricing.dropdown.menu />
+            <div class="d-flex mb-2">
+                <x-app.pricing.navigation
+                    :activeNavCosts="true"
+                />
             </div>
 
             <x-app.costs.product-costs.list.card.card

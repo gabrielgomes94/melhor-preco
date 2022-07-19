@@ -30115,3 +30115,7 @@ article .h6 {
   height: 968px !important;
 }
 
+.nav-tabs .nav-link {
+  background: transparent;
+}
+

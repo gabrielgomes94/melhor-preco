@@ -22,11 +22,13 @@
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-between mb-2">
-                <div class="d-flex flex-row justify-content-center">
-                    <x-app.pricing.dropdown.menu />
+                <x-app.pricing.navigation
+                    :activeNavPrices="true"
+                />
+            </div>
 
-                    <div class="mx-1"></div>
-
+            <div class="d-flex justify-content-between mb-2">
+                <div class="d-flex flex-row">
                     <x-app.pricing.price-list.dropdowns.marketplaces
                         :marketplaces="$marketplaces"
                         :currentMarketplace="$currentMarketplace"
