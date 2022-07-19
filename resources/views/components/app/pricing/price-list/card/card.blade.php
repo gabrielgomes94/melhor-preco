@@ -3,7 +3,15 @@
         <div class="d-inline-flex flex-row justify-content-between">
             <h3>Preços {{ $currentMarketplace['name'] }}</h3>
 
-            <x-app.pricing.price-list.filters.buttons :marketplaceSlug="$currentMarketplace['slug']" />
+            <div class="d-inline-flex flex-row">
+                <x-app.pricing.price-list.filters.buttons :marketplaceSlug="$currentMarketplace['slug']" />
+
+                <span class="m-2"></span>
+
+                <div class="my-2 px-2">
+                    <x-app.pricing.price-list.sync.buttons :marketplaceSlug="$currentMarketplace['slug']" />
+                </div>
+            </div>
         </div>
 
         <x-app.pricing.price-list.products.store-list.table

@@ -5,7 +5,18 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
     >
-        Menu
+
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+        >
+            <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/>
+        </svg>
+
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>

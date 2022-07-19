@@ -85,9 +85,9 @@ class Options
 //        return $this->query;
 //    }
 
-    public function setStore(string $store): void
+    public function setMarketplace(string $marketplaceSlug): void
     {
-        $this->store = $store;
+        $this->marketplaceSlug = $marketplaceSlug;
     }
 
     public function getCategoryId(): ?string

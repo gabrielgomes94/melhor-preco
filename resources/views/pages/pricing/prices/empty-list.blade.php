@@ -23,7 +23,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between mb-2">
                 <div class="d-flex flex-row justify-content-center">
-                    <x-app.pricing.price-list.dropdowns.menu />
+                    <x-app.pricing.dropdown.menu />
 
                     <div class="mx-1"></div>
 
@@ -31,12 +31,6 @@
                         :marketplaces="$marketplaces"
                         :currentMarketplace="$currentMarketplace"
                     />
-                </div>
-
-                <div class="d-inline-flex flex-row">
-                    <span class="m-2"></span>
-
-                    <x-app.pricing.price-list.sync.buttons :marketplaceSlug="$currentMarketplace['slug']" />
                 </div>
             </div>
         </div>

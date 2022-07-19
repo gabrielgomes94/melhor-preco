@@ -6,6 +6,8 @@
             aria-expanded="false"
     >
         Marketplaces
+
+        <x-app.base.icons.dropdown-arrow />
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         @foreach ($marketplaces ?? [] as $marketplace)

@@ -1,5 +1,8 @@
 <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
-    <div></div>
+    <div class="navbar-brand">
+        Melhor Preço
+    </div>
+
     <div class="d-flex align-items-center">
         <button class="navbar-toggler d-lg-none collapsed"
                 type="button"
@@ -14,28 +17,14 @@
     </div>
 </nav>
 
-<nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse">
+<nav id="sidebarMenu" class="sidebar d-lg-none bg-gray-800 text-white collapse">
     <div class="sidebar-inner px-4 pt-3">
         <ul class="nav d-flex flex-column pt-3 pt-md-0">
             <div class="p-2 bd-highlight">
                 <x-app.base.menu.menu-item-inbox
                     route="{{ route('home') }}"
                     name="Dashboard"
-                    badge="beta"
                     icon="dashboard"
-                />
-
-                <x-app.base.menu.menu-item-inbox
-                    route="{{ route('notifications.list') }}"
-                    name="Inbox"
-                    badge="beta"
-                    icon="mail"
-                />
-
-                <x-app.base.menu.menu-item
-                    route="{{ route('product.images.upload_form') }}"
-                    name="Upload de Imagens"
-                    icon="upload"
                 />
 
                 <x-app.base.menu.menu-item
@@ -52,8 +41,7 @@
 
                 <x-app.base.menu.menu-item
                     route="{{ route('sales.list') }}"
-                    name="Gestão de Vendas"
-                    badge="beta"
+                    name="Vendas"
                     icon="currency"
                 />
 

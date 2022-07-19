@@ -50,7 +50,7 @@ class ListController extends Controller
     private function getOptions(string $store, ShowRequest $request): Options
     {
         $options = $request->transform();
-        $options->setStore($store);
+        $options->setMarketplace($store);
 
         return $options;
     }

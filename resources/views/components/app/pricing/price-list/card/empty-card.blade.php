@@ -2,6 +2,12 @@
     <x-bootstrap.card.basic.card-body>
         <div class="d-inline-flex flex-row justify-content-between">
             <h3>{{ $currentMarketplace['name'] }}</h3>
+
+            <div class="d-inline-flex flex-row">
+                <span class="m-2"></span>
+
+                <x-app.pricing.price-list.sync.buttons :marketplaceSlug="$currentMarketplace['slug']" />
+            </div>
         </div>
 
         <div class="d-inline-flex justify-content-between">
