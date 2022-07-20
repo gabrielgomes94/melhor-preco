@@ -14964,9 +14964,9 @@ d.addEventListener("DOMContentLoaded", function (event) {
   [].slice.call(d.querySelectorAll('[data-background]')).map(function (el) {
     el.style.background = 'url(' + el.getAttribute('data-background') + ')';
   });
-  [].slice.call(d.querySelectorAll('[data-background-lg]')).map(function (el) {
+  [].slice.call(d.querySelectorAll('[data-background-display-xl]')).map(function (el) {
     if (document.body.clientWidth > breakpoints.lg) {
-      el.style.background = 'url(' + el.getAttribute('data-background-lg') + ')';
+      el.style.background = 'url(' + el.getAttribute('data-background-display-xl') + ')';
     }
   });
   [].slice.call(d.querySelectorAll('[data-background-color]')).map(function (el) {

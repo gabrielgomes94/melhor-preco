@@ -11,7 +11,6 @@
 
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
-            preffix="R$"
             value="{{ $profit ?? null }}"
         />
     </td>
@@ -19,12 +18,7 @@
     <td colspan="2">
         <x-app.pricing.products.utils.profit-text
             value="{{ $margin ?? null}}"
-            suffix="%"
         />
-    </td>
-
-    <td colspan="1">
-        {{ $product['quantity'] }}
     </td>
 
     <td colspan="1">
@@ -39,6 +33,4 @@
             <x-app.base.icons.calculator />
         </a>
     </td>
-
-
 </tr>
