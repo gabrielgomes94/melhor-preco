@@ -1,23 +1,26 @@
-<table class="table table-hover w-100 px-2 price-list-table">
-    <thead >
-        <x-app.pricing.price-list.products.store-list.table.header />
-    </thead>
+<div class="d-xl-flex d-none">
+    <table class="table table-hover w-100 px-2 price-list-table">
+        <thead >
+            <x-app.pricing.price-list.table.display-xl.header />
+        </thead>
 
-    <tbody>
+        <tbody>
         @foreach($products as $product)
-            <x-app.pricing.price-list.products.store-list.table.product-row
+            <x-app.pricing.price-list.table.display-xl.product-row
                 :product="$product"
                 :marketplaceSlug="$marketplace['slug']"
             />
 
             @if (!empty($product['variations']))
                 @foreach($product['variations'] as $variation)
-                    <x-app.pricing.price-list.products.store-list.table.variations-row
+                    <x-app.pricing.price-list.table.display-xl.variations-row
                         :product="$variation"
                         :marketplaceSlug="$marketplace['slug']"
                     />
                 @endforeach
             @endif
         @endforeach
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+</div>

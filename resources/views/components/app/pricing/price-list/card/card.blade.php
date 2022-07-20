@@ -12,7 +12,17 @@
             </div>
         </div>
 
-        <x-app.pricing.price-list.products.store-list.table
+        <x-app.pricing.price-list.table.display-xl.table
+            :products="$products"
+            :marketplace="$currentMarketplace"
+        />
+
+        <x-app.pricing.price-list.table.display-md.table
+            :products="$products"
+            :marketplace="$currentMarketplace"
+        />
+
+        <x-app.pricing.price-list.table.display-sm.table
             :products="$products"
             :marketplace="$currentMarketplace"
         />
