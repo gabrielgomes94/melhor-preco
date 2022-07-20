@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row my-2">
     <div class="col-6">
         <x-bootstrap.forms.input.percentage
             attribute="minProfit"
@@ -15,7 +15,9 @@
             id="maximum-profit-input"
         />
     </div>
+</div>
 
+<div class="row my-2">
     <div class="col-12">
         <x-bootstrap.forms.input.text
             attribute="sku"
@@ -25,5 +27,9 @@
             id="sku-input"
         />
     </div>
+</div>
+
+<div class="mt-2 mb-1">
+    <x-app.products.filters.category :filter="$filter" />
 </div>
 
