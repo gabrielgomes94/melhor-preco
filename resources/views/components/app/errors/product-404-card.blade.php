@@ -3,15 +3,14 @@
         <div class="d-inline-flex justify-content-between">
             <div class="my-2">
                 <div class="py-1">
-                    O marketplace '{{ $identifier }}' não está cadastrado no sistema.
+                    O produto '{{ $identifier }}' não está cadastrado no sistema.
                 </div>
 
                 <div class="py-1">
-                    Vá na tela de
-                    <a href="{{ route('marketplaces.list') }}" class="link">
-                        configurações de Marketplaces
+                    Tente sincronizá-lo na tela de
+                    <a href="{{ route('users.settings.integrations') }}" class="link">
+                        integrações.
                     </a>
-                    caso deseja cadastrá-lo.
                 </div>
             </div>
 
