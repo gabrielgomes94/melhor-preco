@@ -11,6 +11,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ProductPresenter
@@ -19,13 +20,17 @@ class ProductPresenter
         private Breadcrumb $breadcrumb,
         private MarketplaceRepository $marketplaceRepository,
         private PricePresenter $calculatorPresenter,
-        private CommissionRepository $commissionRepository
+        private CommissionRepository $commissionRepository,
+        private ProductRepository $productRepository,
     ) {
     }
 
 
-    public function present(Product $product, Marketplace $marketplace, CalculatedPrice $calculatedPrice, CalculatePriceRequest $request)
+    public function present(string $marketplaceSlug, string $productSku, string $userId, CalculatedPrice $calculatedPrice, CalculatePriceRequest $request)
     {
+        $product = $this->productRepository->get($productSku, $userId);
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
+
         $presentedData = [
             'breadcrumb' => $this->getBreadcrumb($marketplace, $product),
             'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice),
@@ -45,8 +50,8 @@ class ProductPresenter
             $presentedData,
             [
                 'calculatorForm' => [
-                    'discount' => (float) ($request->transform()['discount'] ?? 0.0),
-                    'desiredPrice' => (float) ($request->transform()['price'] ?? 0.0),
+                    'discount' => (float) ($request->validated()['discount'] ?? 0.0),
+                    'desiredPrice' => (float) ($request->validated()['price'] ?? 0.0),
                 ]
             ]
         );

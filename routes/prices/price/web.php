@@ -32,11 +32,11 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/products')
                 ->name('.products')
                 ->group(function () {
-                    Route::prefix('/{product_id}/price')
-                        ->name('.prices')
-                        ->group(function () {
-                            Route::put('/{price_id}', [UpdateController::class, 'update'])->name('.update');
-                        });
+//                    Route::prefix('/{product_id}/price')
+//                        ->name('.prices')
+//                        ->group(function () {
+//                            Route::put('/{price_id}', [UpdateController::class, 'update'])->name('.update');
+//                        });
                 });
         });
 });

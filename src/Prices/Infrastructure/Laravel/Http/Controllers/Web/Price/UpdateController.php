@@ -8,7 +8,7 @@ use Illuminate\Routing\Redirector;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Prices\Domain\Exceptions\UpdatePriceException;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\Price\UpdatePriceRequest;
-use Src\Prices\Infrastructure\Laravel\Services\Prices\UpdatePrice as UpdatePriceService;
+//use Src\Prices\Infrastructure\Laravel\Services\Prices\UpdatePrice as UpdatePriceService;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class UpdateController extends Controller
