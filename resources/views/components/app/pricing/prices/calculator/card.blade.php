@@ -2,14 +2,12 @@
     <x-bootstrap.card.basic.card-body>
         <div class="row">
             <div class="col-4">
-                <h4 class="text-center">Calcular</h4>
-
-                <x-app.pricing.prices.calculator.forms.calculator
+                <x-app.pricing.prices.calculator.forms.card
                     :calculatorForm="$calculatorForm"
                 />
             </div>
             <div class="col-8">
-                <x-app.pricing.prices.price.card
+                <x-app.pricing.prices.calculator.table.card
                     :price="$price"
                     :priceRaw="$priceRaw"
                     :productId="$productId"

@@ -27,7 +27,7 @@
             <x-bootstrap.forms.input.percentage
                 name="commission"
                 id="commission-{{ $calculatorForm['priceId'] }}"
-                label="Comissão"
+                label="Comissão (%)"
                 value="{{ $calculatorForm['commission'] }}"
             >
             </x-bootstrap.forms.input.percentage>
@@ -37,7 +37,7 @@
             <x-bootstrap.forms.input.percentage
                 name="discount"
                 id="discount-{{ $calculatorForm['priceId'] }}"
-                label="Desconto"
+                label="Desconto (%)"
                 value="{{ $calculatorForm['discount'] }}"
             >
             </x-bootstrap.forms.input.percentage>
@@ -47,7 +47,7 @@
             <x-bootstrap.forms.input.percentage
                 name="desiredPrice"
                 id="desiredPrice-{{ $calculatorForm['priceId'] }}"
-                label="Preço desejado"
+                label="Preço desejado (R$)"
                 value="{{ $calculatorForm['desiredPrice'] }}"
             >
             </x-bootstrap.forms.input.percentage>

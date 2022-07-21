@@ -1,20 +1,26 @@
 <x-bootstrap.card.basic.card>
     <x-bootstrap.card.basic.card-body>
-        <x-bootstrap.accordions.accordion-container
-            accordionId="update-costs-accordion"
-            accordionBodyId="update-costs-form-accordion"
-            accordionHeaderId="update-costs-heading"
-        >
-            <x-slot name="accordionHeader">
-                Atualizar custos
-            </x-slot>
+        <div class="row">
+            <div class="col-4">
+                <x-bootstrap.card.basic.card>
+                    <x-bootstrap.card.basic.card-body>
+                        <h4>Atualizar custos</h4>
 
-            <x-slot name="accordionBody">
-                <x-app.pricing.prices.update-costs.form
-                    :costs="$costsForm"
-                    :productId="$productId"
-                />
-            </x-slot>
-        </x-bootstrap.accordions.accordion-container>
+                        <x-app.pricing.prices.update-costs.form
+                            :costs="$costsForm"
+                            :productId="$productId"
+                        />
+                    </x-bootstrap.card.basic.card-body>
+                </x-bootstrap.card.basic.card>
+
+            </div>
+
+            <div class="col-8">
+                <x-bootstrap.card.basic.card>
+                    <x-bootstrap.card.basic.card-body>
+                    </x-bootstrap.card.basic.card-body>
+                </x-bootstrap.card.basic.card>
+            </div>
+        </div>
     </x-bootstrap.card.basic.card-body>
 </x-bootstrap.card.basic.card>
