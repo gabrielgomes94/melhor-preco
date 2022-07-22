@@ -8,6 +8,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\CalculatorOptions;
+use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
@@ -31,21 +32,27 @@ class CalculatePriceFromProduct
         string $marketplaceSlug,
         string $userId,
         ?CalculatorForm $calculatorForm
-    ): CalculatedPrice
+    ): PriceCalculatedFromProduct
     {
         $marketplace = $this->getMarketplace($marketplaceSlug, $userId);
         $product = $this->getProduct($productSku, $userId);
 
         if (!$calculatorForm) {
-            return $this->calculatePrice->calculate(
+            $calculatedPrice = $this->calculatePrice->calculate(
                 $product,
                 $marketplace,
                 $product->getPrice($marketplace)->getValue(),
                 new CalculatorOptions()
             );
+
+            return new PriceCalculatedFromProduct(
+                $product,
+                $marketplace,
+                $calculatedPrice
+            );
         }
 
-        return $this->calculatePrice->calculate(
+        $calculatedPrice = $this->calculatePrice->calculate(
             $product,
             $marketplace,
             $calculatorForm->desiredPrice,
@@ -53,6 +60,12 @@ class CalculatePriceFromProduct
                 $calculatorForm->discount,
                 $calculatorForm->commission,
             )
+        );
+
+        return new PriceCalculatedFromProduct(
+            $product,
+            $marketplace,
+            $calculatedPrice
         );
     }
 

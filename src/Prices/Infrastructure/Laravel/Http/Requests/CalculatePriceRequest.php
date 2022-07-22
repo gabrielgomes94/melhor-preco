@@ -35,11 +35,6 @@ class CalculatePriceRequest extends FormRequest
         );
     }
 
-    public function hasFreeFreight(): bool
-    {
-        return $this->input('freeFreight') ?? false;
-    }
-
     public function transform(): ?CalculatorForm
     {
         if ($this->isEmpty()) {
@@ -53,17 +48,6 @@ class CalculatePriceRequest extends FormRequest
             Percentage::fromPercentage((float) $data['commission'] ?? 0.0),
             Percentage::fromPercentage((float) $data['discount'] ?? 0),
         );
-//        return [
-//            'productId' => $data['product'],
-//            'storeSlug' => $data['store'],
-//            'price' => (float) $data['desiredPrice'],
-//            'commission' => Percentage::fromPercentage((float) $data['commission']),
-//            'discount' => $data['discount'],
-//            'options' => [
-//                'discountRate' => Percentage::fromPercentage($data['discount'] ?? 0),
-//                'freeFreight' => $this->hasFreeFreight(),
-//            ]
-//        ];
     }
 
     public function isEmpty(): bool

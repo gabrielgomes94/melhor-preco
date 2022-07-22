@@ -44,23 +44,13 @@
         </div>
 
         <div class="mt-2">
-            <x-bootstrap.forms.input.percentage
+            <x-bootstrap.forms.input.money
                 name="desiredPrice"
                 id="desiredPrice-{{ $calculatorForm['priceId'] }}"
-                label="Preço desejado (R$)"
+                label="Preço desejado"
                 value="{{ $calculatorForm['desiredPrice'] }}"
             >
-            </x-bootstrap.forms.input.percentage>
-        </div>
-
-        <div class="mt-2">
-            <x-bootstrap.forms.input.toggle-switch
-                id="freeFreight-{{ $calculatorForm['priceId'] }}"
-                nextLabel="Frete grátis"
-                name="freeFreight"
-                :isDisabled="$calculatorForm['isFreeFreightDisabled']"
-            >
-            </x-bootstrap.forms.input.toggle-switch>
+            </x-bootstrap.forms.input.money>
         </div>
 
         <input

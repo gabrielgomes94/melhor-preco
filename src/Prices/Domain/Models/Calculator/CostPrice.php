@@ -52,8 +52,6 @@ class CostPrice
             ->multiply((string) $this->taxICMSInnerState->getFraction())
             ->subtract($outerStateICMSValue);
 
-//        dd($difal, $outerStateICMSValue, $baseDIFAL, $this->purchasePrice, (1 - $this->taxICMSInnerState->getFraction()));
-
         return $difal;
     }
 

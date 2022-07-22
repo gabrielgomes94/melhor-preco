@@ -13,7 +13,7 @@ use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
-use Src\Prices\Infrastructure\Laravel\Presenters\ProductPresenter;
+use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatorPresenter;
 use Src\Prices\Infrastructure\Laravel\Services\Prices\CalculatePriceFromProduct;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
@@ -21,12 +21,10 @@ use Src\Products\Domain\Repositories\ProductRepository;
 class CalculateController extends Controller
 {
     public function __construct(
-//        private MarketplaceRepository $marketplaceRepository,
-//        private ProductRepository $productRepository,
-        private ProductPresenter $productPresenter,
-//        private CalculatePrice $calculatePrice,
+        private CalculatorPresenter $productPresenter,
         private CalculatePriceFromProduct $calculatePriceFromProduct
-    ) {}
+    ) {
+    }
 
     /**
      * @throws MarketplaceNotFoundException
@@ -38,24 +36,18 @@ class CalculateController extends Controller
         $userId = $this->getUserId();
         $calculatorForm = $request->transform();
 
-        $calculatedPrice = $this->calculatePriceFromProduct->calculate(
+        $priceCalculatedFromProduct = $this->calculatePriceFromProduct->calculate(
             $productId,
             $storeSlug,
             $userId,
             $calculatorForm
         );
 
-//        dd($calculatedPrice->getDifferenceICMS());
-
         $presented = $this->productPresenter->present(
-            $storeSlug,
-            $productId,
+            $priceCalculatedFromProduct,
             $userId,
-            $calculatedPrice,
             $request
         );
-
-//        dd($presented);
 
         return view(
             'pages.pricing.products.show',
