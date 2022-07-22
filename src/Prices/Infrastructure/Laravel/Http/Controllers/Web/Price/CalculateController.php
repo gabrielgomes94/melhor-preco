@@ -45,7 +45,6 @@ class CalculateController extends Controller
 
         $presented = $this->productPresenter->present(
             $priceCalculatedFromProduct,
-            $userId,
             $request
         );
 

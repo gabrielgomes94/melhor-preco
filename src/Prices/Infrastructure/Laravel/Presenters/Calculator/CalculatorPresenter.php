@@ -25,52 +25,55 @@ class CalculatorPresenter
     ) {
     }
 
-    public function present(PriceCalculatedFromProduct $priceCalculatedFromProduct, string $userId, CalculatePriceRequest $request)
+    public function present(
+        PriceCalculatedFromProduct $priceCalculatedFromProduct,
+        CalculatePriceRequest $request
+    ): array
     {
         $product = $priceCalculatedFromProduct->product;
         $marketplace = $priceCalculatedFromProduct->marketplace;
         $calculatedPrice = $priceCalculatedFromProduct->calculatedPrice;
 
-        $presentedData = [
-            'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice),
+        return [
+            'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice, $request),
             'calculatedPrice' => $this->pricePresenter->present($calculatedPrice, $marketplace, $product),
             'productInfo' => $this->productPresenter->present($marketplace, $product),
             'costsForm' => $this->getCostsForm($product),
             'marketplacesList' => $this->getMarketplacesList($marketplace, $product),
         ];
-
-        if (!$request->transform()) {
-            return $presentedData;
-        }
-
-        return $this->mergeRequest($presentedData, $request);
     }
 
-    private function mergeRequest(array $presentedData, CalculatePriceRequest $request): array
-    {
-        return array_replace_recursive(
-            $presentedData,
-            [
-                'calculatorForm' => [
-                    'discount' => (float) ($request->validated()['discount'] ?? 0.0),
-                    'desiredPrice' => (float) ($request->validated()['desiredPrice'] ?? 0.0),
-                ]
-            ]
-        );
-    }
-
-    private function getCalculatorForm(Marketplace $marketplace, Product $product, CalculatedPrice $calculatedPrice): array
+    private function getCalculatorForm(
+        Marketplace $marketplace,
+        Product $product,
+        CalculatedPrice $calculatedPrice,
+        CalculatePriceRequest $request
+    ): array
     {
         $commission = $this->commissionRepository->get($marketplace, $product);
 
-        return [
+        $presented = [
             'marketplaceName' => $marketplace->getName(),
             'marketplaceSlug' => $marketplace->getSlug(),
             'commission' => $commission->get(),
+            'discount' => 0.0,
             'desiredPrice' => MoneyTransformer::toFloat($calculatedPrice->get()),
             'priceId' => $product->getPrice($marketplace)->getId(),
             'productId' => $product->getSku(),
         ];
+
+        if (!$request->transform()) {
+            return $presented;
+        }
+
+        return array_replace_recursive(
+            $presented,
+            [
+                'discount' => (float) ($request->validated()['discount'] ?? 0.0),
+                'desiredPrice' => (float) ($request->validated()['desiredPrice'] ?? 0.0),
+                'commission' => (float) ($request->validated()['commission'] ?? 0.0),
+            ]
+        );
     }
 
     private function getCostsForm(Product $product): array
