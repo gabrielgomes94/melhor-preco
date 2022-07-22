@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Presenters;
+namespace Src\Prices\Infrastructure\Laravel\Presenters\PriceList;
 
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;

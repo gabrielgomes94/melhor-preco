@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Presenters;
+namespace Src\Prices\Infrastructure\Laravel\Presenters\PriceList;
 
 use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -8,6 +8,8 @@ use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MathPresenter;
+use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\FilterPresenter;
+use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\MarketplacesPresenter;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
