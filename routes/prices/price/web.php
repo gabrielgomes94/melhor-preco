@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\CalculateController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\SyncController;
-use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\UpdateController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
 
 Route::middleware('auth')->group(function () {
