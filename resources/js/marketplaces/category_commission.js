@@ -6,7 +6,7 @@ let setChildrenCategory = function () {
             let value = element.value
 
             let commissionInputs = Array.from(
-                document.querySelectorAll('td[data-parent-id]')
+                document.querySelectorAll('div[data-parent-id]')
             )
 
             let categoryId = element.closest('.category-commission-row')
