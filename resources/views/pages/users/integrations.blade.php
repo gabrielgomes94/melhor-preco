@@ -1,9 +1,7 @@
 <x-layout>
-    <x-slot name="navbar">
-        <x-app.users.navbar />
-    </x-slot>
-
     <div class="row full-height">
+        <x-app.users.navigation selectedNav="integrations" />
+
         <div class="col-12">
             <x-bootstrap.alert-messages.alert-messages />
 

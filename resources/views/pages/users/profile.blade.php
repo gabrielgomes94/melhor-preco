@@ -1,7 +1,5 @@
 <x-layout>
-    <x-slot name="navbar">
-        <x-app.users.navbar />
-    </x-slot>
+    <x-app.users.navigation selectedNav="profile" />
 
     <div class="row full-height">
         <div class="col-12">
