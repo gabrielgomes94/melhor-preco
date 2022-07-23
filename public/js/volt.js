@@ -5377,7 +5377,7 @@ function withinMaxClamp(min, value, max) {
         Manipulator.setDataAttribute(this._menu, 'popper', 'none');
       } else {
         if (typeof Popper__namespace === 'undefined') {
-          throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)');
+          throw new TypeError('Bootstrap\'s dropdown require Popper (https://popper.js.org)');
         }
 
         let referenceElement = this._element;

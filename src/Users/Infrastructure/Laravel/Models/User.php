@@ -99,7 +99,7 @@ class User extends Authenticatable implements UserInterface
 
     public function getSimplesNacionalTaxRate(): float
     {
-        return $this->tax_rate ?? 0.0;
+        return $this->tax_rate ?? 5.45 ?? 0.0;
     }
 
     public function getIcmsInnerStateTaxRate(): float

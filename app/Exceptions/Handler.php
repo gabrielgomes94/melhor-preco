@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -35,6 +36,12 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (MarketplaceNotFoundException $exception, $request) {
             return response()->view('pages.errors.marketplace-404', [
+                'identifier' => $exception->identifier,
+            ]);
+        });
+
+        $this->renderable(function (ProductNotFoundException $exception, $request) {
+            return response()->view('pages.errors.product-404', [
                 'identifier' => $exception->identifier,
             ]);
         });

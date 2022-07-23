@@ -6,49 +6,47 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
+use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Percentage;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
-use Src\Prices\Infrastructure\Laravel\Presenters\ProductPresenter;
+use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatorPresenter;
+use Src\Prices\Infrastructure\Laravel\Services\Prices\CalculatePriceFromProduct;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
 
 class CalculateController extends Controller
 {
     public function __construct(
-        private MarketplaceRepository $marketplaceRepository,
-        private ProductRepository $productRepository,
-        private ProductPresenter $productPresenter,
-        private CalculatePrice $calculatePrice,
-    ) {}
+        private CalculatorPresenter $productPresenter,
+        private CalculatePriceFromProduct $calculatePriceFromProduct
+    ) {
+    }
 
     /**
+     * @throws MarketplaceNotFoundException
+     * @throws ProductNotFoundException
      * @return Application|ViewFactory|View
      */
     public function __invoke(string $storeSlug, string $productId, CalculatePriceRequest $request)
     {
-        try {
-            $userId = auth()->user()->getAuthIdentifier();
-            $product = $this->productRepository->get($productId, $userId);
-            $marketplace = $this->marketplaceRepository->getBySlug($storeSlug, $userId);
+        $userId = $this->getUserId();
+        $calculatorForm = $request->transform();
 
-            $data = $request->transform();
-            $calculatedPrice = $this->calculatePrice->calculate(
-                $product,
-                $marketplace,
-                $data['price'] ?? 12,
-                new CalculatorOptions(
-                    $data['discount'] ?? Percentage::fromPercentage(0.0),
-                    $data['commission'] ?? null,
-                )
-            );
+        $priceCalculatedFromProduct = $this->calculatePriceFromProduct->calculate(
+            $productId,
+            $storeSlug,
+            $userId,
+            $calculatorForm
+        );
 
-            $presented = $this->productPresenter->present($product, $marketplace, $calculatedPrice, $request);
-        } catch (ProductNotFoundException $exception) {
-            abort(404);
-        }
+        $presented = $this->productPresenter->present(
+            $priceCalculatedFromProduct,
+            $request
+        );
 
         return view(
             'pages.pricing.products.show',

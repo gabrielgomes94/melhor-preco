@@ -23,7 +23,7 @@ class CalculatedPrice implements Contracts\CalculatedPrice
     public function getCommission(): Money
     {
         return $this->value->multiply(
-            $this->commission->getFraction()
+            (string) $this->commission->getFraction()
         );
     }
 
@@ -76,7 +76,7 @@ class CalculatedPrice implements Contracts\CalculatedPrice
     public function getSimplesNacional(): Money
     {
         return $this->value->multiply(
-            $this->costPrice->simplesNacional()
+            (string) $this->costPrice->simplesNacional()
         );
     }
 

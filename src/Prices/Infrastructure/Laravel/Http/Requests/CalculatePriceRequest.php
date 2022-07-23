@@ -4,6 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Math\Percentage;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 
 class CalculatePriceRequest extends FormRequest
 {
@@ -34,30 +35,19 @@ class CalculatePriceRequest extends FormRequest
         );
     }
 
-    public function hasFreeFreight(): bool
-    {
-        return $this->input('freeFreight') ?? false;
-    }
-
-    public function transform(): array
+    public function transform(): ?CalculatorForm
     {
         if ($this->isEmpty()) {
-            return [];
+            return null;
         }
 
         $data = $this->all();
 
-        return [
-            'productId' => $data['product'],
-            'storeSlug' => $data['store'],
-            'price' => (float) $data['desiredPrice'],
-            'commission' => Percentage::fromPercentage((float) $data['commission']),
-            'discount' => $data['discount'],
-            'options' => [
-                'discountRate' => Percentage::fromPercentage($data['discount'] ?? 0),
-                'freeFreight' => $this->hasFreeFreight(),
-            ]
-        ];
+        return new CalculatorForm(
+            (float) $data['desiredPrice'],
+            Percentage::fromPercentage((float) $data['commission'] ?? 0.0),
+            Percentage::fromPercentage((float) $data['discount'] ?? 0),
+        );
     }
 
     public function isEmpty(): bool

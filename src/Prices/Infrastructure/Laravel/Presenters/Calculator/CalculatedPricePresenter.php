@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Presenters;
+namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 
 use Money\Money;
 use Src\Marketplaces\Domain\Models\Marketplace;
@@ -11,31 +11,21 @@ use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Math\Percentage;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
-class PricePresenter
+class CalculatedPricePresenter
 {
     public function __construct(
         private CommissionRepository $commissionRepository
     )
     {}
 
-    public function transformRaw(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
+    public function present(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
-        $price = $calculatedPrice;
-        $commissionRate = $this->commissionRepository->get($marketplace, $product)->get();
-
         return [
-            'commission' => $this->transformMoney($price->getCommission()),
-            'commissionRate' => $commissionRate,
-            'costs' => $this->transformMoney($price->getCosts()),
-            'differenceICMS' => $this->transformMoney($price->getDifferenceICMS()),
-            'freight' => $this->transformMoney($price->getFreight()),
-            'margin' => $price->getMargin(),
-            'marketplaceSlug' => $marketplace->getSlug(),
-            'priceId' => $product->getPrice($marketplace)->getId(),
-            'profit' => $this->transformMoney($price->getProfit()),
-            'purchasePrice' => $this->transformMoney($price->getPurchasePrice()),
-            'suggestedPrice' => $this->transformMoney($price->get()),
-            'taxSimplesNacional' => $this->transformMoney($price->getSimplesNacional()),
+            'formatted' => $this->format($calculatedPrice, $marketplace, $product),
+            'raw' => [
+                'margin' => $calculatedPrice->getMargin(),
+                'profit' => $this->transformMoney($calculatedPrice->getProfit()),
+            ],
         ];
     }
 
