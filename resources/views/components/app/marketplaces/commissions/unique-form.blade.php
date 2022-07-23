@@ -8,6 +8,15 @@
         />
     </div>
 
+    <div class="mt-2">
+        <x-bootstrap.forms.input.text
+            attribute="commissionMaximumCap"
+            id="commission-input"
+            label="Limite máximo de Comissão (R$)"
+            value=""
+        />
+    </div>
+
     <div class="d-flex justify-content-center mt-3">
         <x-bootstrap.forms.input.submit label="Salvar" />
     </div>

@@ -9,6 +9,8 @@ use Src\Products\Domain\Repositories\CategoryRepository;
 
 class CategoriesPresenter
 {
+    private const MAX_CONTAINER_COLUMNS_COUNT = 12;
+
     public function __construct(
         private readonly CategoryRepository $repository,
     ) {}
@@ -27,12 +29,17 @@ class CategoriesPresenter
         return $categories->map(function (Category $category) use ($commission) {
             $categoryId = $category->getCategoryId();
             $commission = $commission->get($categoryId);
+            $depthLevel = $category->getDepthLevelCategoryTree();
 
             return [
                 'name' => $category->getFullName(),
                 'categoryId' => $categoryId,
                 'parentId' => $category->getParentId(),
                 'commission' =>  $commission?->get(),
+                'spacing' => [
+                    'level' => $depthLevel,
+                    'componentSpace' => self::MAX_CONTAINER_COLUMNS_COUNT - $depthLevel,
+                ]
             ];
         })->sortBy('name')->toArray();
     }
