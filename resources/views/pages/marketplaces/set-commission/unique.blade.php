@@ -5,11 +5,14 @@
         <x-bootstrap.alert-messages.alert-messages />
     </div>
 
-    <div class="m-4 d-flex justify-content-center">
-        <div class="col-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="m-4 d-flex justify-content-center">
+
+            </div>
             <x-bootstrap.card.basic-card>
                 <x-slot name="header">
-                    <h2>Configurar comissão</h2>
+                    <h2>{{ $marketplaceName }} - Configurar comissão</h2>
                 </x-slot>
 
                 <x-slot name="body">
