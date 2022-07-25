@@ -3,6 +3,9 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
+use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
+use Src\Math\Percentage;
 
 class SetUniqueCommissionRequest extends FormRequest
 {
@@ -15,11 +18,19 @@ class SetUniqueCommissionRequest extends FormRequest
     {
         return [
             'commission' => 'numeric',
+            'commissionMaximumCap' => 'nullable|numeric',
         ];
     }
 
-    public function transform(): float
+    public function transform(): CommissionValuesCollection
     {
-        return  (float) $this->validated()['commission'];
+        $commission = (float) $this->validated()['commission'];
+
+        return new CommissionValuesCollection([
+            new CommissionValue(
+                Percentage::fromPercentage($commission),
+            )],
+            $this->validated()['commissionMaximumCap'] ?? null
+        );
     }
 }

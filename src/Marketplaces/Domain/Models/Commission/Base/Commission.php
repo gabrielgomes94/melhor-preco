@@ -9,7 +9,6 @@ use Src\Marketplaces\Domain\Models\Commission\UniqueCommission;
 abstract class Commission
 {
     public const CATEGORY_COMMISSION = 'categoryCommission';
-
     public const UNIQUE_COMMISSION = 'uniqueCommission';
 
     private static array $validTypes = [
@@ -18,23 +17,32 @@ abstract class Commission
     ];
 
     protected string $type;
+    protected ?float $maximumValueCap = null;
 
     abstract public function getValues(): CommissionValuesCollection;
 
     /**
      * @throws InvalidCommissionTypeException
      */
-    public static function fromArray(string $type, ?CommissionValuesCollection $values = null): self
+    public static function fromArray(
+        string $type,
+        ?CommissionValuesCollection $values = null,
+        ?float $maximumValueCap = null
+    ): self
     {
         if (!in_array($type, self::$validTypes)) {
             throw new InvalidCommissionTypeException($type);
         }
 
         if ($type === self::CATEGORY_COMMISSION) {
-            return new CategoryCommission($type, $values);
+            $commission = new CategoryCommission($type, $values);
+        } else {
+            $commission = new UniqueCommission($type, $values);
         }
 
-        return new UniqueCommission($type, $values);
+        $commission->maximumValueCap = $maximumValueCap;
+
+        return $commission;
     }
 
     public function getType(): string
@@ -50,5 +58,15 @@ abstract class Commission
     public function hasUniqueCommission(): bool
     {
         return $this->type === self::UNIQUE_COMMISSION;
+    }
+
+    public function hasMaximumValueCap(): bool
+    {
+        return (bool) $this->maximumValueCap;
+    }
+
+    public function getMaximumValueCap(): ?float
+    {
+        return $this->maximumValueCap;
     }
 }

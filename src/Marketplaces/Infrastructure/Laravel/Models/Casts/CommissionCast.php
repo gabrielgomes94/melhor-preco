@@ -20,7 +20,8 @@ class CommissionCast implements CastsAttributes
 
         return Commission::fromArray(
             $commission['type'],
-            $this->getCommissionValues($commission)
+            $this->getCommissionValues($commission),
+            $commission['maximumValueCap'] ?? null,
         );
     }
 
@@ -41,6 +42,7 @@ class CommissionCast implements CastsAttributes
         $data = [
             'type' => $value->getType(),
             'values' => $commissionValues,
+            'maximumValueCap' =>$value->getMaximumValueCap(),
         ];
 
         return json_encode($data);

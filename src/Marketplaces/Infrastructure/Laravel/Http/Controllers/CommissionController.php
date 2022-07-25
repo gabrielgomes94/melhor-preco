@@ -34,6 +34,7 @@ class CommissionController extends Controller
         }
 
         return view('pages.marketplaces.set-commission.unique', [
+            'marketplaceName' => $marketplace->getName(),
             'marketplaceSlug' => $marketplaceSlug,
         ]);
     }
@@ -47,7 +48,7 @@ class CommissionController extends Controller
     ): RedirectResponse
     {
         $marketplace = $this->getMarketplace($marketplaceSlug);
-        $this->commissionRepository->updateCategoryCommissions($marketplace, $request->transform());
+        $this->commissionRepository->update($marketplace, $request->transform());
 
         return redirect()->route('marketplaces.list');
     }
@@ -61,7 +62,7 @@ class CommissionController extends Controller
     ): RedirectResponse
     {
         $marketplace = $this->getMarketplace($marketplaceSlug);
-        $this->commissionRepository->updateUniqueCommission($marketplace, $request->transform());
+        $this->commissionRepository->update($marketplace, $request->transform());
 
         return redirect()->route('marketplaces.list');
     }

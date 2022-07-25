@@ -56,6 +56,16 @@ class SetCommissionTest extends FeatureTestCase
         $this->then_the_marketplace_unique_commission_must_be_updated_in_database();
     }
 
+    public function test_should_update_unique_commission_and_maximum_value_cap(): void
+    {
+        $this->given_i_have_an_user();
+        $this->and_given_i_have_a_marketplace_with_unique_commission_type();
+
+        $this->when_i_want_to_update_unique_commission_and_set_maximum_value_cap();
+
+        $this->then_the_marketplace_must_have_maximum_value_cap_in_commission();
+    }
+
     private function given_i_have_an_user(): void
     {
         $this->user = UserData::make();
@@ -64,12 +74,7 @@ class SetCommissionTest extends FeatureTestCase
 
     private function and_given_i_have_a_marketplace_with_category_commission_type(): void
     {
-        $this->marketplace = MarketplaceData::persisted($this->user, [
-            'extra' => [
-                'commissionType' => 'categoryCommission',
-            ],
-            'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
-        ], 'categoryCommission');
+        $this->marketplace = MarketplaceData::magalu($this->user);
 
         CategoryData::persisted(user: $this->user, method: 'withoutParent');
         CategoryData::persisted($this->user);
@@ -90,12 +95,20 @@ class SetCommissionTest extends FeatureTestCase
                     'categoryId' => '1',
                     'parentId' => '',
                     'commission' => 12.8,
+                    'spacing' => [
+                        'level' => 0,
+                        'componentSpace' => 12,
+                    ],
                 ],
                 [
                     'name' => 'Carrinhos / Carrinhos de supermercado',
                     'categoryId' => '10',
                     'parentId' => '1',
-                    'commission' => 12.8,
+                    'commission' => 10.2,
+                    'spacing' => [
+                        'level' => 1,
+                        'componentSpace' => 11,
+                    ],
                 ],
             ],
             'marketplaceSlug' => 'magalu',
@@ -137,8 +150,8 @@ class SetCommissionTest extends FeatureTestCase
         $commission = Commission::fromArray(
             'categoryCommission',
             new CommissionValuesCollection([
-                new CommissionValue(Percentage::fromPercentage(10.0), '1'),
-                new CommissionValue(Percentage::fromPercentage(12.2), '10'),
+                new CommissionValue(Percentage::fromPercentage(12.8), '1'),
+                new CommissionValue(Percentage::fromPercentage(10.2), '10'),
             ])
         );
 
@@ -159,9 +172,25 @@ class SetCommissionTest extends FeatureTestCase
             'uniqueCommission',
             new CommissionValuesCollection([
                 new CommissionValue(Percentage::fromPercentage(10.5)),
-            ])
+            ]),
         );
 
         $this->assertEquals($commission, $marketplace->commission);
+    }
+
+    private function when_i_want_to_update_unique_commission_and_set_maximum_value_cap(): void
+    {
+        $this->response = $this->post('/marketplaces/magalu/definir-comissao-unica/', [
+            'commission' => 10.5,
+            'commissionMaximumCap' => 100,
+        ]);
+    }
+
+    private function then_the_marketplace_must_have_maximum_value_cap_in_commission(): void
+    {
+        $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
+
+        $this->assertTrue($marketplace->getCommission()->hasMaximumValueCap());
+        $this->assertEquals(100.0, $marketplace->getCommission()->getMaximumValueCap());
     }
 }

@@ -5,8 +5,9 @@ namespace Src\Marketplaces\Domain\Models\Commission\Base;
 class CommissionValuesCollection
 {
     private array $items;
+    private ?float $maximumCapValue;
 
-    public function __construct(array $items = [])
+    public function __construct(array $items = [], ?float $maximumCapValue = null)
     {
         foreach($items as $item) {
             if ($item instanceof CommissionValue) {
@@ -15,6 +16,7 @@ class CommissionValuesCollection
         }
 
         $this->items = $data ?? [];
+        $this->maximumCapValue = $maximumCapValue;
     }
 
     public function get(): array
@@ -27,5 +29,10 @@ class CommissionValuesCollection
         $items = $this->items;
 
         return array_shift($items);
+    }
+
+    public function getMaximumCapValue(): ?float
+    {
+        return $this->maximumCapValue;
     }
 }
