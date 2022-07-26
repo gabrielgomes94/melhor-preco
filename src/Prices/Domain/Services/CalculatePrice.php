@@ -31,7 +31,7 @@ class CalculatePrice
         return new CalculatedPrice(
             $this->getCostPrice($product),
             $this->getValue($value, $options),
-            $this->getCommission($marketplace, $product, $options),
+            $this->getCommission($marketplace, $product, $options, $value),
             $this->getFreight($marketplace, $product, $value)
         );
     }
@@ -39,17 +39,32 @@ class CalculatePrice
     private function getCommission(
         Marketplace $marketplace,
         Product $product,
-        CalculatorOptions $options
-    ): Percentage
+        CalculatorOptions $options,
+        float $value
+    ): Money
     {
-        if ($options->overridenCommission) {
-            return $options->overridenCommission;
-        }
-
-        return $this->commissionRepository->get(
+        $commission = $options->overridenCommission ?: $this->commissionRepository->get(
             $marketplace,
             $product->getCategoryId()
         );
+
+        $value = $this->getValue($value, $options);
+        $commissionValue = $value->multiply((string) $commission->getFraction());
+        $commissionObject = $marketplace->getCommission();
+
+        if (!$commissionObject->hasMaximumValueCap()) {
+            return $commissionValue;
+        }
+
+        $maximumValueCap = MoneyTransformer::toMoney(
+            $commissionObject->getMaximumValueCap()
+        );
+
+        if ($commissionValue->greaterThan($maximumValueCap)) {
+            return $maximumValueCap;
+        }
+
+        return $commissionValue;
     }
 
     private function getCostPrice(Product $product): CostPrice
@@ -70,7 +85,7 @@ class CalculatePrice
     {
         $value = MoneyTransformer::toMoney($value);
 
-        return $value->multiply(1 - $options->discountRate->getFraction());
+        return $value->multiply((string) (1 - $options->discountRate->getFraction()));
     }
 
     private function getFreight(Marketplace $marketplace, Product $product, float $value): Money

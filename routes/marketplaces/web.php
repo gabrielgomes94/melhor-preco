@@ -8,7 +8,7 @@ use Src\Marketplaces\Infrastructure\Laravel\Http\Controllers\MarketplacesControl
 Route::middleware('auth')->group(function () {
     Route::prefix('marketplaces')
         ->name('marketplaces')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [MarketplacesController::class, 'list'])
                 ->name('.list');
 
@@ -42,5 +42,17 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/{marketplace_slug}/frete', [FreightController::class, 'update'])
                 ->name('.doSetFreight');
+
+            Route::prefix('/downloads')
+                ->name('.downloads')
+                ->group(function () {
+                    Route::get('/template-tabela-frete', [FreightController::class, 'downloadTemplate'])
+                        ->name('.template');
+
+                    Route::get(
+                        '/{marketplace_slug}/tabela-frete',
+                        [FreightController::class, 'downloadFreightTable']
+                    )->name('.freightTable');
+                });
         });
 });

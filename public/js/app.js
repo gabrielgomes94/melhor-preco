@@ -5842,7 +5842,7 @@ var setChildrenCategory = function setChildrenCategory() {
   inputs.forEach(function (element) {
     element.addEventListener("change", function () {
       var value = element.value;
-      var commissionInputs = Array.from(document.querySelectorAll('td[data-parent-id]'));
+      var commissionInputs = Array.from(document.querySelectorAll('div[data-parent-id]'));
       var categoryId = element.closest('.category-commission-row').querySelector('.input-category-id').value;
       commissionInputs = commissionInputs.filter(function (element) {
         return element.getAttribute('data-parent-id') === categoryId;

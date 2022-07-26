@@ -19,6 +19,7 @@ class SetCommissionByCategoryRequest extends FormRequest
         return [
             'commission' => 'array',
             'categoryId' => 'array',
+            'commissionMaximumCap' => 'nullable|numeric'
         ];
     }
 
@@ -36,6 +37,9 @@ class SetCommissionByCategoryRequest extends FormRequest
             );
         }
 
-        return new CommissionValuesCollection($transformed ?? []);
+        return new CommissionValuesCollection(
+            $transformed ?? [],
+            $this->validated()['commissionMaximumCap']
+        );
     }
 }

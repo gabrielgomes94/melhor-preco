@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
 use Src\Marketplaces\Domain\Models\Freight\FreightTableComponent;
 use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Math\MathPresenter;
 
 class MarketplacePresenter
 {
@@ -24,6 +25,7 @@ class MarketplacePresenter
             'slug' => $marketplace->getSlug(),
             'uuid' => $marketplace->getUuid(),
             'freight' => $this->presentFreight($marketplace),
+            'freightTable' => $this->presentFreightTable($marketplace),
         ];
     }
 
@@ -72,5 +74,19 @@ class MarketplacePresenter
     private function formatNumber(float $data): string
     {
         return number_format($data, '2', ',') . '%';
+    }
+
+    private function presentFreightTable(Marketplace $marketplace): array
+    {
+        $freight = $marketplace->getFreight();
+        $freightTable = collect($freight->freightTable?->get() ?? []);
+
+        return $freightTable->transform(function(FreightTableComponent $component) {
+            return [
+                'initialCubicWeight' => MathPresenter::float($component->initialCubicWeight),
+                'endCubicWeight' => MathPresenter::float($component->endCubicWeight),
+                'value' => MathPresenter::money($component->value),
+            ];
+        })->toArray();
     }
 }

@@ -85,5 +85,19 @@ class Category extends Model implements CategoryInterface
         return $query->where('category_id', $categoryId);
     }
 
+    public function getDepthLevelCategoryTree(): int
+    {
+        $parentModel = $this->parent;
+        $parentNames[] = $this->name;
 
+        do {
+            if ($parentModel?->name) {
+                $parentNames[] = $parentModel?->name;
+            }
+
+            $parentModel = $parentModel?->parent;
+        } while ($parentModel);
+
+        return count($parentNames) - 1;
+    }
 }

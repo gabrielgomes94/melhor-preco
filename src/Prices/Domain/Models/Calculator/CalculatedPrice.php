@@ -10,7 +10,7 @@ class CalculatedPrice implements Contracts\CalculatedPrice
     public function __construct(
         private CostPrice $costPrice,
         private Money $value,
-        private Percentage $commission,
+        private Money $commission,
         private Money $freight
     ) {
     }
@@ -22,9 +22,7 @@ class CalculatedPrice implements Contracts\CalculatedPrice
 
     public function getCommission(): Money
     {
-        return $this->value->multiply(
-            (string) $this->commission->getFraction()
-        );
+        return $this->commission;
     }
 
     public function getCostPrice(): CostPrice

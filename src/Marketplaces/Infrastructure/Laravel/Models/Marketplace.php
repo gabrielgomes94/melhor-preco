@@ -102,7 +102,8 @@ class Marketplace extends Model implements MarketplaceInterface
     {
         $this->commission = Commission::fromArray(
             $this->getCommission()->getType(),
-            $commissions
+            $commissions,
+            $commissions->getMaximumCapValue()
         );
     }
 

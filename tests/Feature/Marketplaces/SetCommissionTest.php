@@ -10,35 +10,37 @@ use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Users\UserData;
+use Tests\Feature\SimpleUser;
 use Tests\FeatureTestCase;
 
 class SetCommissionTest extends FeatureTestCase
 {
+    use SimpleUser;
     private Marketplace $marketplace;
 
     public function test_should_render_set_category_commission_view(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_a_logged_user();
         $this->and_given_i_have_a_marketplace_with_category_commission_type();
 
-        $this->when_i_want_to_see_the_set_commision_page();
+        $this->when_i_want_to_see_the_set_commision_page('magalu');
 
         $this->then_i_must_see_the_set_commission_category_page();
     }
 
     public function test_should_render_set_unique_commission_view(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_a_logged_user();
         $this->and_given_i_have_a_marketplace_with_unique_commission_type();
 
-        $this->when_i_want_to_see_the_set_commision_page();
+        $this->when_i_want_to_see_the_set_commision_page('shopee');
 
         $this->then_i_must_see_the_set_commission_unique_page();
     }
 
     public function test_should_update_commission_by_category(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_a_logged_user();
         $this->and_given_i_have_a_marketplace_with_category_commission_type();
 
         $this->when_i_want_to_update_category_commission();
@@ -48,7 +50,7 @@ class SetCommissionTest extends FeatureTestCase
 
     public function test_should_update_unique_commission(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_a_logged_user();
         $this->and_given_i_have_a_marketplace_with_unique_commission_type();
 
         $this->when_i_want_to_update_unique_commission();
@@ -56,28 +58,27 @@ class SetCommissionTest extends FeatureTestCase
         $this->then_the_marketplace_unique_commission_must_be_updated_in_database();
     }
 
-    private function given_i_have_an_user(): void
+    public function test_should_update_unique_commission_and_maximum_value_cap(): void
     {
-        $this->user = UserData::make();
-        $this->actingAs($this->user);
+        $this->given_i_am_a_logged_user();
+        $this->and_given_i_have_a_marketplace_with_unique_commission_type();
+
+        $this->when_i_want_to_update_unique_commission_and_set_maximum_value_cap();
+
+        $this->then_the_marketplace_must_have_maximum_value_cap_in_commission();
     }
 
     private function and_given_i_have_a_marketplace_with_category_commission_type(): void
     {
-        $this->marketplace = MarketplaceData::persisted($this->user, [
-            'extra' => [
-                'commissionType' => 'categoryCommission',
-            ],
-            'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
-        ], 'categoryCommission');
+        $this->marketplace = MarketplaceData::magalu($this->user);
 
         CategoryData::persisted(user: $this->user, method: 'withoutParent');
         CategoryData::persisted($this->user);
     }
 
-    private function when_i_want_to_see_the_set_commision_page(): void
+    private function and_given_i_have_a_marketplace_with_unique_commission_type(): void
     {
-        $this->response = $this->get('/marketplaces/magalu/comissao/');
+        $this->marketplace = MarketplaceData::shopee($this->user);
     }
 
     private function then_i_must_see_the_set_commission_category_page(): void
@@ -90,31 +91,69 @@ class SetCommissionTest extends FeatureTestCase
                     'categoryId' => '1',
                     'parentId' => '',
                     'commission' => 12.8,
+                    'spacing' => [
+                        'level' => 0,
+                        'componentSpace' => 12,
+                    ],
                 ],
                 [
                     'name' => 'Carrinhos / Carrinhos de supermercado',
                     'categoryId' => '10',
                     'parentId' => '1',
-                    'commission' => 12.8,
+                    'commission' => 10.2,
+                    'spacing' => [
+                        'level' => 1,
+                        'componentSpace' => 11,
+                    ],
                 ],
             ],
             'marketplaceSlug' => 'magalu',
         ]);
     }
 
-    private function and_given_i_have_a_marketplace_with_unique_commission_type(): void
-    {
-        $this->marketplace = MarketplaceData::persisted($this->user, [
-            'extra' => [
-                'commissionType' => 'uniqueCommission',
-            ],
-            'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
-        ]);
-    }
-
     private function then_i_must_see_the_set_commission_unique_page(): void
     {
         $this->response->assertViewIs('pages.marketplaces.set-commission.unique');
+    }
+
+    private function then_the_marketplace_commission_must_be_updated_in_database(): void
+    {
+        $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
+        $commission = Commission::fromArray(
+            'categoryCommission',
+            new CommissionValuesCollection([
+                new CommissionValue(Percentage::fromPercentage(12.8), '1'),
+                new CommissionValue(Percentage::fromPercentage(10.2), '10'),
+            ])
+        );
+
+        $this->assertEquals($commission, $marketplace->commission);
+    }
+
+    private function then_the_marketplace_unique_commission_must_be_updated_in_database(): void
+    {
+        $marketplace = Marketplace::where('uuid', '9dbc1291-e85a-4d9f-a0d6-43f001643dcc')->first();
+        $commission = Commission::fromArray(
+            'uniqueCommission',
+            new CommissionValuesCollection([
+                new CommissionValue(Percentage::fromPercentage(10.5)),
+            ]),
+        );
+
+        $this->assertEquals($commission, $marketplace->commission);
+    }
+
+    private function then_the_marketplace_must_have_maximum_value_cap_in_commission(): void
+    {
+        $marketplace = Marketplace::where('uuid', '9dbc1291-e85a-4d9f-a0d6-43f001643dcc')->first();
+
+        $this->assertTrue($marketplace->getCommission()->hasMaximumValueCap());
+        $this->assertEquals(100.0, $marketplace->getCommission()->getMaximumValueCap());
+    }
+
+    private function when_i_want_to_see_the_set_commision_page(string $marketplaceSlug): void
+    {
+        $this->response = $this->get("/marketplaces/$marketplaceSlug/comissao/");
     }
 
     private function when_i_want_to_update_category_commission()
@@ -131,37 +170,18 @@ class SetCommissionTest extends FeatureTestCase
         ]);
     }
 
-    private function then_the_marketplace_commission_must_be_updated_in_database(): void
-    {
-        $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
-        $commission = Commission::fromArray(
-            'categoryCommission',
-            new CommissionValuesCollection([
-                new CommissionValue(Percentage::fromPercentage(10.0), '1'),
-                new CommissionValue(Percentage::fromPercentage(12.2), '10'),
-            ])
-        );
-
-        $this->assertEquals($commission, $marketplace->commission);
-    }
-
     private function when_i_want_to_update_unique_commission(): void
     {
-        $this->response = $this->post('/marketplaces/magalu/definir-comissao-unica/', [
+        $this->response = $this->post('/marketplaces/shopee/definir-comissao-unica/', [
             'commission' => 10.5,
         ]);
     }
 
-    private function then_the_marketplace_unique_commission_must_be_updated_in_database(): void
+    private function when_i_want_to_update_unique_commission_and_set_maximum_value_cap(): void
     {
-        $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
-        $commission = Commission::fromArray(
-            'uniqueCommission',
-            new CommissionValuesCollection([
-                new CommissionValue(Percentage::fromPercentage(10.5)),
-            ])
-        );
-
-        $this->assertEquals($commission, $marketplace->commission);
+        $this->response = $this->post('/marketplaces/shopee/definir-comissao-unica/', [
+            'commission' => 10.5,
+            'commissionMaximumCap' => 100,
+        ]);
     }
 }

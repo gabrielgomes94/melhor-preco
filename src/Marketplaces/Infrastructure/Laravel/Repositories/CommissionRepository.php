@@ -27,20 +27,9 @@ class CommissionRepository implements CommissionRepositoryInterface
         return Percentage::fromPercentage(0.0);
     }
 
-    public function updateCategoryCommissions(Marketplace $marketplace, CommissionValuesCollection $data): bool
+    public function update(Marketplace $marketplace, CommissionValuesCollection $data): bool
     {
         $marketplace->setCommissions($data);
-
-        return $marketplace->save();
-    }
-
-    public function updateUniqueCommission(Marketplace $marketplace, float $commission): bool
-    {
-        $commissionValue = new CommissionValue(Percentage::fromPercentage($commission));
-
-        $marketplace->setCommissions(
-            new CommissionValuesCollection([$commissionValue])
-        );
 
         return $marketplace->save();
     }

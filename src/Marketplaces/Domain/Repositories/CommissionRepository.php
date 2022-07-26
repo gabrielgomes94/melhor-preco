@@ -10,7 +10,5 @@ interface CommissionRepository
 {
     public function get(Marketplace $marketplace, ?string $categoryId = null): Percentage;
 
-    public function updateCategoryCommissions(Marketplace $marketplace, CommissionValuesCollection $data): bool;
-
-    public function updateUniqueCommission(Marketplace $marketplace, float $commission): bool;
+    public function update(Marketplace $marketplace, CommissionValuesCollection $data): bool;
 }
