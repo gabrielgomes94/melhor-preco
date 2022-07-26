@@ -28,6 +28,10 @@
                class="input-file form-control"
                id="freight-table-input"
         >
+
+        <x-bootstrap.links.link :route="route('marketplaces.downloads.template')">
+            Download do template da planilha de frete
+        </x-bootstrap.links.link>
     </div>
 
     <div class="d-flex justify-content-center mt-3">

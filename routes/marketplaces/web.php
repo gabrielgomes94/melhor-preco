@@ -42,5 +42,16 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/{marketplace_slug}/frete', [FreightController::class, 'update'])
                 ->name('.doSetFreight');
+
+            Route::prefix('/downloads')
+                ->name('.downloads')
+                ->group(function() {
+                    Route::get('/template-tabela-frete', [FreightController::class, 'downloadTemplate'])
+                        ->name('.template');
+
+                    Route::get('/{marketplace_slug}/tabela-frete', [
+                        FreightController::class, 'downloadFreightTable'
+                    ])->name('.freightTable');
+            });
         });
 });

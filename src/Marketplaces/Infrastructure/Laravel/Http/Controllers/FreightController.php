@@ -5,10 +5,14 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Exports\FreightTableExport;
+use Src\Marketplaces\Infrastructure\Exports\FreightTableTemplateExport;
 use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\UpdateCommissionRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presenters\MarketplacePresenter;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FreightController extends Controller
 {
@@ -36,5 +40,23 @@ class FreightController extends Controller
         $this->freightRepository->update($marketplace, $request->transform());
 
         return redirect()->back();
+    }
+
+    public function downloadTemplate(): BinaryFileResponse
+    {
+        return Excel::download(new FreightTableTemplateExport, 'template.csv');
+    }
+
+    public function downloadFreightTable(string $marketplaceSlug): BinaryFileResponse
+    {
+        $userId = auth()->user()->getAuthIdentifier();
+        $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
+
+        return Excel::download(
+            new FreightTableExport(
+                $marketplace->getFreight()?->freightTable
+            ),
+            "tabela-frete-$marketplaceSlug.csv"
+        );
     }
 }
