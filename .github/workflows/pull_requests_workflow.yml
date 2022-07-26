@@ -11,12 +11,12 @@ jobs:
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.1
     services:
-      barrigudinha-db:
+      melhorpreco-db:
         image: postgres:13.4
         env:
-          POSTGRES_DB: barrigudinha_test
-          POSTGRES_USER: barrigudinha_user
-          POSTGRES_PASSWORD: barrigudinha_password
+          POSTGRES_DB: melhorpreco_test
+          POSTGRES_USER: melhorpreco_user
+          POSTGRES_PASSWORD: melhorpreco_password
           POSTGRES_PORT: 5432
         ports:
           - 5432:5432
@@ -33,9 +33,9 @@ jobs:
             apt-get install --yes postgresql-client
       - name: Setup database
         run: |
-          psql -h barrigudinha-db -d barrigudinha_test -U barrigudinha_user -c 'GRANT ALL PRIVILEGES ON DATABASE barrigudinha_test TO barrigudinha_user;'
+          psql -h melhorpreco-db -d melhorpreco_test -U melhorpreco_user -c 'GRANT ALL PRIVILEGES ON DATABASE melhorpreco_test TO melhorpreco_user;'
         env:
-          PGPASSWORD: barrigudinha_password
+          PGPASSWORD: melhorpreco_password
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
