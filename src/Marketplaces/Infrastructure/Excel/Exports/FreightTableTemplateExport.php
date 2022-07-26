@@ -1,12 +1,15 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Exports;
+namespace Src\Marketplaces\Infrastructure\Excel\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
+use Src\Marketplaces\Infrastructure\Excel\CsvSettings;
 
 class FreightTableTemplateExport implements FromArray, WithCustomCsvSettings
 {
+    use CsvSettings;
+
     public function array(): array
     {
         return [
@@ -15,13 +18,6 @@ class FreightTableTemplateExport implements FromArray, WithCustomCsvSettings
                 'Até (kg)',
                 'Valor (R$)'
             ],
-        ];
-    }
-
-    public function getCsvSettings(): array
-    {
-        return [
-            'delimiter' => ";"
         ];
     }
 }

@@ -1,14 +1,17 @@
 <?php
 
-namespace Src\Marketplaces\Infrastructure\Exports;
+namespace Src\Marketplaces\Infrastructure\Excel\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Src\Marketplaces\Domain\Models\Freight\FreightTable;
 use Src\Marketplaces\Domain\Models\Freight\FreightTableComponent;
+use Src\Marketplaces\Infrastructure\Excel\CsvSettings;
 
 class FreightTableExport implements FromArray, WithCustomCsvSettings
 {
+    use CsvSettings;
+
     public function __construct(
         private ?FreightTable $freightTable
     )
@@ -39,12 +42,5 @@ class FreightTableExport implements FromArray, WithCustomCsvSettings
         })->toArray();
 
         return array_merge($header, $body);
-    }
-
-    public function getCsvSettings(): array
-    {
-        return [
-            'delimiter' => ";"
-        ];
     }
 }

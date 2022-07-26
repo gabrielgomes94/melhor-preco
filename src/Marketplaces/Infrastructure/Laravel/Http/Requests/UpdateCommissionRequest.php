@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel as ExcelFacade;
 use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Freight\FreightTable;
 use Src\Marketplaces\Domain\Models\Freight\FreightTableComponent;
-use Src\Marketplaces\Infrastructure\Laravel\Imports\FreightTableImport;
+use Src\Marketplaces\Infrastructure\Excel\Imports\FreightTableImport;
 use Src\Math\Number;
 
 class UpdateCommissionRequest extends FormRequest
