@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Feature\Prices;
+namespace Tests\Data\Models\Prices;
 
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Products\ProductData;
 
-// @todo: verificar o melhor lugar para colocar a trait
 trait PricesDatabase
 {
     public function setDefaultDatabase(): void
