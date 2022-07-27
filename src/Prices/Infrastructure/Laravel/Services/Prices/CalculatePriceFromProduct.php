@@ -2,11 +2,13 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
+use Money\Money;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
+use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
-use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
@@ -19,6 +21,7 @@ class CalculatePriceFromProduct
         private MarketplaceRepository $marketplaceRepository,
         private ProductRepository $productRepository,
         private CalculatePrice $calculatePrice,
+        private FreightRepository $freightRepository
     ) {}
 
     /**
@@ -36,11 +39,16 @@ class CalculatePriceFromProduct
         $product = $this->getProduct($productSku, $userId);
 
         if (!$calculatorForm) {
+            $price = $product->getPrice($marketplace)->getValue();
+            $freight = $this->getFreight($marketplace, $product, $price);
+
             $calculatedPrice = $this->calculatePrice->calculate(
                 $product,
                 $marketplace,
-                $product->getPrice($marketplace)->getValue(),
-                new CalculatorOptions()
+                new CalculatorForm(
+                    desiredPrice: $price,
+                    freight: $freight
+                )
             );
 
             return new PriceCalculatedFromProduct(
@@ -53,11 +61,7 @@ class CalculatePriceFromProduct
         $calculatedPrice = $this->calculatePrice->calculate(
             $product,
             $marketplace,
-            $calculatorForm->desiredPrice,
-            new CalculatorOptions(
-                $calculatorForm->discount,
-                $calculatorForm->commission,
-            )
+            $calculatorForm
         );
 
         return new PriceCalculatedFromProduct(
@@ -93,5 +97,14 @@ class CalculatePriceFromProduct
         }
 
         return $product;
+    }
+
+    private function getFreight(Marketplace $marketplace, Product $product, float $value): float
+    {
+        return 100 ?? $this->freightRepository->get(
+            $marketplace,
+            $product->getDimensions()->cubicWeight(),
+            $value
+        );
     }
 }

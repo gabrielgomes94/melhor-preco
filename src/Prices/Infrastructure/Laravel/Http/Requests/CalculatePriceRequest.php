@@ -19,8 +19,8 @@ class CalculatePriceRequest extends FormRequest
             'desiredPrice' => 'numeric',
             'commission' => 'string',
             'discount' => 'numeric|nullable',
+            'freight' => 'numeric|nullable',
             'product' => 'string',
-            'store' => 'in:b2w,magalu,mercado-livre,mercado-shops,olist,shopee',
             'freeFreight' => 'boolean',
         ];
     }
@@ -41,12 +41,13 @@ class CalculatePriceRequest extends FormRequest
             return null;
         }
 
-        $data = $this->all();
+        $data = $this->validated();
 
         return new CalculatorForm(
             (float) $data['desiredPrice'],
-            Percentage::fromPercentage((float) $data['commission'] ?? 0.0),
+            Percentage::fromPercentage((float) $data['commission'] ?? 0),
             Percentage::fromPercentage((float) $data['discount'] ?? 0),
+            (float) $data['freight'] ?? 0,
         );
     }
 

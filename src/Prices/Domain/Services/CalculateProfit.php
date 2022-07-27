@@ -5,7 +5,7 @@ namespace Src\Prices\Domain\Services;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
-use Src\Prices\Domain\DataTransfer\CalculatorOptions;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
@@ -45,9 +45,9 @@ class CalculateProfit
         $price = $this->calculatePrice->calculate(
             $product,
             $marketplace,
-            $price->value,
-            new CalculatorOptions(
-                overridenCommission: Percentage::fromPercentage($price->commission ?? 0.0),
+            new CalculatorForm(
+                desiredPrice: $price->value,
+                commission: Percentage::fromPercentage($price->commission ?? 0.0)
             )
         );
 

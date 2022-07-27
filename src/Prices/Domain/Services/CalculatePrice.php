@@ -3,14 +3,12 @@
 namespace Src\Prices\Domain\Services;
 
 use Money\Money;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as CalculatedPriceInterface;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
-use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Src\Math\MoneyTransformer;
-use Src\Math\Percentage;
-use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Domain\Models\Product\Product;
 
@@ -18,37 +16,34 @@ class CalculatePrice
 {
     public function __construct(
         private CommissionRepository $commissionRepository,
-        private FreightRepository $freightRepository
     ) {
     }
 
     public function calculate(
         Product $product,
         Marketplace $marketplace,
-        float $value,
-        CalculatorOptions $options
+        CalculatorForm $options
     ): CalculatedPriceInterface {
         return new CalculatedPrice(
-            $this->getCostPrice($product),
-            $this->getValue($value, $options),
-            $this->getCommission($marketplace, $product, $options, $value),
-            $this->getFreight($marketplace, $product, $value)
+            CostPrice::fromProduct($product),
+            $this->getValue($options),
+            $this->getCommission($marketplace, $product, $options),
+            MoneyTransformer::toMoney($options->freight),
         );
     }
 
     private function getCommission(
         Marketplace $marketplace,
         Product $product,
-        CalculatorOptions $options,
-        float $value
+        CalculatorForm $options,
     ): Money
     {
-        $commission = $options->overridenCommission ?: $this->commissionRepository->get(
+        $commission = $options->commission ?: $this->commissionRepository->get(
             $marketplace,
             $product->getCategoryId()
         );
 
-        $value = $this->getValue($value, $options);
+        $value = $this->getValue($options);
         $commissionValue = $value->multiply((string) $commission->getFraction());
         $commissionObject = $marketplace->getCommission();
 
@@ -67,35 +62,12 @@ class CalculatePrice
         return $commissionValue;
     }
 
-    private function getCostPrice(Product $product): CostPrice
+    private function getValue(CalculatorForm $options): Money
     {
-        $costs = $product->getCosts();
-        $user = $product->getUser();
+        $value = MoneyTransformer::toMoney($options->desiredPrice);
 
-        return new CostPrice(
-            MoneyTransformer::toMoney($costs->purchasePrice()),
-            MoneyTransformer::toMoney($costs->additionalCosts()),
-            Percentage::fromPercentage($costs->taxICMS()),
-            Percentage::fromPercentage($user->getIcmsInnerStateTaxRate()),
-            Percentage::fromPercentage($user->getSimplesNacionalTaxRate())
+        return $value->multiply(
+            (string) (1 - $options->discount->getFraction())
         );
-    }
-
-    private function getValue(float $value, CalculatorOptions $options): Money
-    {
-        $value = MoneyTransformer::toMoney($value);
-
-        return $value->multiply((string) (1 - $options->discountRate->getFraction()));
-    }
-
-    private function getFreight(Marketplace $marketplace, Product $product, float $value): Money
-    {
-        $freight = $this->freightRepository->get(
-            $marketplace,
-            $product->getDimensions()->cubicWeight(),
-            $value
-        );
-
-        return MoneyTransformer::toMoney($freight);
     }
 }

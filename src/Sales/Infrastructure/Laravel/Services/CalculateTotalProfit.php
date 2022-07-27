@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MoneyTransformer;
-use Src\Prices\Domain\DataTransfer\CalculatorOptions;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Models\Contracts\SaleOrder;
@@ -41,8 +41,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             $price = $this->calculatePrice->calculate(
                 $product,
                 $marketplace,
-                $this->getValue($item),
-                new CalculatorOptions()
+                new CalculatorForm($this->getValue($item))
             );
 
             $itemProfit = $price->getProfit()->multiply(

@@ -7,16 +7,10 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
-use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Math\Percentage;
-use Src\Prices\Domain\DataTransfer\CalculatorForm;
-use Src\Prices\Domain\DataTransfer\CalculatorOptions;
-use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatorPresenter;
 use Src\Prices\Infrastructure\Laravel\Services\Prices\CalculatePriceFromProduct;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Repositories\ProductRepository;
 
 class CalculateController extends Controller
 {

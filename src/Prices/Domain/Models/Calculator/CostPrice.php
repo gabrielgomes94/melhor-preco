@@ -3,7 +3,9 @@
 namespace Src\Prices\Domain\Models\Calculator;
 
 use Money\Money;
+use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
+use Src\Products\Domain\Models\Product\Product;
 
 class CostPrice
 {
@@ -26,6 +28,20 @@ class CostPrice
         $this->additionalCosts = $additionalCosts;
         $this->taxICMSInnerState = $taxICMSInnerState;
         $this->taxSimplesNacional = $taxSimplesNacional;
+    }
+
+    public static function fromProduct(Product $product): static
+    {
+        $costs = $product->getCosts();
+        $user = $product->getUser();
+
+        return new self(
+            MoneyTransformer::toMoney($costs->purchasePrice()),
+            MoneyTransformer::toMoney($costs->additionalCosts()),
+            Percentage::fromPercentage($costs->taxICMS()),
+            Percentage::fromPercentage($user->getIcmsInnerStateTaxRate()),
+            Percentage::fromPercentage($user->getSimplesNacionalTaxRate())
+        );
     }
 
     public function get(): Money

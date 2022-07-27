@@ -60,6 +60,7 @@ class CalculatorPresenter
             'desiredPrice' => MoneyTransformer::toFloat($calculatedPrice->get()),
             'priceId' => $product->getPrice($marketplace)->getId(),
             'productId' => $product->getSku(),
+            'freight' => MoneyTransformer::toFloat($calculatedPrice->getFreight()),
         ];
 
         if (!$request->transform()) {
@@ -72,6 +73,7 @@ class CalculatorPresenter
                 'discount' => (float) ($request->validated()['discount'] ?? 0.0),
                 'desiredPrice' => (float) ($request->validated()['desiredPrice'] ?? 0.0),
                 'commission' => (float) ($request->validated()['commission'] ?? 0.0),
+                'freight' => (float) ($request->validated()['freight'] ?? $presented['freight']),
             ]
         );
     }

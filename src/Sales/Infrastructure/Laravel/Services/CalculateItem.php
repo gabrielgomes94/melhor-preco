@@ -2,11 +2,11 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Services;
 
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\Services\CalculateItem as CalculateItemInterface;
-use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 
@@ -33,8 +33,7 @@ class CalculateItem implements CalculateItemInterface
         return $this->calculatePrice->calculate(
             product: $product,
             marketplace: $marketplace,
-            value: $item->getTotalValue(),
-            options: new CalculatorOptions()
+            options: new CalculatorForm($item->getTotalValue())
         );
     }
 }
