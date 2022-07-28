@@ -2,19 +2,19 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Services;
 
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\Services\CalculateItem as CalculateItemInterface;
-use Src\Prices\Domain\Services\CalculatePrice;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class CalculateItem implements CalculateItemInterface
 {
     public function __construct(
-        private CalculatePrice $calculatePrice,
-        private MarketplaceRepository $marketplaceRepository,
+        private readonly MarketplaceRepository $marketplaceRepository,
+        private readonly CommissionRepository $commissionRepository
     ) {
     }
 
@@ -30,10 +30,13 @@ class CalculateItem implements CalculateItemInterface
             throw new MarketplaceNotFoundException($marketplaceErpId);
         }
 
-        return $this->calculatePrice->calculate(
-            product: $product,
-            marketplace: $marketplace,
-            options: new CalculatorForm($item->getTotalValue())
+        $options = new CalculatorForm($item->getTotalValue());
+        $commission = $this->commissionRepository->get($marketplace, $product, $options->getPrice());
+
+        return \Src\Prices\Domain\Models\Calculator\CalculatedPrice::fromProduct(
+            $product,
+            $commission,
+            $options
         );
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace Src\Prices\Domain\Services;
+namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\MoneyTransformer;
-use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
@@ -13,18 +14,11 @@ use Src\Users\Domain\Entities\User;
 
 class CalculateProfit
 {
-    private CalculatePrice $calculatePrice;
-    private MarketplaceRepository $marketplaceRepository;
-    private ProductRepository $productRepository;
-
     public function __construct(
-        CalculatePrice $calculatePrice,
-        MarketplaceRepository $marketplaceRepository,
-        ProductRepository $productRepository
+        private MarketplaceRepository $marketplaceRepository,
+        private ProductRepository $productRepository,
+        private CommissionRepository $commissionRepository
     ) {
-        $this->calculatePrice = $calculatePrice;
-        $this->marketplaceRepository = $marketplaceRepository;
-        $this->productRepository = $productRepository;
     }
 
     /**
@@ -42,13 +36,10 @@ class CalculateProfit
             throw new ProductNotFoundException($sku);
         }
 
-        $price = $this->calculatePrice->calculate(
+        $price = CalculatedPrice::fromProduct(
             $product,
-            $marketplace,
-            new CalculatorForm(
-                desiredPrice: $price->value,
-                commission: Percentage::fromPercentage($price->commission ?? 0.0)
-            )
+            $this->commissionRepository->get($marketplace, $product, $price->value),
+            new CalculatorForm(desiredPrice: $price->value)
         );
 
         return MoneyTransformer::toFloat($price->getProfit());

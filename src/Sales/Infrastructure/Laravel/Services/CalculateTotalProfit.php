@@ -2,10 +2,13 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Services;
 
+use Money\Money;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
-use Src\Prices\Domain\Services\CalculatePrice;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Models\Contracts\SaleOrder;
 use Src\Sales\Domain\Services\CalculateTotalProfit as CalculateTotalProfitInterface;
@@ -14,9 +17,10 @@ use Src\Sales\Infrastructure\Laravel\Models\Item;
 class CalculateTotalProfit implements CalculateTotalProfitInterface
 {
     public function __construct(
-        private readonly CalculatePrice $calculatePrice,
         private readonly MarketplaceRepository $marketplaceRepository,
-        private readonly ProductRepository $productRepository
+        private readonly ProductRepository $productRepository,
+        private readonly FreightRepository $freightRepository,
+        private readonly CommissionRepository $commissionRepository,
     ) {
     }
 
@@ -38,10 +42,19 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
                 return 0.0;
             }
 
-            $price = $this->calculatePrice->calculate(
-                $product,
+            $value = $this->getValue($item);
+            $freight = $this->freightRepository->get(
                 $marketplace,
-                new CalculatorForm($this->getValue($item))
+                $product->getDimensions()->cubicWeight(),
+                (float) $value
+            );
+            $price = CalculatedPrice::fromProduct(
+                $product,
+                $this->commissionRepository->get($marketplace, $product, $value),
+                new CalculatorForm(
+                    desiredPrice: MoneyTransformer::toFloat($value),
+                    freight: $freight
+                )
             );
 
             $itemProfit = $price->getProfit()->multiply(
@@ -52,12 +65,11 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         });
     }
 
-    private function getValue(Item $item): float
+    private function getValue(Item $item): Money
     {
         $unitValue = MoneyTransformer::toMoney($item->getUnitValue());
         $discount = MoneyTransformer::toMoney($item->getDiscount());
-        $value = $unitValue->subtract($discount);
 
-        return MoneyTransformer::toFloat($value);
+        return $unitValue->subtract($discount);
     }
 }

@@ -50,7 +50,7 @@ class CalculatorPresenter
         CalculatePriceRequest $request
     ): array
     {
-        $commission = $this->commissionRepository->get($marketplace, $product);
+        $commission = $this->commissionRepository->getCommissionRate($marketplace, $product);
 
         $presented = [
             'marketplaceName' => $marketplace->getName(),

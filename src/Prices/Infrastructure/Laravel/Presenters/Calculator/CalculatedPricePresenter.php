@@ -31,7 +31,7 @@ class CalculatedPricePresenter
 
     public function format(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
     {
-        $commissionRate = $this->commissionRepository->get($marketplace, $product)->get();
+        $commissionRate = $this->commissionRepository->getCommissionRate($marketplace, $product)->get();
         $price = $calculatedPrice;
 
         return [

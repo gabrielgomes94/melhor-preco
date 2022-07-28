@@ -3,7 +3,11 @@
 namespace Src\Prices\Domain\Models\Calculator;
 
 use Money\Money;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
+use Src\Products\Domain\Models\Product\Product;
 
 class CalculatedPrice implements Contracts\CalculatedPrice
 {
@@ -13,6 +17,20 @@ class CalculatedPrice implements Contracts\CalculatedPrice
         private Money $commission,
         private Money $freight
     ) {
+    }
+
+    public static function fromProduct(
+        Product $product,
+        Money $commission,
+        CalculatorForm $options
+    ): self
+    {
+        return new self(
+            CostPrice::fromProduct($product),
+            $options->getPrice(),
+            $commission,
+            MoneyTransformer::toMoney($options->freight),
+        );
     }
 
     public function get(): Money

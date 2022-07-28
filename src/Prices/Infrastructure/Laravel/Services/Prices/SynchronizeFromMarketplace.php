@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
 use Illuminate\Support\Facades\Log;
-use Src\Prices\Domain\Services\CalculateProfit;
+use Src\Prices\Infrastructure\Laravel\Services\Prices\CalculateProfit;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
@@ -52,7 +52,7 @@ class SynchronizeFromMarketplace
             $priceModels = $this->priceRepository->getPriceFromMarketplace(
                 $price->store, $price->store_sku_id, $price->product_sku, $user->getId()
             );
-            $commission = $this->commissionRepository->get(
+            $commission = $this->commissionRepository->getCommissionRate(
                 $price->getMarketplace(),
                 $price->getProduct()
             );

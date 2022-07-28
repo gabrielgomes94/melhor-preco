@@ -2,6 +2,8 @@
 
 namespace Src\Prices\Domain\DataTransfer;
 
+use Money\Money;
+use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 
 class CalculatorForm
@@ -22,5 +24,14 @@ class CalculatorForm
         $this->desiredPrice = $desiredPrice;
         $this->commission = $commission;
         $this->freight =  $freight;
+    }
+
+    public function getPrice(): Money
+    {
+        $value = MoneyTransformer::toMoney($this->desiredPrice);
+
+        return $value->multiply(
+            (string) (1 - $this->discount->getFraction())
+        );
     }
 }
