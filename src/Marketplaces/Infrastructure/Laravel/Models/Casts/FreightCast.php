@@ -48,7 +48,7 @@ class FreightCast implements CastsAttributes
         })->toArray();
 
         $data = [
-            'defaultValue' => $value->baseValue,
+            'defaultValue' => $value->defaultValue,
             'minimumFreightTableValue' => $value->minimumFreightTableValue,
             'freightTable' => $freightTable,
         ];

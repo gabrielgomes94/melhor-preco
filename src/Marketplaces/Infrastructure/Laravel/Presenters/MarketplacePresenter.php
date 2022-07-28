@@ -65,7 +65,7 @@ class MarketplacePresenter
         })->toArray();
 
         return [
-            'defaultValue' => $freight->baseValue,
+            'defaultValue' => $freight->defaultValue,
             'minimumFreightTableValue' => $freight->minimumFreightTableValue,
             'freightTable' => $freightTable,
         ];
