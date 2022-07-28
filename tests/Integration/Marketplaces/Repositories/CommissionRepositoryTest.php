@@ -55,7 +55,7 @@ class CommissionRepositoryTest extends TestCase
         $user = UserData::make();
         $product = ProductData::makePersisted($user);
         $marketplace = MarketplaceData::persisted($user, [
-            'commission' => Commission::fromArray(
+            'commission' => Commission::build(
                 Commission::UNIQUE_COMMISSION
             )
         ]);

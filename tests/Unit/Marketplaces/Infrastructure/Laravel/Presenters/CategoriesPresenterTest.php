@@ -30,7 +30,7 @@ class CategoriesPresenterTest extends TestCase
         $marketplace = MarketplaceData::persisted(
             $user,
             [
-                'commission' => Commission::fromArray(
+                'commission' => Commission::build(
                     Commission::CATEGORY_COMMISSION,
                     new CommissionValuesCollection([
                         new CommissionValue(

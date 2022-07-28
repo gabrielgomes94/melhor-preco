@@ -119,7 +119,7 @@ class SetCommissionTest extends FeatureTestCase
     private function then_the_marketplace_commission_must_be_updated_in_database(): void
     {
         $marketplace = Marketplace::where('uuid', '0ba73120-6944-4ac4-8357-cef9b410ff54')->first();
-        $commission = Commission::fromArray(
+        $commission = Commission::build(
             'categoryCommission',
             new CommissionValuesCollection([
                 new CommissionValue(Percentage::fromPercentage(12.8), '1'),
@@ -133,7 +133,7 @@ class SetCommissionTest extends FeatureTestCase
     private function then_the_marketplace_unique_commission_must_be_updated_in_database(): void
     {
         $marketplace = Marketplace::where('uuid', '9dbc1291-e85a-4d9f-a0d6-43f001643dcc')->first();
-        $commission = Commission::fromArray(
+        $commission = Commission::build(
             'uniqueCommission',
             new CommissionValuesCollection([
                 new CommissionValue(Percentage::fromPercentage(10.5)),

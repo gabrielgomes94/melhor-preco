@@ -25,7 +25,7 @@ class MarketplaceTest extends TestCase
     public function test_should_make_marketplace_model(): void
     {
         // Arrange
-        $expectedCommission = Commission::fromArray(
+        $expectedCommission = Commission::build(
             'uniqueCommission',
             new CommissionValuesCollection([
                 new CommissionValue(Percentage::fromPercentage(12.8))

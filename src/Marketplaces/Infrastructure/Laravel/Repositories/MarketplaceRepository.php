@@ -82,7 +82,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
         return [
             'erp_id' => $data->erpId,
             'erp_name' => 'bling',
-            'commission' => Commission::fromArray(
+            'commission' => Commission::build(
                 $data->commissionType,
                 new CommissionValuesCollection([])
             ),

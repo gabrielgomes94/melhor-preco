@@ -24,7 +24,7 @@ abstract class Commission
     /**
      * @throws InvalidCommissionTypeException
      */
-    public static function fromArray(
+    public static function build(
         string $type,
         ?CommissionValuesCollection $values = null,
         ?float $maximumValueCap = null

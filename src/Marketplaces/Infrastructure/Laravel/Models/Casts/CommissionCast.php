@@ -18,7 +18,7 @@ class CommissionCast implements CastsAttributes
     {
         $commission = json_decode($value, true);
 
-        return Commission::fromArray(
+        return Commission::build(
             $commission['type'],
             $this->getCommissionValues($commission),
             $commission['maximumValueCap'] ?? null,

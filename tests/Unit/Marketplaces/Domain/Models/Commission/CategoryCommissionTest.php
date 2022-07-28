@@ -50,6 +50,6 @@ class CategoryCommissionTest extends TestCase
     {
         $commissionValuesCollection = CommissionValuesCollectionData::make();
 
-        return Commission::fromArray('categoryCommission', $commissionValuesCollection);
+        return Commission::build('categoryCommission', $commissionValuesCollection);
     }
 }
