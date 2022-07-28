@@ -37,7 +37,7 @@ class FreightCast implements CastsAttributes
             throw new InvalidArgumentException('The given value is not a Freight instance.');
         }
 
-        $freightTable = $value->freightTable->get();
+        $freightTable = $value->freightTable?->get() ?? [];
         $freightTable = collect($freightTable);
         $freightTable->map(function (FreightTableComponent $component) {
             return [
