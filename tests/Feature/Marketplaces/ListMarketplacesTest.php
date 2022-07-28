@@ -27,21 +27,9 @@ class ListMarketplacesTest extends FeatureTestCase
 
     private function and_given_i_have_many_marketplaces(): void
     {
-        MarketplaceData::persisted($this->user, [
-            'uuid' => '0ba73120-6944-4bc4-8357-cef9b410ff43'
-        ]);
-        MarketplaceData::persisted($this->user, [
-            'erp_id' => '23456',
-            'name' => 'Olist',
-            'slug' => 'olist',
-            'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
-        ]);
-        MarketplaceData::persisted($this->user, [
-            'erp_id' => '43211',
-            'name' => 'Shopee',
-            'slug' => 'shopee',
-            'uuid' => '0ba73120-6944-4ac4-8357-cef9b410df99',
-        ]);
+        MarketplaceData::magalu($this->user);
+        MarketplaceData::olist($this->user);
+        MarketplaceData::shopee($this->user);
     }
 
     private function when_i_want_to_list_my_marketplaces(): void

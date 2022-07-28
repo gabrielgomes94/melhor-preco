@@ -45,9 +45,7 @@ class SynchronizeSalesTest extends TestCase
 
     private function and_given_i_have_a_marketplace(): void
     {
-        MarketplaceData::persisted($this->user, [
-            'erp_id' => '123456789',
-        ]);
+        MarketplaceData::magalu($this->user);
     }
 
     private function and_given_i_have_some_products(): void

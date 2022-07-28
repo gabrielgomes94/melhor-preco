@@ -23,7 +23,7 @@ class CommissionRepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         $product = ProductData::makePersisted($user);
-        $marketplace = MarketplaceData::persisted($user, []);
+        $marketplace = MarketplaceData::shopee($user, []);
         $repository = $this->app->get(CommissionRepository::class);
 
         // Act
@@ -39,7 +39,7 @@ class CommissionRepositoryTest extends TestCase
         $user = UserData::make();
         $category = CategoryData::persisted($user, ['category_id' => '1'], 'withoutParent');
         $product = ProductData::makePersisted($user, ['category_id' => $category->getCategoryId()]);
-        $marketplace = MarketplaceData::persisted($user, [], 'categoryCommission');
+        $marketplace = MarketplaceData::magalu($user, [], 'categoryCommission');
         $repository = $this->app->get(CommissionRepository::class);
 
         // Act
@@ -54,11 +54,10 @@ class CommissionRepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         $product = ProductData::makePersisted($user);
-        $marketplace = MarketplaceData::persisted($user, [
-            'commission' => Commission::build(
-                Commission::UNIQUE_COMMISSION
-            )
-        ]);
+        $marketplace = MarketplaceData::olist($user);
+        $marketplace->commission = Commission::build(Commission::UNIQUE_COMMISSION);
+        $marketplace->save();
+
         $repository = $this->app->get(CommissionRepository::class);
 
         // Act
@@ -72,11 +71,7 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $marketplace = MarketplaceData::persisted(
-            $user,
-            ['slug' => 'magalu'],
-            'categoryCommission'
-        );
+        $marketplace = MarketplaceData::magalu($user);
         $data = new CommissionValuesCollection([
             new CommissionValue(Percentage::fromPercentage(10.0), '1')
         ]);
@@ -97,9 +92,7 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $marketplace = MarketplaceData::persisted($user, [
-            'slug' => 'magalu',
-        ]);
+        $marketplace = MarketplaceData::magalu($user);
 
         $repository = $this->app->get(CommissionRepository::class);
 

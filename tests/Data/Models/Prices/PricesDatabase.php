@@ -10,8 +10,25 @@ trait PricesDatabase
 {
     public function setDefaultDatabase(): void
     {
+        /**
+         * Marketplace with category commissions and no freight table
+         */
         MarketplaceData::magalu($this->user);
+
+        /**
+         * Marketplace with single commission, maximum commission cap and no freight table
+         */
         MarketplaceData::shopee($this->user);
+
+        /**
+         * Marketplace with single commission, and freight table
+         */
+        MarketplaceData::olist($this->user);
+
+        /**
+         * Marketplace with category commissions and freight table
+         */
+//        MarketplaceData::mercadoLivreClassic($this->user);
 
         $categoryCarriage = CategoryData::babyCarriage($this->user);
         $categoryChair = CategoryData::babyChair($this->user);

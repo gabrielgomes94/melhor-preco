@@ -34,7 +34,7 @@ class MarketplaceTest extends TestCase
         $user = UserData::make(['id' => 1]);
 
         // Act
-        $result = MarketplaceData::persisted($user);
+        $result = MarketplaceData::magalu($user);
 
         // Assert
         $this->assertSame('123456', $result->getErpId());
@@ -51,7 +51,7 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $marketplace = MarketplaceData::persisted($user);
+        $marketplace = MarketplaceData::magalu($user);
         $marketplace->prices()->saveMany([
             PriceData::persisted($user),
             PriceData::persisted($user, ['store_sku_id' => '3213123']),
@@ -69,7 +69,7 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $marketplace = MarketplaceData::persisted($user);
+        $marketplace = MarketplaceData::magalu($user);
         ProductData::makePersisted($user, ['sku' => '1211']);
         $marketplace->prices()->saveMany([
             PriceData::persisted($user),
@@ -88,7 +88,7 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $marketplace = MarketplaceData::persisted($user);
+        $marketplace = MarketplaceData::magalu($user);
 
         // Act
         $result = $marketplace->user;
@@ -101,7 +101,7 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $marketplace = MarketplaceData::persisted($user);
+        $marketplace = MarketplaceData::magalu($user);
 
         // Act
         $marketplace->setCommissions(
@@ -119,9 +119,7 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        MarketplaceData::persisted($user, [
-            'erp_id' => '123456789'
-        ]);
+        MarketplaceData::magalu($user);
 
         // Act
         $result = Marketplace::withErpId('123456789');
@@ -135,9 +133,7 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $user = UserData::make(['id' => 1]);
-        MarketplaceData::persisted($user, [
-            'erp_id' => '123456789'
-        ]);
+        MarketplaceData::magalu($user);
 
         // Act
         $result = Marketplace::withUser('1');
@@ -151,9 +147,7 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        MarketplaceData::persisted($user, [
-            'name' => 'Magalu'
-        ]);
+        MarketplaceData::magalu($user);
 
         // Act
         $result = Marketplace::withSlug('magalu');

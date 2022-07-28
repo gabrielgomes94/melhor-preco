@@ -36,10 +36,7 @@ class MarketplaceRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make(['id' => 1]);
-        MarketplaceData::persisted(
-            $user,
-            ['slug' => 'magalu']
-        );
+        MarketplaceData::magalu($user);
         $data = MarketplaceSettingsData::make(['slug' => 'magalu']);
 
         $repository = $this->app->get(MarketplaceRepository::class);
@@ -54,10 +51,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_get_marketplace_by_erp_id(): void
     {
         // Arrange
-        MarketplaceData::persisted(
-            UserData::make(['id' => 1]),
-            ['erp_id' => '12345678']
-        );
+        MarketplaceData::magalu(UserData::make(['id' => 1]));
         $repository = $this->app->get(MarketplaceRepository::class);
 
         // Act
@@ -82,10 +76,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_get_marketplace_by_slug(): void
     {
         // Arrange
-        MarketplaceData::persisted(
-            UserData::make(['id' => 1]),
-            ['slug' => 'shopee']
-        );
+        MarketplaceData::shopee(UserData::make(['id' => 1]));
         $repository = $this->app->get(MarketplaceRepository::class);
 
         // Act
@@ -111,15 +102,9 @@ class MarketplaceRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make(['id' => 1]);
-        MarketplaceData::persisted($user);
-        MarketplaceData::persisted(
-            $user,
-            ['slug' => 'shopee']
-        );
-        MarketplaceData::persisted(
-            $user,
-            ['slug' => 'mercado-livre']
-        );
+        MarketplaceData::magalu($user);
+        MarketplaceData::shopee($user);
+        MarketplaceData::olist($user);
         $repository = $this->app->get(MarketplaceRepository::class);
 
         // Act
@@ -134,15 +119,7 @@ class MarketplaceRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make(['id' => 1]);
-        $marketplace = MarketplaceData::persisted(
-            $user,
-            [
-                'name' => 'Shopee',
-                'slug' => 'shopee',
-                'is_active' => true,
-                'uuid' => 'ac996a0e-ae2f-47b3-aaee-e9e396294395',
-            ]
-        );
+        $marketplace = MarketplaceData::shopee($user);
         $data = MarketplaceSettingsData::make([
             'isActive' => false,
         ]);
@@ -163,14 +140,8 @@ class MarketplaceRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make(['id' => 1]);
-        $marketplaceToUpdate = MarketplaceData::persisted(
-            $user,
-            ['name' => 'Shopee', 'slug' => 'shopee']
-        );
-        MarketplaceData::persisted(
-            $user,
-            ['name' => 'Magalu', 'slug' => 'magalu']
-        );
+        $marketplaceToUpdate = MarketplaceData::shopee($user);
+        MarketplaceData::magalu($user);
         $data = MarketplaceSettingsData::make(['slug' => 'magalu']);
         $repository = $this->app->get(MarketplaceRepository::class);
 
