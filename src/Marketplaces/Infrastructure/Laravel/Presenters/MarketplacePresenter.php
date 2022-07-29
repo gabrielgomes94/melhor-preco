@@ -25,7 +25,6 @@ class MarketplacePresenter
             'slug' => $marketplace->getSlug(),
             'uuid' => $marketplace->getUuid(),
             'freight' => $this->presentFreight($marketplace),
-            'freightTable' => $this->presentFreightTable($marketplace),
         ];
     }
 
@@ -57,10 +56,14 @@ class MarketplacePresenter
         $freight = $marketplace->getFreight();
         $freightTable = collect($freight->freightTable?->get() ?? []);
         $freightTable = $freightTable->transform(function(FreightTableComponent $component) {
+            $endCubicWeight = $component->endCubicWeight != FreightTableComponent::INFINITY
+                ? MathPresenter::float($component->endCubicWeight, 3)
+                : '';
+
             return [
-                'initialCubicWeight' => $component->initialCubicWeight,
-                'endCubicWeight' => $component->endCubicWeight,
-                'value' => $component->value,
+                'initialCubicWeight' => MathPresenter::float($component->initialCubicWeight, 3),
+                'endCubicWeight' => $endCubicWeight,
+                'value' => MathPresenter::money($component->value),
             ];
         })->toArray();
 
@@ -74,19 +77,5 @@ class MarketplacePresenter
     private function formatNumber(float $data): string
     {
         return number_format($data, '2', ',') . '%';
-    }
-
-    private function presentFreightTable(Marketplace $marketplace): array
-    {
-        $freight = $marketplace->getFreight();
-        $freightTable = collect($freight->freightTable?->get() ?? []);
-
-        return $freightTable->transform(function(FreightTableComponent $component) {
-            return [
-                'initialCubicWeight' => MathPresenter::float($component->initialCubicWeight),
-                'endCubicWeight' => MathPresenter::float($component->endCubicWeight),
-                'value' => MathPresenter::money($component->value),
-            ];
-        })->toArray();
     }
 }
