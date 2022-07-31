@@ -9,6 +9,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Src\Notifications\Domain\Models\Notification;
 use Src\Users\Domain\DataTransfer\Erp;
 use Src\Users\Domain\Entities\User as UserInterface;
+use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Infrastructure\Laravel\Models\Casts\TaxesCast;
 
 class User extends Authenticatable implements UserInterface
 {
@@ -27,7 +29,8 @@ class User extends Authenticatable implements UserInterface
         'password',
         'phone',
         'fiscal_id',
-        'tax_rate',
+        'tax_rate', // @deprecated
+        'taxes',
     ];
 
     /**
@@ -49,6 +52,7 @@ class User extends Authenticatable implements UserInterface
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'taxes' => TaxesCast::class,
     ];
 
     public function notifications()
@@ -99,12 +103,17 @@ class User extends Authenticatable implements UserInterface
 
     public function getSimplesNacionalTaxRate(): float
     {
-        return $this->tax_rate ?? 5.45 ?? 0.0;
+        return $this->getTaxes()->simplesNacional->get();
     }
 
     public function getIcmsInnerStateTaxRate(): float
     {
-        return config('taxes.ICMS.MG');
+        return $this->getTaxes()->icmsInnerState->get();
+    }
+
+    public function getTaxes(): Taxes
+    {
+        return $this->taxes;
     }
 
     public function setErp(Erp $erp): void
