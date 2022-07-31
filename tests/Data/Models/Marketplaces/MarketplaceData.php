@@ -60,6 +60,18 @@ class MarketplaceData
         ]);
     }
 
+    public static function physicalStore(User $user): Marketplace
+    {
+        return self::persisted($user, [
+            'name' => 'Loja fisica',
+            'slug' => 'loja-fisica',
+            'erp_id' => '123459',
+            'commission' => CommissionData::physicalStore(),
+            'freight' => new Freight(),
+            'uuid' => '7e664e49-bb7c-40e6-a481-a92cf61684c1',
+        ]);
+    }
+
     private static function persisted(User $user, array $data = []): Marketplace
     {
         $marketplace = new Marketplace($data);

@@ -9,6 +9,7 @@ use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
+use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
@@ -26,6 +27,7 @@ class CalculatePriceFromProduct
     /**
      * @throws MarketplaceNotFoundException
      * @throws ProductNotFoundException
+     * @throws ProductHasNoPriceInMarketplace
      */
     public function calculate(
         string $productSku,
@@ -38,7 +40,12 @@ class CalculatePriceFromProduct
         $product = $this->getProduct($productSku, $userId);
 
         if (!$calculatorForm) {
-            $price = $product->getPrice($marketplace)->getValue();
+            $price = $product->getPrice($marketplace)?->getValue();
+
+            if (!$price) {
+                throw new ProductHasNoPriceInMarketplace($product, $marketplace);
+            }
+
             $freight = $this->getFreight($marketplace, $product, $price);
 
             $calculatorForm = new CalculatorForm(

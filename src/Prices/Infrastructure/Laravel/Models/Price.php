@@ -60,7 +60,7 @@ class Price extends Model
         return Percentage::fromPercentage($this->margin);
     }
 
-    public function getMarketplace(): Marketplace
+    public function getMarketplace(): ?Marketplace
     {
         return $this->marketplace;
     }

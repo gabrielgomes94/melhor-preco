@@ -41,4 +41,14 @@ class CommissionData
             100
         );
     }
+
+    public static function physicalStore(): Commission
+    {
+        return Commission::build(
+            Commission::UNIQUE_COMMISSION,
+            new CommissionValuesCollection([
+                new CommissionValue(Percentage::fromPercentage(0))
+            ])
+        );
+    }
 }
