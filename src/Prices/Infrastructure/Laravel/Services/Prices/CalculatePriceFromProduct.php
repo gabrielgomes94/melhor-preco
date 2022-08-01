@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
+use Money\Money;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
@@ -102,7 +103,7 @@ class CalculatePriceFromProduct
         CalculatorForm $calculatorForm
     ): PriceCalculatedFromProduct
     {
-        $commission = $this->commissionRepository->get($marketplace, $product, $calculatorForm->getPrice());
+        $commission = $this->getCommission($calculatorForm, $marketplace, $product);
 
         return new PriceCalculatedFromProduct(
             $product,
@@ -112,6 +113,17 @@ class CalculatePriceFromProduct
                 $commission,
                 $calculatorForm
             )
+        );
+    }
+
+    public function getCommission(CalculatorForm $calculatorForm, Marketplace $marketplace, Product $product): Money
+    {
+        if (!$calculatorForm->commission) {
+            return $this->commissionRepository->get($marketplace, $product, $calculatorForm->getPrice());
+        }
+
+        return $calculatorForm->getPrice()->multiply(
+            (string) $calculatorForm->commission->getFraction()
         );
     }
 }

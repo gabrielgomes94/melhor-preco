@@ -25,12 +25,16 @@ trait PricesDatabase
         return MarketplaceData::physicalStore($this->user);
     }
 
+    private function and_given_i_have_a_marketplace_with_maximum_commission_cap(): Marketplace
+    {
+        return MarketplaceData::shopee($this->user);
+    }
+
     private function and_given_i_have_a_marketplace_with_freight(): Marketplace
     {
         return MarketplaceData::olist($this->user);
     }
 
-//    private function and_given_i_have_a_product(string $slug = 'magalu', string $erpId = '123456'): Product
     private function and_given_i_have_a_product(Marketplace $marketplace): Product
     {
         $categoryCarriage = CategoryData::babyCarriage($this->user);
@@ -106,8 +110,13 @@ trait PricesDatabase
         );
     }
 
-    private function and_given_i_have_a_marketplace_with_maximum_commission_cap(): Marketplace
+    private function and_given_i_have_calculator_parameters(): array
     {
-        return MarketplaceData::shopee($this->user);
+        return [
+            'desiredPrice' => '919.90',
+            'commission' => 19.0,
+            'discount' => 0.0,
+            'freight' => 12.0,
+        ];
     }
 }

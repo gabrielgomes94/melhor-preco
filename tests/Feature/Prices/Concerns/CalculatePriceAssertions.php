@@ -162,4 +162,28 @@ trait CalculatePriceAssertions
             ],
         ]);
     }
+
+    private function and_it_must_return_the_calculated_price_from_form(): void
+    {
+        $this->response->assertViewHas('calculatedPrice', [
+            'formatted' => [
+                'commission' => 'R$ 174,78',
+                'commissionRate' => 19.0,
+                'costs' => 'R$ 724,22',
+                'differenceICMS' => 'R$ 37,41',
+                'freight' => 'R$ 12,00',
+                'marketplaceSlug' => 'olist',
+                'margin' => '21,27 %',
+                'priceId' => '7',
+                'profit' => 'R$ 195,68',
+                'purchasePrice' => 'R$ 449,90',
+                'suggestedPrice' => 'R$ 919,90',
+                'taxSimplesNacional' => 'R$ 50,13',
+            ],
+            'raw' => [
+                'margin' => 21.27,
+                'profit' => 195.68,
+            ],
+        ]);
+    }
 }

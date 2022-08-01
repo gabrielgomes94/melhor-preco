@@ -20,8 +20,6 @@ class CalculatePriceRequest extends FormRequest
             'commission' => 'string',
             'discount' => 'numeric|nullable',
             'freight' => 'numeric|nullable',
-            'product' => 'string',
-            'freeFreight' => 'boolean',
         ];
     }
 

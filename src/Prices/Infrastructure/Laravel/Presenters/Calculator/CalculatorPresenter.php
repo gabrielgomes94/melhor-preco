@@ -36,7 +36,7 @@ class CalculatorPresenter
 
         return [
             'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice, $request),
-            'calculatedPrice' => $this->pricePresenter->present($calculatedPrice, $marketplace, $product),
+            'calculatedPrice' => $this->pricePresenter->present($calculatedPrice, $marketplace, $product, $request->transform()),
             'productInfo' => $this->productPresenter->present($marketplace, $product),
             'costsForm' => $this->getCostsForm($product),
             'marketplacesList' => $this->getMarketplacesList($marketplace, $product),

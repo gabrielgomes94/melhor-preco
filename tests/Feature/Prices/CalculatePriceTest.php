@@ -124,6 +124,19 @@ class CalculatePriceTest extends FeatureTestCase
 
     public function test_should_calculate_price_from_form(): void
     {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
+        $product = $this->and_given_i_have_a_product($marketplace);
+        $parameters = $this->and_given_i_have_calculator_parameters();
+
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->and_it_must_return_the_calculated_price_from_form();
     }
 
     public function test_should_calculate_price_from_form_when_discount_is_given(): void
@@ -155,5 +168,12 @@ class CalculatePriceTest extends FeatureTestCase
     private function when_i_want_to_calculate_price_from_database(string $marketplaceSlug, string $sku): void
     {
         $this->response = $this->get("/calculadora/$marketplaceSlug/produtos/$sku");
+    }
+
+    private function when_i_want_to_calculate_price_from_form(string $marketplaceSlug, string $sku, array $options)
+    {
+        $queryString = http_build_query($options);
+
+        $this->response = $this->get("/calculadora/$marketplaceSlug/produtos/$sku?$queryString");
     }
 }
