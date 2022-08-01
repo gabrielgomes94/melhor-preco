@@ -4,28 +4,14 @@ namespace Tests\Feature\Prices\Concerns;
 
 trait CalculatePriceAssertions
 {
-    private function and_it_must_return_the_calculated_price(): void
+    private function then_the_marketplace_not_found_page_must_be_rendered(): void
     {
-        $this->response->assertViewHas('calculatedPrice', [
-            'formatted' => [
-                'commission' => 'R$ 90,77',
-                'commissionRate' => 0.0,
-                'costs' => 'R$ 626,58',
-                'differenceICMS' => 'R$ 37,41',
-                'freight' => 'R$ 0,00',
-                'marketplaceSlug' => 'magalu',
-                'margin' => '68,35 %',
-                'priceId' => '17',
-                'profit' => 'R$ 341,68',
-                'purchasePrice' => 'R$ 449,90',
-                'suggestedPrice' => 'R$ 889,90',
-                'taxSimplesNacional' => 'R$ 48,50',
-            ],
-            'raw' => [
-                'margin' => 29.59,
-                'profit' => 263.32,
-            ],
-        ]);
+        $this->response->assertViewIs('pages.errors.marketplace-404');
+    }
+
+    private function then_the_calculated_price_page_must_be_rendered(): void
+    {
+        $this->response->assertViewIs('pages.pricing.products.show');
     }
 
     private function then_the_product_not_found_page_must_be_rendered(): void
@@ -44,7 +30,7 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'magalu',
                 'margin' => '29,59 %',
-                'priceId' => '17',
+                'priceId' => '1',
                 'profit' => 'R$ 263,32',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -57,7 +43,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_with_freight_value()
+    private function and_it_must_return_the_calculated_price_with_freight_value(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -68,7 +54,7 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 25,74',
                 'marketplaceSlug' => 'olist',
                 'margin' => '16,90 %',
-                'priceId' => '18',
+                'priceId' => '2',
                 'profit' => 'R$ 150,37',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -79,16 +65,6 @@ trait CalculatePriceAssertions
                 'profit' => 150.37,
             ],
         ]);
-    }
-
-    private function then_the_calculated_price_page_must_be_rendered(): void
-    {
-        $this->response->assertViewIs('pages.pricing.products.show');
-    }
-
-    private function then_the_marketplace_not_found_page_must_be_rendered(): void
-    {
-        $this->response->assertViewIs('pages.errors.marketplace-404');
     }
 
     private function and_it_must_return_the_calculated_price_with_default_freight_value(): void
@@ -102,7 +78,7 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 5,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '12,67 %',
-                'priceId' => '19',
+                'priceId' => '3',
                 'profit' => 'R$ 2,52',
                 'purchasePrice' => 'R$ 6,75',
                 'suggestedPrice' => 'R$ 19,89',
@@ -126,7 +102,7 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'loja-fisica',
                 'margin' => '39,79 %',
-                'priceId' => '20',
+                'priceId' => '4',
                 'profit' => 'R$ 354,09',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -150,7 +126,7 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'shopee',
                 'margin' => '28,55 %',
-                'priceId' => '21',
+                'priceId' => '5',
                 'profit' => 'R$ 254,09',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -159,6 +135,30 @@ trait CalculatePriceAssertions
             'raw' => [
                 'margin' => 28.55,
                 'profit' => 254.09,
+            ],
+        ]);
+    }
+
+    private function and_it_must_return_the_calculated_price(): void
+    {
+        $this->response->assertViewHas('calculatedPrice', [
+            'formatted' => [
+                'commission' => 'R$ 177,98',
+                'commissionRate' => 20.0,
+                'costs' => 'R$ 739,53',
+                'differenceICMS' => 'R$ 37,41',
+                'freight' => 'R$ 25,74',
+                'marketplaceSlug' => 'olist',
+                'margin' => '16,90 %',
+                'priceId' => '6',
+                'profit' => 'R$ 150,37',
+                'purchasePrice' => 'R$ 449,90',
+                'suggestedPrice' => 'R$ 889,90',
+                'taxSimplesNacional' => 'R$ 48,50',
+            ],
+            'raw' => [
+                'margin' => 16.9,
+                'profit' => 150.37,
             ],
         ]);
     }
