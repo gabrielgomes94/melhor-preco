@@ -31,6 +31,7 @@
                 <x-app.pricing.prices.calculator.card
                     :calculatorForm="$calculatorForm"
                     :price="$calculatedPrice['formatted']"
+                    :priceId="$priceId"
                     :priceRaw="$calculatedPrice['raw']"
                     :productId="$productInfo['id']"
                     :productInfo="$productInfo"
@@ -43,6 +44,7 @@
                 <x-app.pricing.prices.update-costs.card
                     :costsForm="$costsForm"
                     :productId="$productInfo['id']"
+                    :costs="$costs"
                 />
             </div>
         </div>

@@ -4,6 +4,7 @@
 
         <x-app.pricing.prices.calculator.forms.calculator
             :calculatorForm="$calculatorForm"
+            :priceId="$priceId"
         />
     </x-bootstrap.card.basic.card-body>
 </x-bootstrap.card.basic.card>

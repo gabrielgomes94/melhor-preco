@@ -21,7 +21,7 @@
                     <div class="mt-2">
                         <h3>Tabela de Frete</h3>
                         <x-app.marketplaces.freight.table.table
-                            :freightTable="$freightTable"
+                            :freightTable="$freight['freightTable']"
                             :marketplaceSlug="$slug"
                         />
                     </div>

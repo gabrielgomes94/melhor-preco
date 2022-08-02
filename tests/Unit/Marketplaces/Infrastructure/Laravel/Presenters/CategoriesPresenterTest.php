@@ -27,23 +27,7 @@ class CategoriesPresenterTest extends TestCase
 
         $user = UserData::make();
 
-        $marketplace = MarketplaceData::persisted(
-            $user,
-            [
-                'commission' => Commission::fromArray(
-                    Commission::CATEGORY_COMMISSION,
-                    new CommissionValuesCollection([
-                        new CommissionValue(
-                            Percentage::fromPercentage(12.8), '1'
-                        ),
-                        new CommissionValue(
-                            Percentage::fromPercentage(8.8), '10'
-                        ),
-                    ])
-                ),
-            ],
-            'categoryCommission'
-        );
+        $marketplace = MarketplaceData::magalu($user);
 
         $expected = [
             [

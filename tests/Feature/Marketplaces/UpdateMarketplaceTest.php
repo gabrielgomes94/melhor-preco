@@ -37,11 +37,7 @@ class UpdateMarketplaceTest extends FeatureTestCase
 
     private function and_given_i_have_an_marketplace(): void
     {
-        MarketplaceData::persisted($this->user, [
-            'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
-            'slug' => 'magalu',
-            'name' => 'Magalu',
-        ]);
+        MarketplaceData::magalu($this->user);
     }
 
     private function when_i_want_to_see_the_edit_page(): void

@@ -59,7 +59,7 @@ class SynchronizeFromMarketplaceTest extends TestCase
 
         ProductData::makePersisted($this->user, ['sku' => '1211']);
         ProductData::makePersisted($this->user, ['sku' => '344']);
-        $this->marketplace = MarketplaceData::persisted($this->user);
+        $this->marketplace = MarketplaceData::magalu($this->user);
     }
 
     private function and_given_i_have_an_integration_with_bling_setup(): void

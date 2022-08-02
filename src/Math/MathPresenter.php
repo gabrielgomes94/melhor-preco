@@ -27,11 +27,9 @@ class MathPresenter
 
         $value = $value instanceof Money
             ? $value
-            : Money::BRL((int) ($value * 100));
+            : Money::BRL((string) ($value * 100));
 
-        $value = $formatter->format($value);
-
-        return $value;
+        return $formatter->format($value);
     }
 
     public static function percentage(Percentage $value): string

@@ -7,6 +7,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Math\Percentage;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
@@ -18,10 +19,15 @@ class CalculatedPricePresenter
     )
     {}
 
-    public function present(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
+    public function present(
+        CalculatedPrice $calculatedPrice,
+        Marketplace $marketplace,
+        Product $product,
+        ?CalculatorForm $form
+    ): array
     {
         return [
-            'formatted' => $this->format($calculatedPrice, $marketplace, $product),
+            'formatted' => $this->format($calculatedPrice, $marketplace, $product, $form),
             'raw' => [
                 'margin' => $calculatedPrice->getMargin(),
                 'profit' => $this->transformMoney($calculatedPrice->getProfit()),
@@ -29,9 +35,17 @@ class CalculatedPricePresenter
         ];
     }
 
-    public function format(CalculatedPrice $calculatedPrice, Marketplace $marketplace, Product $product): array
+    public function format(
+        CalculatedPrice $calculatedPrice,
+        Marketplace $marketplace,
+        Product $product,
+        ?CalculatorForm $form
+    ): array
     {
-        $commissionRate = $this->commissionRepository->get($marketplace, $product)->get();
+        $commissionRate = $form?->commission
+            ? $form->commission->get()
+            : $this->commissionRepository->getCommissionRate($marketplace, $product)->get();
+
         $price = $calculatedPrice;
 
         return [
@@ -44,7 +58,6 @@ class CalculatedPricePresenter
             'margin' => MathPresenter::percentage(
                 Percentage::fromPercentage($price->getMargin())
             ),
-            'priceId' => $product->getPrice($marketplace)->getId(),
             'profit' => MathPresenter::money($price->getProfit()),
             'purchasePrice' => MathPresenter::money($price->getPurchasePrice()),
             'suggestedPrice' => MathPresenter::money($price->get()),

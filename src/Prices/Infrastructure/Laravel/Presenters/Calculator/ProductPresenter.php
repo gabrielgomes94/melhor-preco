@@ -11,7 +11,6 @@ class ProductPresenter
     public function present(Marketplace $marketplace, Product $product): array
     {
         return [
-            'product' => $product,
             'id' => $product->getSku(),
             'header' => $this->getProductHeader($product),
             'currentPrice' => MathPresenter::money($product->getPrice($marketplace)->getValue()),

@@ -38,6 +38,6 @@ class UniqueCommissionTest extends TestCase
     {
         $commissionValuesCollection = CommissionValuesCollectionData::make('uniqueCommission');
 
-        return Commission::fromArray('uniqueCommission', $commissionValuesCollection);
+        return Commission::build('uniqueCommission', $commissionValuesCollection);
     }
 }

@@ -6,6 +6,7 @@
             <x-app.pricing.prices.calculator.table.table
                 :productId="$productId"
                 :price="$price"
+                :priceId="$priceId"
                 :priceRaw="$priceRaw"
             />
         </div>

@@ -1,3 +1,3 @@
 <a href="{{ $route ?? '' }}" class="link">
-    {{ $slot }}
+    {{ $label ?? $slot }}
 </a>

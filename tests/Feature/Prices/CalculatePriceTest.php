@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Prices;
 
+use Tests\Feature\Prices\Concerns\CalculatePriceAssertions;
+use Tests\Feature\Prices\Concerns\PricesDatabase;
 use Tests\Feature\SimpleUser;
 use Tests\FeatureTestCase;
 
@@ -9,77 +11,214 @@ class CalculatePriceTest extends FeatureTestCase
 {
     use SimpleUser;
     use PricesDatabase;
+    use CalculatePriceAssertions;
 
     public function test_should_handle_when_product_does_not_exists(): void
     {
-        $this->given_i_have_an_user();
-        $this->and_given_i_have_multiple_prices();
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace();
 
-        $this->when_i_want_to_calculate_price_from_inexistent_price();
+        $this->when_i_want_to_calculate_price_from_inexistent_price($marketplace->getSlug());
 
         $this->then_the_product_not_found_page_must_be_rendered();
     }
 
     public function test_should_handle_when_markeplace_doest_not_exists(): void
     {
-        $this->given_i_have_an_user();
-        $this->and_given_i_have_multiple_prices();
+        $this->given_i_am_a_logged_user();
 
         $this->when_i_want_to_calculate_price_from_inexistent_marketplace();
 
         $this->then_the_marketplace_not_found_page_must_be_rendered();
     }
 
-    public function test_should_calculate_price_from_database(): void
+    public function test_should_calculate_price_from_database_when_marketplace_has_commission_and_freight(): void
     {
-        $this->given_i_have_an_user();
-        $this->and_given_i_have_multiple_prices();
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
 
-        $this->when_i_want_to_calculate_price_from_database();
+        $this->when_i_want_to_calculate_price_from_database(
+            $marketplace->getSlug(),
+            $product->getSku()
+        );
 
         $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculator_form();
+        $this->then_it_must_return_product_info();
+        $this->then_it_must_return_the_costs_form();
+        $this->then_it_must_return_the_marketplaces_list();
+        $this->then_it_must_return_the_costs();
+        $this->then_it_must_return_the_calculated_price();
+    }
+
+    public function test_should_calculate_price_from_database_when_marketplace_has_no_freight(): void
+    {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_without_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+
+        $this->when_i_want_to_calculate_price_from_database(
+            $marketplace->getSlug(),
+            $product->getSku()
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_without_freight();
+    }
+
+    public function test_should_calculate_price_from_database_when_marketplace_has_freight(): void
+    {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product_priced_on_a_marketplace_with_freight();
+
+        $this->when_i_want_to_calculate_price_from_database(
+            $marketplace->getSlug(),
+            $product->getSku()
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_with_freight_value();
+    }
+
+    public function test_should_calculate_price_from_database_when_it_has_freight_but_price_is_bellow_minimum_freight_value(): void
+    {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_cheap_product($marketplace);
+
+        $this->when_i_want_to_calculate_price_from_database(
+            $marketplace->getSlug(),
+            $product->getSku()
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_with_default_freight_value();
+    }
+
+    public function test_should_calculate_price_from_database_when_marketplace_has_no_commission(): void
+    {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_no_commission();
+        $product = $this->given_i_have_a_product_priced_on_a_marketplace_without_commission();
+
+        $this->when_i_want_to_calculate_price_from_database(
+            $marketplace->getSlug(),
+            $product->getSku()
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_without_commission();
+    }
+
+    public function test_should_calculate_price_from_database_when_marketplace_has_maximum_commission_cap(): void
+    {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_maximum_commission_cap();
+        $product = $this->given_i_have_a_product($marketplace);
+
+        $this->when_i_want_to_calculate_price_from_database(
+            $marketplace->getSlug(),
+            $product->getSku()
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_with_maximum_commission_cap();
     }
 
     public function test_should_calculate_price_from_form(): void
     {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters();
 
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculator_form_with_custom_input();
+        $this->then_it_must_return_product_info();
+        $this->then_it_must_return_the_costs_form();
+        $this->then_it_must_return_the_marketplaces_list();
+        $this->then_it_must_return_the_costs();
+        $this->then_it_must_return_the_calculated_price_from_form();
     }
 
-    private function and_given_i_have_multiple_prices(): void
+    public function test_should_calculate_price_from_form_when_discount_is_given(): void
     {
-        $this->setDefaultDatabase();
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters_with_discount();
+
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_from_form_with_discount();
     }
 
-    private function when_i_want_to_calculate_price_from_inexistent_price(): void
+    public function test_should_calculate_price_from_form_when_no_freight_is_given(): void
     {
-        $this->response = $this->actingAs($this->user)
-            ->get('/calculadora/magalu/products/inexistent-sku');
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters_without_freight();
+
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_from_form_without_freight();
     }
 
-    private function then_the_product_not_found_page_must_be_rendered(): void
+    public function test_should_calculate_price_from_form_when_no_commission_is_given(): void
     {
-        $this->response->assertViewIs('pages.errors.product-404');
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters_without_commission();
+
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculated_price_from_form_without_commission();
+    }
+
+    private function when_i_want_to_calculate_price_from_inexistent_price(string $marketplaceSlug): void
+    {
+        $this->when_i_want_to_calculate_price_from_database($marketplaceSlug, 'inexistent-sku');
     }
 
     private function when_i_want_to_calculate_price_from_inexistent_marketplace(): void
     {
-        $this->response = $this->actingAs($this->user)
-            ->get('/calculadora/invalid-marketplace/products/987');
+        $this->response = $this->get('/calculadora/invalid-marketplace/produtos/987');
     }
 
-    private function then_the_marketplace_not_found_page_must_be_rendered(): void
+    private function when_i_want_to_calculate_price_from_database(string $marketplaceSlug, string $sku): void
     {
-        $this->response->assertViewIs('pages.errors.marketplace-404');
+        $this->response = $this->get("/calculadora/$marketplaceSlug/produtos/$sku");
     }
 
-    private function when_i_want_to_calculate_price_from_database(): void
+    private function when_i_want_to_calculate_price_from_form(string $marketplaceSlug, string $sku, array $options)
     {
-        $this->response = $this->actingAs($this->user)
-            ->get('/calculadora/magalu/products/987');
-    }
+        $queryString = http_build_query($options);
 
-    private function then_the_calculated_price_page_must_be_rendered(): void
-    {
-        $this->response->assertViewIs('pages.pricing.products.show');
+        $this->response = $this->get("/calculadora/$marketplaceSlug/produtos/$sku?$queryString");
     }
 }

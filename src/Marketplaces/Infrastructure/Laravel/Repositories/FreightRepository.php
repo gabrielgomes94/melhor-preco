@@ -13,11 +13,11 @@ class FreightRepository
         $freight = $marketplace->getFreight();
 
         if ($value < $freight->minimumFreightTableValue) {
-            return $freight->baseValue;
+            return $freight->defaultValue;
         }
 
         if (!$freight->freightTable) {
-            return $freight->baseValue;
+            return $freight->defaultValue;
         }
 
         return $freight->getFromTable($cubicWeight);

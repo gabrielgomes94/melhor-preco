@@ -15,6 +15,7 @@ use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatedPricePresenter;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Presenters\CostsPresenter;
 
 class CalculatorPresenter
 {
@@ -22,6 +23,7 @@ class CalculatorPresenter
         private CalculatedPricePresenter $pricePresenter,
         private ProductPresenter $productPresenter,
         private CommissionRepository $commissionRepository,
+        private CostsPresenter $costsPresenter
     ) {
     }
 
@@ -33,13 +35,16 @@ class CalculatorPresenter
         $product = $priceCalculatedFromProduct->product;
         $marketplace = $priceCalculatedFromProduct->marketplace;
         $calculatedPrice = $priceCalculatedFromProduct->calculatedPrice;
+        $costs = $product?->getLastPurchaseItemsCosts();
 
         return [
             'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice, $request),
-            'calculatedPrice' => $this->pricePresenter->present($calculatedPrice, $marketplace, $product),
+            'calculatedPrice' => $this->pricePresenter->present($calculatedPrice, $marketplace, $product, $request->transform()),
             'productInfo' => $this->productPresenter->present($marketplace, $product),
             'costsForm' => $this->getCostsForm($product),
+            'priceId' => $product->getPrice($marketplace)->getId(),
             'marketplacesList' => $this->getMarketplacesList($marketplace, $product),
+            'costs' => $this->costsPresenter->present($costs ? [$costs] : []),
         ];
     }
 
@@ -50,7 +55,7 @@ class CalculatorPresenter
         CalculatePriceRequest $request
     ): array
     {
-        $commission = $this->commissionRepository->get($marketplace, $product);
+        $commission = $this->commissionRepository->getCommissionRate($marketplace, $product);
 
         $presented = [
             'marketplaceName' => $marketplace->getName(),
@@ -58,8 +63,8 @@ class CalculatorPresenter
             'commission' => $commission->get(),
             'discount' => 0.0,
             'desiredPrice' => MoneyTransformer::toFloat($calculatedPrice->get()),
-            'priceId' => $product->getPrice($marketplace)->getId(),
             'productId' => $product->getSku(),
+            'freight' => MoneyTransformer::toFloat($calculatedPrice->getFreight()),
         ];
 
         if (!$request->transform()) {
@@ -72,6 +77,7 @@ class CalculatorPresenter
                 'discount' => (float) ($request->validated()['discount'] ?? 0.0),
                 'desiredPrice' => (float) ($request->validated()['desiredPrice'] ?? 0.0),
                 'commission' => (float) ($request->validated()['commission'] ?? 0.0),
+                'freight' => (float) ($request->validated()['freight'] ?? $presented['freight']),
             ]
         );
     }

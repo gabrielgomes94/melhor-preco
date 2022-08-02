@@ -2,13 +2,16 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
+use Money\Money;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
+use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
-use Src\Prices\Domain\DataTransfer\CalculatorOptions;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
-use Src\Prices\Domain\Services\CalculatePrice;
+use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
@@ -16,14 +19,16 @@ use Src\Products\Domain\Repositories\ProductRepository;
 class CalculatePriceFromProduct
 {
     public function __construct(
-        private MarketplaceRepository $marketplaceRepository,
-        private ProductRepository $productRepository,
-        private CalculatePrice $calculatePrice,
+        private readonly MarketplaceRepository $marketplaceRepository,
+        private readonly ProductRepository $productRepository,
+        private readonly FreightRepository $freightRepository,
+        private readonly CommissionRepository $commissionRepository
     ) {}
 
     /**
      * @throws MarketplaceNotFoundException
      * @throws ProductNotFoundException
+     * @throws ProductHasNoPriceInMarketplace
      */
     public function calculate(
         string $productSku,
@@ -36,35 +41,23 @@ class CalculatePriceFromProduct
         $product = $this->getProduct($productSku, $userId);
 
         if (!$calculatorForm) {
-            $calculatedPrice = $this->calculatePrice->calculate(
-                $product,
-                $marketplace,
-                $product->getPrice($marketplace)->getValue(),
-                new CalculatorOptions()
+            $price = $product->getPrice($marketplace)?->getValue();
+
+            if (!$price) {
+                throw new ProductHasNoPriceInMarketplace($product, $marketplace);
+            }
+
+            $freight = $this->getFreight($marketplace, $product, $price);
+
+            $calculatorForm = new CalculatorForm(
+                desiredPrice: $price,
+                freight: $freight
             );
 
-            return new PriceCalculatedFromProduct(
-                $product,
-                $marketplace,
-                $calculatedPrice
-            );
+            return $this->getPriceCalculatedFromProduct($marketplace, $product, $calculatorForm);
         }
 
-        $calculatedPrice = $this->calculatePrice->calculate(
-            $product,
-            $marketplace,
-            $calculatorForm->desiredPrice,
-            new CalculatorOptions(
-                $calculatorForm->discount,
-                $calculatorForm->commission,
-            )
-        );
-
-        return new PriceCalculatedFromProduct(
-            $product,
-            $marketplace,
-            $calculatedPrice
-        );
+        return $this->getPriceCalculatedFromProduct($marketplace, $product, $calculatorForm);
     }
 
     /**
@@ -93,5 +86,44 @@ class CalculatePriceFromProduct
         }
 
         return $product;
+    }
+
+    private function getFreight(Marketplace $marketplace, Product $product, float $value): float
+    {
+        return $this->freightRepository->get(
+            $marketplace,
+            $product->getDimensions()->cubicWeight(),
+            $value
+        );
+    }
+
+    private function getPriceCalculatedFromProduct(
+        Marketplace $marketplace,
+        Product $product,
+        CalculatorForm $calculatorForm
+    ): PriceCalculatedFromProduct
+    {
+        $commission = $this->getCommission($calculatorForm, $marketplace, $product);
+
+        return new PriceCalculatedFromProduct(
+            $product,
+            $marketplace,
+            CalculatedPrice::fromProduct(
+                $product,
+                $commission,
+                $calculatorForm
+            )
+        );
+    }
+
+    public function getCommission(CalculatorForm $calculatorForm, Marketplace $marketplace, Product $product): Money
+    {
+        if (!$calculatorForm->commission) {
+            return $this->commissionRepository->get($marketplace, $product, $calculatorForm->getPrice());
+        }
+
+        return $calculatorForm->getPrice()->multiply(
+            (string) $calculatorForm->commission->getFraction()
+        );
     }
 }

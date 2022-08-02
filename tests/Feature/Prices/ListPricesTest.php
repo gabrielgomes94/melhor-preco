@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Prices;
 
+use Tests\Data\Models\Prices\PricesDatabase;
 use Tests\Feature\SimpleUser;
 use Tests\FeatureTestCase;
 

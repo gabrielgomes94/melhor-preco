@@ -100,7 +100,7 @@ class Marketplace extends Model implements MarketplaceInterface
 
     public function setCommissions(CommissionValuesCollection $commissions): void
     {
-        $this->commission = Commission::fromArray(
+        $this->commission = Commission::build(
             $this->getCommission()->getType(),
             $commissions,
             $commissions->getMaximumCapValue()

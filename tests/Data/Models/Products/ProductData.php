@@ -34,6 +34,7 @@ class ProductData
                 'sku' => '1234',
                 'name' => 'Carrinho de Bebê',
                 'ean' => '7908238800092',
+                'purchase_price' => 449.90,
             ],
             $prices,
             $category,
@@ -62,6 +63,7 @@ class ProductData
                 'sku' => '777',
                 'name' => 'Chupeta',
                 'ean' => '7908103726649',
+                'purchase_price' => 6.75,
             ],
             $prices,
             $category

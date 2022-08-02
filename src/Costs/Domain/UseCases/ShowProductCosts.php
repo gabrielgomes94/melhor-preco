@@ -7,6 +7,7 @@ use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
 
+// @todo: talvez mover essa classe para uma camada ded repositórios
 class ShowProductCosts
 {
     private ProductRepository $repository;

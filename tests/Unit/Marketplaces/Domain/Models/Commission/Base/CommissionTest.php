@@ -19,7 +19,7 @@ class CommissionTest extends TestCase
         $commissionValuesCollection = CommissionValuesCollectionData::make($type);
 
         // Act
-        $result = Commission::fromArray($type, $commissionValuesCollection);
+        $result = Commission::build($type, $commissionValuesCollection);
 
         // Assert
         $this->assertInstanceOf($expected, $result);
@@ -31,14 +31,14 @@ class CommissionTest extends TestCase
         $this->expectException(InvalidCommissionTypeException::class);
 
         // Act
-        $result = Commission::fromArray('invalid', new CommissionValuesCollection());
+        $result = Commission::build('invalid', new CommissionValuesCollection());
     }
 
     public function test_should_get_type(): void
     {
         // Arrange
         $commissionValuesCollection = CommissionValuesCollectionData::make();
-        $commission = Commission::fromArray('categoryCommission', $commissionValuesCollection);
+        $commission = Commission::build('categoryCommission', $commissionValuesCollection);
 
         // Act
         $result = $commission->getType();
@@ -51,7 +51,7 @@ class CommissionTest extends TestCase
     {
         // Arrange
         $commissionValuesCollection = CommissionValuesCollectionData::make();
-        $commission = Commission::fromArray('categoryCommission', $commissionValuesCollection);
+        $commission = Commission::build('categoryCommission', $commissionValuesCollection);
 
         // Act
         $result = $commission->hasCommissionByCategory();
@@ -64,7 +64,7 @@ class CommissionTest extends TestCase
     {
         // Arrange
         $commissionValuesCollection = CommissionValuesCollectionData::make();
-        $commission = Commission::fromArray('categoryCommission', $commissionValuesCollection);
+        $commission = Commission::build('categoryCommission', $commissionValuesCollection);
 
         // Act
         $result = $commission->hasUniqueCommission();
