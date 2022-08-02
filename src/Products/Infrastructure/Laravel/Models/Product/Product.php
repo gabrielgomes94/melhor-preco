@@ -215,6 +215,15 @@ class Product extends Model implements ProductModelInterface
         return $this->itemsCosts->all();
     }
 
+    public function getLastPurchaseItemsCosts(): ?PurchaseItem
+    {
+        $items = collect($this->getPurchaseItemsCosts());
+
+        return $items->sortByDesc(
+            fn (PurchaseItem $item) => $item->getIssuedAt()
+        )->first();
+    }
+
     public function getPrices(): Collection
     {
         return $this->prices ?? collect();

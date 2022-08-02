@@ -15,6 +15,7 @@ use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatedPricePresenter;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Products\Infrastructure\Laravel\Presenters\CostsPresenter;
 
 class CalculatorPresenter
 {
@@ -22,6 +23,7 @@ class CalculatorPresenter
         private CalculatedPricePresenter $pricePresenter,
         private ProductPresenter $productPresenter,
         private CommissionRepository $commissionRepository,
+        private CostsPresenter $costsPresenter
     ) {
     }
 
@@ -33,6 +35,7 @@ class CalculatorPresenter
         $product = $priceCalculatedFromProduct->product;
         $marketplace = $priceCalculatedFromProduct->marketplace;
         $calculatedPrice = $priceCalculatedFromProduct->calculatedPrice;
+        $costs = $product?->getLastPurchaseItemsCosts();
 
         return [
             'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice, $request),
@@ -40,6 +43,7 @@ class CalculatorPresenter
             'productInfo' => $this->productPresenter->present($marketplace, $product),
             'costsForm' => $this->getCostsForm($product),
             'marketplacesList' => $this->getMarketplacesList($marketplace, $product),
+            'costs' => $this->costsPresenter->present($costs ? [$costs] : []),
         ];
     }
 

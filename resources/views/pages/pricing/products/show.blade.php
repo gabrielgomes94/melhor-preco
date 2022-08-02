@@ -43,6 +43,7 @@
                 <x-app.pricing.prices.update-costs.card
                     :costsForm="$costsForm"
                     :productId="$productInfo['id']"
+                    :costs="$costs"
                 />
             </div>
         </div>
