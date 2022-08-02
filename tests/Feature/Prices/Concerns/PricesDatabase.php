@@ -10,32 +10,32 @@ use Tests\Data\Models\Products\ProductData;
 
 trait PricesDatabase
 {
-    private function and_given_i_have_a_marketplace(): Marketplace
+    private function given_i_have_a_marketplace(): Marketplace
     {
         return MarketplaceData::magalu($this->user);
     }
 
-    private function and_given_i_have_a_marketplace_without_freight(): Marketplace
+    private function given_i_have_a_marketplace_without_freight(): Marketplace
     {
         return MarketplaceData::magalu($this->user);
     }
 
-    private function and_given_i_have_a_marketplace_with_no_commission(): Marketplace
+    private function given_i_have_a_marketplace_with_no_commission(): Marketplace
     {
         return MarketplaceData::physicalStore($this->user);
     }
 
-    private function and_given_i_have_a_marketplace_with_maximum_commission_cap(): Marketplace
+    private function given_i_have_a_marketplace_with_maximum_commission_cap(): Marketplace
     {
         return MarketplaceData::shopee($this->user);
     }
 
-    private function and_given_i_have_a_marketplace_with_freight(): Marketplace
+    private function given_i_have_a_marketplace_with_freight(): Marketplace
     {
         return MarketplaceData::olist($this->user);
     }
 
-    private function and_given_i_have_a_product(Marketplace $marketplace): Product
+    private function given_i_have_a_product(Marketplace $marketplace): Product
     {
         $categoryCarriage = CategoryData::babyCarriage($this->user);
 
@@ -55,7 +55,7 @@ trait PricesDatabase
         );
     }
 
-    private function and_given_i_have_a_product_priced_on_a_marketplace_with_freight(): Product
+    private function given_i_have_a_product_priced_on_a_marketplace_with_freight(): Product
     {
         $categoryCarriage = CategoryData::babyCarriage($this->user);
 
@@ -75,7 +75,7 @@ trait PricesDatabase
         );
     }
 
-    private function and_given_i_have_a_product_priced_on_a_marketplace_without_commission(): Product
+    private function given_i_have_a_product_priced_on_a_marketplace_without_commission(): Product
     {
         $categoryCarriage = CategoryData::babyCarriage($this->user);
 
@@ -95,7 +95,7 @@ trait PricesDatabase
         );
     }
 
-    private function and_given_i_have_a_cheap_product(Marketplace $marketplace): Product
+    private function given_i_have_a_cheap_product(Marketplace $marketplace): Product
     {
         return ProductData::babyPacifier(
             $this->user,
@@ -110,7 +110,7 @@ trait PricesDatabase
         );
     }
 
-    private function and_given_i_have_calculator_parameters(): array
+    private function given_i_have_calculator_parameters(): array
     {
         return [
             'desiredPrice' => '919.90',
@@ -120,7 +120,7 @@ trait PricesDatabase
         ];
     }
 
-    private function and_given_i_have_calculator_parameters_with_discount(): array
+    private function given_i_have_calculator_parameters_with_discount(): array
     {
         return [
             'desiredPrice' => '919.90',
@@ -130,7 +130,7 @@ trait PricesDatabase
         ];
     }
 
-    private function and_given_i_have_calculator_parameters_without_freight(): array
+    private function given_i_have_calculator_parameters_without_freight(): array
     {
         return [
             'desiredPrice' => '919.90',
@@ -140,7 +140,7 @@ trait PricesDatabase
         ];
     }
 
-    private function and_given_i_have_calculator_parameters_without_commission(): array
+    private function given_i_have_calculator_parameters_without_commission(): array
     {
         return [
             'desiredPrice' => '919.90',

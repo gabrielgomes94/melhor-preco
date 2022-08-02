@@ -19,7 +19,7 @@ trait CalculatePriceAssertions
         $this->response->assertViewIs('pages.errors.product-404');
     }
 
-    private function and_it_must_return_the_calculated_price_without_freight(): void
+    private function then_it_must_return_the_calculated_price_without_freight(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -43,7 +43,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_with_freight_value(): void
+    private function then_it_must_return_the_calculated_price_with_freight_value(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -67,7 +67,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_with_default_freight_value(): void
+    private function then_it_must_return_the_calculated_price_with_default_freight_value(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -91,7 +91,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_without_commission(): void
+    private function then_it_must_return_the_calculated_price_without_commission(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -115,7 +115,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_with_maximum_commission_cap(): void
+    private function then_it_must_return_the_calculated_price_with_maximum_commission_cap(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -139,7 +139,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price(): void
+    private function then_it_must_return_the_calculated_price(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -163,7 +163,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_from_form(): void
+    private function then_it_must_return_the_calculated_price_from_form(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -187,7 +187,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_from_form_with_discount(): void
+    private function then_it_must_return_the_calculated_price_from_form_with_discount(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -211,7 +211,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_from_form_without_freight(): void
+    private function then_it_must_return_the_calculated_price_from_form_without_freight(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [
@@ -235,7 +235,7 @@ trait CalculatePriceAssertions
         ]);
     }
 
-    private function and_it_must_return_the_calculated_price_from_form_without_commission(): void
+    private function then_it_must_return_the_calculated_price_from_form_without_commission(): void
     {
         $this->response->assertViewHas('calculatedPrice', [
             'formatted' => [

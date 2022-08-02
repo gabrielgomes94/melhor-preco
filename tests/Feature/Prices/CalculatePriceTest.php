@@ -16,7 +16,7 @@ class CalculatePriceTest extends FeatureTestCase
     public function test_should_handle_when_product_does_not_exists(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace();
+        $marketplace = $this->given_i_have_a_marketplace();
 
         $this->when_i_want_to_calculate_price_from_inexistent_price($marketplace->getSlug());
 
@@ -35,8 +35,8 @@ class CalculatePriceTest extends FeatureTestCase
     public function test_should_calculate_price_from_database_when_marketplace_has_no_freight(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_without_freight();
-        $product = $this->and_given_i_have_a_product($marketplace);
+        $marketplace = $this->given_i_have_a_marketplace_without_freight();
+        $product = $this->given_i_have_a_product($marketplace);
 
         $this->when_i_want_to_calculate_price_from_database(
             $marketplace->getSlug(),
@@ -44,14 +44,14 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_without_freight();
+        $this->then_it_must_return_the_calculated_price_without_freight();
     }
 
     public function test_should_calculate_price_from_database_when_marketplace_has_freight(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
-        $product = $this->and_given_i_have_a_product_priced_on_a_marketplace_with_freight();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product_priced_on_a_marketplace_with_freight();
 
         $this->when_i_want_to_calculate_price_from_database(
             $marketplace->getSlug(),
@@ -59,14 +59,14 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_with_freight_value();
+        $this->then_it_must_return_the_calculated_price_with_freight_value();
     }
 
     public function test_should_calculate_price_from_database_when_it_has_freight_but_price_is_bellow_minimum_freight_value(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
-        $product = $this->and_given_i_have_a_cheap_product($marketplace);
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_cheap_product($marketplace);
 
         $this->when_i_want_to_calculate_price_from_database(
             $marketplace->getSlug(),
@@ -74,14 +74,14 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_with_default_freight_value();
+        $this->then_it_must_return_the_calculated_price_with_default_freight_value();
     }
 
     public function test_should_calculate_price_from_database_when_marketplace_has_no_commission(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_no_commission();
-        $product = $this->and_given_i_have_a_product_priced_on_a_marketplace_without_commission();
+        $marketplace = $this->given_i_have_a_marketplace_with_no_commission();
+        $product = $this->given_i_have_a_product_priced_on_a_marketplace_without_commission();
 
         $this->when_i_want_to_calculate_price_from_database(
             $marketplace->getSlug(),
@@ -89,14 +89,14 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_without_commission();
+        $this->then_it_must_return_the_calculated_price_without_commission();
     }
 
     public function test_should_calculate_price_from_database_when_marketplace_has_maximum_commission_cap(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_maximum_commission_cap();
-        $product = $this->and_given_i_have_a_product($marketplace);
+        $marketplace = $this->given_i_have_a_marketplace_with_maximum_commission_cap();
+        $product = $this->given_i_have_a_product($marketplace);
 
         $this->when_i_want_to_calculate_price_from_database(
             $marketplace->getSlug(),
@@ -104,14 +104,14 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_with_maximum_commission_cap();
+        $this->then_it_must_return_the_calculated_price_with_maximum_commission_cap();
     }
 
     public function test_should_calculate_price_from_database_when_marketplace_has_commission_and_freight(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
-        $product = $this->and_given_i_have_a_product($marketplace);
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
 
         $this->when_i_want_to_calculate_price_from_database(
             $marketplace->getSlug(),
@@ -119,15 +119,15 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price();
+        $this->then_it_must_return_the_calculated_price();
     }
 
     public function test_should_calculate_price_from_form(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
-        $product = $this->and_given_i_have_a_product($marketplace);
-        $parameters = $this->and_given_i_have_calculator_parameters();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters();
 
         $this->when_i_want_to_calculate_price_from_form(
             $marketplace->getSlug(),
@@ -136,15 +136,15 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_from_form();
+        $this->then_it_must_return_the_calculated_price_from_form();
     }
 
     public function test_should_calculate_price_from_form_when_discount_is_given(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
-        $product = $this->and_given_i_have_a_product($marketplace);
-        $parameters = $this->and_given_i_have_calculator_parameters_with_discount();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters_with_discount();
 
         $this->when_i_want_to_calculate_price_from_form(
             $marketplace->getSlug(),
@@ -153,15 +153,15 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_from_form_with_discount();
+        $this->then_it_must_return_the_calculated_price_from_form_with_discount();
     }
 
     public function test_should_calculate_price_from_form_when_no_freight_is_given(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
-        $product = $this->and_given_i_have_a_product($marketplace);
-        $parameters = $this->and_given_i_have_calculator_parameters_without_freight();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters_without_freight();
 
         $this->when_i_want_to_calculate_price_from_form(
             $marketplace->getSlug(),
@@ -170,15 +170,15 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_from_form_without_freight();
+        $this->then_it_must_return_the_calculated_price_from_form_without_freight();
     }
 
     public function test_should_calculate_price_from_form_when_no_commission_is_given(): void
     {
         $this->given_i_am_a_logged_user();
-        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
-        $product = $this->and_given_i_have_a_product($marketplace);
-        $parameters = $this->and_given_i_have_calculator_parameters_without_commission();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+        $parameters = $this->given_i_have_calculator_parameters_without_commission();
 
         $this->when_i_want_to_calculate_price_from_form(
             $marketplace->getSlug(),
@@ -187,7 +187,7 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
-        $this->and_it_must_return_the_calculated_price_from_form_without_commission();
+        $this->then_it_must_return_the_calculated_price_from_form_without_commission();
     }
 
     private function when_i_want_to_calculate_price_from_inexistent_price(string $marketplaceSlug): void
