@@ -58,7 +58,6 @@ class CalculatedPricePresenter
             'margin' => MathPresenter::percentage(
                 Percentage::fromPercentage($price->getMargin())
             ),
-            'priceId' => $product->getPrice($marketplace)->getId(),
             'profit' => MathPresenter::money($price->getProfit()),
             'purchasePrice' => MathPresenter::money($price->getPurchasePrice()),
             'suggestedPrice' => MathPresenter::money($price->get()),

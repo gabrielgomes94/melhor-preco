@@ -5,6 +5,8 @@ namespace Tests\Feature\Prices\Concerns;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Products\Domain\Models\Product\Product;
 use Tests\Data\Models\CategoryData;
+use Tests\Data\Models\Costs\PurchaseInvoiceData;
+use Tests\Data\Models\Costs\PurchaseItemsData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Products\ProductData;
 
@@ -39,7 +41,7 @@ trait PricesDatabase
     {
         $categoryCarriage = CategoryData::babyCarriage($this->user);
 
-        return ProductData::babyCarriage(
+        $product = ProductData::babyCarriage(
             $this->user,
             [
                 [
@@ -53,6 +55,30 @@ trait PricesDatabase
             ],
             $categoryCarriage
         );
+
+        $invoice = PurchaseInvoiceData::makePersisted($this->user);
+        $item = PurchaseItemsData::makePersisted($invoice, [
+            'product_sku' => 1234,
+            'unit_cost' => 100.0,
+            'unit_price' => 150.0,
+            'taxes' => [
+                'icms' => [
+                    'value' => 0.0,
+                    'percentage' => 0,
+                ],
+                'ipi' => [
+                    'value' => 40.0,
+                    'percentage' => 0.4,
+                ],
+                'totalTaxes' => 40.0
+            ],
+            'ean' => '7908238800092',
+        ]);
+
+        $item->product()->associate($product);
+        $item->save();
+
+        return $product;
     }
 
     private function given_i_have_a_product_priced_on_a_marketplace_with_freight(): Product

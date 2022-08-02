@@ -42,6 +42,7 @@ class CalculatorPresenter
             'calculatedPrice' => $this->pricePresenter->present($calculatedPrice, $marketplace, $product, $request->transform()),
             'productInfo' => $this->productPresenter->present($marketplace, $product),
             'costsForm' => $this->getCostsForm($product),
+            'priceId' => $product->getPrice($marketplace)->getId(),
             'marketplacesList' => $this->getMarketplacesList($marketplace, $product),
             'costs' => $this->costsPresenter->present($costs ? [$costs] : []),
         ];
@@ -62,7 +63,6 @@ class CalculatorPresenter
             'commission' => $commission->get(),
             'discount' => 0.0,
             'desiredPrice' => MoneyTransformer::toFloat($calculatedPrice->get()),
-            'priceId' => $product->getPrice($marketplace)->getId(),
             'productId' => $product->getSku(),
             'freight' => MoneyTransformer::toFloat($calculatedPrice->getFreight()),
         ];

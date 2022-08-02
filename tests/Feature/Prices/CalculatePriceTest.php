@@ -32,6 +32,26 @@ class CalculatePriceTest extends FeatureTestCase
         $this->then_the_marketplace_not_found_page_must_be_rendered();
     }
 
+    public function test_should_calculate_price_from_database_when_marketplace_has_commission_and_freight(): void
+    {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->given_i_have_a_marketplace_with_freight();
+        $product = $this->given_i_have_a_product($marketplace);
+
+        $this->when_i_want_to_calculate_price_from_database(
+            $marketplace->getSlug(),
+            $product->getSku()
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculator_form();
+        $this->then_it_must_return_product_info();
+        $this->then_it_must_return_the_costs_form();
+        $this->then_it_must_return_the_marketplaces_list();
+        $this->then_it_must_return_the_costs();
+        $this->then_it_must_return_the_calculated_price();
+    }
+
     public function test_should_calculate_price_from_database_when_marketplace_has_no_freight(): void
     {
         $this->given_i_am_a_logged_user();
@@ -107,21 +127,6 @@ class CalculatePriceTest extends FeatureTestCase
         $this->then_it_must_return_the_calculated_price_with_maximum_commission_cap();
     }
 
-    public function test_should_calculate_price_from_database_when_marketplace_has_commission_and_freight(): void
-    {
-        $this->given_i_am_a_logged_user();
-        $marketplace = $this->given_i_have_a_marketplace_with_freight();
-        $product = $this->given_i_have_a_product($marketplace);
-
-        $this->when_i_want_to_calculate_price_from_database(
-            $marketplace->getSlug(),
-            $product->getSku()
-        );
-
-        $this->then_the_calculated_price_page_must_be_rendered();
-        $this->then_it_must_return_the_calculated_price();
-    }
-
     public function test_should_calculate_price_from_form(): void
     {
         $this->given_i_am_a_logged_user();
@@ -136,6 +141,11 @@ class CalculatePriceTest extends FeatureTestCase
         );
 
         $this->then_the_calculated_price_page_must_be_rendered();
+        $this->then_it_must_return_the_calculator_form_with_custom_input();
+        $this->then_it_must_return_product_info();
+        $this->then_it_must_return_the_costs_form();
+        $this->then_it_must_return_the_marketplaces_list();
+        $this->then_it_must_return_the_costs();
         $this->then_it_must_return_the_calculated_price_from_form();
     }
 

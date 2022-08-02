@@ -9,7 +9,7 @@
                     $calculatorForm['productId']
                 ])
                 }}"
-        data-price-id="{{ $calculatorForm['priceId'] }}"
+        data-price-id="{{ $priceId }}"
         class="price-calculator-form"
         enctype="multipart/form-data">
         @csrf
@@ -17,7 +17,7 @@
         <div class="mt-2">
             <x-bootstrap.forms.input.hidden
                 name="store"
-                id="store-{{ $calculatorForm['priceId'] }}"
+                id="store-{{ $priceId }}"
                 value="{{ $calculatorForm['marketplaceSlug'] }}"
             >
             </x-bootstrap.forms.input.hidden>
@@ -26,7 +26,7 @@
         <div class="mt-2">
             <x-bootstrap.forms.input.money
                 name="desiredPrice"
-                id="desiredPrice-{{ $calculatorForm['priceId'] }}"
+                id="desiredPrice-{{ $priceId }}"
                 label="Preço desejado"
                 value="{{ $calculatorForm['desiredPrice'] }}"
             >
@@ -36,7 +36,7 @@
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
                 name="discount"
-                id="discount-{{ $calculatorForm['priceId'] }}"
+                id="discount-{{ $priceId }}"
                 label="Desconto (%)"
                 value="{{ $calculatorForm['discount'] }}"
             >
@@ -46,7 +46,7 @@
         <div class="mt-2">
             <x-bootstrap.forms.input.percentage
                 name="commission"
-                id="commission-{{ $calculatorForm['priceId'] }}"
+                id="commission-{{ $priceId }}"
                 label="Comissão (%)"
                 value="{{ $calculatorForm['commission'] }}"
             >
@@ -56,7 +56,7 @@
         <div class="mt-2">
             <x-bootstrap.forms.input.money
                 name="freight"
-                id="freight-{{ $calculatorForm['priceId'] }}"
+                id="freight-{{ $priceId }}"
                 label="Frete"
                 value="{{ $calculatorForm['freight'] ?? null }}"
             >
@@ -66,7 +66,7 @@
         <input
             type="hidden"
             name="product"
-            id="product-{{ $calculatorForm['priceId'] }}"
+            id="product-{{ $priceId }}"
             value="{{ $calculatorForm['productId'] }}"
         />
 
@@ -85,7 +85,6 @@
                     Limpar
                 </x-bootstrap.links.link-primary>
             </div>
-
 
             <x-bootstrap.buttons.submit label="Calcular" />
         </div>

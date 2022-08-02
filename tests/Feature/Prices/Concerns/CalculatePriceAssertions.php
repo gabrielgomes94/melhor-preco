@@ -30,7 +30,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'magalu',
                 'margin' => '29,59 %',
-                'priceId' => '1',
                 'profit' => 'R$ 263,32',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -54,7 +53,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 25,74',
                 'marketplaceSlug' => 'olist',
                 'margin' => '16,90 %',
-                'priceId' => '2',
                 'profit' => 'R$ 150,37',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -78,7 +76,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 5,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '12,67 %',
-                'priceId' => '3',
                 'profit' => 'R$ 2,52',
                 'purchasePrice' => 'R$ 6,75',
                 'suggestedPrice' => 'R$ 19,89',
@@ -102,7 +99,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'loja-fisica',
                 'margin' => '39,79 %',
-                'priceId' => '4',
                 'profit' => 'R$ 354,09',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -126,7 +122,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'shopee',
                 'margin' => '28,55 %',
-                'priceId' => '5',
                 'profit' => 'R$ 254,09',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -150,7 +145,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 25,74',
                 'marketplaceSlug' => 'olist',
                 'margin' => '16,90 %',
-                'priceId' => '6',
                 'profit' => 'R$ 150,37',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
@@ -174,7 +168,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 12,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '21,27 %',
-                'priceId' => '7',
                 'profit' => 'R$ 195,68',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 919,90',
@@ -198,7 +191,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 12,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '15,24 %',
-                'priceId' => '8',
                 'profit' => 'R$ 126,18',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 827,91',
@@ -222,7 +214,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '22,58 %',
-                'priceId' => '9',
                 'profit' => 'R$ 207,68',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 919,90',
@@ -246,7 +237,6 @@ trait CalculatePriceAssertions
                 'freight' => 'R$ 12,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '40,27 %',
-                'priceId' => '10',
                 'profit' => 'R$ 370,46',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 919,90',
@@ -256,6 +246,81 @@ trait CalculatePriceAssertions
                 'margin' => 40.27,
                 'profit' => 370.46,
             ],
+        ]);
+    }
+
+    private function then_it_must_return_the_calculator_form(): void
+    {
+        $this->response->assertViewHas('calculatorForm', [
+            'marketplaceName' => 'Olist',
+            'marketplaceSlug' => 'olist',
+            'commission' => 20.0,
+            'discount' => 0.0,
+            'desiredPrice' => 889.9,
+            'productId' => '1234',
+            'freight' => 25.74,
+        ]);
+    }
+
+    private function then_it_must_return_product_info(): void
+    {
+        $this->response->assertViewHas('productInfo', [
+            'id' => '1234',
+            'header' => '1234 - Carrinho de Bebê',
+            'currentPrice' => 'R$ 889,90',
+        ]);
+    }
+
+    private function then_it_must_return_the_costs_form(): void
+    {
+        $this->response->assertViewHas('costsForm', [
+            'purchasePrice' => 449.9,
+            'taxICMS' => 12.0,
+            'additionalCosts' => 0.0,
+        ]);
+    }
+
+    private function then_it_must_return_the_marketplaces_list(): void
+    {
+        $this->response->assertViewHas('marketplacesList', [
+            [
+                'name' => 'Olist',
+                'slug' => 'olist',
+                'selected' => true,
+            ],
+        ]);
+    }
+
+    private function then_it_must_return_the_costs(): void
+    {
+        $this->response->assertViewHas('costs', [
+            [
+                'issuedAt' => '17/02/2021 09:55',
+                'unitCost' => 'R$ 168,00',
+                'costs' => [
+                    'purchasePrice' => 'R$ 150,00',
+                    'taxes' => 'R$ 40,00',
+                    'freight' => 'R$ 10,00',
+                    'insurance' => '',
+                    'icms' => '0,00 %',
+                ],
+                'quantity' => 5.0,
+                'supplierName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
+                'supplierFiscalId' => '06981862000200',
+            ],
+        ]);
+    }
+
+    private function then_it_must_return_the_calculator_form_with_custom_input(): void
+    {
+        $this->response->assertViewHas('calculatorForm', [
+            'marketplaceName' => 'Olist',
+            'marketplaceSlug' => 'olist',
+            'commission' => 19.0,
+            'discount' => 0.0,
+            'desiredPrice' => 919.9,
+            'productId' => '1234',
+            'freight' => 12.00,
         ]);
     }
 }
