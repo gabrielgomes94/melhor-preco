@@ -141,19 +141,54 @@ class CalculatePriceTest extends FeatureTestCase
 
     public function test_should_calculate_price_from_form_when_discount_is_given(): void
     {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
+        $product = $this->and_given_i_have_a_product($marketplace);
+        $parameters = $this->and_given_i_have_calculator_parameters_with_discount();
 
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->and_it_must_return_the_calculated_price_from_form_with_discount();
     }
 
     public function test_should_calculate_price_from_form_when_no_freight_is_given(): void
     {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
+        $product = $this->and_given_i_have_a_product($marketplace);
+        $parameters = $this->and_given_i_have_calculator_parameters_without_freight();
 
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->and_it_must_return_the_calculated_price_from_form_without_freight();
     }
 
     public function test_should_calculate_price_from_form_when_no_commission_is_given(): void
     {
+        $this->given_i_am_a_logged_user();
+        $marketplace = $this->and_given_i_have_a_marketplace_with_freight();
+        $product = $this->and_given_i_have_a_product($marketplace);
+        $parameters = $this->and_given_i_have_calculator_parameters_without_commission();
 
+        $this->when_i_want_to_calculate_price_from_form(
+            $marketplace->getSlug(),
+            $product->getSku(),
+            $parameters
+        );
+
+        $this->then_the_calculated_price_page_must_be_rendered();
+        $this->and_it_must_return_the_calculated_price_from_form_without_commission();
     }
-
 
     private function when_i_want_to_calculate_price_from_inexistent_price(string $marketplaceSlug): void
     {

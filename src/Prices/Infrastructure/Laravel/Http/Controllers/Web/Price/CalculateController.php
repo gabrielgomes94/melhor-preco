@@ -7,6 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatorPresenter;
 use Src\Prices\Infrastructure\Laravel\Services\Prices\CalculatePriceFromProduct;
@@ -21,9 +22,10 @@ class CalculateController extends Controller
     }
 
     /**
-     * @throws MarketplaceNotFoundException
-     * @throws ProductNotFoundException
      * @return Application|ViewFactory|View
+     * @throws ProductNotFoundException
+     * @throws ProductHasNoPriceInMarketplace
+     * @throws MarketplaceNotFoundException
      */
     public function __invoke(string $storeSlug, string $productId, CalculatePriceRequest $request)
     {

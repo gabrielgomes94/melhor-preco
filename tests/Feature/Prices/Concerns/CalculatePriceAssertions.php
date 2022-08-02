@@ -186,4 +186,76 @@ trait CalculatePriceAssertions
             ],
         ]);
     }
+
+    private function and_it_must_return_the_calculated_price_from_form_with_discount(): void
+    {
+        $this->response->assertViewHas('calculatedPrice', [
+            'formatted' => [
+                'commission' => 'R$ 157,30',
+                'commissionRate' => 19.0,
+                'costs' => 'R$ 701,73',
+                'differenceICMS' => 'R$ 37,41',
+                'freight' => 'R$ 12,00',
+                'marketplaceSlug' => 'olist',
+                'margin' => '15,24 %',
+                'priceId' => '8',
+                'profit' => 'R$ 126,18',
+                'purchasePrice' => 'R$ 449,90',
+                'suggestedPrice' => 'R$ 827,91',
+                'taxSimplesNacional' => 'R$ 45,12',
+            ],
+            'raw' => [
+                'margin' => 15.24,
+                'profit' => 126.18,
+            ],
+        ]);
+    }
+
+    private function and_it_must_return_the_calculated_price_from_form_without_freight(): void
+    {
+        $this->response->assertViewHas('calculatedPrice', [
+            'formatted' => [
+                'commission' => 'R$ 174,78',
+                'commissionRate' => 19.0,
+                'costs' => 'R$ 712,22',
+                'differenceICMS' => 'R$ 37,41',
+                'freight' => 'R$ 0,00',
+                'marketplaceSlug' => 'olist',
+                'margin' => '22,58 %',
+                'priceId' => '9',
+                'profit' => 'R$ 207,68',
+                'purchasePrice' => 'R$ 449,90',
+                'suggestedPrice' => 'R$ 919,90',
+                'taxSimplesNacional' => 'R$ 50,13',
+            ],
+            'raw' => [
+                'margin' => 22.58,
+                'profit' => 207.68,
+            ],
+        ]);
+    }
+
+    private function and_it_must_return_the_calculated_price_from_form_without_commission(): void
+    {
+        $this->response->assertViewHas('calculatedPrice', [
+            'formatted' => [
+                'commission' => 'R$ 0,00',
+                'commissionRate' => 0.0,
+                'costs' => 'R$ 549,44',
+                'differenceICMS' => 'R$ 37,41',
+                'freight' => 'R$ 12,00',
+                'marketplaceSlug' => 'olist',
+                'margin' => '40,27 %',
+                'priceId' => '10',
+                'profit' => 'R$ 370,46',
+                'purchasePrice' => 'R$ 449,90',
+                'suggestedPrice' => 'R$ 919,90',
+                'taxSimplesNacional' => 'R$ 50,13',
+            ],
+            'raw' => [
+                'margin' => 40.27,
+                'profit' => 370.46,
+            ],
+        ]);
+    }
 }

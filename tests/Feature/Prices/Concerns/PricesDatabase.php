@@ -119,4 +119,34 @@ trait PricesDatabase
             'freight' => 12.0,
         ];
     }
+
+    private function and_given_i_have_calculator_parameters_with_discount(): array
+    {
+        return [
+            'desiredPrice' => '919.90',
+            'commission' => 19.0,
+            'discount' => 10.0,
+            'freight' => 12.0,
+        ];
+    }
+
+    private function and_given_i_have_calculator_parameters_without_freight(): array
+    {
+        return [
+            'desiredPrice' => '919.90',
+            'commission' => 19.0,
+            'discount' => 0.0,
+            'freight' => 0.0,
+        ];
+    }
+
+    private function and_given_i_have_calculator_parameters_without_commission(): array
+    {
+        return [
+            'desiredPrice' => '919.90',
+            'commission' => 0.0,
+            'discount' => 0.0,
+            'freight' => 12.0,
+        ];
+    }
 }
