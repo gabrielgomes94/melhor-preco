@@ -40,7 +40,7 @@
                             </x-slot>
 
                             <x-slot name="body">
-                                <x-app.products.reports.prices.table :data="$prices" />
+                                <x-app.products.reports.basic-info.prices-table :data="$prices" />
                             </x-slot>
                         </x-bootstrap.card.basic-card>
                     </div>
