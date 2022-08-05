@@ -16,7 +16,6 @@ class GetProductsInformationReport
 {
     public function __construct(
         private ProductRepository $productRepository,
-        private MarketplaceRepository $marketplaceRepository,
         private SaleItemsRepository $saleItemsRepository
     ) {
     }
@@ -30,15 +29,10 @@ class GetProductsInformationReport
             return [
                 'sku' => $product->getIdentifiers()->getSku(),
                 'name' => $product->getDetails()->getName(),
-                'checklist' => [
-                    'postedOnMagalu' => $this->isProductPostedOn($product, 'magalu'),
-                    'postedOnMercadoLivre' => $this->isProductPostedOn($product, 'mercado-livre'),
-                    'postedOnShopee' => $this->isProductPostedOn($product, 'shopee'),
-                    'hasManyImages' => count($product->getImages()) >= 3,
-                ],
+                'imagesCount' => count($product->getImages()),
                 'sales' => $this->saleItemsRepository->countSalesByProduct(
                     $product,
-                    $filter->beginDate ?? Carbon::createFromFormat('d/m/Y', '01/01/2020'),
+                    $filter->beginDate ?? Carbon::createFromFormat('d/m/Y', '01/01/2001'),
                     $filter->endDate ?? Carbon::now()
                 ),
             ];
@@ -48,13 +42,6 @@ class GetProductsInformationReport
             'data' => $products,
             'paginator' => $productsPaginator,
         ];
-    }
-
-    private function isProductPostedOn(Product $product, string $slug): bool
-    {
-        $marketplace = $this->marketplaceRepository->getBySlug($slug);
-
-        return $product->postedOnMarketplace($marketplace);
     }
 
     private function getProducts(FilterOptions $filter, User $user): LengthAwarePaginator

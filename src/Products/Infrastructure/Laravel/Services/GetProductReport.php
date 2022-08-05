@@ -19,8 +19,8 @@ class GetProductReport
         $data = $this->showProductCosts->show($sku, $userId);
 
         return new ProductInfoReport(
-            costsItems: $data['costs'],
-            product: $data['product'],
+            costsItems: collect($data->purchaseItemCosts),
+            product: $data->product,
             salesReport: $this->salesReportsRepository->listProductSales(
                 $sku,
                 new SalesFilter([

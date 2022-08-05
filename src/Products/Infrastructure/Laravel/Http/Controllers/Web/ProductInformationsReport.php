@@ -39,6 +39,7 @@ class ProductInformationsReport
     private function getCategories(string $userId): array
     {
         $categories = $this->categoryRepository->list($userId);
+        $categories = collect($categories);
 
         $categories = $categories->map(function (Category $category) {
             return [

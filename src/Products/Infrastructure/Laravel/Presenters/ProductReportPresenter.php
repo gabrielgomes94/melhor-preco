@@ -21,7 +21,8 @@ class ProductReportPresenter
     public function present(ProductInfoReport $productInfoReport): array
     {
         $salesReport = $productInfoReport->salesReport;
-        $costs = $this->costsPresenter->present($productInfoReport->costsItems);
+
+        $costs = $this->costsPresenter->present($productInfoReport->costsItems->all());
 
         return [
             'costs' => $costs,
@@ -38,6 +39,7 @@ class ProductReportPresenter
     private function getLastSales(ProductReport $salesReport): array
     {
         $sales = $salesReport->lastSales->get();
+        $sales = collect($sales);
         $sales = $sales->transform(function (Item $saleItem) {
             $saleOrder = $saleItem->getSaleOrder();
 
@@ -69,6 +71,7 @@ class ProductReportPresenter
 
         $marketplaceSales = $marketplaceSales->transform(function (MarketplaceSales $marketplaceSales) {
             $sales = $marketplaceSales->sales->get();
+            $sales = collect($sales);
             $totalValue = $sales->sum(function (Item $saleItem) {
                 return $saleItem->getTotalValue();
             });
@@ -86,7 +89,9 @@ class ProductReportPresenter
 
     private function getTotalSales(ProductReport $salesReport): array
     {
-        $itemsSelled = $salesReport->itemsSelled->get();
+        $itemsSelled = $salesReport->lastSales?->get();
+        $itemsSelled = collect($itemsSelled);
+
         $totalValue = $itemsSelled->sum(function (Item $saleItem) {
             return $saleItem->getTotalValue();
         });
