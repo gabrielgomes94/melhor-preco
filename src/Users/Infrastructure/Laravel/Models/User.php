@@ -138,4 +138,9 @@ class User extends Authenticatable implements UserInterface
     {
         $this->tax_rate = $taxRate;
     }
+
+    public function setTaxes(Taxes $taxes): void
+    {
+        $this->taxes = $taxes;
+    }
 }

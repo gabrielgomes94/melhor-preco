@@ -3,6 +3,7 @@
 namespace Src\Users\Domain\Entities;
 
 use Src\Users\Domain\DataTransfer\Erp;
+use Src\Users\Domain\ValueObjects\Taxes;
 
 interface User
 {
@@ -31,4 +32,6 @@ interface User
     public function setProfile(string $name, string $phone, string $fiscalId): void;
 
     public function setTaxRate(float $taxRate = 0.0): void;
+
+    public function setTaxes(Taxes $taxes): void;
 }
