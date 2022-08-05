@@ -9,11 +9,6 @@ use Src\Products\Infrastructure\Laravel\Jobs\SyncProducts;
 
 class SynchronizationController extends Controller
 {
-    public function sync(Request $request)
-    {
-        return view('pages.products.sync.sync');
-    }
-
     public function doSync()
     {
         SyncProducts::dispatch((auth()->user()));

@@ -23,7 +23,6 @@
 
                 <x-app.users.sync.table.prices-row :prices="$prices" />
 
-
                 <x-app.users.sync.table.sales-row :sales="$sales" />
             </tbody>
 

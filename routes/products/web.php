@@ -18,15 +18,17 @@ Route::middleware('auth')->group(function () {
     Route::prefix('products')
         ->name('products')
         ->group(function () {
-            Route::get('/sync', [SynchronizationController::class, 'sync'])->name('.sync');
-            Route::put('/sync', [SynchronizationController::class, 'doSync'])->name('.doSync');
+            Route::put('/sync', [SynchronizationController::class, 'doSync'])
+                ->name('.doSync');
 
             Route::prefix('/reports')
                 ->name('.reports')
                 ->group(function () {
-                    Route::get('/show_info/{sku}', [ProductController::class, 'get'])->name('.show');
+                    Route::get('/show_info/{sku}', [ProductController::class, 'get'])
+                        ->name('.show');
 
-                    Route::get('/informations', ProductInformationsReport::class)->name('.informations');
+                    Route::get('/informations', ProductInformationsReport::class)
+                        ->name('.informations');
                 });
         });
 
