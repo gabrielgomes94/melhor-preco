@@ -25,8 +25,6 @@
 
                 <x-app.users.sync.table.sales-row :sales="$sales" />
             </tbody>
-
-
         </x-bootstrap.table.borderless-table>
     </x-slot>
 </x-bootstrap.card.basic-card>

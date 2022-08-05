@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
         ->name('products')
         ->group(function () {
             Route::put('/sync', [SynchronizationController::class, 'doSync'])
-                ->name('.doSync');
+                ->name('.sync');
 
             Route::prefix('/reports')
                 ->name('.reports')
@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
         });
 
     Route::prefix('categorias')
-        ->name('categories')->group(function() {
+        ->name('categories')->group(function () {
             Route::put('/sincronizar', [SynchronizationController::class, 'doSyncCategory'])->name('.sync');
         });
 });

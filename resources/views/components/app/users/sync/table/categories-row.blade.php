@@ -9,7 +9,7 @@
         {{ $categories['syncedAt'] }}
     </td>
     <td colspan="1">
-        <x-bootstrap.forms.form.put action="{{ route($categories['route']) }}">
+        <x-bootstrap.forms.form.put action="{{ route('categories.sync') }}">
             <button class="btn btn-primary m-0 w-100" type="submit">
                 Sincronizar categorias
 
