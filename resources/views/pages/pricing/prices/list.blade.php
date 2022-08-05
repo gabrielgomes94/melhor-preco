@@ -1,4 +1,6 @@
 <x-layout>
+    <x-app.pricing.navigation :activeNavPrices="true"/>
+
     <x-slot name="modals">
         <x-bootstrap.modals.modal
             id="filterModal"
@@ -22,12 +24,6 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-between mb-2">
-                <x-app.pricing.navigation
-                    :activeNavPrices="true"
-                />
-            </div>
-
             <div class="d-flex justify-content-between mb-2">
                 <div class="d-flex flex-row justify-content-center">
                     <x-app.pricing.price-list.dropdowns.marketplaces
