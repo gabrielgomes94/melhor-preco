@@ -14,10 +14,19 @@
 
     <div class="my-2">
         <x-bootstrap.forms.input.text
-            attribute="tax_rate"
+            attribute="simplesNacionalTax"
             id="tax-rate-input"
-            label="Alíquota (%)"
-            value="{{ $taxRate ?? '' }}"
+            label="Alíquota do Simples Nacional (%)"
+            value="{{ $taxes['simplesNacional'] ?? '' }}"
+        />
+    </div>
+
+    <div class="my-2">
+        <x-bootstrap.forms.input.text
+            attribute="icmsTax"
+            id="tax-rate-input"
+            label="Alíquota do ICMS no seu estado (%)"
+            value="{{ $taxes['icms'] ?? '' }}"
         />
     </div>
 

@@ -19,14 +19,17 @@ class TaxesController
         $user = auth()->user();
 
         return view('pages.users.taxes', [
-            'taxRate' => str_replace('.', ',', $user->getSimplesNacionalTaxRate()),
+            'taxes' => [
+                'simplesNacional' => str_replace('.', ',', $user->getSimplesNacionalTaxRate()),
+                'icms' => str_replace('.', ',', $user->getIcmsInnerStateTaxRate()),
+            ]
         ]);
     }
 
     public function update(UpdateTaxRateRequest $request): RedirectResponse
     {
         $user = auth()->user();
-        $this->repository->updateTax($user, $request->getTaxRate());
+        $this->repository->updateTax($user, $request->transform());
 
         return redirect()->back();
     }

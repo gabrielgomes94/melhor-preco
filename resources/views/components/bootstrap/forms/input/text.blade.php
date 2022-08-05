@@ -5,7 +5,7 @@
         type="text"
         class="form-control w-100 input-text"
         id="{{ $id ?? ''  }}"
-        name="{{ $attribute ?? '' }}"
+        name="{{ $name ?? $attribute ?? '' }}"
         value="{{ $value ?? '' }}"
         placeholder="{{ $placeholder ?? '' }}"
     >

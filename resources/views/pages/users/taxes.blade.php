@@ -6,7 +6,7 @@
             <x-bootstrap.alert-messages.alert-messages />
 
             <div class="mt-2">
-                <x-app.users.taxes.card :taxRate="$taxRate"/>
+                <x-app.users.taxes.card :taxes="$taxes"/>
             </div>
         </div>
     </div>
