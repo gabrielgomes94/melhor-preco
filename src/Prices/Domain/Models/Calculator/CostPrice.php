@@ -51,6 +51,11 @@ class CostPrice
             ->add($this->additionalCosts);
     }
 
+    public function total(): Money
+    {
+        return $this->get()->multiply((string) (1 + $this->simplesNacional()));
+    }
+
     public function purchasePrice(): Money
     {
         return $this->purchasePrice;

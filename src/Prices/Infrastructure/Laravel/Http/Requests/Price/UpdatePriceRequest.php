@@ -4,6 +4,9 @@ namespace Src\Prices\Infrastructure\Laravel\Http\Requests\Price;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/** @todo: remove this class
+ *  @deprecated
+ **/
 class UpdatePriceRequest extends FormRequest
 {
     /**
