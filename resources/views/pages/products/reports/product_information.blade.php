@@ -1,7 +1,5 @@
 <x-layout>
-    <x-slot name="navbar">
-        <x-app.products.navbar.navbar />
-    </x-slot>
+    <x-app.products.navigation :activeNavProducts="true" />
 
     <div class="row my-4">
         <div class="col-sm-12">
