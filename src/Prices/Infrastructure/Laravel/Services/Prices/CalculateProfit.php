@@ -38,7 +38,11 @@ class CalculateProfit
 
         $price = CalculatedPrice::fromProduct(
             $product,
-            $this->commissionRepository->get($marketplace, $product, $price->value),
+            $this->commissionRepository->get(
+                $marketplace,
+                $product,
+                MoneyTransformer::toMoney($price->value)
+            ),
             new CalculatorForm(desiredPrice: $price->value)
         );
 

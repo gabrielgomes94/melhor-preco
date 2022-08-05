@@ -4,6 +4,7 @@ namespace Src\Products\Domain\Models\Product;
 
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
+use Src\Math\Percentage;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Models\Product\ValueObjects\Composition;

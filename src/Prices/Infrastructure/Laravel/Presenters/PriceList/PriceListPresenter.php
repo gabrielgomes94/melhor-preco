@@ -8,6 +8,7 @@ use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MathPresenter;
+use Src\Prices\Domain\DataTransfer\ListPricesCalculated;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\FilterPresenter;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\MarketplacesPresenter;
 use Src\Products\Domain\Models\Product\Product;
@@ -49,11 +50,14 @@ class PriceListPresenter
         ];
     }
 
-    private function presentProducts(array $items, Marketplace $marketplace, Options $options): array
+    public function presentProducts(array $items, Marketplace $marketplace, Options $options): array
     {
         $products = collect($items);
         $products = $products->transform(function (Product $product) use ($marketplace, $options) {
             $price = $product->getPrice($marketplace);
+
+//            dd($price?->getMargin());
+
             $margin = $price?->getMargin()
                 ? MathPresenter::percentage($price?->getMargin())
                 : null;
@@ -74,5 +78,17 @@ class PriceListPresenter
         });
 
         return $products->toBase()->toArray();
+    }
+
+    public function presentListPricesCalculated(ListPricesCalculated $pricesCalculated): array
+    {
+        $marketplace = $pricesCalculated->marketplace;
+
+        return [
+            'currentMarketplace' => [
+                'name' => $marketplace->getName(),
+                'slug' => $marketplace->getSlug(),
+            ],
+        ];
     }
 }

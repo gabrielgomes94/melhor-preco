@@ -16,7 +16,7 @@
         </li>
 
         <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#massCalculation">
                 Calcular em massa
             </a>
         </li>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\CalculateController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\MassCalculateController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\SyncController;
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
 
@@ -15,11 +16,19 @@ Route::middleware('auth')->group(function () {
                     Route::get('/{marketplaceSlug?}', ListController::class)->name('.byStore');
                 });
 
+            Route::prefix('/{store_slug}/calcularEmMassa')
+                ->name('.massCalculate')
+                ->group(function() {
+                    Route::get('/', MassCalculateController::class)->name('.calculate');
+                });
+
             Route::prefix('/{store_slug}/produtos')
                 ->name('.products')
                 ->group(function () {
                     Route::get('/{product_id}', CalculateController::class)
                         ->name('.calculate');
+
+
                 });
 
             Route::post('/{store_slug}/sincronizar', [SyncController::class, 'sync'])

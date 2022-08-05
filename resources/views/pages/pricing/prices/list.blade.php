@@ -13,6 +13,11 @@
                 formId="filter-products-form"
             />
         </x-bootstrap.modals.modal>
+
+        <x-app.pricing.mass-calculation.modal.modal
+            :marketplaceSlug="$currentMarketplace['slug']"
+            :filter="$filter"
+        />
     </x-slot>
 
     <div class="row">

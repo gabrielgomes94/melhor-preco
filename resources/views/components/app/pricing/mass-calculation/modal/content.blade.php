@@ -1,6 +1,6 @@
 <div class="d-flex flex-column justify-content-around">
     <x-bootstrap.forms.form.get
-        :action="route('pricing.calculator.massCalculation', $store->slug())"
+        :action="route('pricing.massCalculate.calculate', $marketplaceSlug)"
         :formId="$formId"
     >
         <div class="mb-4">
@@ -15,21 +15,11 @@
 
         <div class="mb-4">
             <x-bootstrap.forms.input.percentage
-                attribute="profitMargin"
-                id="profit-margin"
-                label="Margem de Lucro desejada"
-                value="{{ $massCalculation['profitMargin'] ?? '' }}"
+                name="markup"
+                id="mass-calculation-markup"
+                label="Markup"
+                value="{{ $massCalculation['markup'] ?? '' }}"
             />
         </div>
-
-        <div class="mb-4">
-            <x-bootstrap.forms.input.percentage
-                attribute="commission"
-                id="commission"
-                label="Commissão"
-                value="{{ $massCalculation['commission'] ?? '' }}"
-            />
-        </div>
-
     </x-bootstrap.forms.form.get>
 </div>
