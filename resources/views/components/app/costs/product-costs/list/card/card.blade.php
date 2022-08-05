@@ -6,7 +6,7 @@
             </div>
 
             <div class="d-flex flex-row ">
-                <x-app.products.price_costs.sku-search-bar :sku="$filter['sku']" />
+                <x-app.costs.product-costs.sku-search-bar :sku="$filter['sku']" />
 
                 <div class="my-2">
                     <x-app.costs.sync.button />

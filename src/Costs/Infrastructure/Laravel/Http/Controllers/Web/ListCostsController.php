@@ -5,7 +5,7 @@ namespace Src\Costs\Infrastructure\Laravel\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Src\Costs\Infrastructure\Laravel\Http\Requests\ListProductCostsRequest;
 use Src\Costs\Infrastructure\Laravel\Presenters\ListProductCostsPresenter;
-use Src\Products\Infrastructure\Laravel\Services\ListProducts;
+use Src\Costs\Infrastructure\Laravel\Repositories\ListProducts;
 
 class ListCostsController extends Controller
 {
