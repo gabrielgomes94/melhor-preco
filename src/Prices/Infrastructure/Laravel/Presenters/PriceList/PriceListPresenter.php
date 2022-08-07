@@ -19,7 +19,7 @@ use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 class PriceListPresenter
 {
     public function __construct(
-        private readonly FilterPresenter       $filterPresenter,
+        private readonly FilterPresenter $filterPresenter,
         private readonly MarketplacesPresenter $marketplacesPresenter
     ) {
     }
@@ -29,8 +29,7 @@ class PriceListPresenter
         Marketplace $marketplace,
         Options $options,
         string $userId
-    ): array
-    {
+    ): array {
         return [
             'currentMarketplace' => [
                 'name' => $marketplace->getName(),
@@ -63,8 +62,8 @@ class PriceListPresenter
                 : null;
 
             return [
-                'sku' => $product->getIdentifiers()->getSku(),
-                'name' => $product->getDetails()->getName(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
                 'price' => MathPresenter::money($price?->getValue()),
                 'profit' => MathPresenter::money($price?->getProfit()),
                 'margin' => $margin,

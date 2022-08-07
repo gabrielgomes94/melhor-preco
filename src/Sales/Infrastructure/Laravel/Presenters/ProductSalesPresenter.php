@@ -16,7 +16,7 @@ class ProductSalesPresenter
         return $collection->transform(
             fn (ProductSales $productSales) => [
                 'sku' => $productSales->product->getSku(),
-                'name' => $productSales->product->getDetails()->getName(),
+                'name' => $productSales->product->getName(),
                 'count' => $productSales->count,
                 'average_price' => $this->formatPrice($productSales->averagePrice),
                 'average_profit' => $this->formatPrice($productSales->averageProfit),

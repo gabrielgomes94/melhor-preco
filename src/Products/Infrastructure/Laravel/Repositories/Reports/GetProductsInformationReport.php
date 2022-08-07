@@ -25,8 +25,8 @@ class GetProductsInformationReport
         $products = collect($productsPaginator->items());
         $products = $products->map(function (Product $product) {
             return [
-                'sku' => $product->getIdentifiers()->getSku(),
-                'name' => $product->getDetails()->getName(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
                 'imagesCount' => count($product->getImages()),
                 'sales' => $this->saleItemsRepository->countSalesByProduct(
                     $product,

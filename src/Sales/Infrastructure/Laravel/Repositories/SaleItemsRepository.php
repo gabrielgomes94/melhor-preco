@@ -22,7 +22,7 @@ class SaleItemsRepository implements ItemRepositoryRepository
             )
             ->where('selled_at', '>=', $beginDate)
             ->where('selled_at', '<=', $endDate)
-            ->where('sku', $product->getIdentifiers()->getSku())
+            ->where('sku', $product->getSku())
             ->count();
     }
 

@@ -19,6 +19,6 @@ class ProductPresenter
 
     private function getProductHeader(Product $product): string
     {
-        return $product->getSku() . ' - ' . $product->getDetails()->getName();
+        return $product->getSku() . ' - ' . $product->getName();
     }
 }

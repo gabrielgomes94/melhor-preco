@@ -15,7 +15,7 @@ use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 class MassCalculatedPricesPresenter
 {
     public function __construct(
-        private readonly FilterPresenter       $filterPresenter,
+        private readonly FilterPresenter $filterPresenter,
         private readonly MarketplacesPresenter $marketplacesPresenter,
         private readonly PriceListPresenter $priceListPresenter
     ) {
@@ -61,8 +61,8 @@ class MassCalculatedPricesPresenter
                 $price = $priceCalculatedFromProduct->calculatedPrice;
 
                 return [
-                    'sku' => $product->getIdentifiers()->getSku(),
-                    'name' => $product->getDetails()->getName(),
+                    'sku' => $product->getSku(),
+                    'name' => $product->getName(),
                     'price' => MathPresenter::money($price->get()),
                     'profit' => MathPresenter::money($price->getProfit()),
                     'margin' => MathPresenter::percentage(
@@ -71,7 +71,8 @@ class MassCalculatedPricesPresenter
                     'quantity' => $product->getQuantity(),
                     'variations' => []
                 ];
-            })
+            }
+        )
         ->toArray();
 
         return $products;
