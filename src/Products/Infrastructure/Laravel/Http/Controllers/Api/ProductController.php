@@ -2,14 +2,12 @@
 
 namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Http\Request;
 use Src\Integrations\Bling\Base\Responses\ErrorResponse;
 use Src\Products\Infrastructure\Bling\ProductRepository;
 
-// @deprecated
-class ProductController extends BaseController
+class ProductController extends Controller
 {
     private ProductRepository $erpRepository;
 
@@ -18,15 +16,10 @@ class ProductController extends BaseController
         $this->erpRepository = $erpRepository;
     }
 
-    /**
-     * @TODO: Mover a lógica para uma classe de UseCase
-     * @param Request $request
-     * @param $sku
-     * @return JsonResponse
-     */
-    public function get(Request $request, $sku): JsonResponse
+    public function get(string $sku): JsonResponse
     {
-        $response = $this->erpRepository->get($sku);
+        $erpToken = $this->getUserErpToken();
+        $response = $this->erpRepository->get($erpToken, $sku);
 
         if ($response instanceof ErrorResponse) {
             $errors = $this->transformErrors($response->errors());

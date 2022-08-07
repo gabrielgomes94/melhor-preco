@@ -15,4 +15,9 @@ class Controller extends BaseController
     {
         return auth()->user()?->getAuthIdentifier() ?? '';
     }
+
+    protected function getUserErpToken(): string
+    {
+        return auth()->user()?->getErpToken() ?? '';
+    }
 }
