@@ -32,6 +32,7 @@ class ReportProductRequest extends FormRequest
             sku: $this->input('sku'),
             category: $this->input('category'),
             page: $this->input('page'),
+            perPage: 50,
             beginDate: $this->getConvertedDate('beginDate'),
             endDate: $this->getConvertedDate('endDate')
         );
