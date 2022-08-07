@@ -34,11 +34,11 @@ class ProductImageController extends BaseController
             session()->flash('error', $e->getMessage());
         }
 
-        return view('pages.products.images.upload-images');
+        return view('pages.products.upload-images.form');
     }
 
     public function uploadImage(Request $request)
     {
-        return view('pages.products/images/upload-images');
+        return view('pages.products.upload-images.form');
     }
 }
