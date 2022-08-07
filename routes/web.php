@@ -23,12 +23,6 @@ include 'prices/price/web.php';
 include 'sales/web.php';
 include 'users/web.php';
 
-Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('home');
-
-    Route::post('/sync', [SynchronizationController::class, 'sync'])->name('dashboard.sync');
-});
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect('/');
 })->name('dashboard');

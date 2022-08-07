@@ -184,12 +184,12 @@ return [
         /**
          * Costs' module Service Providers...
          */
-        \Src\Costs\Infrastructure\Laravel\Providers\ServiceProvider::class,
+        Src\Costs\Infrastructure\Laravel\Providers\ServiceProvider::class,
 
         /**
-         * Dashboard module Service Provier
+         * Users module Service Provier
          */
-        \Src\Users\Infrastructure\Laravel\Providers\UsersServiceProvider::class,
+        Src\Users\Infrastructure\Laravel\Providers\UsersServiceProvider::class,
 
         /**
          * Notifications' module Service Providers...
@@ -206,7 +206,7 @@ return [
         /**
          * Prices' module Services Providers...
          */
-        \Src\Prices\Infrastructure\Laravel\Providers\PricesServiceProvider::class,
+        Src\Prices\Infrastructure\Laravel\Providers\PricesServiceProvider::class,
 
         /**
          * Products' module Service Providers...
@@ -226,7 +226,7 @@ return [
         /**
          * Marketplaces' module Service Providers...
          */
-        \Src\Marketplaces\Infrastructure\Laravel\Providers\MarketplacesServiceProvider::class,
+        Src\Marketplaces\Infrastructure\Laravel\Providers\MarketplacesServiceProvider::class,
 
         /**
          * Users' module Service Providers
