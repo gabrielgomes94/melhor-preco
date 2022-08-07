@@ -4,7 +4,7 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href={{ route('product.images.upload_form')  }}>Upload de Imagens</a>
+                <a class="nav-link" href={{ route('products.images.upload_form')  }}>Upload de Imagens</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{ route('pricing.priceList.byStore', $store->slug()) }}>Precificação</a>

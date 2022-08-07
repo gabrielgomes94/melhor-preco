@@ -10,7 +10,7 @@
         id="nav-products-upload-images"
         label="Upload de Imagens"
         class="{{ ($activeNavUploadImages ?? null) ? 'active' : '' }}"
-        :route="route('product.images.upload_form')"
+        :route="route('products.images.upload_form')"
     />
 
     <x-bootstrap.navigation.nav-item

@@ -1,4 +1,8 @@
-<form method="post" action="{{ route('product.images.upload') }}" enctype="multipart/form-data">
+<form
+    method="post"
+    action="{{ route('products.images.upload') }}"
+    enctype="multipart/form-data"
+>
     @csrf
     <div class="mb-3">
         <label for="sku">Código SKU</label>

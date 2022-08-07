@@ -7,33 +7,35 @@ use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\ProductInformations
 use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\SynchronizationController;
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('product')->group(function () {
-        Route::get('upload_images', [ProductImageController::class, 'uploadImage'])
-            ->name('product.images.upload_form');
-
-        Route::post('/file-upload', [ProductImageController::class, 'upload'])
-            ->name('product.images.upload');
-    });
-
-    Route::prefix('products')
+    Route::prefix('produtos')
         ->name('products')
         ->group(function () {
-            Route::put('/sync', [SynchronizationController::class, 'doSync'])
+            Route::put('/sincronizar', [SynchronizationController::class, 'sync'])
                 ->name('.sync');
 
-            Route::prefix('/reports')
+            Route::prefix('/upload-de-imagens')
+                ->name('.images')
+                ->group(function() {
+                    Route::get('/', [ProductImageController::class, 'uploadImage'])
+                        ->name('.upload_form');
+
+                    Route::post('/', [ProductImageController::class, 'upload'])
+                        ->name('.upload');
+                });
+
+            Route::prefix('/relatorios')
                 ->name('.reports')
                 ->group(function () {
-                    Route::get('/show_info/{sku}', [ProductController::class, 'get'])
+                    Route::get('/detalhes/{sku}', [ProductController::class, 'get'])
                         ->name('.show');
 
-                    Route::get('/informations', ProductInformationsReport::class)
+                    Route::get('/informacoes-gerais', ProductInformationsReport::class)
                         ->name('.informations');
                 });
         });
 
     Route::prefix('categorias')
         ->name('categories')->group(function () {
-            Route::put('/sincronizar', [SynchronizationController::class, 'doSyncCategory'])->name('.sync');
+            Route::put('/sincronizar', [SynchronizationController::class, 'syncCategory'])->name('.sync');
         });
 });

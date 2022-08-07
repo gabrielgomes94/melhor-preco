@@ -33,7 +33,7 @@
                 />
 
                 <x-app.base.menu.menu-item
-                    route="{{ route('product.images.upload_form') }}"
+                    route="{{ route('products.images.upload_form') }}"
                     name="Upload de Imagens"
                     icon="upload"
                 />
