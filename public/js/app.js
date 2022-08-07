@@ -5983,7 +5983,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var uploadImageAPI = function uploadImageAPI() {
-  if (window.location.pathname !== '/product/upload_images') {
+  if (window.location.pathname !== '/produtos/upload-de-imagens') {
     return;
   }
 
