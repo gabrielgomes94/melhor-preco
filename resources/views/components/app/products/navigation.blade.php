@@ -12,11 +12,4 @@
         class="{{ ($activeNavUploadImages ?? null) ? 'active' : '' }}"
         :route="route('products.images.upload_form')"
     />
-
-    <x-bootstrap.navigation.nav-item
-        id="nav-products-reports"
-        label="Relatórios"
-        class="{{ ($activeNavReports ?? null) ? 'active' : '' }}"
-        :route="route('products.reports.informations')"
-    />
 </x-bootstrap.navigation.nav-tabs>
