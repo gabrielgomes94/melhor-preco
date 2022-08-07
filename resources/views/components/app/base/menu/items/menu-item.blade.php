@@ -15,7 +15,5 @@
                 </x-bootstrap.badge.badge>
             </span>
         @endisset
-
-        <span class="notifications-badge-section"></span>
     </a>
 </li>

@@ -9,23 +9,7 @@
         >
             <div class="d-flex flew-row">
                 <ul class="navbar-nav navbar-nav-hover">
-                    <x-app.base.menu.menu-item-inbox
-                        route="{{ route('home') }}"
-                        name="Dashboard"
-                        icon="dashboard"
-                    />
-                </ul>
-
-                <ul class="navbar-nav navbar-nav-hover">
-                    <x-app.base.menu.menu-item
-                        route="{{ route('products.reports.informations') }}"
-                        name="Produtos"
-                        icon="qr-code"
-                    />
-                </ul>
-
-                <ul class="navbar-nav navbar-nav-hover">
-                    <x-app.base.menu.menu-item
+                    <x-app.base.menu.items.menu-item
                         route="{{ route('pricing.priceList.byStore', 'magalu') }}"
                         name="Calculadora de Preços"
                         icon="calculator
@@ -33,7 +17,15 @@
                 </ul>
 
                 <ul class="navbar-nav navbar-nav-hover">
-                    <x-app.base.menu.menu-item
+                    <x-app.base.menu.items.menu-item
+                        route="{{ route('products.reports.informations') }}"
+                        name="Produtos"
+                        icon="product-box"
+                    />
+                </ul>
+
+                <ul class="navbar-nav navbar-nav-hover">
+                    <x-app.base.menu.items.menu-item
                         route="{{ route('sales.list') }}"
                         name="Vendas"
                         icon="currency"
@@ -41,7 +33,7 @@
                 </ul>
 
                 <ul class="navbar-nav navbar-nav-hover">
-                    <x-app.base.menu.menu-item
+                    <x-app.base.menu.items.menu-item
                         route="{{ route('users.settings.integrations') }}"
                         name="Configurações"
                         icon="settings"
@@ -51,7 +43,7 @@
 
             <div>
                 <ul class="navbar-nav navbar-nav-hover">
-                    <x-app.base.menu.logout />
+                    <x-app.base.menu.items.logout />
                 </ul>
             </div>
         </div>

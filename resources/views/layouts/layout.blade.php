@@ -5,7 +5,7 @@
     </head>
 
     <body>
-        <x-app.base.menu.menu-navbar />
+        <x-app.base.menu.navbar.menu-navbar />
 
         <x-app.base.content.content :navbar="$navbar ?? null"
                                   :header="$header ?? null"
