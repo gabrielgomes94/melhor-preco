@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Infrastructure\Laravel\Services;
+namespace Src\Products\Infrastructure\Laravel\Repositories\Reports;
 
 use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;

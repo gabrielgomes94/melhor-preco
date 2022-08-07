@@ -6,7 +6,7 @@ use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Users\Domain\Entities\User;
 
-class UpdateProductCosts
+class SynchronizeProductCosts
 {
     private ProductRepository $repository;
 
@@ -28,7 +28,7 @@ class UpdateProductCosts
 
             $costs = new Costs(
                 $item->getUnitCost(),
-                0.0,
+                $product->getCosts()->additionalCosts(),
                 $item->getICMSPercentage(),
             );
             $product->setCosts($costs);

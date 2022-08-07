@@ -5,7 +5,7 @@ namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
-use Src\Products\Infrastructure\Laravel\Services\GetProductReport;
+use Src\Products\Infrastructure\Laravel\Repositories\Reports\GetProductReport;
 use Src\Products\Infrastructure\Laravel\Presenters\ProductReportPresenter;
 
 class ProductController extends Controller

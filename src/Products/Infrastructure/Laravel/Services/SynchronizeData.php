@@ -10,8 +10,8 @@ use Src\Users\Domain\Entities\User;
 class SynchronizeData implements SyncProductsInterface
 {
     public function __construct(
-        private SynchronizePrices $syncPricesService,
-        private UpdateProductCosts $updateCostsService,
+        private SynchronizePrices          $syncPricesService,
+        private SynchronizeProductCosts    $updateCostsService,
         private SynchronizeProductsService $syncProductsService
     ) {
     }
