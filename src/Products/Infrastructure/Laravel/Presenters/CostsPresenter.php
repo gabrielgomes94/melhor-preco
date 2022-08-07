@@ -7,6 +7,8 @@ use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Math\MathPresenter;
 use Src\Math\Percentage;
 
+// @todo: mover para o contexto de custos.
+// Mergear essa classe com o PurchaseItemsPresenter para ter apenas um presenter sendo usado na aplicação
 class CostsPresenter
 {
     public function present(array $costs)

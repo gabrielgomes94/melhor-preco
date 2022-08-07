@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
 
     /**
      * Define the application's command schedule.
+     * @todo: fix this
      */
     protected function schedule(Schedule $schedule): void
     {
