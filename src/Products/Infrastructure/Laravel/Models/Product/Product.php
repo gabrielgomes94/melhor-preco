@@ -281,4 +281,9 @@ class Product extends Model implements ProductModelInterface
     {
         return $this->brand;
     }
+
+    public function getCubicWeight(): float
+    {
+        return $this->getDimensions()->cubicWeight();
+    }
 }

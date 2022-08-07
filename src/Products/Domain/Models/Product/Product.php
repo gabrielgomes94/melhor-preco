@@ -21,6 +21,8 @@ interface Product
 
     public function getComposition(): Composition;
 
+    public function getCubicWeight(): float;
+
     public function getCategory(): ?Category;
 
     public function getCosts(): Costs;

@@ -45,7 +45,7 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             $value = $this->getValue($item);
             $freight = $this->freightRepository->get(
                 $marketplace,
-                $product->getDimensions()->cubicWeight(),
+                $product->getCubicWeight(),
                 (float) $value
             );
             $price = CalculatedPrice::fromProduct(
