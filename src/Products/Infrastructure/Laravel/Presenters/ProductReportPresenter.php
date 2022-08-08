@@ -6,7 +6,6 @@ use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Math\MathPresenter;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
-use Src\Products\Infrastructure\Laravel\Presenters\ProductPresenter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
@@ -16,7 +15,6 @@ class ProductReportPresenter
     public function __construct(
         private PricePresenter $pricePresenter,
         private ProductPresenter $productPresenter,
-        private CostsPresenter $costsPresenter,
         private PurchaseItemsPresenter $purchaseItemsPresenter
     ) {
     }

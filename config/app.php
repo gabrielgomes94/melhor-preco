@@ -213,8 +213,6 @@ return [
          */
         Src\Products\Infrastructure\Laravel\Providers\EventServiceProvider::class,
         Src\Products\Infrastructure\Laravel\Providers\ProductServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\Providers\UseCasesServiceProvider::class,
-        Src\Products\Infrastructure\Laravel\Providers\RepositoryServiceProvider::class,
 
         /**
          * Sales' module Service Providers...
