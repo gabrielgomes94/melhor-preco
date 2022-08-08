@@ -12,7 +12,6 @@ class PurchaseItemsPresenter
     {
         return [
             'issuedAt' => $item->getIssuedAt()->format('d/m/Y H:i'),
-
             'name' => $item->getName(),
             'purchasePrice' => MathPresenter::money($item->getUnitPrice()),
             'unitCost' => MathPresenter::money($item->getUnitCost()),
