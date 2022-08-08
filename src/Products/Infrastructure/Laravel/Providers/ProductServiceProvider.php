@@ -7,7 +7,7 @@ use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Domain\Repositories\Erp\CategoryRepository as ErpCategoryRepository;
 use Src\Products\Domain\Repositories\Erp\ProductRepository as ErpProductRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
-use Src\Products\Domain\UseCases\SyncCategories;
+use Src\Products\Domain\Services\SyncCategories;
 use Src\Products\Infrastructure\Bling\CategoryRepository as BlingCategoryRepositoryImpl;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingProductRepositoryImpl;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;

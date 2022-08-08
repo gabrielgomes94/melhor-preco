@@ -5,7 +5,6 @@ namespace Tests\Integration\Products\Services;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Products\Domain\UseCases\SyncProducts;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeProducts;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Products\ProductData;

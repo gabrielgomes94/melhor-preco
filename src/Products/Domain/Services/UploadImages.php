@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\UseCases;
+namespace Src\Products\Domain\Services;
 
 interface UploadImages
 {

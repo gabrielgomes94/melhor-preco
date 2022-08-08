@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Products\Domain\UseCases;
+namespace Src\Products\Domain\Services;
 
 use Src\Users\Domain\Entities\User;
 
-interface SyncProducts
+interface SyncProductCosts
 {
     public function sync(User $user): void;
 }

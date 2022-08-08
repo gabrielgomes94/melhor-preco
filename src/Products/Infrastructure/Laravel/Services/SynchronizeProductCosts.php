@@ -4,9 +4,10 @@ namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Products\Domain\Services\SyncProductCosts;
 use Src\Users\Domain\Entities\User;
 
-class SynchronizeProductCosts
+class SynchronizeProductCosts implements SyncProductCosts
 {
     private ProductRepository $repository;
 
