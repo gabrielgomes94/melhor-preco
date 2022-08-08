@@ -3,19 +3,16 @@
 namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 
 use App\Http\Controllers\Utils\Breadcrumb;
+use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Math\MathPresenter;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatedPricePresenter;
-use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Products\Infrastructure\Laravel\Presenters\CostsPresenter;
 
 class CalculatorPresenter
 {
@@ -23,7 +20,7 @@ class CalculatorPresenter
         private CalculatedPricePresenter $pricePresenter,
         private ProductPresenter $productPresenter,
         private CommissionRepository $commissionRepository,
-        private CostsPresenter $costsPresenter
+        private PurchaseItemsPresenter $purchaseItemsPresenter
     ) {
     }
 
@@ -35,7 +32,6 @@ class CalculatorPresenter
         $product = $priceCalculatedFromProduct->product;
         $marketplace = $priceCalculatedFromProduct->marketplace;
         $calculatedPrice = $priceCalculatedFromProduct->calculatedPrice;
-        $costs = $product?->getLastPurchaseItemsCosts();
 
         return [
             'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice, $request),
@@ -44,7 +40,7 @@ class CalculatorPresenter
             'costsForm' => $this->getCostsForm($product),
             'priceId' => $product->getPrice($marketplace)->getId(),
             'marketplacesList' => $this->getMarketplacesList($marketplace, $product),
-            'costs' => $this->costsPresenter->present($costs ? [$costs] : []),
+            'costs' => $this->getCosts($product),
         ];
     }
 
@@ -107,5 +103,14 @@ class CalculatorPresenter
                 'selected' => $marketplace->getSlug() === $currentMarketplaceSlug,
             ];
         })->toArray();
+    }
+
+    private function getCosts(Product $product): array
+    {
+        $costs = $product?->getLastPurchaseItemsCosts();
+
+        return $costs instanceof PurchaseItem
+            ? $this->purchaseItemsPresenter->present($costs)
+            : [];
     }
 }

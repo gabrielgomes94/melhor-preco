@@ -9,7 +9,7 @@ use Src\Math\MathPresenter;
 
 class PurchaseInvoicePresenter
 {
-    public static function present(PurchaseInvoice $invoice): array
+    public function present(PurchaseInvoice $invoice): array
     {
         return [
             'uuid' => $invoice->getUuid(),
@@ -30,7 +30,7 @@ class PurchaseInvoicePresenter
         ];
     }
 
-    public static function presentList(array $collection): array
+    public function presentList(array $collection): array
     {
         $collection = collect($collection);
 

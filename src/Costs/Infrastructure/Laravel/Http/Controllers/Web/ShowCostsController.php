@@ -7,20 +7,21 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Src\Costs\Domain\UseCases\ShowProductCosts;
-use Src\Products\Infrastructure\Laravel\Presenters\CostsPresenter;
+use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 
 class ShowCostsController extends Controller
 {
     public function __construct(
         private ShowProductCosts $showProductCosts,
-        private CostsPresenter $costsPresenter
+        private PurchaseItemsPresenter $purchaseItemsPresenter
     ) {
     }
 
     /**
      * @todo: handle product not found exception. maybe handle this exception globally
      * @return Application|Factory|View
-     * @throws \Src\Products\Domain\Exceptions\ProductNotFoundException
+     * @throws ProductNotFoundException
      */
     public function __invoke(string $sku)
     {
@@ -28,7 +29,7 @@ class ShowCostsController extends Controller
         $data = $this->showProductCosts->show($sku, $userId);
 
         return view('pages.costs.products.show', [
-            'costs' => $this->costsPresenter->present($data->purchaseItemCosts),
+            'costs' => $this->purchaseItemsPresenter->presentList($data->purchaseItemCosts),
             'product' => [
                 'sku' => $data->product->getSku(),
                 'name' => $data->product->getName(),

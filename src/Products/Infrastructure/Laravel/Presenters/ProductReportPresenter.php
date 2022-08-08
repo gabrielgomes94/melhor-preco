@@ -2,6 +2,8 @@
 
 namespace Src\Products\Infrastructure\Laravel\Presenters;
 
+use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Math\MathPresenter;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Products\Infrastructure\Laravel\Presenters\ProductPresenter;
@@ -14,15 +16,18 @@ class ProductReportPresenter
     public function __construct(
         private PricePresenter $pricePresenter,
         private ProductPresenter $productPresenter,
-        private CostsPresenter $costsPresenter
+        private CostsPresenter $costsPresenter,
+        private PurchaseItemsPresenter $purchaseItemsPresenter
     ) {
     }
 
     public function present(ProductInfoReport $productInfoReport): array
     {
         $salesReport = $productInfoReport->salesReport;
-
-        $costs = $this->costsPresenter->present($productInfoReport->costsItems->all());
+        $costs = $productInfoReport->costsItems;
+        $costs = $costs->map(function(PurchaseItem $item) {
+            return $this->purchaseItemsPresenter->present($item);
+        });
 
         return [
             'costs' => $costs,
