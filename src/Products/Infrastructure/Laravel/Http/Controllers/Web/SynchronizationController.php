@@ -9,19 +9,14 @@ use Src\Products\Infrastructure\Laravel\Jobs\SyncProducts;
 
 class SynchronizationController extends Controller
 {
-    public function sync(Request $request)
-    {
-        return view('pages.products.sync.sync');
-    }
-
-    public function doSync()
+    public function sync()
     {
         SyncProducts::dispatch((auth()->user()));
 
         return redirect()->back();
     }
 
-    public function doSyncCategory()
+    public function syncCategory()
     {
         SyncCategories::dispatch(auth()->user());
 

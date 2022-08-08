@@ -1,8 +1,7 @@
 <?php
 
-use Src\Users\Infrastructure\Laravel\Http\Controllers\DashboardController;
+use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
 use Illuminate\Support\Facades\Route;
-use Src\Users\Infrastructure\Laravel\Http\Controllers\SynchronizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +23,7 @@ include 'sales/web.php';
 include 'users/web.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('home');
-
-    Route::post('/sync', [SynchronizationController::class, 'sync'])->name('dashboard.sync');
+    Route::get('/', ListController::class)->name('home');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

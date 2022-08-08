@@ -1,4 +1,4 @@
-<a class="nav-item nav-link {{ ($selected ?? false) ? 'active' : '' }}"
+<a class="nav-item nav-link {{ $class ?? '' }}"
    role="tab"
    aria-controls="nav-home" aria-selected="true"
    id="{{ $id }}"

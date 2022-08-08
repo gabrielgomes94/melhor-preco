@@ -10,7 +10,7 @@
 
     </td>
     <td colspan="1">
-        <x-bootstrap.forms.form.post action="{{ route($purchaseInvoices['route']) }}">
+        <x-bootstrap.forms.form.post action="{{ route('costs.sync') }}">
             <button class="btn btn-primary m-0 w-100" type="submit">
                 Sincronizar notas
 

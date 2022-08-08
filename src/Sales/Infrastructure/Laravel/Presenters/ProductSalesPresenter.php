@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
-use Src\Math\Money;
+use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSalesCollection;
@@ -16,7 +16,7 @@ class ProductSalesPresenter
         return $collection->transform(
             fn (ProductSales $productSales) => [
                 'sku' => $productSales->product->getSku(),
-                'name' => $productSales->product->getDetails()->getName(),
+                'name' => $productSales->product->getName(),
                 'count' => $productSales->count,
                 'average_price' => $this->formatPrice($productSales->averagePrice),
                 'average_profit' => $this->formatPrice($productSales->averageProfit),
@@ -34,6 +34,8 @@ class ProductSalesPresenter
 
     private function formatPrice(float $price): string
     {
-        return (string) Money::fromFloat($price);
+        return MoneyTransformer::toString(
+            MoneyTransformer::toMoney($price)
+        );
     }
 }

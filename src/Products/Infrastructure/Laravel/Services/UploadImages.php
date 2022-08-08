@@ -3,7 +3,7 @@
 namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Src\Products\Domain\Repositories\Erp\ProductRepository;
-use Src\Products\Domain\UseCases\UploadImages as UploadImagesInterface;
+use Src\Products\Domain\Services\UploadImages as UploadImagesInterface;
 
 class UploadImages implements UploadImagesInterface
 {
@@ -14,6 +14,10 @@ class UploadImages implements UploadImagesInterface
         $this->productRepository = $productRepository;
     }
 
+    /**
+     * @todo simplificar os parâmetros pra esse método
+     * $user, $basePath, $images
+     */
     public function execute(
         string $erpToken,
         string $sku,

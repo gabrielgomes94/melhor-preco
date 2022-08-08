@@ -9,7 +9,7 @@
         {{ $prices['syncedAt'] }}
     </td>
     <td colspan="1">
-        <x-bootstrap.forms.form.post action="{{ route($prices['route']) }}">
+        <x-bootstrap.forms.form.post action="{{ route('pricing.syncAll') }}">
             <button class="btn btn-primary m-0 w-100" type="submit">
                 Sincronizar preços
 

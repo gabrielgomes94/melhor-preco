@@ -16,9 +16,9 @@
         <td colspan="4"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
-            title="{{ $product->getDetails()->getName() }}"
+            title="{{ $product->getName() }}"
         >
-            {{ $product->getDetails()->getName() }}
+            {{ $product->getName() }}
         </td>
 
         <td colspan="2">

@@ -2,12 +2,12 @@
 
 namespace Src\Products\Infrastructure\Laravel\Services;
 
-use Src\Products\Domain\Events\ProductSynchronized;
+use Src\Products\Domain\Services\SyncProducts;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
-use Src\Users\Infrastructure\Laravel\Models\User;
+use Src\Users\Domain\Entities\User;
 
-class SynchronizeProducts
+class SynchronizeProducts implements SyncProducts
 {
     public function __construct(
         private BlingRepository $erpRepository,

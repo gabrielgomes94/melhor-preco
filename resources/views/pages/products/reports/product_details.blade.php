@@ -1,5 +1,7 @@
 <body class="antialiased">
     <x-layout>
+        <x-app.products.navigation :activeNavProducts="true" />
+
         <div class="row my-4">
             <div class="col-sm-12">
                 <div class="error-container">
@@ -7,10 +9,6 @@
                         <p id="error-box-message" class="text-danger"></p>
                     </div>
                 </div>
-
-                <x-bootstrap.links.link :route="$redirectLink">
-                    Voltar
-                </x-bootstrap.links.link>
 
                 @isset($product)
                     <div class="my-2">
@@ -42,7 +40,7 @@
                             </x-slot>
 
                             <x-slot name="body">
-                                <x-app.products.reports.prices.table :data="$prices" />
+                                <x-app.products.reports.basic-info.prices-table :data="$prices" />
                             </x-slot>
                         </x-bootstrap.card.basic-card>
                     </div>

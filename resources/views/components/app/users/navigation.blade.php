@@ -2,28 +2,28 @@
     <x-bootstrap.navigation.nav-item
         id="nav-settings-integrations-tab"
         label="Integrações"
-        selected="{{ $selectedNav == 'integrations' }}"
+        class="{{ $selectedNav == 'integrations' ? 'active' : '' }}"
         :route="route('users.settings.integrations')"
     />
 
     <x-bootstrap.navigation.nav-item
         id="nav-settings-marketplaces-tab"
         label="Marketplaces"
-        selected="{{ $selectedNav == 'marketplaces' }}"
+        class="{{ $selectedNav == 'marketplaces' ? 'active' : '' }}"
         :route="route('marketplaces.list')"
     />
 
     <x-bootstrap.navigation.nav-item
         id="nav-settings-taxes-tab"
         label="Impostos"
-        selected="{{ $selectedNav == 'taxes' }}"
+        class="{{ $selectedNav == 'taxes' ? 'active' : '' }}"
         :route="route('users.settings.taxes')"
     />
 
     <x-bootstrap.navigation.nav-item
         id="nav-settings-profile-tab"
         label="Informações da Conta"
-        selected="{{ $selectedNav == 'profile' }}"
+        class="{{ $selectedNav == 'profile' ? 'active' : '' }}"
         :route="route('users.settings.profile')"
     />
 </x-bootstrap.navigation.nav-tabs>

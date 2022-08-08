@@ -19,7 +19,7 @@ class ProductSalesFactory
 
     public function make(Collection $itemsCollection): ?ProductSales
     {
-        if (!$product = $itemsCollection->first()->product) {
+        if (!$product = $itemsCollection->first()?->product) {
             return null;
         }
 

@@ -7,8 +7,8 @@ use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 class ProductReport
 {
     public function __construct(
-        public readonly ProductSales $productSales,
         public readonly SalesInMarketplaces  $salesInMarketplaces,
+        public readonly ?ProductSales $productSales = null,
         public readonly ?SaleItemsCollection $lastSales = null
     ) {
     }

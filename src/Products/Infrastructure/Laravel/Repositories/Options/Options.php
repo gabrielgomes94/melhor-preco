@@ -4,6 +4,9 @@ namespace Src\Products\Infrastructure\Laravel\Repositories\Options;
 
 use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 
+/**
+ * @deprecated
+ **/
 class Options
 {
     private const INFINITE = 100000000000000000;

@@ -7,7 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Src\Products\Infrastructure\Laravel\Services\SynchronizeData;
+use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizePrices;
+use Src\Products\Infrastructure\Laravel\Services\SynchronizeProductCosts;
+use Src\Products\Infrastructure\Laravel\Services\SynchronizeProducts as SynchronizeProductsService;
 use Src\Users\Domain\Entities\User;
 
 class SyncProducts implements ShouldQueue
@@ -18,11 +20,16 @@ class SyncProducts implements ShouldQueue
     use SerializesModels;
 
     public function __construct(private User $user)
-    {
-    }
+    {}
 
-    public function handle(SynchronizeData $synchronizeProducts): void
+    public function handle(
+        SynchronizePrices $syncPricesService,
+        SynchronizeProductCosts $syncCostsService,
+        SynchronizeProductsService $syncProductsService
+    ): void
     {
-        $synchronizeProducts->sync($this->user);
+        $syncProductsService->sync($this->user);
+        $syncCostsService->sync($this->user);
+        $syncPricesService->syncAll($this->user);
     }
 }

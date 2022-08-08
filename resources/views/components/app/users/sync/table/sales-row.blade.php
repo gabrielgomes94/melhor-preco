@@ -9,7 +9,7 @@
         {{ $sales['syncedAt'] }}
     </td>
     <td colspan="1">
-        <x-bootstrap.forms.form.post action="{{ route($sales['route']) }}">
+        <x-bootstrap.forms.form.post action="{{ route('sales.sync') }}">
             <button class="btn btn-primary m-0 w-100" type="submit">
                 Sincronizar vendas
 

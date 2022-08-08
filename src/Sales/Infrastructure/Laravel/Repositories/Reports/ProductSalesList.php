@@ -7,6 +7,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
@@ -18,14 +19,15 @@ use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\ProductSales
 class ProductSalesList
 {
     public function __construct(
-        private MarketplaceRepository $marketplaceRepository,
+        private readonly MarketplaceRepository $marketplaceRepository,
+        private readonly ProductRepository $productRepository,
         private readonly ProductSalesFactory $productSalesFactory
     ) {
     }
 
     public function report(string $sku, SalesFilter $options): ProductReport
     {
-        $product = $this->repository->get($sku, $options->getUserId());
+        $product = $this->productRepository->get($sku, $options->getUserId());
 
         if (!$product) {
             throw new ProductNotFoundException($sku);
@@ -35,9 +37,10 @@ class ProductSalesList
         $lastSales = $this->getLastSaleItems($product);
         $totalItemsSelled = $this->getTotalSaleItems($product);
 
+
         return new ProductReport(
-            $this->productSalesFactory->make($totalItemsSelled),
             salesInMarketplaces: $salesInMarketplaces,
+            productSales: $this->productSalesFactory->make($totalItemsSelled),
             lastSales: $lastSales,
         );
     }
@@ -50,7 +53,7 @@ class ProductSalesList
             return $saleItem->getSelledAt();
         })->take($limit);
 
-        return new SaleItemsCollection($sales);
+        return new SaleItemsCollection($sales->toArray());
     }
 
     private function getSaleItemsInAllMarketplaces(Product $product, string $userId): SalesInMarketplaces

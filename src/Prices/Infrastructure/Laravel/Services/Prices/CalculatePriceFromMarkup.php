@@ -31,7 +31,7 @@ class CalculatePriceFromMarkup
         );
         $freight = $this->freightRepository->get(
             $marketplace,
-            $product->getDimensions()->cubicWeight(),
+            $product->getCubicWeight(),
             MoneyTransformer::toFloat($desiredPrice)
         );
 

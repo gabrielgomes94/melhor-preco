@@ -1,11 +1,7 @@
 <x-layout>
-    <div class="row mb-4">
-        <div class="d-flex justify-content-between mb-2">
-            <x-app.pricing.navigation
-                :activeNavPrices="true"
-            />
-        </div>
+    <x-app.pricing.navigation :activeNavPrices="true"/>
 
+    <div class="row mb-4">
         <div class="mb-4">
             <x-bootstrap.alert-messages.alert-messages />
         </div>

@@ -1,7 +1,7 @@
 import * as errorBox from "./error_box";
 
 let uploadImageAPI = function() {
-    if (window.location.pathname !== '/product/upload_images') {
+    if (window.location.pathname !== '/produtos/upload-de-imagens') {
         return;
     }
 

@@ -2,9 +2,10 @@
 
 namespace Src\Products\Infrastructure\Laravel\Presenters;
 
+use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Math\MathPresenter;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
-use Src\Products\Infrastructure\Laravel\Presenters\ProductPresenter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
@@ -14,14 +15,17 @@ class ProductReportPresenter
     public function __construct(
         private PricePresenter $pricePresenter,
         private ProductPresenter $productPresenter,
-        private CostsPresenter $costsPresenter
+        private PurchaseItemsPresenter $purchaseItemsPresenter
     ) {
     }
 
     public function present(ProductInfoReport $productInfoReport): array
     {
         $salesReport = $productInfoReport->salesReport;
-        $costs = $this->costsPresenter->present($productInfoReport->costsItems);
+        $costs = $productInfoReport->costsItems;
+        $costs = $costs->map(function(PurchaseItem $item) {
+            return $this->purchaseItemsPresenter->present($item);
+        });
 
         return [
             'costs' => $costs,
@@ -38,6 +42,7 @@ class ProductReportPresenter
     private function getLastSales(ProductReport $salesReport): array
     {
         $sales = $salesReport->lastSales->get();
+        $sales = collect($sales);
         $sales = $sales->transform(function (Item $saleItem) {
             $saleOrder = $saleItem->getSaleOrder();
 
@@ -69,6 +74,7 @@ class ProductReportPresenter
 
         $marketplaceSales = $marketplaceSales->transform(function (MarketplaceSales $marketplaceSales) {
             $sales = $marketplaceSales->sales->get();
+            $sales = collect($sales);
             $totalValue = $sales->sum(function (Item $saleItem) {
                 return $saleItem->getTotalValue();
             });
@@ -86,7 +92,9 @@ class ProductReportPresenter
 
     private function getTotalSales(ProductReport $salesReport): array
     {
-        $itemsSelled = $salesReport->itemsSelled->get();
+        $itemsSelled = $salesReport->lastSales?->get();
+        $itemsSelled = collect($itemsSelled);
+
         $totalValue = $itemsSelled->sum(function (Item $saleItem) {
             return $saleItem->getTotalValue();
         });

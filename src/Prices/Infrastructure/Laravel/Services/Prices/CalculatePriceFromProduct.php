@@ -92,7 +92,7 @@ class CalculatePriceFromProduct
     {
         return $this->freightRepository->get(
             $marketplace,
-            $product->getDimensions()->cubicWeight(),
+            $product->getCubicWeight(),
             $value
         );
     }

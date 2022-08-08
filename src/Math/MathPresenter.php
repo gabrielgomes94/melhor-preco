@@ -3,6 +3,7 @@
 namespace Src\Math;
 
 use Money\Currencies\ISOCurrencies;
+use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlMoneyFormatter;
 use Money\Money;
 use NumberFormatter;
@@ -20,22 +21,26 @@ class MathPresenter
             return '';
         }
 
-        $formatter = new IntlMoneyFormatter(
-            new NumberFormatter('pt_BR', NumberFormatter::CURRENCY),
-            new ISOCurrencies()
-        );;
+        $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
         $value = $value instanceof Money
             ? $value
             : Money::BRL((string) ($value * 100));
 
-        return $formatter->format($value);
+        $value = self::numberFormat((float) $formatter->format($value));
+
+        return "R$ $value";
     }
 
     public static function percentage(Percentage $value): string
     {
-        $value = number_format($value->get(), 2, ',', '.');
+        $value = self::numberFormat($value->get());
 
         return "{$value} %";
+    }
+
+    public static function numberFormat(float $value): string
+    {
+        return number_format($value, 2, ',', '.');
     }
 }

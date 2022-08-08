@@ -10,14 +10,15 @@ use Src\Costs\Domain\Repositories\DbRepository;
 
 class PurchaseInvoicesController extends Controller
 {
-    private DbRepository $repository;
+    public function __construct(
+        private DbRepository $repository,
+        private PurchaseInvoicePresenter $purchaseInvoicePresenter
+    ) {}
 
-    public function __construct(DbRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    public function showPurchaseInvoices(Request $request, string $uuid)
+    /**
+     * @todo Criar exception para erro de PurchaseInvoice
+     */
+    public function showPurchaseInvoices(string $uuid)
     {
         $data = $this->repository->getPurchaseInvoice($uuid);
 
@@ -25,15 +26,15 @@ class PurchaseInvoicesController extends Controller
             abort(404);
         }
 
-        $data = PurchaseInvoicePresenter::present($data);
+        $data = $this->purchaseInvoicePresenter->present($data);
 
         return view('pages.costs.invoices.show', ['data' => $data]);
     }
 
-    public function listPurchaseInvoices(Request $request)
+    public function listPurchaseInvoices()
     {
         $data = $this->repository->listPurchaseInvoice();
-        $data = PurchaseInvoicePresenter::presentList($data);
+        $data = $this->purchaseInvoicePresenter->presentList($data);
 
         return view('pages.costs.invoices.list', [
             'data' => $data

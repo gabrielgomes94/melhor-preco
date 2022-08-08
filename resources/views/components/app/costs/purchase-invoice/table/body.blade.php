@@ -17,13 +17,13 @@
         </td>
 
         <td>
-            Frete: {{ $model['additionalCosts']['freightValue'] }} <br>
-            Impostos: {{ $model['additionalCosts']['taxesValue'] }} <br>
-            Seguro: {{ $model['additionalCosts']['insuranceValue'] }} <br>
+            Frete: {{ $model['costs']['freight'] }} <br>
+            Impostos: {{ $model['costs']['taxes'] }} <br>
+            Seguro: {{ $model['costs']['insurance'] }} <br>
         </td>
 
         <td>
-            {{ $model['unitValue'] }}
+            {{ $model['unitCost'] }}
         </td>
 
         <td>

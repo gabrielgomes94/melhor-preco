@@ -4,10 +4,7 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href={{ route('product.images.upload_form')  }}>Upload de Imagens</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href={{ route('products.stock_tags.index') }}>Geração de QR Codes</a>
+                <a class="nav-link" href={{ route('products.images.upload_form')  }}>Upload de Imagens</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{ route('pricing.priceList.byStore', $store->slug()) }}>Precificação</a>
@@ -25,8 +22,6 @@
                     Produtos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="productDropdown">
-                    <a class="dropdown-item" href={{ route('products.updateICMS') }}>Atualizar ICMS</a>
-                    <a class="dropdown-item" href={{ route('products.sync') }}>Sincronização de Produtos</a>
                     <a class="dropdown-item" href={{ route('products.costs.edit') }}>Atualizar Custos</a>
                 </div>
             </li>

@@ -3,7 +3,6 @@
 namespace Src\Products\Infrastructure\Laravel\Models\Product;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,11 +13,15 @@ use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Models\Product\Product as ProductModelInterface;
 use Src\Products\Domain\Models\Product\ValueObjects\Composition;
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
-use Src\Products\Domain\Models\Product\ValueObjects\Details;
 use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
-use Src\Products\Domain\Models\Product\ValueObjects\Variations\Variations;
+use Src\Products\Domain\Models\Product\ValueObjects\Variations;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
+use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CompositionCast;
+use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CostsCast;
+use Src\Products\Infrastructure\Laravel\Models\Product\Casts\DimensionsCast;
+use Src\Products\Infrastructure\Laravel\Models\Product\Casts\IdentifiersCast;
+use Src\Products\Infrastructure\Laravel\Models\Product\Casts\VariationsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Traits\ProductScopes;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Users\Infrastructure\Laravel\Models\User;
@@ -54,6 +57,11 @@ class Product extends Model implements ProductModelInterface
         'composition_products' => 'array',
         'images' => 'array',
         'sku' => 'string',
+        'costs' => CostsCast::class,
+        'dimensions' => DimensionsCast::class,
+        'identifiers' => IdentifiersCast::class,
+        'variations' => VariationsCast::class,
+        'composition' => CompositionCast::class,
     ];
 
     protected $primaryKey = 'sku';
@@ -158,18 +166,7 @@ class Product extends Model implements ProductModelInterface
 
     public function getVariations(): ?Variations
     {
-        $variationModels = $this->withParentSku($this->getSku())->get();
-
-//        dd($variationModels->toArray());
-
-//        foreach ($variationModels as $variation) {
-//            $variationProducts[] = $variation;
-//        }
-
-        return new Variations(
-            $this->getSku(),
-            $variationModels->all()
-        );
+        return $this->variations;
     }
 
     public function getCategory(): ?Category
@@ -184,30 +181,12 @@ class Product extends Model implements ProductModelInterface
 
     public function getCosts(): Costs
     {
-        return new Costs(
-            purchasePrice: $this->purchase_price ?? 0.0,
-            additionalCosts: $this->additional_costs ?? 0.0,
-            taxICMS: $this->tax_icms ?? 0.0
-        );
-    }
-
-    public function getDetails(): Details
-    {
-        return new Details(
-            name: $this->name,
-            brand: $this->brand ?? '',
-            images: $this->images ?? []
-        );
+        return $this->costs;
     }
 
     public function getDimensions(): Dimensions
     {
-        return new Dimensions(
-            $this->depth,
-            $this->height,
-            $this->width,
-            $this->weight
-        );
+        return $this->dimensions;
     }
 
     public function getPurchaseItemsCosts(): array
@@ -249,46 +228,6 @@ class Product extends Model implements ProductModelInterface
         return $this->is_active && $this->prices->count() > 0;
     }
 
-//    public function setActive(bool $status)
-//    {
-//        $this->is_active = $status;
-//    }
-//
-//    // @deprecated
-//    public function setDetails(Details $details)
-//    {
-//        $this->name = $details->getName();
-//        $this->brand = $details->getBrand();
-//    }
-//
-//    public function setCosts(Costs $costs)
-//    {
-//        $this->purchase_price = $costs->purchasePrice();
-//        $this->tax_icms = $costs->taxICMS();
-//        $this->additional_costs = $costs->additionalCosts();
-//    }
-//
-//    public function setCompositionProducts(Composition $composition)
-//    {
-//        $this->composition_products = $composition->getSkus();
-//    }
-//
-//    public function setDimensions(Dimensions $dimensions)
-//    {
-//        $this->depth = $dimensions->depth();
-//        $this->height = $dimensions->height();
-//        $this->width = $dimensions->width();
-//        $this->weight = $dimensions->weight();
-//    }
-//
-//    public function setVariations(Variations $variations)
-//    {
-//        $this->parent_sku = $variations->getParentSku();
-//        $this->has_variations = $this->hasVariations();
-//    }
-
-
-
     public function postedOnMarketplace(Marketplace $marketplace): bool
     {
         $slug = $marketplace->getSlug();
@@ -313,6 +252,12 @@ class Product extends Model implements ProductModelInterface
         return $this->user;
     }
 
+
+    public function getUserId(): string
+    {
+        return $this->getUser()->getId();
+    }
+
     public function getPrice(Marketplace $marketplace): ?Price
     {
         $slug = $marketplace->getSlug();
@@ -324,12 +269,21 @@ class Product extends Model implements ProductModelInterface
             }
         }
 
-
         return null;
     }
 
     public function getQuantity(): float
     {
         return $this->quantity;
+    }
+
+    public function getBrand(): string
+    {
+        return $this->brand;
+    }
+
+    public function getCubicWeight(): float
+    {
+        return $this->getDimensions()->cubicWeight();
     }
 }
