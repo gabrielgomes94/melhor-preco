@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
+namespace Src\Prices\Infrastructure\Laravel\Services\Prices\Calculator;
 
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
@@ -9,31 +9,19 @@ use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Models\Product\Product;
 
-class CalculatePriceFromMarkup
+class CalculateFromMarkup extends BaseCalculator
 {
-    public function __construct(
-        private CommissionRepository $commissionRepository,
-        private FreightRepository $freightRepository
-    )
-    {}
-
-    public function get(Product $product, Marketplace $marketplace, float $markup): CalculatedPrice
+    public function get(Price $price, float $markup): CalculatedPrice
     {
+        $product = $price->getProduct();
         $costs = CostPrice::fromProduct($product);
         $desiredPrice = $costs->get()->multiply((string) $markup);
 
-        $commission = $this->commissionRepository->get(
-            $marketplace,
-            $product,
-            $desiredPrice
-        );
-        $freight = $this->freightRepository->get(
-            $marketplace,
-            $product->getCubicWeight(),
-            MoneyTransformer::toFloat($desiredPrice)
-        );
+        $commission = $this->getCommission($price, $desiredPrice);
+        $freight = $this->getFreight($price, $desiredPrice);
 
         return CalculatedPrice::fromProduct(
             $product,

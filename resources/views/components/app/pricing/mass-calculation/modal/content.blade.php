@@ -14,11 +14,22 @@
         </div>
 
         <div class="mb-4">
+            <label class="my-1 me-2" for="calculation-type">Modalidade de Cálculo</label>
+
+            <select class="form-select" name="calculationType" id="calculation-type" aria-label="Seleciona uma categoria">
+                <option value="markup">Markup</option>
+                <option value="discount">Desconto</option>
+                <option value="addition">Acréscimo</option>
+            </select>
+        </div>
+
+
+        <div class="mb-4">
             <x-bootstrap.forms.input.percentage
-                name="markup"
-                id="mass-calculation-markup"
-                label="Markup"
-                value="{{ $massCalculation['markup'] ?? '' }}"
+                name="value"
+                id="mass-calculation-value"
+                label="Valor"
+                value="{{ $massCalculation['value'] ?? '' }}"
             />
         </div>
     </x-bootstrap.forms.form.get>
