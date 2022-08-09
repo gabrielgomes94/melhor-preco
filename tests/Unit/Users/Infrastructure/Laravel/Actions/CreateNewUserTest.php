@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\Infrastructure\Laravel\Actions;
+namespace Src\Users\Infrastructure\Laravel\Actions;
 
 use Illuminate\Validation\ValidationException;
 use Mockery;
-use Src\Users\Infrastructure\Laravel\Actions\CreateNewUser;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Src\Users\Infrastructure\Laravel\Repositories\Repository;
 use Tests\TestCase;
