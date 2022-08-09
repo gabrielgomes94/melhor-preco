@@ -5,7 +5,9 @@
 
     <tbody>
     @foreach($costs as $product)
-        <x-app.costs.product-costs.details.table.item-row :item="$product" />
+        @if (!empty($product))
+            <x-app.costs.product-costs.details.table.item-row :item="$product" />
+        @endif
     @endforeach
     </tbody>
 </x-bootstrap.table.bordered-table>

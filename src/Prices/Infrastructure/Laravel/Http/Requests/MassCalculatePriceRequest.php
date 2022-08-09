@@ -16,7 +16,8 @@ class MassCalculatePriceRequest extends FormRequest
     {
         return [
             'category' => 'string|nullable',
-            'markup' => 'numeric',
+            'value' => 'numeric',
+            'calculationType' => 'string|in:markup,discount,addition',
         ];
     }
 
@@ -33,7 +34,8 @@ class MassCalculatePriceRequest extends FormRequest
     public function transform(): MassCalculatorForm
     {
         return new MassCalculatorForm(
-            markup: $this->validated()['markup'],
+            value: $this->validated()['value'],
+            calculationType: $this->validated()['calculationType'],
             category: $this->validated()['category'] ?? null,
         );
     }

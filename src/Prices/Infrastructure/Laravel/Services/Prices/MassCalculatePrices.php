@@ -3,19 +3,24 @@
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
+use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\ListPricesCalculated;
 use Src\Prices\Domain\DataTransfer\MassCalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
+use Src\Prices\Infrastructure\Laravel\Services\Prices\Calculator\CalculateFromMarkup;
+use Src\Prices\Infrastructure\Laravel\Services\Prices\Calculator\CalculateWithAddition;
+use Src\Prices\Infrastructure\Laravel\Services\Prices\Calculator\CalculateWithDiscount;
 
 class MassCalculatePrices
 {
     public function __construct(
         private MarketplaceRepository $marketplaceRepository,
-        private CalculatePriceFromMarkup $markup
+        private CalculateFromMarkup   $markup,
+        private CalculateWithAddition $calculateWithAddition,
+        private CalculateWithDiscount $calculateWithDiscount
     )
     {}
 
@@ -31,17 +36,34 @@ class MassCalculatePrices
         $prices = $this->filterProducts($prices, $form);
 
         foreach ($prices as $price) {
-            $product = $price->getProduct();
-
-            try {
-                $calculatedPrices[] = new PriceCalculatedFromProduct(
-                    $product,
-                    $marketplace,
-                    $this->markup->get($product, $marketplace, $form->markup)
+            if ($form->calculationType === 'markup') {
+                $calculatedPrices[] = PriceCalculatedFromProduct::fromPrice(
+                    $price,
+                    $this->markup->get($price, $form->value)
                 );
-            } catch (InvalidArgumentException $exception) {
+
                 continue;
             }
+
+            if ($form->calculationType === 'addition') {
+                $calculatedPrices[] = PriceCalculatedFromProduct::fromPrice(
+                    $price,
+                    $this->calculateWithAddition->get(
+                        $price,
+                        Percentage::fromPercentage($form->value)
+                    )
+                );
+
+                continue;
+            }
+
+            $calculatedPrices[] = PriceCalculatedFromProduct::fromPrice(
+                $price,
+                $this->calculateWithDiscount->get(
+                    $price,
+                    Percentage::fromPercentage($form->value)
+                )
+            );
         }
 
         return new ListPricesCalculated($marketplace, $calculatedPrices ?? []);
