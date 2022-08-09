@@ -36,8 +36,8 @@ class SyncPresenter
                 'syncedAt' => $this->productRepository->getLastSynchronizationDateTime($userId)?->format('d/m/Y H:i'),
             ],
             'purchaseInvoices' => [
-                'quantity' => $this->costsRepository->countPurchaseInvoices(),
-                'syncedAt' => $this->costsRepository->getLastSynchronizationDateTime()?->format('d/m/Y H:i'),
+                'quantity' => $this->costsRepository->countPurchaseInvoices($userId),
+                'syncedAt' => $this->costsRepository->getLastSynchronizationDateTime($userId)?->format('d/m/Y H:i'),
             ],
             'sales' => [
                 'quantity' => $this->salesRepository->countSales(new SalesFilter(['userId' => $userId])),

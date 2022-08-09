@@ -2,6 +2,7 @@
 
 namespace Src\Costs\Infrastructure\Laravel\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -101,5 +102,10 @@ class PurchaseInvoice extends Model implements PurchaseInvoiceInterface
     public function getItems(): Collection
     {
         return $this->items;
+    }
+
+    public function scopeFromUser(Builder $query, string $userId): Builder
+    {
+        return $query->where('user_id', $userId);
     }
 }
