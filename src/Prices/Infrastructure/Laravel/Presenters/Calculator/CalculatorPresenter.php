@@ -110,7 +110,7 @@ class CalculatorPresenter
         $costs = $product?->getLastPurchaseItemsCosts();
 
         return $costs instanceof PurchaseItem
-            ? $this->purchaseItemsPresenter->present($costs)
+            ? [$this->purchaseItemsPresenter->present($costs)]
             : [];
     }
 }

@@ -2,27 +2,27 @@
     <tbody>
         <x-app.costs.product-costs.details.table.cost-row
             label="Preço de Compra"
-            :value="$itemCosts['purchasePrice']"
+            :value="$itemCosts['purchasePrice'] ?? ''"
         />
 
         <x-app.costs.product-costs.details.table.cost-row
             label="Impostos"
-            :value="$itemCosts['taxes']"
+            :value="$itemCosts['taxes'] ?? ''"
         />
 
         <x-app.costs.product-costs.details.table.cost-row
             label="Frete"
-            :value="$itemCosts['freight']"
+            :value="$itemCosts['freight'] ?? ''"
         />
 
         <x-app.costs.product-costs.details.table.cost-row
             label="Seguro"
-            :value="$itemCosts['insurance']"
+            :value="$itemCosts['insurance'] ?? ''"
         />
 
         <x-app.costs.product-costs.details.table.cost-row
             label="Alíquota ICMS"
-            :value="$itemCosts['icms']"
+            :value="$itemCosts['icms'] ?? ''"
         />
     </tbody>
 </table>

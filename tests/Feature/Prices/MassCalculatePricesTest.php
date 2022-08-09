@@ -26,10 +26,8 @@ class MassCalculatePricesTest extends FeatureTestCase
     private function when_i_want_to_mass_calculate(): void
     {
         $queryString = http_build_query([
-            'profitMargin' => 10.0,
-            'commission' => 12.0,
-            'discount' => 0.0,
-            'ignoreFreight' => true,
+            'value' => 1.234,
+            'calculationType' => 'markup',
         ]);
 
         $this->response = $this->get("/calculadora/magalu/calcularEmMassa?$queryString");
@@ -37,6 +35,6 @@ class MassCalculatePricesTest extends FeatureTestCase
 
     private function then_it_must_calculate(): void
     {
-        dd($this->response);
+//        dd($this->response);
     }
 }

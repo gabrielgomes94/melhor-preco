@@ -258,7 +258,7 @@ trait CalculatePriceAssertions
             'discount' => 0.0,
             'desiredPrice' => 889.9,
             'productId' => '1234',
-            'freight' => 25.74,
+            'freight' => 22.14,
         ]);
     }
 
@@ -267,7 +267,7 @@ trait CalculatePriceAssertions
         $this->response->assertViewHas('productInfo', [
             'id' => '1234',
             'header' => '1234 - Carrinho de Bebê',
-            'currentPrice' => 'R$ 889,90',
+            'currentPrice' => 'R$ 889,90',
         ]);
     }
 
@@ -296,17 +296,24 @@ trait CalculatePriceAssertions
         $this->response->assertViewHas('costs', [
             [
                 'issuedAt' => '17/02/2021 09:55',
-                'unitCost' => 'R$ 168,00',
+                'unitCost' => 'R$ 168,00',
                 'costs' => [
-                    'purchasePrice' => 'R$ 150,00',
-                    'taxes' => 'R$ 40,00',
-                    'freight' => 'R$ 10,00',
+                    'purchasePrice' => 'R$ 150,00',
+                    'taxes' => 'R$ 40,00',
+                    'freight' => 'R$ 10,00',
                     'insurance' => '',
                     'icms' => '0,00 %',
                 ],
+                'name' => 'Canguru Balbi Vermelho',
+                'purchasePrice' => 'R$ 150,00',
                 'quantity' => 5.0,
-                'supplierName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
-                'supplierFiscalId' => '06981862000200',
+                'totalValue' => 'R$ 840,00',
+                'purchaseItemUuid' => '65c0cdcf-fb24-4d3b-9042-9311ab739376',
+                'productSku' => '1234',
+                'supplier' => [
+                    'name' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
+                    'fiscalId' => '06981862000200',
+                ],
             ],
         ]);
     }
