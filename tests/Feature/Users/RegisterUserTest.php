@@ -129,6 +129,6 @@ class RegisterUserTest extends TestCase
 
     private function then_i_must_see_registration_form(): void
     {
-        $this->response->assertViewIs('pages.auth.register');
+        $this->response->assertViewIs('pages.users.auth.register');
     }
 }

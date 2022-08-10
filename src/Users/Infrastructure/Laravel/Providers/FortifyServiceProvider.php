@@ -28,7 +28,7 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot()
     {
         Fortify::loginView(function () {
-            return view('pages.auth.login');
+            return view('pages.users.auth.login');
         });
 
         $this->userRegistrationBindings();
@@ -39,17 +39,17 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::registerView(function () {
-            return view('pages.auth.register');
+            return view('pages.users.auth.register');
         });
     }
 
     private function resetPasswordBindings(): void
     {
         Fortify::requestPasswordResetLinkView(function () {
-            return view('pages.auth.forgot-password');
+            return view('pages.users.auth.forgot-password');
         });
         Fortify::resetPasswordView(function ($request) {
-            return view('pages.auth.reset-password', ['request' => $request]);
+            return view('pages.users.auth.reset-password', ['request' => $request]);
         });
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
     }
