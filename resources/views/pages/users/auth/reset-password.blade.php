@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-app.guest.background>
         <div class="col-12 d-flex align-items-center justify-content-center">
-            <x-app.auth.register.card.card>
+            <x-app.users.auth.register.card.card>
                 <x-bootstrap.alert-messages.alert-messages />
 
                 <div class="text-center text-md-center mb-4 mt-md-0">
@@ -20,15 +20,15 @@
 
 
                     <div class="form-group mb-4">
-                        <x-app.auth.register.card.inputs.email />
+                        <x-app.users.auth.register.card.inputs.email />
                     </div>
 
                     <div class="form-group mb-4">
-                        <x-app.auth.register.card.inputs.password />
+                        <x-app.users.auth.register.card.inputs.password />
                     </div>
 
                     <div class="form-group mb-4">
-                        <x-app.auth.register.card.inputs.password-confirmation />
+                        <x-app.users.auth.register.card.inputs.password-confirmation />
                     </div>
 
 
@@ -57,7 +57,7 @@
                     </span>
                 </div>
 
-            </x-app.auth.register.card.card>
+            </x-app.users.auth.register.card.card>
         </div>
     </x-app.guest.background>
 </x-guest-layout>

@@ -2,27 +2,27 @@
     {{ csrf_field() }}
 
     <div class="form-group mb-4">
-        <x-app.auth.register.card.inputs.email />
+        <x-app.users.auth.register.card.inputs.email />
     </div>
 
     <div class="form-group mb-4">
-        <x-app.auth.register.card.inputs.fiscal-id />
+        <x-app.users.auth.register.card.inputs.fiscal-id />
     </div>
 
     <div class="form-group mb-4">
-        <x-app.auth.register.card.inputs.name />
+        <x-app.users.auth.register.card.inputs.name />
     </div>
 
     <div class="form-group mb-4">
-        <x-app.auth.register.card.inputs.phone />
+        <x-app.users.auth.register.card.inputs.phone />
     </div>
 
     <div class="form-group mb-4">
-        <x-app.auth.register.card.inputs.password />
+        <x-app.users.auth.register.card.inputs.password />
     </div>
 
     <div class="form-group mb-4">
-        <x-app.auth.register.card.inputs.password-confirmation />
+        <x-app.users.auth.register.card.inputs.password-confirmation />
     </div>
 
     <div class="d-grid">
