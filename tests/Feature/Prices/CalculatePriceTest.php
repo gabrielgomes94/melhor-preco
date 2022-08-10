@@ -4,12 +4,12 @@ namespace Tests\Feature\Prices;
 
 use Tests\Feature\Prices\Concerns\CalculatePriceAssertions;
 use Tests\Feature\Prices\Concerns\PricesDatabase;
-use Tests\Feature\SimpleUser;
+use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
 class CalculatePriceTest extends FeatureTestCase
 {
-    use SimpleUser;
+    use UsersDatabase;
     use PricesDatabase;
     use CalculatePriceAssertions;
 

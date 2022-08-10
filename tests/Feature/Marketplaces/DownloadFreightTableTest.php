@@ -9,12 +9,12 @@ use Src\Marketplaces\Domain\Models\Freight\FreightTableComponent;
 use Src\Marketplaces\Infrastructure\Excel\Exports\FreightTableExport;
 use Src\Marketplaces\Infrastructure\Excel\Exports\FreightTableTemplateExport;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
-use Tests\Feature\SimpleUser;
+use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
 class DownloadFreightTableTest extends FeatureTestCase
 {
-    use SimpleUser;
+    use UsersDatabase;
 
     public function setUp(): void
     {

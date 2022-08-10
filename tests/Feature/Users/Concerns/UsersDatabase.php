@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Users\Concerns;
 
 use Tests\Data\Models\Users\UserData;
 
-// @todo: verificar onde essa trait pode ficar
-trait SimpleUser
+trait UsersDatabase
 {
-    private function given_i_have_an_user(): void
+    private function given_i_am_an_user(): void
     {
         $this->user = UserData::make();
     }

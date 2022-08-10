@@ -3,12 +3,12 @@
 namespace Tests\Feature\Prices;
 
 use Tests\Feature\Prices\Concerns\PricesDatabase;
-use Tests\Feature\SimpleUser;
+use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
 class MassCalculatePricesTest extends FeatureTestCase
 {
-    use SimpleUser;
+    use UsersDatabase;
     use PricesDatabase;
 
     public function test_should_mass_calculate_prices(): void
