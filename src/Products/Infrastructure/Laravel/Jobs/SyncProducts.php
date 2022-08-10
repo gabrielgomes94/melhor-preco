@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizePrices;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeProductCosts;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeProducts as SynchronizeProductsService;
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 
 class SyncProducts implements ShouldQueue
 {

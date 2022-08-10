@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Users\Domain\UseCases;
+namespace Tests\Unit\Users\Domain\Validators;
 
-use Src\Users\Domain\UseCases\ValidateDocuments;
+use Src\Users\Domain\Validators\ValidateDocuments;
 use Tests\TestCase;
 
 class ValidateDocumentsTest extends TestCase

@@ -5,7 +5,7 @@ namespace Src\Users\Infrastructure\Laravel\Models;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Math\Percentage;
 use Src\Users\Domain\DataTransfer\Erp;
-use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 

@@ -5,7 +5,7 @@ namespace Src\Products\Infrastructure\Laravel\Services;
 use Src\Products\Domain\Services\SyncProducts;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 
 class SynchronizeProducts implements SyncProducts
 {

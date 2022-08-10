@@ -3,7 +3,7 @@
 namespace Src\Users\Infrastructure\Laravel\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use Src\Users\Domain\UseCases\ValidateDocuments;
+use Src\Users\Domain\Validators\ValidateDocuments;
 
 class FiscalId implements Rule
 {

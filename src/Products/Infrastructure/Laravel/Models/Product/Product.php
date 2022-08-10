@@ -247,7 +247,7 @@ class Product extends Model implements ProductModelInterface
         return $this->images;
     }
 
-    public function getUser(): \Src\Users\Domain\Entities\User
+    public function getUser(): \Src\Users\Domain\Models\User
     {
         return $this->user;
     }

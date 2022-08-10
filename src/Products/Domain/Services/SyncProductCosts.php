@@ -2,7 +2,7 @@
 
 namespace Src\Products\Domain\Services;
 
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 
 interface SyncProductCosts
 {

@@ -10,7 +10,7 @@ use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 
 class CalculateProfit
 {

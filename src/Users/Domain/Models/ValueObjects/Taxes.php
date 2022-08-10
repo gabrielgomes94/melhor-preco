@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Users\Domain\ValueObjects;
+namespace Src\Users\Domain\Models\ValueObjects;
 
 use Src\Math\Percentage;
 

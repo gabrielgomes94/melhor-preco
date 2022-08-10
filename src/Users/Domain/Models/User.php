@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Users\Domain\Entities;
+namespace Src\Users\Domain\Models;
 
 use Src\Users\Domain\DataTransfer\Erp;
-use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 
 interface User
 {

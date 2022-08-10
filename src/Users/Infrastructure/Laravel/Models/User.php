@@ -7,8 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Src\Notifications\Domain\Models\Notification;
 use Src\Users\Domain\DataTransfer\Erp;
-use Src\Users\Domain\Entities\User as UserInterface;
-use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Domain\Models\User as UserInterface;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 use Src\Users\Infrastructure\Laravel\Models\Casts\TaxesCast;
 
 class User extends Authenticatable implements UserInterface

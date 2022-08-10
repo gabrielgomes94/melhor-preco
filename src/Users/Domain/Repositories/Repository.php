@@ -3,7 +3,7 @@
 namespace Src\Users\Domain\Repositories;
 
 use Src\Users\Domain\DataTransfer\Erp;
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 
 interface Repository
 {
