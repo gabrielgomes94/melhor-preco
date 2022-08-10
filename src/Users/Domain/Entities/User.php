@@ -17,21 +17,19 @@ interface User
 
     public function getFiscalId(): string;
 
+    public function getIcmsInnerStateTaxRate(): float;
+
     public function getPassword(): string;
 
     public function getPhone(): string;
 
     public function getSimplesNacionalTaxRate(): float;
 
-    public function getIcmsInnerStateTaxRate(): float;
-
     public function setErp(Erp $erp): void;
 
     public function setPassword(string $hashedPassword): void;
 
     public function setProfile(string $name, string $phone, string $fiscalId): void;
-
-    public function setTaxRate(float $taxRate = 0.0): void;
 
     public function setTaxes(Taxes $taxes): void;
 }

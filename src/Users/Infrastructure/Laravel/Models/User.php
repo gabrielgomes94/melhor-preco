@@ -2,7 +2,6 @@
 
 namespace Src\Users\Infrastructure\Laravel\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,7 +14,6 @@ use Src\Users\Infrastructure\Laravel\Models\Casts\TaxesCast;
 class User extends Authenticatable implements UserInterface
 {
     use HasApiTokens;
-    use HasFactory;
     use Notifiable;
 
     /**
@@ -29,7 +27,6 @@ class User extends Authenticatable implements UserInterface
         'password',
         'phone',
         'fiscal_id',
-        'tax_rate', // @deprecated
         'taxes',
     ];
 
@@ -61,16 +58,6 @@ class User extends Authenticatable implements UserInterface
             ->orderBy('created_at', 'desc');
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getFiscalId(): string
-    {
-        return $this->fiscal_id;
-    }
-
     public function getEmail(): string
     {
         return $this->email;
@@ -86,9 +73,24 @@ class User extends Authenticatable implements UserInterface
         return $this->erp_token;
     }
 
+    public function getFiscalId(): string
+    {
+        return $this->fiscal_id;
+    }
+
+    public function getIcmsInnerStateTaxRate(): float
+    {
+        return $this->getTaxes()->icmsInnerState->get();
+    }
+
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getPassword(): string
@@ -104,11 +106,6 @@ class User extends Authenticatable implements UserInterface
     public function getSimplesNacionalTaxRate(): float
     {
         return $this->getTaxes()->simplesNacional->get();
-    }
-
-    public function getIcmsInnerStateTaxRate(): float
-    {
-        return $this->getTaxes()->icmsInnerState->get();
     }
 
     public function getTaxes(): Taxes
@@ -132,11 +129,6 @@ class User extends Authenticatable implements UserInterface
         $this->name = $name;
         $this->phone = $phone;
         $this->fiscal_id = $fiscalId;
-    }
-
-    public function setTaxRate(float $taxRate = 0.0): void
-    {
-        $this->tax_rate = $taxRate;
     }
 
     public function setTaxes(Taxes $taxes): void
