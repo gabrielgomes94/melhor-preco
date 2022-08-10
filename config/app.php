@@ -233,6 +233,11 @@ return [
         Src\Users\Infrastructure\Laravel\Providers\FortifyServiceProvider::class,
 
         /**
+         * Base App Service Providers
+         */
+        \App\Providers\BladeServiceProvider::class,
+
+        /**
          * PDF Generator Service Provider...
          */
         Barryvdh\DomPDF\ServiceProvider::class,

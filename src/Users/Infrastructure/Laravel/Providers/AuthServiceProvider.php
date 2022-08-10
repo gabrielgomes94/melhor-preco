@@ -26,8 +26,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        // @todo: verificar onde esse bind pode ser realizado. Provavelmente num futuro contexto de Application
-        Blade::component('layout', Layout::class);
     }
 }
