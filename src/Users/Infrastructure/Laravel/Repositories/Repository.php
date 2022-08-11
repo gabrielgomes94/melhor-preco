@@ -4,9 +4,9 @@ namespace Src\Users\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Support\Facades\Hash;
 use Src\Users\Domain\DataTransfer\Erp;
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 use Src\Users\Domain\Repositories\Repository as RepositoryInterface;
-use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 use Src\Users\Infrastructure\Laravel\Models\User as UserModel;
 
 class Repository implements RepositoryInterface

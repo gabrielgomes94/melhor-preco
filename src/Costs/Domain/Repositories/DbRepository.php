@@ -8,9 +8,9 @@ use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 
 interface DbRepository
 {
-    public function countPurchaseInvoices(): int;
+    public function countPurchaseInvoices(string $userId): int;
 
-    public function getLastSynchronizationDateTime(): ?Carbon;
+    public function getLastSynchronizationDateTime(string $userId): ?Carbon;
 
     public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice;
 

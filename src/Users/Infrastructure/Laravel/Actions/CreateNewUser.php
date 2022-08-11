@@ -13,8 +13,7 @@ class CreateNewUser implements CreatesNewUsers
 {
     public function __construct(
         private Repository $repository
-    ) {
-    }
+    ) {}
 
     public function create(array $input): User
     {

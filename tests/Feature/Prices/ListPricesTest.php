@@ -3,17 +3,17 @@
 namespace Tests\Feature\Prices;
 
 use Tests\Data\Models\Prices\PricesDatabase;
-use Tests\Feature\SimpleUser;
+use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
 class ListPricesTest extends FeatureTestCase
 {
-    use SimpleUser;
+    use UsersDatabase;
     use PricesDatabase;
 
     public function test_should_list_prices_in_marketplaces(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices();
@@ -24,7 +24,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_filter_prices_in_list_by_minimum_margin(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices_filtering_by_minimum_margin();
@@ -35,7 +35,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_filter_prices_in_list_by_maximum_margin(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices_filtering_by_maximum_margin();
@@ -46,7 +46,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_filter_prices_in_list_by_margin_range(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices_filtering_by_margin_range();
@@ -57,7 +57,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_filter_prices_in_list_by_sku(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices_by_sku();
@@ -68,7 +68,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_filter_prices_in_list_by_category(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices_by_category();
@@ -79,7 +79,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_filter_only_composition_product_prices(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_only_composition_product_prices();
@@ -90,7 +90,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_not_list_prices_when_marketplace_does_not_have_any_price(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices_on_the_empty_marketplace();
@@ -100,7 +100,7 @@ class ListPricesTest extends FeatureTestCase
 
     public function test_should_not_list_prices_when_marketplace_does_exists(): void
     {
-        $this->given_i_have_an_user();
+        $this->given_i_am_an_user();
         $this->and_given_i_have_multiple_prices();
 
         $this->when_i_want_to_list_prices_on_an_inexistent_marketplace();

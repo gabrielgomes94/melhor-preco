@@ -77,6 +77,32 @@ class RegisterUserTest extends TestCase
         );
     }
 
+    private function when_i_want_to_register_user_with_invalid_inputs(): void
+    {
+        $this->response = $this->post('/register',
+            [
+                'fiscal_id' => '12313195.635.116/0001-03',
+                'phone' => '123 (11) 9 8723-1234',
+                'name' => '',
+                'email' => 'sapatosgmail.com',
+                'password' => '4321',
+                'password_confirmation' => 'q21',
+            ]
+        );
+    }
+
+    private function when_i_want_to_open_registration_form(): void
+    {
+        $this->response = $this->get('/register');
+    }
+
+    private function then_the_user_must_not_be_registered_in_database(): void
+    {
+        $user = User::first('email',  'sapatosgmail.com');
+
+        $this->assertNull($user);
+    }
+
     private function then_it_must_be_register_in_database(): void
     {
         $user = User::first('email',  'joao@gmail.com');
@@ -96,39 +122,13 @@ class RegisterUserTest extends TestCase
         $this->response->assertRedirect();
     }
 
-    private function when_i_want_to_register_user_with_invalid_inputs(): void
-    {
-        $this->response = $this->post('/register',
-            [
-                'fiscal_id' => '12313195.635.116/0001-03',
-                'phone' => '123 (11) 9 8723-1234',
-                'name' => '',
-                'email' => 'sapatosgmail.com',
-                'password' => '4321',
-                'password_confirmation' => 'q21',
-            ]
-        );
-    }
-
-    private function then_the_user_must_not_be_registered_in_database(): void
-    {
-        $user = User::first('email',  'sapatosgmail.com');
-
-        $this->assertNull($user);
-    }
-
     private function and_then_the_user_must_be_redirected_to_registration_with_errors(): void
     {
         $this->response->assertSessionHasErrors();
     }
 
-    private function when_i_want_to_open_registration_form(): void
-    {
-        $this->response = $this->get('/register');
-    }
-
     private function then_i_must_see_registration_form(): void
     {
-        $this->response->assertViewIs('pages.auth.register');
+        $this->response->assertViewIs('pages.users.auth.register');
     }
 }

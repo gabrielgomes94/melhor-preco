@@ -8,7 +8,7 @@ use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Repositories\SaleItemsRepository;
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 
 class GetProductsInformationReport
 {

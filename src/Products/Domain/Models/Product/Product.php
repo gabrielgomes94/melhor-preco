@@ -11,7 +11,7 @@ use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
 use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
 use Src\Products\Domain\Models\Product\ValueObjects\Variations;
-use Src\Users\Domain\Entities\User;
+use Src\Users\Domain\Models\User;
 
 interface Product
 {

@@ -4,7 +4,7 @@ namespace Tests\Data\Models\Users;
 
 use Src\Math\Percentage;
 use Src\Users\Domain\DataTransfer\Erp;
-use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Illuminate\Support\Str;
 

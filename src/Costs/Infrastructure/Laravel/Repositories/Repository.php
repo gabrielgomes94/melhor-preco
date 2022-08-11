@@ -13,14 +13,14 @@ use Src\Costs\Domain\Repositories\DbRepository;
 
 class Repository implements DbRepository
 {
-    public function countPurchaseInvoices(): int
+    public function countPurchaseInvoices(string $userId): int
     {
-        return PurchaseInvoiceModel::count();
+        return PurchaseInvoiceModel::fromUser($userId)->count();
     }
 
-    public function getLastSynchronizationDateTime(): ?Carbon
+    public function getLastSynchronizationDateTime(string $userId): ?Carbon
     {
-        return PurchaseInvoiceModel::query()
+        return PurchaseInvoiceModel::fromUser($userId)
             ->orderByDesc('updated_at')
             ->first()
             ?->getLastUpdate();

@@ -10,12 +10,12 @@ use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Users\UserData;
-use Tests\Feature\SimpleUser;
+use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
 class SetCommissionTest extends FeatureTestCase
 {
-    use SimpleUser;
+    use UsersDatabase;
     private Marketplace $marketplace;
 
     public function test_should_render_set_category_commission_view(): void

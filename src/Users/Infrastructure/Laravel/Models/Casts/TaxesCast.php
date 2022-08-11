@@ -5,7 +5,7 @@ namespace Src\Users\Infrastructure\Laravel\Models\Casts;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
 use Src\Math\Percentage;
-use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 
 class TaxesCast implements CastsAttributes
 {

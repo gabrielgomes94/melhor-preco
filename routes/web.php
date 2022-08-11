@@ -2,6 +2,7 @@
 
 use Src\Prices\Infrastructure\Laravel\Http\Controllers\Web\Price\ListController;
 use Illuminate\Support\Facades\Route;
+use Src\Users\Infrastructure\Laravel\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ include 'sales/web.php';
 include 'users/web.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', ListController::class)->name('home');
+    Route::get('/', HomeController::class)->name('home');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

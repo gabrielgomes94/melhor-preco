@@ -4,7 +4,7 @@ namespace Src\Users\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Src\Math\Percentage;
-use Src\Users\Domain\ValueObjects\Taxes;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 
 class UpdateTaxRateRequest extends FormRequest
 {
