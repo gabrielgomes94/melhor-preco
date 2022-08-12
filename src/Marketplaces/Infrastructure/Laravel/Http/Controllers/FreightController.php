@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Excel\Exports\FreightTableExport;
 use Src\Marketplaces\Infrastructure\Excel\Exports\FreightTableTemplateExport;
-use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\UpdateCommissionRequest;
+use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\UpdateFreightRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presenters\MarketplacePresenter;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -32,7 +32,7 @@ class FreightController extends Controller
         return view('pages.marketplaces.set-freight', $data);
     }
 
-    public function update(UpdateCommissionRequest $request, string $marketplaceSlug): RedirectResponse
+    public function update(UpdateFreightRequest $request, string $marketplaceSlug): RedirectResponse
     {
         $userId = auth()->user()->getAuthIdentifier();
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
