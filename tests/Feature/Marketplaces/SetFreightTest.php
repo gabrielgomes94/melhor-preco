@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Marketplaces;
 
-class SetFreightTest
+use Tests\FeatureTestCase;
+
+class SetFreightTest extends FeatureTestCase
 {
 
 }
