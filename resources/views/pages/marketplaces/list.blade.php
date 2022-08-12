@@ -7,7 +7,7 @@
                 <div class="d-flex justify-content-between">
                     <h2>Marketplaces Integrados</h2>
 
-                    <x-app.marketplaces.buttons.add-marketplace />
+                    <x-app.marketplaces.list-card.add-marketplace />
                 </div>
             </x-slot>
 
