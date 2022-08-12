@@ -124,6 +124,7 @@ class SetCommissionTest extends FeatureTestCase
             new CommissionValuesCollection([
                 new CommissionValue(Percentage::fromPercentage(12.8), '1'),
                 new CommissionValue(Percentage::fromPercentage(10.2), '10'),
+                new CommissionValue(Percentage::fromPercentage(10.2), '11'),
             ])
         );
 

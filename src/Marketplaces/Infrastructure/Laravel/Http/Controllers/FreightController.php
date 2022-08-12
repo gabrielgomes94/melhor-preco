@@ -2,8 +2,8 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
@@ -25,7 +25,7 @@ class FreightController extends Controller
 
     public function edit(string $marketplaceSlug): View
     {
-        $userId = auth()->user()->getAuthIdentifier();
+        $userId = $this->getUserId();
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
         $data = $this->marketplacePresenter->present($marketplace);
 
@@ -34,7 +34,7 @@ class FreightController extends Controller
 
     public function update(UpdateFreightRequest $request, string $marketplaceSlug): RedirectResponse
     {
-        $userId = auth()->user()->getAuthIdentifier();
+        $userId = $this->getUserId();
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
 
         $this->freightRepository->update($marketplace, $request->transform());

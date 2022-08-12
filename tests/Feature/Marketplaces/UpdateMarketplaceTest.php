@@ -49,9 +49,10 @@ class UpdateMarketplaceTest extends FeatureTestCase
     {
         $this->response->assertViewIs('pages.marketplaces.edit');
         $this->response->assertViewHas(['marketplace' => [
-            'commissionType' => 'uniqueCommission',
+            'commissionType' => 'categoryCommission',
             'commissions' => [
                 '12,80%',
+                '10,20%'
             ],
             'erpId' => '123456',
             'isActive' => true,
@@ -59,6 +60,11 @@ class UpdateMarketplaceTest extends FeatureTestCase
             'status' => 'Ativo',
             'slug' => 'magalu',
             'uuid' => '0ba73120-6944-4ac4-8357-cef9b410ff54',
+            'freight' => [
+                'defaultValue' => 0.0,
+                'minimumFreightTableValue' => 0.0,
+                'freightTable' => [],
+            ],
         ]]);
     }
 

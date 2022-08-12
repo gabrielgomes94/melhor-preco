@@ -23,7 +23,7 @@ class UpdateFreightRequest extends FormRequest
     {
         return [
             'baseValue' => 'numeric',
-            'minimumFreightTableValue' => 'numeric',
+            'minimumFreightTableValue' => 'numeric|nullable',
             'freightTable' => 'file',
         ];
     }
