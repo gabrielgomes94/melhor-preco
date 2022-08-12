@@ -23,6 +23,21 @@ class CommissionTest extends TestCase
 
         // Assert
         $this->assertInstanceOf($expected, $result);
+        $this->assertNull($result->getMaximumValueCap());
+        $this->assertFalse($result->hasMaximumValueCap());
+    }
+
+    public function test_should_instantiate_with_maximum_value_cap()
+    {
+        // Arrange
+        $commissionValuesCollection = CommissionValuesCollectionData::make('uniqueCommission');
+
+        // Act
+        $result = Commission::build('uniqueCommission', $commissionValuesCollection, 100);
+
+        // Assert
+        $this->assertSame(100.0, $result->getMaximumValueCap());
+        $this->assertTrue($result->hasMaximumValueCap());
     }
 
     public function test_should_handle_error_when_instantiating(): void
