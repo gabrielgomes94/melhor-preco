@@ -4,6 +4,8 @@ namespace Tests\Feature\Users;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
+use Src\Math\Percentage;
+use Src\Users\Domain\Models\ValueObjects\Taxes;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
@@ -37,7 +39,12 @@ class UpdateTaxTest extends TestCase
     private function given_i_have_an_user(): void
     {
         $user = UserData::make();
-        $user->tax_rate = 2.0;
+        $user->setTaxes(
+            new Taxes(
+                Percentage::fromPercentage(2.0),
+                Percentage::fromPercentage(18.0)
+            )
+        );
         $user->save();
 
         $this->user = $user;
@@ -55,14 +62,18 @@ class UpdateTaxTest extends TestCase
         $this->response = $this
             ->actingAs($this->user)
             ->post('/configuracoes/impostos', [
-                'tax_rate' => 4.65,
+                'simplesNacionalTax' => 4.65,
+                'icmsTax' => 17
             ]);
     }
 
     private function then_i_must_see_update_tax_page(): void
     {
         $this->response->assertViewIs('pages.users.taxes');
-        $this->response->assertViewHas('taxRate', 2.0);
+        $this->response->assertViewHas('taxes', [
+            'simplesNacional' => '2',
+            'icms' => '18',
+        ]);
     }
 
     private function then_the_user_must_have_its_taxes_updated()
