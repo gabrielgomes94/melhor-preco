@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
+use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\Percentage;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
@@ -26,11 +27,15 @@ class MarketplaceTest extends TestCase
     {
         // Arrange
         $expectedCommission = Commission::build(
-            'uniqueCommission',
+            'categoryCommission',
             new CommissionValuesCollection([
-                new CommissionValue(Percentage::fromPercentage(12.8))
+                new CommissionValue(Percentage::fromPercentage(12.8), 1),
+                new CommissionValue(Percentage::fromPercentage(10.2), 10),
+                new CommissionValue(Percentage::fromPercentage(10.2), 11)
             ])
         );
+
+        $expectedFreight = new Freight();
         $user = UserData::make(['id' => 1]);
 
         // Act
@@ -39,6 +44,7 @@ class MarketplaceTest extends TestCase
         // Assert
         $this->assertSame('123456', $result->getErpId());
         $this->assertEquals($expectedCommission, $result->getCommission());
+        $this->assertEquals($expectedFreight, $result->getFreight());
         $this->assertSame('Magalu', $result->getName());
         $this->assertSame('magalu', $result->getSlug());
         $this->assertInstanceOf(User::class, $result->getUser());
@@ -122,7 +128,7 @@ class MarketplaceTest extends TestCase
         MarketplaceData::magalu($user);
 
         // Act
-        $result = Marketplace::withErpId('123456789');
+        $result = Marketplace::withErpId('123456');
 
         // Assert
         $this->assertInstanceOf(Builder::class, $result);
