@@ -21,8 +21,8 @@ class Freight
          */
         foreach ($items as $item) {
             if (
-                $cubicWeight >= $item->initialCubicWeight
-                && $cubicWeight < $item->endCubicWeight
+                $cubicWeight > $item->initialCubicWeight
+                && $cubicWeight <= $item->endCubicWeight
             ) {
                 return $item->value;
             }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Marketplaces\Repositories;
+namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;

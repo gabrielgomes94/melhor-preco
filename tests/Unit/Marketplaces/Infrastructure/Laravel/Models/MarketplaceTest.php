@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Marketplaces\Models;
+namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
