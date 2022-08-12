@@ -72,7 +72,6 @@ class CommissionTest extends TestCase
         // Assert
         $this->assertFalse($result);
     }
-
     public function getScenarios(): array
     {
         return [
