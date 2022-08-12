@@ -35,6 +35,6 @@ class UserData
 
         $user->save();
 
-        return $user;
+        return $user->refresh();
     }
 }

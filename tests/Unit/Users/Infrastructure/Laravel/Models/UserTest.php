@@ -27,7 +27,7 @@ class UserTest extends TestCase
         $this->assertSame('token', $instance->getErpToken());
         $this->assertSame('66569343076', $instance->getFiscalId());
         $this->assertSame(18.0, $instance->getIcmsInnerStateTaxRate());
-        $this->assertSame('1', $instance->getId());
+        $this->assertIsString($instance->getId());
         $this->assertSame('Artigos de Venda SA', $instance->getName());
         $this->assertSame('$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', $instance->getPassword());
         $this->assertSame('+5511987654321', $instance->getPhone());

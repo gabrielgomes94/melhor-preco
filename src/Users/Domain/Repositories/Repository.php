@@ -7,7 +7,7 @@ use Src\Users\Domain\Models\User;
 
 interface Repository
 {
-    public function find(string $id): User;
+    public function find(string $id): ?User;
 
     public function register(array $data): User;
 
