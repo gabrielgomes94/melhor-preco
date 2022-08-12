@@ -2,13 +2,14 @@
 
 namespace Src\Users\Infrastructure\Laravel\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Src\Users\Infrastructure\Laravel\Http\Requests\UpdateErpRequest;
 use Src\Users\Infrastructure\Laravel\Presenters\SyncPresenter;
 use Src\Users\Infrastructure\Laravel\Repositories\Repository;
 
-class IntegrationsController
+class IntegrationsController extends Controller
 {
     public function __construct(
         private Repository $repository,
@@ -18,7 +19,7 @@ class IntegrationsController
 
     public function list(): View
     {
-        $user = auth()->user();
+        $user = $this->getUser();
 
         return view(
             'pages.users.integrations',
@@ -31,8 +32,7 @@ class IntegrationsController
 
     public function updateErp(UpdateErpRequest $request): RedirectResponse
     {
-        $user = auth()->user();
-        $this->repository->updateErp($user, $request->transform());
+        $this->repository->updateErp($this->getUser(), $request->transform());
 
         return redirect()->back();
     }
