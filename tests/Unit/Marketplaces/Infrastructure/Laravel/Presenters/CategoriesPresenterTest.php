@@ -35,12 +35,20 @@ class CategoriesPresenterTest extends TestCase
                 'categoryId' => '1',
                 'parentId' => '',
                 'commission' => 12.8,
+                'spacing' => [
+                    'level' => 0,
+                    'componentSpace' => 12,
+                ],
             ],
             [
                 'name' => 'Carrinhos / Carrinhos de supermercado',
                 'categoryId' => '10',
                 'parentId' => '1',
-                'commission' => 8.8,
+                'commission' => 10.2,
+                'spacing' => [
+                    'level' => 1,
+                    'componentSpace' => 11,
+                ],
             ],
         ];
 

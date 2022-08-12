@@ -4,7 +4,7 @@
             attribute="erpId"
             id="erpId-input"
             label="ID do Marketplace no Bling"
-            value=""
+            value="{{ old('erpId') }}"
         />
     </div>
 
@@ -13,7 +13,7 @@
             attribute="name"
             id="name-input"
             label="Nome do marketplace"
-            value=""
+            value="{{ old('name') ?? '' }}"
         />
     </div>
 

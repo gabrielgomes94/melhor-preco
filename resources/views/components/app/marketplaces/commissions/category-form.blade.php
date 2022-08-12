@@ -11,6 +11,10 @@
     <div class="mt-2">
         <h4>Commissões</h4>
 
+        @empty($categories)
+            <x-app.marketplaces.commissions.empty-categories />
+        @endempty
+
         @foreach ($categories ?? [] as $category)
             <div data-parent-id="{{ $category['parentId'] }}" class="row category-commission-row">
                 @for ($i = 0; $i < $category['spacing']['level']; $i++)

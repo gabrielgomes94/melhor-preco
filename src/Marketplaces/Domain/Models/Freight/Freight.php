@@ -5,8 +5,8 @@ namespace Src\Marketplaces\Domain\Models\Freight;
 class Freight
 {
     public function __construct(
-        public readonly float         $defaultValue = 0.0,
-        public readonly float         $minimumFreightTableValue = 0.0,
+        public readonly float $defaultValue = 0.0,
+        public readonly float $minimumFreightTableValue = 0.0,
         public readonly ?FreightTable $freightTable = null
     )
     {
@@ -21,8 +21,8 @@ class Freight
          */
         foreach ($items as $item) {
             if (
-                $cubicWeight >= $item->initialCubicWeight
-                && $cubicWeight < $item->endCubicWeight
+                $cubicWeight > $item->initialCubicWeight
+                && $cubicWeight <= $item->endCubicWeight
             ) {
                 return $item->value;
             }

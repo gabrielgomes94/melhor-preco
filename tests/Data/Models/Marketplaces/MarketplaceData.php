@@ -76,6 +76,7 @@ class MarketplaceData
     {
         $marketplace = new Marketplace($data);
         $marketplace->erp_name = 'bling';
+        $marketplace->is_active = true;
 
         if (empty($data['uuid'])) {
             $marketplace->uuid = Uuid::uuid4();

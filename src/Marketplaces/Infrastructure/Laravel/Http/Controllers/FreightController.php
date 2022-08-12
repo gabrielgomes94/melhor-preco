@@ -2,14 +2,14 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Excel\Exports\FreightTableExport;
 use Src\Marketplaces\Infrastructure\Excel\Exports\FreightTableTemplateExport;
-use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\UpdateCommissionRequest;
+use Src\Marketplaces\Infrastructure\Laravel\Http\Requests\UpdateFreightRequest;
 use Src\Marketplaces\Infrastructure\Laravel\Presenters\MarketplacePresenter;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -25,16 +25,16 @@ class FreightController extends Controller
 
     public function edit(string $marketplaceSlug): View
     {
-        $userId = auth()->user()->getAuthIdentifier();
+        $userId = $this->getUserId();
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
         $data = $this->marketplacePresenter->present($marketplace);
 
         return view('pages.marketplaces.set-freight', $data);
     }
 
-    public function update(UpdateCommissionRequest $request, string $marketplaceSlug): RedirectResponse
+    public function update(UpdateFreightRequest $request, string $marketplaceSlug): RedirectResponse
     {
-        $userId = auth()->user()->getAuthIdentifier();
+        $userId = $this->getUserId();
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
 
         $this->freightRepository->update($marketplace, $request->transform());

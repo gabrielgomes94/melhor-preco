@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Marketplaces\Providers;
+namespace Src\Marketplaces\Infrastructure\Laravel\Providers;
 
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository as MarketplaceRepositoryInterface;
@@ -24,7 +24,6 @@ class MarketplacesServiceProviderTest extends TestCase
     {
         // Act
         $result = $this->app->get(CommissionRepositoryInterface::class);
-
 
         // Assert
         $this->assertInstanceOf(CommissionRepository::class, $result);

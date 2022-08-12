@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Marketplaces\Repositories;
+namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceSlugAlreadyExists;
@@ -55,7 +55,7 @@ class MarketplaceRepositoryTest extends TestCase
         $repository = $this->app->get(MarketplaceRepository::class);
 
         // Act
-        $result = $repository->getByErpId('12345678', 1);
+        $result = $repository->getByErpId('123456', 1);
 
         // Assert
         $this->assertInstanceOf(Marketplace::class, $result);
@@ -132,7 +132,7 @@ class MarketplaceRepositoryTest extends TestCase
         // Assert
         $this->assertTrue($result);
 
-        $marketplace = MarketplaceModel::where('uuid', 'ac996a0e-ae2f-47b3-aaee-e9e396294395')->first();
+        $marketplace = $marketplace->refresh();
         $this->assertFalse($marketplace->isActive());
     }
 
