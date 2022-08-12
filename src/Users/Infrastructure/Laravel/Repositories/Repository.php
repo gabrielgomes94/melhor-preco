@@ -11,7 +11,7 @@ use Src\Users\Infrastructure\Laravel\Models\User as UserModel;
 
 class Repository implements RepositoryInterface
 {
-    public function find(string $id): User
+    public function find(string $id): ?User
     {
         return UserModel::find($id);
     }

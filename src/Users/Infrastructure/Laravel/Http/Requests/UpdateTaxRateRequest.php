@@ -16,18 +16,18 @@ class UpdateTaxRateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'simplesNacionalTax' => 'numeric',
-            'icmsTax' => 'numeric',
+            'simplesNacionalTax' => 'numeric|required',
+            'icmsTax' => 'numeric|required',
         ];
     }
 
     public function validationData(): array
     {
         return [
-            'simplesNacionalTax' => (float) $this->transformNumericInput(
+            'simplesNacionalTax' => $this->transformNumericInput(
                 $this->input('simplesNacionalTax')
             ),
-            'icmsTax' => (float) $this->transformNumericInput(
+            'icmsTax' => $this->transformNumericInput(
                 $this->input('icmsTax')
             ),
         ];
@@ -41,8 +41,14 @@ class UpdateTaxRateRequest extends FormRequest
         );
     }
 
-    private function transformNumericInput(string $input): string
+    private function transformNumericInput(?string $input = ''): ?string
     {
-        return str_replace(',', '.', $input);
+        $input = str_replace(',', '.', $input);
+
+        if (!$input) {
+            return null;
+        }
+
+        return $input;
     }
 }

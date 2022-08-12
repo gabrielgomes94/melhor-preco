@@ -2,12 +2,13 @@
 
 namespace Src\Users\Infrastructure\Laravel\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Src\Users\Infrastructure\Laravel\Http\Requests\UpdateTaxRateRequest;
 use Src\Users\Infrastructure\Laravel\Repositories\Repository;
 
-class TaxesController
+class TaxesController extends Controller
 {
     public function __construct(
         private Repository $repository
@@ -16,7 +17,7 @@ class TaxesController
 
     public function get(): View
     {
-        $user = auth()->user();
+        $user = $this->getUser();
 
         return view('pages.users.taxes', [
             'taxes' => [
@@ -28,8 +29,7 @@ class TaxesController
 
     public function update(UpdateTaxRateRequest $request): RedirectResponse
     {
-        $user = auth()->user();
-        $this->repository->updateTax($user, $request->transform());
+        $this->repository->updateTax($this->getUser(), $request->transform());
 
         return redirect()->back();
     }

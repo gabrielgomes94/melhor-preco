@@ -6,8 +6,9 @@ use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
 use Src\Products\Infrastructure\Laravel\Jobs\SyncCategories;
 use Src\Products\Infrastructure\Laravel\Jobs\SyncProducts;
 use Src\Sales\Infrastructure\Laravel\Jobs\SyncSales;
+use Src\Users\Domain\Services\SynchronizeData as SynchronizeDataInterface;
 
-class SynchronizeData
+class SynchronizeData implements SynchronizeDataInterface
 {
     public function execute(string $userId)
     {
