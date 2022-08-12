@@ -53,7 +53,7 @@ class ListSalesPresenter
 
             for ($i = 0; $i < $item->getQuantity(); $i++) {
                 $products[] = [
-                    'formattedName' => "{$product->getSku()} - {$product->getDetails()->getName()}",
+                    'formattedName' => "{$product->getSku()} - {$product->getName()}",
                     'sku' => $product->getSku(),
                 ];
             }

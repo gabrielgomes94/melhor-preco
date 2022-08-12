@@ -13,7 +13,7 @@ trait MarketplaceScopes
 
     public function scopeWithUser(Builder $query, string $userId): Builder
     {
-        return $query->where('user_id', $userId);
+        return $query->where('user_id', (int) $userId);
     }
 
     public function scopeWithSlug(Builder $query, string $slug): Builder

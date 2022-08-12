@@ -23,6 +23,6 @@ class SyncCosts implements ShouldQueue
         SynchronizePurchaseItems $syncPurchaseItems
     ): void {
         $syncPurchaseInvoices->sync($this->userId);
-        $syncPurchaseItems->sync();
+        $syncPurchaseItems->sync($this->userId);
     }
 }

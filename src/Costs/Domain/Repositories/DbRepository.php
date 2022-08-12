@@ -23,7 +23,7 @@ interface DbRepository
 
     public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice, string $userId): bool;
 
-    public function listPurchaseInvoice(): array;
+    public function listPurchaseInvoice(string $userId): array;
 
     public function linkItemToProduct(PurchaseItem $item, string $productSku): bool;
 

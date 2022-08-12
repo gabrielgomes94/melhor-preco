@@ -69,9 +69,9 @@ class Repository implements DbRepository
     /**
      * @return PurchaseInvoiceModel[]
      */
-    public function listPurchaseInvoice(): array
+    public function listPurchaseInvoice(string $userId): array
     {
-        return PurchaseInvoiceModel::all()->all();
+        return PurchaseInvoiceModel::fromUser($userId)->get()->all();
     }
 
     public function purchaseInvoiceExists(PurchaseInvoice $purchaseInvoice): bool

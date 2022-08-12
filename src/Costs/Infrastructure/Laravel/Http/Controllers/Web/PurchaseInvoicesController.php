@@ -33,7 +33,7 @@ class PurchaseInvoicesController extends Controller
 
     public function listPurchaseInvoices()
     {
-        $data = $this->repository->listPurchaseInvoice();
+        $data = $this->repository->listPurchaseInvoice($this->getUserId());
         $data = $this->purchaseInvoicePresenter->presentList($data);
 
         return view('pages.costs.invoices.list', [

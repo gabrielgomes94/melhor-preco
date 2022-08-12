@@ -16,9 +16,9 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
     {
     }
 
-    public function sync(): void
+    public function sync(string $userId): void
     {
-        $data = $this->repository->listPurchaseInvoice();
+        $data = $this->repository->listPurchaseInvoice($userId);
 
         foreach ($data as $purchaseInvoice) {
             if ($purchaseInvoice->hasItems()) {

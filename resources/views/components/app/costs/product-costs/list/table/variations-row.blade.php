@@ -13,9 +13,9 @@
             <td colspan="4"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
-                title="{{ $variation->getDetails()->getName() }}"
+                title="{{ $variation->getName() }}"
             >
-                {{$variation->getSku()}} - {{ $variation->getDetails()->getName() }}
+                {{$variation->getSku()}} - {{ $variation->getName() }}
             </td>
 
             <td colspan="2">

@@ -286,4 +286,9 @@ class Product extends Model implements ProductModelInterface
     {
         return $this->getDimensions()->cubicWeight();
     }
+
+    public function setCosts(Costs $costs): void
+    {
+        $this->costs = $costs;
+    }
 }
