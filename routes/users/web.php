@@ -26,7 +26,7 @@ Route::middleware('auth')
                 Route::get('/perfil', [ProfileController::class, 'show'])
                     ->name('.profile');
 
-                Route::post('/perfil', [ProfileController::class, 'update'])
+                Route::post('/perfil', [ProfileController::class, 'updateProfile'])
                     ->name('.profile');
 
                 Route::post('atualizar-senha', [ProfileController::class, 'updatePasword'])

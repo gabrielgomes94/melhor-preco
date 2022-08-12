@@ -27,7 +27,7 @@ class ProfileController
         ]);
     }
 
-    public function update(UpdateProfile $request): RedirectResponse
+    public function updateProfile(UpdateProfile $request): RedirectResponse
     {
         $user = auth()->user();
 
