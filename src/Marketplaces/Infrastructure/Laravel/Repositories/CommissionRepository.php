@@ -44,11 +44,7 @@ class CommissionRepository implements CommissionRepositoryInterface
             return $commission->get();
         }
 
-        if ($commission instanceof CategoryCommission) {
-            return $commission->get($categoryId) ?? Percentage::fromPercentage(0.0);
-        }
-
-        return Percentage::fromPercentage(0.0);
+        return $commission->get($categoryId) ?? Percentage::fromPercentage(0.0);
     }
 
     public function update(Marketplace $marketplace, CommissionValuesCollection $data): bool
