@@ -1,22 +1,18 @@
 <?php
 
-namespace Tests\Integration\Products\Services;
+namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
-use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Products\Domain\Models\Product\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
-use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeProductCosts;
-//use PHPUnit\Framework\TestCase;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
-// @todo: Talvez os testes de sincronização de dados façam sentido ficar isolados no contexto Integrations
 class SynchronizeProductCostsTest extends TestCase
 {
     use RefreshDatabase;
