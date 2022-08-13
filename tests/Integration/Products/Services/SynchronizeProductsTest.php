@@ -11,6 +11,7 @@ use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
+// @todo: mover para camada de testes unitários e refatorar o teste para seguir o pattern dos 3As
 class SynchronizeProductsTest extends TestCase
 {
     use RefreshDatabase;
