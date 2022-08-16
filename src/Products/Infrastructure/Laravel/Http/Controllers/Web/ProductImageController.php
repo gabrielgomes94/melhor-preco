@@ -2,32 +2,22 @@
 
 namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
+use Src\Products\Domain\Services\UploadImages;
 use Src\Products\Infrastructure\Laravel\Http\Requests\ImageUploaderRequest;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
-use Src\Products\Infrastructure\Laravel\Services\UploadImages;
 
-class ProductImageController extends BaseController
+class ProductImageController extends Controller
 {
-    private UploadImages $storeImages;
-
-    public function __construct(UploadImages $storeImages)
-    {
-        $this->storeImages = $storeImages;
-    }
+    public function __construct(
+        private UploadImages $uploadImages
+    )
+    {}
 
     public function upload(ImageUploaderRequest $request)
     {
         try {
-            $user = $request->user();
-
-            $this->storeImages->execute(
-                $user->getErpToken(),
-                $request->validated()['sku'],
-                $request->validated()['name'],
-                $request->validated()['brand'],
-                $request->validated()['images'],
-            );
+            $this->uploadImages->execute($request->transform(), $this->getUser());
 
             session()->flash('message', 'Fotos atualizadas com sucesso.');
         } catch (\Exception $e) {
