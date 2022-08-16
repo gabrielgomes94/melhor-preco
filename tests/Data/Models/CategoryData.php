@@ -66,7 +66,7 @@ class CategoryData
         return self::persisted($user, [
             'name' => 'Passeio do Bebê',
             'category_id' => '1',
-            'parent_category_id' => null,
+            'parent_category_id' => '',
         ]);
     }
 }

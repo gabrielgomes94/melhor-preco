@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Products\Repositories;
+namespace Src\Products\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
