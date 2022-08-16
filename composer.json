@@ -78,14 +78,13 @@
     "autoload-dev": {
         "psr-4": {
             "Src\\Costs\\": "tests/Costs/Unit/",
+            "Src\\Integrations\\": "tests/Unit/Integrations/",
             "Src\\Marketplaces\\": "tests/Unit/Marketplaces/",
             "Src\\Products\\": "tests/Unit/Products/",
             "Src\\Sales\\": "tests/Unit/Sales/",
             "Src\\Users\\": "tests/Unit/Users/",
             "Tests\\": "tests/",
-            "Tests\\Unit\\App\\": "tests/Unit/app/",
-            "Tests\\Unit\\Integrations\\": "tests/Unit/integrations/",
-            "Tests\\Unit\\Src\\Products\\": "tests/Unit/src/products/"
+            "Tests\\Unit\\App\\": "tests/Unit/app/"
         }
     },
     "minimum-stability": "dev",
