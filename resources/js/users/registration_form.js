@@ -2,6 +2,11 @@ import IMask from 'imask';
 
 document.addEventListener('DOMContentLoaded', (event) => {
     var phoneInput = document.querySelector('[data-registration-phone]')
+
+    if (!phoneInput) {
+        return
+    }
+
     IMask(phoneInput, {
         mask: [
             {
@@ -14,6 +19,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     })
 
     var fiscalIdInput = document.querySelector('[data-registration-fiscal-id]')
+    if (!fiscalIdInput) {
+        return
+    }
+
     IMask(fiscalIdInput, {
         mask: [
             {

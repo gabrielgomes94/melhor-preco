@@ -16,16 +16,8 @@ class ImageUploaderRequest extends FormRequest
         return [
             'sku' => 'required',
             'name' => 'required',
-            'brand' => 'required',
             'images' => 'array|required',
             'images.*' => 'image'
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'brand' => 'marca',
         ];
     }
 
