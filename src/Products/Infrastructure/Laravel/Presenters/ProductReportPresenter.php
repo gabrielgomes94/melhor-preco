@@ -22,7 +22,7 @@ class ProductReportPresenter
     public function present(ProductInfoReport $productInfoReport): array
     {
         $salesReport = $productInfoReport->salesReport;
-        $costs = $productInfoReport->costsItems;
+        $costs = collect($productInfoReport->costsItems);
         $costs = $costs->map(function(PurchaseItem $item) {
             return $this->purchaseItemsPresenter->present($item);
         });
