@@ -6020,8 +6020,15 @@ var uploadImageAPI = function uploadImageAPI() {
                 return data.json();
               }).then(function (data) {
                 if (data.product) {
+                  var files = Array.from(data.product.images);
+                  var div = document.querySelector('.preview-image');
+                  div.innerHTML = '';
+                  var inputFile = document.querySelector('.input-file');
+                  inputFile.value = '';
+                  files.forEach(function (imageUrl, index) {
+                    renderImages(div, imageUrl);
+                  });
                   uploadImage.formInput.name.value = data.product.name;
-                  uploadImage.formInput.brand.value = data.product.brand;
                 }
 
                 if (data.errors) {
@@ -6048,25 +6055,30 @@ var uploadImageAPI = function uploadImageAPI() {
 };
 
 var filePreview = function filePreview() {
-  if (window.location.pathname !== '/product/upload_images') {
+  if (window.location.pathname !== '/produtos/upload-de-imagens') {
     return;
   }
 
   var inputFile = document.querySelector('.input-file');
   inputFile.addEventListener('change', function () {
     var files = Array.from(this.files);
+    var div = document.querySelector('.preview-image');
+    div.innerHTML = '';
     files.forEach(function (file, index) {
       var previewURL = URL.createObjectURL(file);
-      var div = document.querySelector('.preview-image');
-      var imageContainter = document.createElement('div');
-      var img = document.createElement("img");
-      img.setAttribute('src', previewURL);
-      img.setAttribute('width', 180);
-      img.style.margin = '12px';
-      div.append(imageContainter);
-      imageContainter.append(img);
+      renderImages(div, previewURL);
     });
   });
+};
+
+var renderImages = function renderImages(divComponent, url) {
+  var imageContainter = document.createElement('div');
+  var img = document.createElement('img');
+  img.setAttribute('src', url);
+  img.setAttribute('width', 180);
+  img.style.margin = '12px';
+  divComponent.append(imageContainter);
+  imageContainter.append(img);
 };
 
 uploadImageAPI();
@@ -6087,6 +6099,11 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function (event) {
   var phoneInput = document.querySelector('[data-registration-phone]');
+
+  if (!phoneInput) {
+    return;
+  }
+
   Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(phoneInput, {
     mask: [{
       mask: '(00) 0000-0000'
@@ -6095,6 +6112,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
     }]
   });
   var fiscalIdInput = document.querySelector('[data-registration-fiscal-id]');
+
+  if (!fiscalIdInput) {
+    return;
+  }
+
   Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(fiscalIdInput, {
     mask: [{
       mask: '000.000.000-00'
