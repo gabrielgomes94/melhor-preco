@@ -2,6 +2,9 @@
 
 namespace Src\Products\Domain\Models\Product\ValueObjects;
 
+/**
+ * @todo: Adicionar propriedades para EAN e ERP_ID
+ */
 class Identifiers
 {
     private string $sku;

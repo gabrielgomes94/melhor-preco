@@ -2,8 +2,10 @@
 
 namespace Src\Products\Infrastructure\Laravel\Services;
 
+use Src\Products\Domain\DataTransfer\ProductImages;
 use Src\Products\Domain\Repositories\Erp\ProductRepository;
 use Src\Products\Domain\Services\UploadImages as UploadImagesInterface;
+use Src\Users\Domain\Models\User;
 
 class UploadImages implements UploadImagesInterface
 {
@@ -14,28 +16,20 @@ class UploadImages implements UploadImagesInterface
         $this->productRepository = $productRepository;
     }
 
-    /**
-     * @todo simplificar os parâmetros pra esse método
-     * $user, $basePath, $images
-     */
-    public function execute(
-        string $erpToken,
-        string $sku,
-        string $name,
-        string $brand,
-        array $images
-    ): bool
+    public function execute(ProductImages $productImages, User $user): bool
     {
-        $path = $this->getPath($sku, $name, $brand);
-        $this->productRepository->uploadImages($erpToken, $sku, $path, $images);
-
-        return true;
+        return $this->productRepository->uploadImages(
+            $user->getErpToken(),
+            $productImages->sku,
+            $this->getPath($user, $productImages->sku, $productImages->name),
+            $productImages->images
+        );
     }
 
-    private function getPath(string $sku, string $name, string $brand): string
+    private function getPath(User $user, string $sku, string $name): string
     {
-        $name = preg_replace('/\//', '', $name);
+        $basePath = hash('sha256', $user->getName() . $user->getFiscalId());
 
-        return "{$brand}/{$sku} - {$name}";
+        return "$basePath/{$sku} - {$name}";
     }
 }

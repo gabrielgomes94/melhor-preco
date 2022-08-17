@@ -16,10 +16,10 @@ class DimensionsCast implements CastsAttributes
         }
 
         return new Dimensions(
-            $this->depth ?? 0.0,
-            $this->height ?? 0.0,
-            $this->width ?? 0.0,
-            $this->weight ?? 0.0
+            $model->depth ?? 0.0,
+            $model->height ?? 0.0,
+            $model->width ?? 0.0,
+            $model->weight ?? 0.0
         );
     }
 

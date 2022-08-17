@@ -14,6 +14,7 @@ class ProductRepository implements ProductRepositoryInterface
 {
     private const PER_PAGE = 15;
 
+    // @todo: trocar o retorno desse método. Deve voltar ou array ou iterable
     public function all(string $userId): Collection
     {
         return Product::fromUser($userId)

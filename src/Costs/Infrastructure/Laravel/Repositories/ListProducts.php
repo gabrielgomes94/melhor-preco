@@ -8,6 +8,7 @@ use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 
 /**
  * @deprecated Check if this service is really necessary. maybe the repository could return ProductsPaginated instance
+ * @todo: Remover essa classe que não serve pra nada. Refatorar a busca pelos produtos e a exibição deles na tela de custos
  */
 class ListProducts
 {

@@ -225,7 +225,7 @@ class Product extends Model implements ProductModelInterface
 
     public function isActive(): bool
     {
-        return $this->is_active && $this->prices->count() > 0;
+        return $this->is_active;
     }
 
     public function postedOnMarketplace(Marketplace $marketplace): bool
@@ -285,6 +285,16 @@ class Product extends Model implements ProductModelInterface
     public function getCubicWeight(): float
     {
         return $this->getDimensions()->cubicWeight();
+    }
+
+    public function getEan(): string
+    {
+        return $this->ean;
+    }
+
+    public function getErpId(): string
+    {
+        return $this->erp_id;
     }
 
     public function setCosts(Costs $costs): void

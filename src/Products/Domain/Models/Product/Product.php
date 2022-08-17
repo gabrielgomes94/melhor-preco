@@ -29,6 +29,8 @@ interface Product
 
     public function getDimensions(): Dimensions;
 
+    public function getEan(): string;
+
     public function getImages(): array;
 
     public function getName(): string;

@@ -32,8 +32,8 @@ class SynchronizeProductCosts implements SyncProductCosts
                 $product->getCosts()->additionalCosts(),
                 $item->getICMSPercentage(),
             );
-            $product->setCosts($costs);
-            $product->save();
+
+            $this->repository->updateCosts($product, $costs, $user->getId());
         }
     }
 }

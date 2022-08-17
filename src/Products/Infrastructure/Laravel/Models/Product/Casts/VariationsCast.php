@@ -19,6 +19,10 @@ class VariationsCast implements CastsAttributes
             ->get()
             ->all();
 
+        if (empty($variations)) {
+            return new Variations();
+        }
+
         return new Variations($model->sku, $variations);
     }
 
