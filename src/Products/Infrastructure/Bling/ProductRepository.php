@@ -64,7 +64,7 @@ class ProductRepository implements ErpProductRepositoryInterface
         );
     }
 
-    public function uploadImages(string $erpToken, string $sku, string $path, array $images)
+    public function uploadImages(string $erpToken, string $sku, string $path, array $images): bool
     {
         $urls = $this->storeImages($path, $images);
         $updateResponse = $this->client->update($erpToken, $sku, $this->getXML($urls));
@@ -72,13 +72,10 @@ class ProductRepository implements ErpProductRepositoryInterface
         $response = $this->factory->make($updateResponse);
 
         if ($response instanceof ErrorResponse) {
-            Log::error(
-                'Produto: Imagens não foram enviadas para o Bling',
-                $response->errors()
-            );
-
-            throw new \Exception("Erro: produto não foi enviado para o Bling.");
+            return false;
         }
+
+        return true;
     }
 
     private function storeImages(string $path, array $images): array

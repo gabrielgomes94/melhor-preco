@@ -18,5 +18,5 @@ interface ProductRepository
 
     public function get(string $erpToken, string $sku);
 
-    public function uploadImages(string $erpToken, string $sku, string $path, array $images);
+    public function uploadImages(string $erpToken, string $sku, string $path, array $images): bool;
 }
