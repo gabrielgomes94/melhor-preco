@@ -23,7 +23,7 @@ class UpdateCosts implements UpdateCostsInterface
     public function execute(string $sku, array $data, string $userId): bool
     {
         if (!$products = $this->productRepository->getProductsAndVariations($sku, $userId)) {
-            throw new ProductNotFoundException($sku);
+            throw new ProductNotFoundException($sku, $userId);
         }
 
         foreach ($products as $product) {

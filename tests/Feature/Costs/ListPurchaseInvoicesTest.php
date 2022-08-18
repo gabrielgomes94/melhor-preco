@@ -66,7 +66,7 @@ class ListPurchaseInvoicesTest extends TestCase
                 'seriesNumber' => '1 - 248284',
                 'issuedAt' => '17/02/2021',
                 'contactName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
-                'value' => 'R$ 1.000,00',
+                'value' => 'R$ 1.000,00',
                 'status' => 'Registrada',
             ],
             [
@@ -75,7 +75,7 @@ class ListPurchaseInvoicesTest extends TestCase
                 'seriesNumber' => '1 - 248285',
                 'issuedAt' => '17/02/2021',
                 'contactName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
-                'value' => 'R$ 2.500,00',
+                'value' => 'R$ 2.500,00',
                 'status' => 'Registrada',
             ],
             [
@@ -84,7 +84,7 @@ class ListPurchaseInvoicesTest extends TestCase
                 'seriesNumber' => '1 - 248286',
                 'issuedAt' => '17/02/2021',
                 'contactName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
-                'value' => 'R$ 1.750,00',
+                'value' => 'R$ 1.750,00',
                 'status' => 'Registrada',
             ],
         ]);

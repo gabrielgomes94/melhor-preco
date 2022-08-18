@@ -9,6 +9,11 @@ use Src\Math\MathPresenter;
 
 class PurchaseInvoicePresenter
 {
+    public function __construct(
+        private readonly PurchaseItemsPresenter $purchaseItemsPresenter
+    )
+    {}
+
     public function present(PurchaseInvoice $invoice): array
     {
         return [
@@ -25,7 +30,7 @@ class PurchaseInvoicePresenter
             'freightValue' => 0.0,
             'insuranceValue' => 0.0,
             'items' => $invoice->getItems()->map(
-                fn (PurchaseItem $item) => PurchaseItemsPresenter::present($item)
+                fn (PurchaseItem $item) => $this->purchaseItemsPresenter->present($item)
             )->all(),
         ];
     }

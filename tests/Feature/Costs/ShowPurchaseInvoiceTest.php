@@ -73,7 +73,7 @@ class ShowPurchaseInvoiceTest extends TestCase
             'seriesNumber' => '1 - 248284',
             'issuedAt' => '17/02/2021',
             'contactName' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
-            'value' => 'R$ 1.000,00',
+            'value' => 'R$ 1.000,00',
             'status' => 'Registrada',
             'number' => '248284',
             'situation' => 'Registrada',
@@ -83,18 +83,25 @@ class ShowPurchaseInvoiceTest extends TestCase
             'items' => [
                 [
                     'name' => 'Canguru Balbi Vermelho',
-                    'purchasePrice' => 'R$ 150,00',
-                    'additionalCosts' => [
-                        'freightValue' => 'R$ 10,00',
-                        'taxesValue' => 'R$ 40,00',
-                        'insuranceValue' => 'R$ 0,00',
-                    ],
-                    'unitValue' => 'R$ 168,00',
+                    'purchasePrice' => 'R$ 150,00',
                     'quantity' => 5.0,
-                    'totalValue' => 'R$ 840,00',
+                    'totalValue' => 'R$ 840,00',
                     'purchaseItemUuid' => '517cce8a-e7c2-48d7-a052-5e10729c7c22',
                     'productSku' => '1',
-                ]
+                    'issuedAt' => '17/02/2021 09:55',
+                    'unitCost' => 'R$ 168,00',
+                    'costs' => [
+                        'purchasePrice' => 'R$ 150,00',
+                        'taxes' => 'R$ 40,00',
+                        'freight' => 'R$ 10,00',
+                        'insurance' => '',
+                        'icms' => '0,00 %',
+                    ],
+                    'supplier' => [
+                        'name' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
+                        'fiscalId' => '06981862000200',
+                    ],
+                ],
             ],
         ]);
     }
