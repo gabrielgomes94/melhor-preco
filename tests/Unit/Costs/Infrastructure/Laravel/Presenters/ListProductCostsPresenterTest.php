@@ -6,7 +6,6 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Costs\Infrastructure\Laravel\Presenters\ListProductCostsPresenter;
 use Src\Products\Domain\DataTransfer\FilterOptions;
-use Src\Products\Domain\DataTransfer\ProductsPaginated;
 use Tests\Data\Models\Products\ProductData;
 use Tests\TestCase;
 
@@ -19,7 +18,7 @@ class ListProductCostsPresenterTest extends TestCase
 
         // Act
         $result = $presenter->present(
-            new ProductsPaginated($this->getPaginator()),
+            $this->getPaginator(),
             new FilterOptions(sku: 1)
         );
 
