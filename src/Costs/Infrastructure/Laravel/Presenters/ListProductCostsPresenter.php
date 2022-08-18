@@ -2,16 +2,16 @@
 
 namespace Src\Costs\Infrastructure\Laravel\Presenters;
 
+use Illuminate\Contracts\Pagination\Paginator;
 use Src\Products\Domain\DataTransfer\FilterOptions;
-use Src\Products\Domain\DataTransfer\ProductsPaginated;
 
 class ListProductCostsPresenter
 {
-    public static function present(ProductsPaginated $data, FilterOptions $options): array
+    public static function present(Paginator $paginator, FilterOptions $options): array
     {
         return [
-            'products' => $data->getProducts(),
-            'paginator' => $data->getPaginator(),
+            'products' => $paginator->items(),
+            'paginator' => $paginator,
             'filter' => [
                 'sku' => $options->sku
             ]
