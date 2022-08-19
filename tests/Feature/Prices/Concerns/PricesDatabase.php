@@ -73,6 +73,7 @@ trait PricesDatabase
                 'totalTaxes' => 40.0
             ],
             'ean' => '7908238800092',
+            'uuid' => '65c0cdcf-fb24-4d3b-9042-9311ab739376',
         ]);
 
         $item->product()->associate($product);
