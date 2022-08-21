@@ -148,15 +148,7 @@ class Product extends Model implements ProductModelInterface
 
     public function getComposition(): Composition
     {
-        foreach ($this->composition_products as $product) {
-            if (!$compositionProduct = $this->where('sku', $product)->first()) {
-                continue;
-            }
-
-            $compositionProducts[] = $compositionProduct;
-        }
-
-        return new Composition($compositionProducts ?? []);
+        return $this->composition;
     }
 
     public function hasVariations(): bool
