@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
-use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Domain\Models\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeProductCosts;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;

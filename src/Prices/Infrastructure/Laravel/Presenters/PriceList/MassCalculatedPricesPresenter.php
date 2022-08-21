@@ -9,7 +9,7 @@ use Src\Math\MathPresenter;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\ListPricesCalculated;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class MassCalculatedPricesPresenter

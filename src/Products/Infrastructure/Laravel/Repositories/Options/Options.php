@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories\Options;
 
-use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
+use Src\Products\Domain\Models\ValueObjects\Dimensions;
 
 /**
  * @deprecated

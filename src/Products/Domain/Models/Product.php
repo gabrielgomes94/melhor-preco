@@ -1,16 +1,16 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product;
+namespace Src\Products\Domain\Models;
 
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Products\Domain\Models\Product\ValueObjects\Composition;
-use Src\Products\Domain\Models\Product\ValueObjects\Costs;
-use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
-use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
-use Src\Products\Domain\Models\Product\ValueObjects\Variations;
+use Src\Products\Domain\Models\ValueObjects\Composition;
+use Src\Products\Domain\Models\ValueObjects\Costs;
+use Src\Products\Domain\Models\ValueObjects\Dimensions;
+use Src\Products\Domain\Models\ValueObjects\Identifiers;
+use Src\Products\Domain\Models\ValueObjects\Variations;
 use Src\Users\Domain\Models\User;
 
 interface Product

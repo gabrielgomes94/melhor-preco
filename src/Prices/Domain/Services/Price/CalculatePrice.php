@@ -5,7 +5,7 @@ namespace Src\Prices\Domain\Services\Price;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as CalculatedPriceInterface;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 interface CalculatePrice
 {

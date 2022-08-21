@@ -6,7 +6,7 @@ use Money\Money;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\Percentage;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 interface CommissionRepository
 {

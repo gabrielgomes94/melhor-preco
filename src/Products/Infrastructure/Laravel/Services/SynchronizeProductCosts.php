@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Services;
 
-use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Domain\Models\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Domain\Services\SyncProductCosts;
 use Src\Users\Domain\Models\User;

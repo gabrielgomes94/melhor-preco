@@ -5,7 +5,7 @@ namespace Src\Prices\Domain\DataTransfer;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
 use Src\Prices\Infrastructure\Laravel\Models\Price as PriceModel;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 class PriceCalculatedFromProduct
 {

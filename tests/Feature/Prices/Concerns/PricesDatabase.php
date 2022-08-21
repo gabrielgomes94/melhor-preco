@@ -3,7 +3,7 @@
 namespace Tests\Feature\Prices\Concerns;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;

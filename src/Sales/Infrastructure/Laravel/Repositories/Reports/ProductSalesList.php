@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;

@@ -11,7 +11,7 @@ use Src\Math\MathPresenter;
 use Src\Prices\Domain\DataTransfer\ListPricesCalculated;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\FilterPresenter;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\MarketplacesPresenter;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;

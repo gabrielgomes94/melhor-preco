@@ -11,7 +11,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 class CommissionRepository implements CommissionRepositoryInterface
 {

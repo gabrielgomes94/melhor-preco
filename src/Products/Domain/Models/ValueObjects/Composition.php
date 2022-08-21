@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\ValueObjects;
+namespace Src\Products\Domain\Models\ValueObjects;
 
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 

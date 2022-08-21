@@ -7,7 +7,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 class CalculatedPrice implements Contracts\CalculatedPrice
 {
