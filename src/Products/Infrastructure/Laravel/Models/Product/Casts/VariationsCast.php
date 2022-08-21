@@ -15,9 +15,13 @@ class VariationsCast implements CastsAttributes
             throw new InvalidArgumentException('Invalid type for model parameter');
         }
 
-        $variations = $model->withParentSku($model->sku)
-            ->get()
-            ->all();
+        if ($model->parent_sku) {
+            $variations = $this->getVariations($model, $model->parent_sku);
+
+            return new Variations($model->parent_sku, $variations);
+        }
+
+        $variations = $this->getVariations($model, $model->sku);
 
         if (empty($variations)) {
             return new Variations();
@@ -36,5 +40,13 @@ class VariationsCast implements CastsAttributes
             'parent_sku' => $value->getParentSku(),
             'has_variations' => (bool) count($value->get()),
         ];
+    }
+
+    private function getVariations(Product $model, string $sku): array
+    {
+        return $model->withParentSku($model->parent_sku)
+            ->fromUser($model->user_id)
+            ->get()
+            ->all();
     }
 }

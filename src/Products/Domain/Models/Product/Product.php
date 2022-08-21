@@ -53,6 +53,8 @@ interface Product
 
     public function isActive(): bool;
 
+    public function isVariation(): bool;
+
     public function postedOnMarketplace(Marketplace $marketplace): bool;
 
     public function setCosts(Costs $costs): void;

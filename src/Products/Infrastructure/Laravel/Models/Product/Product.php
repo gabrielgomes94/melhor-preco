@@ -218,40 +218,15 @@ class Product extends Model implements ProductModelInterface
         return $this->updated_at;
     }
 
-    public function hasCompositionProducts(): bool
-    {
-        return $this->getComposition()->hasCompositions();
-    }
-
-    public function isActive(): bool
-    {
-        return $this->is_active;
-    }
-
-    public function postedOnMarketplace(Marketplace $marketplace): bool
-    {
-        $slug = $marketplace->getSlug();
-        $prices = $this->prices;
-
-        foreach ($prices as $price) {
-            if ($price->getMarketplace()?->getSlug() == $slug) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function getImages(): array
     {
         return $this->images;
     }
 
-    public function getUser(): \Src\Users\Domain\Models\User
+    public function getUser(): User
     {
         return $this->user;
     }
-
 
     public function getUserId(): string
     {
@@ -295,6 +270,35 @@ class Product extends Model implements ProductModelInterface
     public function getErpId(): string
     {
         return $this->erp_id;
+    }
+
+    public function hasCompositionProducts(): bool
+    {
+        return $this->getComposition()->hasCompositions();
+    }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
+
+    public function isVariation(): bool
+    {
+        return (bool) $this->parent_sku;
+    }
+
+    public function postedOnMarketplace(Marketplace $marketplace): bool
+    {
+        $slug = $marketplace->getSlug();
+        $prices = $this->prices;
+
+        foreach ($prices as $price) {
+            if ($price->getMarketplace()?->getSlug() == $slug) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function setCosts(Costs $costs): void
