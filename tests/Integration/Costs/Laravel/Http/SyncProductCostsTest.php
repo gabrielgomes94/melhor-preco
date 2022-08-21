@@ -48,6 +48,6 @@ class SyncProductCostsTest extends TestCase
 
     private function and_then_the_user_must_be_redirected_to_list_purchase_invoices_page(): void
     {
-        $this->response->assertRedirect('custos/notas-fiscais/lista');
+        $this->response->assertRedirect();
     }
 }
