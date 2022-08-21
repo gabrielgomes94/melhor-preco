@@ -17,7 +17,7 @@ class SaleOrderApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/SaleOrders/list-sale-orders-sanitized.json');
 
         // Act
-        $result = $client->list();
+        $result = $client->list('token');
 
         // Assert
         $this->assertSame($expected, $result);

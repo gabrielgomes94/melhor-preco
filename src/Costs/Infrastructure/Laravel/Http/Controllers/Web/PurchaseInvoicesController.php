@@ -20,7 +20,7 @@ class PurchaseInvoicesController extends Controller
      */
     public function showPurchaseInvoices(string $uuid)
     {
-        $data = $this->repository->getPurchaseInvoice($uuid);
+        $data = $this->repository->getPurchaseInvoice($this->getUserId(), $uuid);
 
         if (!$data) {
             abort(404);

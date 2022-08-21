@@ -4,10 +4,12 @@ namespace Src\Costs\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice as PurchaseInvoiceInterface;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class PurchaseInvoice extends Model implements PurchaseInvoiceInterface
 {
@@ -37,6 +39,11 @@ class PurchaseInvoice extends Model implements PurchaseInvoiceInterface
     public function items(): HasMany
     {
         return $this->hasMany(PurchaseItem::class, 'purchase_invoice_uuid', 'uuid');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getAccessKey(): string
@@ -107,5 +114,10 @@ class PurchaseInvoice extends Model implements PurchaseInvoiceInterface
     public function scopeFromUser(Builder $query, string $userId): Builder
     {
         return $query->where('user_id', $userId);
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
     }
 }

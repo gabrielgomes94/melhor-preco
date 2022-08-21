@@ -26,7 +26,7 @@ class SyncCostsTest extends TestCase
             ->andReturnNull();
 
         $synchronizePurchaseItems->expects()
-            ->sync()
+            ->sync('some-user-id')
             ->andReturnNull();
 
         // Act

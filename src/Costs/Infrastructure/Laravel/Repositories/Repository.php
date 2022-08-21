@@ -26,14 +26,22 @@ class Repository implements DbRepository
             ?->getLastUpdate();
     }
 
-    public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice
+    public function getPurchaseInvoice(string $userId, string $uuid): ?PurchaseInvoice
     {
-        return PurchaseInvoiceModel::where('uuid', $uuid)->first();
+        return PurchaseInvoiceModel::fromUser($userId)
+            ->where('uuid', $uuid)
+            ->first();
     }
 
-    public function getPurchaseItem(string $uuid): ?PurchaseItem
+    public function getPurchaseItem(string $userId, string $uuid): ?PurchaseItem
     {
-        return PurchaseItemModel::where('uuid', $uuid)->first();
+        $item = PurchaseItemModel::where('uuid', $uuid)->first();
+
+        if ($item?->getUserId() === $userId) {
+            return $item;
+        }
+
+        return null;
     }
 
     public function getXml(PurchaseInvoice $purchaseInvoice): SimpleXMLElement

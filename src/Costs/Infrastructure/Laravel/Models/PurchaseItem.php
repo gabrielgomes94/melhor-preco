@@ -136,4 +136,9 @@ class PurchaseItem extends Model implements PurchaseItemInterface
     {
         return $this->uuid;
     }
+
+    public function getUserId(): string
+    {
+        return $this->invoice->getUser()->getId();
+    }
 }

@@ -36,6 +36,7 @@ class PurchaseInvoiceData
     public static function getPayload(): array
     {
         return [
+
             'access_key' => '1234',
             'contact_name' => 'TUTTI BABY INDUSTRIA E COMERCIO DE ARTIGOS INFANTIS LTDA',
             'fiscal_id' => '06981862000200',
