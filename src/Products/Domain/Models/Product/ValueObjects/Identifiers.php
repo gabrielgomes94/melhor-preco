@@ -2,20 +2,22 @@
 
 namespace Src\Products\Domain\Models\Product\ValueObjects;
 
-/**
- * @todo: Adicionar propriedades para EAN e ERP_ID
- */
 class Identifiers
 {
     private string $sku;
     private string $erpId;
-    private array $storeSkuIds;
+    private string $ean;
 
-    public function __construct(string $sku, string $erpId, array $storeSkuIds = [])
+    public function __construct(string $sku, string $erpId, string $ean)
     {
         $this->sku = $sku;
         $this->erpId = $erpId;
-        $this->storeSkuIds = $storeSkuIds;
+        $this->ean = $ean;
+    }
+
+    public function getEan(): string
+    {
+        return $this->ean;
     }
 
     public function getSku(): string
@@ -26,10 +28,5 @@ class Identifiers
     public function getErpId(): string
     {
         return $this->erpId;
-    }
-
-    public function getStoreSkuId(string $store): array
-    {
-        return $this->storeSkuIds;
     }
 }

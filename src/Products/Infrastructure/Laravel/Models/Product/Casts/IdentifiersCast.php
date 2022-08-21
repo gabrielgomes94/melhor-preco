@@ -15,7 +15,7 @@ class IdentifiersCast implements CastsAttributes
             throw new InvalidArgumentException('Invalid type for model parameter');
         }
 
-        return new Identifiers($model->sku, $model->erp_id);
+        return new Identifiers($model->sku, $model->erp_id, $model->ean);
     }
 
     public function set($model, string $key, $value, array $attributes)
@@ -27,6 +27,7 @@ class IdentifiersCast implements CastsAttributes
         return [
             'sku' => $value->getSku(),
             'erp_id' => $value->getErpId(),
+            'ean' => $value->getEan(),
         ];
     }
 }
