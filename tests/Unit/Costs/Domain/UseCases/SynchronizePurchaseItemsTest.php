@@ -37,7 +37,7 @@ class SynchronizePurchaseItemsTest extends TestCase
 
         // Expects
         $dbRepository->expects()
-            ->listPurchaseInvoice()
+            ->listPurchaseInvoice('1')
             ->andReturn($purchaseInvoices);
 
         $dbRepository->expects()
@@ -54,6 +54,6 @@ class SynchronizePurchaseItemsTest extends TestCase
             ->andReturnTrue();
 
         // Act
-        $synchronizePurchaseItems->sync();
+        $synchronizePurchaseItems->sync('1');
     }
 }
