@@ -20,7 +20,7 @@ class PurchaseItemsController extends Controller
     {
         $data = $request->validated();
 
-        $this->linkProductToPurchaseItem->linkManyProducts($data['products']);
+        $this->linkProductToPurchaseItem->linkManyProducts($data['products'], $this->getUserId());
 
         return redirect()->back();
     }

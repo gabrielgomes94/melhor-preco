@@ -12,9 +12,9 @@ interface DbRepository
 
     public function getLastSynchronizationDateTime(string $userId): ?Carbon;
 
-    public function getPurchaseInvoice(string $uuid): ?PurchaseInvoice;
+    public function getPurchaseInvoice(string $userId, string $uuid): ?PurchaseInvoice;
 
-    public function getPurchaseItem(string $uuid): ?PurchaseItem;
+    public function getPurchaseItem(string $userId, string $uuid): ?PurchaseItem;
 
     public function insertPurchaseItem(
         PurchaseInvoice $purchaseInvoice,

@@ -30,7 +30,7 @@ class RepositoryTest extends TestCase
         $repository = new Repository();
 
         // Act
-        $result = $repository->countPurchaseInvoices();
+        $result = $repository->countPurchaseInvoices($user->getId());
 
         // Assert
         $this->assertSame(4, $result);
@@ -44,7 +44,7 @@ class RepositoryTest extends TestCase
         $repository = new Repository();
 
         // Act
-        $result = $repository->getLastSynchronizationDateTime();
+        $result = $repository->getLastSynchronizationDateTime($user->getId());
 
         // Assert
         $this->assertInstanceOf(Carbon::class, $result);
@@ -53,10 +53,11 @@ class RepositoryTest extends TestCase
     public function test_should_not_get_last_synchronization_datetime_when_there_is_no_purchase_invoices(): void
     {
         // Arrange
+        $user = UserData::make();
         $repository = new Repository();
 
         // Act
-        $result = $repository->getLastSynchronizationDateTime();
+        $result = $repository->getLastSynchronizationDateTime($user->getId());
 
         // Assert
         $this->assertNull($result);
@@ -70,7 +71,7 @@ class RepositoryTest extends TestCase
         $repository = new Repository();
 
         // Act
-        $result = $repository->getPurchaseInvoice('9044ab84-a3bf-485e-ba17-6c9ea6f53110');
+        $result = $repository->getPurchaseInvoice($user->getId(), '9044ab84-a3bf-485e-ba17-6c9ea6f53110');
 
         // Assert
         $this->assertInstanceOf(PurchaseInvoice::class, $result);
@@ -80,14 +81,14 @@ class RepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $purchaseInvoice = PurchaseInvoiceData::make(['uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110']);
+        $purchaseInvoice = PurchaseInvoiceData::makePersisted($user, ['uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110']);
         PurchaseItemsData::makePersisted($purchaseInvoice, [
             'uuid' => '16f3eb5f-5af4-419e-8f5d-225884a74d5c'
         ]);
         $repository = new Repository();
 
         // Act
-        $result = $repository->getPurchaseItem('16f3eb5f-5af4-419e-8f5d-225884a74d5c');
+        $result = $repository->getPurchaseItem($user->getId(), '16f3eb5f-5af4-419e-8f5d-225884a74d5c');
 
         // Assert
         $this->assertInstanceOf(PurchaseItem::class, $result);
@@ -168,7 +169,7 @@ class RepositoryTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function test_should_List_purchase_invoice(): void
+    public function test_should_list_purchase_invoice(): void
     {
         // Arrange
         $user = UserData::make();
@@ -178,7 +179,7 @@ class RepositoryTest extends TestCase
         $repository = new Repository();
 
         // Act
-        $result = $repository->listPurchaseInvoice();
+        $result = $repository->listPurchaseInvoice($user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(PurchaseInvoice::class, $result);

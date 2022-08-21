@@ -8,5 +8,5 @@ interface LinkProductToPurchaseItem
 {
     public function link(string $itemUuid, string $productSku): void;
 
-    public function linkManyProducts(array $data): void;
+    public function linkManyProducts(array $data, string $userId): void;
 }

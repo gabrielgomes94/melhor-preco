@@ -12,23 +12,23 @@ class LinkProductToPurchaseItem implements LinkProductToPurchaseItemInterface
     )
     {}
 
-    public function link(string $itemUuid, string $productSku): void
+    public function link(string $itemUuid, string $productSku, string $userId): void
     {
-        if (!$item = $this->repository->getPurchaseItem($itemUuid)) {
+        if (!$item = $this->repository->getPurchaseItem($userId, $itemUuid)) {
             return;
         }
 
         $this->repository->linkItemToProduct($item, $productSku);
     }
 
-    public function linkManyProducts(array $data): void
+    public function linkManyProducts(array $data, string $userId): void
     {
         foreach ($data as $itemUuid => $sku) {
             if (!$sku) {
                 continue;
             }
 
-            $this->link($itemUuid, $sku);
+            $this->link($itemUuid, $sku, $userId);
         }
     }
 }
