@@ -20,13 +20,13 @@ class Identifiers
         return $this->ean;
     }
 
-    public function getSku(): string
-    {
-        return $this->sku;
-    }
-
     public function getErpId(): string
     {
         return $this->erpId;
+    }
+
+    public function getSku(): string
+    {
+        return $this->sku;
     }
 }
