@@ -2,6 +2,8 @@
 
 namespace Src\Products\Domain\Models\ValueObjects;
 
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+
 class Variations
 {
     protected array $products;
@@ -10,7 +12,13 @@ class Variations
     public function __construct(?string $parentSku = null, array $products = [])
     {
         $this->parentSku = $parentSku;
-        $this->products = $products;
+
+        foreach ($products as $product) {
+            if ($product instanceof Product) {
+                $variationProducts[] = $product;
+            }
+        }
+        $this->products = $variationProducts ?? [];
     }
 
     public function get(): array
