@@ -44,7 +44,7 @@ class VariationsCast implements CastsAttributes
 
     private function getVariations(Product $model, string $sku): array
     {
-        return $model->withParentSku($model->parent_sku)
+        return $model->withParentSku($sku)
             ->fromUser($model->user_id)
             ->get()
             ->all();
