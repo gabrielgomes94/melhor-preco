@@ -21,7 +21,7 @@ class SynchronizeProductCosts implements SyncProductCosts
         $products = $this->repository->all($user->getId());
 
         foreach ($products as $product) {
-            $item = $product->getLatestPurchaseItem();
+            $item = $product->getLastPurchaseItemsCosts();
 
             if (!$item) {
                 continue;
