@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Models\Product\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
-use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
+use Src\Products\Domain\Models\ValueObjects\Identifiers;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class IdentifiersCast implements CastsAttributes
@@ -15,7 +15,7 @@ class IdentifiersCast implements CastsAttributes
             throw new InvalidArgumentException('Invalid type for model parameter');
         }
 
-        return new Identifiers($model->sku, $model->erp_id);
+        return new Identifiers($model->sku, $model->erp_id, $model->ean);
     }
 
     public function set($model, string $key, $value, array $attributes)
@@ -27,6 +27,7 @@ class IdentifiersCast implements CastsAttributes
         return [
             'sku' => $value->getSku(),
             'erp_id' => $value->getErpId(),
+            'ean' => $value->getEan(),
         ];
     }
 }

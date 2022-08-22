@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Models\Product\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
-use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
+use Src\Products\Domain\Models\ValueObjects\Dimensions;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class DimensionsCast implements CastsAttributes

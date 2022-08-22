@@ -10,12 +10,12 @@ use Illuminate\Support\Collection;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Products\Domain\Models\Product\Product as ProductModelInterface;
-use Src\Products\Domain\Models\Product\ValueObjects\Composition;
-use Src\Products\Domain\Models\Product\ValueObjects\Costs;
-use Src\Products\Domain\Models\Product\ValueObjects\Dimensions;
-use Src\Products\Domain\Models\Product\ValueObjects\Identifiers;
-use Src\Products\Domain\Models\Product\ValueObjects\Variations;
+use Src\Products\Domain\Models\Product as ProductModelInterface;
+use Src\Products\Domain\Models\ValueObjects\Composition;
+use Src\Products\Domain\Models\ValueObjects\Costs;
+use Src\Products\Domain\Models\ValueObjects\Dimensions;
+use Src\Products\Domain\Models\ValueObjects\Identifiers;
+use Src\Products\Domain\Models\ValueObjects\Variations;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CompositionCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CostsCast;
@@ -60,7 +60,6 @@ class Product extends Model implements ProductModelInterface
         'costs' => CostsCast::class,
         'dimensions' => DimensionsCast::class,
         'identifiers' => IdentifiersCast::class,
-        'variations' => VariationsCast::class,
         'composition' => CompositionCast::class,
     ];
 
@@ -97,76 +96,9 @@ class Product extends Model implements ProductModelInterface
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function getLatestPurchaseItem(): ?PurchaseItem
+    public function getBrand(): string
     {
-        return $this->getPurchaseItem(Carbon::now());
-    }
-
-    public function getPurchaseItem(Carbon $date): ?PurchaseItem
-    {
-        $items = $this->itemsCosts;
-
-        $items = $items->map(function ($item) use ($date) {
-            $interval = $item->getIssuedAt()->diffInDays($date, false);
-
-            return [
-                'interval' => $interval,
-                'model' => $item,
-                'issuedAt' => (string) $item->getIssuedAt(),
-            ];
-        });
-
-        $items = $items->filter(function ($item) {
-            return $item['interval'] >= 0;
-        });
-
-        $minimumInterval = $items->min('interval');
-        $item = $items->where('interval', $minimumInterval)->first()['model'] ?? null;
-
-        return $item;
-    }
-
-    public function getSku(): string
-    {
-        return $this->sku;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getSaleItems(): Collection
-    {
-        return $this->items;
-    }
-
-    public function getIdentifiers(): Identifiers
-    {
-        return new Identifiers($this->sku, $this->erp_id);
-    }
-
-    public function getComposition(): Composition
-    {
-        foreach ($this->composition_products as $product) {
-            if (!$compositionProduct = $this->where('sku', $product)->first()) {
-                continue;
-            }
-
-            $compositionProducts[] = $compositionProduct;
-        }
-
-        return new Composition($compositionProducts ?? []);
-    }
-
-    public function hasVariations(): bool
-    {
-        return (bool) count($this->getVariations()->get());
-    }
-
-    public function getVariations(): ?Variations
-    {
-        return $this->variations;
+        return $this->brand;
     }
 
     public function getCategory(): ?Category
@@ -179,9 +111,24 @@ class Product extends Model implements ProductModelInterface
         return $this->getCategory()?->getCategoryId() ?? '';
     }
 
+    public function getComposition(): Composition
+    {
+        return $this->composition;
+    }
+
     public function getCosts(): Costs
     {
         return $this->costs;
+    }
+
+    public function getCreationDate(): Carbon
+    {
+        return $this->created_at;
+    }
+
+    public function getCubicWeight(): float
+    {
+        return round($this->getDimensions()->cubicWeight(), 3);
     }
 
     public function getDimensions(): Dimensions
@@ -189,9 +136,24 @@ class Product extends Model implements ProductModelInterface
         return $this->dimensions;
     }
 
-    public function getPurchaseItemsCosts(): array
+    public function getEan(): string
     {
-        return $this->itemsCosts->all();
+        return $this->ean;
+    }
+
+    public function getErpId(): string
+    {
+        return $this->erp_id;
+    }
+
+    public function getIdentifiers(): Identifiers
+    {
+        return $this->identifiers;
+    }
+
+    public function getImages(): array
+    {
+        return $this->images;
     }
 
     public function getLastPurchaseItemsCosts(): ?PurchaseItem
@@ -203,59 +165,24 @@ class Product extends Model implements ProductModelInterface
         )->first();
     }
 
-    public function getPrices(): Collection
-    {
-        return $this->prices ?? collect();
-    }
-
-    public function getCreationDate(): Carbon
-    {
-        return $this->created_at;
-    }
-
     public function getLastUpdate(): Carbon
     {
         return $this->updated_at;
     }
 
-    public function hasCompositionProducts(): bool
+    public function getName(): string
     {
-        return $this->getComposition()->hasCompositions();
+        return $this->name;
     }
 
-    public function isActive(): bool
+    public function getParentSku(): ?string
     {
-        return $this->is_active;
+        return $this->parent_sku;
     }
 
-    public function postedOnMarketplace(Marketplace $marketplace): bool
+    public function getPrices(): Collection
     {
-        $slug = $marketplace->getSlug();
-        $prices = $this->prices;
-
-        foreach ($prices as $price) {
-            if ($price->getMarketplace()?->getSlug() == $slug) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public function getImages(): array
-    {
-        return $this->images;
-    }
-
-    public function getUser(): \Src\Users\Domain\Models\User
-    {
-        return $this->user;
-    }
-
-
-    public function getUserId(): string
-    {
-        return $this->getUser()->getId();
+        return $this->prices ?? collect();
     }
 
     public function getPrice(Marketplace $marketplace): ?Price
@@ -272,29 +199,64 @@ class Product extends Model implements ProductModelInterface
         return null;
     }
 
+    public function getPurchaseItemsCosts(): array
+    {
+        return $this->itemsCosts->all();
+    }
+
     public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    public function getBrand(): string
+    public function getSaleItems(): Collection
     {
-        return $this->brand;
+        return $this->items;
     }
 
-    public function getCubicWeight(): float
+    public function getSku(): string
     {
-        return $this->getDimensions()->cubicWeight();
+        return $this->sku;
     }
 
-    public function getEan(): string
+    public function getUser(): User
     {
-        return $this->ean;
+        return $this->user;
     }
 
-    public function getErpId(): string
+    public function getUserId(): string
     {
-        return $this->erp_id;
+        return $this->getUser()->getId();
+    }
+
+    public function getVariations(): Variations
+    {
+        $variationModels = $this->withParentSku($this->getSku())->get();
+
+        return new Variations(
+            $this->getSku(),
+            $variationModels->all()
+        );
+    }
+
+    public function hasCompositionProducts(): bool
+    {
+        return $this->getComposition()->hasCompositions();
+    }
+
+    public function hasVariations(): bool
+    {
+        return (bool) count($this->getVariations()->get());
+    }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
+
+    public function isVariation(): bool
+    {
+        return (bool) $this->parent_sku;
     }
 
     public function setCosts(Costs $costs): void

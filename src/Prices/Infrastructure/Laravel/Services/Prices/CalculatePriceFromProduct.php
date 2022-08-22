@@ -13,7 +13,7 @@ use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
 
 class CalculatePriceFromProduct

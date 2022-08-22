@@ -11,7 +11,7 @@ trait ProductScopes
         return $query->where('is_active', true);
     }
 
-    public function scopeWithParentSku($query, string $parentSku)
+    public function scopeWithParentSku($query, ?string $parentSku = '')
     {
         return $query->where('parent_sku', $parentSku);
     }

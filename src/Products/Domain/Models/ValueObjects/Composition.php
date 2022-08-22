@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\ValueObjects;
+namespace Src\Products\Domain\Models\ValueObjects;
 
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
@@ -16,33 +16,39 @@ class Composition
         $this->fill($compositionProducts);
     }
 
-    public function hasCompositions(): bool
+    public function costs(): Costs
     {
-        return count($this->compositionProducts) !== 0;
+        $purchasePrice = 0.0;
+        $additionalCosts = 0.0;
+
+        foreach ($this->compositionProducts as $product) {
+            $costs = $product->getCosts();
+
+            $purchasePrice += $costs->purchasePrice();
+            $additionalCosts += $costs->additionalCosts();
+            $taxes[] = $costs->taxICMS();
+        }
+
+        return new Costs($purchasePrice, $additionalCosts, max($taxes ?? [0.0]));
+    }
+
+    public function get(): array
+    {
+        return $this->compositionProducts;
     }
 
     public function getSkus(): array
     {
         foreach ($this->compositionProducts as $product) {
-            $skuList[] = $product->sku();
+            $skuList[] = $product->getSku();
         }
 
         return $skuList ?? [];
     }
 
-    public function costs(): Costs
+    public function hasCompositions(): bool
     {
-        $purchasePrice = 0.0;
-        $additionalCosts = 0.0;
-        $taxICMS = 0.0;
-
-        foreach ($this->compositionProducts as $product) {
-            $purchasePrice += $product->costs()->purchasePrice();
-            $additionalCosts += $product->costs()->additionalCosts();
-            $taxes[] = $product->costs()->taxICMS();
-        }
-
-        return new Costs($purchasePrice, $additionalCosts, $taxICMS);
+        return count($this->compositionProducts) !== 0;
     }
 
     private function fill(array $compositionProducts): void

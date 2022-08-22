@@ -10,7 +10,7 @@ use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 class CalculateFromMarkup extends BaseCalculator
 {

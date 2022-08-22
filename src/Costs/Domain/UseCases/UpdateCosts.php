@@ -6,8 +6,9 @@ use Src\Costs\Domain\Exceptions\UpdateCostsException;
 use Src\Costs\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\ProductCostsUpdated;
-use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Domain\Models\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class UpdateCosts implements UpdateCostsInterface
 {
@@ -29,7 +30,7 @@ class UpdateCosts implements UpdateCostsInterface
         foreach ($products as $product) {
             $result = $this->productRepository->updateCosts(
                 $product,
-                Costs::make($data, $product),
+                $this->getCosts($data, $product),
                 $userId
             );
 
@@ -41,5 +42,16 @@ class UpdateCosts implements UpdateCostsInterface
         }
 
         return true;
+    }
+
+    private function getCosts(array $data, Product $product): Costs
+    {
+        $costs = $product->getCosts();
+
+        return new Costs(
+            purchasePrice: $data['purchasePrice'] ?? $costs->purchasePrice(),
+            additionalCosts: $data['additionalCosts'] ?? $costs->additionalCosts(),
+            taxICMS: $data['taxICMS'] ?? $costs->taxICMS(),
+        );
     }
 }

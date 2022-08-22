@@ -4,7 +4,7 @@ namespace Src\Prices\Domain\Exceptions;
 
 use Exception;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 class ProductHasNoPriceInMarketplace extends Exception
 {

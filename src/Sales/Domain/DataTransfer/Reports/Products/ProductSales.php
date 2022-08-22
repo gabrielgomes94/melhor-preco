@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Domain\DataTransfer\Reports\Products;
 
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 
 class ProductSales

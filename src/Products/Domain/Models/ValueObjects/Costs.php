@@ -1,8 +1,6 @@
 <?php
 
-namespace Src\Products\Domain\Models\Product\ValueObjects;
-
-use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+namespace Src\Products\Domain\Models\ValueObjects;
 
 class Costs
 {
@@ -15,17 +13,6 @@ class Costs
         $this->purchasePrice = $purchasePrice ?? 0.0;
         $this->additionalCosts = $additionalCosts ?? 0.0;
         $this->taxICMS = $taxICMS ?? 0.0;
-    }
-
-    public static function make(array $data, Product $product): self
-    {
-        $costs = $product->getCosts();
-
-        return new self(
-            purchasePrice: $data['purchasePrice'] ?? $costs->purchasePrice(),
-            additionalCosts: $data['additionalCosts'] ?? $costs->additionalCosts(),
-            taxICMS: $data['taxICMS'] ?? $costs->taxICMS(),
-        );
     }
 
     public function additionalCosts(): float

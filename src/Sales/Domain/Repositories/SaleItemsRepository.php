@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\Repositories;
 
 use Carbon\Carbon;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 
 interface SaleItemsRepository

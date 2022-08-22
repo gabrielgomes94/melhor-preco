@@ -4,7 +4,7 @@ namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Products\Domain\Models\Product\Product;
+use Src\Products\Domain\Models\Product;
 
 class FreightRepository
 {

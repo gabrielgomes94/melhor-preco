@@ -7,7 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Products\Domain\DataTransfer\FilterOptions;
-use Src\Products\Domain\Models\Product\ValueObjects\Costs;
+use Src\Products\Domain\Models\ValueObjects\Costs;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Domain\Models\User;
 
