@@ -43,7 +43,7 @@ interface Product
 
     public function getSku(): string;
 
-    public function getVariations(): ?Variations;
+    public function getVariations(): Variations;
 
     public function getUser(): User;
 

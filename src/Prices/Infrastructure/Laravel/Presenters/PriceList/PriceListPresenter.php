@@ -55,8 +55,6 @@ class PriceListPresenter
         $products = $products->transform(function (Product $product) use ($marketplace, $options) {
             $price = $product->getPrice($marketplace);
 
-//            dd($price?->getMargin());
-
             $margin = $price?->getMargin()
                 ? MathPresenter::percentage($price?->getMargin())
                 : null;
@@ -76,7 +74,7 @@ class PriceListPresenter
             ];
         });
 
-        return $products->toBase()->toArray();
+        return $products->toArray();
     }
 
     public function presentListPricesCalculated(ListPricesCalculated $pricesCalculated): array

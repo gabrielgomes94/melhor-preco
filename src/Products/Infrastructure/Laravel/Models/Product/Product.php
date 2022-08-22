@@ -60,7 +60,6 @@ class Product extends Model implements ProductModelInterface
         'costs' => CostsCast::class,
         'dimensions' => DimensionsCast::class,
         'identifiers' => IdentifiersCast::class,
-        'variations' => VariationsCast::class,
         'composition' => CompositionCast::class,
     ];
 
@@ -225,9 +224,14 @@ class Product extends Model implements ProductModelInterface
         return $this->getUser()->getId();
     }
 
-    public function getVariations(): ?Variations
+    public function getVariations(): Variations
     {
-        return $this->variations;
+        $variationModels = $this->withParentSku($this->getSku())->get();
+
+        return new Variations(
+            $this->getSku(),
+            $variationModels->all()
+        );
     }
 
     public function hasCompositionProducts(): bool
