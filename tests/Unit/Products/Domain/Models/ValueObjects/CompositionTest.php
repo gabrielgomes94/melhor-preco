@@ -2,8 +2,6 @@
 
 namespace Src\Products\Domain\Models\ValueObjects;
 
-//use PHPUnit\Framework\TestCase;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;

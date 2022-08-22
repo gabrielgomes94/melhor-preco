@@ -15,10 +15,10 @@ class CompositionCast implements CastsAttributes
             throw new InvalidArgumentException('Invalid type for model parameter');
         }
 
-        foreach ($model->composition_products as $product) {
-            $compositionProduct = $this
-                ->where('sku', $product)
-                ->fromUser($product->getUserId())
+        foreach ($model->composition_products as $sku) {
+            $compositionProduct = $model
+                ->where('sku', $sku)
+                ->fromUser($model->getUserId())
                 ->first();
 
             if (!$compositionProduct) {
@@ -37,6 +37,6 @@ class CompositionCast implements CastsAttributes
             throw new InvalidArgumentException('Invalid type for value parameter');
         }
 
-        return $this->composition_products = $value->getSkus();
+        return ['composition_products' => $value->getSkus()];
     }
 }
