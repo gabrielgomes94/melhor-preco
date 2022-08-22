@@ -175,6 +175,11 @@ class Product extends Model implements ProductModelInterface
         return $this->name;
     }
 
+    public function getParentSku(): ?string
+    {
+        return $this->parent_sku;
+    }
+
     public function getPrices(): Collection
     {
         return $this->prices ?? collect();

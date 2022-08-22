@@ -21,7 +21,7 @@ class ProductPresenter
             'height' => $product->getDimensions()->height(),
             'weight' => $this->getWeight($product),
             'erp_id' => $product->getErpId(),
-            'parent_sku' => $product->getVariations()?->getParentSku(),
+            'parent_sku' => $product->getParentSku(),
             'has_variations' => $product->hasVariations(),
             'composition_products' => $product->getComposition()->getSkus(),
             'ean' => $product->getEan(),

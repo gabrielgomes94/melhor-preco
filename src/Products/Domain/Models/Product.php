@@ -35,6 +35,8 @@ interface Product
 
     public function getName(): string;
 
+    public function getParentSku(): ?string;
+
     public function getPrice(Marketplace $marketplace): ?Price;
 
     public function getPrices(): Collection;

@@ -86,7 +86,7 @@ class ProductTest extends TestCase
         $this->assertContainsOnlyInstancesOf(SaleOrder::class, $instance->getSaleItems());
         $this->assertSame('1234', $instance->getSku());
         $this->assertInstanceOf(User::class, $instance->getUser());
-        $this->assertSame('1', $instance->getUserId());
+        $this->assertIsString($instance->getUserId());
         $this->assertFalse($instance->hasCompositionProducts());
         $this->assertFalse($instance->hasVariations());
         $this->assertTrue($instance->isActive());
