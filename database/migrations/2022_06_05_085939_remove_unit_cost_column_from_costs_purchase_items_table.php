@@ -16,7 +16,7 @@ class RemoveUnitCostColumnFromCostsPurchaseItemsTable extends Migration
     public function down(): void
     {
         Schema::table('costs_purchase_items', function (Blueprint $table) {
-            $table->decimal('unit_cost');
+            $table->decimal('unit_cost')->default(0.0);
         });
     }
 }

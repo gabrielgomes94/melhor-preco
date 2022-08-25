@@ -46,32 +46,46 @@ class AddUserIdColumnOnTables extends Migration
 
     public function down(): void
     {
-//        Schema::table('categories', function (Blueprint $table) {
-//            $table->dropColumn('user_id');
-//        });
-//
-//        Schema::table('costs_purchase_invoices', function (Blueprint $table) {
-//            $table->dropColumn('user_id');
-//        });
-//
-//        Schema::table('marketplaces', function (Blueprint $table) {
-//            $table->dropColumn('user_id');
-//        });
-//
-//        Schema::table('prices', function (Blueprint $table) {
-//            $table->dropColumn('user_id');
-//        });
-//
-//        Schema::table('products', function (Blueprint $table) {
-//            $table->dropColumn('user_id');
-//        });
-//
-//        Schema::table('promotions', function (Blueprint $table) {
-//            $table->dropColumn('user_id');
-//        });
-//
-//        Schema::table('sale_orders', function (Blueprint $table) {
-//            $table->dropColumn('user_id');
-//        });
+        if (Schema::hasColumn('categories', 'user_id')) {
+            Schema::table('categories', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
+
+        if (Schema::hasColumn('costs_purchase_invoices', 'user_id')) {
+            Schema::table('costs_purchase_invoices', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
+
+        if (Schema::hasColumn('marketplaces', 'user_id')) {
+            Schema::table('marketplaces', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
+
+        if (Schema::hasColumn('prices', 'user_id')) {
+            Schema::table('prices', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
+
+        if (Schema::hasColumn('products', 'user_id')) {
+            Schema::table('products', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
+
+        if (Schema::hasColumn('promotions', 'user_id')) {
+            Schema::table('promotions', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
+
+        if (Schema::hasColumn('sale_orders', 'user_id')) {
+            Schema::table('sale_orders', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
     }
 }
