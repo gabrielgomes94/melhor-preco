@@ -3,6 +3,7 @@
 namespace Src\Products\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\CategoryRepository as CategoryRepositoryInterface;
 use Src\Users\Domain\Exceptions\UserNotAuthenticated;
@@ -31,6 +32,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function insert(Category $category, string $userId): bool
     {
         $category->user_id = $userId;
+        $category->uuid = Uuid::uuid4();
 
         return $category->save();
     }

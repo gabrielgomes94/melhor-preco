@@ -13,8 +13,6 @@ use Src\Products\Domain\Services\SyncProducts as SyncProductsInterface;
 use Src\Products\Domain\Services\UploadImages as UploadImagesInterface;
 use Src\Products\Infrastructure\Bling\CategoryRepository as ErpCategoryRepository;
 use Src\Products\Infrastructure\Bling\ProductRepository as ErpProductRepository;
-use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
-use Src\Products\Infrastructure\Laravel\Models\Categories\CategoryObserver;
 use Src\Products\Infrastructure\Laravel\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Services\SynchronizeCategories;
@@ -31,8 +29,6 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Category::observe(CategoryObserver::class);
-
         $this->bindRepositories();
         $this->bindServices();
     }

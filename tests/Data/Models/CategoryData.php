@@ -2,6 +2,7 @@
 
 namespace Tests\Data\Models;
 
+use Ramsey\Uuid\Uuid;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
@@ -10,6 +11,7 @@ class CategoryData
     public static function persisted(User $user, array $data = [], string $method = 'withParent'): Category
     {
         $category = self::make($user, $data, $method);
+        $category->uuid = Uuid::uuid4();
         $category->save();
 
         return $category;
