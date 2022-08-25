@@ -75,16 +75,6 @@ class Category extends Model implements CategoryInterface
         return $this?->parent?->getCategoryId() ?? '';
     }
 
-    public function scopeFromUser($query, int $userId)
-    {
-        return $query->where('user_id', $userId);
-    }
-
-    public function scopeWithId($query, string $categoryId)
-    {
-        return $query->where('category_id', $categoryId);
-    }
-
     public function getDepthLevelCategoryTree(): int
     {
         $parentModel = $this->parent;
@@ -99,5 +89,15 @@ class Category extends Model implements CategoryInterface
         } while ($parentModel);
 
         return count($parentNames) - 1;
+    }
+
+    public function scopeFromUser($query, int $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    public function scopeWithId($query, string $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
     }
 }

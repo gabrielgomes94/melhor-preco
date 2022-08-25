@@ -17,24 +17,13 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        SyncProducts::class,
-    ];
+    protected $commands = [];
 
     /**
      * Define the application's command schedule.
-     * @todo: fix this
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(new SyncSales)->everyTenMinutes();
-
-        $schedule->call(function () {
-            $syncProducts = app(SynchronizeData::class);
-            $syncProducts->sync();
-        })->weekdays()->daily();
-
-        $schedule->job(new SyncCosts)->weekdays()->daily();
     }
 
     /**
