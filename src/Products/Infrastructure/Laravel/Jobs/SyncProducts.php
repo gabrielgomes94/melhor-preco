@@ -30,6 +30,6 @@ class SyncProducts implements ShouldQueue
     {
         $syncProductsService->sync($this->user);
         $syncCostsService->sync($this->user);
-        $syncPricesService->syncAll($this->user);
+        $syncPricesService->syncAll($this->user->getId());
     }
 }

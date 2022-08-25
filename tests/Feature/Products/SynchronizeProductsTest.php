@@ -3,7 +3,7 @@
 namespace Tests\Feature\Products;
 
 use Illuminate\Support\Facades\Queue;
-use Src\Products\Infrastructure\Laravel\Jobs\SyncProducts;
+use Src\Products\Infrastructure\Laravel\Jobs\SyncProductsTest;
 use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
@@ -34,7 +34,7 @@ class SynchronizeProductsTest extends FeatureTestCase
 
     private function then_the_sync_products_job_must_be_queued(): void
     {
-        Queue::assertPushed(SyncProducts::class);
+        Queue::assertPushed(SyncProductsTest::class);
     }
 
     private function then_i_must_be_redirected(): void

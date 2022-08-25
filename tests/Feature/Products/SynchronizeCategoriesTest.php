@@ -4,7 +4,7 @@ namespace Tests\Feature\Products;
 
 use Illuminate\Support\Facades\Queue;
 use Src\Products\Infrastructure\Laravel\Jobs\SyncCategories;
-use Src\Products\Infrastructure\Laravel\Jobs\SyncProducts;
+use Src\Products\Infrastructure\Laravel\Jobs\SyncProductsTest;
 use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
