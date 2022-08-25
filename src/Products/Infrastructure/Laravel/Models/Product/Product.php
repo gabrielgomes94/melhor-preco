@@ -21,7 +21,6 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CompositionCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CostsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\DimensionsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\IdentifiersCast;
-use Src\Products\Infrastructure\Laravel\Models\Product\Casts\VariationsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Traits\ProductScopes;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Users\Infrastructure\Laravel\Models\User;

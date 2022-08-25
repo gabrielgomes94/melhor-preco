@@ -20,7 +20,7 @@ class CalculateItem implements CalculateItemInterface
 
     public function calculate(Item $item): CalculatedPrice
     {
-        $marketplaceErpId = $item->saleOrder->getIdentifiers()->storeId() ?? '';
+        $marketplaceErpId = $item->saleOrder?->getIdentifiers()?->storeId() ?? '';
         $product = $item->getProduct();
         $userId = $product->getUser()->getId();
 
