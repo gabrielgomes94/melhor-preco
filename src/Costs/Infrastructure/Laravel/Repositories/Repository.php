@@ -10,9 +10,16 @@ use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice as PurchaseInvoiceModel;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem as PurchaseItemModel;
 use Src\Costs\Domain\Repositories\DbRepository;
+use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 
 class Repository implements DbRepository
 {
+    public function __construct(
+        private ProductRepository $productRepository
+    )
+    {
+    }
+
     public function countPurchaseInvoices(string $userId): int
     {
         return PurchaseInvoiceModel::fromUser($userId)->count();
@@ -64,7 +71,16 @@ class Repository implements DbRepository
 
     public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, PurchaseItem $purchaseItem): bool
     {
-        return (bool) $purchaseInvoice->items()->save($purchaseItem);
+        (bool) $purchaseInvoice->items()->save($purchaseItem);
+
+        $product = $this->productRepository->get(
+            $purchaseItem->getProductSku(),
+            $purchaseInvoice->getUser()->getId()
+        );
+        $purchaseItem->product()->associate($product);
+        $purchaseItem->save();
+
+        return true;
     }
 
     public function linkItemToProduct(PurchaseItem $item, string $productSku): bool

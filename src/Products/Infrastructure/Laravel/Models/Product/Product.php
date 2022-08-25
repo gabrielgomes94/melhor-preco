@@ -77,17 +77,17 @@ class Product extends Model implements ProductModelInterface
 
     public function prices(): HasMany
     {
-        return $this->hasMany(Price::class, 'product_sku', 'sku');
+        return $this->hasMany(Price::class, 'product_uuid', 'uuid');
     }
 
     public function items(): HasMany
     {
-        return $this->hasMany(Item::class, 'sku', 'sku');
+        return $this->hasMany(Item::class, 'product_uuid', 'uuid');
     }
 
     public function itemsCosts(): HasMany
     {
-        return $this->hasMany(PurchaseItem::class, 'ean', 'ean');
+        return $this->hasMany(PurchaseItem::class, 'product_uuid', 'uuid');
     }
 
     public function user(): BelongsTo

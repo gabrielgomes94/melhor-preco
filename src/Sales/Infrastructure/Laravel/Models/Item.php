@@ -25,7 +25,7 @@ class Item extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class, 'sku', 'sku');
+        return $this->hasOne(Product::class, 'product_uuid', 'uuid');
     }
 
     public function saleOrder()

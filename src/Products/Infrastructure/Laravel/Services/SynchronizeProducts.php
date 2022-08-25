@@ -23,7 +23,7 @@ class SynchronizeProducts implements SyncProducts
             $product = $this->dbRepository->get($erpProduct->getSku(), $user->getId());
 
             if (!$product) {
-                $this->dbRepository->save($erpProduct, $user->id);
+                $this->dbRepository->insert($erpProduct, $user->id);
 
                 continue;
             }
