@@ -4,6 +4,7 @@ namespace Src\Costs\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use SimpleXMLElement;
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
 use Src\Costs\Domain\Models\Contracts\PurchaseItem;
@@ -16,8 +17,7 @@ class Repository implements DbRepository
 {
     public function __construct(
         private ProductRepository $productRepository
-    )
-    {
+    ) {
     }
 
     public function countPurchaseInvoices(string $userId): int
@@ -71,12 +71,17 @@ class Repository implements DbRepository
 
     public function insertPurchaseItem(PurchaseInvoice $purchaseInvoice, PurchaseItem $purchaseItem): bool
     {
-        (bool) $purchaseInvoice->items()->save($purchaseItem);
+        $purchaseInvoice->items()->save($purchaseItem);
 
-        $product = $this->productRepository->get(
-            $purchaseItem->getProductSku(),
+        $product = $this->productRepository->getProductByEan(
+            $purchaseItem->getEan(),
             $purchaseInvoice->getUser()->getId()
         );
+
+        if (!$product) {
+            return false;
+        }
+
         $purchaseItem->product()->associate($product);
         $purchaseItem->save();
 

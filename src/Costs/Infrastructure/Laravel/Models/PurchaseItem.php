@@ -76,6 +76,11 @@ class PurchaseItem extends Model implements PurchaseItemInterface
         return $this->invoice->getIssuedAt();
     }
 
+    public function getEan(): string
+    {
+        return $this->ean;
+    }
+
     public function getName(): string
     {
         return $this->name;

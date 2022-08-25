@@ -8,6 +8,8 @@ interface PurchaseItem
 {
     public function getDiscount(): float;
 
+    public function getEan(): string;
+
     public function getFreightCosts(): float;
 
     public function getICMSPercentage(): float;
