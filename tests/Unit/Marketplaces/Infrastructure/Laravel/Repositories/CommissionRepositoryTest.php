@@ -22,7 +22,7 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $product = ProductData::makePersisted($user);
+        $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::olist($user);
 
         $repository = new CommissionRepository();
@@ -38,7 +38,7 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $product = ProductData::makePersisted($user);
+        $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user);
 
         $repository = new CommissionRepository();
@@ -54,7 +54,7 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $product = ProductData::makePersisted($user);
+        $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user);
 
         $repository = new CommissionRepository();
@@ -70,7 +70,7 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $product = ProductData::makePersisted($user);
+        $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user, []);
 
         $repository = new CommissionRepository();
@@ -87,7 +87,7 @@ class CommissionRepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         $category = CategoryData::persisted($user, ['category_id' => '1'], 'withoutParent');
-        ProductData::makePersisted($user, ['category_id' => $category->getCategoryId()]);
+        ProductData::babyCarriage($user, [], $category);
         $marketplace = MarketplaceData::magalu($user);
         $repository = new CommissionRepository();
 
@@ -102,7 +102,7 @@ class CommissionRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user);
+        ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::olist($user);
         $marketplace->commission = Commission::build(Commission::UNIQUE_COMMISSION);
         $marketplace->save();

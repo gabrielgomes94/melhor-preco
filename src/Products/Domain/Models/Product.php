@@ -58,4 +58,6 @@ interface Product
     public function isVariation(): bool;
 
     public function setCosts(Costs $costs): void;
+
+    public function getUuid(): string;
 }

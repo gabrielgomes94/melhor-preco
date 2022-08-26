@@ -26,10 +26,7 @@ class SynchronizeProductCostsTest extends TestCase
         $user = UserData::make();
         $product = ProductData::babyCarriage($user);
         $invoice = PurchaseInvoiceData::makePersisted($user);
-        PurchaseItemsData::makePersisted($invoice, [
-            'product_sku' => 1234,
-            'ean' => '7908238800092',
-        ]);
+        PurchaseItemsData::makePersisted($invoice, [], $product);
 
         $products = collect([$product]);
 
@@ -37,8 +34,6 @@ class SynchronizeProductCostsTest extends TestCase
         $repository->expects()
             ->all($user->getId())
             ->andReturn($products);
-
-        $costs = new Costs(168.0, 0.0, 0);
 
         $repository->expects()
             ->updateCosts($product, Mockery::type(Costs::class), $user->getId())

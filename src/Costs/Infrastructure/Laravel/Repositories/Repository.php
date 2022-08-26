@@ -78,12 +78,10 @@ class Repository implements DbRepository
             $purchaseInvoice->getUser()->getId()
         );
 
-        if (!$product) {
-            return false;
+        if ($product) {
+            $purchaseItem->product()->associate($product);
+            $purchaseItem->save();
         }
-
-        $purchaseItem->product()->associate($product);
-        $purchaseItem->save();
 
         return true;
     }

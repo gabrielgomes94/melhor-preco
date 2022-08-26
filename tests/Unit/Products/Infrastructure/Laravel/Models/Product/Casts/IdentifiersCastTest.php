@@ -16,6 +16,7 @@ class IdentifiersCastTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
         $product = ProductData::babyCarriage(
             $user,
             [
@@ -45,6 +46,7 @@ class IdentifiersCastTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
         $casts = new IdentifiersCast();
 
         // Expects
@@ -59,6 +61,7 @@ class IdentifiersCastTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
         $product = ProductData::babyCarriage(
             $user,
             [
@@ -91,6 +94,7 @@ class IdentifiersCastTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
         $casts = new IdentifiersCast();
 
         // Expects

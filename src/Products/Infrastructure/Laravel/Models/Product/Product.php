@@ -62,7 +62,7 @@ class Product extends Model implements ProductModelInterface
         'composition' => CompositionCast::class,
     ];
 
-    protected $primaryKey = 'sku';
+    protected $primaryKey = 'uuid';
 
     public $keyType = 'string';
 
@@ -261,5 +261,10 @@ class Product extends Model implements ProductModelInterface
     public function setCosts(Costs $costs): void
     {
         $this->costs = $costs;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
     }
 }

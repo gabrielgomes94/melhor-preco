@@ -25,7 +25,7 @@ class ShowProductCostsTest extends TestCase
         // Arrange
         $user = UserData::make();
         $purchaseItem = PurchaseItemsData::make();
-        $product = $this->getProduct($purchaseItem);
+        $product = $this->getProduct($purchaseItem, $user);
         $repository = $this->getRepository($product, $user);
         $showProductCosts = new ShowProductCosts($repository);
 
@@ -43,7 +43,7 @@ class ShowProductCostsTest extends TestCase
         // Arrange
         $user = UserData::make();
         $purchaseItem = PurchaseItemsData::make();
-        $product = $this->getProduct($purchaseItem);
+        $product = $this->getProduct($purchaseItem, $user);
         $repository = $this->getRepository($product, $user);
         $showProductCosts = new ShowProductCosts($repository);
 
@@ -56,11 +56,10 @@ class ShowProductCostsTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    private function getProduct(PurchaseItem $purchaseItem): Product
+    private function getProduct(PurchaseItem $purchaseItem, User $user): Product
     {
         $purchaseItem->setRelation('invoice', PurchaseInvoiceData::make());
-
-        $product = ProductData::make();
+        $product = ProductData::babyCarriage($user);
         $product->setRelation('itemsCosts', collect([$purchaseItem]));
 
         return $product;

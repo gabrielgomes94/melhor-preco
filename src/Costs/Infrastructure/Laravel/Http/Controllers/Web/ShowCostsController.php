@@ -19,7 +19,6 @@ class ShowCostsController extends Controller
     }
 
     /**
-     * @todo: handle product not found exception. maybe handle this exception globally
      * @return Application|Factory|View
      * @throws ProductNotFoundException
      */

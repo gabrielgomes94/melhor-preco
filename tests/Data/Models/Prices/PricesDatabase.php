@@ -25,11 +25,6 @@ trait PricesDatabase
          */
         MarketplaceData::olist($this->user);
 
-        /**
-         * Marketplace with category commissions and freight table
-         */
-//        MarketplaceData::mercadoLivreClassic($this->user);
-
         $categoryCarriage = CategoryData::babyCarriage($this->user);
         $categoryChair = CategoryData::babyChair($this->user);
 

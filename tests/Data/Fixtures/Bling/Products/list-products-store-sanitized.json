@@ -2,7 +2,7 @@
     {
         "produto": {
             "id": "9811833249",
-            "codigo": "1211",
+            "codigo": "1234",
             "descricao": "Carrinho Veneto Aviador Azul",
             "tipo": "P",
             "situacao": "Ativo",
@@ -113,7 +113,7 @@
     {
         "produto": {
             "id": "9014464515",
-            "codigo": "344",
+            "codigo": "987",
             "descricao": "Beb\u00ea Conforto Cocoon - Preto Cinza - Galzerano",
             "tipo": "P",
             "situacao": "Ativo",

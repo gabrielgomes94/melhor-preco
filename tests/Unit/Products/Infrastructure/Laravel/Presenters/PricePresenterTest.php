@@ -16,6 +16,7 @@ class PricePresenterTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
         MarketplaceData::magalu($user);
         MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user, [

@@ -75,15 +75,8 @@ class SynchronizeProductsTest extends TestCase
         $this->user = UserData::make();
         $this->actingAs($this->user);
 
-        ProductData::makePersisted($this->user, [
-            'sku' => '1211',
-            'name' => 'Carrinho Veneto',
-
-        ]);
-        ProductData::makePersisted($this->user, [
-            'sku' => '344',
-            'name' => 'Bebe Conforto',
-        ]);
+        ProductData::babyCarriage($this->user);
+        ProductData::babyChair($this->user);
     }
 
     private function then_i_must_have_in_database_the_products_updated_from_bling()

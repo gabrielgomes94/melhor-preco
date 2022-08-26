@@ -30,13 +30,11 @@ class ProductTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
         $marketplace = MarketplaceData::shopee($user);
         $category = CategoryData::babyCarriage($user);
 
-        $invoice = PurchaseInvoiceData::makePersisted($user);
-        PurchaseItemsData::makePersisted($invoice, [
-            'ean' => '7908238800092',
-        ]);
+
 
         // Act
         $instance = ProductData::babyCarriage(
@@ -53,6 +51,11 @@ class ProductTest extends TestCase
             ],
             $category
         );
+
+        $invoice = PurchaseInvoiceData::makePersisted($user);
+        PurchaseItemsData::makePersisted($invoice, [
+            'ean' => '7908238800092',
+        ], $instance);
 
         // Assert
         $this->assertSame('Galzerano', $instance->getBrand());
@@ -97,6 +100,7 @@ class ProductTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
         $marketplace = MarketplaceData::shopee($user);
         $category = CategoryData::babyCarriage($user);
 
@@ -133,6 +137,7 @@ class ProductTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
+        $this->actingAs($user);
 
         $instance = ProductData::babyCarriage(
             $user,

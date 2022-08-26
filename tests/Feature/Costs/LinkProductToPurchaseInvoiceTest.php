@@ -40,7 +40,7 @@ class LinkProductToPurchaseInvoiceTest extends TestCase
 
     private function given_i_have_a_product(): void
     {
-        ProductData::makePersisted($this->user, ['sku' => '3600']);
+        ProductData::babyCarriage($this->user);
     }
 
     private function and_given_i_have_a_purchase_item(): void
@@ -59,7 +59,7 @@ class LinkProductToPurchaseInvoiceTest extends TestCase
             ->actingAs($this->user)
             ->put('/custos/notas-fiscais/vincular-item/', [
                 'products' => [
-                    '517cce8a-e7c2-48d7-a052-5e10729c7c22' => '3600',
+                    '517cce8a-e7c2-48d7-a052-5e10729c7c22' => '1234',
                 ],
             ]);
     }
@@ -67,7 +67,7 @@ class LinkProductToPurchaseInvoiceTest extends TestCase
     private function then_the_product_must_be_linked_to_purchase_item(): void
     {
         $purchaseInvoice = PurchaseItem::find('517cce8a-e7c2-48d7-a052-5e10729c7c22');
-        $product = Product::find('3600');
+        $product = Product::where('sku', '1234')->get()->first();
 
         $this->assertSame($purchaseInvoice->product_sku, $product->sku);
     }
