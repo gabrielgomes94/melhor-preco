@@ -50,8 +50,8 @@ class SynchronizeSalesTest extends TestCase
 
     private function and_given_i_have_some_products(): void
     {
-        ProductData::makePersisted($this->user, ['sku' => 'CN01']);
-        ProductData::makePersisted($this->user, ['sku' => '23541']);
+        ProductData::babyCarriage($this->user);
+        ProductData::babyChair($this->user);
     }
 
     private function and_given_i_have_sales_integration_on_bling_setup(): void

@@ -57,7 +57,7 @@ class ListProductsCostsTest extends FeatureTestCase
         $products = $this->response->viewData('products');
 
         $this->assertContainsOnlyInstancesOf(Product::class, $products);
-        $this->assertCount(3, $products);
+        $this->assertCount(2, $products);
         $this->response->assertViewHas('filter', ['sku' => null]);
     }
 

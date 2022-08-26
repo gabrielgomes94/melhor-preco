@@ -2,6 +2,7 @@
 
 namespace Tests\Data\Models\Products;
 
+use Ramsey\Uuid\Uuid;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
@@ -9,23 +10,6 @@ use Tests\Data\Models\Prices\PriceData;
 
 class ProductData
 {
-    public static function make(array $data = []): Product
-    {
-        $data = self::getData($data);
-
-        return new Product($data);
-    }
-
-    public static function makePersisted(User $user, array $data = []): Product
-    {
-        $data = self::getData($data);
-        $product = new Product($data);
-        $product->user_id = $user->id;
-        $product->save();
-
-        return $product->refresh();
-    }
-
     public static function babyCarriage(User $user, array $prices = [], ?Category $category = null): Product
     {
         return self::persisted(
@@ -35,6 +19,7 @@ class ProductData
                 'name' => 'Carrinho de Bebê',
                 'ean' => '7908238800092',
                 'purchase_price' => 449.90,
+                'uuid' => 'fdb452fd-fc5f-4267-89dd-32e2010cb946',
             ],
             $prices,
             $category,
@@ -49,6 +34,7 @@ class ProductData
                 'sku' => '987',
                 'name' => 'Cadeirinha para Carros',
                 'ean' => '7898089228339',
+                'uuid' => '6ff331cb-00dd-463f-8f5e-f26999cd28d8',
             ],
             $prices,
             $category
@@ -64,6 +50,8 @@ class ProductData
                 'name' => 'Chupeta',
                 'ean' => '7908103726649',
                 'purchase_price' => 6.75,
+                'uuid' => 'd6ff4ff5-8123-4ed1-b231-e3784cdd2e69',
+                'is_active' => false,
             ],
             $prices,
             $category
@@ -78,6 +66,7 @@ class ProductData
                 'sku' => '821',
                 'name' => 'Cobertor',
                 'ean' => '7897905260881',
+                'uuid' => 'bc2616a8-dc88-4b96-aed5-0c5c3615de7f',
             ],
             $prices,
             $category
@@ -93,6 +82,7 @@ class ProductData
                 'parent_sku' => '821',
                 'name' => 'Cobertor Vermelho',
                 'ean' => '7897905260881',
+                'uuid' => 'eb6dcab0-d141-4e48-95c4-79c6a6dbf25d',
             ],
             $prices,
             $category
@@ -108,6 +98,7 @@ class ProductData
                 'parent_sku' => '821',
                 'name' => 'Cobertor Azul',
                 'ean' => '7897905260881',
+                'uuid' => '01403075-1482-4571-bc75-d91026cff6cb',
             ],
             $prices,
             $category
@@ -122,6 +113,7 @@ class ProductData
                 'sku' => '589',
                 'name' => 'Berço',
                 'ean' => '7898089223815',
+                'uuid' => '56e6073e-f014-48ad-ba19-55d4288a8841',
             ],
             $prices,
             $category
@@ -137,6 +129,7 @@ class ProductData
                 'name' => 'Kit Berço e Carrinho',
                 'ean' => '7898089223815',
                 'composition_products' => ['589', '1234'],
+                'uuid' => '79a246ac-1f5b-4136-81de-3a69f82575d2',
             ],
             $prices,
             $category
@@ -153,11 +146,14 @@ class ProductData
         $data = self::getData($data);
         $product = new Product($data);
         $product->user_id = $user->id;
+        $product->uuid = $data['uuid'];
         $product->save();
 
         foreach ($prices as $price) {
             $priceData = array_merge($price, [
                 'product_sku' => $product->getSku(),
+                'product_uuid' => $product->getUuid(),
+                'uuid' => Uuid::uuid4(),
             ]);
 
             PriceData::persisted($user, $priceData);

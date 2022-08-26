@@ -3,6 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
+use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
@@ -10,6 +11,12 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 
 class SaleOrderRepository implements SaleOrderRepositoryInterface
 {
+    public function __construct(
+        private ProductRepository $productRepository
+    )
+    {
+    }
+
     public function getLastSaleDateTime(string $userId): ?Carbon
     {
         $lastUpdatedProduct = SaleOrder::where('user_id', $userId)

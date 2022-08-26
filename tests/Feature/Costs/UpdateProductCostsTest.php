@@ -55,22 +55,14 @@ class UpdateProductCostsTest extends TestCase
 
     private function and_given_i_have_a_product(): void
     {
-        ProductData::makePersisted(
-            $this->user,
-            [
-                'sku' => 1,
-                'purchase_price' => 50,
-                'tax_icms' => 12,
-                'additional_costs' => 0,
-            ]
-        );
+        ProductData::babyCarriage($this->user);
     }
 
     private function when_i_update_its_costs(): void
     {
         $this->response = $this
             ->actingAs($this->user)
-            ->put('/custos/produtos/atualizar/1', [
+            ->put('/custos/produtos/atualizar/1234', [
                 'purchasePrice' => 60,
                 'taxICMS' => 10,
                 'additionalCosts' => 5,
@@ -96,7 +88,7 @@ class UpdateProductCostsTest extends TestCase
     private function then_the_user_is_redirected(): void
     {
         $this->response->assertRedirect();
-        $this->response->assertSessionHas('message', 'Produto 1 teve seu custo atualizado com sucesso.');
+        $this->response->assertSessionHas('message', 'Produto 1234 teve seu custo atualizado com sucesso.');
 
     }
 
@@ -113,12 +105,12 @@ class UpdateProductCostsTest extends TestCase
     private function then_the_user_is_redirected_with_missing_product_errors(): void
     {
         $this->response->assertRedirect();
-        $this->response->assertSessionHas('error', 'Produto 1 não foi encontrado.');
+        $this->response->assertSessionHas('error', 'Produto 1234 não foi encontrado.');
     }
 
     private function and_then_the_product_costs_are_updated_in_database(): void
     {
-        $product = Product::find(1);
+        $product = Product::where('sku', '1234')->get()->first();
 
         $this->assertSame(60.0, $product->getCosts()->purchasePrice());
         $this->assertSame(5.0, $product->getCosts()->additionalCosts());
@@ -127,9 +119,9 @@ class UpdateProductCostsTest extends TestCase
 
     private function and_then_the_product_costs_are_not_updated_in_database(): void
     {
-        $product = Product::find(1);
+        $product = Product::where('sku', '1234')->get()->first();
 
-        $this->assertSame(50.0, $product->getCosts()->purchasePrice());
+        $this->assertSame(449.9, $product->getCosts()->purchasePrice());
         $this->assertSame(0.0, $product->getCosts()->additionalCosts());
         $this->assertSame(12.0, $product->getCosts()->taxICMS());
     }

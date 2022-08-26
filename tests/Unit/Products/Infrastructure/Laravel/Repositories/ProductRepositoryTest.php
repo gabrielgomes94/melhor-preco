@@ -10,6 +10,7 @@ use Src\Products\Domain\Models\ValueObjects\Costs;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product as ProductModel;
 use Src\Users\Infrastructure\Laravel\Models\User;
+use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
@@ -24,8 +25,8 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user);
-        ProductData::makePersisted($user);
+        ProductData::babyCarriage($user);
+        ProductData::babyChair($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
@@ -40,12 +41,12 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user, ['sku' => '100']);
-        ProductData::makePersisted($user);
+        ProductData::babyCarriage($user);
+        ProductData::babyChair($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->allFiltered(new FilterOptions(sku: '100'), $user->getId());
+        $result = $repository->allFiltered(new FilterOptions(sku: '1234'), $user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(Product::class, $result);
@@ -56,12 +57,13 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user, ['category_id' => '123']);
-        ProductData::makePersisted($user);
+        $category = CategoryData::babyCarriage($user);
+        ProductData::babyCarriage($user, [], $category);
+        ProductData::babyChair($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->allFiltered(new FilterOptions(category: '123'), $user->getId());
+        $result = $repository->allFiltered(new FilterOptions(category: '10'), $user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(Product::class, $result);
@@ -72,7 +74,7 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user, ['sku' => '1234']);
+        ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
@@ -100,7 +102,7 @@ class ProductRepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
 
-        ProductData::makePersisted($user, ['sku' => '1234']);
+        ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
@@ -114,9 +116,9 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user, ['sku' => '1234']);
-        ProductData::makePersisted($user);
-        ProductData::makePersisted($user, ['is_active' => false]);
+        ProductData::babyCarriage($user);
+        ProductData::babyChair($user);
+        ProductData::babyPacifier($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
@@ -130,9 +132,9 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user, ['sku' => '1234']);
-        ProductData::makePersisted($user);
-        ProductData::makePersisted($user, ['is_active' => false]);
+        ProductData::babyCarriage($user);
+        ProductData::babyChair($user);
+        ProductData::babyPacifier($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
@@ -146,11 +148,11 @@ class ProductRepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        ProductData::makePersisted($user, ['ean' => '123456789']);
+        ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->getProductByEan('123456789', $user->getId());
+        $result = $repository->getProductByEan('7908238800092', $user->getId());
 
         // Assert
         $this->assertInstanceOf(Product::class, $result);
@@ -159,15 +161,16 @@ class ProductRepositoryTest extends TestCase
     public function test_should_get_products_and_variation(): void
     {
         $user = UserData::make();
-        ProductData::makePersisted($user, ['ean' => '123456789', 'sku' => '100']);
-        ProductData::makePersisted($user, ['ean' => '123456789', 'parent_sku' => '100', 'sku' => '101']);
-        ProductData::makePersisted($user, ['ean' => '123456789', 'parent_sku' => '100', 'sku' => '102']);
-        ProductData::makePersisted($user, ['ean' => '123456789', 'sku' => '99']);
-        ProductData::makePersisted($user, ['ean' => '123456789', 'sku' => '88']);
+        ProductData::babyCarriage($user);
+        ProductData::babyChair($user);
+        ProductData::babyPacifier($user);
+        ProductData::blanket($user);
+        ProductData::redBlanket($user);
+        ProductData::blueBlanket($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
-        $result = $repository->getProductsAndVariations('100', $user->getId());
+        $result = $repository->getProductsAndVariations('821', $user->getId());
 
         // Assert
         $this->assertContainsOnlyInstancesOf(Product::class, $result);
@@ -177,14 +180,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_update_costs(): void
     {
         $user = UserData::make();
-        $product = ProductData::makePersisted(
-            $user,
-            [
-                'purchase_price' => 100.0,
-                'additional_costs' => 5.0,
-                'tax_icms' => 4,
-                'sku' => '100',
-            ]);
+        $product = ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
         $costs = new Costs(105.0, 5.5, 8);
 
@@ -192,7 +188,7 @@ class ProductRepositoryTest extends TestCase
         $repository->updateCosts($product, $costs, $user->getId());
 
         // Assert
-        $product = ProductModel::where('sku', '100')->first();
+        $product = ProductModel::where('sku', '1234')->first();
         $this->assertSame(105.0, $product->getCosts()->purchasePrice());
         $this->assertSame(5.5, $product->getCosts()->additionalCosts());
         $this->assertSame(8.0, $product->getCosts()->taxICMS());
@@ -201,7 +197,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_save()
     {
         $user = UserData::make();
-        $product = ProductData::make();
+        $product = ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
 
         // Act

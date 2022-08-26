@@ -39,7 +39,7 @@ class PurchaseItem extends Model implements PurchaseItemInterface
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'ean', 'ean');
+        return $this->belongsTo(Product::class, 'product_uuid', 'uuid');
     }
 
     public function getDiscount(): float
@@ -74,6 +74,11 @@ class PurchaseItem extends Model implements PurchaseItemInterface
     public function getIssuedAt(): Carbon
     {
         return $this->invoice->getIssuedAt();
+    }
+
+    public function getEan(): string
+    {
+        return $this->ean;
     }
 
     public function getName(): string

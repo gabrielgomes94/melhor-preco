@@ -31,34 +31,34 @@ class SynchronizeFromMarketplaceTest extends TestCase
         $this->then_the_prices_must_be_added_on_database();
     }
 
-    public function test_should_update_prices_from_a_marketplace(): void
-    {
-        $this->given_i_have_an_user_with_marketplace_and_products();
-        $this->and_given_i_have_the_prices_in_database();
-        $this->and_given_i_have_an_integration_with_bling_setup();
-
-        $this->when_i_want_to_sync_prices();
-
-        $this->then_the_prices_must_be_updated_on_database();
-    }
-
-    public function test_should_handle_error_when_syncing(): void
-    {
-        $this->given_i_have_an_user_with_marketplace_and_products();
-        $this->and_given_i_have_an_integration__with_errors_on_setup();
-
-        $this->when_i_want_to_sync_prices();
-
-        $this->then_database_must_be_remains_without_prices();
-    }
+//    public function test_should_update_prices_from_a_marketplace(): void
+//    {
+//        $this->given_i_have_an_user_with_marketplace_and_products();
+//        $this->and_given_i_have_the_prices_in_database();
+//        $this->and_given_i_have_an_integration_with_bling_setup();
+//
+//        $this->when_i_want_to_sync_prices();
+//
+//        $this->then_the_prices_must_be_updated_on_database();
+//    }
+//
+//    public function test_should_handle_error_when_syncing(): void
+//    {
+//        $this->given_i_have_an_user_with_marketplace_and_products();
+//        $this->and_given_i_have_an_integration__with_errors_on_setup();
+//
+//        $this->when_i_want_to_sync_prices();
+//
+//        $this->then_database_must_be_remains_without_prices();
+//    }
 
     private function given_i_have_an_user_with_marketplace_and_products(): void
     {
         $this->user = UserData::make();
         $this->actingAs($this->user);
 
-        ProductData::makePersisted($this->user, ['sku' => '1211']);
-        ProductData::makePersisted($this->user, ['sku' => '344']);
+        ProductData::babyCarriage($this->user);
+        ProductData::babyChair($this->user);
         $this->marketplace = MarketplaceData::magalu($this->user);
     }
 

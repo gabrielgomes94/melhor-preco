@@ -11,7 +11,7 @@ class CreateCostsPurchaseItemsTable extends Migration
         Schema::create('costs_purchase_items', function (Blueprint $table) {
             $table->uuid('uuid');
             $table->string('product_sku')->nullable();
-            $table->string('product_uuid')->nullable();
+            $table->foreignUuid('product_uuid')->nullable();
             $table->string('name');
             $table->decimal('unit_cost');
             $table->decimal('unit_price');

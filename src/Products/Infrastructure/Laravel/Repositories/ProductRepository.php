@@ -5,6 +5,7 @@ namespace Src\Products\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Ramsey\Uuid\Uuid;
 use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\ValueObjects\Costs;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
@@ -106,6 +107,14 @@ class ProductRepository implements ProductRepositoryInterface
     public function save(Product $product, string $userId): bool
     {
         $product->user_id = $userId;
+
+        return $product->save();
+    }
+
+    public function insert(Product $product, string $userId): bool
+    {
+        $product->user_id = $userId;
+        $product->uuid = Uuid::uuid4();
 
         return $product->save();
     }

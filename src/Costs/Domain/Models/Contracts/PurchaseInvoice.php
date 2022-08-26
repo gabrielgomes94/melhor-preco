@@ -3,6 +3,7 @@
 namespace Src\Costs\Domain\Models\Contracts;
 
 use Illuminate\Support\Carbon;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 interface PurchaseInvoice
 {
@@ -31,4 +32,6 @@ interface PurchaseInvoice
     public function hasItems(): bool;
 
     public function getItems(): iterable;
+
+    public function getUser(): User;
 }

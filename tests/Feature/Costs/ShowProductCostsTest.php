@@ -36,25 +36,19 @@ class ShowProductCostsTest extends TestCase
 
     private function given_i_have_a_product_with_purchase_item(): void
     {
-        ProductData::makePersisted($this->user, [
-            'sku' => 1,
-            'purchase_price' => 50,
-            'tax_icms' => 12,
-            'additional_costs' => 0,
-            'ean' => '12345678910'
-        ]);
+        $product = ProductData::babyCarriage($this->user);
 
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($this->user);
         PurchaseItemsData::makePersisted($purchaseInvoice, [
             'uuid' => 'f0043355-92b8-4716-89b6-4e6b0c1c8c71'
-        ]);
+        ], $product);
     }
 
     private function when_i_want_to_see_its_costs_details(): void
     {
         $this->response = $this
             ->actingAs($this->user)
-            ->get('/custos/produtos/detalhes/1');
+            ->get('/custos/produtos/detalhes/1234');
     }
 
     private function then_i_must_be_sent_to_costs_product_show_page(): void
@@ -84,8 +78,8 @@ class ShowProductCostsTest extends TestCase
             ],
         ]);
         $this->response->assertViewHas('product', [
-            'name' => 'Canguru Balbi Vermelho',
-            'sku' => '1',
+            'name' => 'Carrinho de Bebê',
+            'sku' => '1234',
         ]);
     }
 }

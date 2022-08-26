@@ -27,7 +27,7 @@ class RepositoryTest extends TestCase
         PurchaseInvoiceData::makePersisted($user);
         PurchaseInvoiceData::makePersisted($user);
 
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->countPurchaseInvoices($user->getId());
@@ -41,7 +41,7 @@ class RepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         PurchaseInvoiceData::makePersisted($user);
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->getLastSynchronizationDateTime($user->getId());
@@ -54,7 +54,7 @@ class RepositoryTest extends TestCase
     {
         // Arrange
         $user = UserData::make();
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->getLastSynchronizationDateTime($user->getId());
@@ -68,7 +68,7 @@ class RepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         PurchaseInvoiceData::makePersisted($user, ['uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110']);
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->getPurchaseInvoice($user->getId(), '9044ab84-a3bf-485e-ba17-6c9ea6f53110');
@@ -85,7 +85,7 @@ class RepositoryTest extends TestCase
         PurchaseItemsData::makePersisted($purchaseInvoice, [
             'uuid' => '16f3eb5f-5af4-419e-8f5d-225884a74d5c'
         ]);
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->getPurchaseItem($user->getId(), '16f3eb5f-5af4-419e-8f5d-225884a74d5c');
@@ -101,7 +101,7 @@ class RepositoryTest extends TestCase
             'bling.com.br/relatorios/nfe.xml.php?s&chaveAcesso=1234' => Http::response('<xml></xml>'),
         ]);
         $purchaseInvoice = PurchaseInvoiceData::make();
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->getXml($purchaseInvoice);
@@ -115,7 +115,7 @@ class RepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         $purchaseInvoice = PurchaseInvoiceData::make();
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->insertPurchaseInvoice($purchaseInvoice, $user->id);
@@ -129,7 +129,7 @@ class RepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->insertPurchaseInvoice($purchaseInvoice, $user->id);
@@ -144,7 +144,7 @@ class RepositoryTest extends TestCase
         $user = UserData::make();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
         $purchaseItem = PurchaseItemsData::make();
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->insertPurchaseItem($purchaseInvoice, $purchaseItem);
@@ -160,7 +160,7 @@ class RepositoryTest extends TestCase
         $purchaseItem = PurchaseItemsData::makePersisted(
             PurchaseInvoiceData::makePersisted($user)
         );
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->linkItemToProduct($purchaseItem, '1234');
@@ -176,7 +176,7 @@ class RepositoryTest extends TestCase
         PurchaseInvoiceData::makePersisted($user);
         PurchaseInvoiceData::makePersisted($user);
         PurchaseInvoiceData::makePersisted($user);
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->listPurchaseInvoice($user->getId());
@@ -191,7 +191,7 @@ class RepositoryTest extends TestCase
         // Arrange
         $user = UserData::make();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
-        $repository = new Repository();
+        $repository = app(Repository::class);
 
         // Act
         $result = $repository->purchaseInvoiceExists($purchaseInvoice);

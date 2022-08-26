@@ -4,6 +4,7 @@ namespace Tests\Data\Models\Costs;
 
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class PurchaseItemsData
 {
@@ -23,10 +24,11 @@ class PurchaseItemsData
         return $purchaseItem;
     }
 
-    public static function makePersisted(PurchaseInvoice $purchaseInvoice, array $data = []): PurchaseItem
+    public static function makePersisted(PurchaseInvoice $purchaseInvoice, array $data = [], ?Product $product = null): PurchaseItem
     {
         $purchaseItem = self::make($data);
         $purchaseItem->invoice()->associate($purchaseInvoice);
+        $purchaseItem->product()->associate($product);
         $purchaseItem->save();
 
         return $purchaseItem;

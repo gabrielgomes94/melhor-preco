@@ -12,8 +12,7 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
     public function __construct(
         private DbRepository $repository,
         private NFeRepository $nfeReader,
-    )
-    {
+    ) {
     }
 
     public function sync(string $userId): void
@@ -25,7 +24,7 @@ class SynchronizePurchaseItems implements SyncPurchaseItems
                 continue;
             }
 
-            $this->insertItemsInInvoice($purchaseInvoice);
+            $this->insertItemsInInvoice($purchaseInvoice, $userId);
         }
     }
 

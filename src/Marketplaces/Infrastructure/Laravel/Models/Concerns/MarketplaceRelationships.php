@@ -17,9 +17,9 @@ trait MarketplaceRelationships
             Product::class,
             Price::class,
             'marketplace_erp_id',
-            'sku',
+            'uuid',
             'erp_id',
-            'product_sku'
+            'product_uuid'
         );
     }
 

@@ -23,7 +23,7 @@ class ShowProductCosts
     public function show(string $sku, string $userId): ProductCosts
     {
         if (!$product = $this->repository->get($sku, $userId)) {
-            throw new ProductNotFoundException($sku);
+            throw new ProductNotFoundException($sku, $userId);
         }
 
         $items = collect($product->getPurchaseItemsCosts());

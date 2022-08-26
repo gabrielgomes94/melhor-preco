@@ -28,7 +28,7 @@ class UpdateCostsTest extends TestCase
         $productRepository = m::mock(ProductRepository::class);
         $updateCosts = new UpdateCosts($productRepository);
         $products = [
-            ProductData::make(),
+            ProductData::babyChair($user),
         ];
 
         // Expects
@@ -77,7 +77,7 @@ class UpdateCostsTest extends TestCase
         $productRepository = m::mock(ProductRepository::class);
         $updateCosts = new UpdateCosts($productRepository);
         $products = [
-            ProductData::make(),
+            ProductData::babyChair($user),
         ];
 
         // Expects
