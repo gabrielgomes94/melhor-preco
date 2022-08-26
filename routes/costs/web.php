@@ -33,9 +33,6 @@ Route::middleware('auth')->group(function () {
 
                     Route::get('/lista', [PurchaseInvoicesController::class, 'listPurchaseInvoices'])
                         ->name('.listPurchaseInvoices');
-
-                    Route::put('/vincular-item', [PurchaseItemsController::class, 'linkProduct'])
-                        ->name('.linkProduct');
                 });
 
             Route::post('/sincronizar', [SyncController::class, 'sync'])

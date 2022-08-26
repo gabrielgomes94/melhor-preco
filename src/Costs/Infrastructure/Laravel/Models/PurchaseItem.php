@@ -88,7 +88,7 @@ class PurchaseItem extends Model implements PurchaseItemInterface
 
     public function getProductSku(): ?string
     {
-        return $this->product_sku ?? null;
+        return $this->product?->getSku();
     }
 
     public function getPurchaseItemUuid(): string

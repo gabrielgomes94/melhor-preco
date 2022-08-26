@@ -1,7 +1,15 @@
 @foreach ($items as $model)
     <tr>
         <td colspan="3">
-            {{ $model['name'] }}
+            @empty($model['productSku'])
+                {{ $model['name'] }}
+            @else
+                <x-bootstrap.links.link
+                    :route="route('products.reports.show', $model['productSku'])"
+                >
+                    {{ $model['name'] }}
+                </x-bootstrap.links.link>
+            @endempty
         </td>
 
         <td>
