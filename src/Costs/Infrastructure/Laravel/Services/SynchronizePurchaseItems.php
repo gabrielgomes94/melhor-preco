@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Costs\Domain\UseCases;
+namespace Src\Costs\Infrastructure\Laravel\Services;
 
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Domain\Repositories\NFeRepository;
-use Src\Costs\Domain\UseCases\Contracts\SyncPurchaseItems;
+use Src\Costs\Domain\Services\SyncPurchaseItems;
 
 class SynchronizePurchaseItems implements SyncPurchaseItems
 {

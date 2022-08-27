@@ -3,8 +3,8 @@
 namespace Tests\Unit\Costs\Infrastructure\Laravel\Jobs;
 
 use Mockery as m;
-use Src\Costs\Domain\UseCases\SynchronizePurchaseInvoices;
-use Src\Costs\Domain\UseCases\SynchronizePurchaseItems;
+use Src\Costs\Infrastructure\Laravel\Services\SynchronizePurchaseInvoices;
+use Src\Costs\Infrastructure\Laravel\Services\SynchronizePurchaseItems;
 use Src\Costs\Infrastructure\Laravel\Jobs\SyncCosts;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\TestCase;

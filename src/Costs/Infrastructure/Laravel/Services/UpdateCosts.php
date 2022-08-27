@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Costs\Domain\UseCases;
+namespace Src\Costs\Infrastructure\Laravel\Services;
 
 use Src\Costs\Domain\Exceptions\UpdateCostsException;
-use Src\Costs\Domain\UseCases\Contracts\UpdateCosts as UpdateCostsInterface;
+use Src\Costs\Domain\Services\UpdateCosts as UpdateCostsInterface;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\ProductCostsUpdated;
 use Src\Products\Domain\Models\ValueObjects\Costs;

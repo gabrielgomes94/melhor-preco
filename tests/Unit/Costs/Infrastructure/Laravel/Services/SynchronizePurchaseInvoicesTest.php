@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\Costs\Domain\UseCases;
+namespace Src\Costs\Infrastructure\Laravel\Services;
 
 use Mockery as m;
-use Src\Costs\Domain\UseCases\SynchronizePurchaseInvoices;
+use Src\Costs\Infrastructure\Laravel\Services\SynchronizePurchaseInvoices;
 use Src\Costs\Infrastructure\Bling\BlingRepository;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository;

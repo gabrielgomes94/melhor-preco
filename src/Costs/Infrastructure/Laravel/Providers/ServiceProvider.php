@@ -3,12 +3,12 @@
 namespace Src\Costs\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Src\Costs\Domain\UseCases\Contracts\LinkProductToPurchaseItem;
-use Src\Costs\Domain\UseCases\Contracts\SyncPurchaseInvoices;
-use Src\Costs\Domain\UseCases\Contracts\UpdateCosts;
+use Src\Costs\Domain\Services\LinkProductToPurchaseItem;
+use Src\Costs\Domain\Services\SyncPurchaseInvoices;
+use Src\Costs\Domain\Services\UpdateCosts;
 use Src\Costs\Domain\UseCases\LinkProductToPurchaseItem as LinkProductToPurchaseItemImpl;
-use Src\Costs\Domain\UseCases\SynchronizePurchaseInvoices;
-use Src\Costs\Domain\UseCases\UpdateCosts as UpdateCostsImpl;
+use Src\Costs\Infrastructure\Laravel\Services\SynchronizePurchaseInvoices;
+use Src\Costs\Infrastructure\Laravel\Services\UpdateCosts as UpdateCostsImpl;
 use Src\Costs\Infrastructure\Laravel\Models\Observers\PurchaseInvoiceObserver;
 use Src\Costs\Infrastructure\Laravel\Models\Observers\PurchaseItemsObserver;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
