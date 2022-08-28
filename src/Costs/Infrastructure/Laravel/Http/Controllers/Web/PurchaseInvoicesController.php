@@ -3,7 +3,11 @@
 namespace Src\Costs\Infrastructure\Laravel\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Src\Costs\Domain\Exceptions\PurchaseInvoiceNotFoundException;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseInvoicePresenter;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Costs\Domain\Repositories\DbRepository;
@@ -20,10 +24,14 @@ class PurchaseInvoicesController extends Controller
      */
     public function showPurchaseInvoices(string $uuid)
     {
-        $data = $this->repository->getPurchaseInvoice($this->getUserId(), $uuid);
+        try {
+            $data = $this->repository->getPurchaseInvoice($this->getUserId(), $uuid);
+        } catch (QueryException $exception) {
+            throw new PurchaseInvoiceNotFoundException($uuid);
+        }
 
         if (!$data) {
-            abort(404);
+            throw new PurchaseInvoiceNotFoundException($uuid);
         }
 
         $data = $this->purchaseInvoicePresenter->present($data);
@@ -31,7 +39,7 @@ class PurchaseInvoicesController extends Controller
         return view('pages.costs.invoices.show', ['data' => $data]);
     }
 
-    public function listPurchaseInvoices()
+    public function listPurchaseInvoices(): View|Factory
     {
         $data = $this->repository->listPurchaseInvoice($this->getUserId());
         $data = $this->purchaseInvoicePresenter->presentList($data);

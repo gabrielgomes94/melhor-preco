@@ -27,8 +27,8 @@ class PurchaseInvoicePresenter
             'fiscalId' => $invoice->getFiscalId(),
             'value' => MathPresenter::money($invoice->getValue()),
             'status' => $invoice->getSituation(),
-            'freightValue' => 0.0,
-            'insuranceValue' => 0.0,
+            'freightValue' => $invoice->getFreight(),
+            'insuranceValue' => $invoice->getInsurance(),
             'items' => $invoice->getItems()->map(
                 fn (PurchaseItem $item) => $this->purchaseItemsPresenter->present($item)
             )->all(),
@@ -39,18 +39,24 @@ class PurchaseInvoicePresenter
     {
         $collection = collect($collection);
 
-        $data = $collection->transform(
-            function (PurchaseInvoice $model): array {
-                return [
-                    'uuid' => $model->getUuid(),
-                    'series' => $model->getSeries(),
-                    'seriesNumber' => "{$model->getSeries()} - {$model->getNumber()}",
-                    'issuedAt' => $model->getIssuedAt()->format('d/m/Y'),
-                    'contactName' => $model->getContactName(),
-                    'value' => MathPresenter::money($model->getValue()),
-                    'status' => $model->getSituation(),
-                ];
-            }
+        $data = $collection
+            ->sortByDesc(
+                function(PurchaseInvoice $model) {
+                    return $model->getIssuedAt();
+                }
+            )
+            ->transform(
+                function (PurchaseInvoice $model): array {
+                    return [
+                        'uuid' => $model->getUuid(),
+                        'series' => $model->getSeries(),
+                        'seriesNumber' => "{$model->getSeries()} - {$model->getNumber()}",
+                        'issuedAt' => $model->getIssuedAt()->format('d/m/Y'),
+                        'contactName' => $model->getContactName(),
+                        'value' => MathPresenter::money($model->getValue()),
+                        'status' => $model->getSituation(),
+                    ];
+                }
         );
 
         return $data->all();

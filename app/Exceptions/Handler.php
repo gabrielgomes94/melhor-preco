@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Src\Costs\Domain\Exceptions\PurchaseInvoiceNotFoundException;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 
@@ -44,6 +45,10 @@ class Handler extends ExceptionHandler
             return response()->view('pages.errors.product-404', [
                 'identifier' => $exception->identifier,
             ]);
+        });
+
+        $this->renderable(function (PurchaseInvoiceNotFoundException $exception, $request) {
+            return response()->view('pages.errors.purchase-invoice-404');
         });
     }
 }
