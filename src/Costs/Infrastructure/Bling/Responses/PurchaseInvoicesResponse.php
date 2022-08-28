@@ -2,7 +2,7 @@
 
 namespace Src\Costs\Infrastructure\Bling\Responses;
 
-use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseInvoice;
 use Src\Integrations\Bling\Base\Responses\BaseResponse;
 
 class PurchaseInvoicesResponse extends BaseResponse

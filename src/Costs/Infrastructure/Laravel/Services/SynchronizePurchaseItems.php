@@ -2,7 +2,7 @@
 
 namespace Src\Costs\Infrastructure\Laravel\Services;
 
-use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseInvoice;
 use Src\Costs\Domain\Repositories\DbRepository;
 use Src\Costs\Domain\Repositories\NFeRepository;
 use Src\Costs\Domain\Services\SyncPurchaseItems;

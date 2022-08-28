@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Src\Costs\Domain\Models\Contracts\PurchaseInvoice as PurchaseInvoiceInterface;
+use Src\Costs\Domain\Models\PurchaseInvoice as PurchaseInvoiceInterface;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class PurchaseInvoice extends Model implements PurchaseInvoiceInterface

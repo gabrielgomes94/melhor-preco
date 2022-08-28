@@ -2,7 +2,7 @@
 
 namespace Src\Costs\Domain\DataTransfer;
 
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ProductCosts

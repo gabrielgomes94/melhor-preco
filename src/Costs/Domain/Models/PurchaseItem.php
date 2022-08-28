@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Costs\Domain\Models\Contracts;
+namespace Src\Costs\Domain\Models;
 
 use Illuminate\Support\Carbon;
 

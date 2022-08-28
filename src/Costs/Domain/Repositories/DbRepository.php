@@ -4,8 +4,8 @@ namespace Src\Costs\Domain\Repositories;
 
 use Carbon\Carbon;
 use Src\Costs\Domain\DataTransfer\ProductCosts;
-use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\Models\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseItem;
 
 interface DbRepository
 {
