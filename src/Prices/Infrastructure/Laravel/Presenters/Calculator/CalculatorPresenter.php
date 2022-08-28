@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 
 use App\Http\Controllers\Utils\Breadcrumb;
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;

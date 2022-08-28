@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Costs\Domain\UseCases;
+namespace Src\Costs\Infrastructure\Laravel\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Mockery as m;
 use Src\Costs\Domain\Exceptions\UpdateCostsException;
-use Src\Costs\Domain\UseCases\UpdateCosts;
+use Src\Costs\Infrastructure\Laravel\Services\UpdateCosts;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Events\ProductCostsUpdated;
 use Src\Products\Domain\Models\ValueObjects\Costs;

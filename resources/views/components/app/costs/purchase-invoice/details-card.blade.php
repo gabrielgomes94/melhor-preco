@@ -7,17 +7,7 @@
         <x-app.costs.purchase-invoice.invoice-info :data="$data" />
 
         <div class="m-1 w-100">
-            <x-bootstrap.forms.form.put :action="route('costs.linkProduct')">
-                <x-app.costs.purchase-invoice.items :items="$data['items']" />
-
-                <div class="d-inline-flex justify-content-end w-100">
-                    <x-bootstrap.buttons.submit label="Voltar"/>
-
-                    <div class="mx-1"></div>
-
-                    <x-bootstrap.buttons.submit label="Vincular SKUs"/>
-                </div>
-            </x-bootstrap.forms.form.put>
+            <x-bootstrap.buttons.submit label="Voltar"/>
         </div>
     </x-bootstrap.card.basic.card-body>
 </x-bootstrap.card.basic.card>

@@ -7,8 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Src\Costs\Domain\UseCases\SynchronizePurchaseInvoices;
-use Src\Costs\Domain\UseCases\SynchronizePurchaseItems;
+use Src\Costs\Infrastructure\Laravel\Services\SynchronizePurchaseInvoices;
+use Src\Costs\Infrastructure\Laravel\Services\SynchronizePurchaseItems;
 
 class SyncCosts implements ShouldQueue
 {

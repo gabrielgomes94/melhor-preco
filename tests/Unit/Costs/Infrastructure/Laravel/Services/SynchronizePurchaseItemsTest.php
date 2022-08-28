@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\Costs\Domain\UseCases;
+namespace Src\Costs\Infrastructure\Laravel\Services;
 
 use Mockery as m;
 use SimpleXMLElement;
 use Src\Costs\Domain\Repositories\NFeRepository;
-use Src\Costs\Domain\UseCases\SynchronizePurchaseItems;
+use Src\Costs\Infrastructure\Laravel\Services\SynchronizePurchaseItems;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;

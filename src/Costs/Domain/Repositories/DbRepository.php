@@ -3,11 +3,14 @@
 namespace Src\Costs\Domain\Repositories;
 
 use Carbon\Carbon;
-use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\DataTransfer\ProductCosts;
+use Src\Costs\Domain\Models\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseItem;
 
 interface DbRepository
 {
+    public function getProductCosts(string $sku, string $userId): ProductCosts;
+
     public function countPurchaseInvoices(string $userId): int;
 
     public function getLastSynchronizationDateTime(string $userId): ?Carbon;
@@ -24,8 +27,6 @@ interface DbRepository
     public function insertPurchaseInvoice(PurchaseInvoice $purchaseInvoice, string $userId): bool;
 
     public function listPurchaseInvoice(string $userId): array;
-
-    public function linkItemToProduct(PurchaseItem $item, string $productSku): bool;
 
     public function purchaseInvoiceExists(PurchaseInvoice $purchaseInvoice): bool;
 }

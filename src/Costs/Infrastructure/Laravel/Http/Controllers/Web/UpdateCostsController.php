@@ -4,7 +4,7 @@ namespace Src\Costs\Infrastructure\Laravel\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Src\Costs\Domain\Exceptions\UpdateCostsException;
-use Src\Costs\Domain\UseCases\Contracts\UpdateCosts;
+use Src\Costs\Domain\Services\UpdateCosts;
 use Src\Costs\Infrastructure\Laravel\Http\Requests\UpdateCostsRequest;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 

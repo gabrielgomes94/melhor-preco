@@ -4,13 +4,14 @@ namespace Src\Costs\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use SimpleXMLElement;
-use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\DataTransfer\ProductCosts;
+use Src\Costs\Domain\Models\PurchaseInvoice;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice as PurchaseInvoiceModel;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem as PurchaseItemModel;
 use Src\Costs\Domain\Repositories\DbRepository;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 
 class Repository implements DbRepository
@@ -86,13 +87,6 @@ class Repository implements DbRepository
         return true;
     }
 
-    public function linkItemToProduct(PurchaseItem $item, string $productSku): bool
-    {
-        $item->product_sku = $productSku;
-
-        return $item->save();
-    }
-
     /**
      * @return PurchaseInvoiceModel[]
      */
@@ -108,5 +102,22 @@ class Repository implements DbRepository
             'number' => $purchaseInvoice->getNumber(),
             'series' => $purchaseInvoice->getSeries(),
         ])->first();
+    }
+
+    /**
+     * @throws ProductNotFoundException
+     */
+    public function getProductCosts(string $sku, string $userId): ProductCosts
+    {
+        if (!$product = $this->productRepository->get($sku, $userId)) {
+            throw new ProductNotFoundException($sku, $userId);
+        }
+
+        $items = collect($product->getPurchaseItemsCosts());
+        $items = $items->sortByDesc(
+            fn (PurchaseItem $item) => $item->getIssuedAt()
+        )->all();
+
+        return new ProductCosts($product, $items);
     }
 }

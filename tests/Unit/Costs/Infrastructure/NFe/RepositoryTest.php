@@ -3,7 +3,7 @@
 namespace Tests\Unit\Costs\Infrastructure\NFe;
 
 use SimpleXMLElement;
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\NFe\Mappers\PurchaseItemMapper;
 use Src\Costs\Infrastructure\NFe\Repository;
 use Src\Costs\Infrastructure\NFe\Services\CalculateUnitCost;

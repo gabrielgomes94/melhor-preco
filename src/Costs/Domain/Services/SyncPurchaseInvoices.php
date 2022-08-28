@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Costs\Domain\UseCases\Contracts;
+namespace Src\Costs\Domain\Services;
 
 interface SyncPurchaseInvoices
 {

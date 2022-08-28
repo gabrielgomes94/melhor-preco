@@ -7,6 +7,7 @@ use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseInvoicePresenter;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
+use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
@@ -19,12 +20,15 @@ class PurchaseInvoicePresenterTest extends TestCase
         // Arrange
         $user = UserData::make();
 
+        $product = ProductData::babyCarriage($user);
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user, [
             'uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110',
         ]);
-        PurchaseItemsData::makePersisted($purchaseInvoice, [
-            'uuid' => '6e113301-f9ac-44af-85da-d43f3a1652cf',
-        ]);
+        PurchaseItemsData::makePersisted(
+            $purchaseInvoice,
+            ['uuid' => '6e113301-f9ac-44af-85da-d43f3a1652cf'],
+            $product
+        );
 
         $presenter = new PurchaseInvoicePresenter(
             new PurchaseItemsPresenter()
@@ -93,7 +97,7 @@ class PurchaseInvoicePresenterTest extends TestCase
                     'quantity' => 5.0,
                     'totalValue' => 'R$ 840,00',
                     'purchaseItemUuid' => '6e113301-f9ac-44af-85da-d43f3a1652cf',
-                    'productSku' => '1',
+                    'productSku' => '1234',
                     'costs' => [
                         'purchasePrice' => 'R$ 150,00',
                         'taxes' => 'R$ 40,00',

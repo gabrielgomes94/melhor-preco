@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Costs\Domain\UseCases\Contracts;
+namespace Src\Costs\Domain\Services;
 
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 

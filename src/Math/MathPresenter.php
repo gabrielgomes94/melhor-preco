@@ -25,7 +25,7 @@ class MathPresenter
 
         $value = $value instanceof Money
             ? $value
-            : Money::BRL((string) ($value * 100));
+            : Money::BRL((int) ($value * 100));
 
         $value = self::numberFormat((float) $formatter->format($value));
 

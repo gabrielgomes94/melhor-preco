@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Integration\Costs\Bling;
+namespace Src\Costs\Infrastructure\Bling;
 
 use Mockery;
-use Src\Costs\Infrastructure\Bling\BlingRepository;
 use Src\Costs\Infrastructure\Bling\Responses\Factory;
 use Src\Costs\Infrastructure\Bling\Responses\PurchaseInvoicesResponse;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
@@ -11,7 +10,6 @@ use Src\Integrations\Bling\Invoices\Client;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\TestCase;
 
-// @todo: Mover para contexto de Integrations
 class BlingRepositoryTest extends TestCase
 {
     public function test_should_list_purchase_invoices(): void

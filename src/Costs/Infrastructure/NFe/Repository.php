@@ -3,7 +3,7 @@
 namespace Src\Costs\Infrastructure\NFe;
 
 use SimpleXMLElement;
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Domain\Repositories\NFeRepository;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem as PurchaseItemModel;
 use Src\Costs\Infrastructure\NFe\Data\Product;

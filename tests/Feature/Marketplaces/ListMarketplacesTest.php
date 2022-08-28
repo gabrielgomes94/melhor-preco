@@ -107,7 +107,7 @@ class ListMarketplacesTest extends FeatureTestCase
                             [
                                 'initialCubicWeight' => '9,001',
                                 'endCubicWeight' => '13,000',
-                                'value' =>  'R$ 70,74',
+                                'value' =>  'R$ 70,73',
                             ],
                             [
                                 'initialCubicWeight' => '13,001',
@@ -142,7 +142,7 @@ class ListMarketplacesTest extends FeatureTestCase
                             [
                                 'initialCubicWeight' => '41,001',
                                 'endCubicWeight' => '45,000',
-                                'value' =>  'R$ 139,14',
+                                'value' =>  'R$ 139,13',
                             ],
                             [
                                 'initialCubicWeight' => '45,001',

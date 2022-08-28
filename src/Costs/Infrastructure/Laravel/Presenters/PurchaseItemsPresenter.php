@@ -2,7 +2,7 @@
 
 namespace Src\Costs\Infrastructure\Laravel\Presenters;
 
-use Src\Costs\Domain\Models\Contracts\PurchaseItem;
+use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Math\MathPresenter;
 use Src\Math\Percentage;
 
