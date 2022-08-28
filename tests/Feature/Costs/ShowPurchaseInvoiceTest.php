@@ -7,6 +7,7 @@ use Illuminate\Testing\TestResponse;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
+use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
@@ -44,14 +45,17 @@ class ShowPurchaseInvoiceTest extends TestCase
 
     private function given_i_have_a_purchase_invoice(): void
     {
+        $product = ProductData::babyCarriage($this->user);
         $purchaseInvoice = PurchaseInvoiceData::makePersisted(
             $this->user, [
             'uuid' => '8556b473-602d-4b59-954f-44f9b78526af'
         ]);
 
-        PurchaseItemsData::makePersisted($purchaseInvoice, [
-            'uuid' => '517cce8a-e7c2-48d7-a052-5e10729c7c22',
-        ]);
+        PurchaseItemsData::makePersisted(
+            $purchaseInvoice,
+            ['uuid' => '517cce8a-e7c2-48d7-a052-5e10729c7c22'],
+            $product
+        );
     }
 
     private function given_i_do_not_have_a_purchase_invoice(): void
@@ -87,7 +91,7 @@ class ShowPurchaseInvoiceTest extends TestCase
                     'quantity' => 5.0,
                     'totalValue' => 'R$ 840,00',
                     'purchaseItemUuid' => '517cce8a-e7c2-48d7-a052-5e10729c7c22',
-                    'productSku' => '1',
+                    'productSku' => '1234',
                     'issuedAt' => '17/02/2021 09:55',
                     'unitCost' => 'R$ 168,00',
                     'costs' => [
