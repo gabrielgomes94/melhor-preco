@@ -37,7 +37,7 @@ class Price extends Model
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_sku', 'sku');
+        return $this->belongsTo(Product::class, 'product_uuid', 'uuid');
     }
 
     public function getCommission(): Percentage

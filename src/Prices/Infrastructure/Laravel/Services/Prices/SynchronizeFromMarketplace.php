@@ -9,6 +9,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
 use Src\Users\Infrastructure\Laravel\Models\User;
@@ -19,7 +20,8 @@ class SynchronizeFromMarketplace
         private BlingRepository $erpRepository,
         private CalculateProfit $calculateProfit,
         private CommissionRepository $commissionRepository,
-        private PriceRepository $priceRepository
+        private PriceRepository $priceRepository,
+        private ProductRepository $productRepository
     ) {
     }
 
@@ -52,9 +54,16 @@ class SynchronizeFromMarketplace
             $priceModels = $this->priceRepository->getPriceFromMarketplace(
                 $price->store, $price->store_sku_id, $price->product_sku, $user->getId()
             );
+
+            $product = $this->productRepository->get($price->getProductSku(), $user->getId());
+
+            if (!$product) {
+                continue;
+            }
+
             $commission = $this->commissionRepository->getCommissionRate(
                 $price->getMarketplace(),
-                $price->getProduct()
+                $product
             );
             $profit = $this->calculateProfit->fromModel($price, $user);
 

@@ -4,6 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Ramsey\Uuid\Uuid;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
 
@@ -41,6 +42,7 @@ class PriceRepository
             'profit' => $profit,
         ]);
         $price->product()->associate($product);
+        $price->uuid = Uuid::uuid4();
         $price->user_id = $userId;
 
         return $price->save();

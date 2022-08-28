@@ -16,17 +16,17 @@ class PriceObserver
     public function saved(Price $price)
     {
         if (!$price->isProfitable()) {
-            UnprofitablePrice::dispatch($price);
+//            UnprofitablePrice::dispatch($price);
         }
     }
 
     // @todo: estudar uma forma de implementar melhor essa atribuiçãod e UUIDs e relacionamento com produto
-    public function creating(Price $price)
-    {
-        $userId = auth()->user()->getAuthIdentifier();
-        $product = $this->productRepository->get($price->getProductSku(), $userId);
-
-        $price->product_uuid = $product->getUuid();
-        $price->uuid = Uuid::uuid4();
-    }
+//    public function creating(Price $price)
+//    {
+////        $userId = auth()->user()->getAuthIdentifier();
+//        $product = $this->productRepository->get($price->getProductSku(), $userId);
+//
+//        $price->product_uuid = $product->getUuid();
+//        $price->uuid = Uuid::uuid4();
+//    }
 }
