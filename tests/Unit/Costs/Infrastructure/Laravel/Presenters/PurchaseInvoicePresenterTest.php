@@ -86,7 +86,7 @@ class PurchaseInvoicePresenterTest extends TestCase
             'fiscalId' => '06981862000200',
             'value' => 'R$ 1.000,00',
             'status' => 'Registrada',
-            'freightValue' => 0.0,
+            'freightValue' => 10.0,
             'insuranceValue' => 0.0,
             'items' => [
                 [

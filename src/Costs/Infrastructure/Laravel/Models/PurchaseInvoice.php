@@ -120,4 +120,18 @@ class PurchaseInvoice extends Model implements PurchaseInvoiceInterface
     {
         return $this->user;
     }
+
+    public function getFreight(): float
+    {
+        return $this->items->sum(function (PurchaseItem $item) {
+            return $item->getFreightCosts();
+        });
+    }
+
+    public function getInsurance(): float
+    {
+        return $this->items->sum(function (PurchaseItem $item) {
+            return $item->getInsuranceCosts();
+        });
+    }
 }

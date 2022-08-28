@@ -10,7 +10,7 @@
             <div class="d-flex flew-row">
                 <ul class="navbar-nav navbar-nav-hover">
                     <x-app.base.menu.items.menu-item
-                        route="{{ route('pricing.priceList.byStore', 'magalu') }}"
+                        route="{{ route('pricing.priceList.byStore') }}"
                         name="Calculadora de Preços"
                         icon="calculator
                     "/>

@@ -82,7 +82,7 @@ class ShowPurchaseInvoiceTest extends TestCase
             'number' => '248284',
             'situation' => 'Registrada',
             'fiscalId' => '06981862000200',
-            'freightValue' => 0.0,
+            'freightValue' => 10.0,
             'insuranceValue' => 0.0,
             'items' => [
                 [
@@ -112,6 +112,6 @@ class ShowPurchaseInvoiceTest extends TestCase
 
     private function then_i_must_see_the_error_404_page(): void
     {
-        $this->response->assertNotFound();
+        $this->response->assertViewIs('pages.errors.purchase-invoice-404');
     }
 }

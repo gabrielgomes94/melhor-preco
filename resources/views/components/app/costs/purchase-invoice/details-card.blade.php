@@ -6,6 +6,8 @@
 
         <x-app.costs.purchase-invoice.invoice-info :data="$data" />
 
+        <x-app.costs.purchase-invoice.items :items="$data['items']" />
+
         <div class="m-1 w-100">
             <x-bootstrap.buttons.submit label="Voltar"/>
         </div>

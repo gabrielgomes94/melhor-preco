@@ -13,11 +13,7 @@
         </td>
 
         <td>
-            <x-bootstrap.forms.input.text
-                attribute="products[{{ $model['purchaseItemUuid'] }}]"
-                visibleComponentId="{{ 'inputSku-' . $model['purchaseItemUuid'] ?? '' }}"
-                :value="$model['productSku']"
-            />
+            {{ $model['productSku'] }}
         </td>
 
         <td>
