@@ -28,7 +28,5 @@ interface DbRepository
 
     public function listPurchaseInvoice(string $userId): array;
 
-    public function linkItemToProduct(PurchaseItem $item, string $productSku): bool;
-
     public function purchaseInvoiceExists(PurchaseInvoice $purchaseInvoice): bool;
 }

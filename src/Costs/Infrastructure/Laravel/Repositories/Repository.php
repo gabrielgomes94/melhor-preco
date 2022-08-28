@@ -87,13 +87,6 @@ class Repository implements DbRepository
         return true;
     }
 
-    public function linkItemToProduct(PurchaseItem $item, string $productSku): bool
-    {
-        $item->product_sku = $productSku;
-
-        return $item->save();
-    }
-
     /**
      * @return PurchaseInvoiceModel[]
      */

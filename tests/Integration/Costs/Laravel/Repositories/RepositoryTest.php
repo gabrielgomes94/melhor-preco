@@ -158,22 +158,6 @@ class RepositoryTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function test_should_link_item_to_product(): void
-    {
-        // Arrange
-        $user = UserData::make();
-        $purchaseItem = PurchaseItemsData::makePersisted(
-            PurchaseInvoiceData::makePersisted($user)
-        );
-        $repository = app(Repository::class);
-
-        // Act
-        $result = $repository->linkItemToProduct($purchaseItem, '1234');
-
-        // Assert
-        $this->assertTrue($result);
-    }
-
     public function test_should_list_purchase_invoice(): void
     {
         // Arrange
