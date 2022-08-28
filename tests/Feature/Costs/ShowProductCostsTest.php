@@ -74,7 +74,7 @@ class ShowProductCostsTest extends TestCase
                 'purchasePrice' => 'R$ 150,00',
                 'totalValue' => 'R$ 840,00',
                 'purchaseItemUuid' => 'f0043355-92b8-4716-89b6-4e6b0c1c8c71',
-                'productSku' => '1',
+                'productSku' => '1234',
             ],
         ]);
         $this->response->assertViewHas('product', [

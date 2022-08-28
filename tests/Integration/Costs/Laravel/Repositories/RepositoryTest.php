@@ -6,11 +6,16 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
+use Src\Costs\Domain\DataTransfer\ProductCosts;
+use Src\Costs\Domain\UseCases\ShowProductCosts;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
+use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
@@ -198,5 +203,36 @@ class RepositoryTest extends TestCase
 
         // Assert
         $this->assertTrue($result);
+    }
+
+    public function test_should_get_product_costs(): void
+    {
+        // Arrange
+        $user = UserData::make();
+        $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
+        $product = ProductData::babyCarriage($user);
+        PurchaseItemsData::makePersisted($purchaseInvoice, [], $product);
+
+        $repository = app(Repository::class);
+
+        // Act
+        $result = $repository->getProductCosts('1234', $user->getId());
+
+        // Assert
+        $this->assertInstanceOf(ProductCosts::class, $result);
+        $this->assertContainsOnlyInstancesOf(PurchaseItem::class, $result->purchaseItemCosts);
+    }
+
+    public function test_should_not_get_product_costs_when_product_doest_not_exists(): void
+    {
+        // Arrange
+        $user = UserData::make();
+        $repository = app(Repository::class);
+
+        // Expect
+        $this->expectException(ProductNotFoundException::class);
+
+        // Act
+        $result = $repository->getProductCosts('1234', $user->getId());
     }
 }

@@ -3,11 +3,14 @@
 namespace Src\Costs\Domain\Repositories;
 
 use Carbon\Carbon;
+use Src\Costs\Domain\DataTransfer\ProductCosts;
 use Src\Costs\Domain\Models\Contracts\PurchaseInvoice;
 use Src\Costs\Domain\Models\Contracts\PurchaseItem;
 
 interface DbRepository
 {
+    public function getProductCosts(string $sku, string $userId): ProductCosts;
+
     public function countPurchaseInvoices(string $userId): int;
 
     public function getLastSynchronizationDateTime(string $userId): ?Carbon;
