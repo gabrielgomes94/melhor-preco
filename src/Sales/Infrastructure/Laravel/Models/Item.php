@@ -4,6 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
@@ -23,9 +24,9 @@ class Item extends Model
 
     protected $table = 'sales_items';
 
-    public function product()
+    public function product(): BelongsTo
     {
-        return $this->hasOne(Product::class, 'product_uuid', 'uuid');
+        return $this->belongsTo(Product::class, 'product_uuid', 'uuid');
     }
 
     public function saleOrder()

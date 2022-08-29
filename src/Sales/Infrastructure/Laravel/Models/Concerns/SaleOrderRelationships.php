@@ -10,6 +10,7 @@ use Src\Sales\Infrastructure\Laravel\Models\Customer;
 use Src\Sales\Infrastructure\Laravel\Models\Invoice;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Infrastructure\Laravel\Models\Shipment;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 trait SaleOrderRelationships
 {
@@ -36,5 +37,10 @@ trait SaleOrderRelationships
     public function shipment(): HasOne
     {
         return $this->hasOne(Shipment::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
