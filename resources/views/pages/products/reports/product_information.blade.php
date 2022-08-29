@@ -1,7 +1,7 @@
 <x-layout>
     <x-app.products.navigation :activeNavProducts="true" />
 
-    <div class="row my-4">
+    <div class="row my-2">
         <div class="col-sm-12">
             <div class="error-container">
                 <div id="error-box" class="">
@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="row my-4">
-        <div class="col-12 my-4">
+    <div class="row my-2">
+        <div class="col-12">
             <x-app.products.reports.informations.card
                 header="Informações Gerais de Produtos"
                 :data="$data"
