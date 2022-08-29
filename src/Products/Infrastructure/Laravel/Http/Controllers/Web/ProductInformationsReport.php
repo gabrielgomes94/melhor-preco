@@ -30,8 +30,6 @@ class ProductInformationsReport
             'filter' => [
                 'categories' => $categories,
                 'sku' => $request->input('sku') ?? null,
-                'beginDate' => '',
-                'endDate' => '',
             ],
         ]);
     }

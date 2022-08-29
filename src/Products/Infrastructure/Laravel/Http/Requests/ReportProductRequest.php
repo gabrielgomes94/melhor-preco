@@ -8,8 +8,6 @@ use Src\Products\Domain\DataTransfer\FilterOptions;
 
 class ReportProductRequest extends FormRequest
 {
-    private const DATE_FORMAT = 'd/m/Y';
-
     public function authorize(): bool
     {
         return true;
@@ -20,9 +18,7 @@ class ReportProductRequest extends FormRequest
         return [
             'sku' => 'nullable|string',
             'category' => 'nullable|string',
-            'page' => 'nullable|integer',
-            'beginDate' => 'nullable|date_format:' . self::DATE_FORMAT,
-            'endDate' => 'nullable|date_format:' . self::DATE_FORMAT,
+            'page' => 'nullable|integer'
         ];
     }
 
@@ -32,20 +28,7 @@ class ReportProductRequest extends FormRequest
             sku: $this->input('sku'),
             category: $this->input('category'),
             page: $this->input('page'),
-            perPage: 50,
-            beginDate: $this->getConvertedDate('beginDate'),
-            endDate: $this->getConvertedDate('endDate')
+            perPage: 50
         );
-    }
-
-    private function getConvertedDate(string $attribute): ?Carbon
-    {
-        $data = $this->input($attribute);
-
-        if (!$data) {
-            return null;
-        }
-
-        return Carbon::createFromFormat(self::DATE_FORMAT, $data);
     }
 }

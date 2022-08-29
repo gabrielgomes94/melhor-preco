@@ -18,15 +18,12 @@ class ProductRepository implements ProductRepositoryInterface
     // @todo: trocar o retorno desse método. Deve voltar ou array ou iterable
     public function all(string $userId): Collection
     {
-        return Product::fromUser($userId)
-            ->active()
-            ->get();
+        return Product::fromUser($userId)->get();
     }
 
     public function allFiltered(FilterOptions $filter, string $userId): LengthAwarePaginator
     {
-        $query = Product::fromUser($userId)
-            ->active();
+        $query = Product::fromUser($userId);
 
         if ($filter->hasSku()) {
             $query = $query->withSku($filter->sku);
