@@ -1,6 +1,6 @@
 <x-bootstrap.card.basic-card>
     <x-slot name="header">
-        <h2>Últimas Vendas</h2>
+        <h3>Últimas Vendas</h3>
     </x-slot>
 
     <x-slot name="body">

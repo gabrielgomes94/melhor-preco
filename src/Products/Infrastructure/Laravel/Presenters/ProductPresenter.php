@@ -27,7 +27,7 @@ class ProductPresenter
             'ean' => $product->getEan(),
             'is_active' => $product->isActive(),
             'brand' => 'Galzerano',
-            'images' => [],
+            'images' => $product->getImages(),
             'category_id' => $product->getCategory()?->getCategoryId(),
             'quantity' => $product->getQuantity(),
             'user_id' => 2,
