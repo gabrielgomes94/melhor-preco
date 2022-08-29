@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\ProductImageController;
-use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\ProductController;
-use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\ProductInformationsReport;
+use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\Reports\ProductDetailsController;
+use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\Reports\ProductsInformationsController;
 use Src\Products\Infrastructure\Laravel\Http\Controllers\Web\SynchronizationController;
 
 Route::middleware('auth')->group(function () {
@@ -26,10 +26,10 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/relatorios')
                 ->name('.reports')
                 ->group(function () {
-                    Route::get('/detalhes/{sku}', [ProductController::class, 'get'])
+                    Route::get('/detalhes/{sku}', [ProductDetailsController::class, 'get'])
                         ->name('.show');
 
-                    Route::get('/informacoes-gerais', ProductInformationsReport::class)
+                    Route::get('/informacoes-gerais', ProductsInformationsController::class)
                         ->name('.informations');
                 });
         });

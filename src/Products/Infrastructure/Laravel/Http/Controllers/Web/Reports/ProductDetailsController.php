@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
+namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web\Reports;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Infrastructure\Laravel\Repositories\Reports\GetProductReport;
 use Src\Products\Infrastructure\Laravel\Presenters\ProductReportPresenter;
 
-class ProductController extends Controller
+class ProductDetailsController extends Controller
 {
     public function __construct(
         private GetProductReport       $reportProduct,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web;
+namespace Src\Products\Infrastructure\Laravel\Http\Controllers\Web\Reports;
 
 use Illuminate\Http\Request;
 use Src\Products\Infrastructure\Laravel\Repositories\Reports\GetProductsInformationReport as ReportProductsInformation;
@@ -8,7 +8,7 @@ use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Http\Requests\ReportProductRequest;
 
-class ProductInformationsReport
+class ProductsInformationsController
 {
     public function __construct(
         private ReportProductsInformation $reportInformations,
@@ -19,6 +19,7 @@ class ProductInformationsReport
     public function __invoke(ReportProductRequest $request)
     {
         $filter = $request->transform();
+
         $data = $this->reportInformations->report($filter, $request->user());
         $userId = auth()->user()->getAuthIdentifier();
 
