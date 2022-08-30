@@ -37,9 +37,12 @@ class PriceRepository
             return false;
         }
 
+        $value = $price->value;
+
         $price->fill([
             'commission' => $commission,
             'profit' => $profit,
+            'margin' => $value != 0 ? ($profit / $value) * 100 : 0,
         ]);
         $price->product()->associate($product);
         $price->uuid = Uuid::uuid4();

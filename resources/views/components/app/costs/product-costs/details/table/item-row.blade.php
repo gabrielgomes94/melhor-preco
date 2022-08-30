@@ -4,7 +4,7 @@
     </td>
 
     <td colspan="2" class="text-wrap">
-        {{ $item['supplierName'] ?? '' }}
+        {{ $item['name'] ?? '' }}
     </td>
 
     <td colspan="2">

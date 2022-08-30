@@ -25,7 +25,7 @@ class ProductReportPresenter
         $costs = collect($productInfoReport->costsItems);
         $costs = $costs->map(function(PurchaseItem $item) {
             return $this->purchaseItemsPresenter->present($item);
-        });
+        })->all();
 
         return [
             'costs' => $costs,
@@ -85,7 +85,7 @@ class ProductReportPresenter
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];
-        });
+        })->sortBy('slug');
 
         return $marketplaceSales->toArray();
     }

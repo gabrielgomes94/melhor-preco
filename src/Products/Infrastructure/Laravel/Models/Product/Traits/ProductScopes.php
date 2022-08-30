@@ -20,14 +20,12 @@ trait ProductScopes
     {
         return $query->where('sku', $sku)
             ->orWhere(function ($query) use ($sku) {
-                $query->where('parent_sku', $sku)
-                    ->active();
+                $query->where('parent_sku', $sku);
             })
             ->orWhere(function ($query) use ($sku) {
                 $sku = "%{$sku}%";
 
-                $query->where('composition_products', 'like', $sku)
-                    ->active();
+                $query->where('composition_products', 'like', $sku);
             });
     }
 

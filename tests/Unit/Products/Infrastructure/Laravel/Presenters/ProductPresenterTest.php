@@ -21,29 +21,13 @@ class ProductPresenterTest extends TestCase
         $product = ProductData::babyCarriage($user, [], $category);
 
         $expected = [
-            'id' => '2',
             'sku' => '1234',
-            'name' => 'Carrinho de Bebê',
-            'purchase_price' => 449.90,
-            'tax_icms' => 12.0,
-            'additional_costs' => 0.00,
-            'depth' => 11.00,
-            'width' => 28.00,
-            'height' => 25.00,
-            'weight' => '0,300 kg',
-            'erp_id' => '15865921214',
-            'parent_sku' => null,
-            'has_variations' => false,
-            'composition_products' => [],
-            'ean' => '7908238800092',
-            'is_active' => true,
-            'brand' => 'Galzerano',
-            'images' => [],
-            'category_id' => '10',
-            'quantity' => 10.0,
-            'user_id' => 2,
             'category' => 'Carrinhos de Bebê',
             'dimensions' => '11 x 25 x 28 cm',
+            'images' => [],
+            'name' => 'Carrinho de Bebê',
+            'quantity' => 10.0,
+            'weight' => '0,300 kg',
         ];
 
         // Act

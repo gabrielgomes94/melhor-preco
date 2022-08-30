@@ -61,9 +61,6 @@
                         :costs="$costs"
                         :product="$product"
                     >
-                        <x-slot name="header">
-                            <h2>Custos</h2>
-                        </x-slot>
                     </x-app.costs.product-costs.details.card.card>
                 </div>
             </div>

@@ -136,6 +136,7 @@ class ProductData
         );
     }
 
+    // @todo: aceitar um array de Price para o atributo $prices
     private static function persisted(
         User $user,
         array $data = [],
