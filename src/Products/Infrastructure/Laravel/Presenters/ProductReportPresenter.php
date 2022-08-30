@@ -85,7 +85,7 @@ class ProductReportPresenter
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];
-        });
+        })->sortBy('slug');
 
         return $marketplaceSales->toArray();
     }

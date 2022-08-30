@@ -34,7 +34,7 @@ class GetProductsInformationReport
                     $filter->endDate ?? Carbon::now()
                 ),
             ];
-        })->toArray();
+        })->sortBy('name')->toArray();
 
         return [
             'data' => $products,
