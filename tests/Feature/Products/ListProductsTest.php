@@ -77,18 +77,6 @@ class ListProductsTest extends FeatureTestCase
 
         $this->response->assertViewHas('data', [
             [
-                'sku' => '1234',
-                'name' => 'Carrinho de Bebê',
-                'imagesCount' => 0,
-                'sales' => 0,
-            ],
-            [
-                'sku' => '987',
-                'name' => 'Cadeirinha para Carros',
-                'imagesCount' => 0,
-                'sales' => 0,
-            ],
-            [
                 'sku' => '777',
                 'name' => 'Chupeta',
                 'imagesCount' => 0,
@@ -109,6 +97,18 @@ class ListProductsTest extends FeatureTestCase
             [
                 'sku' => '823',
                 'name' => 'Cobertor Azul',
+                'imagesCount' => 0,
+                'sales' => 0,
+            ],
+            [
+                'sku' => '1234',
+                'name' => 'Carrinho de Bebê',
+                'imagesCount' => 0,
+                'sales' => 0,
+            ],
+            [
+                'sku' => '987',
+                'name' => 'Cadeirinha para Carros',
                 'imagesCount' => 0,
                 'sales' => 0,
             ],

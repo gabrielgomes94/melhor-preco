@@ -131,14 +131,14 @@ class ShowProductDetailsTest extends FeatureTestCase
                 [
                     'quantity' => 0,
                     'value' => '',
-                    'slug' => 'shopee',
-                    'storeName' => 'Shopee',
+                    'slug' => 'magalu',
+                    'storeName' => 'Magalu',
                 ],
                 [
                     'quantity' => 0,
                     'value' => '',
-                    'slug' => 'magalu',
-                    'storeName' => 'Magalu',
+                    'slug' => 'shopee',
+                    'storeName' => 'Shopee',
                 ],
             ],
             'total' => [
