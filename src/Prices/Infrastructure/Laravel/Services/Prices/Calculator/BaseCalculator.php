@@ -19,11 +19,13 @@ class BaseCalculator
 
     protected function getCommission(Price $price, Money $desiredPrice): Money
     {
-        return $this->commissionRepository->get(
+        $commission = $this->commissionRepository->get(
             $price->getMarketplace(),
             $price->getProduct(),
-            $desiredPrice
+            MoneyTransformer::toFloat($desiredPrice)
         );
+
+        return MoneyTransformer::toMoney($commission);
     }
 
     protected function getFreight(Price $price, Money $desiredPrice): float

@@ -3,8 +3,10 @@
 namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
+use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
-use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
+use Src\Prices\Domain\Models\Calculator\Contracts\CalculatedPrice as CalculatedPriceInterface;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\Services\CalculateItem as CalculateItemInterface;
@@ -18,7 +20,7 @@ class CalculateItem implements CalculateItemInterface
     ) {
     }
 
-    public function calculate(Item $item): CalculatedPrice
+    public function calculate(Item $item): CalculatedPriceInterface
     {
         $marketplaceErpId = $item->saleOrder?->getIdentifiers()?->storeId() ?? '';
         $product = $item->getProduct();
@@ -31,11 +33,15 @@ class CalculateItem implements CalculateItemInterface
         }
 
         $options = new CalculatorForm($item->getTotalValue());
-        $commission = $this->commissionRepository->get($marketplace, $product, $options->getPrice());
-
-        return \Src\Prices\Domain\Models\Calculator\CalculatedPrice::fromProduct(
+        $commission = $this->commissionRepository->get(
+            $marketplace,
             $product,
-            $commission,
+            MoneyTransformer::toFloat($options->getPrice())
+        );
+
+        return CalculatedPrice::fromProduct(
+            $product,
+            MoneyTransformer::toMoney($commission),
             $options
         );
     }

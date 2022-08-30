@@ -28,10 +28,10 @@ class CommissionRepositoryTest extends TestCase
         $repository = new CommissionRepository();
 
         // Act
-        $result = $repository->get($marketplace, $product, MoneyTransformer::toMoney(100.0));
+        $result = $repository->get($marketplace, $product, 100.0);
 
         // Assert
-        $this->assertEquals(MoneyTransformer::toMoney(20.0), $result);
+        $this->assertEquals(20.0, $result);
     }
 
     public function test_should_get_commission_when_its_greater_than_maximum_value_cap(): void
@@ -44,10 +44,10 @@ class CommissionRepositoryTest extends TestCase
         $repository = new CommissionRepository();
 
         // Act
-        $result = $repository->get($marketplace, $product, MoneyTransformer::toMoney(1200.0));
+        $result = $repository->get($marketplace, $product, 1200.0);
 
         // Assert
-        $this->assertEquals(MoneyTransformer::toMoney(100.0), $result);
+        $this->assertEquals(100.0, $result);
     }
 
     public function test_should_get_commission_when_its_not_greater_than_maximum_value_cap(): void
@@ -60,10 +60,10 @@ class CommissionRepositoryTest extends TestCase
         $repository = new CommissionRepository();
 
         // Act
-        $result = $repository->get($marketplace, $product, MoneyTransformer::toMoney(70.0));
+        $result = $repository->get($marketplace, $product, 70.0);
 
         // Assert
-        $this->assertEquals(MoneyTransformer::toMoney(8.40), $result);
+        $this->assertEquals(8.40, $result);
     }
 
     public function test_should_get_commission_rate_when_is_unique_commission(): void
