@@ -2,8 +2,6 @@
 
 namespace Src\Math;
 
-use Money\Money;
-
 class MoneyCalculator
 {
     public static function multiply(float $baseValue, float $multiplier): float
