@@ -8,6 +8,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
+use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;
@@ -119,7 +120,13 @@ class CalculatePriceFromProduct
     public function getCommission(CalculatorForm $calculatorForm, Marketplace $marketplace, Product $product): Money
     {
         if (!$calculatorForm->commission) {
-            return $this->commissionRepository->get($marketplace, $product, $calculatorForm->getPrice());
+            $commission = $this->commissionRepository->get(
+                $marketplace,
+                $product,
+                MoneyTransformer::toFloat($calculatorForm->getPrice())
+            );
+
+            return MoneyTransformer::toMoney($commission);
         }
 
         return $calculatorForm->getPrice()->multiply(

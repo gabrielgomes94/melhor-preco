@@ -3,34 +3,31 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
 use Money\Money;
-use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
-use Src\Marketplaces\Domain\Models\Commission\CategoryCommission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Domain\Models\Commission\UniqueCommission;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
+use Src\Math\MoneyCalculator;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product;
 
 class CommissionRepository implements CommissionRepositoryInterface
 {
-    public function get(Marketplace $marketplace, Product $product, Money $value): Money
+    public function get(Marketplace $marketplace, Product $product, float $value): float
     {
         $commission = $this->getCommissionRate($marketplace, $product->getCategoryId());
-        $commissionValue = $value->multiply((string) $commission->getFraction());
+        $commissionValue = MoneyCalculator::multiply($value, $commission->getFraction());
         $commissionObject = $marketplace->getCommission();
 
         if (!$commissionObject->hasMaximumValueCap()) {
             return $commissionValue;
         }
 
-        $maximumValueCap = MoneyTransformer::toMoney(
-            $commissionObject->getMaximumValueCap()
-        );
+        $maximumValueCap = MoneyTransformer::toMoney($commissionObject->getMaximumValueCap());
 
-        if ($commissionValue->greaterThan($maximumValueCap)) {
-            return $maximumValueCap;
+        if (MoneyTransformer::toMoney($commissionValue)->greaterThan($maximumValueCap)) {
+            return MoneyTransformer::toFloat($maximumValueCap);
         }
 
         return $commissionValue;

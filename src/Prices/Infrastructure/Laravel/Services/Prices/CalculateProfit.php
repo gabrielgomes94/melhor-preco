@@ -33,16 +33,17 @@ class CalculateProfit
         );
 
         if (!$product = $this->productRepository->get($sku, $user->getId())) {
-            throw new ProductNotFoundException($sku);
+            throw new ProductNotFoundException($sku, $user->getId());
         }
 
+        $commission = $this->commissionRepository->get(
+            $marketplace,
+            $product,
+            $price->value
+        );
         $price = CalculatedPrice::fromProduct(
             $product,
-            $this->commissionRepository->get(
-                $marketplace,
-                $product,
-                MoneyTransformer::toMoney($price->value)
-            ),
+            MoneyTransformer::toMoney($commission),
             new CalculatorForm(desiredPrice: $price->value)
         );
 

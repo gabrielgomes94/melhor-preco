@@ -43,20 +43,22 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             }
 
             $value = $this->getValue($item);
+
             $freight = $this->freightRepository->get(
                 $marketplace,
                 $product->getCubicWeight(),
-                (float) $value
+                $value
             );
             $price = CalculatedPrice::fromProduct(
                 $product,
-                $this->commissionRepository->get($marketplace, $product, $value),
+                MoneyTransformer::toMoney(
+                    $this->commissionRepository->get($marketplace, $product, $value),
+                ),
                 new CalculatorForm(
-                    desiredPrice: MoneyTransformer::toFloat($value),
+                    desiredPrice: $value,
                     freight: $freight
                 )
             );
-
             $itemProfit = $price->getProfit()->multiply(
                 $item->getQuantity()
             );
@@ -65,11 +67,12 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
         });
     }
 
-    private function getValue(Item $item): Money
+    private function getValue(Item $item): float
     {
         $unitValue = MoneyTransformer::toMoney($item->getUnitValue());
         $discount = MoneyTransformer::toMoney($item->getDiscount());
+        $value = $unitValue->subtract($discount);
 
-        return $unitValue->subtract($discount);
+        return MoneyTransformer::toFloat($value);
     }
 }
