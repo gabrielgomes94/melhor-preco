@@ -2,13 +2,12 @@
 
 namespace Src\Marketplaces\Infrastructure\Laravel\Repositories;
 
-use Money\Money;
+use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Domain\Models\Commission\UniqueCommission;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
 use Src\Math\MoneyCalculator;
-use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product;
 
@@ -16,18 +15,16 @@ class CommissionRepository implements CommissionRepositoryInterface
 {
     public function get(Marketplace $marketplace, Product $product, float $value): float
     {
-        $commission = $this->getCommissionRate($marketplace, $product->getCategoryId());
-        $commissionValue = MoneyCalculator::multiply($value, $commission->getFraction());
-        $commissionObject = $marketplace->getCommission();
+        $commissionRate = $this->getCommissionRate($marketplace, $product->getCategoryId())->getFraction();
+        $commissionValue = MoneyCalculator::multiply($value, $commissionRate);
+        $commission = $marketplace->getCommission();
 
-        if (!$commissionObject->hasMaximumValueCap()) {
+        if (!$commission->hasMaximumValueCap()) {
             return $commissionValue;
         }
 
-        $maximumValueCap = MoneyTransformer::toMoney($commissionObject->getMaximumValueCap());
-
-        if (MoneyTransformer::toMoney($commissionValue)->greaterThan($maximumValueCap)) {
-            return MoneyTransformer::toFloat($maximumValueCap);
+        if ($this->isCommissionValueGreaterThanMaximumCap($commission, $commissionValue)) {
+            return $commission->getMaximumValueCap();
         }
 
         return $commissionValue;
@@ -49,5 +46,10 @@ class CommissionRepository implements CommissionRepositoryInterface
         $marketplace->setCommissions($data);
 
         return $marketplace->save();
+    }
+
+    private function isCommissionValueGreaterThanMaximumCap(Commission $commission, float $commissionValue): bool
+    {
+        return $commissionValue > $commission->getMaximumValueCap();
     }
 }
