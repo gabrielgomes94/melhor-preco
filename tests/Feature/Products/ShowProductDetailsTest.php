@@ -5,6 +5,7 @@ namespace Tests\Feature\Products;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
+use Tests\Data\Models\Prices\PriceData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Sales\SaleItemData;
 use Tests\Data\Models\Sales\SaleOrderData;
@@ -36,27 +37,15 @@ class ShowProductDetailsTest extends FeatureTestCase
 
     private function given_i_have_a_product(): void
     {
-        MarketplaceData::shopee($this->user);
-        MarketplaceData::magalu($this->user);
+        $shopee = MarketplaceData::shopee($this->user);
+        $olist = MarketplaceData::magalu($this->user);
         $category = CategoryData::babyCarriage($this->user);
 
         $product = ProductData::babyCarriage(
             $this->user,
             [
-                [
-                    'marketplace_erp_id' => '123457',
-                    'purchase_price' => 449.90,
-                    'value' => 899.90,
-                    'profit' => 95.25,
-                    'margin' => 95.25 / 899.90 * 100,
-                ],
-                [
-                    'marketplace_erp_id' => '123456',
-                    'purchase_price' => 449.90,
-                    'value' => 899.90,
-                    'profit' => 95.25,
-                    'margin' => 95.25 / 899.90 * 100,
-                ],
+                PriceData::build($olist, ['value' => 899.90, 'profit' => 95.25]),
+                PriceData::build($shopee, ['value' => 899.90, 'profit' => 95.25]),
             ],
             $category
         );
@@ -84,16 +73,16 @@ class ShowProductDetailsTest extends FeatureTestCase
             [
                 'value' => 'R$ 899,90',
                 'profit' => 'R$ 95,25',
-                'marketplaceName' => 'Shopee',
-                'marketplaceSlug' => 'shopee',
+                'marketplaceName' => 'Magalu',
+                'marketplaceSlug' => 'magalu',
                 'margin' => '10,58 %',
                 'productSku' => '1234',
             ],
             [
                 'value' => 'R$ 899,90',
                 'profit' => 'R$ 95,25',
-                'marketplaceName' => 'Magalu',
-                'marketplaceSlug' => 'magalu',
+                'marketplaceName' => 'Shopee',
+                'marketplaceSlug' => 'shopee',
                 'margin' => '10,58 %',
                 'productSku' => '1234',
             ],
@@ -115,14 +104,14 @@ class ShowProductDetailsTest extends FeatureTestCase
                 [
                     'quantity' => 0,
                     'value' => '',
-                    'slug' => 'magalu',
-                    'storeName' => 'Magalu',
+                    'slug' => 'shopee',
+                    'storeName' => 'Shopee',
                 ],
                 [
                     'quantity' => 0,
                     'value' => '',
-                    'slug' => 'shopee',
-                    'storeName' => 'Shopee',
+                    'slug' => 'magalu',
+                    'storeName' => 'Magalu',
                 ],
             ],
             'total' => [

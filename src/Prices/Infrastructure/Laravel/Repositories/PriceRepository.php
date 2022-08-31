@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class PriceRepository
 {
@@ -17,13 +18,16 @@ class PriceRepository
 
     public function count(string $userId): int
     {
-        return Price::where('user_id', $userId)->count();
+        return Price::join('products', 'products.uuid', '=', 'prices.product_uuid')
+            ->where('products.user_id', $userId)
+            ->count();
     }
 
     public function getLastSynchronizationDateTime(string $userId): ?Carbon
     {
-        $lastUpdatedProduct = Price::where('user_id', $userId)
-            ->orderByDesc('updated_at')
+        $lastUpdatedProduct = Price::join('products', 'products.uuid', '=', 'prices.product_uuid')
+            ->where('products.user_id', $userId)
+            ->orderByDesc('prices.updated_at')
             ->first();
 
         return $lastUpdatedProduct?->getLastUpdate();
@@ -46,7 +50,6 @@ class PriceRepository
         ]);
         $price->product()->associate($product);
         $price->uuid = Uuid::uuid4();
-        $price->user_id = $userId;
 
         return $price->save();
     }
@@ -69,8 +72,7 @@ class PriceRepository
         string $userId
     ): Collection
     {
-        return Price::where('user_id', $userId)
-            ->where('store', $marketplaceSlug)
+        return Price::where('store', $marketplaceSlug)
             ->where('store_sku_id', $marketplaceSkuId)
             ->where('product_sku', $productSku)
             ->get();

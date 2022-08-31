@@ -9,6 +9,7 @@ use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Price extends Model
 {
@@ -55,9 +56,9 @@ class Price extends Model
         return $this->updated_at;
     }
 
-    public function getMargin(): Percentage
+    public function getMargin(): ?Percentage
     {
-        return Percentage::fromPercentage($this->margin);
+        return $this->margin ? Percentage::fromPercentage($this->margin) : null;
     }
 
     public function getMarketplace(): ?Marketplace
@@ -80,7 +81,7 @@ class Price extends Model
         return $this->product_sku;
     }
 
-    public function getProfit(): float
+    public function getProfit(): ?float
     {
         return $this->profit;
     }

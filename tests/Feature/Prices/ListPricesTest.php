@@ -208,12 +208,12 @@ class ListPricesTest extends FeatureTestCase
             ],
             'marketplaces' => [
                 [
-                    'name' => 'Shopee',
-                    'slug' => 'shopee',
-                ],
-                [
                     'name' => 'Magalu',
                     'slug' => 'magalu',
+                ],
+                [
+                    'name' => 'Shopee',
+                    'slug' => 'shopee',
                 ],
                 [
                     'name' => 'Olist',
@@ -248,6 +248,15 @@ class ListPricesTest extends FeatureTestCase
                     'quantity' => 10.0,
                     'variations' => [
                         [
+                            'sku' => '822',
+                            'name' => 'Cobertor Vermelho',
+                            'price' => 'R$ 74,90',
+                            'profit' => 'R$ 21,00',
+                            'margin' => '28,04 %',
+                            'quantity' => 10.0,
+                            'variations' => [],
+                        ],
+                        [
                             'sku' => '823',
                             'name' => 'Cobertor Azul',
                             'price' => 'R$ 74,90',
@@ -256,15 +265,6 @@ class ListPricesTest extends FeatureTestCase
                             'quantity' => 10.0,
                             'variations' => [],
                         ],
-                        [
-                            'sku' => '822',
-                            'name' => 'Cobertor Vermelho',
-                            'price' => 'R$ 74,90',
-                            'profit' => 'R$ 21,00',
-                            'margin' => '28,04 %',
-                            'quantity' => 10.0,
-                            'variations' => [],
-                        ]
                     ],
                 ],
                 [

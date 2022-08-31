@@ -8,6 +8,7 @@ use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
+use Tests\Data\Models\Prices\PriceData;
 use Tests\Data\Models\Products\ProductData;
 
 trait PricesDatabase
@@ -44,14 +45,7 @@ trait PricesDatabase
         $product = ProductData::babyCarriage(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'marketplace_erp_id' => $marketplace->getErpId(),
-                    'store' => $marketplace->getSlug(),
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build($marketplace, ['value' => 889.90, 'profit' => null])
             ],
             $categoryCarriage
         );
@@ -89,14 +83,7 @@ trait PricesDatabase
         return ProductData::babyCarriage(
             $this->user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => '123458',
-                    'store' => 'olist',
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build(MarketplaceData::olist($this->user), ['value' => 889.90, 'profit' => null]),
             ],
             $categoryCarriage
         );
@@ -109,14 +96,7 @@ trait PricesDatabase
         return ProductData::babyCarriage(
             $this->user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => '123459',
-                    'store' => 'loja-fisica',
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build(MarketplaceData::physicalStore($this->user), ['value' => 889.90, 'profit' => null]),
             ],
             $categoryCarriage
         );
@@ -127,12 +107,7 @@ trait PricesDatabase
         return ProductData::babyPacifier(
             $this->user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => $marketplace->getErpId(),
-                    'store' => $marketplace->getSlug(),
-                    'value' => 19.90,
-                ],
+                PriceData::build($marketplace, ['value' => 19.90, 'profit' => null]),
             ],
         );
     }

@@ -72,7 +72,8 @@ class ProductReportPresenter
     {
         $marketplaceSales = $salesReport->salesInMarketplaces->marketplacesSales;
 
-        $marketplaceSales = $marketplaceSales->transform(function (MarketplaceSales $marketplaceSales) {
+        $marketplaceSales = $marketplaceSales->sortBy(function (MarketplaceSales $marketplaceSales) {
+        })->transform(function (MarketplaceSales $marketplaceSales) {
             $sales = $marketplaceSales->sales->get();
             $sales = collect($sales);
             $totalValue = $sales->sum(function (Item $saleItem) {
@@ -85,7 +86,7 @@ class ProductReportPresenter
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];
-        })->sortBy('slug');
+        });
 
         return $marketplaceSales->toArray();
     }

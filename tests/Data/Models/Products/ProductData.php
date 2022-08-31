@@ -2,11 +2,9 @@
 
 namespace Tests\Data\Models\Products;
 
-use Ramsey\Uuid\Uuid;
 use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
-use Tests\Data\Models\Prices\PriceData;
 
 class ProductData
 {
@@ -136,7 +134,6 @@ class ProductData
         );
     }
 
-    // @todo: aceitar um array de Price para o atributo $prices
     private static function persisted(
         User $user,
         array $data = [],
@@ -150,15 +147,8 @@ class ProductData
         $product->uuid = $data['uuid'];
         $product->save();
 
-        foreach ($prices as $price) {
-            $priceData = array_merge($price, [
-                'product_sku' => $product->getSku(),
-                'product_uuid' => $product->getUuid(),
-                'uuid' => Uuid::uuid4(),
-            ]);
+        $product->prices()->saveMany($prices);
 
-            PriceData::persisted($user, $priceData);
-        }
 
         if ($category) {
             $product->category()->associate($category);
