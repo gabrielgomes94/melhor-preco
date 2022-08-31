@@ -23,7 +23,8 @@ class SynchronizeFromMarketplaceTest extends TestCase
 
     public function test_should_insert_prices_from_a_marketplace(): void
     {
-        $this->given_i_have_an_user_with_marketplace_and_products();
+        $this->given_i_have_an_user_with_marketplace();
+        $this->given_i_have_products_without_prices();
         $this->and_given_i_have_an_integration_with_bling_setup();
 
         $this->when_i_want_to_sync_prices();
@@ -31,34 +32,32 @@ class SynchronizeFromMarketplaceTest extends TestCase
         $this->then_the_prices_must_be_added_on_database();
     }
 
-//    public function test_should_update_prices_from_a_marketplace(): void
-//    {
-//        $this->given_i_have_an_user_with_marketplace_and_products();
-//        $this->and_given_i_have_the_prices_in_database();
-//        $this->and_given_i_have_an_integration_with_bling_setup();
-//
-//        $this->when_i_want_to_sync_prices();
-//
-//        $this->then_the_prices_must_be_updated_on_database();
-//    }
-//
-//    public function test_should_handle_error_when_syncing(): void
-//    {
-//        $this->given_i_have_an_user_with_marketplace_and_products();
-//        $this->and_given_i_have_an_integration__with_errors_on_setup();
-//
-//        $this->when_i_want_to_sync_prices();
-//
-//        $this->then_database_must_be_remains_without_prices();
-//    }
+    public function test_should_update_prices_from_a_marketplace(): void
+    {
+        $this->given_i_have_an_user_with_marketplace();
+        $this->and_given_i_have_the_prices_in_database();
+        $this->and_given_i_have_an_integration_with_bling_setup();
 
-    private function given_i_have_an_user_with_marketplace_and_products(): void
+        $this->when_i_want_to_sync_prices();
+
+        $this->then_the_prices_must_be_updated_on_database();
+    }
+
+    public function test_should_handle_error_when_syncing(): void
+    {
+        $this->given_i_have_an_user_with_marketplace();
+        $this->and_given_i_have_an_integration__with_errors_on_setup();
+
+        $this->when_i_want_to_sync_prices();
+
+        $this->then_database_must_be_remains_without_prices();
+    }
+
+    private function given_i_have_an_user_with_marketplace(): void
     {
         $this->user = UserData::make();
         $this->actingAs($this->user);
 
-        ProductData::babyCarriage($this->user);
-        ProductData::babyChair($this->user);
         $this->marketplace = MarketplaceData::magalu($this->user);
     }
 
@@ -80,7 +79,7 @@ class SynchronizeFromMarketplaceTest extends TestCase
 
     private function then_the_prices_must_be_added_on_database(): void
     {
-        $pricesCount = Price::where('user_id', $this->user->id)->count();
+        $pricesCount = Price::count();
         $this->assertSame(2, $pricesCount);
     }
 
@@ -95,39 +94,36 @@ class SynchronizeFromMarketplaceTest extends TestCase
 
     private function then_database_must_be_remains_without_prices()
     {
-        $pricesCount = Price::where('user_id', $this->user->id)->count();
+        $pricesCount = Price::count();
         $this->assertEmpty($pricesCount);
     }
 
-    private function and_given_i_have_the_prices_in_database()
+    private function and_given_i_have_the_prices_in_database(): void
     {
-        PriceData::persisted($this->user, [
-            'value' => 400.0,
-            'product_sku' => '1211',
-            'store_sku_id' => '9811833249',
-            'store' => 'magalu',
-        ]);
-        PriceData::persisted($this->user, [
-            'value' => 400.0,
-            'product_sku' => '344',
-            'store_sku_id' => '9014464515',
-            'store' => 'magalu',
-        ]);
+        $marketplace = MarketplaceData::magalu($this->user);
+
+        PriceData::persisted(ProductData::babyCarriage($this->user), $marketplace);
+        PriceData::persisted(ProductData::babyChair($this->user), $marketplace);
     }
 
     private function then_the_prices_must_be_updated_on_database()
     {
-        $price_1 = Price::where('product_sku', '1211')
+        $price_1 = Price::where('product_sku', '1234')
             ->where('store_sku_id', '9811833249')
             ->where('store', 'magalu')
             ->first();
         $this->assertSame('459.90', $price_1->value);
 
-        $price_2 = Price::where('product_sku', '344')
+        $price_2 = Price::where('product_sku', '987')
             ->where('store_sku_id', '9014464515')
             ->where('store', 'magalu')
             ->first();
         $this->assertSame('439.00', $price_2->value);
+    }
 
+    private function given_i_have_products_without_prices(): void
+    {
+        ProductData::babyCarriage($this->user);
+        ProductData::babyChair($this->user);
     }
 }

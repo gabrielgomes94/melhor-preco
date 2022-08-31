@@ -18,6 +18,7 @@ use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Costs\PurchaseInvoiceData;
 use Tests\Data\Models\Costs\PurchaseItemsData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
+use Tests\Data\Models\Prices\PriceData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
@@ -34,20 +35,11 @@ class ProductTest extends TestCase
         $marketplace = MarketplaceData::shopee($user);
         $category = CategoryData::babyCarriage($user);
 
-
-
         // Act
         $instance = ProductData::babyCarriage(
             $user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => '123457',
-                    'store' => 'shopee',
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build($marketplace, ['value' => 889.90, 'profit' => null])
             ],
             $category
         );
@@ -113,14 +105,7 @@ class ProductTest extends TestCase
         $instance = ProductData::babyCarriage(
             $user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => '123457',
-                    'store' => 'shopee',
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build($marketplace, ['value' => 889.90, 'profit' => null]),
             ],
             $category
         );
@@ -138,18 +123,11 @@ class ProductTest extends TestCase
         // Arrange
         $user = UserData::make();
         $this->actingAs($user);
-
+        $marketplace = MarketplaceData::shopee($user);
         $instance = ProductData::babyCarriage(
             $user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => '123457',
-                    'store' => 'shopee',
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build($marketplace, ['value' => 889.90, 'profit' => null]),
             ],
         );
         $costs = new Costs(499.9, 10.0, 12.0);

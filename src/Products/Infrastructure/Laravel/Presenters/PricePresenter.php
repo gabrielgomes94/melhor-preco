@@ -27,6 +27,6 @@ class PricePresenter
                 'margin' => MathPresenter::percentage($price->getMargin()),
                 'productSku' => $productSku,
             ];
-        })->all();
+        })->sortBy('marketplaceSlug')->all();
     }
 }

@@ -4,6 +4,8 @@ namespace Src\Products\Infrastructure\Laravel\Models\Product\Casts;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Products\Domain\Models\ValueObjects\Identifiers;
+use Tests\Data\Models\Marketplaces\MarketplaceData;
+use Tests\Data\Models\Prices\PriceData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
@@ -17,17 +19,12 @@ class IdentifiersCastTest extends TestCase
         // Arrange
         $user = UserData::make();
         $this->actingAs($user);
+
+        $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage(
             $user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => '123457',
-                    'store' => 'shopee',
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build($marketplace, ['value' => 889.90, 'profit' => null])
             ],
         );
         $casts = new IdentifiersCast();
@@ -62,17 +59,11 @@ class IdentifiersCastTest extends TestCase
         // Arrange
         $user = UserData::make();
         $this->actingAs($user);
+        $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage(
             $user,
             [
-                [
-                    'erp_id' => '123458',
-                    'marketplace_erp_id' => '123457',
-                    'store' => 'shopee',
-                    'value' => 889.90,
-                    'profit' => null,
-                    'margin' => null,
-                ],
+                PriceData::build($marketplace, ['value' => 889.90, 'profit' => null]),
             ],
         );
         $casts = new IdentifiersCast();

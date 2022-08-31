@@ -32,8 +32,12 @@ class MathPresenter
         return "R$ $value";
     }
 
-    public static function percentage(Percentage $value): string
+    public static function percentage(?Percentage $value): string
     {
+        if (!$value) {
+            return '';
+        }
+
         $value = self::numberFormat($value->get());
 
         return "{$value} %";

@@ -13,7 +13,7 @@ trait PricesDatabase
         /**
          * Marketplace with category commissions and no freight table
          */
-        MarketplaceData::magalu($this->user);
+        $magaluMarketplace = MarketplaceData::magalu($this->user);
 
         /**
          * Marketplace with single commission, maximum commission cap and no freight table
@@ -31,13 +31,7 @@ trait PricesDatabase
         ProductData::babyCarriage(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 889.90,
-                    'profit' => 120.0,
-                    'margin' => (120.0 / 889.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 889.90, 'profit' => 120.0]),
             ],
             $categoryCarriage
         );
@@ -45,13 +39,7 @@ trait PricesDatabase
         ProductData::babyChair(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 499.90,
-                    'profit' => 54.45,
-                    'margin' => (54.45 / 499.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 499.90, 'profit' => 54.45]),
             ],
             $categoryChair
         );
@@ -59,78 +47,42 @@ trait PricesDatabase
         ProductData::babyPacifier(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 9.90,
-                    'profit' => 2.00,
-                    'margin' => (2.00 / 9.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 9.90, 'profit' => 2.00]),
             ]
         );
 
         ProductData::blanket(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 74.90,
-                    'profit' => 21.00,
-                    'margin' => (21.00 / 74.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 74.90, 'profit' => 21.00]),
             ],
         );
 
         ProductData::redBlanket(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 74.90,
-                    'profit' => 21.00,
-                    'margin' => (21.00 / 74.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 74.90, 'profit' => 21.00]),
             ],
         );
 
         ProductData::blueBlanket(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 74.90,
-                    'profit' => 21.00,
-                    'margin' => (21.00 / 74.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 74.90, 'profit' => 21.00]),
             ],
         );
 
         ProductData::cradle(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 799.90,
-                    'profit' => 95.9,
-                    'margin' => (95.9 / 799.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 799.90, 'profit' => 95.90]),
             ]
         );
 
         ProductData::kitCradleAndCarriage(
             $this->user,
             [
-                [
-                    'erp_id' => '123456',
-                    'store' => 'magalu',
-                    'value' => 1499.90,
-                    'profit' => 200.9,
-                    'margin' => (200.90 / 1499.90) * 100,
-                ],
+                PriceData::build($magaluMarketplace, ['value' => 1499.90, 'profit' => 200.90]),
             ]
         );
     }

@@ -58,14 +58,17 @@ class MarketplaceTest extends TestCase
         // Arrange
         $user = UserData::make();
         $this->actingAs($user);
-
         $marketplace = MarketplaceData::magalu($user);
 
-        $product = ProductData::babyCarriage($user);
-        $marketplace->prices()->saveMany([
-            PriceData::persisted($user, [], $product),
-            PriceData::persisted($user, ['store_sku_id' => '3213123'], $product),
-        ]);
+        PriceData::persisted(
+            ProductData::babyCarriage($user),
+            $marketplace
+        );
+
+        PriceData::persisted(
+            ProductData::babyChair($user),
+            $marketplace
+        );
 
         // Act
         $result = $marketplace->prices;
@@ -83,10 +86,8 @@ class MarketplaceTest extends TestCase
 
         $marketplace = MarketplaceData::magalu($user);
         $product = ProductData::babyCarriage($user);
-        $marketplace->prices()->saveMany([
-            PriceData::persisted($user, [], $product),
-            PriceData::persisted($user, ['store_sku_id' => '3213123'], $product),
-        ]);
+        PriceData::persisted($product, $marketplace);
+        PriceData::persisted($product, $marketplace, ['store_sku_id' => '3213123']);
 
         // Act
         $result = $marketplace->products;
