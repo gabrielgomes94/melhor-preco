@@ -208,17 +208,17 @@ class ListPricesTest extends FeatureTestCase
             ],
             'marketplaces' => [
                 [
-                    'name' => 'Magalu',
-                    'slug' => 'magalu',
-                ],
-                [
                     'name' => 'Shopee',
                     'slug' => 'shopee',
                 ],
                 [
                     'name' => 'Olist',
                     'slug' => 'olist',
-                ]
+                ],
+                [
+                    'name' => 'Magalu',
+                    'slug' => 'magalu',
+                ],
             ],
             'products' => [
                 [
