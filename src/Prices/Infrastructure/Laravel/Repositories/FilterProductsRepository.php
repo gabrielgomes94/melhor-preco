@@ -15,13 +15,10 @@ class FilterProductsRepository
 
     public function list(Options $options): LengthAwarePaginator
     {
-        $baseQuery = Product::with(
-            [
-                'prices' => function ($query) use ($options) {
-                    $query->where('store', '=', $options->marketplaceSlug);
-                }
-            ]
-        )->active()
+        $baseQuery = Product::with([
+            'prices' => function ($query) use ($options) {
+                $query->where('store', '=', $options->marketplaceSlug);
+        }])
             ->where('user_id', $options->getUserId())
             ->isOnStore($options->marketplaceSlug)
             ->isNotVariation();

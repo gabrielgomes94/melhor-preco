@@ -3,6 +3,7 @@
 namespace Src\Integrations\Bling\Products;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Src\Integrations\Bling\Products\Requests\Endpoint;
 use Src\Integrations\Bling\Products\Requests\PriceTransformer as ProductStoreTransformer;
 use Src\Integrations\Bling\Products\Requests\Config;
@@ -48,8 +49,7 @@ class Client
         string $erpToken,
         string $storeCode,
         int $page = 1,
-        string $status =
-        Config::ACTIVE
+        string $status = Config::ACTIVE
     ): array
     {
         $config = Config::listPrices($erpToken, $status, $storeCode);

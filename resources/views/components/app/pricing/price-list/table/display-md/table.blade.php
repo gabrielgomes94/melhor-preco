@@ -1,5 +1,4 @@
-<div class="d-md-flex d-none">
-
+<div class="d-md-flex d-lg-flex d-xl-none d-sm-none d-none">
     <table class="table table-hover w-100 px-2 price-list-table">
         <thead >
             <x-app.pricing.price-list.table.display-md.header />
