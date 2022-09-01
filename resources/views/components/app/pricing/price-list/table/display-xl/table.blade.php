@@ -1,4 +1,4 @@
-<div class="d-xl-flex d-none">
+<div class="d-xl-flex d-lg-none d-none">
     <table class="table table-hover w-100 px-2 price-list-table">
         <thead >
             <x-app.pricing.price-list.table.display-xl.header />

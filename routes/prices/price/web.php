@@ -27,14 +27,12 @@ Route::middleware('auth')->group(function () {
                 ->group(function () {
                     Route::get('/{product_id}', CalculateController::class)
                         ->name('.calculate');
-
-
                 });
 
             Route::post('/{store_slug}/sincronizar', [SyncController::class, 'sync'])
                 ->name('.sync');
 
-            Route::post('/sync', [SyncController::class, 'syncAll'])
+            Route::post('/sincronizar', [SyncController::class, 'syncAll'])
                 ->name('.syncAll');
         });
 });

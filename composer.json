@@ -80,6 +80,7 @@
             "Src\\Costs\\": "tests/Unit/Costs/",
             "Src\\Integrations\\": "tests/Unit/Integrations/",
             "Src\\Marketplaces\\": "tests/Unit/Marketplaces/",
+            "Src\\Prices\\": "tests/Unit/Prices/",
             "Src\\Products\\": "tests/Unit/Products/",
             "Src\\Sales\\": "tests/Unit/Sales/",
             "Src\\Users\\": "tests/Unit/Users/",
