@@ -3,6 +3,7 @@
 namespace Src\Marketplaces\Infrastructure\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
@@ -76,7 +77,7 @@ class Marketplace extends Model implements MarketplaceInterface
         return (bool) $this->is_active;
     }
 
-    public function getPrices(): iterable
+    public function getPrices(): Collection
     {
         return $this->prices;
     }

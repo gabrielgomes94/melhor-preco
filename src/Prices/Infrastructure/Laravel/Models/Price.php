@@ -33,7 +33,7 @@ class Price extends Model
 
     public function marketplace(): BelongsTo
     {
-        return $this->belongsTo(Marketplace::class, 'marketplace_erp_id', 'erp_id');
+        return $this->belongsTo(Marketplace::class, 'marketplace_uuid', 'uuid');
     }
 
     public function product(): BelongsTo
@@ -71,7 +71,7 @@ class Price extends Model
         return $this->marketplace_erp_id;
     }
 
-    public function getProduct(): Product
+    public function getProduct(): ?Product
     {
         return $this->product;
     }

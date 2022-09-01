@@ -5,6 +5,8 @@ namespace Src\Prices\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Math\ProfitMargin;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
@@ -33,22 +35,21 @@ class PriceRepository
         return $lastUpdatedProduct?->getLastUpdate();
     }
 
-    public function insert(Price $price, float $commission, float $profit, string $userId): bool
+    public function insert(
+        Price $price,
+        Product $product,
+        Marketplace $marketplace,
+        float $commission,
+        float $profit
+    ): bool
     {
-        $product = $this->productRepository->get($price->product_sku, $userId);
-
-        if (!$product) {
-            return false;
-        }
-
-        $value = $price->value;
-
         $price->fill([
             'commission' => $commission,
             'profit' => $profit,
-            'margin' => $value != 0 ? ($profit / $value) * 100 : 0,
+            'margin' => ProfitMargin::calculate($price->getValue(), $profit)->get(),
         ]);
         $price->product()->associate($product);
+        $price->marketplace()->associate($marketplace);
         $price->uuid = Uuid::uuid4();
 
         return $price->save();
@@ -66,15 +67,12 @@ class PriceRepository
     }
 
     public function getPriceFromMarketplace(
-        string $marketplaceSlug,
-        string $marketplaceSkuId,
-        string $productSku,
-        string $userId
+        Marketplace $marketplace,
+        string $sku
     ): Collection
     {
-        return Price::where('store', $marketplaceSlug)
-            ->where('store_sku_id', $marketplaceSkuId)
-            ->where('product_sku', $productSku)
-            ->get();
+        return $marketplace->getPrices()->filter(
+            fn (Price $price) => $price->getProductSku() === $sku
+        );
     }
 }
