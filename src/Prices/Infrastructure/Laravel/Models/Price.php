@@ -43,7 +43,7 @@ class Price extends Model
 
     public function getCommission(): Percentage
     {
-        return Percentage::fromFraction($this->commission);
+        return Percentage::fromPercentage($this->commission);
     }
 
     public function getId(): string
@@ -66,11 +66,6 @@ class Price extends Model
         return $this->marketplace;
     }
 
-    public function getMarketplaceErpId(): string
-    {
-        return $this->marketplace_erp_id;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -86,11 +81,6 @@ class Price extends Model
         return $this->profit;
     }
 
-    public function getStore(): string
-    {
-        return $this->store;
-    }
-
     public function getStoreSkuId(): string
     {
         return $this->store_sku_id;
@@ -104,20 +94,5 @@ class Price extends Model
     public function isProfitable(): bool
     {
         return $this->profit > 0;
-    }
-
-    /**
-     * @deprecated
-     */
-    public function margin(): float
-    {
-        $profit = MoneyTransformer::toMoney($this->profit);
-        $value = MoneyTransformer::toMoney($this->value);
-
-        if ($value->isZero()) {
-            return 0.0;
-        }
-
-        return $profit->ratioOf($value);
     }
 }
