@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/{store_slug}/sincronizar', [SyncController::class, 'sync'])
                 ->name('.sync');
 
-            Route::post('/sync', [SyncController::class, 'syncAll'])
+            Route::post('/sincronizar', [SyncController::class, 'syncAll'])
                 ->name('.syncAll');
         });
 });
