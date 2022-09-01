@@ -9,6 +9,7 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository;
+use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
@@ -40,41 +41,35 @@ class SynchronizeFromMarketplace
             return false;
         }
 
-        $this->save($prices, $user);
+        $this->save($prices, $user, $marketplace);
 
         return true;
     }
 
-    public function save(PricesCollectionResponse $prices, User $user): void
+    public function save(PricesCollectionResponse $prices, User $user, Marketplace $marketplace): void
     {
         /**
          * @var Price $price
          */
         foreach ($prices->data() as $price) {
-            $priceModels = $this->priceRepository->getPriceFromMarketplace(
-                $price->store, $price->store_sku_id, $price->product_sku, $user->getId()
-            );
-
+            $priceModels = $this->priceRepository->getPriceFromMarketplace($marketplace, $price->getProductSku());
             $product = $this->productRepository->get($price->getProductSku(), $user->getId());
 
             if (!$product) {
                 continue;
             }
 
-            $commission = $this->commissionRepository->getCommissionRate(
-                $price->getMarketplace(),
-                $product
-            );
-            $profit = $this->calculateProfit->fromModel($price, $user);
+            $commission = $this->commissionRepository->getCommissionRate($marketplace, $product);
+            $profit = $this->calculateProfit->fromModel($price, $product, $marketplace);
 
             if ($priceModels->count() === 0) {
-                $this->priceRepository->insert($price, $commission->get(), $profit, $user->getId());
+                $this->priceRepository->insert($price, $product, $marketplace, $commission->get(), $profit);
 
                 continue;
             }
 
             foreach ($priceModels as $priceModel) {
-                $this->priceRepository->update($priceModel, $price->value, $profit, $commission->get());
+                $this->priceRepository->update($priceModel, $price->getValue(), $profit, $commission->get());
             }
         }
     }

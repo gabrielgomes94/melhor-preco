@@ -190,7 +190,7 @@ class Product extends Model implements ProductModelInterface
         $prices = $this->prices;
 
         foreach ($prices as $price) {
-            if ($price->getMarketplace()?->getSlug() == $slug) {
+            if ($price->getMarketplace()?->getSlug() === $slug) {
                 return $price;
             }
         }

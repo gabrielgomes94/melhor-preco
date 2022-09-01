@@ -2,6 +2,7 @@
 
 namespace Src\Marketplaces\Domain\Models;
 
+use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
@@ -16,7 +17,7 @@ interface Marketplace
 
     public function getName(): string;
 
-    public function getPrices(): iterable;
+    public function getPrices(): Collection;
 
     public function getSlug(): string;
 

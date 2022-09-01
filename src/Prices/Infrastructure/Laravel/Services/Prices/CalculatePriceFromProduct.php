@@ -44,7 +44,7 @@ class CalculatePriceFromProduct
         if (!$calculatorForm) {
             $price = $product->getPrice($marketplace)?->getValue();
 
-            if (!$price) {
+            if (is_null($price)) {
                 throw new ProductHasNoPriceInMarketplace($product, $marketplace);
             }
 

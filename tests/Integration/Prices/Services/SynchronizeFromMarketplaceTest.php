@@ -109,15 +109,15 @@ class SynchronizeFromMarketplaceTest extends TestCase
     private function then_the_prices_must_be_updated_on_database()
     {
         $price_1 = Price::where('product_sku', '1234')
-            ->where('store_sku_id', '9811833249')
             ->where('store', 'magalu')
             ->first();
+
         $this->assertSame('459.90', $price_1->value);
 
         $price_2 = Price::where('product_sku', '987')
-            ->where('store_sku_id', '9014464515')
             ->where('store', 'magalu')
             ->first();
+
         $this->assertSame('439.00', $price_2->value);
     }
 
