@@ -35,7 +35,7 @@ class SyncPricesTest extends TestCase
         Queue::assertPushed(SyncPrices::class);
     }
 
-    public function test_should_not_dispatch_job_for_next_page(): void
+    public function test_should_dispatch_job_for_next_page_when_page_is_less_than_minimum_value(): void
     {
         // Arrange
         Queue::fake();
@@ -47,6 +47,27 @@ class SyncPricesTest extends TestCase
         // Expect
         $synchronizeFromMarketplace->expects()
             ->sync($marketplace, 1, 'active')
+            ->andReturnFalse();
+
+        // Act
+        $job->handle($synchronizeFromMarketplace);
+
+        // Assert
+        Queue::assertPushed(SyncPrices::class);
+    }
+
+    public function test_should_not_dispatch_job_for_next_page(): void
+    {
+        // Arrange
+        Queue::fake();
+        $synchronizeFromMarketplace = Mockery::mock(SynchronizeFromMarketplace::class);
+        $user = UserData::make();
+        $marketplace = MarketplaceData::magalu($user);
+        $job = new SyncPrices($marketplace, 11, 'active');
+
+        // Expect
+        $synchronizeFromMarketplace->expects()
+            ->sync($marketplace, 11, 'active')
             ->andReturnFalse();
 
         // Act

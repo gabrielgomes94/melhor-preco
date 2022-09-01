@@ -7,7 +7,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizeFromMarketplace;
@@ -29,11 +28,12 @@ final class SyncPrices implements ShouldQueue
 
     public function handle(SynchronizeFromMarketplace $synchronizeFromMarketplace): void
     {
-        $page = $this->page;
+        $result = $synchronizeFromMarketplace->sync($this->marketplace, $this->page, $this->status);
 
-        do {
-            $result = $synchronizeFromMarketplace->sync($this->marketplace, $page, $this->status);
-            $page++;
-        } while ($result || $page < 100);
+        if (!$result && $this->page > 10) {
+            return;
+        }
+
+        SyncPrices::dispatch($this->marketplace, $this->page + 1, $this->status);
     }
 }

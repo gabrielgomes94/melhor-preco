@@ -2,7 +2,6 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
 
-use Illuminate\Support\Facades\Log;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
@@ -21,7 +20,6 @@ class SynchronizePrices implements SynchronizePricesInterface
         $marketplaces = $this->marketplaceRepository->list($userId);
 
         foreach ($marketplaces as $marketplace) {
-            Log::info('Syncing marketplace prices: ' . $marketplace->getName());
             $this->sync($marketplace);
         }
     }
@@ -29,6 +27,7 @@ class SynchronizePrices implements SynchronizePricesInterface
     public function syncMarketplace(string $marketplaceSlug, string $userId): void
     {
         $marketplace = $this->marketplaceRepository->getBySlug($marketplaceSlug, $userId);
+
         $this->sync($marketplace);
     }
 
