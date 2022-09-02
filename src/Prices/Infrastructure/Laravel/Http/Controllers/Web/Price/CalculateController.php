@@ -41,7 +41,7 @@ class CalculateController extends Controller
 
         $presented = $this->productPresenter->present(
             $priceCalculatedFromProduct,
-            $request
+            $request->transform()
         );
 
         return view(
