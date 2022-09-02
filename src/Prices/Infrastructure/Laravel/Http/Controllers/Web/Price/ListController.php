@@ -36,8 +36,7 @@ class ListController extends Controller
         $data = $this->priceListPresenter->list(
             $products,
             $marketplace,
-            $options,
-            $this->getUserId()
+            $options
         );
 
         if ($products->isEmpty()) {
@@ -51,6 +50,7 @@ class ListController extends Controller
     {
         $options = $request->transform();
         $options->setMarketplace($store);
+        $options->setUserId($this->getUserId());
 
         return $options;
     }

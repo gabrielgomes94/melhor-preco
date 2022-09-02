@@ -17,7 +17,6 @@ class MassCalculatedPricesPresenter
     public function __construct(
         private readonly FilterPresenter $filterPresenter,
         private readonly MarketplacesPresenter $marketplacesPresenter,
-        private readonly PriceListPresenter $priceListPresenter
     ) {
     }
 
@@ -25,16 +24,11 @@ class MassCalculatedPricesPresenter
     {
         $marketplace = $pricesCalculated->marketplace;
 
-//        dd($pricesCalculated->calculatedPrices);
-
         $products = collect($pricesCalculated->calculatedPrices)
             ->map(function (PriceCalculatedFromProduct $priceCalculatedFromProduct) {
                 return $priceCalculatedFromProduct->product;
             });
 
-//        dd($products);
-
-//        $products = collect($pricesCalculated->calculatedPrices)->pluck();
         $paginator = new LengthAwarePaginator($products->all(), $products->count(), 40, 1);
 
         return [
@@ -55,7 +49,7 @@ class MassCalculatedPricesPresenter
 
     private function presentProducts(Collection $products, Marketplace $marketplace, Options $options): array
     {
-        $products = $products->transform(
+        return $products->transform(
             function (PriceCalculatedFromProduct $priceCalculatedFromProduct) use ($marketplace, $options) {
                 $product = $priceCalculatedFromProduct->product;
                 $price = $priceCalculatedFromProduct->calculatedPrice;
@@ -74,7 +68,5 @@ class MassCalculatedPricesPresenter
             }
         )
         ->toArray();
-
-        return $products;
     }
 }

@@ -27,8 +27,7 @@ class PriceListPresenter
     public function list(
         LengthAwarePaginator $paginator,
         Marketplace $marketplace,
-        Options $options,
-        string $userId
+        Options $options
     ): array {
         return [
             'currentMarketplace' => [
@@ -36,7 +35,7 @@ class PriceListPresenter
                 'slug' => $marketplace->getSlug(),
             ],
             'filter' => $this->filterPresenter->present($options),
-            'marketplaces' => $this->marketplacesPresenter->present($userId),
+            'marketplaces' => $this->marketplacesPresenter->present($options->getUserId()),
             'paginator' => $paginator->appends(
                 'category',
                 $options->getCategoryId() ?? null
@@ -49,7 +48,7 @@ class PriceListPresenter
         ];
     }
 
-    public function presentProducts(array $items, Marketplace $marketplace, Options $options): array
+    private function presentProducts(array $items, Marketplace $marketplace, Options $options): array
     {
         $products = collect($items);
         $products = $products->transform(function (Product $product) use ($marketplace, $options) {
@@ -75,17 +74,5 @@ class PriceListPresenter
         });
 
         return $products->toArray();
-    }
-
-    public function presentListPricesCalculated(ListPricesCalculated $pricesCalculated): array
-    {
-        $marketplace = $pricesCalculated->marketplace;
-
-        return [
-            'currentMarketplace' => [
-                'name' => $marketplace->getName(),
-                'slug' => $marketplace->getSlug(),
-            ],
-        ];
     }
 }
