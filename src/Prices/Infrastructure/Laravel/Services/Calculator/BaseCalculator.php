@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Prices\Calculator;
+namespace Src\Prices\Infrastructure\Laravel\Services\Calculator;
 
 use Money\Money;
 use Src\Marketplaces\Domain\Models\Marketplace;
@@ -9,11 +9,11 @@ use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 
-class BaseCalculator
+abstract class BaseCalculator
 {
     public function __construct(
-        private CommissionRepository $commissionRepository,
-        private FreightRepository $freightRepository
+        private readonly CommissionRepository $commissionRepository,
+        private readonly FreightRepository $freightRepository
     )
     {}
 

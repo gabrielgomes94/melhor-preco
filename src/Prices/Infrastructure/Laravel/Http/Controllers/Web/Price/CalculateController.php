@@ -10,7 +10,7 @@ use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Prices\Infrastructure\Laravel\Presenters\Calculator\CalculatorPresenter;
-use Src\Prices\Infrastructure\Laravel\Services\Prices\CalculatePriceFromProduct;
+use Src\Prices\Infrastructure\Laravel\Services\CalculatePriceFromProduct;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 
 class CalculateController extends Controller

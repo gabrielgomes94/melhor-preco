@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Prices\Infrastructure\Laravel\Http\Requests\MassCalculatePriceRequest;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\MassCalculatedPricesPresenter;
-use Src\Prices\Infrastructure\Laravel\Services\Prices\MassCalculatePrices;
+use Src\Prices\Infrastructure\Laravel\Services\MassCalculatePrices;
 
 class MassCalculateController extends Controller
 {

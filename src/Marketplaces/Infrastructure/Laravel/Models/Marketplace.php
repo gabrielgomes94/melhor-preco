@@ -12,6 +12,7 @@ use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\CommissionCast;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Casts\FreightCast;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceRelationships;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Concerns\MarketplaceScopes;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Marketplace extends Model implements MarketplaceInterface
@@ -77,6 +78,22 @@ class Marketplace extends Model implements MarketplaceInterface
         return (bool) $this->is_active;
     }
 
+    public function getPrice(string $productSku): ?Price
+    {
+        $prices = $this->getPrices();
+
+        /**
+         * @var Price $price
+         */
+        foreach ($prices as $price) {
+            if ($price->getProductSku() === $productSku) {
+                return $price;
+            }
+        }
+
+        return null;
+    }
+
     public function getPrices(): Collection
     {
         return $this->prices;
@@ -99,6 +116,11 @@ class Marketplace extends Model implements MarketplaceInterface
         return $this->getUser()->getId();
     }
 
+    public function getFreight(): Freight
+    {
+        return $this->freight;
+    }
+
     public function setCommissions(CommissionValuesCollection $commissions): void
     {
         $this->commission = Commission::build(
@@ -111,10 +133,5 @@ class Marketplace extends Model implements MarketplaceInterface
     public function setFreight(Freight $freight): void
     {
         $this->freight = $freight;
-    }
-
-    public function getFreight(): Freight
-    {
-        return $this->freight;
     }
 }

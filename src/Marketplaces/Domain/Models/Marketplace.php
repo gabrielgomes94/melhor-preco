@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 
 interface Marketplace
 {
@@ -16,6 +17,8 @@ interface Marketplace
     public function getFreight(): Freight;
 
     public function getName(): string;
+
+    public function getPrice(string $productSku): ?Price;
 
     public function getPrices(): Collection;
 

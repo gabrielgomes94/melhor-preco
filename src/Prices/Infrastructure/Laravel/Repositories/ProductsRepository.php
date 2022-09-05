@@ -4,10 +4,11 @@ namespace Src\Prices\Infrastructure\Laravel\Repositories;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Src\Prices\Domain\Repositories\ProductsRepository as ProductsRepositoryInterface;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
-class ProductsRepository
+class ProductsRepository implements ProductsRepositoryInterface
 {
     public function list(Options $options): LengthAwarePaginator
     {

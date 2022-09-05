@@ -88,19 +88,4 @@ class PricesRepositoryTest extends TestCase
         $this->assertSame(120.0, $price->getProfit());
         $this->assertSame(10.0, $price->getCommission()->get());
     }
-
-    public function test_should_get_price_from_marketplace()
-    {
-        // Arrange
-        $user = UserData::make();
-        $marketplace = MarketplaceData::shopee($user);
-        $product = ProductData::babyCarriage($user, [PriceData::build($marketplace)]);
-        $repository = new PricesRepository();
-
-        // Act
-        $result = $repository->getPriceFromMarketplace($marketplace, '1234');
-
-        // Assert
-        $this->assertContainsOnlyInstancesOf(Price::class, $result);
-    }
 }

@@ -7,11 +7,12 @@ use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Math\ProfitMargin;
+use Src\Prices\Domain\Repositories\PricesRepository as PricesRepositoryInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
-class PricesRepository
+class PricesRepository implements PricesRepositoryInterface
 {
     public function count(string $userId): int
     {
@@ -58,15 +59,5 @@ class PricesRepository
         $price->margin = ProfitMargin::calculate($value, $profit)->get();;
 
         return $price->save();
-    }
-
-    public function getPriceFromMarketplace(
-        Marketplace $marketplace,
-        string $sku
-    ): Collection
-    {
-        return $marketplace->getPrices()->filter(
-            fn (Price $price) => $price->getProductSku() === $sku
-        );
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Prices\Calculator;
+namespace Src\Prices\Infrastructure\Laravel\Services\Calculator;
 
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;

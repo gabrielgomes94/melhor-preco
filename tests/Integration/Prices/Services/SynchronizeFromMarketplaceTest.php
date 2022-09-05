@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizeFromMarketplace;
+use Src\Prices\Infrastructure\Laravel\Services\SynchronizeFromMarketplace;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Prices\PriceData;

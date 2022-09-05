@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Prices;
+namespace Src\Prices\Infrastructure\Laravel\Services;
 
 use Money\Money;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
@@ -13,11 +13,12 @@ use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
+use Src\Prices\Domain\Services\CalculatePriceFromProduct as CalculatePriceFromProductInterface;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
 
-class CalculatePriceFromProduct
+class CalculatePriceFromProduct implements CalculatePriceFromProductInterface
 {
     public function __construct(
         private readonly MarketplaceRepository $marketplaceRepository,

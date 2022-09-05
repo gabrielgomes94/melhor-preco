@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizeFromMarketplace;
+use Src\Prices\Infrastructure\Laravel\Services\SynchronizeFromMarketplace;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 
 final class SyncPrices implements ShouldQueue

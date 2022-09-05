@@ -16,9 +16,9 @@ trait MarketplaceRelationships
         return $this->hasManyThrough(
             Product::class,
             Price::class,
-            'marketplace_erp_id',
+            'marketplace_uuid',
             'uuid',
-            'erp_id',
+            'uuid',
             'product_uuid'
         );
     }
