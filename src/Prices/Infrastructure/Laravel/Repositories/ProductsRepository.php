@@ -7,7 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
-class FilterProductsRepository
+class ProductsRepository
 {
     public function __construct()
     {

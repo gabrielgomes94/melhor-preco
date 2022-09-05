@@ -11,18 +11,18 @@ use Src\Math\Percentage;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
+/**
+ * @todo: remover os campos store, product_sku e marketplace_erp_id
+ */
 class Price extends Model
 {
     protected $fillable = [
+        'additional_costs',
         'commission',
         'margin',
         'profit',
-        'store',
         'store_sku_id',
         'value',
-        'additional_costs',
-        'product_sku',
-        'marketplace_erp_id',
     ];
 
     protected $casts = [
@@ -73,7 +73,7 @@ class Price extends Model
 
     public function getProductSku(): string
     {
-        return $this->product_sku;
+        return $this->getProduct()?->getSku() ?? '';
     }
 
     public function getProfit(): ?float

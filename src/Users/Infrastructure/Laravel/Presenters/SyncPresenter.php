@@ -3,7 +3,7 @@
 namespace Src\Users\Infrastructure\Laravel\Presenters;
 
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository as CostsRepository;
-use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository as PriceRepository;
+use Src\Prices\Infrastructure\Laravel\Repositories\PricesRepository;
 use Src\Products\Domain\Repositories\CategoryRepository;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
@@ -16,7 +16,7 @@ class SyncPresenter
         private CategoryRepository $categoryRepository,
         private ProductRepository $productRepository,
         private SaleOrderRepository $salesRepository,
-        private PriceRepository $priceRepository
+        private PricesRepository $priceRepository
     ) {
     }
 

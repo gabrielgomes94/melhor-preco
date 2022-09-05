@@ -11,7 +11,7 @@ use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
-class PriceRepository
+class PricesRepository
 {
     public function count(string $userId): int
     {
@@ -50,15 +50,14 @@ class PriceRepository
         return $price->save();
     }
 
-    public function update(Price $model, float $value, float $profit, float $commission): bool
+    public function update(Price $price, float $value, float $profit, float $commission): bool
     {
-        $model->value = $value;
-        $model->profit = $profit;
-        $model->margin = $value != 0 ? ($profit / $value) * 100 : 0;
+        $price->value = $value;
+        $price->profit = $profit;
+        $price->commission = $commission;
+        $price->margin = ProfitMargin::calculate($value, $profit)->get();;
 
-        $model->commission = $commission;
-
-        return $model->save();
+        return $price->save();
     }
 
     public function getPriceFromMarketplace(

@@ -8,7 +8,7 @@ use Src\Integrations\Bling\Products\Requests\Config;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Prices\Infrastructure\Laravel\Repositories\PriceRepository;
+use Src\Prices\Infrastructure\Laravel\Repositories\PricesRepository;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
@@ -18,11 +18,11 @@ use Src\Users\Infrastructure\Laravel\Models\User;
 class SynchronizeFromMarketplace
 {
     public function __construct(
-        private BlingRepository $erpRepository,
-        private CalculateProfit $calculateProfit,
+        private BlingRepository      $erpRepository,
+        private CalculateProfit      $calculateProfit,
         private CommissionRepository $commissionRepository,
-        private PriceRepository $priceRepository,
-        private ProductRepository $productRepository
+        private PricesRepository     $priceRepository,
+        private ProductRepository    $productRepository
     ) {
     }
 

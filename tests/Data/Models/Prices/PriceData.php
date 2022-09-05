@@ -25,8 +25,6 @@ class PriceData
         $price->marketplace()->associate($marketplace);
 
         $price->margin = $data['profit'] / $data['value'] * 100;
-        $price->store = $marketplace->getSlug();
-        $price->marketplace_erp_id = $marketplace->getErpId();
         $price->uuid = $data['uuid'] ?? Uuid::uuid4();
 
         return $price;
@@ -39,7 +37,6 @@ class PriceData
             'profit' => 2.0,
             'value' => 10.0,
             'additional_costs' => 0.0,
-            'product_sku' => '1234',
             'store_sku_id' => '3213123',
         ];
     }

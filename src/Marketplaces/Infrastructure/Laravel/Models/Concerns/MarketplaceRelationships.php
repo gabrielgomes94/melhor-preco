@@ -25,7 +25,7 @@ trait MarketplaceRelationships
 
     public function prices(): HasMany
     {
-        return $this->hasMany(Price::class, 'marketplace_erp_id', 'erp_id');
+        return $this->hasMany(Price::class, 'marketplace_uuid', 'uuid');
     }
 
     public function user(): BelongsTo
