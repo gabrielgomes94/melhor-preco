@@ -2,6 +2,8 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories\Options;
 
+use Src\Marketplaces\Domain\Models\Marketplace;
+
 class Options
 {
     private const INFINITE = 100000000000000000;
@@ -15,7 +17,8 @@ class Options
         public readonly ?int $perPage = 40,
         public readonly bool $filterKits = false,
         public ?string $userId = null,
-        public ?string $marketplaceSlug = null
+        public ?string $marketplaceSlug = null,
+        public ?Marketplace $marketplace = null
     )
     {
     }
@@ -80,9 +83,15 @@ class Options
         return (bool) $this->sku;
     }
 
-    public function setMarketplace(string $marketplaceSlug): void
+    public function getMarketplaceUuid(): string
+    {
+        return $this->marketplace?->getUuid() ?? '';
+    }
+
+    public function setMarketplace(string $marketplaceSlug, Marketplace $marketplace): void
     {
         $this->marketplaceSlug = $marketplaceSlug;
+        $this->marketplace = $marketplace;
     }
 
     public function setUserId(string $userId): void

@@ -9,18 +9,13 @@ use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class ProductsRepository
 {
-    public function __construct()
-    {
-    }
-
     public function list(Options $options): LengthAwarePaginator
     {
         $baseQuery = Product::with([
             'prices' => function ($query) use ($options) {
-                $query->where('store', '=', $options->marketplaceSlug);
+                $query->where('marketplace_uuid', '=', $options->getMarketplaceUuid());
         }])
             ->where('user_id', $options->getUserId())
-            ->isOnStore($options->marketplaceSlug)
             ->isNotVariation();
 
         if ($options->hasProfitFilters()) {
