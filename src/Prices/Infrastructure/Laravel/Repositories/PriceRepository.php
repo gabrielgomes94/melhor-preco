@@ -13,11 +13,6 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class PriceRepository
 {
-    public function __construct(
-        private ProductRepository $productRepository
-    )
-    {}
-
     public function count(string $userId): int
     {
         return Price::join('products', 'products.uuid', '=', 'prices.product_uuid')
