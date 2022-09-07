@@ -25,11 +25,9 @@ class Price extends Model
         'value',
     ];
 
-    protected $casts = [
-        'product_sku' => 'string',
-    ];
-
     public $keyType = 'string';
+
+    private string $productSku = '';
 
     public function marketplace(): BelongsTo
     {
@@ -73,7 +71,9 @@ class Price extends Model
 
     public function getProductSku(): string
     {
-        return $this->getProduct()?->getSku() ?? '';
+        return empty($this->productSku)
+            ? $this->getProduct()?->getSku() ?? ''
+            : $this->productSku;
     }
 
     public function getProfit(): ?float
@@ -94,5 +94,10 @@ class Price extends Model
     public function isProfitable(): bool
     {
         return $this->profit > 0;
+    }
+
+    public function setProductSku(string $sku): void
+    {
+        $this->productSku = $sku;
     }
 }

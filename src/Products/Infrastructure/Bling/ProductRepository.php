@@ -102,7 +102,7 @@ class ProductRepository implements ErpProductRepositoryInterface
         return $xml->asXML();
     }
 
-    private function listProducts(string $erpToken, string $status)
+    private function listProducts(string $erpToken, string $status): array
     {
         $page = 0;
         $productsCollection = [];

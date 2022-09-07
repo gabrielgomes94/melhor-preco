@@ -151,12 +151,6 @@ class ListProductsTest extends FeatureTestCase
 
         $this->response->assertViewHas('data', [
             [
-                'sku' => '821',
-                'name' => 'Cobertor',
-                'imagesCount' => 0,
-                'sales' => 0,
-            ],
-            [
                 'sku' => '822',
                 'name' => 'Cobertor Vermelho',
                 'imagesCount' => 0,
@@ -165,6 +159,12 @@ class ListProductsTest extends FeatureTestCase
             [
                 'sku' => '823',
                 'name' => 'Cobertor Azul',
+                'imagesCount' => 0,
+                'sales' => 0,
+            ],
+            [
+                'sku' => '821',
+                'name' => 'Cobertor',
                 'imagesCount' => 0,
                 'sales' => 0,
             ],

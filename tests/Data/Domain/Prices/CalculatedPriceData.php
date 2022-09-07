@@ -13,15 +13,15 @@ class CalculatedPriceData
     {
         return new CalculatedPrice(
             new CostPrice(
-                MoneyTransformer::toMoney(550.0),
-                MoneyTransformer::toMoney(20.0),
+                550.0,
+                20.0,
                 Percentage::fromPercentage(12),
                 Percentage::fromPercentage(18),
                 Percentage::fromPercentage(5.45)
             ),
-            MoneyTransformer::toMoney(899.9),
-            MoneyTransformer::toMoney(100.0),
-            MoneyTransformer::toMoney(0.0),
+            899.9,
+            100.0,
+            0.0,
         );
     }
 
@@ -29,15 +29,15 @@ class CalculatedPriceData
     {
         return new CalculatedPrice(
             new CostPrice(
-                MoneyTransformer::toMoney(380.0),
-                MoneyTransformer::toMoney(0.0),
+                380.0,
+                0.0,
                 Percentage::fromPercentage(12),
                 Percentage::fromPercentage(18),
                 Percentage::fromPercentage(5.45)
             ),
-            MoneyTransformer::toMoney(699.9),
-            MoneyTransformer::toMoney(100.0),
-            MoneyTransformer::toMoney(0.0),
+            699.9,
+            100.0,
+            0.0,
         );
     }
 
@@ -45,15 +45,15 @@ class CalculatedPriceData
     {
         return new CalculatedPrice(
             new CostPrice(
-                MoneyTransformer::toMoney(6.75),
-                MoneyTransformer::toMoney(0.0),
+                6.75,
+                0.0,
                 Percentage::fromPercentage(12),
                 Percentage::fromPercentage(18),
                 Percentage::fromPercentage(5.45)
             ),
-            MoneyTransformer::toMoney(19.9),
-            MoneyTransformer::toMoney(2.25),
-            MoneyTransformer::toMoney(0.0),
+            19.9,
+            2.25,
+            0.0,
         );
     }
 }

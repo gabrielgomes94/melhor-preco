@@ -3,21 +3,22 @@
 namespace Src\Prices\Domain\Models\Calculator;
 
 use Money\Money;
+use Src\Math\MoneyCalculator;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product;
 
 class CostPrice
 {
-    private Money $additionalCosts;
-    private Money $purchasePrice;
+    private float $additionalCosts;
+    private float $purchasePrice;
     private Percentage $taxICMSInnerState;
     private Percentage $taxICMSOutterState;
     private Percentage $taxSimplesNacional;
 
     public function __construct(
-        Money $purchasePrice,
-        Money $additionalCosts,
+        float $purchasePrice,
+        float $additionalCosts,
         Percentage $taxICMSOutterState,
         Percentage $taxICMSInnerState,
         Percentage $taxSimplesNacional
@@ -36,44 +37,52 @@ class CostPrice
         $user = $product->getUser();
 
         return new self(
-            MoneyTransformer::toMoney($costs->purchasePrice()),
-            MoneyTransformer::toMoney($costs->additionalCosts()),
+            $costs->purchasePrice(),
+            $costs->additionalCosts(),
             Percentage::fromPercentage($costs->taxICMS()),
             Percentage::fromPercentage($user->getIcmsInnerStateTaxRate()),
             Percentage::fromPercentage($user->getSimplesNacionalTaxRate())
         );
     }
 
-    public function get(): Money
+    public function get(): float
     {
-        return $this->purchasePrice
-            ->add($this->differenceICMS())
-            ->add($this->additionalCosts);
+        return MoneyCalculator::sum($this->purchasePrice, $this->differenceICMS(), $this->additionalCosts);
     }
 
-    public function total(): Money
+    public function total(): float
     {
-        return $this->get()->multiply((string) (1 + $this->simplesNacional()));
+        return MoneyCalculator::multiply(
+            $this->get(),
+            1 + $this->simplesNacional()
+        );
     }
 
-    public function purchasePrice(): Money
+    public function purchasePrice(): float
     {
         return $this->purchasePrice;
     }
 
-    public function differenceICMS(): Money
+    public function differenceICMS(): float
     {
-        $baseICMS = $this->purchasePrice->divide((string) (1 - $this->taxICMSOutterState->getFraction()));
-        $outerStateICMSValue = $baseICMS->multiply(
-            (string) $this->taxICMSOutterState->getFraction()
+        $baseICMS = MoneyCalculator::divide(
+            $this->purchasePrice,
+            1 - $this->taxICMSOutterState->getFraction()
         );
-        $baseDIFAL = $this->purchasePrice->divide((string)(1 - $this->taxICMSInnerState->getFraction()));
 
-        $difal = $baseDIFAL
-            ->multiply((string) $this->taxICMSInnerState->getFraction())
-            ->subtract($outerStateICMSValue);
+        $outerStateICMSValue = MoneyCalculator::multiply(
+            $baseICMS,
+            $this->taxICMSOutterState->getFraction()
+        );
 
-        return $difal;
+        $baseDIFAL = MoneyCalculator::divide(
+            $this->purchasePrice,
+            1 - $this->taxICMSInnerState->getFraction()
+        );
+
+        $difal = MoneyCalculator::multiply($baseDIFAL, $this->taxICMSInnerState->getFraction());
+
+        return MoneyCalculator::subtract($difal, $outerStateICMSValue);
     }
 
     public function simplesNacional(): float

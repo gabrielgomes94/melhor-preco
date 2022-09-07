@@ -46,10 +46,14 @@ class ListController extends Controller
         return view('pages.pricing.prices.list', $data);
     }
 
+    /**
+     * @throws MarketplaceNotFoundException
+     * @todo: usar a trait q eu tinha planejado mais cedo
+     */
     private function getOptions(string $store, ShowRequest $request): Options
     {
         $options = $request->transform();
-        $options->setMarketplace($store);
+        $options->setMarketplace($this->getMarketplace($store));
         $options->setUserId($this->getUserId());
 
         return $options;

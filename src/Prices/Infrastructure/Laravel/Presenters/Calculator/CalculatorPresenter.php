@@ -2,16 +2,13 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 
-use App\Http\Controllers\Utils\Breadcrumb;
 use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
-use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
@@ -59,9 +56,9 @@ class CalculatorPresenter
             'marketplaceSlug' => $marketplace->getSlug(),
             'commission' => $commission->get(),
             'discount' => 0.0,
-            'desiredPrice' => MoneyTransformer::toFloat($calculatedPrice->get()),
+            'desiredPrice' => $calculatedPrice->get(),
             'productId' => $product->getSku(),
-            'freight' => MoneyTransformer::toFloat($calculatedPrice->getFreight()),
+            'freight' => $calculatedPrice->getFreight(),
         ];
 
         if (!$form) {

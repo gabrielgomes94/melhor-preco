@@ -55,6 +55,7 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
     public function list(string $userId): array
     {
         return MarketplaceModel::withUser($userId)
+            ->orderBy('slug')
             ->get()
             ->all();
     }

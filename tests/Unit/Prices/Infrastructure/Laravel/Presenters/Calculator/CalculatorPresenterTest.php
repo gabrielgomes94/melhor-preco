@@ -31,15 +31,15 @@ class CalculatorPresenterTest extends TestCase
         ]);
         $calculatedPrice = new CalculatedPrice(
             new CostPrice(
-                MoneyTransformer::toMoney(550.0),
-                MoneyTransformer::toMoney(20.0),
+                550.0,
+                20.0,
                 Percentage::fromPercentage(12),
                 Percentage::fromPercentage(18),
                 Percentage::fromPercentage(5.45)
             ),
-            MoneyTransformer::toMoney(899.9),
-            MoneyTransformer::toMoney(100.0),
-            MoneyTransformer::toMoney(0.0),
+            899.9,
+            100.0,
+            0.0,
         );
         $priceCalculatedFromProduct = new PriceCalculatedFromProduct($product, $marketplace, $calculatedPrice);
 
@@ -86,7 +86,6 @@ class CalculatorPresenterTest extends TestCase
                 'taxICMS' => 12.0,
                 'additionalCosts' => 0.0,
             ],
-            'priceId' => '1',
             'marketplacesList' => [
                 [
                     'name' => 'Shopee',
@@ -94,9 +93,14 @@ class CalculatorPresenterTest extends TestCase
                     'selected' => true,
                 ]
             ],
-            'costs' => [],
         ];
-        $this->assertSame($expected, $result);
+        $this->assertSame($expected['calculatorForm'], $result['calculatorForm']);
+        $this->assertSame($expected['calculatedPrice'], $result['calculatedPrice']);
+        $this->assertSame($expected['productInfo'], $result['productInfo']);
+        $this->assertSame($expected['costsForm'], $result['costsForm']);
+        $this->assertSame($expected['marketplacesList'], $result['marketplacesList']);
+        $this->assertEmpty($result['costs']);
+        $this->assertIsString($result['priceId']);
     }
 
     public function test_should_present_calculator_when_there_is_form_data(): void
@@ -111,15 +115,15 @@ class CalculatorPresenterTest extends TestCase
         ]);
         $calculatedPrice = new CalculatedPrice(
             new CostPrice(
-                MoneyTransformer::toMoney(550.0),
-                MoneyTransformer::toMoney(20.0),
+                550.0,
+                20.0,
                 Percentage::fromPercentage(12),
                 Percentage::fromPercentage(18),
                 Percentage::fromPercentage(5.45)
             ),
-            MoneyTransformer::toMoney(929.9),
-            MoneyTransformer::toMoney(100.0),
-            MoneyTransformer::toMoney(0.0),
+            929.9,
+            100.0,
+            0.0,
         );
         $priceCalculatedFromProduct = new PriceCalculatedFromProduct($product, $marketplace, $calculatedPrice);
         $form = new CalculatorForm(
@@ -172,7 +176,6 @@ class CalculatorPresenterTest extends TestCase
                 'taxICMS' => 12.0,
                 'additionalCosts' => 0.0,
             ],
-            'priceId' => '2',
             'marketplacesList' => [
                 [
                     'name' => 'Shopee',
@@ -180,8 +183,14 @@ class CalculatorPresenterTest extends TestCase
                     'selected' => true,
                 ]
             ],
-            'costs' => [],
         ];
-        $this->assertSame($expected, $result);
+
+        $this->assertSame($expected['calculatorForm'], $result['calculatorForm']);
+        $this->assertSame($expected['calculatedPrice'], $result['calculatedPrice']);
+        $this->assertSame($expected['productInfo'], $result['productInfo']);
+        $this->assertSame($expected['costsForm'], $result['costsForm']);
+        $this->assertSame($expected['marketplacesList'], $result['marketplacesList']);
+        $this->assertEmpty($result['costs']);
+        $this->assertIsString($result['priceId']);
     }
 }

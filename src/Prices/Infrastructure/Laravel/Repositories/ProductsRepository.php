@@ -12,17 +12,15 @@ class ProductsRepository implements ProductsRepositoryInterface
 {
     public function list(Options $options): LengthAwarePaginator
     {
-        $baseQuery = Product::with([
-            'prices' => function ($query) use ($options) {
-                $query->where('marketplace_uuid', '=', $options->getMarketplaceUuid());
-        }])
+        $baseQuery = Product::with('prices')
+            ->isOnStore($options->getMarketplaceUuid())
             ->where('user_id', $options->getUserId())
             ->isNotVariation();
 
         if ($options->hasProfitFilters()) {
             $baseQuery->whereHas('prices', function (Builder $query) use ($options) {
-                $query->where('margin', '>=', $options->minimumProfit())
-                    ->where('margin', '<=', $options->maximumProfit());
+                $query->where('prices.margin', '>=', $options->minimumProfit())
+                    ->where('prices.margin', '<=', $options->maximumProfit());
             });
         }
 

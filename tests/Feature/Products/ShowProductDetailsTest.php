@@ -103,20 +103,20 @@ class ShowProductDetailsTest extends FeatureTestCase
             'salesByMarketplace' => [
                 [
                     'quantity' => 0,
-                    'value' => '',
-                    'slug' => 'shopee',
-                    'storeName' => 'Shopee',
+                    'value' => 'R$ 0,00',
+                    'slug' => 'magalu',
+                    'storeName' => 'Magalu',
                 ],
                 [
                     'quantity' => 0,
-                    'value' => '',
-                    'slug' => 'magalu',
-                    'storeName' => 'Magalu',
+                    'value' => 'R$ 0,00',
+                    'slug' => 'shopee',
+                    'storeName' => 'Shopee',
                 ],
             ],
             'total' => [
                 'quantity' => 0,
-                'value' => '',
+                'value' => 'R$ 0,00',
             ],
         ]);
 

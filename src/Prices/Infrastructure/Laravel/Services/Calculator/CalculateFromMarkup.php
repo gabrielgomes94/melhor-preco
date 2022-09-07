@@ -2,15 +2,11 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Calculator;
 
-use Src\Marketplaces\Domain\Repositories\CommissionRepository;
-use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
-use Src\Math\MoneyTransformer;
+use Src\Math\MoneyCalculator;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Models\Calculator\CostPrice;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Products\Domain\Models\Product;
 
 class CalculateFromMarkup extends BaseCalculator
 {
@@ -18,7 +14,7 @@ class CalculateFromMarkup extends BaseCalculator
     {
         $product = $price->getProduct();
         $costs = CostPrice::fromProduct($product);
-        $desiredPrice = $costs->get()->multiply((string) $markup);
+        $desiredPrice = MoneyCalculator::multiply($costs->get(), $markup);
 
         $commission = $this->getCommission($price, $desiredPrice);
         $freight = $this->getFreight($price, $desiredPrice);
@@ -27,7 +23,7 @@ class CalculateFromMarkup extends BaseCalculator
             $product,
             $commission,
             new CalculatorForm(
-                desiredPrice: MoneyTransformer::toFloat($desiredPrice),
+                desiredPrice: $desiredPrice,
                 freight: $freight
             )
         );

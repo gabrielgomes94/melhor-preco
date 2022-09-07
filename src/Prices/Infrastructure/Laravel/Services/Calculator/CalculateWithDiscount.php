@@ -2,6 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\Calculator;
 
+use Src\Math\MoneyCalculator;
 use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
@@ -12,9 +13,10 @@ class CalculateWithDiscount extends BaseCalculator
 {
     public function get(Price $price, Percentage $discount): CalculatedPrice
     {
-        $desiredPrice = MoneyTransformer::toMoney($price->getValue())
-            ->multiply((string) (1 - $discount->getFraction()));
-
+        $desiredPrice = MoneyCalculator::multiply(
+            $price->getValue(),
+            1 - $discount->getFraction()
+        );
         $commission = $this->getCommission($price, $desiredPrice);
         $freight = $this->getFreight($price, $desiredPrice);
 
@@ -22,7 +24,7 @@ class CalculateWithDiscount extends BaseCalculator
             $price->getProduct(),
             $commission,
             new CalculatorForm(
-                desiredPrice: MoneyTransformer::toFloat($desiredPrice),
+                desiredPrice: $desiredPrice,
                 freight: $freight
             )
         );

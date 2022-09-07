@@ -9,6 +9,7 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MathPresenter;
 use Src\Prices\Domain\DataTransfer\ListPricesCalculated;
+use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\FilterPresenter;
 use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\MarketplacesPresenter;
 use Src\Products\Domain\Models\Product;
@@ -53,7 +54,6 @@ class PriceListPresenter
         $products = collect($items);
         $products = $products->transform(function (Product $product) use ($marketplace, $options) {
             $price = $product->getPrice($marketplace);
-
             $margin = $price?->getMargin()
                 ? MathPresenter::percentage($price?->getMargin())
                 : null;

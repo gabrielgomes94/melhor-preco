@@ -30,15 +30,15 @@ class CalculatedPricePresenterTest extends TestCase
         $product = ProductData::babyCarriage($user);
         $calculatedPrice = new CalculatedPrice(
             new CostPrice(
-                MoneyTransformer::toMoney(550.0),
-                MoneyTransformer::toMoney(20.0),
+                550.0,
+                20.0,
                 Percentage::fromPercentage(12),
                 Percentage::fromPercentage(18),
                 Percentage::fromPercentage(5.45)
             ),
-            MoneyTransformer::toMoney(899.9),
-            MoneyTransformer::toMoney(100.0),
-            MoneyTransformer::toMoney(0.0),
+            899.9,
+            100.0,
+            0.0,
         );
         $priceCalculatedFromProduct = new PriceCalculatedFromProduct($product, $marketplace, $calculatedPrice);
 

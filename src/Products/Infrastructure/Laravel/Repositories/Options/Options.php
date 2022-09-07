@@ -17,7 +17,6 @@ class Options
         public readonly ?int $perPage = 40,
         public readonly bool $filterKits = false,
         public ?string $userId = null,
-        public ?string $marketplaceSlug = null,
         public ?Marketplace $marketplace = null
     )
     {
@@ -58,11 +57,6 @@ class Options
         return $this->sku;
     }
 
-    public function store(): ?string
-    {
-        return $this->marketplaceSlug;
-    }
-
     public function getCategoryId(): ?string
     {
         return $this->categoryId;
@@ -88,9 +82,8 @@ class Options
         return $this->marketplace?->getUuid() ?? '';
     }
 
-    public function setMarketplace(string $marketplaceSlug, Marketplace $marketplace): void
+    public function setMarketplace(Marketplace $marketplace): void
     {
-        $this->marketplaceSlug = $marketplaceSlug;
         $this->marketplace = $marketplace;
     }
 

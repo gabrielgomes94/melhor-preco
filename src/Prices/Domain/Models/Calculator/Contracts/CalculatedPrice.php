@@ -7,25 +7,25 @@ use Src\Prices\Domain\Models\Calculator\CostPrice;
 
 interface CalculatedPrice
 {
-    public function get(): Money;
+    public function get(): float;
 
-    public function getCommission(): Money;
+    public function getCommission(): float;
 
     public function getCostPrice(): CostPrice;
 
-    public function getCosts(): Money;
+    public function getCosts(): float;
 
-    public function getDifferenceICMS(): Money;
+    public function getDifferenceICMS(): float;
 
-    public function getFreight(): Money;
+    public function getFreight(): float;
 
     public function getMargin(): float;
 
-    public function getProfit(): Money;
+    public function getProfit(): float;
 
-    public function getPurchasePrice(): Money;
+    public function getPurchasePrice(): float;
 
-    public function getSimplesNacional(): Money;
+    public function getSimplesNacional(): float;
 
     public function isProfitable(): bool;
 }

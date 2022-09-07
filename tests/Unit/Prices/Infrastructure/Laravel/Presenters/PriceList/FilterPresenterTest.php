@@ -18,9 +18,14 @@ class FilterPresenterTest extends TestCase
     {
         // Arrange
         $presenter = new FilterPresenter(new CategoryRepository());
-        $options = new Options(minimumProfit: 10.0, maximumProfit: 15.0, sku: '1234', userId: '1');
 
         $user = UserData::make();
+        $options = new Options(
+            minimumProfit: 10.0,
+            maximumProfit: 15.0,
+            sku: '1234',
+            userId: $user->getId()
+        );
         CategoryData::babyCarriage($user);
         CategoryData::babyChair($user);
         $expected = [

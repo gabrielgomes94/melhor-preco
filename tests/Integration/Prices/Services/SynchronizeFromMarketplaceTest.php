@@ -102,20 +102,25 @@ class SynchronizeFromMarketplaceTest extends TestCase
     {
         $marketplace = MarketplaceData::magalu($this->user);
 
-        PriceData::persisted(ProductData::babyCarriage($this->user), $marketplace);
-        PriceData::persisted(ProductData::babyChair($this->user), $marketplace);
+        PriceData::persisted(
+            ProductData::babyCarriage($this->user),
+            $marketplace
+        );
+
+        PriceData::persisted(
+            ProductData::babyChair($this->user),
+            $marketplace
+        );
     }
 
     private function then_the_prices_must_be_updated_on_database()
     {
-        $price_1 = Price::where('product_sku', '1234')
-            ->where('store', 'magalu')
+        $price_1 = Price::where('product_uuid', 'fdb452fd-fc5f-4267-89dd-32e2010cb946')
             ->first();
 
         $this->assertSame('459.90', $price_1->value);
 
-        $price_2 = Price::where('product_sku', '987')
-            ->where('store', 'magalu')
+        $price_2 = Price::where('product_uuid', '6ff331cb-00dd-463f-8f5e-f26999cd28d8')
             ->first();
 
         $this->assertSame('439.00', $price_2->value);

@@ -32,8 +32,8 @@ class CalculatedPricePresenter
         return [
             'formatted' => $this->format($calculatedPrice, $marketplace, $product, $form),
             'raw' => [
-                'margin' => $calculatedPrice->getMargin(),
-                'profit' => $this->transformMoney($calculatedPrice->getProfit()),
+                'margin' => round($calculatedPrice->getMargin(), 2),
+                'profit' => round($calculatedPrice->getProfit(), 2),
             ],
         ];
     }
@@ -64,10 +64,5 @@ class CalculatedPricePresenter
             'suggestedPrice' => MathPresenter::money($calculatedPrice->get()),
             'taxSimplesNacional' => MathPresenter::money($calculatedPrice->getSimplesNacional()),
         ];
-    }
-
-    private function transformMoney(Money $money): float
-    {
-        return MoneyTransformer::toFloat($money);
     }
 }

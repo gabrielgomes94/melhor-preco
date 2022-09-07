@@ -17,23 +17,21 @@ abstract class BaseCalculator
     )
     {}
 
-    protected function getCommission(Price $price, Money $desiredPrice): Money
+    protected function getCommission(Price $price, float $desiredPrice): float
     {
-        $commission = $this->commissionRepository->get(
+        return $this->commissionRepository->get(
             $price->getMarketplace(),
             $price->getProduct(),
-            MoneyTransformer::toFloat($desiredPrice)
+            $desiredPrice
         );
-
-        return MoneyTransformer::toMoney($commission);
     }
 
-    protected function getFreight(Price $price, Money $desiredPrice): float
+    protected function getFreight(Price $price, float $desiredPrice): float
     {
         return $this->freightRepository->get(
             $price->getMarketplace(),
             $price->getProduct()->getCubicWeight(),
-            MoneyTransformer::toFloat($desiredPrice)
+            $desiredPrice
         );
     }
 }

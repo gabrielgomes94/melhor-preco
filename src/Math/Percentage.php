@@ -34,8 +34,8 @@ class Percentage
         return $this->value;
     }
 
-    public function get(): float
+    public function get(int $roundPrecision = 2): float
     {
-        return $this->value * 100;
+        return round($this->value * 100, $roundPrecision);
     }
 }

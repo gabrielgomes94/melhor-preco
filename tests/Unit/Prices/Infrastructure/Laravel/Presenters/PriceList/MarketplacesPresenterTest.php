@@ -34,12 +34,12 @@ class MarketplacesPresenterTest extends TestCase
                 'name' => 'Magalu',
             ],
             [
-                'slug' => 'shopee',
-                'name' => 'Shopee',
-            ],
-            [
                 'slug' => 'olist',
                 'name' => 'Olist',
+            ],
+            [
+                'slug' => 'shopee',
+                'name' => 'Shopee',
             ],
         ];
         $this->assertSame($expected, $result);

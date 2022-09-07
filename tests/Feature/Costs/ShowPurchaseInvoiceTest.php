@@ -98,7 +98,7 @@ class ShowPurchaseInvoiceTest extends TestCase
                         'purchasePrice' => 'R$ 150,00',
                         'taxes' => 'R$ 40,00',
                         'freight' => 'R$ 10,00',
-                        'insurance' => '',
+                        'insurance' => 'R$ 0,00',
                         'icms' => '0,00 %',
                     ],
                     'supplier' => [

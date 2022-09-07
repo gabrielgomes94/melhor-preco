@@ -3,32 +3,30 @@
 namespace Src\Prices\Infrastructure\Laravel\Services;
 
 use Src\Math\MoneyTransformer;
+use Src\Marketplaces\Domain\Models\Marketplace;
+use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Services\SynchronizeFromMarketplace as SynchronizeFromMarketplaceInterface;
-use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Prices\Infrastructure\Laravel\Repositories\PricesRepository;
 use Src\Products\Domain\Models\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Products\Infrastructure\Bling\ProductRepository as BlingRepository;
 use Src\Products\Infrastructure\Bling\Responses\Prices\PricesCollectionResponse;
-use Src\Users\Infrastructure\Laravel\Models\User;
 
 class SynchronizeFromMarketplace implements SynchronizeFromMarketplaceInterface
 {
     public function __construct(
-        private BlingRepository $erpRepository,
-        private CommissionRepository $commissionRepository,
-        private PricesRepository $priceRepository,
-        private ProductRepository $productRepository
+        private readonly BlingRepository $erpRepository,
+        private readonly CommissionRepository $commissionRepository,
+        private readonly PricesRepository $priceRepository,
+        private readonly ProductRepository $productRepository
     ) {}
 
     public function sync(Marketplace $marketplace, int $page = 1, string $status = self::ACTIVE): bool
     {
         $user = $marketplace->getUser();
-
         $prices = $this->erpRepository->allInMarketplace(
             $user->getErpToken(),
             $marketplace,
@@ -40,13 +38,15 @@ class SynchronizeFromMarketplace implements SynchronizeFromMarketplaceInterface
             return false;
         }
 
-        $this->save($prices, $user, $marketplace);
+        $this->save($prices, $marketplace);
 
         return true;
     }
 
-    private function save(PricesCollectionResponse $prices, User $user, Marketplace $marketplace): void
+    private function save(PricesCollectionResponse $prices, Marketplace $marketplace): void
     {
+        $user = $marketplace->getUser();
+
         /**
          * @var Price $price
          */
@@ -73,7 +73,9 @@ class SynchronizeFromMarketplace implements SynchronizeFromMarketplaceInterface
 
     private function getCommissionRate(Marketplace $marketplace, Product $product): float
     {
-        return $this->commissionRepository->getCommissionRate($marketplace, $product)->get();
+        return $this->commissionRepository
+            ->getCommissionRate($marketplace, $product)
+            ->get();
     }
 
     private function getProfit(Marketplace $marketplace, Product $product, float $value): float
@@ -86,10 +88,10 @@ class SynchronizeFromMarketplace implements SynchronizeFromMarketplaceInterface
 
         $price = CalculatedPrice::fromProduct(
             $product,
-            MoneyTransformer::toMoney($commission),
+            $commission,
             new CalculatorForm(desiredPrice: $value)
         );
 
-        return MoneyTransformer::toFloat($price->getProfit());
+        return $price->getProfit();
     }
 }
