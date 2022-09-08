@@ -26,7 +26,7 @@ class CalculatePriceFromProduct implements CalculatePriceFromProductInterface
     public function calculate(
         Marketplace $marketplace,
         Product $product,
-        ?CalculatorForm $calculatorForm
+        ?CalculatorForm $calculatorForm = null
     ): PriceCalculatedFromProduct
     {
         if (!$calculatorForm) {

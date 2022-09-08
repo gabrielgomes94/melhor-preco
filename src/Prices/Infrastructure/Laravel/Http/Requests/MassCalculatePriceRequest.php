@@ -3,6 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Src\Prices\Domain\DataTransfer\MassCalculationTypes;
 use Src\Prices\Domain\DataTransfer\MassCalculatorForm;
 
 class MassCalculatePriceRequest extends FormRequest
@@ -35,8 +36,27 @@ class MassCalculatePriceRequest extends FormRequest
     {
         return new MassCalculatorForm(
             value: $this->validated()['value'],
-            calculationType: $this->validated()['calculationType'],
+            calculationType: $this->getCalculationType(),
             category: $this->validated()['category'] ?? null,
         );
+    }
+
+    private function getCalculationType(): MassCalculationTypes
+    {
+        $calculationType = $this->validated()['calculationType'];
+
+        switch ($calculationType) {
+            case 'markup' :
+                $calculationType = MassCalculationTypes::Markup;
+                break;
+            case 'discount' :
+                $calculationType = MassCalculationTypes::Discount;
+                break;
+            case 'addition' :
+                $calculationType = MassCalculationTypes::Addition;
+                break;
+        }
+
+        return $calculationType;
     }
 }

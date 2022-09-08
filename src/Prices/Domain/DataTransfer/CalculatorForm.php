@@ -2,14 +2,9 @@
 
 namespace Src\Prices\Domain\DataTransfer;
 
-use Money\Money;
 use Src\Math\MoneyCalculator;
-use Src\Math\MoneyTransformer;
 use Src\Math\Percentage;
 
-/**
- * @todo: usar o tipo Money para os parâmetros desiredPrice e freight
- */
 class CalculatorForm
 {
     public readonly float $desiredPrice;
