@@ -17,16 +17,7 @@ class CalculateWithDiscount extends BaseCalculator
             $price->getValue(),
             1 - $discount->getFraction()
         );
-        $commission = $this->getCommission($price, $desiredPrice);
-        $freight = $this->getFreight($price, $desiredPrice);
 
-        return CalculatedPrice::fromProduct(
-            $price->getProduct(),
-            $commission,
-            new CalculatorForm(
-                desiredPrice: $desiredPrice,
-                freight: $freight
-            )
-        );
+        return $this->calculate($price, $desiredPrice);
     }
 }

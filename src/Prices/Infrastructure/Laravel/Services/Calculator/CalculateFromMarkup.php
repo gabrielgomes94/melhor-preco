@@ -16,16 +16,6 @@ class CalculateFromMarkup extends BaseCalculator
         $costs = CostPrice::fromProduct($product);
         $desiredPrice = MoneyCalculator::multiply($costs->get(), $markup);
 
-        $commission = $this->getCommission($price, $desiredPrice);
-        $freight = $this->getFreight($price, $desiredPrice);
-
-        return CalculatedPrice::fromProduct(
-            $product,
-            $commission,
-            new CalculatorForm(
-                desiredPrice: $desiredPrice,
-                freight: $freight
-            )
-        );
+        return $this->calculate($price, $desiredPrice);
     }
 }
