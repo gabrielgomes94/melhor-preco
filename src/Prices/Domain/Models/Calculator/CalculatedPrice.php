@@ -7,13 +7,13 @@ use Src\Math\ProfitMargin;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Products\Domain\Models\Product;
 
-class CalculatedPrice implements Contracts\CalculatedPrice
+class CalculatedPrice
 {
     public function __construct(
-        private CostPrice $costPrice,
-        private float $value,
-        private float $commission,
-        private float $freight
+        private readonly CostPrice $costPrice,
+        private readonly float $value,
+        private readonly float $commission,
+        private readonly float $freight
     ) {
     }
 
