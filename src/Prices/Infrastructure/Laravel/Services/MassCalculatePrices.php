@@ -13,9 +13,9 @@ use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Services\MassCalculatePrices as MassCalculatePricesInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
-use Src\Prices\Infrastructure\Laravel\Services\Calculator\CalculateFromMarkup;
-use Src\Prices\Infrastructure\Laravel\Services\Calculator\CalculateWithAddition;
-use Src\Prices\Infrastructure\Laravel\Services\Calculator\CalculateWithDiscount;
+use Src\Prices\Infrastructure\Laravel\Services\MassCalculator\CalculateFromMarkup;
+use Src\Prices\Infrastructure\Laravel\Services\MassCalculator\CalculateWithAddition;
+use Src\Prices\Infrastructure\Laravel\Services\MassCalculator\CalculateWithDiscount;
 
 class MassCalculatePrices implements MassCalculatePricesInterface
 {

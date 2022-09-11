@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Calculator;
+namespace Src\Prices\Infrastructure\Laravel\Services\MassCalculator;
 
 use Src\Math\MoneyCalculator;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;

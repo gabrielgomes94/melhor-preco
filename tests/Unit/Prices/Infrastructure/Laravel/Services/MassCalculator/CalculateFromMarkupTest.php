@@ -1,24 +1,23 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Calculator;
+namespace Src\Prices\Infrastructure\Laravel\Services\MassCalculator;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Math\Percentage;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Prices\PriceData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
-class CalculateWithAdditionTest extends TestCase
+class CalculateFromMarkupTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_should_get_price_calculated_with_addition(): void
+    public function test_should_get_price_calculated_from_markup(): void
     {
         // Arrange
-        /** @var CalculateWithAddition $calculateWithAddition */
-        $calculateWithAddition = app(CalculateWithAddition::class);
+        /** @var CalculateFromMarkup $calculateFromMarkup */
+        $calculateFromMarkup = app(CalculateFromMarkup::class);
 
         $user = UserData::make();
         $marketplace = MarketplaceData::shopee($user);
@@ -27,11 +26,11 @@ class CalculateWithAdditionTest extends TestCase
         ]);
 
         // Act
-        $result = $calculateWithAddition->get($price, Percentage::fromPercentage(10));
+        $result = $calculateFromMarkup->get($price, 2.5);
 
         // Assert
-        $this->assertSame(989.89, $result->get());
+        $this->assertSame(1218.25, $result->get());
         $this->assertSame(100.00, $result->getCommission());
-        $this->assertSame(348.64, $result->getProfit());
+        $this->assertSame(564.56, $result->getProfit());
     }
 }

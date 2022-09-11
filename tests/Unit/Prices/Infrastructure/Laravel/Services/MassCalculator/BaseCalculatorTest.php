@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Prices\Infrastructure\Laravel\Services\Calculator;
+namespace Src\Prices\Infrastructure\Laravel\Services\MassCalculator;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
