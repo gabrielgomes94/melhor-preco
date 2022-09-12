@@ -5,6 +5,7 @@ namespace Src\Prices\Infrastructure\Laravel\Repositories;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
+use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Prices\PriceData;
 use Tests\Data\Models\Products\ProductData;
@@ -15,10 +16,11 @@ class PricesRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_should_count()
+    public function test_should_count(): void
     {
         // Arrange
         $user = UserData::make();
+
         $marketplace = MarketplaceData::shopee($user);
         ProductData::babyCarriage($user, [PriceData::build($marketplace)]);
         ProductData::babyChair($user, [PriceData::build($marketplace)]);

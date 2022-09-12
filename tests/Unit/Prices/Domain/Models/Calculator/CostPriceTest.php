@@ -2,12 +2,15 @@
 
 namespace Src\Prices\Domain\Models\Calculator;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
 class CostPriceTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_should_make_cost_price_from_product(): void
     {
         // Arrange
