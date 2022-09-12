@@ -17,7 +17,6 @@ class ProductPresenter
             'name' => $product->getName(),
             'quantity' => $product->getQuantity(),
             'weight' => $this->getWeight($product),
-
         ];
     }
 
