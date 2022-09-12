@@ -66,7 +66,4 @@ class MoneyCalculator
             ? MoneyTransformer::toMoney($value)
             : $value;
     }
-
-//    private static function validate(Money|float $value): void
-//    {}
 }
