@@ -1,7 +1,7 @@
 <div class="row my-2">
     <div class="col-6">
         <x-bootstrap.forms.input.percentage
-            attribute="minProfit"
+            name="minProfit"
             label="Margem de Lucro mínima"
             value="{{ $minimumProfit }}"
             id="minimum-profit-input"
@@ -9,7 +9,7 @@
     </div>
     <div class="col-6">
         <x-bootstrap.forms.input.percentage
-            attribute="maxProfit"
+            name="maxProfit"
             label="Margem de Lucro maxima"
             value="{{ $maximumProfit }}"
             id="maximum-profit-input"
