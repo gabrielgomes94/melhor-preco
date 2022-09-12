@@ -4,7 +4,7 @@ namespace Src\Prices\Infrastructure\Laravel\Presenters\PriceList;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Domain\Models\Product;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
@@ -46,14 +46,14 @@ class PriceListPresenter
         $products = $products->transform(function (Product $product) use ($marketplace, $options) {
             $price = $product->getPrice($marketplace);
             $margin = $price?->getMargin()
-                ? MathPresenter::percentage($price?->getMargin())
+                ? NumberTransformer::toPercentage($price?->getMargin())
                 : null;
 
             return [
                 'sku' => $product->getSku(),
                 'name' => $product->getName(),
-                'price' => MathPresenter::money($price?->getValue()),
-                'profit' => MathPresenter::money($price?->getProfit()),
+                'price' => NumberTransformer::toMoney($price?->getValue()),
+                'profit' => NumberTransformer::toMoney($price?->getProfit()),
                 'margin' => $margin,
                 'quantity' => $product->getQuantity(),
                 'variations' => $this->presentProducts(

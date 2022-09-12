@@ -6,7 +6,7 @@ use Money\Money;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;

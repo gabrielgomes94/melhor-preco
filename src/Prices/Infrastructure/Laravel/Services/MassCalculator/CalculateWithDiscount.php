@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\MassCalculator;
 
-use Src\Math\MoneyCalculator;
-use Src\Math\MoneyTransformer;
+use Src\Math\Calculators\MoneyCalculator;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;

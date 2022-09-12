@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Domain\Prices;
 
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Models\Calculator\CostPrice;

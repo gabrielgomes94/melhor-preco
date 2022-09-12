@@ -36,9 +36,4 @@ class ProductPresenterTest extends TestCase
         // Assert
         $this->assertSame($expected, $result);
     }
-
-    public function test_should_present_variation_product(): void
-    {
-
-    }
 }

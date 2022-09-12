@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;

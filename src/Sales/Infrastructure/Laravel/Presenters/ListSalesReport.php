@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
@@ -38,8 +38,8 @@ class ListSalesReport
             'salesCount' => $metadata->salesCount,
             'productsCount' => $metadata->productsCount,
             'storesCount' => $this->presentMarketplacesCount($metadata->marketplacesCount),
-            'value' => MathPresenter::money($metadata->totalValue),
-            'profit' => MathPresenter::money($metadata->totalProfit),
+            'value' => NumberTransformer::toMoney($metadata->totalValue),
+            'profit' => NumberTransformer::toMoney($metadata->totalProfit),
         ];
     }
 

@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Logging;
 
 use Illuminate\Support\Facades\Log;
 use Money\Money;
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 
 class Logging
 {

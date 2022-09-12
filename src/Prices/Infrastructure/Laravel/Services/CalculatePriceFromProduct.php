@@ -5,7 +5,7 @@ namespace Src\Prices\Infrastructure\Laravel\Services;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
-use Src\Math\MoneyCalculator;
+use Src\Math\Calculators\MoneyCalculator;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Exceptions\ProductHasNoPriceInMarketplace;

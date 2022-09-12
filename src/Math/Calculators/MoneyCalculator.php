@@ -1,33 +1,25 @@
 <?php
 
-namespace Src\Math;
+namespace Src\Math\Calculators;
 
 use Error;
 use Money\Money;
+use Src\Math\Transformers\MoneyTransformer;
 
 class MoneyCalculator
 {
     public static function subtract(...$values): float
     {
-        $baseValue = $values[0];
         $result = Money::BRL(0);
 
         foreach ($values as $key => $value) {
-            self::validate($value);
-
             if ($key == 0) {
-                $result = is_float($value) ? MoneyTransformer::toMoney($value) : $value;
+                $result = self::getValue($value);
 
                 continue;
             }
-//            if (!$value instanceof Money && !is_float($value)) {
-//                throw new Error('Value must be type Money or float');
-//            }
 
-            if (is_float($value)) {
-                $value = MoneyTransformer::toMoney($value);
-            }
-
+            $value = self::getValue($value);
             $result = $result->subtract($value);
         }
 
@@ -38,16 +30,14 @@ class MoneyCalculator
     {
         $result = Money::BRL(0);
 
-        foreach ($values as $value) {
-//            if (!$value instanceof Money && !is_float($value)) {
-//                throw new Error('Value must be type Money or float');
-//            }
-            self::validate($value);
+        foreach ($values as $key => $value) {
+            if ($key == 0) {
+                $result = self::getValue($value);
 
-            if (is_float($value)) {
-                $value = MoneyTransformer::toMoney($value);
+                continue;
             }
 
+            $value = self::getValue($value);
             $result = $result->add($value);
         }
 
@@ -70,6 +60,10 @@ class MoneyCalculator
         return MoneyTransformer::toFloat($value);
     }
 
-    private static function validate(Money|float $value): void
-    {}
+    private static function getValue(Money|float $value): Money
+    {
+        return is_float($value)
+            ? MoneyTransformer::toMoney($value)
+            : $value;
+    }
 }

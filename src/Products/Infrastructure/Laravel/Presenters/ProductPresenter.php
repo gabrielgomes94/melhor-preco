@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Presenters;
 
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Domain\Models\Product;
 
 class ProductPresenter
@@ -17,7 +17,6 @@ class ProductPresenter
             'name' => $product->getName(),
             'quantity' => $product->getQuantity(),
             'weight' => $this->getWeight($product),
-
         ];
     }
 
@@ -34,6 +33,6 @@ class ProductPresenter
     {
         $weight = $product->getDimensions()->weight();
 
-        return MathPresenter::float($weight, 3) . ' kg';
+        return NumberTransformer::toText($weight, 3) . ' kg';
     }
 }

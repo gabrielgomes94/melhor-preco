@@ -2,8 +2,8 @@
 
 namespace Src\Prices\Domain\Models\Calculator;
 
-use Src\Math\MoneyCalculator;
-use Src\Math\ProfitMargin;
+use Src\Math\Calculators\MoneyCalculator;
+use Src\Math\Calculators\ProfitMargin;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Products\Domain\Models\Product;
 

@@ -1,6 +1,8 @@
 <?php
 
-namespace Src\Math;
+namespace Src\Math\Calculators;
+
+use Src\Math\Percentage;
 
 class ProfitMargin
 {

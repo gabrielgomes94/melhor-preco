@@ -3,7 +3,7 @@
 namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class ProductPresenter
@@ -13,7 +13,7 @@ class ProductPresenter
         return [
             'id' => $product->getSku(),
             'header' => $this->getProductHeader($product),
-            'currentPrice' => MathPresenter::money($product->getPrice($marketplace)->getValue()),
+            'currentPrice' => NumberTransformer::toMoney($product->getPrice($marketplace)->getValue()),
         ];
     }
 

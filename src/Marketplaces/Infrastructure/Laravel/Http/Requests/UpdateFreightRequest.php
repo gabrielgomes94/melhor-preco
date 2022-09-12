@@ -10,7 +10,7 @@ use Src\Marketplaces\Domain\Models\Freight\Freight;
 use Src\Marketplaces\Domain\Models\Freight\FreightTable;
 use Src\Marketplaces\Domain\Models\Freight\FreightTableComponent;
 use Src\Marketplaces\Infrastructure\Excel\Imports\FreightTableImport;
-use Src\Math\Number;
+use Src\Math\Transformers\NumberTransformer;
 
 class UpdateFreightRequest extends FormRequest
 {
@@ -43,9 +43,9 @@ class UpdateFreightRequest extends FormRequest
             $data = $collection->toArray();
 
             return new FreightTableComponent(
-                Number::transform($data['valor_r']),
-                Number::transform($data['de_kg']),
-                Number::transform($data['ate_kg'] ?? FreightTableComponent::INFINITY)
+                NumberTransformer::toFloat($data['valor_r']),
+                NumberTransformer::toFloat($data['de_kg']),
+                NumberTransformer::toFloat($data['ate_kg'] ?? FreightTableComponent::INFINITY)
             );
         });
 

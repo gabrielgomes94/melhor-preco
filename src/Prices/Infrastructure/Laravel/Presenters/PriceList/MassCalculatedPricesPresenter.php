@@ -5,7 +5,7 @@ namespace Src\Prices\Infrastructure\Laravel\Presenters\PriceList;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Math\Percentage;
 use Src\Prices\Domain\DataTransfer\ListPricesCalculated;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
@@ -57,9 +57,9 @@ class MassCalculatedPricesPresenter
                 return [
                     'sku' => $product->getSku(),
                     'name' => $product->getName(),
-                    'price' => MathPresenter::money($price->get()),
-                    'profit' => MathPresenter::money($price->getProfit()),
-                    'margin' => MathPresenter::percentage(
+                    'price' => NumberTransformer::toMoney($price->get()),
+                    'profit' => NumberTransformer::toMoney($price->getProfit()),
+                    'margin' => NumberTransformer::toPercentage(
                         Percentage::fromPercentage($price->getMargin())
                     ),
                     'quantity' => $product->getQuantity(),

@@ -7,7 +7,7 @@ use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
 use Src\Marketplaces\Domain\Models\Commission\UniqueCommission;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository as CommissionRepositoryInterface;
-use Src\Math\MoneyCalculator;
+use Src\Math\Calculators\MoneyCalculator;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product;
 
