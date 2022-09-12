@@ -2,7 +2,7 @@
 
 namespace Src\Products\Infrastructure\Laravel\Presenters;
 
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Models\Product;
 
@@ -20,11 +20,11 @@ class PricePresenter
             $productSku = $price->getProductSku();
 
             return [
-                'value' => MathPresenter::money($value),
-                'profit' => MathPresenter::money($profit),
+                'value' => NumberTransformer::toMoney($value),
+                'profit' => NumberTransformer::toMoney($profit),
                 'marketplaceName' => $marketplaceName,
                 'marketplaceSlug' => $marketplaceSlug,
-                'margin' => MathPresenter::percentage($price->getMargin()),
+                'margin' => NumberTransformer::toPercentage($price->getMargin()),
                 'productSku' => $productSku,
             ];
         })->sortBy('marketplaceSlug')->all();

@@ -3,7 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 
@@ -30,7 +30,7 @@ class ListSalesPresenter
                 'storeSaleOrderId' => $identifiers->storeSaleOrderId(),
                 'selledAt' => $this->presentSelledAt($saleOrder),
                 'store' => $this->presentStore($identifiers, $userId),
-                'value' => MathPresenter::money($saleValue->totalValue()),
+                'value' => NumberTransformer::toMoney($saleValue->totalValue()),
                 'products' => $products,
                 'productsInTooltip' => $this->presentProductsInTooltip($products),
                 'productsValue' => $saleValue->totalProducts(),
@@ -83,7 +83,7 @@ class ListSalesPresenter
         $profit = $saleOrder->getProfit();
 
         return $profit
-            ? MathPresenter::money($profit)
+            ? NumberTransformer::toMoney($profit)
             : '';
     }
 

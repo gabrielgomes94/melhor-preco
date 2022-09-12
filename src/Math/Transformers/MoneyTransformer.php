@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Math;
+namespace Src\Math\Transformers;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -20,10 +20,8 @@ class MoneyTransformer
         return Money::BRL((int) ($value * 100));
     }
 
-    public static function toString(Money $value): string
+    public static function toText(Money $value): string
     {
-        $formatter = new DecimalMoneyFormatter(new ISOCurrencies());
-
-        return $formatter->format($value);
+        return NumberTransformer::toMoney($value);
     }
 }

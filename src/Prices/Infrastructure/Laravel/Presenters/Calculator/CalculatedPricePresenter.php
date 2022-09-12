@@ -5,8 +5,8 @@ namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 use Money\Money;
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
-use Src\Math\MathPresenter;
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\NumberTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
@@ -50,19 +50,19 @@ class CalculatedPricePresenter
             : $this->commissionRepository->getCommissionRate($marketplace, $product)->get();
 
         return [
-            'commission' => MathPresenter::money($calculatedPrice->getCommission()),
+            'commission' => NumberTransformer::toMoney($calculatedPrice->getCommission()),
             'commissionRate' => $commissionRate,
-            'costs' => MathPresenter::money($calculatedPrice->getCosts()),
-            'differenceICMS' => MathPresenter::money($calculatedPrice->getDifferenceICMS()),
-            'freight' => MathPresenter::money($calculatedPrice->getFreight()),
+            'costs' => NumberTransformer::toMoney($calculatedPrice->getCosts()),
+            'differenceICMS' => NumberTransformer::toMoney($calculatedPrice->getDifferenceICMS()),
+            'freight' => NumberTransformer::toMoney($calculatedPrice->getFreight()),
             'marketplaceSlug' => $marketplace->getSlug(),
-            'margin' => MathPresenter::percentage(
+            'margin' => NumberTransformer::toPercentage(
                 Percentage::fromPercentage($calculatedPrice->getMargin())
             ),
-            'profit' => MathPresenter::money($calculatedPrice->getProfit()),
-            'purchasePrice' => MathPresenter::money($calculatedPrice->getPurchasePrice()),
-            'suggestedPrice' => MathPresenter::money($calculatedPrice->get()),
-            'taxSimplesNacional' => MathPresenter::money($calculatedPrice->getSimplesNacional()),
+            'profit' => NumberTransformer::toMoney($calculatedPrice->getProfit()),
+            'purchasePrice' => NumberTransformer::toMoney($calculatedPrice->getPurchasePrice()),
+            'suggestedPrice' => NumberTransformer::toMoney($calculatedPrice->get()),
+            'taxSimplesNacional' => NumberTransformer::toMoney($calculatedPrice->getSimplesNacional()),
         ];
     }
 }

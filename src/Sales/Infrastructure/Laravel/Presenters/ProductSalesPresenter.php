@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSalesCollection;
@@ -34,7 +34,7 @@ class ProductSalesPresenter
 
     private function formatPrice(float $price): string
     {
-        return MoneyTransformer::toString(
+        return MoneyTransformer::toText(
             MoneyTransformer::toMoney($price)
         );
     }

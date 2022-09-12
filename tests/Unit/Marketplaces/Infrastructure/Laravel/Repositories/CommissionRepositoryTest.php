@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\Models\Commission\Base\Commission;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValuesCollection;
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
 use Tests\Data\Models\CategoryData;
 use Tests\Data\Models\Marketplaces\MarketplaceData;

@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Domain\DataTransfer;
 
-use Src\Math\MoneyCalculator;
+use Src\Math\Calculators\MoneyCalculator;
 use Src\Math\Percentage;
 
 class CalculatorForm

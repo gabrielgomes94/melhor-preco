@@ -3,8 +3,8 @@
 namespace Src\Prices\Domain\Models\Calculator;
 
 use Money\Money;
-use Src\Math\MoneyCalculator;
-use Src\Math\MoneyTransformer;
+use Src\Math\Calculators\MoneyCalculator;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product;
 

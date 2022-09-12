@@ -5,7 +5,7 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories;
 use Illuminate\Support\Collection;
 use Src\Sales\Infrastructure\Laravel\Services\CalculateItem;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
-use Src\Math\MoneyTransformer;
+use Src\Math\Transformers\MoneyTransformer;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
 use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
@@ -73,6 +73,6 @@ class ProductSalesFactory
             return 0.0;
         }
 
-        return MoneyTransformer::toString($profit);
+        return MoneyTransformer::toText($profit);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Services\MassCalculator;
 
-use Src\Math\MoneyCalculator;
+use Src\Math\Calculators\MoneyCalculator;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Prices\Domain\Models\Calculator\CostPrice;

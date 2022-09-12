@@ -3,7 +3,7 @@
 namespace Src\Costs\Infrastructure\Laravel\Presenters;
 
 use Src\Costs\Domain\Models\PurchaseItem;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Math\Percentage;
 
 class PurchaseItemsPresenter
@@ -13,18 +13,18 @@ class PurchaseItemsPresenter
         return [
             'issuedAt' => $item->getIssuedAt()->format('d/m/Y H:i'),
             'name' => $item->getName(),
-            'purchasePrice' => MathPresenter::money($item->getUnitPrice()),
-            'unitCost' => MathPresenter::money($item->getUnitCost()),
+            'purchasePrice' => NumberTransformer::toMoney($item->getUnitPrice()),
+            'unitCost' => NumberTransformer::toMoney($item->getUnitCost()),
             'quantity' => $item->getQuantity(),
-            'totalValue' => MathPresenter::money($item->getTotalValue()),
+            'totalValue' => NumberTransformer::toMoney($item->getTotalValue()),
             'purchaseItemUuid' => $item->getPurchaseItemUuid(),
             'productSku' => $item->getProductSku(),
             'costs' => [
-                'purchasePrice' => MathPresenter::money($item->getUnitPrice()),
-                'taxes' => MathPresenter::money($item->getTotalTaxesCosts()),
-                'freight' => MathPresenter::money($item->getFreightCosts()),
-                'insurance' => MathPresenter::money($item->getInsuranceCosts()),
-                'icms' => MathPresenter::percentage(
+                'purchasePrice' => NumberTransformer::toMoney($item->getUnitPrice()),
+                'taxes' => NumberTransformer::toMoney($item->getTotalTaxesCosts()),
+                'freight' => NumberTransformer::toMoney($item->getFreightCosts()),
+                'insurance' => NumberTransformer::toMoney($item->getInsuranceCosts()),
+                'icms' => NumberTransformer::toPercentage(
                     Percentage::fromPercentage($item->getICMSPercentage())
                 ),
             ],

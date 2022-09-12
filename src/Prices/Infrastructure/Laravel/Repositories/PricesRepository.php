@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Math\ProfitMargin;
+use Src\Math\Calculators\ProfitMargin;
 use Src\Prices\Domain\Repositories\PricesRepository as PricesRepositoryInterface;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Domain\Repositories\ProductRepository;

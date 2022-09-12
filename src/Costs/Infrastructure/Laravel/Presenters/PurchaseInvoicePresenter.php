@@ -5,7 +5,7 @@ namespace Src\Costs\Infrastructure\Laravel\Presenters;
 use Illuminate\Support\Collection;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseInvoice;
 use Src\Costs\Infrastructure\Laravel\Models\PurchaseItem;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 
 class PurchaseInvoicePresenter
 {
@@ -25,7 +25,7 @@ class PurchaseInvoicePresenter
             'number' => $invoice->getNumber(),
             'situation' => $invoice->getSituation(),
             'fiscalId' => $invoice->getFiscalId(),
-            'value' => MathPresenter::money($invoice->getValue()),
+            'value' => NumberTransformer::toMoney($invoice->getValue()),
             'status' => $invoice->getSituation(),
             'freightValue' => $invoice->getFreight(),
             'insuranceValue' => $invoice->getInsurance(),
@@ -53,7 +53,7 @@ class PurchaseInvoicePresenter
                         'seriesNumber' => "{$model->getSeries()} - {$model->getNumber()}",
                         'issuedAt' => $model->getIssuedAt()->format('d/m/Y'),
                         'contactName' => $model->getContactName(),
-                        'value' => MathPresenter::money($model->getValue()),
+                        'value' => NumberTransformer::toMoney($model->getValue()),
                         'status' => $model->getSituation(),
                     ];
                 }

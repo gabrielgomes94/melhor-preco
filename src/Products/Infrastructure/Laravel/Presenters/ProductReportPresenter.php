@@ -4,7 +4,7 @@ namespace Src\Products\Infrastructure\Laravel\Presenters;
 
 use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
@@ -61,7 +61,7 @@ class ProductReportPresenter
                 'saleDate' => $saleOrder->getSelledAt()->format('d/m/Y'),
                 'marketplace' => $saleOrder->getMarketplace()?->getName(),
                 'quantity' => $saleItem->getQuantity(),
-                'value' => MathPresenter::money($value),
+                'value' => NumberTransformer::toMoney($value),
             ];
         });
 
@@ -82,7 +82,7 @@ class ProductReportPresenter
 
             return [
                 'quantity' => $sales->count(),
-                'value' => MathPresenter::money($totalValue),
+                'value' => NumberTransformer::toMoney($totalValue),
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];
@@ -102,7 +102,7 @@ class ProductReportPresenter
 
         return [
             'quantity' => $itemsSelled->count(),
-            'value' => MathPresenter::money($totalValue),
+            'value' => NumberTransformer::toMoney($totalValue),
         ];
     }
 }

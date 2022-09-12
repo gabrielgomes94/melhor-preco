@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Models\Commission\Base\CommissionValue;
 use Src\Marketplaces\Domain\Models\Freight\FreightTableComponent;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Math\MathPresenter;
+use Src\Math\Transformers\NumberTransformer;
 
 class MarketplacePresenter
 {
@@ -57,13 +57,13 @@ class MarketplacePresenter
         $freightTable = collect($freight->freightTable?->get() ?? []);
         $freightTable = $freightTable->transform(function(FreightTableComponent $component) {
             $endCubicWeight = $component->endCubicWeight != FreightTableComponent::INFINITY
-                ? MathPresenter::float($component->endCubicWeight, 3)
+                ? NumberTransformer::toText($component->endCubicWeight, 3)
                 : '';
 
             return [
-                'initialCubicWeight' => MathPresenter::float($component->initialCubicWeight, 3),
+                'initialCubicWeight' => NumberTransformer::toText($component->initialCubicWeight, 3),
                 'endCubicWeight' => $endCubicWeight,
-                'value' => MathPresenter::money($component->value),
+                'value' => NumberTransformer::toMoney($component->value),
             ];
         })->toArray();
 
