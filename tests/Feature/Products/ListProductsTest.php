@@ -83,12 +83,6 @@ class ListProductsTest extends FeatureTestCase
                 'sales' => 0,
             ],
             [
-                'sku' => '987',
-                'name' => 'Cadeirinha para Carros',
-                'imagesCount' => 0,
-                'sales' => 0,
-            ],
-            [
                 'sku' => '777',
                 'name' => 'Chupeta',
                 'imagesCount' => 0,
@@ -109,6 +103,12 @@ class ListProductsTest extends FeatureTestCase
             [
                 'sku' => '823',
                 'name' => 'Cobertor Azul',
+                'imagesCount' => 0,
+                'sales' => 0,
+            ],
+            [
+                'sku' => '987',
+                'name' => 'Cadeirinha para Carros',
                 'imagesCount' => 0,
                 'sales' => 0,
             ],
@@ -149,7 +149,14 @@ class ListProductsTest extends FeatureTestCase
             'sku' => '821',
         ]);
 
+
         $this->response->assertViewHas('data', [
+            [
+                'sku' => '821',
+                'name' => 'Cobertor',
+                'imagesCount' => 0,
+                'sales' => 0,
+            ],
             [
                 'sku' => '822',
                 'name' => 'Cobertor Vermelho',
@@ -162,15 +169,8 @@ class ListProductsTest extends FeatureTestCase
                 'imagesCount' => 0,
                 'sales' => 0,
             ],
-            [
-                'sku' => '821',
-                'name' => 'Cobertor',
-                'imagesCount' => 0,
-                'sales' => 0,
-            ],
         ]);
     }
-
     private function when_i_want_to_list_products(): void
     {
         $this->response = $this->get('produtos/relatorios/informacoes-gerais');
