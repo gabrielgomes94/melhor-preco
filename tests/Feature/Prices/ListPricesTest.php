@@ -230,6 +230,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,48 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '987',
@@ -239,6 +240,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '10,89 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '821',
@@ -256,6 +258,7 @@ class ListPricesTest extends FeatureTestCase
                             'margin' => '28,04 %',
                             'quantity' => 10.0,
                             'variations' => [],
+                            'parentSku' => '821',
                         ],
                         [
                             'sku' => '823',
@@ -265,8 +268,10 @@ class ListPricesTest extends FeatureTestCase
                             'margin' => '28,04 %',
                             'quantity' => 10.0,
                             'variations' => [],
+                            'parentSku' => '821',
                         ],
                     ],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '777',
@@ -276,6 +281,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '20,20 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '601',
@@ -285,6 +291,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,39 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '589',
@@ -294,6 +301,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '11,99 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
             ],
         ]);
@@ -334,6 +342,7 @@ class ListPricesTest extends FeatureTestCase
                             'margin' => '28,04 %',
                             'quantity' => 10.0,
                             'variations' => [],
+                            'parentSku' => '821',
                         ],
                         [
                             'sku' => '823',
@@ -343,8 +352,10 @@ class ListPricesTest extends FeatureTestCase
                             'margin' => '28,04 %',
                             'quantity' => 10.0,
                             'variations' => [],
+                            'parentSku' => '821',
                         ]
                     ],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '777',
@@ -354,6 +365,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '20,20 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
             ],
         ]);
@@ -386,6 +398,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,48 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '987',
@@ -395,6 +408,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '10,89 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '601',
@@ -404,6 +418,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,39 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '589',
@@ -413,6 +428,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '11,99 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
             ],
         ]);
@@ -445,6 +461,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '10,89 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '589',
@@ -454,6 +471,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '11,99 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
             ],
         ]);
@@ -486,6 +504,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,48 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
                 [
                     'sku' => '601',
@@ -495,6 +514,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,39 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
             ],
         ]);
@@ -527,6 +547,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,48 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
             ],
         ]);
@@ -559,6 +580,7 @@ class ListPricesTest extends FeatureTestCase
                     'margin' => '13,39 %',
                     'quantity' => 10.0,
                     'variations' => [],
+                    'parentSku' => null,
                 ],
             ],
         ]);

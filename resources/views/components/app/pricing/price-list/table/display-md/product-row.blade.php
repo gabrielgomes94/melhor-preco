@@ -1,4 +1,9 @@
-<tr>
+<tr
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target=".multi-collapse-product-{{ $product['sku'] }}"
+    role="button"
+>
     <td colspan="1">
         <x-bootstrap.links.link :route="route('products.reports.show', ['sku' => $product['sku']])">
             {{ $product['sku'] }}
@@ -35,5 +40,11 @@
         >
             <x-app.base.icons.calculator />
         </a>
+
+        @if (!empty($product['variations']))
+            <span title="Visualizar variações">
+                    <x-app.base.icons.dropdown-arrow />
+                </span>
+        @endif
     </td>
 </tr>

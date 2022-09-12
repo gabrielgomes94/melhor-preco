@@ -60,9 +60,11 @@ class PriceListPresenter
                     $product->getVariations()?->get() ?? [],
                     $marketplace,
                     $options
-                )
+                ),
+                'parentSku' => $product->getParentSku(),
             ];
         });
+
 
         return $products->toArray();
     }
