@@ -20,7 +20,7 @@ class DropMarketplaceAndProductSkuColumnsFromPricesTable extends Migration
         Schema::table('prices', function (Blueprint $table) {
             $table->string('product_sku')->nullable();
             $table->float('marketplace_erp_id')->nullable();
-            $table->string('store');
+            $table->string('store')->default('');
         });
     }
 }
