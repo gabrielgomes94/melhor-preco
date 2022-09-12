@@ -33,9 +33,9 @@ class CalculatePriceRequest extends FormRequest
 
         return new CalculatorForm(
             (float) $data['desiredPrice'],
+            (float) $data['freight'] ?? 0,
             Percentage::fromPercentage((float) $data['commission'] ?? 0),
             Percentage::fromPercentage((float) $data['discount'] ?? 0),
-            (float) $data['freight'] ?? 0,
         );
     }
 

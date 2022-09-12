@@ -20,9 +20,9 @@ class CalculatedPriceTest extends TestCase
         $product = ProductData::babyCarriage($user);
         $calculatorForm = new CalculatorForm(
             1000.0,
+            20.25,
             Percentage::fromPercentage(8.0),
             Percentage::fromPercentage(0.0),
-            20.25
         );
 
         // Act

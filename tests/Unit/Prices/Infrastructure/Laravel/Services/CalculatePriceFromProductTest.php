@@ -31,9 +31,10 @@ class CalculatePriceFromProductTest extends TestCase
         );
         $calculatorForm = new CalculatorForm(
             1000.0,
+            50.0,
             Percentage::fromPercentage(13),
             Percentage::fromPercentage(5),
-            50.0,
+
         );
 
         $service = app(CalculatePriceFromProduct::class);
@@ -71,9 +72,10 @@ class CalculatePriceFromProductTest extends TestCase
         );
         $calculatorForm = new CalculatorForm(
             1000.0,
+            50.0,
             null,
             Percentage::fromPercentage(5),
-            50.0,
+
         );
 
         $service = app(CalculatePriceFromProduct::class);

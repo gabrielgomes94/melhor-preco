@@ -128,9 +128,9 @@ class CalculatorPresenterTest extends TestCase
         $priceCalculatedFromProduct = new PriceCalculatedFromProduct($product, $marketplace, $calculatedPrice);
         $form = new CalculatorForm(
             929.90,
+            0.0,
             Percentage::fromPercentage(11.0),
             Percentage::fromPercentage(0),
-            0.0
         );
 
         // Act

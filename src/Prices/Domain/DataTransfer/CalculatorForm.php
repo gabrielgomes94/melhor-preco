@@ -14,9 +14,9 @@ class CalculatorForm
 
     public function __construct(
         float $desiredPrice,
+        float $freight = 0.0,
         ?Percentage $commission = null,
         ?Percentage $discount = null,
-        float $freight = 0.0
     )
     {
         $this->discount = $discount ?: Percentage::fromPercentage(0);
