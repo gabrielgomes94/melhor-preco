@@ -24,13 +24,26 @@ class UpdateFreightRequest extends FormRequest
         return [
             'baseValue' => 'numeric',
             'minimumFreightTableValue' => 'numeric|nullable',
-            'freightTable' => 'file',
+            'freightTable' => 'file|nullable',
         ];
     }
 
     public function transform(): Freight
     {
-        $spreadsheet = $this->validated()['freightTable'];
+        return new Freight(
+            $this->validated()['baseValue'],
+            $this->validated()['minimumFreightTableValue'],
+            $this->getFreightTable()
+        );
+    }
+
+    private function getFreightTable(): ?FreightTable
+    {
+        $spreadsheet = $this->validated()['freightTable'] ?? null;
+
+        if (!$spreadsheet) {
+            return null;
+        }
 
         $data = ExcelFacade::toCollection(
             new FreightTableImport,
@@ -49,12 +62,6 @@ class UpdateFreightRequest extends FormRequest
             );
         });
 
-        $freightTable = new FreightTable($data->toArray());
-
-        return new Freight(
-            $this->validated()['baseValue'],
-            $this->validated()['minimumFreightTableValue'],
-            $freightTable
-        );
+        return new FreightTable($data->toArray());
     }
 }
