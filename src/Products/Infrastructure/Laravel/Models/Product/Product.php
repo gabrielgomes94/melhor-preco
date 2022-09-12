@@ -230,7 +230,9 @@ class Product extends Model implements ProductModelInterface
 
     public function getVariations(): Variations
     {
-        $variationModels = $this->withParentSku($this->getSku())->get();
+        $variationModels = $this->withParentSku($this->getSku())
+            ->orderBy('sku')
+            ->get();
 
         return new Variations(
             $this->getSku(),
