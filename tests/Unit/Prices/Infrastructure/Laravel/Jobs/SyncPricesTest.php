@@ -5,7 +5,7 @@ namespace Src\Prices\Infrastructure\Laravel\Jobs;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 use Mockery;
-use Src\Prices\Infrastructure\Laravel\Services\Prices\SynchronizeFromMarketplace;
+use Src\Prices\Infrastructure\Laravel\Services\SynchronizeFromMarketplace;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;

@@ -44,10 +44,10 @@ trait ProductScopes
         return $query->orderByRaw('CAST(sku AS INTEGER) DESC');
     }
 
-    public function scopeIsOnStore($query, string $store)
+    public function scopeIsOnStore($query, string $marketplace_uuid)
     {
-        return $query->whereHas('prices', function (Builder $query) use ($store) {
-            $query->where('store', '=', $store);
+        return $query->whereHas('prices', function (Builder $query) use ($marketplace_uuid) {
+            $query->where('marketplace_uuid', '=', $marketplace_uuid);
         });
     }
 

@@ -11,25 +11,23 @@ use Src\Math\Percentage;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
+/**
+ * @todo: remover os campos store, product_sku e marketplace_erp_id
+ */
 class Price extends Model
 {
     protected $fillable = [
+        'additional_costs',
         'commission',
         'margin',
         'profit',
-        'store',
         'store_sku_id',
         'value',
-        'additional_costs',
-        'product_sku',
-        'marketplace_erp_id',
-    ];
-
-    protected $casts = [
-        'product_sku' => 'string',
     ];
 
     public $keyType = 'string';
+
+    private string $productSku = '';
 
     public function marketplace(): BelongsTo
     {
@@ -43,7 +41,7 @@ class Price extends Model
 
     public function getCommission(): Percentage
     {
-        return Percentage::fromFraction($this->commission);
+        return Percentage::fromPercentage($this->commission);
     }
 
     public function getId(): string
@@ -66,11 +64,6 @@ class Price extends Model
         return $this->marketplace;
     }
 
-    public function getMarketplaceErpId(): string
-    {
-        return $this->marketplace_erp_id;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -78,17 +71,14 @@ class Price extends Model
 
     public function getProductSku(): string
     {
-        return $this->product_sku;
+        return empty($this->productSku)
+            ? $this->getProduct()?->getSku() ?? ''
+            : $this->productSku;
     }
 
     public function getProfit(): ?float
     {
         return $this->profit;
-    }
-
-    public function getStore(): string
-    {
-        return $this->store;
     }
 
     public function getStoreSkuId(): string
@@ -106,18 +96,8 @@ class Price extends Model
         return $this->profit > 0;
     }
 
-    /**
-     * @deprecated
-     */
-    public function margin(): float
+    public function setProductSku(string $sku): void
     {
-        $profit = MoneyTransformer::toMoney($this->profit);
-        $value = MoneyTransformer::toMoney($this->value);
-
-        if ($value->isZero()) {
-            return 0.0;
-        }
-
-        return $profit->ratioOf($value);
+        $this->productSku = $sku;
     }
 }

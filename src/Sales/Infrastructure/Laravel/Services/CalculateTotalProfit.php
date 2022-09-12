@@ -6,6 +6,7 @@ use Money\Money;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\CommissionRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Repositories\FreightRepository;
+use Src\Math\MoneyCalculator;
 use Src\Math\MoneyTransformer;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
@@ -51,19 +52,17 @@ class CalculateTotalProfit implements CalculateTotalProfitInterface
             );
             $price = CalculatedPrice::fromProduct(
                 $product,
-                MoneyTransformer::toMoney(
-                    $this->commissionRepository->get($marketplace, $product, $value),
-                ),
+                $this->commissionRepository->get($marketplace, $product, $value),
                 new CalculatorForm(
                     desiredPrice: $value,
                     freight: $freight
                 )
             );
-            $itemProfit = $price->getProfit()->multiply(
+
+            return MoneyCalculator::multiply(
+                $price->getProfit(),
                 $item->getQuantity()
             );
-
-            return MoneyTransformer::toFloat($itemProfit);
         });
     }
 

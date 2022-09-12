@@ -33,6 +33,8 @@ class ProductRepository implements ProductRepositoryInterface
             $query = $query->inCategory($filter->category);
         }
 
+        $query = $query->orderBy('sku');
+
         return $query->paginate(perPage: $filter->perPage ?? self::PER_PAGE, page: $filter->page);
     }
 

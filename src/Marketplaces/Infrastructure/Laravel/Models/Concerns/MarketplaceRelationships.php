@@ -16,16 +16,16 @@ trait MarketplaceRelationships
         return $this->hasManyThrough(
             Product::class,
             Price::class,
-            'marketplace_erp_id',
+            'marketplace_uuid',
             'uuid',
-            'erp_id',
+            'uuid',
             'product_uuid'
         );
     }
 
     public function prices(): HasMany
     {
-        return $this->hasMany(Price::class, 'marketplace_erp_id', 'erp_id');
+        return $this->hasMany(Price::class, 'marketplace_uuid', 'uuid');
     }
 
     public function user(): BelongsTo

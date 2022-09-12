@@ -2,18 +2,10 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Presenters\PriceList;
 
-use App\Http\Controllers\Utils\Breadcrumb;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
-use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Math\MathPresenter;
-use Src\Prices\Domain\DataTransfer\ListPricesCalculated;
-use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\FilterPresenter;
-use Src\Prices\Infrastructure\Laravel\Presenters\PriceList\MarketplacesPresenter;
 use Src\Products\Domain\Models\Product;
-use Src\Products\Domain\Repositories\CategoryRepository;
-use Src\Products\Infrastructure\Laravel\Models\Categories\Category;
 use Src\Products\Infrastructure\Laravel\Repositories\Options\Options;
 
 class PriceListPresenter
@@ -27,8 +19,7 @@ class PriceListPresenter
     public function list(
         LengthAwarePaginator $paginator,
         Marketplace $marketplace,
-        Options $options,
-        string $userId
+        Options $options
     ): array {
         return [
             'currentMarketplace' => [
@@ -36,7 +27,7 @@ class PriceListPresenter
                 'slug' => $marketplace->getSlug(),
             ],
             'filter' => $this->filterPresenter->present($options),
-            'marketplaces' => $this->marketplacesPresenter->present($userId),
+            'marketplaces' => $this->marketplacesPresenter->present($options->getUserId()),
             'paginator' => $paginator->appends(
                 'category',
                 $options->getCategoryId() ?? null
@@ -49,12 +40,11 @@ class PriceListPresenter
         ];
     }
 
-    public function presentProducts(array $items, Marketplace $marketplace, Options $options): array
+    private function presentProducts(array $items, Marketplace $marketplace, Options $options): array
     {
         $products = collect($items);
         $products = $products->transform(function (Product $product) use ($marketplace, $options) {
             $price = $product->getPrice($marketplace);
-
             $margin = $price?->getMargin()
                 ? MathPresenter::percentage($price?->getMargin())
                 : null;
@@ -75,17 +65,5 @@ class PriceListPresenter
         });
 
         return $products->toArray();
-    }
-
-    public function presentListPricesCalculated(ListPricesCalculated $pricesCalculated): array
-    {
-        $marketplace = $pricesCalculated->marketplace;
-
-        return [
-            'currentMarketplace' => [
-                'name' => $marketplace->getName(),
-                'slug' => $marketplace->getSlug(),
-            ],
-        ];
     }
 }

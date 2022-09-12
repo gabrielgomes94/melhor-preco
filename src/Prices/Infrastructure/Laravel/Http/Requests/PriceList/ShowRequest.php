@@ -27,7 +27,6 @@ class ShowRequest extends FormRequest
             userId: auth()->user()->getAuthIdentifier(),
             page: $this->input('page') ?? 1,
             filterKits: (bool) $this->input('filterKits') ?? false,
-            marketplaceSlug: $this->segment(3) ?? null,
         );
     }
 }

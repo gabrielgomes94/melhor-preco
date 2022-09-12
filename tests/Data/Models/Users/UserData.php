@@ -26,7 +26,7 @@ class UserData
             ),
         ], $data);
 
-        $user = new User($data);
+        $user = User::where('email', $data['email'])->first() ?? new User($data);
         $user->setErp(new Erp('token', 'bling'));
 
         if (isset($data['id'])) {

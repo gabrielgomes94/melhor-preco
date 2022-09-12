@@ -16,7 +16,7 @@ class TaxesTest extends TestCase
         );
 
         // Assert
-        $this->assertEquals(5.345, $instance->simplesNacional->get());
-        $this->assertEquals(17.5, $instance->icmsInnerState->get());
+        $this->assertEquals(5.345, $instance->simplesNacional->get(3));
+        $this->assertEquals(17.5, $instance->icmsInnerState->get(3));
     }
 }

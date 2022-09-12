@@ -186,6 +186,7 @@ class ListPricesTest extends FeatureTestCase
 
     private function and_then_the_list_must_contains_the_prices(): void
     {
+
         $this->response->assertViewHasAll([
             'currentMarketplace' => [
                 'name' => 'Magalu',
@@ -208,16 +209,16 @@ class ListPricesTest extends FeatureTestCase
             ],
             'marketplaces' => [
                 [
-                    'name' => 'Shopee',
-                    'slug' => 'shopee',
+                    'name' => 'Magalu',
+                    'slug' => 'magalu',
                 ],
                 [
                     'name' => 'Olist',
                     'slug' => 'olist',
                 ],
                 [
-                    'name' => 'Magalu',
-                    'slug' => 'magalu',
+                    'name' => 'Shopee',
+                    'slug' => 'shopee',
                 ],
             ],
             'products' => [
@@ -266,6 +267,15 @@ class ListPricesTest extends FeatureTestCase
                             'variations' => [],
                         ],
                     ],
+                ],
+                [
+                    'sku' => '777',
+                    'name' => 'Chupeta',
+                    'price' => 'R$ 9,90',
+                    'profit' => 'R$ 2,00',
+                    'margin' => '20,20 %',
+                    'quantity' => 10.0,
+                    'variations' => [],
                 ],
                 [
                     'sku' => '601',
@@ -335,6 +345,15 @@ class ListPricesTest extends FeatureTestCase
                             'variations' => [],
                         ]
                     ],
+                ],
+                [
+                    'sku' => '777',
+                    'name' => 'Chupeta',
+                    'price' => 'R$ 9,90',
+                    'profit' => 'R$ 2,00',
+                    'margin' => '20,20 %',
+                    'quantity' => 10.0,
+                    'variations' => [],
                 ],
             ],
         ]);

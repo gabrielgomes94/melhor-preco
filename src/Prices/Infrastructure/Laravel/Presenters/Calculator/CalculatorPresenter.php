@@ -2,31 +2,29 @@
 
 namespace Src\Prices\Infrastructure\Laravel\Presenters\Calculator;
 
-use App\Http\Controllers\Utils\Breadcrumb;
 use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Marketplaces\Domain\Repositories\CommissionRepository;
+use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Prices\Domain\DataTransfer\PriceCalculatedFromProduct;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
-use Src\Prices\Infrastructure\Laravel\Http\Requests\CalculatePriceRequest;
 use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Math\MoneyTransformer;
 use Src\Prices\Infrastructure\Laravel\Models\Price;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 
 class CalculatorPresenter
 {
     public function __construct(
-        private CalculatedPricePresenter $pricePresenter,
-        private ProductPresenter $productPresenter,
-        private CommissionRepository $commissionRepository,
-        private PurchaseItemsPresenter $purchaseItemsPresenter
+        private readonly CalculatedPricePresenter $pricePresenter,
+        private readonly ProductPresenter $productPresenter,
+        private readonly CommissionRepository $commissionRepository,
+        private readonly PurchaseItemsPresenter $purchaseItemsPresenter
     ) {
     }
 
     public function present(
         PriceCalculatedFromProduct $priceCalculatedFromProduct,
-        CalculatePriceRequest $request
+        ?CalculatorForm $form = null,
     ): array
     {
         $product = $priceCalculatedFromProduct->product;
@@ -34,8 +32,8 @@ class CalculatorPresenter
         $calculatedPrice = $priceCalculatedFromProduct->calculatedPrice;
 
         return [
-            'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice, $request),
-            'calculatedPrice' => $this->pricePresenter->present($calculatedPrice, $marketplace, $product, $request->transform()),
+            'calculatorForm' => $this->getCalculatorForm($marketplace, $product, $calculatedPrice, $form),
+            'calculatedPrice' => $this->pricePresenter->present($priceCalculatedFromProduct, $form),
             'productInfo' => $this->productPresenter->present($marketplace, $product),
             'costsForm' => $this->getCostsForm($product),
             'priceId' => $product->getPrice($marketplace)->getId(),
@@ -48,7 +46,7 @@ class CalculatorPresenter
         Marketplace $marketplace,
         Product $product,
         CalculatedPrice $calculatedPrice,
-        CalculatePriceRequest $request
+        ?CalculatorForm $form = null
     ): array
     {
         $commission = $this->commissionRepository->getCommissionRate($marketplace, $product);
@@ -58,22 +56,22 @@ class CalculatorPresenter
             'marketplaceSlug' => $marketplace->getSlug(),
             'commission' => $commission->get(),
             'discount' => 0.0,
-            'desiredPrice' => MoneyTransformer::toFloat($calculatedPrice->get()),
+            'desiredPrice' => $calculatedPrice->get(),
             'productId' => $product->getSku(),
-            'freight' => MoneyTransformer::toFloat($calculatedPrice->getFreight()),
+            'freight' => $calculatedPrice->getFreight(),
         ];
 
-        if (!$request->transform()) {
+        if (!$form) {
             return $presented;
         }
 
         return array_replace_recursive(
             $presented,
             [
-                'discount' => (float) ($request->validated()['discount'] ?? 0.0),
-                'desiredPrice' => (float) ($request->validated()['desiredPrice'] ?? 0.0),
-                'commission' => (float) ($request->validated()['commission'] ?? 0.0),
-                'freight' => (float) ($request->validated()['freight'] ?? $presented['freight']),
+                'discount' => $form->discount?->get() ?? 0.0,
+                'desiredPrice' => $form->desiredPrice,
+                'commission' => $form->commission?->get() ?? 0.0,
+                'freight' => $form->freight ?? $presented['freight'],
             ]
         );
     }

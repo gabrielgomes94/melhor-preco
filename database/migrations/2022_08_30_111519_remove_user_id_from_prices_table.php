@@ -17,7 +17,7 @@ class RemoveUserIdFromPricesTable extends Migration
     public function down(): void
     {
         Schema::table('prices', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

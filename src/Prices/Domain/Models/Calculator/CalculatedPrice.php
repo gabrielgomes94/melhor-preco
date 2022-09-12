@@ -2,26 +2,24 @@
 
 namespace Src\Prices\Domain\Models\Calculator;
 
-use Money\Money;
-use Src\Marketplaces\Domain\Models\Marketplace;
-use Src\Math\MoneyTransformer;
-use Src\Math\Percentage;
+use Src\Math\MoneyCalculator;
+use Src\Math\ProfitMargin;
 use Src\Prices\Domain\DataTransfer\CalculatorForm;
 use Src\Products\Domain\Models\Product;
 
-class CalculatedPrice implements Contracts\CalculatedPrice
+class CalculatedPrice
 {
     public function __construct(
-        private CostPrice $costPrice,
-        private Money $value,
-        private Money $commission,
-        private Money $freight
+        private readonly CostPrice $costPrice,
+        private readonly float $value,
+        private readonly float $commission,
+        private readonly float $freight
     ) {
     }
 
     public static function fromProduct(
         Product $product,
-        Money $commission,
+        float $commission,
         CalculatorForm $options
     ): self
     {
@@ -29,16 +27,16 @@ class CalculatedPrice implements Contracts\CalculatedPrice
             CostPrice::fromProduct($product),
             $options->getPrice(),
             $commission,
-            MoneyTransformer::toMoney($options->freight),
+            $options->freight,
         );
     }
 
-    public function get(): Money
+    public function get(): float
     {
         return $this->value;
     }
 
-    public function getCommission(): Money
+    public function getCommission(): float
     {
         return $this->commission;
     }
@@ -48,56 +46,49 @@ class CalculatedPrice implements Contracts\CalculatedPrice
         return $this->costPrice;
     }
 
-    public function getCosts(): Money
+    public function getCosts(): float
     {
-        return $this->getCostPrice()->get()
-            ->add($this->getCommission())
-            ->add($this->getSimplesNacional())
-            ->add($this->getFreight());
+        return MoneyCalculator::sum(
+            $this->getCostPrice()->get(),
+            $this->getCommission(),
+            $this->getSimplesNacional(),
+            $this->getFreight()
+        );
     }
 
-    public function getDifferenceICMS(): Money
+    public function getDifferenceICMS(): float
     {
         return $this->costPrice->differenceICMS();
     }
 
-    public function getFreight(): Money
+    public function getFreight(): float
     {
         return $this->freight;
     }
 
     public function getMargin(): float
     {
-        $margin = 0.0;
-
-        if (!$this->value->isZero()) {
-            $margin = $this->getProfit()->ratioOf($this->value);
-        }
-
-        return round($margin * 100, 2);
+        return ProfitMargin::calculate($this->value, $this->getProfit())
+            ->get();
     }
 
-    public function getProfit(): Money
+    public function getProfit(): float
     {
-        return $this->value->subtract(
-            $this->getCosts()
-        );
+        return round($this->value - $this->getCosts(), 2);
     }
 
-    public function getPurchasePrice(): Money
+    public function getPurchasePrice(): float
     {
         return $this->costPrice->purchasePrice();
     }
 
-    public function getSimplesNacional(): Money
+    public function getSimplesNacional(): float
     {
-        return $this->value->multiply(
-            (string) $this->costPrice->simplesNacional()
-        );
+        return MoneyCalculator::multiply($this->value, $this->costPrice->simplesNacional());
     }
 
     public function isProfitable(): bool
     {
-        return $this->getProfit()->greaterThan(Money::BRL(0));
+        return $this->getProfit() > 0.0;
     }
 }

@@ -16,14 +16,14 @@ class Transformer
             return null;
         }
 
-        return new Price([
-            'store' => $storeSlug,
+        $price = new Price([
             'store_sku_id' => $product['produtoLoja']['idProdutoLoja'] ?? '',
             'value' => (float) $product['produtoLoja']['preco']['preco'] ?? 0.0,
             'created_at' => $product['produtoLoja']['dataInclusao'] ?? '',
             'updated_at' => $product['produtoLoja']['dataAlteracao'] ?? '',
-            'product_sku' => $product['codigo'],
-            'marketplace_erp_id' => $storeCode,
         ]);
+        $price->setProductSku($product['codigo']);
+
+        return $price;
     }
 }

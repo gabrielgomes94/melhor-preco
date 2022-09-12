@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
                         ->name('.calculate');
                 });
 
-            Route::post('/{store_slug}/sincronizar', [SyncController::class, 'sync'])
+            Route::post('/{marketplace_slug}/sincronizar', [SyncController::class, 'sync'])
                 ->name('.sync');
 
             Route::post('/sincronizar', [SyncController::class, 'syncAll'])

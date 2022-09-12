@@ -17,7 +17,7 @@ class MathPresenter
 
     public static function money(null|float|Money $value): string
     {
-        if (!$value) {
+        if (is_null($value)) {
             return '';
         }
 

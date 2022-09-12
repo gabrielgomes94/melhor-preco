@@ -25,19 +25,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 90,77',
                 'commissionRate' => 0.0,
-                'costs' => 'R$ 626,58',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 626,57',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'magalu',
                 'margin' => '29,59 %',
-                'profit' => 'R$ 263,32',
+                'profit' => 'R$ 263,33',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
                 'taxSimplesNacional' => 'R$ 48,50',
             ],
             'raw' => [
                 'margin' => 29.59,
-                'profit' => 263.32,
+                'profit' => 263.33,
             ],
         ]);
     }
@@ -48,19 +48,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 177,98',
                 'commissionRate' => 20.0,
-                'costs' => 'R$ 739,53',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 739,52',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 25,74',
                 'marketplaceSlug' => 'olist',
                 'margin' => '16,90 %',
-                'profit' => 'R$ 150,37',
+                'profit' => 'R$ 150,38',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
                 'taxSimplesNacional' => 'R$ 48,50',
             ],
             'raw' => [
                 'margin' => 16.9,
-                'profit' => 150.37,
+                'profit' => 150.38,
             ],
         ]);
     }
@@ -94,19 +94,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 0,00',
                 'commissionRate' => 0.0,
-                'costs' => 'R$ 535,81',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 535,79',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'loja-fisica',
                 'margin' => '39,79 %',
-                'profit' => 'R$ 354,09',
+                'profit' => 'R$ 354,10',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
                 'taxSimplesNacional' => 'R$ 48,50',
             ],
             'raw' => [
                 'margin' => 39.79,
-                'profit' => 354.09,
+                'profit' => 354.1,
             ],
         ]);
     }
@@ -117,19 +117,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 100,00',
                 'commissionRate' => 12.0,
-                'costs' => 'R$ 635,81',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 635,79',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'shopee',
                 'margin' => '28,55 %',
-                'profit' => 'R$ 254,09',
+                'profit' => 'R$ 254,10',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
                 'taxSimplesNacional' => 'R$ 48,50',
             ],
             'raw' => [
                 'margin' => 28.55,
-                'profit' => 254.09,
+                'profit' => 254.1,
             ],
         ]);
     }
@@ -140,19 +140,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 177,98',
                 'commissionRate' => 20.0,
-                'costs' => 'R$ 739,53',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 739,52',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 25,74',
                 'marketplaceSlug' => 'olist',
                 'margin' => '16,90 %',
-                'profit' => 'R$ 150,37',
+                'profit' => 'R$ 150,38',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 889,90',
                 'taxSimplesNacional' => 'R$ 48,50',
             ],
             'raw' => [
                 'margin' => 16.9,
-                'profit' => 150.37,
+                'profit' => 150.38,
             ],
         ]);
     }
@@ -163,19 +163,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 174,78',
                 'commissionRate' => 19.0,
-                'costs' => 'R$ 724,22',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 724,21',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 12,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '21,27 %',
-                'profit' => 'R$ 195,68',
+                'profit' => 'R$ 195,69',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 919,90',
                 'taxSimplesNacional' => 'R$ 50,13',
             ],
             'raw' => [
                 'margin' => 21.27,
-                'profit' => 195.68,
+                'profit' => 195.69,
             ],
         ]);
     }
@@ -186,19 +186,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 157,30',
                 'commissionRate' => 19.0,
-                'costs' => 'R$ 701,73',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 701,72',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 12,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '15,24 %',
-                'profit' => 'R$ 126,18',
+                'profit' => 'R$ 126,19',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 827,91',
                 'taxSimplesNacional' => 'R$ 45,12',
             ],
             'raw' => [
                 'margin' => 15.24,
-                'profit' => 126.18,
+                'profit' => 126.19,
             ],
         ]);
     }
@@ -209,19 +209,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 174,78',
                 'commissionRate' => 19.0,
-                'costs' => 'R$ 712,22',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 712,21',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 0,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '22,58 %',
-                'profit' => 'R$ 207,68',
+                'profit' => 'R$ 207,69',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 919,90',
                 'taxSimplesNacional' => 'R$ 50,13',
             ],
             'raw' => [
                 'margin' => 22.58,
-                'profit' => 207.68,
+                'profit' => 207.69,
             ],
         ]);
     }
@@ -232,19 +232,19 @@ trait CalculatePriceAssertions
             'formatted' => [
                 'commission' => 'R$ 0,00',
                 'commissionRate' => 0.0,
-                'costs' => 'R$ 549,44',
-                'differenceICMS' => 'R$ 37,41',
+                'costs' => 'R$ 549,42',
+                'differenceICMS' => 'R$ 37,40',
                 'freight' => 'R$ 12,00',
                 'marketplaceSlug' => 'olist',
                 'margin' => '40,27 %',
-                'profit' => 'R$ 370,46',
+                'profit' => 'R$ 370,47',
                 'purchasePrice' => 'R$ 449,90',
                 'suggestedPrice' => 'R$ 919,90',
                 'taxSimplesNacional' => 'R$ 50,13',
             ],
             'raw' => [
                 'margin' => 40.27,
-                'profit' => 370.46,
+                'profit' => 370.47,
             ],
         ]);
     }
@@ -301,7 +301,7 @@ trait CalculatePriceAssertions
                     'purchasePrice' => 'R$ 150,00',
                     'taxes' => 'R$ 40,00',
                     'freight' => 'R$ 10,00',
-                    'insurance' => '',
+                    'insurance' => 'R$ 0,00',
                     'icms' => '0,00 %',
                 ],
                 'name' => 'Canguru Balbi Vermelho',

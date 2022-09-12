@@ -2,38 +2,22 @@
 
 namespace Src\Products\Infrastructure\Laravel\Repositories\Options;
 
-use Src\Products\Domain\Models\ValueObjects\Dimensions;
+use Src\Marketplaces\Domain\Models\Marketplace;
 
-/**
- * @deprecated
- **/
 class Options
 {
     private const INFINITE = 100000000000000000;
-//    public array $extra;
-//    public array $query;
-//    protected string $path;
-//    protected bool $kits;
-//    protected ?int $page = null;
-//    protected ?int $perPage = 40;
-//    public ?float $minimumProfit;
-//    public ?float $maximumProfit;
-//    protected ?string $store;
-//    protected ?string $marketplaceSlug;
-//    protected ?string $sku;
-//    private ?string $categoryId;
-//    private ?string $userId;
 
     public function __construct(
         public readonly ?float $minimumProfit = null,
         public readonly ?float $maximumProfit = null,
         public readonly ?string $sku = null,
         public readonly ?string $categoryId = null,
-        public readonly ?string $userId = null,
         public readonly ?int $page = null,
         public readonly ?int $perPage = 40,
         public readonly bool $filterKits = false,
-        public ?string $marketplaceSlug = null
+        public ?string $userId = null,
+        public ?Marketplace $marketplace = null
     )
     {
     }
@@ -73,26 +57,6 @@ class Options
         return $this->sku;
     }
 
-    public function store(): ?string
-    {
-        return $this->store;
-    }
-
-//    public function url(): string
-//    {
-//        return $this->path;
-//    }
-//
-//    public function query(): array
-//    {
-//        return $this->query;
-//    }
-
-    public function setMarketplace(string $marketplaceSlug): void
-    {
-        $this->marketplaceSlug = $marketplaceSlug;
-    }
-
     public function getCategoryId(): ?string
     {
         return $this->categoryId;
@@ -111,5 +75,20 @@ class Options
     public function hasSku(): bool
     {
         return (bool) $this->sku;
+    }
+
+    public function getMarketplaceUuid(): string
+    {
+        return $this->marketplace?->getUuid() ?? '';
+    }
+
+    public function setMarketplace(Marketplace $marketplace): void
+    {
+        $this->marketplace = $marketplace;
+    }
+
+    public function setUserId(string $userId): void
+    {
+        $this->userId = $userId;
     }
 }

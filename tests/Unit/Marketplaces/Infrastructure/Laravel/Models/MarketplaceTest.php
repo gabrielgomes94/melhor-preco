@@ -49,6 +49,8 @@ class MarketplaceTest extends TestCase
         $this->assertSame('magalu', $result->getSlug());
         $this->assertInstanceOf(User::class, $result->getUser());
         $this->assertTrue($result->isActive());
+        $this->assertEmpty($result->getPrices());
+        $this->assertNull($result->getPrice('1234'));
         $this->assertFalse($result->slugsExists());
         $this->assertSame('1', $result->getUserId());
     }
