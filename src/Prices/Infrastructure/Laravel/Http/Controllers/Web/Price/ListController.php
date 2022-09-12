@@ -48,7 +48,6 @@ class ListController extends Controller
 
     /**
      * @throws MarketplaceNotFoundException
-     * @todo: usar a trait q eu tinha planejado mais cedo
      */
     private function getOptions(string $store, ShowRequest $request): Options
     {
@@ -61,6 +60,7 @@ class ListController extends Controller
 
     /**
      * @throws MarketplaceNotFoundException
+     * @todo: usar a trait q eu tinha planejado mais cedo
      */
     private function getMarketplace(?string $marketplaceSlug): Marketplace
     {

@@ -91,6 +91,7 @@ class PriceListPresenterTest extends TestCase
                 'margin' => '13,33 %',
                 'quantity' => 10.0,
                 'variations' => [],
+                'parentSku' => null,
             ],
             [
                 'sku' => '987',
@@ -100,6 +101,7 @@ class PriceListPresenterTest extends TestCase
                 'margin' => '13,71 %',
                 'quantity' => 10.0,
                 'variations' => [],
+                'parentSku' => null,
             ],
             [
                 'sku' => '777',
@@ -109,6 +111,7 @@ class PriceListPresenterTest extends TestCase
                 'margin' => '32,66 %',
                 'quantity' => 10.0,
                 'variations' => [],
+                'parentSku' => null,
             ],
             [
                 'sku' => '821',
@@ -126,6 +129,7 @@ class PriceListPresenterTest extends TestCase
                         'margin' => '12,67 %',
                         'quantity' => 10.0,
                         'variations' => [],
+                        'parentSku' => '821',
                     ],
                     [
                         'sku' => '823',
@@ -135,8 +139,10 @@ class PriceListPresenterTest extends TestCase
                         'margin' => '12,67 %',
                         'quantity' => 10.0,
                         'variations' => [],
+                        'parentSku' => '821',
                     ],
                 ],
+                'parentSku' => null,
             ]
         ];
         $this->assertSame($expectedProducts, $result['products']);
