@@ -29,7 +29,7 @@ class Client
 
     public function getPrice(string $erpToken, string $sku, string $storeCode, string $status = Config::ACTIVE): array
     {
-        $config = Config::getPrice($storeCode, $status);
+        $config = Config::getPrice($erpToken, $storeCode, $status);
         $endpoint = Endpoint::product($sku);
         $response = Http::withOptions($config)->get($endpoint);
 

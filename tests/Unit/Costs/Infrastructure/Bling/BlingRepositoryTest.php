@@ -29,7 +29,7 @@ class BlingRepositoryTest extends TestCase
         $repository = new BlingRepository($client, $responseFactory);
 
         // Act
-        $result = $repository->listPurchaseInvoice();
+        $result = $repository->listPurchaseInvoice('token');
 
         // Assert
         $this->assertSame(6, count($result));
@@ -46,7 +46,7 @@ class BlingRepositoryTest extends TestCase
         $repository = new BlingRepository($client, $responseFactory);
 
         // Act
-        $result = $repository->listPurchaseInvoice();
+        $result = $repository->listPurchaseInvoice('token');
 
         // Assert
         $this->assertEmpty($result);
@@ -57,7 +57,7 @@ class BlingRepositoryTest extends TestCase
         $client = Mockery::mock(Client::class);
 
         $client->expects()
-            ->list(Mockery::type('integer'))
+            ->list('token', Mockery::type('integer'))
             ->times(2)
             ->andReturn($response);
 
@@ -69,7 +69,7 @@ class BlingRepositoryTest extends TestCase
         $client = Mockery::mock(Client::class);
 
         $client->expects()
-            ->list(Mockery::type('integer'))
+            ->list('token', Mockery::type('integer'))
             ->andReturn([]);
 
         return $client;

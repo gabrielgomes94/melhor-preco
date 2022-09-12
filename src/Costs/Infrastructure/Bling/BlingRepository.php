@@ -14,13 +14,13 @@ class BlingRepository implements ErpRepository
     ) {
     }
 
-    public function listPurchaseInvoice(): array
+    public function listPurchaseInvoice(string $erpToken): array
     {
         $page = 0;
         $invoicesCollection = [];
 
         do {
-            $response = $this->client->list(++$page);
+            $response = $this->client->list($erpToken, ++$page);
             $invoices = $this->responseFactory->make($response);
 
             $invoicesCollection = array_merge(

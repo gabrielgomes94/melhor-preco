@@ -4,12 +4,12 @@ namespace Src\Integrations\Bling\Invoices\Requests;
 
 class Config
 {
-    public static function getPurchaseInvoiceOptions(): array
+    public static function getPurchaseInvoiceOptions(string $erpToken): array
     {
         return [
             'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'filters' => 'tipo[E]',
             ],
         ];
@@ -20,12 +20,12 @@ class Config
         return "notafiscal/$number/{$series}/json/";
     }
 
-    public static function listPurchaseInvoicesOptions(): array
+    public static function listPurchaseInvoicesOptions(string $erpToken): array
     {
         return [
             'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'filters' => 'tipo[E]',
             ],
         ];

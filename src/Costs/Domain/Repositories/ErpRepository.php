@@ -4,5 +4,5 @@ namespace Src\Costs\Domain\Repositories;
 
 interface ErpRepository
 {
-    public function listPurchaseInvoice();
+    public function listPurchaseInvoice(string $erpToken);
 }

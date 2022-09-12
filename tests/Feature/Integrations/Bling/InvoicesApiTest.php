@@ -19,7 +19,7 @@ class InvoicesApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Invoices/single-invoice-sanitized.json');
 
         // Actions
-        $result = $client->get($number, $series);
+        $result = $client->get('token', $number, $series);
 
         // Assertions
         $this->assertSame($expected, $result);
@@ -34,7 +34,7 @@ class InvoicesApiTest extends TestCase
         $this->fakeGet404Request($number, $series);
 
         // Actions
-        $result = $client->get($number, $series);
+        $result = $client->get('token', $number, $series);
 
         // Assertions
         $this->assertSame(['error' => 'A informacao desejada nao foi encontrada'], $result);
@@ -48,7 +48,7 @@ class InvoicesApiTest extends TestCase
         $expected = $this->getJsonFixture('Bling/Invoices/list-invoices-sanitized.json');
 
         // Actions
-        $result = $client->list();
+        $result = $client->list('token');
 
         // Assertions
         $this->assertSame($expected, $result);

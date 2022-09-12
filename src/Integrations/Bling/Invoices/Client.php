@@ -15,10 +15,10 @@ class Client
         $this->sanitizer = $sanitizer;
     }
 
-    public function get(string $number, string $series): array
+    public function get(string $erpToken, string $number, string $series): array
     {
         $response = Http::withOptions(
-            Config::getPurchaseInvoiceOptions()
+            Config::getPurchaseInvoiceOptions($erpToken)
         )->get(
             Config::getPurchaseInvoiceUrl($number, $series)
         );
@@ -26,10 +26,10 @@ class Client
         return $this->sanitizer->sanitize($response);
     }
 
-    public function list(int $page = 1): array
+    public function list(string $erpToken, int $page = 1): array
     {
         $response = Http::withOptions(
-            Config::listPurchaseInvoicesOptions()
+            Config::listPurchaseInvoicesOptions($erpToken)
         )->get(
             Config::listPurchaseInvoicesUrl($page)
         );

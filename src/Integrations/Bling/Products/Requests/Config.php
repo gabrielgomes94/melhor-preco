@@ -7,14 +7,14 @@ class Config
     public const ACTIVE = 'active';
     public const INACTIVE = 'inactive';
 
-    public static function getPrice(string $storeCode, string $status = self::ACTIVE): array
+    public static function getPrice(string $erpToken, string $storeCode, string $status = self::ACTIVE): array
     {
         $status = self::transformStatus($status);
 
         return [
             'base_uri' => config('integrations.bling.base_uri'),
             'query' => [
-                'apikey' => config('integrations.bling.auth.apikey'),
+                'apikey' => $erpToken,
                 'estoque' => 'S',
                 'filters' => "situacao[$status]",
                 'imagem' => 'S',
