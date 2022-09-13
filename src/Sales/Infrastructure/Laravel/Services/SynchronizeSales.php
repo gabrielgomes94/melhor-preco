@@ -55,13 +55,10 @@ class SynchronizeSales
     {
         DB::transaction(function () use ($externalSaleOrder, $userId) {
             $internalSaleOrder = $this->saleOrderRepository->syncSaleOrder($externalSaleOrder, $userId);
-            $this->saleOrderRepository->syncCustomer($internalSaleOrder, $externalSaleOrder);
 
             $this->saleOrderRepository->syncInvoice($internalSaleOrder, $externalSaleOrder);
             $this->saleOrderRepository->syncShipment($internalSaleOrder, $externalSaleOrder);
-
             $profit = $this->calculateTotalProfit->execute($internalSaleOrder, $userId);
-
             $this->saleOrderRepository->updateProfit($internalSaleOrder, $profit);
         });
     }

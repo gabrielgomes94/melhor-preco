@@ -45,33 +45,11 @@ class Transformer
 
         $saleOrder->status = $data['situacao'];
 
-        $saleOrder->setRelation('customer', self::makeCustomer($data));
         $saleOrder->setRelation('items', self::makeItems($data));
         $saleOrder->setRelation('invoice', self::makeInvoice($data));
         $saleOrder->setRelation('shipment', self::makeShipment($data));
 
         return $saleOrder;
-    }
-
-    private static function makeCustomer(array $data)
-    {
-        $address = self::makeAddress($data['cliente']);
-        $phones = self::getPhones($data);
-
-        $customer = new Customer([
-            'name' => $data['cliente']['nome'] ?? '',
-            'fiscal_id' => self::removeNonDigits(
-                $data['cliente']['cnpj']
-                ?? $data['cliente']['cpf']
-                ?? ''
-            ),
-            'phones' => $phones,
-            'document_number' => $data['cliente']['rg'] ?? '',
-        ]);
-
-        $customer->setRelation('address', $address);
-
-        return $customer;
     }
 
     private static function makeInvoice(array $data)
@@ -87,12 +65,13 @@ class Transformer
             'status' => $data['nota']['situacao'],
             'value' => $data['nota']['valorNota'],
             'access_key' => $data['nota']['chaveAcesso'] ?? '',
+            'sale_order_id' => $data['numero'],
         ]);
     }
 
     private static function makeItems(array $data)
     {
-        $items = array_map(function (array $item) {
+        $items = array_map(function (array $item) use ($data) {
             $item = $item['item'];
 
             return new Item([
@@ -101,6 +80,7 @@ class Transformer
                 'quantity' => $item['quantidade'],
                 'unit_value' => $item['valorunidade'],
                 'discount' => $item['descontoItem'],
+                'sale_order_id' => $data['numero'],
             ]);
         }, $data['itens']);
 
@@ -113,11 +93,17 @@ class Transformer
             return null;
         }
 
-        $address = self::makeAddress($data['transporte']['enderecoEntrega']);
         $shipment = new Shipment([
             'name' => $data['transporte']['enderecoEntrega']['nome'] ?? '',
+            'sale_order_id' => $data['numero'],
+            'street' => $data['transporte']['enderecoEntrega']['endereco'],
+            'number' => $data['transporte']['enderecoEntrega']['numero'],
+            'district' => $data['transporte']['enderecoEntrega']['bairro'],
+            'city' => $data['transporte']['enderecoEntrega']['cidade'],
+            'state' => $data['transporte']['enderecoEntrega']['uf'],
+            'zipcode' => $data['transporte']['enderecoEntrega']['cep'],
+            'complement' => $data['transporte']['enderecoEntrega']['complemento'] ?? '',
         ]);
-        $shipment->setRelation('address', $address);
 
         return $shipment;
     }
@@ -125,19 +111,6 @@ class Transformer
     private static function removeNonDigits(?string $digit)
     {
         return (string) preg_replace('/[^0-9]/', '', $digit);
-    }
-
-    private static function makeAddress(array $data): Address
-    {
-        return new Address([
-            'street' => $data['endereco'],
-            'number' => $data['numero'],
-            'district' => $data['bairro'],
-            'city' => $data['cidade'],
-            'state' => $data['uf'],
-            'zipcode' => $data['cep'],
-            'complement' => $data['complemento'] ?? '',
-        ]);
     }
 
     private static function getPhones(array $data): array

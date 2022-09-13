@@ -21,12 +21,12 @@ trait SaleOrderRelationships
 
     public function invoice(): HasOne
     {
-        return $this->hasOne(Invoice::class);
+        return $this->hasOne(Invoice::class, 'sale_order_uuid', 'uuid');
     }
 
     public function items(): HasMany
     {
-        return $this->hasMany(Item::class);
+        return $this->hasMany(Item::class, 'sale_order_uuid', 'uuid');
     }
 
     public function marketplace(): BelongsTo
@@ -36,11 +36,11 @@ trait SaleOrderRelationships
 
     public function shipment(): HasOne
     {
-        return $this->hasOne(Shipment::class);
+        return $this->hasOne(Shipment::class, 'sale_order_uuid', 'uuid');
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

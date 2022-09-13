@@ -9,17 +9,20 @@ class Shipment extends Model
 {
     protected $fillable = [
         'name',
+        'sale_order_id',
+        'street',
+        'number',
+        'complement',
+        'district',
+        'city',
+        'state',
+        'zipcode',
     ];
 
     protected $table = 'sales_shipments';
 
-    public function address(): MorphOne
+    public function saleOrder()
     {
-        return $this->morphOne(Address::class, 'addressable');
-    }
-
-    public function getAddress(): Address
-    {
-        return $this->address;
+        return $this->belongsTo(SaleOrder::class, 'sale_order_uuid', 'uuid');
     }
 }

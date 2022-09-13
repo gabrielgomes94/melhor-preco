@@ -16,6 +16,7 @@ class Item extends Model
         'quantity',
         'unit_value',
         'discount',
+        'sale_order_id',
     ];
 
     protected $casts = [
@@ -31,7 +32,7 @@ class Item extends Model
 
     public function saleOrder()
     {
-        return $this->belongsTo(SaleOrder::class, 'sale_order_id', 'sale_order_id');
+        return $this->belongsTo(SaleOrder::class, 'sale_order_uuid', 'uuid');
     }
 
     public function getMarketplace(): ?Marketplace

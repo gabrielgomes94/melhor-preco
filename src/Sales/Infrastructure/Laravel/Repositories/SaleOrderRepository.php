@@ -3,6 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
@@ -86,15 +87,14 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         }
 
         $internalSaleOrder->shipment()->save($shipment);
-
-        $shipmentAddress = $shipment->getAddress();
-        $shipment->address()->save($shipmentAddress);
     }
 
     public function syncSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrderInterface
     {
         $internalSaleOrder = $externalSaleOrder;
         $internalSaleOrder->user_id = $userId;
+        $internalSaleOrder->uuid = Uuid::uuid4();
+        $internalSaleOrder->save();
 
         return $internalSaleOrder;
     }

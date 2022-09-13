@@ -48,6 +48,10 @@ class SaleOrder extends Model implements SaleOrderInterface
         'total_value',
     ];
 
+    protected $primaryKey = 'uuid';
+
+    public $keyType = 'string';
+
     public function getCustomer(): Customer
     {
         return $this->customer;

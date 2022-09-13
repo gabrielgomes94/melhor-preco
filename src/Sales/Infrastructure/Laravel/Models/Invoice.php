@@ -19,12 +19,13 @@ class Invoice extends Model
         'status',
         'value',
         'access_key',
+        'sale_order_id',
     ];
 
     protected $table = 'sales_invoice';
 
     public function saleOrder(): BelongsTo
     {
-        return $this->belongsTo(SaleOrder::class);
+        return $this->belongsTo(SaleOrder::class, 'sale_order_uuid', 'uuid');
     }
 }
