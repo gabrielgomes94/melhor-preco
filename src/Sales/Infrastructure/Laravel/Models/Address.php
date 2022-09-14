@@ -5,6 +5,9 @@ namespace Src\Sales\Infrastructure\Laravel\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @deprecated
+ */
 class Address extends Model
 {
     protected $fillable = [
