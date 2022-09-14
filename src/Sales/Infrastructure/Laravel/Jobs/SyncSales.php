@@ -18,11 +18,8 @@ class SyncSales implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private CalculateTotalProfit $calculateTotalProfit;
-
     public function __construct(private string $userId)
-    {
-    }
+    {}
 
     public function handle(SynchronizeSales $synchronizeService): void
     {

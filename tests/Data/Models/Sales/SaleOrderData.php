@@ -3,6 +3,7 @@
 namespace Tests\Data\Models\Sales;
 
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
@@ -32,11 +33,20 @@ class SaleOrderData
 
         $saleOrder = new SaleOrder($data);
         $saleOrder->user()->associate($user);
-
-        $customer = CustomerData::persisted();
-        $saleOrder->customer()->associate($customer);
-
+        $saleOrder->uuid = Uuid::uuid4();
         $saleOrder->save();
+
+        $saleOrder->shipment()->save(
+            ShipmentData::build($saleOrder)
+        );
+        $saleOrder->invoice()->save(
+            SaleInvoiceData::build($saleOrder)
+        );
+
+        foreach ($saleItems as $saleItem) {
+            $saleItem->sale_order_id = $saleOrder->getIdentifiers()->id();
+        }
+
         $saleOrder->items()->saveMany($saleItems);
 
         return $saleOrder;

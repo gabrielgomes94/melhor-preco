@@ -14,8 +14,7 @@ class SyncController extends Controller
 
     public function sync(Request $request)
     {
-        $userId = auth()->user()->getAuthIdentifier();
-        SyncSalesJob::dispatch($userId);
+        SyncSalesJob::dispatch($this->getUserId());
 
         return redirect()->back();
     }

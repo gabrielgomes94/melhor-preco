@@ -11,7 +11,7 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/lista', [ListController::class, 'list'])->name('.list');
             Route::get('/detalhes/{saleId}', [ListController::class, 'show'])->name('.show');
-            Route::post('/sync', [SyncController::class, 'sync'])->name('.sync');
+            Route::post('/sincronizar', [SyncController::class, 'sync'])->name('.sync');
 
             Route::prefix('/relatorios')
                 ->name('.reports')
