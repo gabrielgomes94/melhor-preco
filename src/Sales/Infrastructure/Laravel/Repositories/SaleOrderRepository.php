@@ -4,7 +4,6 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
-use Src\Products\Infrastructure\Laravel\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
@@ -12,12 +11,6 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 
 class SaleOrderRepository implements SaleOrderRepositoryInterface
 {
-    public function __construct(
-        private ProductRepository $productRepository
-    )
-    {
-    }
-
     public function getLastSaleDateTime(string $userId): ?Carbon
     {
         $lastUpdatedProduct = SaleOrder::where('user_id', $userId)
@@ -52,35 +45,34 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
             );
     }
 
-    public function syncCustomer(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
+    public function insertSaleInvoice(
+        SaleOrderInterface $internalSaleOrder,
+        SaleOrderInterface $externalSaleOrder
+    ): void
     {
-        $customer = $externalSaleOrder->getCustomer();
-        $address = $customer->getAddress();
-        $customer->save();
-        $customer->address()->save($address);
+        $invoice = $externalSaleOrder->getInvoice();
 
-        $internalSaleOrder->customer()->associate($customer);
-        $internalSaleOrder->save();
-    }
-
-
-    public function syncInvoice(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
-    {
-        if (!$invoice = $externalSaleOrder->getInvoice()) {
+        if (!$invoice) {
             return;
         }
 
         $internalSaleOrder->invoice()->save($invoice);
     }
 
-    public function syncItems(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
+    public function insertSaleItems(
+        SaleOrderInterface $internalSaleOrder,
+        SaleOrderInterface $externalSaleOrder
+    ): void
     {
         foreach ($externalSaleOrder->getItems() as $item) {
             $internalSaleOrder->items()->save($item);
         }
     }
 
-    public function syncShipment(SaleOrderInterface $internalSaleOrder, SaleOrderInterface $externalSaleOrder): void
+    public function insertShipment(
+        SaleOrderInterface $internalSaleOrder,
+        SaleOrderInterface $externalSaleOrder
+    ): void
     {
         if (!$shipment = $externalSaleOrder->getShipment()) {
             return;
@@ -89,7 +81,10 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         $internalSaleOrder->shipment()->save($shipment);
     }
 
-    public function syncSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): SaleOrderInterface
+    public function insertSaleOrder(
+        SaleOrderInterface $externalSaleOrder,
+        string $userId
+    ): SaleOrderInterface
     {
         $internalSaleOrder = $externalSaleOrder;
         $internalSaleOrder->user_id = $userId;

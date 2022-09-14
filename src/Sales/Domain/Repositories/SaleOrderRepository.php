@@ -14,15 +14,13 @@ interface SaleOrderRepository
 
     public function listPaginate(SalesFilter $options);
 
-    public function syncCustomer(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertSaleInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function syncInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertSaleItems(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function syncItems(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertSaleOrder(SaleOrder $externalSaleOrder, string $userId): SaleOrder;
 
-    public function syncSaleOrder(SaleOrder $externalSaleOrder, string $userId): SaleOrder;
-
-    public function syncShipment(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertShipment(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
     public function updateProfit(SaleOrder $saleOrder, string $profit): bool;
 

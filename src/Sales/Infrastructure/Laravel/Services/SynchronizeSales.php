@@ -54,10 +54,10 @@ class SynchronizeSales
     private function insertSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): void
     {
         DB::transaction(function () use ($externalSaleOrder, $userId) {
-            $internalSaleOrder = $this->saleOrderRepository->syncSaleOrder($externalSaleOrder, $userId);
-
-            $this->saleOrderRepository->syncInvoice($internalSaleOrder, $externalSaleOrder);
-            $this->saleOrderRepository->syncShipment($internalSaleOrder, $externalSaleOrder);
+            $internalSaleOrder = $this->saleOrderRepository->insertSaleOrder($externalSaleOrder, $userId);
+            $this->saleOrderRepository->insertSaleItems($internalSaleOrder, $externalSaleOrder);
+            $this->saleOrderRepository->insertSaleInvoice($internalSaleOrder, $externalSaleOrder);
+            $this->saleOrderRepository->insertShipment($internalSaleOrder, $externalSaleOrder);
             $profit = $this->calculateTotalProfit->execute($internalSaleOrder, $userId);
             $this->saleOrderRepository->updateProfit($internalSaleOrder, $profit);
         });
