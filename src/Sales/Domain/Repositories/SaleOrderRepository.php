@@ -8,6 +8,8 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder;
 
 interface SaleOrderRepository
 {
+    public function get(string $saleOrderId, string $userId): ?SaleOrder;
+
     public function getLastSaleDateTime(string $userId): ?Carbon;
 
     public function countSales(SalesFilter $options): int;
@@ -16,7 +18,7 @@ interface SaleOrderRepository
 
     public function insertSaleInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function insertSaleItems(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertSaleItems(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder, string $userId): void;
 
     public function insertSaleOrder(SaleOrder $externalSaleOrder, string $userId): SaleOrder;
 

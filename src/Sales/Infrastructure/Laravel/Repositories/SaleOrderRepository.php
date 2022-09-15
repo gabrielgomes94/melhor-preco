@@ -4,13 +4,20 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
+use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
+use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 
 class SaleOrderRepository implements SaleOrderRepositoryInterface
 {
+    public function __construct(
+        private readonly ProductRepository $productRepository
+    )
+    {}
+
     public function getLastSaleDateTime(string $userId): ?Carbon
     {
         $lastUpdatedProduct = SaleOrder::where('user_id', $userId)
@@ -61,10 +68,20 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
 
     public function insertSaleItems(
         SaleOrderInterface $internalSaleOrder,
-        SaleOrderInterface $externalSaleOrder
+        SaleOrderInterface $externalSaleOrder,
+        string $userId
     ): void
     {
+        /**
+         * @var Item $item
+         */
         foreach ($externalSaleOrder->getItems() as $item) {
+            $product = $this->productRepository->get($item->getSku(), $userId);
+
+            if ($product) {
+                $item->product()->associate($product);
+            }
+
             $internalSaleOrder->items()->save($item);
         }
     }
@@ -106,5 +123,12 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         $saleOrder->setStatus($status);
 
         return $saleOrder->save();
+    }
+
+    public function get(string $saleOrderId, string $userId): ?SaleOrderInterface
+    {
+        return SaleOrder::where('sale_order_id', $saleOrderId)
+            ->where('user_id', $userId)
+            ->first();
     }
 }

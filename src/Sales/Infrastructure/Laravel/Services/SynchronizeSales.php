@@ -10,6 +10,7 @@ use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
 use Src\Users\Domain\Repositories\Repository as UserRepository;
+use Src\Users\Infrastructure\Laravel\Models\User;
 
 class SynchronizeSales
 {
@@ -17,45 +18,40 @@ class SynchronizeSales
         private readonly CalculateTotalProfit$calculateTotalProfit,
         private readonly ErpRepository $erpRepository,
         private readonly SaleOrderRepositoryInterface $saleOrderRepository,
-        private readonly UserRepository $userRepository
     ) {
     }
 
-    public function sync(string $userId)
+    public function sync(User $user): void
     {
-        if (!$user = $this->userRepository->find($userId)) {
-            return;
-        }
-
         $data = $this->erpRepository->list($user->getErpToken());
 
         foreach ($data as $saleOrder) {
             try {
-                if (!$saleOrderModel = $this->getSaleOrder($saleOrder)) {
-                    $this->insertSaleOrder($saleOrder, $userId);
+                if (!$saleOrderModel = $this->getSaleOrder($saleOrder, $user->getId())) {
+                    $this->insertSaleOrder($saleOrder, $user->getId());
 
                     continue;
                 }
 
-                $this->updateSaleOrder($saleOrderModel, $saleOrder, $userId);
+                $this->updateSaleOrder($saleOrderModel, $saleOrder, $user->getId());
             } catch (Exception $exception) {
                 event(new SaleOrderWasNotSynchronized($exception));
             }
         }
     }
 
-    private function getSaleOrder(SaleOrderInterface $saleOrder): ?SaleOrder
+    private function getSaleOrder(SaleOrderInterface $saleOrder, string $userId): ?SaleOrder
     {
         $id = $saleOrder->getIdentifiers()->id();
 
-        return SaleOrder::where('sale_order_id', $id)->first();
+        return $this->saleOrderRepository->get($id, $userId);
     }
 
     private function insertSaleOrder(SaleOrderInterface $externalSaleOrder, string $userId): void
     {
         DB::transaction(function () use ($externalSaleOrder, $userId) {
             $internalSaleOrder = $this->saleOrderRepository->insertSaleOrder($externalSaleOrder, $userId);
-            $this->saleOrderRepository->insertSaleItems($internalSaleOrder, $externalSaleOrder);
+            $this->saleOrderRepository->insertSaleItems($internalSaleOrder, $externalSaleOrder, $userId);
             $this->saleOrderRepository->insertSaleInvoice($internalSaleOrder, $externalSaleOrder);
             $this->saleOrderRepository->insertShipment($internalSaleOrder, $externalSaleOrder);
             $profit = $this->calculateTotalProfit->execute($internalSaleOrder, $userId);
