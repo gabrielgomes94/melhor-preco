@@ -22,7 +22,7 @@ class Invoice extends Model
         'sale_order_id',
     ];
 
-    protected $table = 'sales_invoice';
+    protected $table = 'sales_invoices';
 
     public function saleOrder(): BelongsTo
     {

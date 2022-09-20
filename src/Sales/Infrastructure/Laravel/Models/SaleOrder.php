@@ -52,6 +52,8 @@ class SaleOrder extends Model implements SaleOrderInterface
 
     public $keyType = 'string';
 
+    protected $table = 'sales_orders';
+
     public function getIdentifiers(): SaleIdentifiers
     {
         return $this->identifiers;
