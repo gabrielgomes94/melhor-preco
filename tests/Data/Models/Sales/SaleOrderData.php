@@ -4,12 +4,18 @@ namespace Tests\Data\Models\Sales;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class SaleOrderData
 {
-    public static function persisted(User $user, array $data = [], array $saleItems = []): SaleOrder
+    public static function persisted(
+        User $user,
+        array $data = [],
+        array $saleItems = [],
+        ?Marketplace $marketplace = null
+    ): SaleOrder
     {
         $data = array_merge(
             [
@@ -34,6 +40,11 @@ class SaleOrderData
         $saleOrder = new SaleOrder($data);
         $saleOrder->user()->associate($user);
         $saleOrder->uuid = Uuid::uuid4();
+
+        if ($marketplace) {
+            $saleOrder->marketplace()->associate($marketplace);
+        }
+
         $saleOrder->save();
 
         $saleOrder->shipment()->save(
@@ -45,6 +56,7 @@ class SaleOrderData
 
         foreach ($saleItems as $saleItem) {
             $saleItem->sale_order_id = $saleOrder->getIdentifiers()->id();
+            $saleOrder->items()->save($saleItem);
         }
 
         $saleOrder->items()->saveMany($saleItems);

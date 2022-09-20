@@ -28,5 +28,7 @@ interface SaleOrder
 
     public function getStatus(): Status;
 
+    public function getUuid(): string;
+
     public function setStatus(string $status): void;
 }

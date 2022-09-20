@@ -109,6 +109,11 @@ class SaleOrder extends Model implements SaleOrderInterface
         return new Status($this->status);
     }
 
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
     public function setStatus(string $status): void
     {
         $this->status = $status;
