@@ -9,13 +9,12 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
-use Src\Users\Domain\Repositories\Repository as UserRepository;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class SynchronizeSales
 {
     public function __construct(
-        private readonly CalculateTotalProfit$calculateTotalProfit,
+        private readonly CalculateTotalProfit $calculateTotalProfit,
         private readonly ErpRepository $erpRepository,
         private readonly SaleOrderRepositoryInterface $saleOrderRepository,
     ) {

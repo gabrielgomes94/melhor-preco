@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use Src\Sales\Infrastructure\Logging\Listeners\LogNotSynchronizedItem;
 use Src\Sales\Infrastructure\Logging\Listeners\LogSynchronizedItem;
 use Src\Sales\Infrastructure\Logging\Listeners\LogSynchronizedSales;
-use Src\Sales\Infrastructure\Laravel\Events\CustomerSynchronized;
 use Src\Sales\Infrastructure\Laravel\Events\InvoiceSynchronized;
 use Src\Sales\Infrastructure\Laravel\Events\ItemSynchronized;
 use Src\Sales\Infrastructure\Laravel\Events\ItemWasNotSynchronized;

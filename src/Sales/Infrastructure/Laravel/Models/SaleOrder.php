@@ -52,11 +52,6 @@ class SaleOrder extends Model implements SaleOrderInterface
 
     public $keyType = 'string';
 
-    public function getCustomer(): Customer
-    {
-        return $this->customer;
-    }
-
     public function getIdentifiers(): SaleIdentifiers
     {
         return $this->identifiers;
