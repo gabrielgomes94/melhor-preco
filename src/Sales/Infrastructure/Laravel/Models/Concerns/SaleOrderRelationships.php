@@ -31,7 +31,7 @@ trait SaleOrderRelationships
 
     public function marketplace(): BelongsTo
     {
-        return $this->belongsTo(Marketplace::class, 'store_id', 'erp_id');
+        return $this->belongsTo(Marketplace::class, 'marketplace_uuid', 'uuid');
     }
 
     public function shipment(): HasOne

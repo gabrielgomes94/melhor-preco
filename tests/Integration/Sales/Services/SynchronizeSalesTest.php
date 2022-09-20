@@ -4,6 +4,7 @@ namespace Tests\Integration\Sales\Services;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
@@ -92,6 +93,7 @@ class SynchronizeSalesTest extends TestCase
             ->get();
 
         $this->assertCount(1, $saleOrder);
+        $this->assertInstanceOf(Marketplace::class, $saleOrder->first()->getMarketplace());
     }
 
     private function and_given_i_have_a_sale_synchronized(): void

@@ -4,6 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
+use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
@@ -14,6 +15,7 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 class SaleOrderRepository implements SaleOrderRepositoryInterface
 {
     public function __construct(
+        private readonly MarketplaceRepository $marketplaceRepository,
         private readonly ProductRepository $productRepository
     )
     {}
@@ -98,17 +100,23 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         $internalSaleOrder->shipment()->save($shipment);
     }
 
+    /**
+     * @param SaleOrderInterface|SaleOrder $externalSaleOrder
+     */
     public function insertSaleOrder(
         SaleOrderInterface $externalSaleOrder,
         string $userId
     ): SaleOrderInterface
     {
-        $internalSaleOrder = $externalSaleOrder;
-        $internalSaleOrder->user_id = $userId;
-        $internalSaleOrder->uuid = Uuid::uuid4();
-        $internalSaleOrder->save();
+        $marketplace = $this->marketplaceRepository->getByErpId($externalSaleOrder->store_id, $userId);
 
-        return $internalSaleOrder;
+        $externalSaleOrder->user_id = $userId;
+        $externalSaleOrder->marketplace_uuid = $marketplace?->getUuid() ?? null;
+        $externalSaleOrder->uuid = Uuid::uuid4();
+
+        $externalSaleOrder->save();
+
+        return $externalSaleOrder;
     }
 
     public function updateProfit(SaleOrderInterface $saleOrder, string $profit): bool

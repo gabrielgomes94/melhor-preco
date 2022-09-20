@@ -2,6 +2,7 @@
 
 namespace Src\Sales\Domain\Models\Contracts;
 
+use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 use Src\Sales\Domain\Models\ValueObjects\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\SaleValue;
@@ -19,6 +20,8 @@ interface SaleOrder
     public function getItems(): array;
 
     public function getInvoice(): ?Invoice;
+
+    public function getMarketplace(): ?Marketplace;
 
     public function getSaleDates(): SaleDates;
 
