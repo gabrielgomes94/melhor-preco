@@ -23,7 +23,7 @@ class SalesFilter
         $this->endDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['endDate'] ?? '31/12/9999');
         $this->page = $options['page'] ?? 1;
         $this->url = $options['url'] ?? '';
-        $this->userId = $options['userId'];
+        $this->userId = $options['userId'] ?? '';
     }
 
     public function getBeginDate(): Carbon
@@ -56,4 +56,3 @@ class SalesFilter
         return $this->userId;
     }
 }
-

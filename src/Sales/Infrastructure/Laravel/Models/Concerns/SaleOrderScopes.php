@@ -20,4 +20,14 @@ trait SaleOrderScopes
         return $query->orderBy('selled_at', 'desc')
             ->orderBy('sale_order_id', 'desc');
     }
+
+    public function scopeInStore($query, string $marketplaceErpId)
+    {
+        return $query->where('store_id', $marketplaceErpId);
+    }
+
+    public function scopeFromUser($query, string $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
 }

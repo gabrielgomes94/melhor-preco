@@ -39,10 +39,16 @@ class SaleOrderData
 
         $saleOrder = new SaleOrder($data);
         $saleOrder->user()->associate($user);
-        $saleOrder->uuid = Uuid::uuid4();
+
+        if (empty($data['uuid'])) {
+            $saleOrder->uuid = Uuid::uuid4();
+        } else {
+            $saleOrder->uuid = $data['uuid'];
+        }
 
         if ($marketplace) {
             $saleOrder->marketplace()->associate($marketplace);
+            $saleOrder->store_id = $marketplace->getErpId();
         }
 
         $saleOrder->save();
@@ -55,7 +61,7 @@ class SaleOrderData
         );
 
         foreach ($saleItems as $saleItem) {
-            $saleItem->sale_order_id = $saleOrder->getIdentifiers()->id();
+            $saleItem->sale_order_id = $saleOrder->getIdentifiers()->saleOrderId();
             $saleOrder->items()->save($saleItem);
         }
 

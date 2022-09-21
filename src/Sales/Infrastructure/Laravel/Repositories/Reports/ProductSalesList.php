@@ -9,10 +9,10 @@ use Src\Products\Domain\Exceptions\ProductNotFoundException;
 use Src\Products\Domain\Models\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
+use Src\Sales\Domain\DataTransfer\Queries\SalesLists\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
 use Src\Sales\Domain\DataTransfer\Reports\Products\SalesInMarketplaces;
-use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
+use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\ProductSalesFactory;
 

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Sales;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Data\Databases\SalesDatabase;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Sales\SaleItemData;
 use Tests\Data\Models\Sales\SaleOrderData;
@@ -28,56 +29,7 @@ class ListSalesTest extends FeatureTestCase
 
     private function given_i_have_some_sales(): void
     {
-        $productBabyCarriage = ProductData::babyCarriage($this->user);
-        $productBabyChair = ProductData::babyChair($this->user);
-        $productBabyPacifier = ProductData::babyPacifier($this->user);
-
-        SaleOrderData::persisted(
-            $this->user,
-            [
-                'sale_order_id' => '100',
-                'purchase_order_id' => '10',
-                'store_id' => '1234567',
-                'total_profit' => 250.0,
-                'total_value' => 1450.0,
-            ],
-            [
-                SaleItemData::make($productBabyCarriage),
-                SaleItemData::make($productBabyChair),
-            ]
-        );
-
-        SaleOrderData::persisted(
-            $this->user,
-            [
-                'sale_order_id' => '101',
-                'purchase_order_id' => '11',
-                'store_id' => '1234567',
-                'total_profit' => 20.0,
-                'total_value' => 100.0,
-            ],
-            [
-                SaleItemData::make($productBabyPacifier),
-                SaleItemData::make($productBabyPacifier),
-                SaleItemData::make($productBabyPacifier),
-                SaleItemData::make($productBabyPacifier),
-                SaleItemData::make($productBabyPacifier),
-            ]
-        );
-
-        SaleOrderData::persisted(
-            $this->user,
-            [
-                'sale_order_id' => '101',
-                'purchase_order_id' => '11',
-                'store_id' => '1234567',
-                'total_profit' => 120.0,
-                'total_value' => 899.0,
-            ],
-            [
-                SaleItemData::make($productBabyCarriage),
-            ]
-        );
+        SalesDatabase::setup($this->user);
     }
 
     private function then_i_must_see_the_sales_list_page()

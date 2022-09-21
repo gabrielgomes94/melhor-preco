@@ -8,13 +8,13 @@ use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 use Src\Sales\Domain\Models\ValueObjects\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\SaleValue;
-use Src\Sales\Domain\Models\ValueObjects\Status;
 use Src\Sales\Infrastructure\Laravel\Models\Casts\IdentifiersCast;
 use Src\Sales\Infrastructure\Laravel\Models\Casts\SaleDatesCast;
 use Src\Sales\Infrastructure\Laravel\Models\Casts\SaleValueCast;
 use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderRelationships;
 use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderScopes;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
+use Src\Users\Domain\Models\User;
 
 class SaleOrder extends Model implements SaleOrderInterface
 {
@@ -89,7 +89,7 @@ class SaleOrder extends Model implements SaleOrderInterface
         return $this->total_profit;
     }
 
-    public function getSelledAt(): ?Carbon
+    public function getSelledAt(): Carbon
     {
         return $this->selled_at;
     }
@@ -101,17 +101,27 @@ class SaleOrder extends Model implements SaleOrderInterface
 
     public function getLastUpdate(): Carbon
     {
-        return $this->getSaleDates()->selledAt();
+        return $this->updated_at;
     }
 
-    public function getStatus(): Status
+    public function getStatus(): string
     {
-        return new Status($this->status);
+        return $this->status;
     }
 
     public function getUuid(): string
     {
         return $this->uuid;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->user->getId();
     }
 
     public function setStatus(string $status): void

@@ -6,7 +6,7 @@ use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
-use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
+use Src\Sales\Domain\DataTransfer\Queries\SalesLists\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 
@@ -23,7 +23,7 @@ class ProductReportPresenter
     {
         $salesReport = $productInfoReport->salesReport;
         $costs = collect($productInfoReport->costsItems);
-        $costs = $costs->map(function(PurchaseItem $item) {
+        $costs = $costs->map(function (PurchaseItem $item) {
             return $this->purchaseItemsPresenter->present($item);
         })->all();
 
@@ -74,15 +74,10 @@ class ProductReportPresenter
 
         $marketplaceSales = $marketplaceSales->sortBy(function (MarketplaceSales $marketplaceSales) {
         })->transform(function (MarketplaceSales $marketplaceSales) {
-            $sales = $marketplaceSales->sales->get();
-            $sales = collect($sales);
-            $totalValue = $sales->sum(function (Item $saleItem) {
-                return $saleItem->getTotalValue();
-            });
 
             return [
-                'quantity' => $sales->count(),
-                'value' => NumberTransformer::toMoney($totalValue),
+                'quantity' => $marketplaceSales->getSalesCount(),
+                'value' => NumberTransformer::toMoney($marketplaceSales->getTotalValue()),
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];

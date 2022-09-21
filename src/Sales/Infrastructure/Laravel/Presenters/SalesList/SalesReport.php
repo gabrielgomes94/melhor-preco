@@ -1,16 +1,17 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Presenters;
+namespace Src\Sales\Infrastructure\Laravel\Presenters\SalesList;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Math\Transformers\NumberTransformer;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
-use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
+use Src\Sales\Domain\DataTransfer\Queries\SalesLists\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
+use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesListPresenter;
 
-class ListSalesReport
+class SalesReport
 {
-    public function __construct(private readonly ListSalesPresenter $listSalesPresenter)
+    public function __construct(private readonly SalesListPresenter $listSalesPresenter)
     {
     }
 
@@ -22,7 +23,11 @@ class ListSalesReport
                 $report->filter->getUserId()
             ),
             'total' => $this->presentMetadata($report),
-            'paginator' => $this->getPaginator($report->sales, $report->filter, $report->totalSales),
+            'paginator' => $this->getPaginator(
+                $report->sales->get(),
+                $report->filter,
+                $report->totalSales
+            ),
         ];
     }
 
@@ -48,7 +53,7 @@ class ListSalesReport
         $marketplacesCount = collect($marketplacesCount);
 
         return $marketplacesCount->mapWithKeys(
-            function(MarketplaceSales $report) {
+            function (MarketplaceSales $report) {
                 $marketplace = $report->marketplace;
                 $slug = $marketplace->getSlug();
 
@@ -58,7 +63,8 @@ class ListSalesReport
                         'name' => $marketplace->getName(),
                     ],
                 ];
-        })->all();
+            }
+        )->all();
     }
 
     private function getPaginator(array $sales, SalesFilter $options, int $total): LengthAwarePaginator

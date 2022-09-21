@@ -17,7 +17,7 @@ class SaleInvoiceData
             'status' => '1',
             'value' => 100.0,
             'access_key' => '43140401056417000139550010000123461496923524',
-            'sale_order_id' => $saleOrder->getIdentifiers()->id(),
+            'sale_order_id' => $saleOrder->getIdentifiers()->saleOrderId(),
         ]);
     }
 }

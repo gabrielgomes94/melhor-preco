@@ -5,15 +5,14 @@ namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Src\Sales\Domain\Repositories\ReportsRepository;
 use Src\Sales\Infrastructure\Laravel\Http\Requests\SalesReportsRequest;
-use Src\Sales\Infrastructure\Laravel\Presenters\ListSalesReport;
+use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesReport;
 
 class ListController extends Controller
 {
     public function __construct(
         private readonly ReportsRepository $salesReportsRepository,
-        private readonly ListSalesReport   $listSalesReport
-    )
-    {
+        private readonly SalesReport $listSalesReport
+    ) {
     }
 
     public function list(SalesReportsRequest $request)

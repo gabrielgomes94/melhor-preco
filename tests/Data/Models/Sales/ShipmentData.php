@@ -11,7 +11,7 @@ class ShipmentData
     {
         return new Shipment([
             'name' => 'João da Silva',
-            'sale_order_id' => $saleOrder->getIdentifiers()->id(),
+            'sale_order_id' => $saleOrder->getIdentifiers()->saleOrderId(),
             'street' => 'Rua Grapecica',
             'number' => '115',
             'complement' => '2 andar',

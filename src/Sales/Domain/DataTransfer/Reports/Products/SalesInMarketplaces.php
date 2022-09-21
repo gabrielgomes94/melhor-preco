@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\DataTransfer\Reports\Products;
 
 use Illuminate\Support\Collection;
-use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
+use Src\Sales\Domain\DataTransfer\Queries\SalesLists\MarketplaceSales;
 
 class SalesInMarketplaces
 {

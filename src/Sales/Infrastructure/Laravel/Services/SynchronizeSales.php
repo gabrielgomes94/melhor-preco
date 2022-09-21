@@ -41,7 +41,7 @@ class SynchronizeSales
 
     private function getSaleOrder(SaleOrderInterface $saleOrder, string $userId): ?SaleOrder
     {
-        $id = $saleOrder->getIdentifiers()->id();
+        $id = $saleOrder->getIdentifiers()->saleOrderId();
 
         return $this->saleOrderRepository->get($id, $userId);
     }

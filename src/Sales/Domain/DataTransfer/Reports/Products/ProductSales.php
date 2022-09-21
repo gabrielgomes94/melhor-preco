@@ -3,7 +3,7 @@
 namespace Src\Sales\Domain\DataTransfer\Reports\Products;
 
 use Src\Products\Domain\Models\Product;
-use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
+use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 
 class ProductSales
 {
@@ -16,7 +16,6 @@ class ProductSales
         public readonly float $averageMargin,
         public readonly float $totalRevenue,
         public readonly float $totalProfit,
-    )
-    {
+    ) {
     }
 }

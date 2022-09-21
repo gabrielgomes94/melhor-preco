@@ -4,6 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Repositories\Reports;
 
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
+use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
 use Src\Sales\Infrastructure\Laravel\Repositories\Queries\SalesQuery;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\SalesMetadataFactory;
 
@@ -11,8 +12,7 @@ class SalesList
 {
     public function __construct(
         private readonly SalesMetadataFactory $metadataSales
-    )
-    {
+    ) {
     }
 
     public function report(SalesFilter $options): ListReport
@@ -28,7 +28,7 @@ class SalesList
         return new ListReport(
             $metadata,
             $options,
-            $sales->items(),
+            new SaleOrdersCollection($sales->items()),
             $sales->total()
         );
     }

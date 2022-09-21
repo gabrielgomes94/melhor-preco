@@ -7,7 +7,7 @@ use Src\Sales\Infrastructure\Laravel\Services\CalculateItem;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Math\Transformers\MoneyTransformer;
 use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
-use Src\Sales\Domain\DataTransfer\SaleItemsCollection;
+use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class ProductSalesFactory
