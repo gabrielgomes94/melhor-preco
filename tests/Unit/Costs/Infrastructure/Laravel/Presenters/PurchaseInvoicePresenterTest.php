@@ -18,7 +18,7 @@ class PurchaseInvoicePresenterTest extends TestCase
     public function test_should_present_purchase_invoice(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
 
         $product = ProductData::babyCarriage($user);
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user, [

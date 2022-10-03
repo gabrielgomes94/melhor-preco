@@ -18,7 +18,7 @@ class SalesListPresenterTest extends TestCase
     {
         // Arrange
         $presenter = app(SalesListPresenter::class);
-        $user = UserData::make();
+        $user = UserData::persisted();
         $sales = $this->getSales($user);
 
         // Act

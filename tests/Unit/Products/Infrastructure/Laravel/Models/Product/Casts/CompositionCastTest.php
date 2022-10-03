@@ -16,7 +16,7 @@ class CompositionCastTest extends TestCase
     public function test_should_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::cradle($user);
         ProductData::babyCarriage($user);
         $product = ProductData::kitCradleAndCarriage($user);
@@ -34,7 +34,7 @@ class CompositionCastTest extends TestCase
     public function test_should_not_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $cast = new CompositionCast();
 
         // Expects
@@ -48,7 +48,7 @@ class CompositionCastTest extends TestCase
     public function test_should_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product1 = ProductData::cradle($user);
         $product2 = ProductData::babyCarriage($user);
         $product = ProductData::kitCradleAndCarriage($user);
@@ -69,7 +69,7 @@ class CompositionCastTest extends TestCase
     public function test_should_not_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $cast = new CompositionCast();
 
         // Expects

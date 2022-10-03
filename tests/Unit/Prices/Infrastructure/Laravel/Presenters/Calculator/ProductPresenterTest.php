@@ -18,7 +18,7 @@ class ProductPresenterTest extends TestCase
         // Arrange
         $presenter = new ProductPresenter();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
         $product = ProductData::babyCarriage($user, [
             PriceData::build($marketplace, ['value' => 949.9])

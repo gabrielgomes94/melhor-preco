@@ -20,7 +20,7 @@ class ListPurchaseInvoicesTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
     }
 
     public function test_should_list_purchase_invoices(): void

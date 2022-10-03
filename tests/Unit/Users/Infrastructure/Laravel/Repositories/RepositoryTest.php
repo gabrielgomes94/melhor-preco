@@ -17,7 +17,7 @@ class RepositoryTest extends TestCase
     {
         // Arrange
         $repository = new Repository();
-        UserData::make(['id' => '1234']);
+        UserData::persisted(['id' => '1234']);
 
         // Act
         $result = $repository->find('1234');
@@ -61,7 +61,7 @@ class RepositoryTest extends TestCase
     {
         // Arrange
         $repository = new Repository();
-        $user = UserData::make(['id' => '1234']);
+        $user = UserData::persisted(['id' => '1234']);
 
         // Act
         $result = $repository->updateErp($user, new Erp('tray-token', 'tray'));
@@ -78,7 +78,7 @@ class RepositoryTest extends TestCase
     {
         // Arrange
         $repository = new Repository();
-        $user = UserData::make(['id' => '1234']);
+        $user = UserData::persisted(['id' => '1234']);
 
         // Act
         $result = $repository->updateErp($user, new Erp('tray-token', 'tray'));
@@ -95,7 +95,7 @@ class RepositoryTest extends TestCase
     {
         // Arrange
         $repository = new Repository();
-        $user = UserData::make(['id' => '1234']);
+        $user = UserData::persisted(['id' => '1234']);
 
         // Act
         $result = $repository->updateProfile(
@@ -118,7 +118,7 @@ class RepositoryTest extends TestCase
     {
         // Arrange
         $repository = new Repository();
-        $user = UserData::make(['id' => '1234']);
+        $user = UserData::persisted(['id' => '1234']);
 
         // Act
         $result = $repository->updatePassword(

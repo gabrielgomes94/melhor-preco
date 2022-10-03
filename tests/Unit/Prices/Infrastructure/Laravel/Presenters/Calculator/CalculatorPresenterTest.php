@@ -24,7 +24,7 @@ class CalculatorPresenterTest extends TestCase
         // Arrange
         $presenter = app(CalculatorPresenter::class);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user, [
             PriceData::build($marketplace, ['value' => 899.9]),
@@ -108,7 +108,7 @@ class CalculatorPresenterTest extends TestCase
         // Arrange
         $presenter = app(CalculatorPresenter::class);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user, [
             PriceData::build($marketplace, ['value' => 899.9]),

@@ -19,7 +19,7 @@ class CalculateFromMarkupTest extends TestCase
         /** @var CalculateFromMarkup $calculateFromMarkup */
         $calculateFromMarkup = app(CalculateFromMarkup::class);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         ProductData::babyCarriage($user, [
             $price = PriceData::build($marketplace, ['value' => 899.9])

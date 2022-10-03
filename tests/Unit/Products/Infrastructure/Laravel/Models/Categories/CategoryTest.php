@@ -14,7 +14,7 @@ class CategoryTest extends TestCase
     public function test_should_instantiate_category(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
 
         // Act
         $instance = CategoryData::babyCarriage($user);
@@ -30,7 +30,7 @@ class CategoryTest extends TestCase
     public function test_should_get_categories_from_user(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::babyCarriage($user);
         CategoryData::babyChair($user);
 
@@ -44,7 +44,7 @@ class CategoryTest extends TestCase
     public function test_should_get_categories_with_id(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::babyCarriage($user);
         CategoryData::babyChair($user);
 

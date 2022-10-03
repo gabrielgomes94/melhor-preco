@@ -24,7 +24,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_list_all_products_from_user(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         ProductData::babyChair($user);
         $repository = $this->app->get(ProductRepository::class);
@@ -40,7 +40,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_list_all_products_with_sku_filter_from_user(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         ProductData::babyChair($user);
         $repository = $this->app->get(ProductRepository::class);
@@ -56,7 +56,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_list_all_products_with_category_filter_from_user(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $category = CategoryData::babyCarriage($user);
         ProductData::babyCarriage($user, [], $category);
         ProductData::babyChair($user);
@@ -73,7 +73,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_get_product_from_user(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
 
@@ -87,7 +87,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_not_get_product_from_user(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $repository = $this->app->get(ProductRepository::class);
 
         // Act
@@ -100,7 +100,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_get_last_synchronization_date_time(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
 
         ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
@@ -115,7 +115,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_count_products(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         ProductData::babyChair($user);
         ProductData::babyPacifier($user);
@@ -131,7 +131,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_count_active_products(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         ProductData::babyChair($user);
         ProductData::babyPacifier($user);
@@ -147,7 +147,7 @@ class ProductRepositoryTest extends TestCase
     public function test_should_get_product_by_ean(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
 
@@ -160,7 +160,7 @@ class ProductRepositoryTest extends TestCase
 
     public function test_should_get_products_and_variation(): void
     {
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         ProductData::babyChair($user);
         ProductData::babyPacifier($user);
@@ -179,7 +179,7 @@ class ProductRepositoryTest extends TestCase
 
     public function test_should_update_costs(): void
     {
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
         $costs = new Costs(105.0, 5.5, 8);
@@ -196,7 +196,7 @@ class ProductRepositoryTest extends TestCase
 
     public function test_should_save()
     {
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $repository = $this->app->get(ProductRepository::class);
 

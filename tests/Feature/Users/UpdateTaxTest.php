@@ -48,7 +48,7 @@ class UpdateTaxTest extends TestCase
 
     private function given_i_have_an_user(): void
     {
-        $user = UserData::make();
+        $user = UserData::persisted();
         $user->setTaxes(
             new Taxes(
                 Percentage::fromPercentage(2.0),

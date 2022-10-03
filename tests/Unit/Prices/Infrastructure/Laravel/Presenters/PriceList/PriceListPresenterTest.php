@@ -21,7 +21,7 @@ class PriceListPresenterTest extends TestCase
     public function test_should_present_price_list(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $options = new Options(userId: $user->getId());
 

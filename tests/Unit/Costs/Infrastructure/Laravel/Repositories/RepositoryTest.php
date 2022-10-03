@@ -23,7 +23,7 @@ class RepositoryTest extends TestCase
     public function test_should_count_purchase_invoices(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         PurchaseInvoiceData::makePersisted($user);
         PurchaseInvoiceData::makePersisted($user);
         PurchaseInvoiceData::makePersisted($user);
@@ -41,7 +41,7 @@ class RepositoryTest extends TestCase
     public function test_should_get_last_synchronization_datetime(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         PurchaseInvoiceData::makePersisted($user);
         $repository = app(Repository::class);
 
@@ -55,7 +55,7 @@ class RepositoryTest extends TestCase
     public function test_should_not_get_last_synchronization_datetime_when_there_is_no_purchase_invoices(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $repository = app(Repository::class);
 
         // Act
@@ -68,7 +68,7 @@ class RepositoryTest extends TestCase
     public function test_get_purchase_invoice(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         PurchaseInvoiceData::makePersisted($user, ['uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110']);
         $repository = app(Repository::class);
 
@@ -82,7 +82,7 @@ class RepositoryTest extends TestCase
     public function test_should_get_purchase_item(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user, ['uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110']);
         PurchaseItemsData::makePersisted($purchaseInvoice, [
             'uuid' => '16f3eb5f-5af4-419e-8f5d-225884a74d5c'
@@ -115,7 +115,7 @@ class RepositoryTest extends TestCase
     public function test_should_insert_purchase_invoice(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::make();
         $repository = app(Repository::class);
 
@@ -129,7 +129,7 @@ class RepositoryTest extends TestCase
     public function test_should_not_insert_purchase_invoice_when_it_already_exists(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
         $repository = app(Repository::class);
 
@@ -143,7 +143,7 @@ class RepositoryTest extends TestCase
     public function test_should_insert_purchase_item(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
         $purchaseItem = PurchaseItemsData::make();
         $repository = app(Repository::class);
@@ -158,7 +158,7 @@ class RepositoryTest extends TestCase
     public function test_should_list_purchase_invoice(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         PurchaseInvoiceData::makePersisted($user);
         PurchaseInvoiceData::makePersisted($user);
         PurchaseInvoiceData::makePersisted($user);
@@ -175,7 +175,7 @@ class RepositoryTest extends TestCase
     public function test_should_check_purchase_invoice_exists(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
         $repository = app(Repository::class);
 
@@ -189,7 +189,7 @@ class RepositoryTest extends TestCase
     public function test_should_get_product_costs(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user);
         $product = ProductData::babyCarriage($user);
         PurchaseItemsData::makePersisted($purchaseInvoice, [], $product);
@@ -207,7 +207,7 @@ class RepositoryTest extends TestCase
     public function test_should_not_get_product_costs_when_product_doest_not_exists(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $repository = app(Repository::class);
 
         // Expect

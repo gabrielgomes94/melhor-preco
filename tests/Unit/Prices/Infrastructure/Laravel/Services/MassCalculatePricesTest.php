@@ -27,7 +27,7 @@ class MassCalculatePricesTest extends TestCase
 
         $this->massCalculatePricesService = app(MassCalculatePrices::class);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->marketplace = MarketplaceData::shopee($user);
         $this->setProducts($this->marketplace, $user);
     }

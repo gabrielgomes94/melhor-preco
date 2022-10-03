@@ -20,7 +20,7 @@ class CalculateWithAdditionTest extends TestCase
         /** @var CalculateWithAddition $calculateWithAddition */
         $calculateWithAddition = app(CalculateWithAddition::class);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         ProductData::babyCarriage($user, [
             $price = PriceData::build($marketplace, ['value' => 899.9])

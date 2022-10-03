@@ -13,7 +13,7 @@ class SalesReportTest extends TestCase
     {
         // Arrange
         $salesReport = app(SalesReport::class);
-        $user = UserData::make();
+        $user = UserData::persisted();
         $report = ListReportData::make($user);
 
         // Act

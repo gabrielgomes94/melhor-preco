@@ -16,7 +16,7 @@ class PricePresenterTest extends TestCase
     public function test_should_present_prices(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
 
         $product = ProductData::babyCarriage($user, [

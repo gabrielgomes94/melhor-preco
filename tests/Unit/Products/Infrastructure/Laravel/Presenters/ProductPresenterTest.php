@@ -16,7 +16,7 @@ class ProductPresenterTest extends TestCase
     {
         // Arrange
         $present = new ProductPresenter();
-        $user = UserData::make();
+        $user = UserData::persisted();
         $category = CategoryData::babyCarriage($user);
         $product = ProductData::babyCarriage($user, [], $category);
 

@@ -19,7 +19,7 @@ class ItemTest extends TestCase
     public function test_should_instantiate_sale_item(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $productBabyPacifier = ProductData::babyPacifier($user);
         $marketplace = MarketplaceData::magalu($user);
         $saleOrder = SaleOrderData::persisted(

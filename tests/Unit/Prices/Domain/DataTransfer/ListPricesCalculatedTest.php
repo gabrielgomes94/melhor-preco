@@ -18,7 +18,7 @@ class ListPricesCalculatedTest extends TestCase
     public function test_should_make_an_instance(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
 
         $price_1 = PriceData::persisted(

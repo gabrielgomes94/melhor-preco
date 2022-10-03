@@ -19,7 +19,7 @@ class UserTest extends TestCase
         $taxes = new Taxes(Percentage::fromPercentage(5.45), Percentage::fromPercentage(18));
 
         // Act
-        $instance = UserData::make();
+        $instance = UserData::persisted();
 
         // Assert
         $this->assertSame('usuario@email.com', $instance->getEmail());
@@ -38,7 +38,7 @@ class UserTest extends TestCase
     public function test_should_set_erp(): void
     {
         // Arrange
-        $instance = UserData::make();
+        $instance = UserData::persisted();
         $erp = new Erp('new-token', 'tiny-erp');
 
         // Act
@@ -52,7 +52,7 @@ class UserTest extends TestCase
     public function test_should_set_password(): void
     {
         // Arrange
-        $instance = UserData::make();
+        $instance = UserData::persisted();
 
         // Act
         $instance->setPassword('$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
@@ -67,7 +67,7 @@ class UserTest extends TestCase
     public function test_should_set_profile(): void
     {
         // Arrange
-        $instance = UserData::make();
+        $instance = UserData::persisted();
 
         // Act
         $instance->setProfile('Supermercados Almeida', '+553532147450', '25537773023');
@@ -81,7 +81,7 @@ class UserTest extends TestCase
     public function test_should_set_taxes(): void
     {
         // Arrange
-        $instance = UserData::make();
+        $instance = UserData::persisted();
         $taxes = new Taxes(
             Percentage::fromPercentage(6.134),
             Percentage::fromPercentage(17)

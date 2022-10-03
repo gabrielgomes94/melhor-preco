@@ -15,7 +15,7 @@ class InvoiceTest extends TestCase
     public function test_should_instantiate_invoice(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $saleOrder = SaleOrderData::persisted($user);
 
         // Act

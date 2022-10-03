@@ -25,7 +25,7 @@ class CalculatedPricePresenterTest extends TestCase
             new CommissionRepository()
         );
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user);
         $calculatedPrice = new CalculatedPrice(

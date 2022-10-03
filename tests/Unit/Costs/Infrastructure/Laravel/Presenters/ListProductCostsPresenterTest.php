@@ -20,7 +20,7 @@ class ListProductCostsPresenterTest extends TestCase
     {
         // Arrange
         $presenter = new ListProductCostsPresenter();
-        $user = UserData::make();
+        $user = UserData::persisted();
 
         // Act
         $result = $presenter->present(

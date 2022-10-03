@@ -19,7 +19,7 @@ class SyncPricesTest extends TestCase
         // Arrange
         Queue::fake();
         $synchronizeFromMarketplace = Mockery::mock(SynchronizeFromMarketplace::class);
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
         $job = new SyncPrices($marketplace, 1, 'active');
 
@@ -40,7 +40,7 @@ class SyncPricesTest extends TestCase
         // Arrange
         Queue::fake();
         $synchronizeFromMarketplace = Mockery::mock(SynchronizeFromMarketplace::class);
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
         $job = new SyncPrices($marketplace, 1, 'active');
 
@@ -61,7 +61,7 @@ class SyncPricesTest extends TestCase
         // Arrange
         Queue::fake();
         $synchronizeFromMarketplace = Mockery::mock(SynchronizeFromMarketplace::class);
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
         $job = new SyncPrices($marketplace, 11, 'active');
 

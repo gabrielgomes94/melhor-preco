@@ -19,7 +19,7 @@ class UploadImagesTest extends TestCase
         // Arrange
         $productRepository = Mockery::mock(ProductRepository::class);
         $service = new UploadImages($productRepository);
-        $user = UserData::make();
+        $user = UserData::persisted();
         $productImages = new ProductImages(
             'Cadeira de Bebê',
             '1234',

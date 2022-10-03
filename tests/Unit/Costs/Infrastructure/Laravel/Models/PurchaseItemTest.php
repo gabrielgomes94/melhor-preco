@@ -19,7 +19,7 @@ class PurchaseItemTest extends TestCase
     {
         // Arrange
         $data = PurchaseItemsData::getPayload();
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::make();
         $purchaseInvoice->uuid = 'c0c68005-1ce8-429b-8c1d-1c4b986343a7';
         $product = ProductData::babyCarriage($user);

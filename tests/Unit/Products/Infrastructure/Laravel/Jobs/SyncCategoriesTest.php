@@ -15,7 +15,7 @@ class SyncCategoriesTest extends TestCase
     public function test_should_handle(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $job = new SyncCategories($user);
 
         $service = Mockery::mock(SyncCategoriesService::class);

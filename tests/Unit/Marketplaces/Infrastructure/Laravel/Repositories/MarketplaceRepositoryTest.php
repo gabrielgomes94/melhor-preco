@@ -19,7 +19,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_create_marketplace(): void
     {
         // Arrange
-        UserData::make(['id' => 1]);
+        UserData::persisted(['id' => 1]);
         $data = MarketplaceSettingsData::make();
 
         $repository = $this->app->get(MarketplaceRepository::class);
@@ -35,7 +35,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_not_create_marketplace_when_slug_already_exists(): void
     {
         // Arrange
-        $user = UserData::make(['id' => 1]);
+        $user = UserData::persisted(['id' => 1]);
         MarketplaceData::magalu($user);
         $data = MarketplaceSettingsData::make(['slug' => 'magalu']);
 
@@ -51,7 +51,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_get_marketplace_by_erp_id(): void
     {
         // Arrange
-        MarketplaceData::magalu(UserData::make(['id' => 1]));
+        MarketplaceData::magalu(UserData::persisted(['id' => 1]));
         $repository = $this->app->get(MarketplaceRepository::class);
 
         // Act
@@ -76,7 +76,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_get_marketplace_by_slug(): void
     {
         // Arrange
-        MarketplaceData::shopee(UserData::make(['id' => 1]));
+        MarketplaceData::shopee(UserData::persisted(['id' => 1]));
         $repository = $this->app->get(MarketplaceRepository::class);
 
         // Act
@@ -101,7 +101,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_list_marketplaces(): void
     {
         // Arrange
-        $user = UserData::make(['id' => 1]);
+        $user = UserData::persisted(['id' => 1]);
         MarketplaceData::magalu($user);
         MarketplaceData::shopee($user);
         MarketplaceData::olist($user);
@@ -118,7 +118,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_update_marketplace(): void
     {
         // Arrange
-        $user = UserData::make(['id' => 1]);
+        $user = UserData::persisted(['id' => 1]);
         $marketplace = MarketplaceData::shopee($user);
         $data = MarketplaceSettingsData::make([
             'isActive' => false,
@@ -139,7 +139,7 @@ class MarketplaceRepositoryTest extends TestCase
     public function test_should_not_update_marketplace_when_slugs_already_exists(): void
     {
         // Arrange
-        $user = UserData::make(['id' => 1]);
+        $user = UserData::persisted(['id' => 1]);
         $marketplaceToUpdate = MarketplaceData::shopee($user);
         MarketplaceData::magalu($user);
         $data = MarketplaceSettingsData::make(['slug' => 'magalu']);

@@ -22,7 +22,7 @@ class ShowProductCostsTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
     }
 
     public function test_show_product_costs(): void

@@ -14,7 +14,7 @@ class ResetUserPasswordTest extends TestCase
     public function test_should_reset_user_password(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $resetUserPassword = new ResetUserPassword();
 
         // Act

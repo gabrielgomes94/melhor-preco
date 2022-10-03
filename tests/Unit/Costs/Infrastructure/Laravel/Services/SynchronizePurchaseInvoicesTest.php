@@ -26,7 +26,7 @@ class SynchronizePurchaseInvoicesTest extends TestCase
         $userRepository = m::mock(UserRepository::class);
         $synchronizePurchaseInvoices = new SynchronizePurchaseInvoices($dbRepository, $erpRepository, $userRepository);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
 
         $purchaseInvoicesFromERP = [
             PurchaseInvoiceData::make(),

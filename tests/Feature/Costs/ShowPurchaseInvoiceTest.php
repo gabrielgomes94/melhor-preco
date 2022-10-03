@@ -22,7 +22,7 @@ class ShowPurchaseInvoiceTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
     }
 
     public function test_should_show_purchase_invoices_detailed(): void

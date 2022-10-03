@@ -30,7 +30,7 @@ class ProductTest extends TestCase
     public function test_should_instantiate_product(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $marketplace = MarketplaceData::shopee($user);
         $category = CategoryData::babyCarriage($user);
@@ -91,7 +91,7 @@ class ProductTest extends TestCase
     public function test_product_relationships(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $marketplace = MarketplaceData::shopee($user);
         $category = CategoryData::babyCarriage($user);
@@ -121,7 +121,7 @@ class ProductTest extends TestCase
     public function test_should_set_costs_on_product(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $marketplace = MarketplaceData::shopee($user);
         $instance = ProductData::babyCarriage(
