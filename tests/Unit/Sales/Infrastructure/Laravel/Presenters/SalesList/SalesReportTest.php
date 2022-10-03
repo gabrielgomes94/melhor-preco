@@ -3,12 +3,15 @@
 namespace Src\Sales\Infrastructure\Laravel\Presenters\SalesList;
 
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Data\Domain\Sales\ListReportData;
 use Tests\Data\Models\Users\UserData;
 use Tests\TestCase;
 
 class SalesReportTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_should_present_sales_report(): void
     {
         // Arrange
