@@ -10,6 +10,42 @@ use Src\Users\Infrastructure\Laravel\Models\User;
 
 class SaleOrderData
 {
+    public static function sale_100(
+        User $user,
+        array $data = [],
+        array $saleItems = [],
+        ?Marketplace $marketplace = null
+    ): SaleOrder
+    {
+        $data = array_merge(
+            $data,
+            [
+                'sale_order_id' => '100',
+                'store_sale_order_id' => '01',
+            ],
+        );
+
+        return SaleOrderData::persisted($user, $data, $saleItems, $marketplace);
+    }
+
+    public static function sale_101(
+        User $user,
+        array $data = [],
+        array $saleItems = [],
+        ?Marketplace $marketplace = null
+    ): SaleOrder
+    {
+        return SaleOrderData::persisted(
+            user: $user,
+            data: [
+                'sale_order_id' => '101',
+                'store_sale_order_id' => '12',
+            ],
+            saleItems: $saleItems,
+            marketplace: $marketplace
+        );
+    }
+
     public static function persisted(
         User $user,
         array $data = [],
@@ -20,7 +56,6 @@ class SaleOrderData
         $data = array_merge(
             [
                 'sale_order_id' => '100',
-                'purchase_order_id' => '10',
                 'integration' => 'bling',
                 'store_id' => '1234567',
                 'store_sale_order_id' => '12',

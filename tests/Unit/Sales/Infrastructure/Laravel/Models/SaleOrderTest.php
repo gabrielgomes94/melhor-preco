@@ -43,9 +43,8 @@ class SaleOrderTest extends TestCase
         $identifiers = new SaleIdentifiers(
             '100',
             '9988ee3a-a462-4c58-aaf7-4db8bc88fcf4',
-            '10',
             'bling',
-            '1234567',
+            '123456',
             '12',
         );
         $this->assertEquals($identifiers, $instance->getIdentifiers());

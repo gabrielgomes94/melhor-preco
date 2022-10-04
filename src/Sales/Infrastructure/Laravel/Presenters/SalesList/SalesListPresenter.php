@@ -30,7 +30,6 @@ class SalesListPresenter
 
             $presented[] = [
                 'saleOrderCode' => $identifiers->saleOrderId(),
-                'purchaseSaleOrderId' => $identifiers->purchaseSaleOrderId(),
                 'storeSaleOrderId' => $identifiers->storeSaleOrderId(),
                 'selledAt' => $this->presentSelledAt($saleOrder),
                 'store' => $this->presentStore($identifiers, $userId),

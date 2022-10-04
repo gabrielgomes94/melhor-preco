@@ -32,8 +32,17 @@ class SalesReportTest extends TestCase
                     'selledAt' => '12/12/2021',
                     'store' => 'Shopee',
                     'value' => 'R$ 100,00',
-                    'products' => [],
-                    'productsInTooltip' => '',
+                    'products' => [
+                        [
+                            'formattedName' => '777 - Chupeta',
+                            'sku' => '777',
+                        ],
+                        [
+                            'formattedName' => '777 - Chupeta',
+                            'sku' => '777',
+                        ],
+                    ],
+                    'productsInTooltip' => '777 - Chupeta;777 - Chupeta',
                     'productsValue' => 1.0,
                     'profit' => 'R$ 20,00',
                     'status' => 'Registrada',

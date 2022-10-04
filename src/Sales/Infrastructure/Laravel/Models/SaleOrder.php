@@ -33,7 +33,6 @@ class SaleOrder extends Model implements SaleOrderInterface
 
     protected $fillable = [
         'sale_order_id',
-        'purchase_order_id',
         'integration',
         'store_id',
         'store_sale_order_id',

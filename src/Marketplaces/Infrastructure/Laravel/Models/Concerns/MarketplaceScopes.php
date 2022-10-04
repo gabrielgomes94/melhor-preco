@@ -11,7 +11,7 @@ trait MarketplaceScopes
         return $query->where('erp_id', $erpId);
     }
 
-    public function scopeWithUser(Builder $query, string $userId): Builder
+    public function scopeFromUser(Builder $query, string $userId): Builder
     {
         return $query->where('user_id', (int) $userId);
     }

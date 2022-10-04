@@ -3,6 +3,7 @@
 namespace Src\Sales\Infrastructure\Bling\Responses\Transformers;
 
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 use Src\Sales\Domain\Models\ValueObjects\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\SaleValue;
@@ -17,8 +18,8 @@ class Transformer
     {
         $saleOrder = new SaleOrder();
         $saleOrder->identifiers = new SaleIdentifiers(
-            id: $data['numero'],
-            purchaseOrderId: $data['numeroOrdemCompra'] ?? '',
+            saleOrderId: $data['numero'],
+            uuid: Uuid::uuid4(),
             integration: $data['tipoIntegracao'] ?? null,
             storeId: $data['loja'] ?? null,
             storeSaleOrderId: $data['numeroPedidoLoja'] ?? null

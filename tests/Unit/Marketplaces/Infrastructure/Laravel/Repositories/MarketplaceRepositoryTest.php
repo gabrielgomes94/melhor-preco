@@ -29,7 +29,7 @@ class MarketplaceRepositoryTest extends TestCase
 
         // Assert
         $this->assertInstanceOf(Marketplace::class, $result);
-        $this->assertCount(1, MarketplaceModel::withUser(1)->get());
+        $this->assertCount(1, MarketplaceModel::fromUser(1)->get());
     }
 
     public function test_should_not_create_marketplace_when_slug_already_exists(): void

@@ -64,6 +64,8 @@ class Product extends Model implements ProductModelInterface
 
     protected $primaryKey = 'uuid';
 
+    protected $table = 'products';
+
     public $keyType = 'string';
 
     public $incrementing = false;

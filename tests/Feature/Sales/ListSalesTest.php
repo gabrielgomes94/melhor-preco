@@ -39,10 +39,9 @@ class ListSalesTest extends FeatureTestCase
         $this->response->assertViewHas('saleOrders', [
             [
                 'saleOrderCode' => '101',
-                'purchaseSaleOrderId' => '11',
                 'storeSaleOrderId' => '12',
                 'selledAt' => '12/12/2021',
-                'store' => '',
+                'store' => 'Shopee',
                 'value' => 'R$ 100,00',
                 'products' => [
                     [
@@ -73,10 +72,9 @@ class ListSalesTest extends FeatureTestCase
             ],
             [
                 'saleOrderCode' => '101',
-                'purchaseSaleOrderId' => '11',
                 'storeSaleOrderId' => '12',
                 'selledAt' => '12/12/2021',
-                'store' => '',
+                'store' => 'Olist',
                 'value' => 'R$ 899,00',
                 'products' => [
                     [
@@ -91,10 +89,9 @@ class ListSalesTest extends FeatureTestCase
             ],
             [
                 'saleOrderCode' => '100',
-                'purchaseSaleOrderId' => '10',
                 'storeSaleOrderId' => '12',
                 'selledAt' => '12/12/2021',
-                'store' => '',
+                'store' => 'Shopee',
                 'value' => 'R$ 1.450,00',
                 'products' => [
                     [
@@ -117,7 +114,16 @@ class ListSalesTest extends FeatureTestCase
             'endDate' => '31/12/9999',
             'salesCount' => 3,
             'productsCount' => 8,
-            'storesCount' => [],
+            'storesCount' => [
+                'olist' => [
+                    'count' => 0,
+                    'name' => 'Olist',
+                ],
+                'shopee' => [
+                    'count' => '0',
+                    'name' => 'Shopee',
+                ],
+            ],
             'value' => 'R$ 2.449,00',
             'profit' => 'R$ 390,00',
         ]);

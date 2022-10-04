@@ -103,7 +103,7 @@ class Marketplace extends Model implements MarketplaceInterface
     {
         $userId = $this->getUser()->getId();
 
-        $count = self::withUser($userId)
+        $count = self::fromUser($userId)
             ->withSlug($this->getSlug())
             ->where('uuid', '!=',  $this->getUuid())
             ->count();

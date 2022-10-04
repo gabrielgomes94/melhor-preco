@@ -4,6 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Services;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Src\Sales\Infrastructure\Laravel\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
@@ -24,10 +25,18 @@ class SynchronizeSales
     {
         $data = $this->erpRepository->list($user->getErpToken());
 
+        /**
+         * @var SaleOrder $saleOrder
+         */
         foreach ($data as $saleOrder) {
             try {
                 if (!$saleOrderModel = $this->getSaleOrder($saleOrder, $user->getId())) {
-                    $this->insertSaleOrder($saleOrder, $user->getId());
+                    try {
+                        $this->insertSaleOrder($saleOrder, $user->getId());
+                    } catch (Exception $exception) {
+                        Log::alert($exception->getMessage());
+                    }
+
 
                     continue;
                 }

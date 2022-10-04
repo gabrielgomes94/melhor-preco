@@ -41,20 +41,20 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
     public function getByErpId(string $marketplaceErpId, string $userId): ?Marketplace
     {
         return MarketplaceModel::withErpId($marketplaceErpId)
-            ->withUser($userId)
+            ->fromUser($userId)
             ->first();
     }
 
     public function getBySlug(string $marketplaceSlug, string $userId): ?Marketplace
     {
         return MarketplaceModel::withSlug($marketplaceSlug)
-            ->withUser($userId)
+            ->fromUser($userId)
             ->first();
     }
 
     public function list(string $userId): array
     {
-        return MarketplaceModel::withUser($userId)
+        return MarketplaceModel::fromUser($userId)
             ->orderBy('slug')
             ->get()
             ->all();
@@ -95,6 +95,6 @@ class MarketplaceRepository implements MarketplaceRepositoryInterface
 
     public function first(string $userId): ?Marketplace
     {
-        return MarketplaceModel::withUser($userId)->get()?->first();
+        return MarketplaceModel::fromUser($userId)->get()?->first();
     }
 }

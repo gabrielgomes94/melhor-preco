@@ -28,7 +28,6 @@ class SalesListPresenterTest extends TestCase
         $expected = [
             [
                 'saleOrderCode' => '100',
-                'purchaseSaleOrderId' => '10',
                 'storeSaleOrderId' => '12',
                 'selledAt' => '12/12/2021',
                 'store' => 'Shopee',
@@ -50,7 +49,6 @@ class SalesListPresenterTest extends TestCase
             ],
             [
                 'saleOrderCode' => '101',
-                'purchaseSaleOrderId' => '11',
                 'storeSaleOrderId' => '12',
                 'selledAt' => '12/12/2021',
                 'store' => 'Shopee',
@@ -84,7 +82,6 @@ class SalesListPresenterTest extends TestCase
             ],
             [
                 'saleOrderCode' => '101',
-                'purchaseSaleOrderId' => '11',
                 'storeSaleOrderId' => '12',
                 'selledAt' => '12/12/2021',
                 'store' => 'Olist',

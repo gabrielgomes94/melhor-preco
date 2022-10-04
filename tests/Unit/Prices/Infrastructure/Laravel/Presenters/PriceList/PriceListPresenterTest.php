@@ -114,35 +114,14 @@ class PriceListPresenterTest extends TestCase
                 'parentSku' => null,
             ],
             [
-                'sku' => '821',
-                'name' => 'Cobertor',
+                'sku' => '822',
+                'name' => 'Cobertor Vermelho',
                 'price' => 'R$ 79,90',
                 'profit' => 'R$ 10,11',
                 'margin' => '12,67 %',
                 'quantity' => 10.0,
-                'variations' => [
-                    [
-                        'sku' => '822',
-                        'name' => 'Cobertor Vermelho',
-                        'price' => 'R$ 79,90',
-                        'profit' => 'R$ 10,11',
-                        'margin' => '12,67 %',
-                        'quantity' => 10.0,
-                        'variations' => [],
-                        'parentSku' => '821',
-                    ],
-                    [
-                        'sku' => '823',
-                        'name' => 'Cobertor Azul',
-                        'price' => 'R$ 79,90',
-                        'profit' => 'R$ 10,11',
-                        'margin' => '12,67 %',
-                        'quantity' => 10.0,
-                        'variations' => [],
-                        'parentSku' => '821',
-                    ],
-                ],
-                'parentSku' => null,
+                'variations' => [],
+                'parentSku' => '821',
             ]
         ];
         $this->assertSame($expectedProducts, $result['products']);

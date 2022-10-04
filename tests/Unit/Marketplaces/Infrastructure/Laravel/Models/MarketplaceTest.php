@@ -151,7 +151,7 @@ class MarketplaceTest extends TestCase
         MarketplaceData::magalu($user);
 
         // Act
-        $result = Marketplace::withUser('1');
+        $result = Marketplace::fromUser('1');
 
         // Assert
         $this->assertInstanceOf(Builder::class, $result);

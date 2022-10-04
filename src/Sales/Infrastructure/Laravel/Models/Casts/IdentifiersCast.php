@@ -16,7 +16,6 @@ class IdentifiersCast implements CastsAttributes
         return new SaleIdentifiers(
             saleOrderId: $model->sale_order_id,
             uuid: $model->uuid,
-            purchaseOrderId: $model->purchase_order_id,
             integration: $model->integration,
             storeId: $model->store_id,
             storeSaleOrderId: $model->store_sale_order_id
@@ -34,7 +33,6 @@ class IdentifiersCast implements CastsAttributes
 
         return [
             'sale_order_id' => $value->saleOrderId(),
-            'purchase_order_id' => $value->purchaseSaleOrderId(),
             'integration' => $value->integration(),
             'store_id' => $value->storeId(),
             'store_sale_order_id' => $value->storeSaleOrderId(),

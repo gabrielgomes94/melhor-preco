@@ -3,6 +3,7 @@
 namespace Src\Sales\Infrastructure\Laravel\Repositories;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
@@ -108,8 +109,9 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         string $userId
     ): SaleOrderInterface
     {
-        $marketplace = $this->marketplaceRepository->getByErpId($externalSaleOrder->store_id, $userId);
-
+        $marketplace = $this->marketplaceRepository->getByErpId(
+            $externalSaleOrder->store_id ?? '',
+            $userId);
         $externalSaleOrder->user_id = $userId;
         $externalSaleOrder->marketplace_uuid = $marketplace?->getUuid() ?? null;
         $externalSaleOrder->uuid = Uuid::uuid4();

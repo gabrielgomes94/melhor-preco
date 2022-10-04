@@ -74,6 +74,14 @@ class MarketplaceData
 
     private static function persisted(User $user, array $data = []): Marketplace
     {
+        $marketplace = Marketplace::fromUser($user->id)
+            ->withSlug($data['slug'])
+            ->first();
+
+        if ($marketplace) {
+            return $marketplace;
+        }
+
         $marketplace = new Marketplace($data);
         $marketplace->erp_name = 'bling';
         $marketplace->is_active = true;
