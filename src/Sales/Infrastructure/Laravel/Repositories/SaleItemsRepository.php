@@ -15,8 +15,8 @@ class SaleItemsRepository implements ItemRepositoryRepository
     {
         return Item::with(['product', 'saleOrder'])
             ->join(
-                'sale_orders',
-                'sale_orders.sale_order_id',
+                'sales_orders',
+                'sales_orders.sale_order_id',
                 '=',
                 'sales_items.sale_order_id'
             )
@@ -33,8 +33,8 @@ class SaleItemsRepository implements ItemRepositoryRepository
 
         return Item::with(['product', 'saleOrder'])
             ->join(
-                'sale_orders',
-                'sale_orders.sale_order_id',
+                'sales_orders',
+                'sales_orders.sale_order_id',
                 '=',
                 'sales_items.sale_order_id'
             )
