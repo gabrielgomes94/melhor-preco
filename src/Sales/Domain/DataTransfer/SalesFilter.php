@@ -8,30 +8,25 @@ class SalesFilter
 {
     public const PER_PAGE = 40;
 
-    private const DATE_FORMAT = 'd/m/Y';
+    public const DATE_FORMAT = 'd/m/Y';
 
-    private Carbon $beginDate;
-    private Carbon $endDate;
-    private int $page;
-    private int $perPage = self::PER_PAGE;
-    private string $url;
-    private string $userId;
+    public function __construct(
+        private string $userId,
+        private ?Carbon $beginDate = null,
+        private ?Carbon $endDate = null,
+        private ?string $url = null,
+        private int $page = 1,
+        private int $perPage = self::PER_PAGE,
+    )
+    {}
 
-    public function __construct(array $options = [])
-    {
-        $this->beginDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['beginDate'] ?? '01/01/1970');
-        $this->endDate = Carbon::createFromFormat(self::DATE_FORMAT, $options['endDate'] ?? '31/12/9999');
-        $this->page = $options['page'] ?? 1;
-        $this->url = $options['url'] ?? '';
-        $this->userId = $options['userId'] ?? '';
-    }
 
-    public function getBeginDate(): Carbon
+    public function getBeginDate(): ?Carbon
     {
         return $this->beginDate;
     }
 
-    public function getEndDate(): Carbon
+    public function getEndDate(): ?Carbon
     {
         return $this->endDate;
     }
@@ -46,7 +41,7 @@ class SalesFilter
         return $this->perPage;
     }
 
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }

@@ -38,8 +38,8 @@ class SalesReport
         $metadata = $report->metadata;
 
         return [
-            'beginDate' => $beginDate->format('d/m/Y'),
-            'endDate' => $endDate->format('d/m/Y'),
+            'beginDate' => $beginDate?->format('d/m/Y'),
+            'endDate' => $endDate?->format('d/m/Y'),
             'salesCount' => $metadata->salesCount,
             'productsCount' => $metadata->productsCount,
             'storesCount' => $this->presentMarketplacesCount($metadata->marketplacesCount),

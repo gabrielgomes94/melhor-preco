@@ -22,18 +22,11 @@ class ListReportData
         $product = ProductData::babyPacifier($user);
 
         $sales = new SaleOrdersCollection([
-            SaleOrderData::persisted(
-                user: $user,
-                saleItems: [
-                    SaleItemData::make($product),
-                    SaleItemData::make($product),
-                ],
-                marketplace: $marketplace,
-            ),
-            SaleOrderData::persisted(user: $user, marketplace: $marketplace),
-            SaleOrderData::persisted(user: $user, marketplace: $marketplace),
-            SaleOrderData::persisted(user: $user, marketplace: $marketplace),
-            SaleOrderData::persisted(user: $user, marketplace: $marketplace),
+            SaleOrderData::sale_100(user: $user, marketplace: $marketplace),
+            SaleOrderData::sale_101(user: $user, marketplace: $marketplace),
+            SaleOrderData::sale_102(user: $user, marketplace: $marketplace),
+            SaleOrderData::sale_103(user: $user, marketplace: $marketplace),
+            SaleOrderData::sale_104(user: $user, marketplace: $marketplace),
         ]);
 
         $marketplaceSales = new MarketplaceSales(
@@ -55,7 +48,7 @@ class ListReportData
             350.0
         );
 
-        $filter = new SalesFilter(['userId' => $user->getId()]);
+        $filter = new SalesFilter($user->getId());
 
         return new ListReport(
             $metadata,

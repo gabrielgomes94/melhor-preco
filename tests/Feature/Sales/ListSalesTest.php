@@ -38,61 +38,45 @@ class ListSalesTest extends FeatureTestCase
         $this->response->assertViewHas('paginator');
         $this->response->assertViewHas('saleOrders', [
             [
-                'saleOrderCode' => '101',
-                'storeSaleOrderId' => '12',
+                'saleOrderCode' => '104',
+                'storeSaleOrderId' => '15',
                 'selledAt' => '12/12/2021',
                 'store' => 'Shopee',
-                'value' => 'R$ 100,00',
+                'value' => 'R$ 1.399,90',
                 'products' => [
                     [
-                        'formattedName' => '777 - Chupeta',
-                        'sku' => '777',
-                    ],
-                    [
-                        'formattedName' => '777 - Chupeta',
-                        'sku' => '777',
-                    ],
-                    [
-                        'formattedName' => '777 - Chupeta',
-                        'sku' => '777',
-                    ],
-                    [
-                        'formattedName' => '777 - Chupeta',
-                        'sku' => '777',
-                    ],
-                    [
-                        'formattedName' => '777 - Chupeta',
-                        'sku' => '777',
+                        'formattedName' => '601 - Kit Berço e Carrinho',
+                        'sku' => '601',
                     ],
                 ],
-                'productsInTooltip' => '777 - Chupeta;777 - Chupeta;777 - Chupeta;777 - Chupeta;777 - Chupeta',
-                'productsValue' => 1.0,
-                'profit' => 'R$ 20,00',
+                'productsInTooltip' => '601 - Kit Berço e Carrinho',
+                'quantity' => 1.0,
+                'profit' => 'R$ 145,00',
                 'status' => 'Registrada',
             ],
             [
-                'saleOrderCode' => '101',
-                'storeSaleOrderId' => '12',
+                'saleOrderCode' => '103',
+                'storeSaleOrderId' => '14',
                 'selledAt' => '12/12/2021',
-                'store' => 'Olist',
-                'value' => 'R$ 899,00',
+                'store' => 'Shopee',
+                'value' => 'R$ 612,15',
                 'products' => [
                     [
-                        'formattedName' => '1234 - Carrinho de Bebê',
-                        'sku' => '1234',
+                        'formattedName' => '589 - Berço',
+                        'sku' => '589',
                     ],
                 ],
-                'productsInTooltip' => '1234 - Carrinho de Bebê',
-                'productsValue' => 1.0,
-                'profit' => 'R$ 120,00',
+                'productsInTooltip' => '589 - Berço',
+                'quantity' => 1.0,
+                'profit' => 'R$ 85,00',
                 'status' => 'Registrada',
             ],
             [
-                'saleOrderCode' => '100',
-                'storeSaleOrderId' => '12',
+                'saleOrderCode' => '102',
+                'storeSaleOrderId' => '13',
                 'selledAt' => '12/12/2021',
                 'store' => 'Shopee',
-                'value' => 'R$ 1.450,00',
+                'value' => 'R$ 1.599,80',
                 'products' => [
                     [
                         'formattedName' => '1234 - Carrinho de Bebê',
@@ -104,28 +88,62 @@ class ListSalesTest extends FeatureTestCase
                     ],
                 ],
                 'productsInTooltip' => '1234 - Carrinho de Bebê;987 - Cadeirinha para Carros',
-                'productsValue' => 1.0,
-                'profit' => 'R$ 250,00',
+                'quantity' => 2.0,
+                'profit' => 'R$ 200,00',
                 'status' => 'Registrada',
-            ]
+            ],
+            [
+                'saleOrderCode' => '101',
+                'storeSaleOrderId' => '12',
+                'selledAt' => '12/12/2021',
+                'store' => 'Shopee',
+                'value' => 'R$ 899,90',
+                'products' => [
+                    [
+                        'formattedName' => '1234 - Carrinho de Bebê',
+                        'sku' => '1234',
+                    ],
+                ],
+                'productsInTooltip' => '1234 - Carrinho de Bebê',
+                'quantity' => 1.0,
+                'profit' => 'R$ 120,00',
+                'status' => 'Registrada',
+            ],
+            [
+                'saleOrderCode' => '100',
+                'storeSaleOrderId' => '01',
+                'selledAt' => '12/12/2021',
+                'store' => 'Shopee',
+                'value' => 'R$ 39,79',
+                'products' => [
+                    [
+                        'formattedName' => '777 - Chupeta',
+                        'sku' => '777',
+                    ],
+                    [
+                        'formattedName' => '777 - Chupeta',
+                        'sku' => '777',
+                    ],
+                ],
+                'productsInTooltip' => '777 - Chupeta;777 - Chupeta',
+                'quantity' => 2.0,
+                'profit' => 'R$ 6,00',
+                'status' => 'Registrada',
+            ],
         ]);
         $this->response->assertViewHas('total', [
-            'beginDate' => '01/01/1970',
-            'endDate' => '31/12/9999',
-            'salesCount' => 3,
-            'productsCount' => 8,
+            'beginDate' => null,
+            'endDate' => null,
+            'salesCount' => 5,
+            'productsCount' => 6,
             'storesCount' => [
-                'olist' => [
-                    'count' => 0,
-                    'name' => 'Olist',
-                ],
                 'shopee' => [
-                    'count' => '0',
+                    'count' => 0,
                     'name' => 'Shopee',
                 ],
             ],
-            'value' => 'R$ 2.449,00',
-            'profit' => 'R$ 390,00',
+            'value' => 'R$ 4.551,55',
+            'profit' => 'R$ 556,00',
         ]);
     }
 

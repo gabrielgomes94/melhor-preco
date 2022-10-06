@@ -7,7 +7,7 @@ use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class SaleItemData
 {
-    public static function make(Product $product)
+    public static function make(Product $product, array $data = [])
     {
         $item = new Item([
             'sku' => $product->getSku(),

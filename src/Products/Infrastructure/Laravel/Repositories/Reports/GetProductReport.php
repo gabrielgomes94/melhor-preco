@@ -27,10 +27,7 @@ class GetProductReport
             product: $data->product,
             salesReport: $this->salesReportsRepository->listProductSales(
                 $sku,
-                new SalesFilter([
-                    'page' => 1,
-                    'userId' => $userId,
-                ])
+                new SalesFilter(userId: $userId)
             )
         );
     }

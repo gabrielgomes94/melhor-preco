@@ -7,13 +7,13 @@ use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Users\Infrastructure\Laravel\Models\User;
+use Tests\Data\Models\Products\ProductData;
 
 class SaleOrderData
 {
     public static function sale_100(
         User $user,
         array $data = [],
-        array $saleItems = [],
         ?Marketplace $marketplace = null
     ): SaleOrder
     {
@@ -22,8 +22,21 @@ class SaleOrderData
             [
                 'sale_order_id' => '100',
                 'store_sale_order_id' => '01',
+                'total_profit' => 6,
+                'total_products' => 2,
+                'total_value' => 2 * 19.9,
             ],
         );
+
+        $saleItems = [
+            SaleItemData::make(
+                ProductData::babyPacifier($user),
+                [
+                    'quantity' => 2,
+                    'unitValue' => 19.90,
+                ]
+            )
+        ];
 
         return SaleOrderData::persisted($user, $data, $saleItems, $marketplace);
     }
@@ -31,19 +44,131 @@ class SaleOrderData
     public static function sale_101(
         User $user,
         array $data = [],
-        array $saleItems = [],
         ?Marketplace $marketplace = null
     ): SaleOrder
     {
-        return SaleOrderData::persisted(
-            user: $user,
-            data: [
+        $data = array_merge(
+            $data,
+            [
                 'sale_order_id' => '101',
                 'store_sale_order_id' => '12',
+                'total_profit' => 120.0,
+                'total_products' => 1,
+                'total_value' => 899.9
             ],
-            saleItems: $saleItems,
-            marketplace: $marketplace
         );
+
+        $saleItems = [
+            SaleItemData::make(
+                ProductData::babyCarriage($user),
+                [
+                    'quantity' => 1,
+                    'unitValue' => 899.90,
+                ]
+            )
+        ];
+
+        return SaleOrderData::persisted($user, $data, $saleItems, $marketplace);
+    }
+
+    public static function sale_102(
+        User $user,
+        array $data = [],
+        ?Marketplace $marketplace = null
+    ): SaleOrder
+    {
+        $data = array_merge(
+            $data,
+            [
+                'sale_order_id' => '102',
+                'store_sale_order_id' => '13',
+                'total_profit' => 200.0,
+                'total_products' => 2,
+                'total_value' => 899.9 + 599.9 + 100,
+                'freight' => 100,
+            ],
+        );
+
+        $saleItems = [
+            SaleItemData::make(
+                ProductData::babyCarriage($user),
+                [
+                    'quantity' => 1,
+                    'unitValue' => 899.90,
+                ]
+            ),
+            SaleItemData::make(
+                ProductData::babyChair($user),
+                [
+                    'quantity' => 1,
+                    'unitValue' => 599.90,
+                ]
+            ),
+        ];
+
+        return SaleOrderData::persisted($user, $data, $saleItems, $marketplace);
+    }
+
+    public static function sale_103(
+        User $user,
+        array $data = [],
+        ?Marketplace $marketplace = null
+    ): SaleOrder
+    {
+        $data = array_merge(
+            $data,
+            [
+                'sale_order_id' => '103',
+                'store_sale_order_id' => '14',
+                'total_profit' => 85.0,
+                'total_products' => 1,
+                'total_value' => 549.9 + 62.25,
+                'freight' => 62.25,
+            ],
+        );
+
+        $saleItems = [
+            SaleItemData::make(
+                ProductData::cradle($user),
+                [
+                    'quantity' => 1,
+                    'unitValue' => 549.90,
+                ]
+            )
+        ];
+
+        return SaleOrderData::persisted($user, $data, $saleItems, $marketplace);
+    }
+
+    public static function sale_104(
+        User $user,
+        array $data = [],
+        ?Marketplace $marketplace = null
+    ): SaleOrder
+    {
+        $data = array_merge(
+            $data,
+            [
+                'sale_order_id' => '104',
+                'store_sale_order_id' => '15',
+                'total_profit' => 145.0,
+                'total_products' => 1,
+                'total_value' => 1299.90 + 100,
+                'freight' => 100,
+            ],
+        );
+
+        $saleItems = [
+            SaleItemData::make(
+                ProductData::kitCradleAndCarriage($user),
+                [
+                    'quantity' => 1,
+                    'unitValue' => 1299.90,
+                ]
+            )
+        ];
+
+        return SaleOrderData::persisted($user, $data, $saleItems, $marketplace);
     }
 
     public static function persisted(

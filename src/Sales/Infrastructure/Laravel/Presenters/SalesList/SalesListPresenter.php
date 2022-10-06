@@ -36,7 +36,7 @@ class SalesListPresenter
                 'value' => NumberTransformer::toMoney($saleValue->totalValue()),
                 'products' => $products,
                 'productsInTooltip' => $this->presentProductsInTooltip($products),
-                'productsValue' => $saleValue->totalProducts(),
+                'quantity' => $saleValue->totalProducts(),
                 'profit' => $this->getProfit($saleOrder),
                 'status' => (string) $saleOrder->getStatus(),
             ];
