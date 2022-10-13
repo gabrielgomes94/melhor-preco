@@ -4,8 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
 use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
-use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
-use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSalesCollection;
+use Src\Sales\Domain\Reports\Product\ProductSalesCollection;
 
 class ProductSalesPresenter
 {
@@ -14,15 +13,15 @@ class ProductSalesPresenter
         $collection = collect($productSalesCollection->get());
 
         return $collection->transform(
-            fn (ProductSales $productSales) => [
+            fn (\Src\Sales\Domain\Reports\Product\ProductSales $productSales) => [
                 'sku' => $productSales->product->getSku(),
                 'name' => $productSales->product->getName(),
-                'count' => $productSales->count,
-                'average_price' => $this->formatPrice($productSales->averagePrice),
-                'average_profit' => $this->formatPrice($productSales->averageProfit),
-                'average_margin' => $this->formatPercentage($productSales->averageMargin),
-                'total_revenue' => $this->formatPrice($productSales->totalRevenue),
-                'total_profit' => $this->formatPrice($productSales->totalProfit),
+                'count' => $productSales->count(),
+                'average_price' => $this->formatPrice($productSales->getAveragePrice()),
+                'average_profit' => $this->formatPrice($productSales->getAverageProfit()),
+                'average_margin' => $this->formatPercentage($productSales->getAverageMargin()),
+                'total_revenue' => $this->formatPrice($productSales->getTotalRevenue()),
+                'total_profit' => $this->formatPrice($productSales->getTotalProfit()),
             ]
         )->toArray();
     }

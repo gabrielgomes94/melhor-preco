@@ -5,7 +5,7 @@ namespace Src\Sales\Infrastructure\Laravel\Presenters\SalesList;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Math\Transformers\NumberTransformer;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
-use Src\Sales\Domain\DataTransfer\Queries\SalesLists\MarketplaceSales;
+use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesListPresenter;
 

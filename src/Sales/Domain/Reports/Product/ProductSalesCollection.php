@@ -1,8 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\DataTransfer\Reports\Products;
-
-use Src\Sales\Domain\DataTransfer\Reports\Products\ProductSales;
+namespace Src\Sales\Domain\Reports\Product;
 
 class ProductSalesCollection
 {
@@ -11,7 +9,7 @@ class ProductSalesCollection
     public function __construct(array $productSalesCollection = [])
     {
         foreach ($productSalesCollection as $productSales) {
-            if ($productSales instanceof ProductSales) {
+            if ($productSales instanceof \Src\Sales\Domain\Reports\Product\ProductSales) {
                 $this->items[] = $productSales;
             }
         }

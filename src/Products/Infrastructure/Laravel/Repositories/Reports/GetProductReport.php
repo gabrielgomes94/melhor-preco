@@ -5,14 +5,15 @@ namespace Src\Products\Infrastructure\Laravel\Repositories\Reports;
 use Src\Costs\Infrastructure\Laravel\Repositories\Repository;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Products\Domain\Exceptions\ProductNotFoundException;
-use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Domain\Repositories\ReportsRepository;
+use Src\Sales\Application\Reports\Factories\ProductSalesInMarketplaceReport;
+use Src\Sales\Application\Reports\Factories\ProductSalesReport;
 
 class GetProductReport
 {
     public function __construct(
         private Repository $costsRepository,
-        private ReportsRepository $salesReportsRepository
+        private ProductSalesReport $productSalesReport,
+        private ProductSalesInMarketplaceReport $productSalesInMarketplaceReport,
     ){}
 
     /**
@@ -21,14 +22,14 @@ class GetProductReport
     public function get(string $sku, string $userId)
     {
         $data = $this->costsRepository->getProductCosts($sku, $userId);
+        $salesReport = $this->productSalesReport->report($sku, $userId);
+        $marketplaceSales = $this->productSalesInMarketplaceReport->report($sku, $userId);
 
         return new ProductInfoReport(
             costsItems: $data->purchaseItemCosts,
             product: $data->product,
-            salesReport: $this->salesReportsRepository->listProductSales(
-                $sku,
-                new SalesFilter(userId: $userId)
-            )
+            productSales: $salesReport,
+            marketplaceSales: $marketplaceSales
         );
     }
 }

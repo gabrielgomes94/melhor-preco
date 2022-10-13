@@ -3,8 +3,11 @@
 namespace Src\Sales\Domain\DataTransfer\Reports\Products;
 
 use Illuminate\Support\Collection;
-use Src\Sales\Domain\DataTransfer\Queries\SalesLists\MarketplaceSales;
+use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 
+/**
+ * @deprecated
+ */
 class SalesInMarketplaces
 {
     public readonly Collection $marketplacesSales;

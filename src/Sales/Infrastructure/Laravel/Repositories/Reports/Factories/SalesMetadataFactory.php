@@ -15,6 +15,9 @@ class SalesMetadataFactory
     {
     }
 
+    /**
+     * @todo Usar algum método do repositório para buscar as vendas
+     */
     public function report(SalesFilter $options): ListMetadata
     {
         $salesQuery = SaleOrder::valid()

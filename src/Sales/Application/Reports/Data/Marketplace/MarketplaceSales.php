@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Domain\DataTransfer\Queries\SalesLists;
+namespace Src\Sales\Application\Reports\Data\Marketplace;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
@@ -9,6 +9,9 @@ use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 
+/**
+ * @todo: usar SaleOrdersCollection ao invés de SaleItemsCollection
+ */
 class MarketplaceSales
 {
     public function __construct(

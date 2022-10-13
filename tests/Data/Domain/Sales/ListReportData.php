@@ -4,7 +4,7 @@ namespace Tests\Data\Domain\Sales;
 
 use Src\Sales\Domain\DataTransfer\Reports\ListMetadata;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
-use Src\Sales\Domain\DataTransfer\Queries\SalesLists\MarketplaceSales;
+use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;

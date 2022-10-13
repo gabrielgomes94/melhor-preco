@@ -210,9 +210,12 @@ class Product extends Model implements ProductModelInterface
         return $this->quantity;
     }
 
-    public function getSaleItems(): Collection
+    /**
+     * @inheritDoc
+     */
+    public function getSaleItems(): array
     {
-        return $this->items;
+        return $this->items->all();
     }
 
     public function getSku(): string
