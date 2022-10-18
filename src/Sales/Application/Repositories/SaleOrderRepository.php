@@ -1,12 +1,13 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Repositories;
+namespace Src\Sales\Application\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
+use Src\Sales\Application\Repositories\Queries\SalesQuery;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
@@ -17,7 +18,8 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
 {
     public function __construct(
         private readonly MarketplaceRepository $marketplaceRepository,
-        private readonly ProductRepository $productRepository
+        private readonly ProductRepository $productRepository,
+        private readonly SalesQuery $salesQuery
     )
     {}
 
@@ -43,16 +45,29 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
 
     public function listPaginate(SalesFilter $options)
     {
-        return SaleOrder::valid()
-            ->inDateInterval(
-                $options->getBeginDate(),
-                $options->getEndDate()
-            )
-            ->defaultOrder()
+        return $this->salesQuery->salesInInterval(
+            $options->getBeginDate(),
+            $options->getEndDate()
+        )->where('user_id', $options->getUserId())
             ->paginate(
-                page: $options->getPage(),
-                perPage: $options->getPerPage()
-            );
+            perPage: $options->getPerPage(),
+            page: $options->getPage()
+        );
+    }
+
+    public function list(
+        string $userId,
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
+    ): array
+    {
+        return $this->salesQuery->salesInInterval(
+            $beginDate,
+            $endDate
+        )
+            ->where('user_id', $userId)
+            ->get()
+            ->all();
     }
 
     public function insertSaleInvoice(

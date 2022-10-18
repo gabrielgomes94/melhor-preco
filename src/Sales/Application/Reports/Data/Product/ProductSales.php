@@ -47,14 +47,23 @@ class ProductSales implements \Src\Sales\Domain\Reports\Product\ProductSales
     public function getAverageProfit(): float
     {
         $saleItems = collect($this->saleItemsCollection);
-
-        return $saleItems->map(
+        $calculatedItems = $saleItems->map(
             fn (Item $item) => $this->calculateItem($item)
-        )->average();
+        );
+
+        if ($calculatedItems->isEmpty()) {
+            return 0.0;
+        }
+
+        return $calculatedItems->average();
     }
 
     public function getAverageMargin(): float
     {
+        if ($this->getAveragePrice() == 0) {
+            return 0;
+        }
+
         return $this->getAverageProfit() / $this->getAveragePrice();
     }
 

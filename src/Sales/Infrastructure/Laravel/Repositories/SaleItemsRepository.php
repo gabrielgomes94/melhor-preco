@@ -38,8 +38,8 @@ class SaleItemsRepository implements ItemRepositoryRepository
                 '=',
                 'sales_items.sale_order_id'
             )
-            ->where('selled_at', '>=', $beginDate)
-            ->where('selled_at', '<=', $endDate)
+            ->where('selled_at', '>=', $beginDate ?? Carbon::create(1970))
+            ->where('selled_at', '<=', $endDate ?? Carbon::create(9999))
             ->get()
             ->groupBy('sku');
     }

@@ -15,7 +15,7 @@ class SalesReportTest extends TestCase
     public function test_should_present_sales_report(): void
     {
         // Arrange
-        $salesReport = app(SalesReport::class);
+        $salesReport = app(SalesReportPresenter::class);
         $user = UserData::persisted();
         $report = ListReportData::make($user);
 

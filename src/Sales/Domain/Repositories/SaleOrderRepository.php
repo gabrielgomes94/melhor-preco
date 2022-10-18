@@ -14,6 +14,12 @@ interface SaleOrderRepository
 
     public function countSales(SalesFilter $options): int;
 
+    public function list(
+        string $userId,
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
+    ): array;
+
     public function listPaginate(SalesFilter $options);
 
     public function insertSaleInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;

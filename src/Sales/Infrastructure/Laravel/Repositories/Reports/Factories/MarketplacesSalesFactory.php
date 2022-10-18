@@ -9,6 +9,9 @@ use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 
+/**
+ * @deprecated
+ */
 class MarketplacesSalesFactory
 {
     public function __construct(

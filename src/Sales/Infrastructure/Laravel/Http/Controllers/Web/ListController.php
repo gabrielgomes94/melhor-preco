@@ -3,24 +3,23 @@
 namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Src\Sales\Application\Reports\Factories\SalesReport;
 use Src\Sales\Domain\Repositories\ReportsRepository;
 use Src\Sales\Infrastructure\Laravel\Http\Requests\SalesReportsRequest;
-use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesReport;
+use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesReportPresenter;
 
 class ListController extends Controller
 {
     public function __construct(
-        private readonly ReportsRepository $salesReportsRepository,
-        private readonly SalesReport $listSalesReport
+        private readonly SalesReport $salesReport,
+        private readonly SalesReportPresenter $listSalesReport
     ) {
     }
 
     public function list(SalesReportsRequest $request)
     {
-        $listReport = $this->salesReportsRepository->listSales(
-            $request->transform()
-        );
-        $data = $this->listSalesReport->present($listReport);
+        $listReport = $this->salesReport->report($request->transform());
+        $data = $this->listSalesReport->present($listReport, $request->transform());
 
         return view('pages.sales.list', $data);
     }

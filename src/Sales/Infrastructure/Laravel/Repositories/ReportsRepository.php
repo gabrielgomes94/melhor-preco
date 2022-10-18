@@ -9,24 +9,21 @@ use Src\Sales\Domain\Repositories\ReportsRepository as ReportsRepositoryInterfac
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\MostSelledProducts;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\SalesList;
 
+/**
+ * @deprecated
+ */
 class ReportsRepository implements ReportsRepositoryInterface
 {
     public function __construct(
         private readonly MostSelledProducts $mostSelledProducts,
-        private readonly SalesList $salesList,
-//        private readonly ProductSalesList $productSalesList
+//        private readonly SalesList $salesList,
     ) {
     }
 
-//    public function listProductSales(string $sku, SalesFilter $options): ProductReport
+//    public function listSales(SalesFilter $options): ListReport
 //    {
-//        return $this->productSalesList->report($sku, $options);
+//        return $this->salesList->report($options);
 //    }
-
-    public function listSales(SalesFilter $options): ListReport
-    {
-        return $this->salesList->report($options);
-    }
 
     public function listMostSelledProducts(SalesFilter $options): ProductSalesCollection
     {

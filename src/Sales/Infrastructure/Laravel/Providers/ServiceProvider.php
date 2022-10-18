@@ -10,7 +10,7 @@ use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInte
 use Src\Sales\Infrastructure\Bling\Repository as BlingRepository;
 use Src\Sales\Infrastructure\Laravel\Repositories\ReportsRepository;
 use Src\Sales\Infrastructure\Laravel\Repositories\SaleItemsRepository;
-use Src\Sales\Infrastructure\Laravel\Repositories\SaleOrderRepository;
+use Src\Sales\Application\Repositories\SaleOrderRepository;
 
 class ServiceProvider extends BaseServiceProvider
 {

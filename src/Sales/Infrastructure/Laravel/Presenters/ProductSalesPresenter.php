@@ -4,6 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Presenters;
 
 use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;
+use Src\Sales\Domain\Reports\Product\ProductSales;
 use Src\Sales\Domain\Reports\Product\ProductSalesCollection;
 
 class ProductSalesPresenter
@@ -13,7 +14,7 @@ class ProductSalesPresenter
         $collection = collect($productSalesCollection->get());
 
         return $collection->transform(
-            fn (\Src\Sales\Domain\Reports\Product\ProductSales $productSales) => [
+            fn (ProductSales $productSales) => [
                 'sku' => $productSales->product->getSku(),
                 'name' => $productSales->product->getName(),
                 'count' => $productSales->count(),

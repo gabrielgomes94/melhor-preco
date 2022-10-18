@@ -8,13 +8,31 @@ use Src\Products\Domain\Models\Product;
 use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Repositories\Queries\SalesQuery;
 
 class MarketplaceSalesRepository
 {
     public function __construct(
-        private ProductSalesRepository $productSalesRepository
+        private ProductSalesRepository $productSalesRepository,
+        private readonly SalesQuery $salesQuery
     )
     {}
+
+    public function getSales(
+        Marketplace $marketplace,
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
+    ): MarketplaceSales
+    {
+        $query = $this->salesQuery->salesInInterval($beginDate, $endDate);
+        $saleItems = new SaleItemsCollection(
+            $query->where('store_id', $marketplace->getErpId())
+                ->get()
+                ->toArray()
+        );
+
+        return new MarketplaceSales($marketplace, $saleItems);
+    }
 
     public function getSalesByProduct(
         Product $product,

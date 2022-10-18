@@ -2,6 +2,9 @@
 
 namespace Src\Sales\Domain\DataTransfer\Reports;
 
+/**
+ * @deprecated
+ */
 class ListMetadata
 {
     public function __construct(

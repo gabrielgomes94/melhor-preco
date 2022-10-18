@@ -4,47 +4,43 @@ namespace Src\Sales\Infrastructure\Laravel\Presenters\SalesList;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Math\Transformers\NumberTransformer;
+use Src\Sales\Application\Reports\Data\Sales\SalesList;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
 use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesListPresenter;
 
-class SalesReport
+class SalesReportPresenter
 {
     public function __construct(private readonly SalesListPresenter $listSalesPresenter)
     {
     }
 
-    public function present(ListReport $report): array
+    public function present(SalesList $report, SalesFilter $filter): array
     {
         return [
             'saleOrders' => $this->listSalesPresenter->listSaleOrder(
-                $report->sales,
-                $report->filter->getUserId()
+                $report->getSaleOrders(),
+                $filter->getUserId()
             ),
-            'total' => $this->presentMetadata($report),
-            'paginator' => $this->getPaginator(
-                $report->sales->get(),
-                $report->filter,
-                $report->totalSales
-            ),
+            'total' => $this->presentMetadata($report, $filter),
+            'paginator' => $report->paginator,
         ];
     }
 
-    private function presentMetadata(ListReport $report): array
+    private function presentMetadata(SalesList $report, SalesFilter $filter): array
     {
-        $beginDate = $report->filter->getBeginDate();
-        $endDate = $report->filter->getEndDate();
-        $metadata = $report->metadata;
+        $beginDate = $filter->getBeginDate();
+        $endDate = $filter->getEndDate();
 
         return [
             'beginDate' => $beginDate?->format('d/m/Y'),
             'endDate' => $endDate?->format('d/m/Y'),
-            'salesCount' => $metadata->salesCount,
-            'productsCount' => $metadata->productsCount,
-            'storesCount' => $this->presentMarketplacesCount($metadata->marketplacesCount),
-            'value' => NumberTransformer::toMoney($metadata->totalValue),
-            'profit' => NumberTransformer::toMoney($metadata->totalProfit),
+            'salesCount' => $report->count(),
+            'productsCount' => $report->getProductsCount(),
+            'storesCount' => $this->presentMarketplacesCount($report->marketplaceSales),
+            'value' => NumberTransformer::toMoney($report->getTotalValue()),
+            'profit' => NumberTransformer::toMoney($report->getTotalProfit()),
         ];
     }
 

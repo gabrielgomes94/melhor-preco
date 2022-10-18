@@ -7,6 +7,9 @@ use Src\Sales\Domain\DataTransfer\Reports\ListMetadata;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Infrastructure\Laravel\Repositories\Reports\Factories\MarketplacesSalesFactory;
 
+/**
+ * @deprecated
+ */
 class SalesMetadataFactory
 {
     public function __construct(
