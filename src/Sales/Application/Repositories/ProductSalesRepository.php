@@ -3,16 +3,28 @@
 namespace Src\Sales\Application\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Src\Products\Domain\Models\Product;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 
 class ProductSalesRepository
 {
-    public function count(): int
+    public function count(Product $product, Carbon $beginDate, Carbon $endDate): int
     {
-        return 1;
+        $itemsSelled = Item::with(['product', 'saleOrder'])
+            ->join(
+                'sales_orders',
+                'sales_orders.sale_order_id',
+                '=',
+                'sales_items.sale_order_id'
+            )
+            ->where('selled_at', '>=', $beginDate)
+            ->where('selled_at', '<=', $endDate)
+            ->where('sku', $product->getSku())
+            ->where('user_id', $product->getUser()->getId())
+            ->get();
+
+        return $itemsSelled->sum('quantity');
     }
 
     public function getItemsSelled(Product $product, ?Carbon $beginDate = null, ?Carbon $endDate = null): array

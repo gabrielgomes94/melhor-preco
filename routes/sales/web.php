@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Src\Sales\Infrastructure\Laravel\Http\Controllers\Web\ListController;
-use Src\Sales\Infrastructure\Laravel\Http\Controllers\Web\ReportsController;
 use Src\Sales\Infrastructure\Laravel\Http\Controllers\Web\SyncController;
 
 Route::middleware('auth')->group(function () {
@@ -16,8 +15,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/relatorios')
                 ->name('.reports')
                 ->group(function () {
-                    Route::get('/produtos-mais-vendidos', [ReportsController::class, 'mostSelledProducts'])
-                        ->name('.mostSelledProducts');
+                    // Define reports routes here
                 });
         });
 });

@@ -7,14 +7,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Products\Domain\DataTransfer\FilterOptions;
 use Src\Products\Domain\Models\Product;
 use Src\Products\Domain\Repositories\ProductRepository;
-use Src\Sales\Domain\Repositories\SaleItemsRepository;
+use Src\Sales\Application\Repositories\ProductSalesRepository;
 use Src\Users\Domain\Models\User;
 
 class GetProductsInformationReport
 {
     public function __construct(
-        private ProductRepository $productRepository,
-        private SaleItemsRepository $saleItemsRepository
+        private readonly ProductRepository $productRepository,
+        private readonly ProductSalesRepository $productSalesRepository
     ) {
     }
 
@@ -28,7 +28,7 @@ class GetProductsInformationReport
                 'sku' => $product->getSku(),
                 'name' => $product->getName(),
                 'imagesCount' => count($product->getImages()),
-                'sales' => $this->saleItemsRepository->countSalesByProduct(
+                'sales' => $this->productSalesRepository->count(
                     $product,
                     $filter->beginDate ?? Carbon::createFromFormat('d/m/Y', '01/01/2001'),
                     $filter->endDate ?? Carbon::now()
