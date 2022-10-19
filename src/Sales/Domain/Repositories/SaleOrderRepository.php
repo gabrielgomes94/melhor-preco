@@ -12,7 +12,7 @@ interface SaleOrderRepository
 
     public function getLastSaleDateTime(string $userId): ?Carbon;
 
-    public function countSales(SalesFilter $options): int;
+    public function countSales(string $userId, ?Carbon $beginDate = null, ?Carbon $endDate = null): int;
 
     public function list(
         string $userId,
@@ -20,7 +20,7 @@ interface SaleOrderRepository
         ?Carbon $endDate = null
     ): array;
 
-    public function listPaginate(SalesFilter $options);
+    public function listPaginate(SalesFilter $filter);
 
     public function insertSaleInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
@@ -30,7 +30,7 @@ interface SaleOrderRepository
 
     public function insertShipment(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function updateProfit(SaleOrder $saleOrder, string $profit): bool;
+    public function updateProfit(SaleOrder $saleOrder, float $profit): bool;
 
     public function updateStatus(SaleOrder $saleOrder, string $status): bool;
 }

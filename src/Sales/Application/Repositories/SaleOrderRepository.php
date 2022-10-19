@@ -3,7 +3,6 @@
 namespace Src\Sales\Application\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
@@ -32,26 +31,22 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         return $lastUpdatedProduct?->getLastUpdate();
     }
 
-    public function countSales(SalesFilter $options): int
+    public function countSales(string $userId, ?Carbon $beginDate = null, ?Carbon $endDate = null): int
     {
-        return SaleOrder::where('user_id', $options->getUserId())
-            ->valid()
-            ->inDateInterval(
-                $options->getBeginDate(),
-                $options->getEndDate()
-            )
+        return $this->salesQuery->salesInInterval($beginDate, $endDate)
+            ->where('user_id', $userId)
             ->count();
     }
 
-    public function listPaginate(SalesFilter $options)
+    public function listPaginate(SalesFilter $filter)
     {
         return $this->salesQuery->salesInInterval(
-            $options->getBeginDate(),
-            $options->getEndDate()
-        )->where('user_id', $options->getUserId())
+            $filter->getBeginDate(),
+            $filter->getEndDate()
+        )->where('user_id', $filter->getUserId())
             ->paginate(
-            perPage: $options->getPerPage(),
-            page: $options->getPage()
+            perPage: $filter->getPerPage(),
+            page: $filter->getPage()
         );
     }
 
@@ -64,8 +59,7 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         return $this->salesQuery->salesInInterval(
             $beginDate,
             $endDate
-        )
-            ->where('user_id', $userId)
+        )->where('user_id', $userId)
             ->get()
             ->all();
     }
@@ -136,7 +130,7 @@ class SaleOrderRepository implements SaleOrderRepositoryInterface
         return $externalSaleOrder;
     }
 
-    public function updateProfit(SaleOrderInterface $saleOrder, string $profit): bool
+    public function updateProfit(SaleOrderInterface $saleOrder, float $profit): bool
     {
         $saleOrder->total_profit = $profit;
 

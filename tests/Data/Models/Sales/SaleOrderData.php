@@ -182,7 +182,7 @@ class SaleOrderData
             [
                 'sale_order_id' => '100',
                 'integration' => 'bling',
-                'store_id' => '1234567',
+                'store_id' => $marketplace?->getErpId() ?? '1234567',
                 'store_sale_order_id' => '12',
                 'selled_at' => Carbon::create(2021, 12, 12, 15, 40),
                 'dispatched_at' => Carbon::create(2021, 12, 12, 18, 00),

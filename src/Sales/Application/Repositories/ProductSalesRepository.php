@@ -4,13 +4,16 @@ namespace Src\Sales\Application\Repositories;
 
 use Carbon\Carbon;
 use Src\Products\Domain\Models\Product;
-use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Domain\Repositories\ProductSalesRepository as ProductSalesRepositoryInterface;
 
-class ProductSalesRepository
+class ProductSalesRepository implements ProductSalesRepositoryInterface
 {
-    public function count(Product $product, Carbon $beginDate, Carbon $endDate): int
+    public function count(Product $product, ?Carbon $beginDate = null, ?Carbon $endDate = null): int
     {
+        $beginDate = $beginDate ?? Carbon::create(1900);
+        $endDate = $endDate ?? Carbon::create(9999);
+
         $itemsSelled = Item::with(['product', 'saleOrder'])
             ->join(
                 'sales_orders',
@@ -40,25 +43,6 @@ class ProductSalesRepository
                 $saleItem->getSelledAt() <= $endDate
         );
 
-        return $itemsSelled->toArray();
-    }
-
-    public function groupSaleItemsByProduct(SalesFilter $options): array
-    {
-        $beginDate = $options->getBeginDate();
-        $endDate = $options->getEndDate();
-
-        return Item::with(['product', 'saleOrder'])
-            ->join(
-                'sales_orders',
-                'sales_orders.sale_order_id',
-                '=',
-                'sales_items.sale_order_id'
-            )
-            ->where('selled_at', '>=', $beginDate)
-            ->where('selled_at', '<=', $endDate)
-            ->get()
-            ->groupBy('sku')
-            ->all();
+        return $itemsSelled->all();
     }
 }

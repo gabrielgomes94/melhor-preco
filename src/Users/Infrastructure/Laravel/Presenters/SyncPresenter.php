@@ -40,7 +40,7 @@ class SyncPresenter
                 'syncedAt' => $this->costsRepository->getLastSynchronizationDateTime($userId)?->format('d/m/Y H:i'),
             ],
             'sales' => [
-                'quantity' => $this->salesRepository->countSales(new SalesFilter(userId: $userId)),
+                'quantity' => $this->salesRepository->countSales($userId),
                 'syncedAt' => $this->salesRepository->getLastSaleDateTime($userId)?->format('d/m/Y H:i'),
             ],
         ];

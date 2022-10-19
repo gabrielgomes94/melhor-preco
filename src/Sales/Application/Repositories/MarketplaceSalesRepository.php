@@ -6,14 +6,15 @@ use Carbon\Carbon;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Domain\Models\Product;
 use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
-use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
+use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
+use Src\Sales\Domain\Repositories\MarketplaceSalesRepository as MarketplaceSalesRepositoryInterface;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
 use Src\Sales\Application\Repositories\Queries\SalesQuery;
 
-class MarketplaceSalesRepository
+class MarketplaceSalesRepository implements MarketplaceSalesRepositoryInterface
 {
     public function __construct(
-        private ProductSalesRepository $productSalesRepository,
+        private readonly ProductSalesRepository $productSalesRepository,
         private readonly SalesQuery $salesQuery
     )
     {}
@@ -25,10 +26,11 @@ class MarketplaceSalesRepository
     ): MarketplaceSales
     {
         $query = $this->salesQuery->salesInInterval($beginDate, $endDate);
-        $saleItems = new SaleItemsCollection(
+
+        $saleItems = new SaleOrdersCollection(
             $query->where('store_id', $marketplace->getErpId())
                 ->get()
-                ->toArray()
+                ->all()
         );
 
         return new MarketplaceSales($marketplace, $saleItems);
@@ -41,10 +43,8 @@ class MarketplaceSalesRepository
         ?Carbon $endDate = null
     ): MarketplaceSales
     {
-        $beginDate = $beginDate ?? Carbon::create(1900);
-        $endDate = $endDate ?? Carbon::create(9999);
-
         $itemsSelled = $this->productSalesRepository->getItemsSelled($product, $beginDate, $endDate);
+
         $itemsSelled = collect($itemsSelled);
         $itemsSelled = $itemsSelled->filter(function (Item $saleItem) use ($marketplace) {
             if (!$saleOrder = $saleItem->getSaleOrder()) {
@@ -56,9 +56,13 @@ class MarketplaceSalesRepository
             return $marketplace->getSlug() === $slug;
         });
 
+        $saleOrders = $itemsSelled->map(
+            fn (Item $item) => $item->getSaleOrder()
+        );
+
         return new MarketplaceSales(
             $marketplace,
-            new SaleItemsCollection($itemsSelled->toArray())
+            new SaleOrdersCollection($saleOrders->all())
         );
     }
 }
