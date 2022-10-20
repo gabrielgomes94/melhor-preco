@@ -18,6 +18,9 @@ class CalculateItem implements CalculateItemInterface
     ) {
     }
 
+    /**
+     * @throws MarketplaceNotFoundException
+     */
     public function calculate(Item $item): CalculatedPrice
     {
         $marketplaceErpId = $item->saleOrder?->getIdentifiers()?->storeId() ?? '';

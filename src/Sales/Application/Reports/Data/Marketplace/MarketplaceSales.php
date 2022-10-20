@@ -18,9 +18,11 @@ class MarketplaceSales
     {
         $sales = collect($this->sales->get());
 
-        return $sales->sum(
+        $totalValue = $sales->sum(
             fn (SaleOrder $saleOrder) => $saleOrder->getSaleValue()->totalValue()
         );
+
+        return round($totalValue, 2);
     }
 
     public function getSalesCount(): int

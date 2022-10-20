@@ -4,12 +4,14 @@ namespace Src\Sales\Application\Reports\Data\Product;
 
 use Illuminate\Support\Collection;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
+use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
+use Src\Sales\Domain\Reports\Product\ProductSales as ProductSalesInterface;
 use Src\Sales\Infrastructure\Laravel\Models\Item;
-use Src\Sales\Infrastructure\Laravel\Services\CalculateItem;
+use Src\Sales\Domain\Services\CalculateItem;
 
-class ProductSales implements \Src\Sales\Domain\Reports\Product\ProductSales
+class ProductSales implements ProductSalesInterface
 {
     public readonly Product $product;
     public readonly Collection $saleItemsCollection;
@@ -31,23 +33,22 @@ class ProductSales implements \Src\Sales\Domain\Reports\Product\ProductSales
 
     public function getAveragePrice(): float
     {
-        $saleItems = collect($this->saleItemsCollection);
+        $saleItems = $this->saleItemsCollection;
 
-        return $saleItems->average('unit_value')
+        $price = $saleItems->average('unit_value')
             - $saleItems->average('discount');
+
+        return round($price, 2);
     }
 
     public function count(): int
     {
-        $saleItems = collect($this->saleItemsCollection);
-
-        return $saleItems->count();
+        return $this->saleItemsCollection->count();
     }
 
     public function getAverageProfit(): float
     {
-        $saleItems = collect($this->saleItemsCollection);
-        $calculatedItems = $saleItems->map(
+        $calculatedItems = $this->saleItemsCollection->map(
             fn (Item $item) => $this->calculateItem($item)
         );
 
@@ -55,34 +56,38 @@ class ProductSales implements \Src\Sales\Domain\Reports\Product\ProductSales
             return 0.0;
         }
 
-        return $calculatedItems->average();
+        $averageProfit = $calculatedItems->average();
+
+        return round($averageProfit, 2);
     }
 
-    public function getAverageMargin(): float
+    public function getAverageMargin(): Percentage
     {
         if ($this->getAveragePrice() == 0) {
-            return 0;
+            return Percentage::fromPercentage(0);
         }
 
-        return $this->getAverageProfit() / $this->getAveragePrice();
+        $margin = $this->getAverageProfit() / $this->getAveragePrice();
+
+        return Percentage::fromFraction($margin);
     }
 
     public function getTotalRevenue(): float
     {
-        $saleItems = collect($this->saleItemsCollection);
-
-        return $saleItems->sum(
+        $revenue = $this->saleItemsCollection->sum(
             fn (Item $item) => $item->getTotalValue()
         );
+
+        return round($revenue, 2);
     }
 
     public function getTotalProfit(): float
     {
-        $saleItems = collect($this->saleItemsCollection);
-
-        return $saleItems->map(
+        $profit = $this->saleItemsCollection->map(
             fn (Item $item) => $this->calculateItem($item)
         )->sum();
+
+        return round($profit, 2);
     }
 
     public function getProduct(): Product

@@ -4,7 +4,7 @@ namespace Src\Sales\Application\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
+use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSalesTest;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
 use Tests\Data\Databases\SalesDatabase;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
@@ -30,7 +30,7 @@ class MarketplaceSalesRepositoryTest extends TestCase
         $result = $repository->getSales($marketplace);
 
         // Assert
-        $this->assertInstanceOf(MarketplaceSales::class, $result);
+        $this->assertInstanceOf(MarketplaceSalesTest::class, $result);
         $this->assertSame(3, $result->getSalesCount());
         $this->assertSame(2539.5, $result->getTotalValue());
     }
@@ -50,7 +50,7 @@ class MarketplaceSalesRepositoryTest extends TestCase
         $result = $repository->getSalesByProduct($product, $marketplace);
 
         // Assert
-        $this->assertInstanceOf(MarketplaceSales::class, $result);
+        $this->assertInstanceOf(MarketplaceSalesTest::class, $result);
         $this->assertSame(2, $result->getSalesCount());
         $this->assertSame(2499.7, $result->getTotalValue());
     }

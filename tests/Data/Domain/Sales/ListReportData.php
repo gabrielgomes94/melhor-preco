@@ -4,7 +4,7 @@ namespace Tests\Data\Domain\Sales;
 
 use Src\Sales\Domain\DataTransfer\Reports\ListMetadata;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
-use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
+use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSalesTest;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
@@ -29,7 +29,7 @@ class ListReportData
             SaleOrderData::sale_104(user: $user, marketplace: $marketplace),
         ]);
 
-        $marketplaceSales = new MarketplaceSales(
+        $marketplaceSales = new MarketplaceSalesTest(
             $marketplace,
             new SaleItemsCollection([
                 SaleItemData::make($product),
