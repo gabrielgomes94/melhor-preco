@@ -27,13 +27,13 @@ class MarketplaceSalesRepository implements MarketplaceSalesRepositoryInterface
     {
         $query = $this->salesQuery->salesInInterval($beginDate, $endDate);
 
-        $saleItems = new SaleOrdersCollection(
+        $sales = new SaleOrdersCollection(
             $query->where('store_id', $marketplace->getErpId())
                 ->get()
                 ->all()
         );
 
-        return new MarketplaceSales($marketplace, $saleItems);
+        return new MarketplaceSales($marketplace, $sales);
     }
 
     public function getSalesByProduct(
