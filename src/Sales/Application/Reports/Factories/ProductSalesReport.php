@@ -19,6 +19,9 @@ class ProductSalesReport
     ) {
     }
 
+    /**
+     * @throws ProductNotFoundException
+     */
     public function report(
         string $sku,
         string $userId,
