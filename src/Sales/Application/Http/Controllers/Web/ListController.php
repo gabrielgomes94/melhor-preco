@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Http\Controllers\Web;
+namespace Src\Sales\Application\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Src\Sales\Application\Reports\Factories\SalesReport;
-use Src\Sales\Infrastructure\Laravel\Http\Requests\SalesReportsRequest;
+use Src\Sales\Application\Http\Requests\SalesReportsRequest;
 use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesReportPresenter;
 
 class ListController extends Controller

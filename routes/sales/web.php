@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Src\Sales\Infrastructure\Laravel\Http\Controllers\Web\ListController;
-use Src\Sales\Infrastructure\Laravel\Http\Controllers\Web\SyncController;
+use Src\Sales\Application\Http\Controllers\Web\ListController;
+use Src\Sales\Application\Http\Controllers\Web\SyncController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('vendas')
