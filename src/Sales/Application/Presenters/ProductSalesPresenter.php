@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Presenters;
+namespace Src\Sales\Application\Presenters;
 
 use Src\Math\Transformers\MoneyTransformer;
 use Src\Math\Percentage;

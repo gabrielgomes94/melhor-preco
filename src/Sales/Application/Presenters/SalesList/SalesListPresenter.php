@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Presenters\SalesList;
+namespace Src\Sales\Application\Presenters\SalesList;
 
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Math\Transformers\NumberTransformer;

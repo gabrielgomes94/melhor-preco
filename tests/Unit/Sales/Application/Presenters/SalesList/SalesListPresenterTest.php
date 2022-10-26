@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Presenters\SalesList;
+namespace Src\Sales\Application\Presenters\SalesList;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;

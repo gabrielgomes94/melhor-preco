@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Presenters\SalesList;
+namespace Src\Sales\Application\Presenters\SalesList;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Src\Math\Transformers\NumberTransformer;
@@ -8,7 +8,7 @@ use Src\Sales\Application\Reports\Data\Sales\SalesList;
 use Src\Sales\Domain\DataTransfer\Reports\ListReport;
 use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Infrastructure\Laravel\Presenters\SalesList\SalesListPresenter;
+use Src\Sales\Application\Presenters\SalesList\SalesListPresenter;
 
 class SalesReportPresenter
 {
