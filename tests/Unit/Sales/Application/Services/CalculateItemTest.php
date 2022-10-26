@@ -3,6 +3,7 @@
 namespace Src\Sales\Application\Services;
 
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
@@ -14,6 +15,8 @@ use Tests\TestCase;
 
 class CalculateItemTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_should_calculate_item(): void
     {
         // Arrange
