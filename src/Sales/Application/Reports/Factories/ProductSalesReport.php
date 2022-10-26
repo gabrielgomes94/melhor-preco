@@ -8,7 +8,7 @@ use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Application\Reports\Data\Product\ProductSales;
 use Src\Sales\Application\Repositories\ProductSalesRepository;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
-use Src\Sales\Infrastructure\Laravel\Services\CalculateItem;
+use Src\Sales\Application\Services\CalculateItem;
 
 class ProductSalesReport
 {

@@ -7,8 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Src\Sales\Infrastructure\Laravel\Services\CalculateTotalProfit;
-use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
+use Src\Sales\Application\Services\CalculateTotalProfit;
+use Src\Sales\Application\Services\SynchronizeSales;
 use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Users\Domain\Repositories\Repository as UserRepository;
 

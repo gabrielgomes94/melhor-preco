@@ -12,7 +12,7 @@ use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInte
 use Src\Sales\Domain\Services\CalculateItem as CalculateItemInterface;
 use Src\Sales\Infrastructure\Bling\Repository as BlingRepository;
 use Src\Sales\Application\Repositories\SaleOrderRepository;
-use Src\Sales\Infrastructure\Laravel\Services\CalculateItem;
+use Src\Sales\Application\Services\CalculateItem;
 
 class ServiceProvider extends BaseServiceProvider
 {

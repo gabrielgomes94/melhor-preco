@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
-use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
+use Src\Sales\Application\Services\SynchronizeSales;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Products\ProductData;

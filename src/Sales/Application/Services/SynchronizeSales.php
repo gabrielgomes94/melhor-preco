@@ -1,10 +1,11 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Services;
+namespace Src\Sales\Application\Services;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Src\Sales\Application\Services\CalculateTotalProfit;
 use Src\Sales\Infrastructure\Laravel\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;

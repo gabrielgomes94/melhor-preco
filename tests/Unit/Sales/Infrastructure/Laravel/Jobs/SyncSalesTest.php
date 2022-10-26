@@ -4,7 +4,7 @@ namespace Src\Sales\Infrastructure\Laravel\Jobs;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Src\Sales\Infrastructure\Laravel\Services\SynchronizeSales;
+use Src\Sales\Application\Services\SynchronizeSales;
 use Src\Users\Domain\Repositories\Repository as UserRepository;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
