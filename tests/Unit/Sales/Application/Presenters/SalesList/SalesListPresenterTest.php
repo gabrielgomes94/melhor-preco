@@ -89,7 +89,7 @@ class SalesListPresenterTest extends TestCase
                 'saleOrderCode' => '103',
                 'storeSaleOrderId' => '14',
                 'selledAt' => '12/12/2021',
-                'store' => 'Shopee',
+                'store' => 'Olist',
                 'value' => 'R$ 612,15',
                 'products' => [
                     [
@@ -106,7 +106,7 @@ class SalesListPresenterTest extends TestCase
                 'saleOrderCode' => '104',
                 'storeSaleOrderId' => '15',
                 'selledAt' => '12/12/2021',
-                'store' => 'Shopee',
+                'store' => 'Olist',
                 'value' => 'R$ 1.399,90',
                 'products' => [
                     [

@@ -23,7 +23,6 @@ class InvoiceTest extends TestCase
 
         // Assert
         $this->assertInstanceOf(Invoice::class, $saleInvoice);
-        $this->assertSame(1, $saleInvoice->id);
         $this->assertSame('001', $saleInvoice->series);
         $this->assertSame('123456', $saleInvoice->number);
         $this->assertEquals('2021-12-12 17:00:00', (string) $saleInvoice->issued_at);
