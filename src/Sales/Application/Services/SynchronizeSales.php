@@ -5,8 +5,6 @@ namespace Src\Sales\Application\Services;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Src\Sales\Application\Services\CalculateTotalProfit;
-use Src\Sales\Infrastructure\Laravel\Events\SaleOrderWasNotSynchronized;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\ErpRepository;
@@ -44,7 +42,7 @@ class SynchronizeSales
 
                 $this->updateSaleOrder($saleOrderModel, $saleOrder, $user->getId());
             } catch (Exception $exception) {
-                event(new SaleOrderWasNotSynchronized($exception));
+                // handle errors
             }
         }
     }
