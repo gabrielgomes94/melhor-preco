@@ -52,11 +52,11 @@ class SalesList
 
     public function getTotalProfit(): float
     {
-        return $this->sales->sum('total_value');
+        return $this->sales->sum('total_profit');
     }
 
     public function getTotalValue(): float
     {
-        return $this->sales->sum('total_profit');
+        return $this->sales->sum('total_value');
     }
 }
