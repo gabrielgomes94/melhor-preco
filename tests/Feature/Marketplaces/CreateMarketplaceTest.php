@@ -28,7 +28,7 @@ class CreateMarketplaceTest extends FeatureTestCase
 
     private function given_i_have_an_user(): void
     {
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
         $this->actingAs($this->user);
     }
 

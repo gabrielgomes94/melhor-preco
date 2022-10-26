@@ -21,7 +21,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_get_category(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::travel($user);
         $repository = new CategoryRepository();
 
@@ -36,7 +36,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_not_get_category(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $repository = new CategoryRepository();
 
         // Act
@@ -49,7 +49,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_get_parent_category(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::travel($user);
         CategoryData::babyCarriage($user);
         $repository = new CategoryRepository();
@@ -65,7 +65,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_insert_category(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $repository = new CategoryRepository();
         $category = new Category([
             'name' => 'Carrinhos de Bebê',
@@ -85,7 +85,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_list_categories(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::travel($user);
         CategoryData::babyCarriage($user);
         $repository = new CategoryRepository();
@@ -101,7 +101,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_check_if_category_already_exists(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::travel($user);
         $repository = new CategoryRepository();
 
@@ -115,7 +115,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_count_categories(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::travel($user);
         CategoryData::babyCarriage($user);
         $repository = new CategoryRepository();
@@ -130,7 +130,7 @@ class CategoryRepositoryTest extends TestCase
     public function test_should_get_last_updated_datetime(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         CategoryData::travel($user);
         CategoryData::babyCarriage($user);
         $repository = new CategoryRepository();

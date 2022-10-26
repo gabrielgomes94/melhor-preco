@@ -22,7 +22,7 @@ class BaseCalculatorTest extends TestCase
         // Arrange
         $instance = $this->getCalculator();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         ProductData::babyCarriage($user, [
             $price = PriceData::build($marketplace, ['value' => 899.9])

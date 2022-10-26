@@ -6,9 +6,9 @@ use Src\Costs\Domain\Models\PurchaseItem;
 use Src\Costs\Infrastructure\Laravel\Presenters\PurchaseItemsPresenter;
 use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
-use Src\Sales\Domain\DataTransfer\Reports\Marketplaces\MarketplaceSales;
-use Src\Sales\Domain\DataTransfer\Reports\Products\ProductReport;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
+use Src\Sales\Domain\Reports\Product\ProductSales;
+use Src\Sales\Application\Models\Item;
 
 class ProductReportPresenter
 {
@@ -21,9 +21,10 @@ class ProductReportPresenter
 
     public function present(ProductInfoReport $productInfoReport): array
     {
-        $salesReport = $productInfoReport->salesReport;
+        $salesReport = $productInfoReport->productSales;
+
         $costs = collect($productInfoReport->costsItems);
-        $costs = $costs->map(function(PurchaseItem $item) {
+        $costs = $costs->map(function (PurchaseItem $item) {
             return $this->purchaseItemsPresenter->present($item);
         })->all();
 
@@ -33,17 +34,18 @@ class ProductReportPresenter
             'product' => $this->productPresenter->present($productInfoReport->product),
             'sales' => [
                 'lastSales' => $this->getLastSales($salesReport),
-                'salesByMarketplace' => $this->getSalesByMarketplace($salesReport),
+                'salesByMarketplace' => $this->getSalesByMarketplace($productInfoReport),
                 'total' => $this->getTotalSales($salesReport),
             ]
         ];
     }
 
-    private function getLastSales(ProductReport $salesReport): array
+    private function getLastSales(ProductSales $salesReport): array
     {
-        $sales = $salesReport->lastSales->get();
-        $sales = collect($sales);
-        $sales = $sales->transform(function (Item $saleItem) {
+        $lastSales = $salesReport->getLastSales()->get();
+        $lastSales = collect($lastSales);
+
+        $lastSales = $lastSales->transform(function (Item $saleItem) {
             $saleOrder = $saleItem->getSaleOrder();
 
             if (!$saleOrder) {
@@ -65,24 +67,20 @@ class ProductReportPresenter
             ];
         });
 
-        return $sales->toArray();
+        return $lastSales->toArray();
     }
 
-    private function getSalesByMarketplace(ProductReport $salesReport): array
+    private function getSalesByMarketplace(ProductInfoReport $productInfoReport): array
     {
-        $marketplaceSales = $salesReport->salesInMarketplaces->marketplacesSales;
+        $marketplaceSales = $productInfoReport->marketplaceSales;
+        $marketplaceSales = collect($marketplaceSales);
 
         $marketplaceSales = $marketplaceSales->sortBy(function (MarketplaceSales $marketplaceSales) {
         })->transform(function (MarketplaceSales $marketplaceSales) {
-            $sales = $marketplaceSales->sales->get();
-            $sales = collect($sales);
-            $totalValue = $sales->sum(function (Item $saleItem) {
-                return $saleItem->getTotalValue();
-            });
 
             return [
-                'quantity' => $sales->count(),
-                'value' => NumberTransformer::toMoney($totalValue),
+                'quantity' => $marketplaceSales->getSalesCount(),
+                'value' => NumberTransformer::toMoney($marketplaceSales->getTotalValue()),
                 'slug' => $marketplaceSales->marketplace->getSlug(),
                 'storeName' => $marketplaceSales->marketplace->getName(),
             ];
@@ -91,9 +89,9 @@ class ProductReportPresenter
         return $marketplaceSales->toArray();
     }
 
-    private function getTotalSales(ProductReport $salesReport): array
+    private function getTotalSales(ProductSales $salesReport): array
     {
-        $itemsSelled = $salesReport->lastSales?->get();
+        $itemsSelled = $salesReport->getSaleItems()->get();
         $itemsSelled = collect($itemsSelled);
 
         $totalValue = $itemsSelled->sum(function (Item $saleItem) {

@@ -40,7 +40,7 @@ class SynchronizeProductsTest extends TestCase
 
     private function given_i_have_an_user_with_no_products(): void
     {
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
         $this->actingAs($this->user);
     }
 
@@ -72,7 +72,7 @@ class SynchronizeProductsTest extends TestCase
 
     private function given_i_have_an_user_with_products()
     {
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
         $this->actingAs($this->user);
 
         ProductData::babyCarriage($this->user);

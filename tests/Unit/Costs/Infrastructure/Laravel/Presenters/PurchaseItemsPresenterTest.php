@@ -17,7 +17,7 @@ class PurchaseItemsPresenterTest extends TestCase
     public function test_should_present_purchase_items(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $purchaseInvoice = PurchaseInvoiceData::makePersisted($user, [
             'uuid' => '9044ab84-a3bf-485e-ba17-6c9ea6f53110',
         ]);

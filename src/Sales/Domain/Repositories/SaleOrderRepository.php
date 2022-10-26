@@ -8,23 +8,29 @@ use Src\Sales\Domain\Models\Contracts\SaleOrder;
 
 interface SaleOrderRepository
 {
+    public function get(string $saleOrderId, string $userId): ?SaleOrder;
+
     public function getLastSaleDateTime(string $userId): ?Carbon;
 
-    public function countSales(SalesFilter $options): int;
+    public function countSales(string $userId, ?Carbon $beginDate = null, ?Carbon $endDate = null): int;
 
-    public function listPaginate(SalesFilter $options);
+    public function list(
+        string $userId,
+        ?Carbon $beginDate = null,
+        ?Carbon $endDate = null
+    ): array;
 
-    public function syncCustomer(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function listPaginate(SalesFilter $filter);
 
-    public function syncInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertSaleInvoice(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function syncItems(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertSaleItems(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder, string $userId): void;
 
-    public function syncSaleOrder(SaleOrder $externalSaleOrder, string $userId): SaleOrder;
+    public function insertSaleOrder(SaleOrder $externalSaleOrder, string $userId): SaleOrder;
 
-    public function syncShipment(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
+    public function insertShipment(SaleOrder $internalSaleOrder, SaleOrder $externalSaleOrder): void;
 
-    public function updateProfit(SaleOrder $saleOrder, string $profit): bool;
+    public function updateProfit(SaleOrder $saleOrder, float $profit): bool;
 
     public function updateStatus(SaleOrder $saleOrder, string $status): bool;
 }

@@ -16,7 +16,7 @@ class CostsCastTest extends TestCase
     public function test_should_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $cast = new CostsCast();
 
@@ -33,7 +33,7 @@ class CostsCastTest extends TestCase
     public function test_should_not_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $cast = new CostsCast();
 
         // Expects
@@ -47,7 +47,7 @@ class CostsCastTest extends TestCase
     public function test_should_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $cast = new CostsCast();
 
@@ -68,7 +68,7 @@ class CostsCastTest extends TestCase
     public function test_should_not_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $cast = new CostsCast();
 
         // Expects

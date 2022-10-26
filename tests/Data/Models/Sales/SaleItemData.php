@@ -3,11 +3,11 @@
 namespace Tests\Data\Models\Sales;
 
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 
 class SaleItemData
 {
-    public static function make(Product $product)
+    public static function make(Product $product, array $data = [])
     {
         $item = new Item([
             'sku' => $product->getSku(),

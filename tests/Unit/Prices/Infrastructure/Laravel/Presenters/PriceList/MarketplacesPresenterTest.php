@@ -15,7 +15,7 @@ class MarketplacesPresenterTest extends TestCase
     public function test_should_present(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         MarketplaceData::magalu($user);
         MarketplaceData::shopee($user);
         MarketplaceData::olist($user);

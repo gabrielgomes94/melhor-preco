@@ -16,7 +16,7 @@ class CalculatedPriceTest extends TestCase
     public function test_should_make_instance_from_product(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $calculatorForm = new CalculatorForm(
             1000.0,

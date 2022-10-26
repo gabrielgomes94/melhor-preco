@@ -25,7 +25,7 @@ class CategoriesPresenterTest extends TestCase
         $repository = m::mock(CategoryRepository::class);
         $presenter = new CategoriesPresenter($repository);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
 
         $marketplace = MarketplaceData::magalu($user);
 

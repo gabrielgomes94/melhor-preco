@@ -17,7 +17,7 @@ class IdentifiersCastTest extends TestCase
     public function test_should_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
 
         $marketplace = MarketplaceData::shopee($user);
@@ -42,7 +42,7 @@ class IdentifiersCastTest extends TestCase
     public function test_should_not_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $casts = new IdentifiersCast();
 
@@ -57,7 +57,7 @@ class IdentifiersCastTest extends TestCase
     public function test_should_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage(
@@ -84,7 +84,7 @@ class IdentifiersCastTest extends TestCase
     public function test_should_not_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $casts = new IdentifiersCast();
 

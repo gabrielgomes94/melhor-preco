@@ -91,6 +91,7 @@ class Category extends Model implements CategoryInterface
         return count($parentNames) - 1;
     }
 
+    // @todo: mudar o tipo para string
     public function scopeFromUser($query, int $userId)
     {
         return $query->where('user_id', $userId);

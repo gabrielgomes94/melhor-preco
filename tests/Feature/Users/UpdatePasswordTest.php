@@ -38,7 +38,7 @@ class UpdatePasswordTest extends TestCase
 
     private function given_i_have_an_user(): void
     {
-        $user = UserData::make();
+        $user = UserData::persisted();
         $user->password = Hash::make('password-321');
         $user->save();
 

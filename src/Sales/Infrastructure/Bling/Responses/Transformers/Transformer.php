@@ -3,15 +3,14 @@
 namespace Src\Sales\Infrastructure\Bling\Responses\Transformers;
 
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 use Src\Sales\Domain\Models\ValueObjects\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\SaleValue;
-use Src\Sales\Infrastructure\Laravel\Models\Address;
-use Src\Sales\Infrastructure\Laravel\Models\Customer;
-use Src\Sales\Infrastructure\Laravel\Models\Invoice;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
-use Src\Sales\Infrastructure\Laravel\Models\Shipment;
+use Src\Sales\Application\Models\Invoice;
+use Src\Sales\Application\Models\Item;
+use Src\Sales\Application\Models\SaleOrder;
+use Src\Sales\Application\Models\Shipment;
 
 class Transformer
 {
@@ -19,8 +18,8 @@ class Transformer
     {
         $saleOrder = new SaleOrder();
         $saleOrder->identifiers = new SaleIdentifiers(
-            id: $data['numero'],
-            purchaseOrderId: $data['numeroOrdemCompra'] ?? '',
+            saleOrderId: $data['numero'],
+            uuid: Uuid::uuid4(),
             integration: $data['tipoIntegracao'] ?? null,
             storeId: $data['loja'] ?? null,
             storeSaleOrderId: $data['numeroPedidoLoja'] ?? null
@@ -45,33 +44,11 @@ class Transformer
 
         $saleOrder->status = $data['situacao'];
 
-        $saleOrder->setRelation('customer', self::makeCustomer($data));
         $saleOrder->setRelation('items', self::makeItems($data));
         $saleOrder->setRelation('invoice', self::makeInvoice($data));
         $saleOrder->setRelation('shipment', self::makeShipment($data));
 
         return $saleOrder;
-    }
-
-    private static function makeCustomer(array $data)
-    {
-        $address = self::makeAddress($data['cliente']);
-        $phones = self::getPhones($data);
-
-        $customer = new Customer([
-            'name' => $data['cliente']['nome'] ?? '',
-            'fiscal_id' => self::removeNonDigits(
-                $data['cliente']['cnpj']
-                ?? $data['cliente']['cpf']
-                ?? ''
-            ),
-            'phones' => $phones,
-            'document_number' => $data['cliente']['rg'] ?? '',
-        ]);
-
-        $customer->setRelation('address', $address);
-
-        return $customer;
     }
 
     private static function makeInvoice(array $data)
@@ -87,12 +64,13 @@ class Transformer
             'status' => $data['nota']['situacao'],
             'value' => $data['nota']['valorNota'],
             'access_key' => $data['nota']['chaveAcesso'] ?? '',
+            'sale_order_id' => $data['numero'],
         ]);
     }
 
     private static function makeItems(array $data)
     {
-        $items = array_map(function (array $item) {
+        $items = array_map(function (array $item) use ($data) {
             $item = $item['item'];
 
             return new Item([
@@ -101,6 +79,7 @@ class Transformer
                 'quantity' => $item['quantidade'],
                 'unit_value' => $item['valorunidade'],
                 'discount' => $item['descontoItem'],
+                'sale_order_id' => $data['numero'],
             ]);
         }, $data['itens']);
 
@@ -113,11 +92,17 @@ class Transformer
             return null;
         }
 
-        $address = self::makeAddress($data['transporte']['enderecoEntrega']);
         $shipment = new Shipment([
             'name' => $data['transporte']['enderecoEntrega']['nome'] ?? '',
+            'sale_order_id' => $data['numero'],
+            'street' => $data['transporte']['enderecoEntrega']['endereco'],
+            'number' => $data['transporte']['enderecoEntrega']['numero'],
+            'district' => $data['transporte']['enderecoEntrega']['bairro'],
+            'city' => $data['transporte']['enderecoEntrega']['cidade'],
+            'state' => $data['transporte']['enderecoEntrega']['uf'],
+            'zipcode' => $data['transporte']['enderecoEntrega']['cep'],
+            'complement' => $data['transporte']['enderecoEntrega']['complemento'] ?? '',
         ]);
-        $shipment->setRelation('address', $address);
 
         return $shipment;
     }
@@ -125,19 +110,6 @@ class Transformer
     private static function removeNonDigits(?string $digit)
     {
         return (string) preg_replace('/[^0-9]/', '', $digit);
-    }
-
-    private static function makeAddress(array $data): Address
-    {
-        return new Address([
-            'street' => $data['endereco'],
-            'number' => $data['numero'],
-            'district' => $data['bairro'],
-            'city' => $data['cidade'],
-            'state' => $data['uf'],
-            'zipcode' => $data['cep'],
-            'complement' => $data['complemento'] ?? '',
-        ]);
     }
 
     private static function getPhones(array $data): array

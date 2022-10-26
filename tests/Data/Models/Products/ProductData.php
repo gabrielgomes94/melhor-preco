@@ -142,6 +142,11 @@ class ProductData
     ): Product
     {
         $data = self::getData($data);
+
+        if ($product = self::loadProduct($user->getId(), $data['sku'])) {
+           return $product;
+        }
+
         $product = new Product($data);
         $product->user_id = $user->id;
         $product->uuid = $data['uuid'];
@@ -149,13 +154,14 @@ class ProductData
 
         $product->prices()->saveMany($prices);
 
-
         if ($category) {
             $product->category()->associate($category);
             $product->save();
         }
 
-        return $product->refresh();
+        $product = self::loadProduct($user->getId(), $data['sku']);
+
+        return $product;
     }
 
     private static function getData(array $data = []): array
@@ -184,5 +190,12 @@ class ProductData
             ],
             $data
         );
+    }
+
+    private static function loadProduct(string $userId, string $sku): ?Product
+    {
+        return Product::fromUser($userId)
+            ->withSku($sku)
+            ->first();
     }
 }

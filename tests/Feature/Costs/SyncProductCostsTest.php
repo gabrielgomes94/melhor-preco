@@ -22,7 +22,7 @@ class SyncProductCostsTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
         Bus::fake();
     }
 

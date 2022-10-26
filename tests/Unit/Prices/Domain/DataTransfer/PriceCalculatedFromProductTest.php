@@ -20,7 +20,7 @@ class PriceCalculatedFromProductTest extends TestCase
     public function test_should_make_an_instance(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user);
         $calculatedPrice = CalculatedPriceData::babyCarriage();
@@ -44,7 +44,7 @@ class PriceCalculatedFromProductTest extends TestCase
     public function test_should_make_an_instance_from_price(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user);
         $price = PriceData::persisted($product, $marketplace);

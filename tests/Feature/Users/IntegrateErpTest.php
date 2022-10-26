@@ -36,7 +36,7 @@ class IntegrateErpTest extends TestCase
 
     private function given_i_have_a_user_which_does_not_have_an_erp_integrated(): void
     {
-        $user = UserData::make();
+        $user = UserData::persisted();
         $user->erp = null;
         $user->erp_token = null;
         $user->save();

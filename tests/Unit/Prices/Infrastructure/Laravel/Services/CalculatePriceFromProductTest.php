@@ -21,7 +21,7 @@ class CalculatePriceFromProductTest extends TestCase
     public function test_should_calculate_price_from_product_when_there_is_calculator_form(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage(
             $user,
@@ -62,7 +62,7 @@ class CalculatePriceFromProductTest extends TestCase
     public function test_should_calculate_price_from_product_when_there_is_no_commission_in_calculator_form(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage(
             $user,
@@ -91,7 +91,7 @@ class CalculatePriceFromProductTest extends TestCase
     public function test_should_not_calculate_price_when_product_has_no_price_in_marketplace(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user);
 
@@ -107,7 +107,7 @@ class CalculatePriceFromProductTest extends TestCase
     public function test_should_calculate_price_from_product_when_there_is_no_calculator_form(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage(
             $user,

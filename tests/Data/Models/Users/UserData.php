@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class UserData
 {
-    public static function make(array $data = []): User
+    public static function persisted(array $data = []): User
     {
         $data = array_merge([
             'name' => 'Artigos de Venda SA',

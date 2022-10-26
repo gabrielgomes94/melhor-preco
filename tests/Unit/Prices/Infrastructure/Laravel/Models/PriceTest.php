@@ -20,7 +20,7 @@ class PriceTest extends TestCase
     public function test_should_instantiate_price(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user);
 
@@ -49,7 +49,7 @@ class PriceTest extends TestCase
     public function test_should_instantiate_price_without_profit_value(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user);
 
@@ -65,7 +65,7 @@ class PriceTest extends TestCase
     public function test_prices_relationships(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user);
 

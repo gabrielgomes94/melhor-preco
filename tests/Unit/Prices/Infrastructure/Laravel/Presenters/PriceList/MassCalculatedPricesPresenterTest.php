@@ -30,7 +30,7 @@ class MassCalculatedPricesPresenterTest extends TestCase
             )
         );
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $listPricesCalculated = new ListPricesCalculated(
             $marketplace,

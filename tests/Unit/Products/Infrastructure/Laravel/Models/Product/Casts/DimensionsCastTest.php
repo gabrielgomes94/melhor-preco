@@ -15,7 +15,7 @@ class DimensionsCastTest extends TestCase
     public function test_should_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $cast = new DimensionsCast();
 
@@ -32,7 +32,7 @@ class DimensionsCastTest extends TestCase
     public function test_should_not_get(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $cast = new DimensionsCast();
 
         // Expects
@@ -46,7 +46,7 @@ class DimensionsCastTest extends TestCase
     public function test_should_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $cast = new DimensionsCast();
         $dimensions = new Dimensions(15.0, 28.0, 20.0, 0.75);
@@ -67,7 +67,7 @@ class DimensionsCastTest extends TestCase
     public function test_should_not_set(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $cast = new DimensionsCast();
 
         // Expects

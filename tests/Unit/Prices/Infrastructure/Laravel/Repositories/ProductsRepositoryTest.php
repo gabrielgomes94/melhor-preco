@@ -24,7 +24,7 @@ class ProductsRepositoryTest extends TestCase
         // Arrange
         $repository = new ProductsRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $this->setupDatabase($marketplace, $user);
         $options = new Options(userId: $user->getId(), marketplace: $marketplace);
@@ -43,7 +43,7 @@ class ProductsRepositoryTest extends TestCase
         // Arrange
         $repository = new ProductsRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $this->setupDatabase($marketplace, $user);
         $options = new Options(
@@ -67,7 +67,7 @@ class ProductsRepositoryTest extends TestCase
         // Arrange
         $repository = new ProductsRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $this->setupDatabase($marketplace, $user);
         $options = new Options(
@@ -91,7 +91,7 @@ class ProductsRepositoryTest extends TestCase
         // Arrange
         $repository = new ProductsRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $this->setupDatabase($marketplace, $user);
         $options = new Options(
@@ -114,7 +114,7 @@ class ProductsRepositoryTest extends TestCase
         // Arrange
         $repository = new ProductsRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $this->setupDatabase($marketplace, $user);
         $options = new Options(

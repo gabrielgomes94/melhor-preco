@@ -19,7 +19,7 @@ class PricesRepositoryTest extends TestCase
     public function test_should_count(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
 
         $marketplace = MarketplaceData::shopee($user);
         ProductData::babyCarriage($user, [PriceData::build($marketplace)]);
@@ -36,7 +36,7 @@ class PricesRepositoryTest extends TestCase
     public function test_should_get_last_synchronization_date_time(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         ProductData::babyCarriage($user, [PriceData::build($marketplace)]);
         ProductData::babyChair($user, [PriceData::build($marketplace)]);
@@ -52,7 +52,7 @@ class PricesRepositoryTest extends TestCase
     public function test_should_insert(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user);
         $price = new Price([
@@ -73,7 +73,7 @@ class PricesRepositoryTest extends TestCase
     public function test_should_update(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $product = ProductData::babyCarriage($user);
         $price = PriceData::persisted($product, $marketplace);

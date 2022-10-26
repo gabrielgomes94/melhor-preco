@@ -50,7 +50,7 @@ class UpdateProductCostsTest extends TestCase
 
     private function given_i_have_an_user(): void
     {
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
     }
 
     private function and_given_i_have_a_product(): void

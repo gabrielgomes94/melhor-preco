@@ -23,7 +23,7 @@ class SynchronizeProductCostsTest extends TestCase
         $repository = Mockery::mock(ProductRepository::class);
         $service = new SynchronizeProductCosts($repository);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $invoice = PurchaseInvoiceData::makePersisted($user);
         PurchaseItemsData::makePersisted($invoice, [], $product);

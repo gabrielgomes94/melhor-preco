@@ -14,7 +14,7 @@ class CostPriceTest extends TestCase
     public function test_should_make_cost_price_from_product(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
 
         // Act

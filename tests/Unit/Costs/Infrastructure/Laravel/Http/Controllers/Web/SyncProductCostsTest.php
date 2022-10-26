@@ -19,7 +19,7 @@ class SyncProductCostsTest extends TestCase
     public function test_should_sync_costs(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $controller = new SyncController();
         Bus::fake();

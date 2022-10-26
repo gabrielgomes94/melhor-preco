@@ -15,7 +15,7 @@ class VariationsTest extends TestCase
     public function test_should_instantiate_variations()
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $products = [
             ProductData::babyChair($user),
             ProductData::babyCarriage($user),

@@ -28,7 +28,7 @@ class SynchronizeCategoriesTest extends TestCase
 
     private function given_i_have_a_user_with_no_categories(): void
     {
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
         $this->actingAs($this->user);
     }
 

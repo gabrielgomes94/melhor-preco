@@ -24,7 +24,7 @@ class UpdateCostsTest extends TestCase
     {
         // Arrange
         Event::fake();
-        $user = UserData::make();
+        $user = UserData::persisted();
         $productRepository = m::mock(ProductRepository::class);
         $updateCosts = new UpdateCosts($productRepository);
         $products = [
@@ -52,7 +52,7 @@ class UpdateCostsTest extends TestCase
     {
         // Arrange
         Event::fake();
-        $user = UserData::make();
+        $user = UserData::persisted();
         $productRepository = m::mock(ProductRepository::class);
         $updateCosts = new UpdateCosts($productRepository);
 
@@ -73,7 +73,7 @@ class UpdateCostsTest extends TestCase
     {
         // Arrange
         Event::fake();
-        $user = UserData::make();
+        $user = UserData::persisted();
         $productRepository = m::mock(ProductRepository::class);
         $updateCosts = new UpdateCosts($productRepository);
         $products = [

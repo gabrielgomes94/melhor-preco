@@ -55,7 +55,7 @@ class SynchronizeFromMarketplaceTest extends TestCase
 
     private function given_i_have_an_user_with_marketplace(): void
     {
-        $this->user = UserData::make();
+        $this->user = UserData::persisted();
         $this->actingAs($this->user);
 
         $this->marketplace = MarketplaceData::magalu($this->user);

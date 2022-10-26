@@ -14,7 +14,7 @@ class CompositionTest extends TestCase
     public function test_should_instantiate_composition(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $products = [
             ProductData::babyChair($user),
             ProductData::babyCarriage($user),

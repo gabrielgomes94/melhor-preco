@@ -20,7 +20,7 @@ class CalculateWithDiscountTest extends TestCase
         /** @var CalculateWithDiscount $calculateWithDiscount */
         $calculateWithDiscount = app(CalculateWithDiscount::class);
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         ProductData::babyCarriage($user, [
             $price = PriceData::build($marketplace, ['value' => 899.9])

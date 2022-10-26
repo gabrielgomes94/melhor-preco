@@ -21,7 +21,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_get_commission_when_does_not_have_maximum_value_cap(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::olist($user);
 
@@ -37,7 +37,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_get_commission_when_its_greater_than_maximum_value_cap(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user);
 
@@ -53,7 +53,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_get_commission_when_its_not_greater_than_maximum_value_cap(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user);
 
@@ -69,7 +69,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_get_commission_rate_when_is_unique_commission(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $product = ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::shopee($user, []);
 
@@ -85,7 +85,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_get_commission_rate_when_is_commission_by_category(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $category = CategoryData::persisted($user, ['category_id' => '1'], 'withoutParent');
         ProductData::babyCarriage($user, [], $category);
         $marketplace = MarketplaceData::magalu($user);
@@ -101,7 +101,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_get_zero_commission_rate(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         ProductData::babyCarriage($user);
         $marketplace = MarketplaceData::olist($user);
         $marketplace->commission = Commission::build(Commission::UNIQUE_COMMISSION);
@@ -119,7 +119,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_update_category_commission(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
         $data = new CommissionValuesCollection([
             new CommissionValue(Percentage::fromPercentage(10.0), '1')
@@ -140,7 +140,7 @@ class CommissionRepositoryTest extends TestCase
     public function test_should_update_unique_commission(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
 
         $repository = new CommissionRepository();

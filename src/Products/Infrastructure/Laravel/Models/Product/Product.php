@@ -22,7 +22,7 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CostsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\DimensionsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\IdentifiersCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Traits\ProductScopes;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Product extends Model implements ProductModelInterface
@@ -63,6 +63,8 @@ class Product extends Model implements ProductModelInterface
     ];
 
     protected $primaryKey = 'uuid';
+
+    protected $table = 'products';
 
     public $keyType = 'string';
 
@@ -208,9 +210,12 @@ class Product extends Model implements ProductModelInterface
         return $this->quantity;
     }
 
-    public function getSaleItems(): Collection
+    /**
+     * @inheritDoc
+     */
+    public function getSaleItems(): array
     {
-        return $this->items;
+        return $this->items->all();
     }
 
     public function getSku(): string

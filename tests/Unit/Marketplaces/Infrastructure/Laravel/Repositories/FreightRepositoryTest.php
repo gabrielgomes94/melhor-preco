@@ -18,7 +18,7 @@ class FreightRepositoryTest extends TestCase
         // Arrange
         $repository = new FreightRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::olist($user);
 
         // Act
@@ -33,7 +33,7 @@ class FreightRepositoryTest extends TestCase
         // Arrange
         $repository = new FreightRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
 
         // Act
@@ -48,7 +48,7 @@ class FreightRepositoryTest extends TestCase
         // Arrange
         $repository = new FreightRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::olist($user);
 
         // Act
@@ -63,7 +63,7 @@ class FreightRepositoryTest extends TestCase
         // Arrange
         $repository = new FreightRepository();
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::shopee($user);
         $freight = new Freight(
             10.0,

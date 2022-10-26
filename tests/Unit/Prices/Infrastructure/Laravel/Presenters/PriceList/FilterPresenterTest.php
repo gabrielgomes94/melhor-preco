@@ -19,7 +19,7 @@ class FilterPresenterTest extends TestCase
         // Arrange
         $presenter = new FilterPresenter(new CategoryRepository());
 
-        $user = UserData::make();
+        $user = UserData::persisted();
         $options = new Options(
             minimumProfit: 10.0,
             maximumProfit: 15.0,

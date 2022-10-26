@@ -15,7 +15,7 @@ class MarketplacePresenterTest extends TestCase
     public function test_should_present_marketplace(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
         $marketplace->uuid = '78d30a64-249f-498d-9f2b-915d94998ecc';
         $presenter = new MarketplacePresenter();
@@ -48,7 +48,7 @@ class MarketplacePresenterTest extends TestCase
     public function test_should_present_marketplace_list(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
         $marketplace->uuid = '78d30a64-249f-498d-9f2b-915d94998ecc';
         $marketplace->user_id = '1';

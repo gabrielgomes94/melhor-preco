@@ -36,7 +36,7 @@ class MarketplaceTest extends TestCase
         );
 
         $expectedFreight = new Freight();
-        $user = UserData::make(['id' => 1]);
+        $user = UserData::persisted(['id' => 1]);
 
         // Act
         $result = MarketplaceData::magalu($user);
@@ -58,7 +58,7 @@ class MarketplaceTest extends TestCase
     public function test_should_get_prices_relationship(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
         $marketplace = MarketplaceData::magalu($user);
 
@@ -83,7 +83,7 @@ class MarketplaceTest extends TestCase
     public function test_should_get_products_relationship(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $this->actingAs($user);
 
         $marketplace = MarketplaceData::magalu($user);
@@ -102,7 +102,7 @@ class MarketplaceTest extends TestCase
     public function test_should_get_user_relationship(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
 
         // Act
@@ -115,7 +115,7 @@ class MarketplaceTest extends TestCase
     public function test_should_set_commission(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         $marketplace = MarketplaceData::magalu($user);
 
         // Act
@@ -133,7 +133,7 @@ class MarketplaceTest extends TestCase
     public function test_should_query_by_erp_id(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         MarketplaceData::magalu($user);
 
         // Act
@@ -147,11 +147,11 @@ class MarketplaceTest extends TestCase
     public function test_should_query_by_user_id(): void
     {
         // Arrange
-        $user = UserData::make(['id' => 1]);
+        $user = UserData::persisted(['id' => 1]);
         MarketplaceData::magalu($user);
 
         // Act
-        $result = Marketplace::withUser('1');
+        $result = Marketplace::fromUser('1');
 
         // Assert
         $this->assertInstanceOf(Builder::class, $result);
@@ -161,7 +161,7 @@ class MarketplaceTest extends TestCase
     public function test_should_query_by_slug(): void
     {
         // Arrange
-        $user = UserData::make();
+        $user = UserData::persisted();
         MarketplaceData::magalu($user);
 
         // Act

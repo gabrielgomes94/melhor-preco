@@ -4,39 +4,23 @@ namespace Src\Sales\Domain\Models\ValueObjects;
 
 class SaleIdentifiers
 {
-    private string $id;
-    private ?string $purchaseOrderId;
-    private ?string $integration;
-    private ?string $storeId;
-    private ?string $storeSaleOrderId;
-
     public function __construct(
-        string $id,
-        ?string $purchaseOrderId,
-        ?string $integration,
-        ?string $storeId,
-        ?string $storeSaleOrderId
+        private readonly string $saleOrderId,
+        private readonly string $uuid,
+        private readonly ?string $integration,
+        private readonly ?string $storeId,
+        private readonly ?string $storeSaleOrderId
     ) {
-        $this->id = $id;
-        $this->purchaseOrderId = $purchaseOrderId;
-        $this->integration = $integration;
-        $this->storeId = $storeId;
-        $this->storeSaleOrderId = $storeSaleOrderId;
     }
 
-    public function id(): string
+    public function saleOrderId(): string
     {
-        return $this->id;
+        return $this->saleOrderId;
     }
 
     public function integration(): ?string
     {
         return $this->integration;
-    }
-
-    public function purchaseSaleOrderId(): ?string
-    {
-        return $this->purchaseOrderId;
     }
 
     public function storeSaleOrderId(): string
@@ -52,8 +36,8 @@ class SaleIdentifiers
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'purchaseOrderId' => $this->purchaseOrderId,
+            'saleOrderId' => $this->saleOrderId,
+            'uuid' => $this->uuid,
             'storeId' => $this->storeId,
             'storeSaleOrderId' => $this->storeSaleOrderId,
             'integration' => $this->integration,
