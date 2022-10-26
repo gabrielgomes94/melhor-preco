@@ -8,7 +8,7 @@ use Src\Math\Percentage;
 use Src\Products\Domain\Models\Product;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Domain\Reports\Product\ProductSales as ProductSalesInterface;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Src\Sales\Domain\Services\CalculateItem;
 
 class ProductSales implements ProductSalesInterface

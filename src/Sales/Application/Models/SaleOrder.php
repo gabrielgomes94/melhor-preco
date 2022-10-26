@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Models;
+namespace Src\Sales\Application\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -8,11 +8,11 @@ use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 use Src\Sales\Domain\Models\ValueObjects\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\SaleValue;
-use Src\Sales\Infrastructure\Laravel\Models\Casts\IdentifiersCast;
-use Src\Sales\Infrastructure\Laravel\Models\Casts\SaleDatesCast;
-use Src\Sales\Infrastructure\Laravel\Models\Casts\SaleValueCast;
-use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderRelationships;
-use Src\Sales\Infrastructure\Laravel\Models\Concerns\SaleOrderScopes;
+use Src\Sales\Application\Models\Casts\IdentifiersCast;
+use Src\Sales\Application\Models\Casts\SaleDatesCast;
+use Src\Sales\Application\Models\Casts\SaleValueCast;
+use Src\Sales\Application\Models\Concerns\SaleOrderRelationships;
+use Src\Sales\Application\Models\Concerns\SaleOrderScopes;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 use Src\Users\Domain\Models\User;
 

@@ -4,7 +4,7 @@ namespace Src\Sales\Application\Reports\Data\Marketplace;
 
 use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\SaleOrder;
 
 class MarketplaceSales
 {

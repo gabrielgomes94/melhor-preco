@@ -7,8 +7,8 @@ use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\Item;
+use Src\Sales\Application\Models\SaleOrder;
 
 class SalesListPresenter
 {

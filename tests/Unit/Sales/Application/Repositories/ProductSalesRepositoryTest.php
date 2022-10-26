@@ -3,7 +3,7 @@
 namespace Src\Sales\Application\Repositories;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Tests\Data\Databases\SalesDatabase;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Users\UserData;

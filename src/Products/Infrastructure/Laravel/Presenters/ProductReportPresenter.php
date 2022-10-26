@@ -8,7 +8,7 @@ use Src\Math\Transformers\NumberTransformer;
 use Src\Products\Domain\DataTransfer\ProductInfoReport;
 use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\Reports\Product\ProductSales;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 
 class ProductReportPresenter
 {

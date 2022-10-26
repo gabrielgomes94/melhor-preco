@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Models\Concerns;
+namespace Src\Sales\Application\Models\Concerns;
 
 use Carbon\Carbon;
 

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\SaleOrder;
 
 class SalesList
 {

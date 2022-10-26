@@ -3,8 +3,8 @@
 namespace Tests\Data\Models\Sales;
 
 use Carbon\Carbon;
-use Src\Sales\Infrastructure\Laravel\Models\Invoice;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\Invoice;
+use Src\Sales\Application\Models\SaleOrder;
 
 class SaleInvoiceData
 {

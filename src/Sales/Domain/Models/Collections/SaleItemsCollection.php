@@ -2,7 +2,7 @@
 
 namespace Src\Sales\Domain\Models\Collections;
 
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 
 class SaleItemsCollection extends Collection
 {

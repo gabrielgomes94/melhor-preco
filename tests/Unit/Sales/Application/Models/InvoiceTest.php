@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Models;
+namespace Src\Sales\Application\Models;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Data\Models\Sales\SaleInvoiceData;

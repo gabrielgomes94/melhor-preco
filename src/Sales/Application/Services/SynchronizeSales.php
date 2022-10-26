@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\ErpRepository;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
 use Src\Users\Infrastructure\Laravel\Models\User;

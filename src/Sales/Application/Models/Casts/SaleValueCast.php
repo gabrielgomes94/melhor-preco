@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Models\Casts;
+namespace Src\Sales\Application\Models\Casts;
 
 use Exception;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;

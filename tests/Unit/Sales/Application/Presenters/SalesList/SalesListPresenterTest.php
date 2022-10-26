@@ -4,7 +4,7 @@ namespace Src\Sales\Application\Presenters\SalesList;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\SaleOrder;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Databases\SalesDatabase;
 use Tests\Data\Models\Users\UserData;

@@ -5,7 +5,7 @@ namespace Tests\Data\Models\Sales;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Src\Marketplaces\Infrastructure\Laravel\Models\Marketplace;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\SaleOrder;
 use Src\Users\Infrastructure\Laravel\Models\User;
 use Tests\Data\Models\Products\ProductData;
 

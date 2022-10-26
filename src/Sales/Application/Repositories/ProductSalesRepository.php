@@ -4,7 +4,7 @@ namespace Src\Sales\Application\Repositories;
 
 use Carbon\Carbon;
 use Src\Products\Domain\Models\Product;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Src\Sales\Domain\Repositories\ProductSalesRepository as ProductSalesRepositoryInterface;
 
 class ProductSalesRepository implements ProductSalesRepositoryInterface

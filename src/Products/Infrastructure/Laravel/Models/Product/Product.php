@@ -22,7 +22,7 @@ use Src\Products\Infrastructure\Laravel\Models\Product\Casts\CostsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\DimensionsCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Casts\IdentifiersCast;
 use Src\Products\Infrastructure\Laravel\Models\Product\Traits\ProductScopes;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Src\Users\Infrastructure\Laravel\Models\User;
 
 class Product extends Model implements ProductModelInterface

@@ -9,7 +9,7 @@ use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Infrastructure\Laravel\Models\Product\Product;
 use Src\Sales\Domain\Models\Collections\SaleItemsCollection;
 use Src\Sales\Domain\Services\CalculateItem;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Tests\Data\Models\Marketplaces\MarketplaceData;
 use Tests\Data\Models\Products\ProductData;
 use Tests\Data\Models\Sales\SaleItemData;

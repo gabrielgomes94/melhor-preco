@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Models;
+namespace Src\Sales\Application\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\SaleOrder;
 
 class Invoice extends Model
 {

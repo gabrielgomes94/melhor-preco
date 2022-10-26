@@ -8,7 +8,7 @@ use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Marketplaces\Domain\Exceptions\MarketplaceNotFoundException;
 use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Sales\Domain\Services\CalculateItem as CalculateItemInterface;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 
 class CalculateItem implements CalculateItemInterface
 {

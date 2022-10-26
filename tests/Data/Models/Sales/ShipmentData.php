@@ -2,8 +2,8 @@
 
 namespace Tests\Data\Models\Sales;
 
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
-use Src\Sales\Infrastructure\Laravel\Models\Shipment;
+use Src\Sales\Application\Models\SaleOrder;
+use Src\Sales\Application\Models\Shipment;
 
 class ShipmentData
 {

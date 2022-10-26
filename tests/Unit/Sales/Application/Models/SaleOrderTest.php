@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Models;
+namespace Src\Sales\Application\Models;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;

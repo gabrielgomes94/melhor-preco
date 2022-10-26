@@ -13,7 +13,7 @@ use Src\Prices\Domain\Models\Calculator\CalculatedPrice;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Domain\Models\Contracts\SaleOrder;
 use Src\Sales\Domain\Services\CalculateTotalProfit as CalculateTotalProfitInterface;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 
 class CalculateTotalProfit implements CalculateTotalProfitInterface
 {

@@ -8,8 +8,8 @@ use Src\Marketplaces\Domain\Repositories\MarketplaceRepository;
 use Src\Products\Domain\Repositories\ProductRepository;
 use Src\Sales\Application\Repositories\Queries\SalesQuery;
 use Src\Sales\Domain\DataTransfer\SalesFilter;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\Item;
+use Src\Sales\Application\Models\SaleOrder;
 use Src\Sales\Domain\Repositories\SaleOrderRepository as SaleOrderRepositoryInterface;
 use Src\Sales\Domain\Models\Contracts\SaleOrder as SaleOrderInterface;
 

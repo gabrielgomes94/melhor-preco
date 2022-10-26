@@ -6,8 +6,8 @@ use Src\Marketplaces\Domain\Models\Marketplace;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 use Src\Sales\Domain\Models\ValueObjects\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\SaleValue;
-use Src\Sales\Infrastructure\Laravel\Models\Invoice;
-use Src\Sales\Infrastructure\Laravel\Models\Shipment;
+use Src\Sales\Application\Models\Invoice;
+use Src\Sales\Application\Models\Shipment;
 
 interface SaleOrder
 {

@@ -8,7 +8,7 @@ use Src\Products\Domain\Models\Product;
 use Src\Sales\Application\Reports\Data\Marketplace\MarketplaceSales;
 use Src\Sales\Domain\Models\Collections\SaleOrdersCollection;
 use Src\Sales\Domain\Repositories\MarketplaceSalesRepository as MarketplaceSalesRepositoryInterface;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Src\Sales\Application\Repositories\Queries\SalesQuery;
 
 class MarketplaceSalesRepository implements MarketplaceSalesRepositoryInterface

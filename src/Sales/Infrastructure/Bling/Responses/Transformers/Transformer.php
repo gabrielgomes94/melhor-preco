@@ -7,10 +7,10 @@ use Ramsey\Uuid\Uuid;
 use Src\Sales\Domain\Models\ValueObjects\SaleIdentifiers;
 use Src\Sales\Domain\Models\ValueObjects\SaleDates;
 use Src\Sales\Domain\Models\ValueObjects\SaleValue;
-use Src\Sales\Infrastructure\Laravel\Models\Invoice;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
-use Src\Sales\Infrastructure\Laravel\Models\Shipment;
+use Src\Sales\Application\Models\Invoice;
+use Src\Sales\Application\Models\Item;
+use Src\Sales\Application\Models\SaleOrder;
+use Src\Sales\Application\Models\Shipment;
 
 class Transformer
 {

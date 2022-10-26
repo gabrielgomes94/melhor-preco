@@ -11,7 +11,7 @@ use Src\Products\Domain\Models\ValueObjects\Costs;
 use Src\Products\Domain\Models\ValueObjects\Dimensions;
 use Src\Products\Domain\Models\ValueObjects\Identifiers;
 use Src\Products\Domain\Models\ValueObjects\Variations;
-use Src\Sales\Infrastructure\Laravel\Models\Item;
+use Src\Sales\Application\Models\Item;
 use Src\Users\Domain\Models\User;
 
 interface Product

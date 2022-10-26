@@ -4,7 +4,7 @@ namespace Src\Sales\Application\Repositories\Queries;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Src\Sales\Infrastructure\Laravel\Models\SaleOrder;
+use Src\Sales\Application\Models\SaleOrder;
 
 class SalesQuery
 {
