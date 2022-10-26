@@ -3,7 +3,7 @@
 namespace Tests\Feature\Sales;
 
 use Illuminate\Support\Facades\Queue;
-use Src\Sales\Infrastructure\Laravel\Jobs\SyncSales;
+use Src\Sales\Application\Jobs\SyncSales;
 use Tests\Feature\Users\Concerns\UsersDatabase;
 use Tests\FeatureTestCase;
 
