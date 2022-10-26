@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Sales\Infrastructure\Laravel\Providers;
+namespace Src\Sales\Application\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Src\Sales\Application\Repositories\MarketplaceSalesRepository;
