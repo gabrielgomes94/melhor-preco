@@ -40,7 +40,7 @@ class SalesListTest extends TestCase
         $this->assertContainsOnlyInstancesOf(MarketplaceSales::class, $result->getMarketplaceSales());
         $this->assertSame(4, $result->getProductsCount());
         $this->assertInstanceOf(SaleOrdersCollection::class, $result->getSaleOrders());
-        $this->assertSame(2539.5, $result->getTotalProfit());
-        $this->assertSame(326.0, $result->getTotalValue());
+        $this->assertSame(326.0, $result->getTotalProfit());
+        $this->assertSame(2539.5, $result->getTotalValue());
     }
 }
